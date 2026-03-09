@@ -61,3 +61,25 @@ export const instagramResponseSchema = z.object({
   name: z.string().optional().default(''),
   username: z.string().optional().default(''),
 });
+
+// Upload response types and schemas (Story 2.2)
+
+export interface ImageUploadResponse {
+  hash: string;
+}
+
+export interface VideoUploadResponse {
+  videoId: string;
+}
+
+export const imageUploadResponseSchema = z.object({
+  images: z.record(
+    z.object({
+      hash: z.string(),
+    }),
+  ),
+});
+
+export const videoUploadResponseSchema = z.object({
+  id: z.string(),
+});

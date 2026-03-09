@@ -33,6 +33,14 @@ const META_ERROR_MAP: Record<number, { message: string; action: string }> = {
     message: 'Permissão negada',
     action: 'Verifique permissões do Meta App',
   },
+  2446: {
+    message: 'Criativo rejeitado pela Meta',
+    action: 'Verifique políticas de anúncios',
+  },
+  368: {
+    message: 'Conta temporariamente bloqueada',
+    action: 'Acesse o Gerenciador para resolver',
+  },
 };
 
 async function initApi(): Promise<string> {

@@ -51,6 +51,22 @@ export class CreativeError extends AppError {
   }
 }
 
+export class UploadError extends AppError {
+  public readonly filePath: string;
+  public readonly adAccountId: string;
+  public readonly assetType: 'image' | 'video';
+
+  constructor(
+    message: string,
+    options: { filePath: string; adAccountId: string; assetType: 'image' | 'video'; action?: string },
+  ) {
+    super(message, 'UPLOAD_ERROR', options.action ?? '');
+    this.filePath = options.filePath;
+    this.adAccountId = options.adAccountId;
+    this.assetType = options.assetType;
+  }
+}
+
 export const AUTH_ERRORS = {
   TOKEN_EXPIRED: new AuthError(
     'Token de acesso inválido ou expirado.',
