@@ -37,6 +37,20 @@ export class NetworkError extends AppError {
   }
 }
 
+export class CreativeError extends AppError {
+  public readonly filePath?: string;
+  public readonly validationErrors?: string[];
+
+  constructor(
+    message: string,
+    options?: { filePath?: string; validationErrors?: string[]; action?: string },
+  ) {
+    super(message, 'CREATIVE_ERROR', options?.action ?? '');
+    this.filePath = options?.filePath;
+    this.validationErrors = options?.validationErrors;
+  }
+}
+
 export const AUTH_ERRORS = {
   TOKEN_EXPIRED: new AuthError(
     'Token de acesso inválido ou expirado.',
