@@ -1,6 +1,9 @@
 import { createRequire } from 'node:module';
 import { Command } from 'commander';
 import { authCommand } from './commands/auth.js';
+import { accountsCommand } from './commands/accounts.js';
+import { pagesCommand } from './commands/pages.js';
+import { configCommand } from './commands/config.js';
 
 const require = createRequire(import.meta.url);
 const pkg = require('../../package.json') as { version: string; description: string };
@@ -13,6 +16,9 @@ program
   .description(pkg.description);
 
 program.addCommand(authCommand);
+program.addCommand(accountsCommand);
+program.addCommand(pagesCommand);
+program.addCommand(configCommand);
 
 export function run(): void {
   program.parse();
