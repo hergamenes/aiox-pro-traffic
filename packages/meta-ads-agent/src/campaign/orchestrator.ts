@@ -9,6 +9,7 @@ import { SalesCampaignStrategy } from './strategies/sales.strategy.js';
 import { LeadsCampaignStrategy } from './strategies/leads.strategy.js';
 import type { CampaignStrategy } from './strategies/campaign-strategy.js';
 import { ValidationError } from '../errors/types.js';
+import { logCampaign } from '../log/log-repository.js';
 
 function getStrategy(type: string): CampaignStrategy {
   switch (type) {
@@ -109,7 +110,7 @@ export async function createCampaign(
 
     logger.info({ campaignId, campaignName }, 'Campaign created successfully');
 
-    return {
+    const result: CampaignResult = {
       campaignId,
       campaignName,
       adSetId,
@@ -121,6 +122,16 @@ export async function createCampaign(
       adsManagerUrl: buildAdsManagerUrl(config.adAccountId, campaignId),
       createdAt: new Date(),
     };
+
+    // Fire-and-forget campaign logging
+    try {
+      const creativeFiles = bundle.assets.map((a) => a.fileName);
+      await logCampaign(result, creativeFiles, config.pageId);
+    } catch (logError) {
+      logger.warn({ err: logError }, 'Failed to log campaign to history');
+    }
+
+    return result;
   } catch (error) {
     // Rollback on failure
     logger.warn('Campaign creation failed, rolling back...');
