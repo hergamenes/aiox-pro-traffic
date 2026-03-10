@@ -2,6 +2,7 @@ import { createRequire } from 'node:module';
 import { logger } from '../cli/logger.js';
 import { getAccessToken } from '../auth/token-manager.js';
 import { MetaApiError, NetworkError } from '../errors/types.js';
+import { translateMetaError } from '../errors/error-map.js';
 import { withRetry } from '../utils/retry.js';
 import {
   adAccountResponseSchema,
@@ -17,46 +18,13 @@ const bizSdk = require('facebook-nodejs-business-sdk') as typeof import('faceboo
 const API_VERSION = 'v21.0';
 const BASE_URL = `https://graph.facebook.com/${API_VERSION}`;
 
-const META_ERROR_MAP: Record<number, { message: string; action: string }> = {
-  190: {
-    message: 'Token de acesso inválido ou expirado',
-    action: 'Execute: meta-ads auth setup',
-  },
-  100: {
-    message: 'Parâmetro inválido',
-    action: 'Verifique os parâmetros da requisição',
-  },
-  4: {
-    message: 'Limite de chamadas da API atingido',
-    action: 'Aguarde alguns minutos',
-  },
-  10: {
-    message: 'Permissão negada',
-    action: 'Verifique permissões do Meta App',
-  },
-  2446: {
-    message: 'Criativo rejeitado pela Meta',
-    action: 'Verifique políticas de anúncios',
-  },
-  368: {
-    message: 'Conta temporariamente bloqueada',
-    action: 'Acesse o Gerenciador para resolver',
-  },
-  2635: {
-    message: 'Orçamento diário abaixo do mínimo',
-    action: 'O orçamento deve ser de pelo menos R$1,00 por dia',
-  },
-  17: {
-    message: 'Conta atingiu o limite de campanhas',
-    action: 'Exclua campanhas antigas ou contate o suporte Meta',
-  },
-};
-
 async function initApi(): Promise<string> {
   const token = await getAccessToken();
   bizSdk.FacebookAdsApi.init(token);
   return token;
 }
+
+const NETWORK_CODES = new Set(['ENOTFOUND', 'ETIMEDOUT', 'ECONNREFUSED', 'ECONNRESET']);
 
 function handleMetaError(error: unknown): never {
   if (error instanceof MetaApiError || error instanceof NetworkError) {
@@ -69,13 +37,13 @@ function handleMetaError(error: unknown): never {
 
   if (metaError) {
     const code = (metaError['code'] as number) ?? 0;
-    const mapped = META_ERROR_MAP[code];
-    const message = mapped?.message ?? (metaError['message'] as string) ?? 'Erro desconhecido da API Meta';
-    const action = mapped?.action ?? '';
-    throw new MetaApiError(message, code, action);
+    const detail = metaError['message'] as string | undefined;
+    const translated = translateMetaError(code, detail);
+    throw new MetaApiError(translated.message, code, translated.action);
   }
 
-  if (err['code'] === 'ENOTFOUND' || err['code'] === 'ETIMEDOUT') {
+  const errCode = err['code'] as string | undefined;
+  if (errCode && NETWORK_CODES.has(errCode)) {
     throw new NetworkError(
       'Erro de rede ao conectar com a API Meta.',
       'Verifique sua conexão e tente novamente.',

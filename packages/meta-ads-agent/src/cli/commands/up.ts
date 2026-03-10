@@ -17,7 +17,8 @@ import {
   promptLandingPageUrl,
   promptAdTexts,
 } from '../prompts.js';
-import { MetaApiError, NetworkError, ValidationError, CreativeError, UploadError } from '../../errors/types.js';
+import { ValidationError } from '../../errors/types.js';
+import { handleError } from '../../errors/error-handler.js';
 import * as configRepo from '../../config/config-repository.js';
 import type { CampaignConfig, CampaignType } from '../../types/campaign.js';
 
@@ -157,20 +158,11 @@ export const upCommand = new Command('up')
       console.log(formatTable(['Campo', 'Valor'], rows));
       console.log(`\nTempo total: ${formatDuration(Date.now() - startTime)}`);
     } catch (error) {
-      if (
-        error instanceof ValidationError ||
-        error instanceof CreativeError ||
-        error instanceof UploadError ||
-        error instanceof MetaApiError ||
-        error instanceof NetworkError
-      ) {
-        console.error(`\n${COLORS.RED}✗ ${error.message}${COLORS.RESET}`);
-        if ('action' in error && error.action) {
-          console.error(`  ${error.action}`);
-        }
-        process.exitCode = 1;
-        return;
+      const result = handleError(error);
+      console.error(`\n${COLORS.RED}✗ ${result.message}${COLORS.RESET}`);
+      if (result.action) {
+        console.error(`  ${result.action}`);
       }
-      throw error;
+      process.exitCode = 1;
     }
   });

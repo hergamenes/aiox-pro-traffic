@@ -11,7 +11,7 @@ import { createCampaign } from '../../campaign/orchestrator.js';
 import { formatTable } from '../display.js';
 import { resolvePageId } from '../page-resolver.js';
 import { COLORS, STEP_LABELS, STEP_SUCCESS, formatDuration } from '../progress.js';
-import { MetaApiError, NetworkError, ValidationError, CreativeError, UploadError } from '../../errors/types.js';
+import { handleError } from '../../errors/error-handler.js';
 import * as configRepo from '../../config/config-repository.js';
 import type { CampaignConfig } from '../../types/campaign.js';
 
@@ -137,21 +137,12 @@ const salesCommand = new Command('sales')
       console.log(`\nTempo total: ${formatDuration(Date.now() - startTime)}`);
     } catch (error) {
       rl.close();
-      if (
-        error instanceof ValidationError ||
-        error instanceof CreativeError ||
-        error instanceof UploadError ||
-        error instanceof MetaApiError ||
-        error instanceof NetworkError
-      ) {
-        console.error(`\n${COLORS.RED}✗ ${error.message}${COLORS.RESET}`);
-        if ('action' in error && error.action) {
-          console.error(`  ${error.action}`);
-        }
-        process.exitCode = 1;
-        return;
+      const result = handleError(error);
+      console.error(`\n${COLORS.RED}✗ ${result.message}${COLORS.RESET}`);
+      if (result.action) {
+        console.error(`  ${result.action}`);
       }
-      throw error;
+      process.exitCode = 1;
     }
   });
 
@@ -265,21 +256,12 @@ const leadsCommand = new Command('leads')
       console.log(`\nTempo total: ${formatDuration(Date.now() - startTime)}`);
     } catch (error) {
       rl.close();
-      if (
-        error instanceof ValidationError ||
-        error instanceof CreativeError ||
-        error instanceof UploadError ||
-        error instanceof MetaApiError ||
-        error instanceof NetworkError
-      ) {
-        console.error(`\n${COLORS.RED}✗ ${error.message}${COLORS.RESET}`);
-        if ('action' in error && error.action) {
-          console.error(`  ${error.action}`);
-        }
-        process.exitCode = 1;
-        return;
+      const result = handleError(error);
+      console.error(`\n${COLORS.RED}✗ ${result.message}${COLORS.RESET}`);
+      if (result.action) {
+        console.error(`  ${result.action}`);
       }
-      throw error;
+      process.exitCode = 1;
     }
   });
 
