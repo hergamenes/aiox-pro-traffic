@@ -2,6 +2,7 @@ import { createRequire } from 'node:module';
 import { logger } from '../cli/logger.js';
 import { getAccessToken } from '../auth/token-manager.js';
 import { MetaApiError, NetworkError } from '../errors/types.js';
+import { withRetry } from '../utils/retry.js';
 import {
   adAccountResponseSchema,
   pageResponseSchema,
@@ -40,6 +41,14 @@ const META_ERROR_MAP: Record<number, { message: string; action: string }> = {
   368: {
     message: 'Conta temporariamente bloqueada',
     action: 'Acesse o Gerenciador para resolver',
+  },
+  2635: {
+    message: 'Orçamento diário abaixo do mínimo',
+    action: 'O orçamento deve ser de pelo menos R$1,00 por dia',
+  },
+  17: {
+    message: 'Conta atingiu o limite de campanhas',
+    action: 'Exclua campanhas antigas ou contate o suporte Meta',
   },
 };
 
@@ -177,5 +186,168 @@ export async function getInstagramAccount(
       throw error;
     }
     handleMetaError(error);
+  }
+}
+
+export async function createCampaign(
+  adAccountId: string,
+  params: Record<string, unknown>,
+): Promise<string> {
+  const token = await getAccessToken();
+  logger.debug({ adAccountId }, 'Creating campaign');
+
+  return withRetry(async () => {
+    const url = `${BASE_URL}/act_${adAccountId}/campaigns`;
+    const body = { ...params, access_token: token };
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    const json = (await response.json()) as Record<string, unknown>;
+
+    if (json['error']) {
+      handleMetaError({ body: json });
+    }
+
+    const id = json['id'] as string;
+    logger.info({ campaignId: id }, 'Campaign created');
+    return id;
+  });
+}
+
+export async function createAdSet(
+  adAccountId: string,
+  params: Record<string, unknown>,
+): Promise<string> {
+  const token = await getAccessToken();
+  logger.debug({ adAccountId }, 'Creating ad set');
+
+  return withRetry(async () => {
+    const url = `${BASE_URL}/act_${adAccountId}/adsets`;
+    const body = { ...params, access_token: token };
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    const json = (await response.json()) as Record<string, unknown>;
+
+    if (json['error']) {
+      handleMetaError({ body: json });
+    }
+
+    const id = json['id'] as string;
+    logger.info({ adSetId: id }, 'Ad set created');
+    return id;
+  });
+}
+
+export async function createAd(
+  adAccountId: string,
+  params: Record<string, unknown>,
+): Promise<string> {
+  const token = await getAccessToken();
+  logger.debug({ adAccountId }, 'Creating ad');
+
+  return withRetry(async () => {
+    const url = `${BASE_URL}/act_${adAccountId}/ads`;
+    const body = { ...params, access_token: token };
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    const json = (await response.json()) as Record<string, unknown>;
+
+    if (json['error']) {
+      handleMetaError({ body: json });
+    }
+
+    const id = json['id'] as string;
+    logger.info({ adId: id }, 'Ad created');
+    return id;
+  });
+}
+
+export async function updateCampaignStatus(
+  campaignId: string,
+  status: string,
+): Promise<void> {
+  const token = await getAccessToken();
+  logger.debug({ campaignId, status }, 'Updating campaign status');
+
+  return withRetry(async () => {
+    const url = `${BASE_URL}/${campaignId}`;
+    const body = { status, access_token: token };
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    const json = (await response.json()) as Record<string, unknown>;
+
+    if (json['error']) {
+      handleMetaError({ body: json });
+    }
+
+    logger.info({ campaignId, status }, 'Campaign status updated');
+  });
+}
+
+export async function deleteCampaign(campaignId: string): Promise<void> {
+  const token = await getAccessToken();
+  logger.debug({ campaignId }, 'Deleting campaign (rollback)');
+
+  try {
+    const url = `${BASE_URL}/${campaignId}?access_token=${token}`;
+    const response = await fetch(url, { method: 'DELETE' });
+    const json = (await response.json()) as Record<string, unknown>;
+
+    if (json['error']) {
+      logger.warn({ campaignId }, 'Failed to delete campaign during rollback');
+    } else {
+      logger.info({ campaignId }, 'Campaign deleted (rollback)');
+    }
+  } catch {
+    logger.warn({ campaignId }, 'Failed to delete campaign during rollback');
+  }
+}
+
+export async function deleteAdSet(adSetId: string): Promise<void> {
+  const token = await getAccessToken();
+  logger.debug({ adSetId }, 'Deleting ad set (rollback)');
+
+  try {
+    const url = `${BASE_URL}/${adSetId}?access_token=${token}`;
+    const response = await fetch(url, { method: 'DELETE' });
+    const json = (await response.json()) as Record<string, unknown>;
+
+    if (json['error']) {
+      logger.warn({ adSetId }, 'Failed to delete ad set during rollback');
+    } else {
+      logger.info({ adSetId }, 'Ad set deleted (rollback)');
+    }
+  } catch {
+    logger.warn({ adSetId }, 'Failed to delete ad set during rollback');
+  }
+}
+
+export async function deleteAd(adId: string): Promise<void> {
+  const token = await getAccessToken();
+  logger.debug({ adId }, 'Deleting ad (rollback)');
+
+  try {
+    const url = `${BASE_URL}/${adId}?access_token=${token}`;
+    const response = await fetch(url, { method: 'DELETE' });
+    const json = (await response.json()) as Record<string, unknown>;
+
+    if (json['error']) {
+      logger.warn({ adId }, 'Failed to delete ad during rollback');
+    } else {
+      logger.info({ adId }, 'Ad deleted (rollback)');
+    }
+  } catch {
+    logger.warn({ adId }, 'Failed to delete ad during rollback');
   }
 }

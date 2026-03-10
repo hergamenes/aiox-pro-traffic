@@ -6,6 +6,7 @@ import { pagesCommand } from './commands/pages.js';
 import { configCommand } from './commands/config.js';
 import { creativesCommand } from './commands/creatives.js';
 import { uploadCommand } from './commands/upload.js';
+import { createCommand } from './commands/create.js';
 
 const require = createRequire(import.meta.url);
 const pkg = require('../../package.json') as { version: string; description: string };
@@ -23,6 +24,7 @@ program.addCommand(pagesCommand);
 program.addCommand(configCommand);
 program.addCommand(creativesCommand);
 program.addCommand(uploadCommand);
+program.addCommand(createCommand);
 
 export function run(): void {
   program.parse();
