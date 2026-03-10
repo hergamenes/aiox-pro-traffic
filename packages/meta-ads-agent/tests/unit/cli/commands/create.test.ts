@@ -70,4 +70,18 @@ describe('create CLI command', () => {
     expect(commandNames).toContain('leads');
     expect(commandNames).toHaveLength(2);
   });
+
+  it('should have --page option on sales subcommand', () => {
+    const salesCmd = createCommand.commands.find((c) => c.name() === 'sales');
+    const pageOption = salesCmd?.options.find((o) => o.long === '--page');
+    expect(pageOption).toBeDefined();
+    expect(pageOption?.description).toContain('página');
+  });
+
+  it('should have --page option on leads subcommand', () => {
+    const leadsCmd = createCommand.commands.find((c) => c.name() === 'leads');
+    const pageOption = leadsCmd?.options.find((o) => o.long === '--page');
+    expect(pageOption).toBeDefined();
+    expect(pageOption?.description).toContain('página');
+  });
 });

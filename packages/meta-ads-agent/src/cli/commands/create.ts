@@ -9,6 +9,7 @@ import { validateAll } from '../../creative/validator.js';
 import { buildBundle } from '../../creative/bundle-builder.js';
 import { createCampaign } from '../../campaign/orchestrator.js';
 import { formatTable } from '../display.js';
+import { resolvePageId } from '../page-resolver.js';
 import { MetaApiError, NetworkError, ValidationError, CreativeError, UploadError } from '../../errors/types.js';
 import * as configRepo from '../../config/config-repository.js';
 import type { CampaignConfig } from '../../types/campaign.js';
@@ -33,7 +34,8 @@ async function prompt(rl: ReturnType<typeof createInterface>, question: string):
 const salesCommand = new Command('sales')
   .description('Criar campanha de Vendas (Purchase/Compra)')
   .argument('[name]', 'Nome do anúncio')
-  .action(async (nameArg?: string) => {
+  .option('--page <pageId>', 'ID da página do Facebook')
+  .action(async (nameArg: string | undefined, options: { page?: string }) => {
     const rl = createInterface({ input: stdin, output: stdout });
 
     try {
@@ -45,12 +47,7 @@ const salesCommand = new Command('sales')
         return;
       }
 
-      const pageId = config.defaults.pageId;
-      if (!pageId) {
-        console.error(`${RED}✗ Nenhuma página configurada. Execute: meta-ads config set-default page <id>${RESET}`);
-        process.exitCode = 1;
-        return;
-      }
+      const resolved = await resolvePageId({ pageFlag: options.page, config });
 
       // Collect inputs
       const name = nameArg ?? await prompt(rl, 'Nome do anúncio:');
@@ -90,8 +87,8 @@ const salesCommand = new Command('sales')
           description,
           callToAction: 'SHOP_NOW',
         },
-        pageId,
-        instagramAccountId: config.defaults.instagramAccountId,
+        pageId: resolved.pageId,
+        instagramAccountId: resolved.instagramAccountId,
         adAccountId,
         websiteUrl,
         landingPageUrl: null,
@@ -158,7 +155,8 @@ const salesCommand = new Command('sales')
 const leadsCommand = new Command('leads')
   .description('Criar campanha de Leads (Landing Page)')
   .argument('[name]', 'Nome do anúncio')
-  .action(async (nameArg?: string) => {
+  .option('--page <pageId>', 'ID da página do Facebook')
+  .action(async (nameArg: string | undefined, options: { page?: string }) => {
     const rl = createInterface({ input: stdin, output: stdout });
 
     try {
@@ -170,12 +168,7 @@ const leadsCommand = new Command('leads')
         return;
       }
 
-      const pageId = config.defaults.pageId;
-      if (!pageId) {
-        console.error(`${RED}✗ Nenhuma página configurada. Execute: meta-ads config set-default page <id>${RESET}`);
-        process.exitCode = 1;
-        return;
-      }
+      const resolved = await resolvePageId({ pageFlag: options.page, config });
 
       // Collect inputs
       const name = nameArg ?? await prompt(rl, 'Nome do anúncio:');
@@ -215,8 +208,8 @@ const leadsCommand = new Command('leads')
           description,
           callToAction: 'LEARN_MORE',
         },
-        pageId,
-        instagramAccountId: config.defaults.instagramAccountId,
+        pageId: resolved.pageId,
+        instagramAccountId: resolved.instagramAccountId,
         adAccountId,
         websiteUrl: null,
         landingPageUrl,

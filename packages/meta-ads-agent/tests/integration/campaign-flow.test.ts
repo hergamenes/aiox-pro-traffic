@@ -142,6 +142,60 @@ describe('Campaign Flow Integration (MSW)', () => {
     expect(result.adsManagerUrl).toContain('789012');
   });
 
+  it('should create campaign with explicit pageId and instagramAccountId', async () => {
+    const configWithPage: CampaignConfig = {
+      type: 'sales',
+      name: 'PageSelectionTest',
+      dailyBudget: 40,
+      adText: {
+        headline: 'Oferta Especial',
+        primaryText: 'Compre agora',
+        description: 'Promoção',
+        callToAction: 'SHOP_NOW',
+      },
+      pageId: 'page_explicit_999',
+      instagramAccountId: 'ig_explicit_888',
+      adAccountId: '789012',
+      websiteUrl: 'https://example.com',
+      landingPageUrl: null,
+      pixelId: null,
+    };
+
+    const result = await createCampaign(configWithPage, bundle);
+
+    expect(result.campaignId).toBeDefined();
+    expect(result.adSetId).toBeDefined();
+    expect(result.adId).toBeDefined();
+    expect(result.status).toBe('ACTIVE');
+    expect(result.type).toBe('sales');
+  });
+
+  it('should create leads campaign with null instagramAccountId', async () => {
+    const leadsNoIg: CampaignConfig = {
+      type: 'leads',
+      name: 'LeadsNoInstagram',
+      dailyBudget: 25,
+      adText: {
+        headline: 'Cadastre-se',
+        primaryText: 'Webinar',
+        description: 'Gratuito',
+        callToAction: 'LEARN_MORE',
+      },
+      pageId: 'page_no_ig_777',
+      instagramAccountId: null,
+      adAccountId: '789012',
+      websiteUrl: null,
+      landingPageUrl: 'https://minha-lp.com',
+      pixelId: null,
+    };
+
+    const result = await createCampaign(leadsNoIg, bundle);
+
+    expect(result.campaignId).toBeDefined();
+    expect(result.status).toBe('ACTIVE');
+    expect(result.type).toBe('leads');
+  });
+
   it('should return Portuguese error on leads campaign creation failure', async () => {
     server.use(
       campaignApiErrorHandler('campaigns', 2635, 'Daily budget too low'),
