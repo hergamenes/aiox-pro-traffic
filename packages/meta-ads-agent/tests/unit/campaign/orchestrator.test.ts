@@ -182,4 +182,80 @@ describe('Campaign Orchestrator', () => {
 
     await expect(createCampaign(invalidConfig, bundle)).rejects.toThrow('Configuração inválida');
   });
+
+  describe('Leads campaign flow', () => {
+    const leadsConfig: CampaignConfig = {
+      type: 'leads',
+      name: 'Webinar',
+      dailyBudget: 30,
+      adText: {
+        headline: 'Cadastre-se',
+        primaryText: 'Garanta sua vaga',
+        description: 'Webinar gratuito',
+        callToAction: 'LEARN_MORE',
+      },
+      pageId: 'page_123',
+      instagramAccountId: 'ig_456',
+      adAccountId: '789012',
+      websiteUrl: null,
+      landingPageUrl: 'https://minha-lp.com',
+      pixelId: null,
+    };
+
+    it('should use LeadsCampaignStrategy when type is leads', async () => {
+      const result = await createCampaign(leadsConfig, bundle);
+
+      // Verify campaign was created with OUTCOME_LEADS objective
+      const campaignCall = mockCreateCampaign.mock.calls[0];
+      const campaignParams = campaignCall[1] as Record<string, unknown>;
+      expect(campaignParams['objective']).toBe('OUTCOME_LEADS');
+    });
+
+    it('should execute full leads pipeline in correct order', async () => {
+      const callOrder: string[] = [];
+      mockUploadBundle.mockImplementation(async () => {
+        callOrder.push('upload');
+        return { ...bundle, uploadedIds: new Map([['/tmp/image.jpg', 'hash_abc']]) };
+      });
+      mockCreateCampaign.mockImplementation(async () => {
+        callOrder.push('createCampaign');
+        return 'camp_001';
+      });
+      mockCreateAdSet.mockImplementation(async () => {
+        callOrder.push('createAdSet');
+        return 'adset_001';
+      });
+      mockCreateAd.mockImplementation(async () => {
+        callOrder.push('createAd');
+        return 'ad_001';
+      });
+      mockUpdateStatus.mockImplementation(async () => {
+        callOrder.push('activate');
+      });
+
+      await createCampaign(leadsConfig, bundle);
+
+      expect(callOrder).toEqual(['upload', 'createCampaign', 'createAdSet', 'createAd', 'activate']);
+    });
+
+    it('should return CampaignResult with type leads', async () => {
+      const result = await createCampaign(leadsConfig, bundle);
+
+      expect(result.type).toBe('leads');
+      expect(result.campaignName).toContain('PPT_LEADS_LP_');
+      expect(result.status).toBe('ACTIVE');
+    });
+
+    it('should pass landingPageUrl to strategy getAdParams', async () => {
+      await createCampaign(leadsConfig, bundle);
+
+      const adCall = mockCreateAd.mock.calls[0];
+      const adParams = adCall[1] as Record<string, unknown>;
+      const creative = adParams['creative'] as Record<string, unknown>;
+      const spec = creative['object_story_spec'] as Record<string, unknown>;
+      const linkData = spec['link_data'] as Record<string, unknown>;
+
+      expect(linkData['link']).toBe('https://minha-lp.com');
+    });
+  });
 });

@@ -111,4 +111,62 @@ describe('Campaign Flow Integration (MSW)', () => {
     );
     // Rollback should have been called (DELETE requests handled by deleteResourceHandler)
   });
+
+  it('should complete full leads campaign creation flow', async () => {
+    const leadsConfig: CampaignConfig = {
+      type: 'leads',
+      name: 'LeadsIntegration',
+      dailyBudget: 30,
+      adText: {
+        headline: 'Cadastre-se',
+        primaryText: 'Garanta sua vaga',
+        description: 'Webinar gratuito',
+        callToAction: 'LEARN_MORE',
+      },
+      pageId: 'page_123',
+      instagramAccountId: 'ig_456',
+      adAccountId: '789012',
+      websiteUrl: null,
+      landingPageUrl: 'https://minha-lp.com',
+      pixelId: null,
+    };
+
+    const result = await createCampaign(leadsConfig, bundle);
+
+    expect(result.campaignId).toBeDefined();
+    expect(result.adSetId).toBeDefined();
+    expect(result.adId).toBeDefined();
+    expect(result.status).toBe('ACTIVE');
+    expect(result.type).toBe('leads');
+    expect(result.campaignName).toContain('PPT_LEADS_LP_');
+    expect(result.adsManagerUrl).toContain('789012');
+  });
+
+  it('should return Portuguese error on leads campaign creation failure', async () => {
+    server.use(
+      campaignApiErrorHandler('campaigns', 2635, 'Daily budget too low'),
+    );
+
+    const leadsConfig: CampaignConfig = {
+      type: 'leads',
+      name: 'LeadsError',
+      dailyBudget: 1,
+      adText: {
+        headline: 'Test',
+        primaryText: 'Test',
+        description: 'Test',
+        callToAction: 'LEARN_MORE',
+      },
+      pageId: 'page_123',
+      instagramAccountId: null,
+      adAccountId: '789012',
+      websiteUrl: null,
+      landingPageUrl: 'https://minha-lp.com',
+      pixelId: null,
+    };
+
+    await expect(createCampaign(leadsConfig, bundle)).rejects.toThrow(
+      'Orçamento diário abaixo do mínimo',
+    );
+  });
 });

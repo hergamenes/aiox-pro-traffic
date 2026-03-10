@@ -45,10 +45,36 @@ describe('campaignConfigSchema', () => {
     expect(result.success).toBe(false);
   });
 
-  it('should allow null websiteUrl for leads campaigns', () => {
-    const leadsConfig = { ...validConfig, type: 'leads' as const, websiteUrl: null };
+  it('should allow null websiteUrl for leads campaigns with landingPageUrl', () => {
+    const leadsConfig = {
+      ...validConfig,
+      type: 'leads' as const,
+      websiteUrl: null,
+      landingPageUrl: 'https://minha-lp.com',
+    };
     const result = campaignConfigSchema.safeParse(leadsConfig);
     expect(result.success).toBe(true);
+  });
+
+  it('should require landingPageUrl for leads campaigns', () => {
+    const leadsConfig = {
+      ...validConfig,
+      type: 'leads' as const,
+      websiteUrl: null,
+      landingPageUrl: null,
+    };
+    const result = campaignConfigSchema.safeParse(leadsConfig);
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      const messages = result.error.errors.map((e) => e.message);
+      expect(messages).toContain('URL da landing page é obrigatória para campanhas de leads');
+    }
+  });
+
+  it('should allow null landingPageUrl for sales campaigns', () => {
+    const result = campaignConfigSchema.safeParse(validConfig);
+    expect(result.success).toBe(true);
+    expect(validConfig.landingPageUrl).toBeNull();
   });
 
   it('should reject invalid websiteUrl', () => {

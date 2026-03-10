@@ -6,6 +6,7 @@ import { uploadBundle } from '../meta-api/uploader.js';
 import * as adapter from '../meta-api/adapter.js';
 import { generateCampaignName } from './naming.js';
 import { SalesCampaignStrategy } from './strategies/sales.strategy.js';
+import { LeadsCampaignStrategy } from './strategies/leads.strategy.js';
 import type { CampaignStrategy } from './strategies/campaign-strategy.js';
 import { ValidationError } from '../errors/types.js';
 
@@ -13,6 +14,8 @@ function getStrategy(type: string): CampaignStrategy {
   switch (type) {
     case 'sales':
       return new SalesCampaignStrategy();
+    case 'leads':
+      return new LeadsCampaignStrategy();
     default:
       throw new ValidationError(`Tipo de campanha não suportado: ${type}`);
   }
@@ -93,7 +96,7 @@ export async function createCampaign(
       primaryText: config.adText.primaryText,
       description: config.adText.description,
       callToAction: config.adText.callToAction,
-      websiteUrl: config.websiteUrl ?? '',
+      websiteUrl: config.type === 'leads' ? (config.landingPageUrl ?? '') : (config.websiteUrl ?? ''),
       name: `${campaignName}_AD`,
     });
     adId = await adapter.createAd(config.adAccountId, adParams);

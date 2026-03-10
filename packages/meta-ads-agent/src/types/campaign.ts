@@ -59,6 +59,12 @@ export const campaignConfigSchema = z.object({
     return true;
   },
   { message: 'URL do site é obrigatória para campanhas de vendas', path: ['websiteUrl'] },
+).refine(
+  (data) => {
+    if (data.type === 'leads') return data.landingPageUrl !== null;
+    return true;
+  },
+  { message: 'URL da landing page é obrigatória para campanhas de leads', path: ['landingPageUrl'] },
 );
 
 export const campaignResultSchema = z.object({

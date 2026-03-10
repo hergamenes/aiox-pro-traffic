@@ -57,4 +57,17 @@ describe('create CLI command', () => {
     expect(salesCmd).toBeDefined();
     expect(salesCmd?.description()).toContain('Vendas');
   });
+
+  it('should have leads subcommand', () => {
+    const leadsCmd = createCommand.commands.find((c) => c.name() === 'leads');
+    expect(leadsCmd).toBeDefined();
+    expect(leadsCmd?.description()).toContain('Leads');
+  });
+
+  it('should have both sales and leads subcommands registered', () => {
+    const commandNames = createCommand.commands.map((c) => c.name());
+    expect(commandNames).toContain('sales');
+    expect(commandNames).toContain('leads');
+    expect(commandNames).toHaveLength(2);
+  });
 });
