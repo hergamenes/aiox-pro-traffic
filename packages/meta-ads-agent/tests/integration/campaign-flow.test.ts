@@ -196,6 +196,62 @@ describe('Campaign Flow Integration (MSW)', () => {
     expect(result.type).toBe('leads');
   });
 
+  it('should complete up command flow with all params inline (sales)', async () => {
+    const upConfig: CampaignConfig = {
+      type: 'sales',
+      name: 'UpCommandTest',
+      dailyBudget: 60,
+      adText: {
+        headline: 'Promo Up',
+        primaryText: 'Via meta-ads up',
+        description: 'Teste integrado',
+        callToAction: 'SHOP_NOW',
+      },
+      pageId: 'page_up_111',
+      instagramAccountId: 'ig_up_222',
+      adAccountId: '789012',
+      websiteUrl: 'https://up-test.com',
+      landingPageUrl: null,
+      pixelId: null,
+    };
+
+    const result = await createCampaign(upConfig, bundle);
+
+    expect(result.campaignId).toBeDefined();
+    expect(result.adSetId).toBeDefined();
+    expect(result.adId).toBeDefined();
+    expect(result.status).toBe('ACTIVE');
+    expect(result.type).toBe('sales');
+    expect(result.campaignName).toContain('PPT_VENDAS_COMPRA_');
+  });
+
+  it('should complete up command flow with leads type', async () => {
+    const upLeadsConfig: CampaignConfig = {
+      type: 'leads',
+      name: 'UpLeadsTest',
+      dailyBudget: 35,
+      adText: {
+        headline: 'Cadastro Up',
+        primaryText: 'Via meta-ads up leads',
+        description: 'Teste leads',
+        callToAction: 'LEARN_MORE',
+      },
+      pageId: 'page_up_333',
+      instagramAccountId: null,
+      adAccountId: '789012',
+      websiteUrl: null,
+      landingPageUrl: 'https://up-leads.com',
+      pixelId: null,
+    };
+
+    const result = await createCampaign(upLeadsConfig, bundle);
+
+    expect(result.campaignId).toBeDefined();
+    expect(result.status).toBe('ACTIVE');
+    expect(result.type).toBe('leads');
+    expect(result.campaignName).toContain('PPT_LEADS_LP_');
+  });
+
   it('should return Portuguese error on leads campaign creation failure', async () => {
     server.use(
       campaignApiErrorHandler('campaigns', 2635, 'Daily budget too low'),
