@@ -10,14 +10,10 @@ import { buildBundle } from '../../creative/bundle-builder.js';
 import { createCampaign } from '../../campaign/orchestrator.js';
 import { formatTable } from '../display.js';
 import { resolvePageId } from '../page-resolver.js';
+import { COLORS, STEP_LABELS, STEP_SUCCESS, formatDuration } from '../progress.js';
 import { MetaApiError, NetworkError, ValidationError, CreativeError, UploadError } from '../../errors/types.js';
 import * as configRepo from '../../config/config-repository.js';
 import type { CampaignConfig } from '../../types/campaign.js';
-
-const GREEN = '\x1b[32m';
-const RED = '\x1b[31m';
-const BOLD = '\x1b[1m';
-const RESET = '\x1b[0m';
 
 function resolvePath(inputPath: string): string {
   if (inputPath.startsWith('~')) {
@@ -27,7 +23,7 @@ function resolvePath(inputPath: string): string {
 }
 
 async function prompt(rl: ReturnType<typeof createInterface>, question: string): Promise<string> {
-  const answer = await rl.question(`${BOLD}${question}${RESET} `);
+  const answer = await rl.question(`${COLORS.BOLD}${question}${COLORS.RESET} `);
   return answer.trim();
 }
 
@@ -35,14 +31,16 @@ const salesCommand = new Command('sales')
   .description('Criar campanha de Vendas (Purchase/Compra)')
   .argument('[name]', 'Nome do anúncio')
   .option('--page <pageId>', 'ID da página do Facebook')
-  .action(async (nameArg: string | undefined, options: { page?: string }) => {
+  .option('--quiet', 'Exibir apenas resultado final')
+  .action(async (nameArg: string | undefined, options: { page?: string; quiet?: boolean }) => {
     const rl = createInterface({ input: stdin, output: stdout });
 
     try {
+      const startTime = Date.now();
       const config = await configRepo.load();
       const adAccountId = config.defaults.adAccountId;
       if (!adAccountId) {
-        console.error(`${RED}✗ Nenhuma conta de anúncios configurada. Execute: meta-ads config set-default ad-account <id>${RESET}`);
+        console.error(`${COLORS.RED}✗ Nenhuma conta de anúncios configurada. Execute: meta-ads config set-default ad-account <id>${COLORS.RESET}`);
         process.exitCode = 1;
         return;
       }
@@ -54,7 +52,7 @@ const salesCommand = new Command('sales')
       const budgetStr = await prompt(rl, 'Orçamento diário (R$):');
       const dailyBudget = parseFloat(budgetStr);
       if (isNaN(dailyBudget) || dailyBudget <= 0) {
-        console.error(`${RED}✗ Orçamento inválido. Informe um valor positivo.${RESET}`);
+        console.error(`${COLORS.RED}✗ Orçamento inválido. Informe um valor positivo.${COLORS.RESET}`);
         process.exitCode = 1;
         return;
       }
@@ -67,15 +65,15 @@ const salesCommand = new Command('sales')
       rl.close();
 
       // Step 1: Scan creatives
-      const spinner = ora('[1/5] Validando criativos...').start();
+      const spinner = options.quiet ? null : ora(STEP_LABELS.validate).start();
       const folderPath = resolvePath(config.creativesPath);
       const assets = await scanCreatives(folderPath);
       const validated = validateAll(assets);
       const bundle = buildBundle(validated);
-      spinner.succeed('[1/5] Criativos validados');
+      spinner?.succeed(STEP_SUCCESS.validate);
 
       // Step 2: Upload
-      const uploadSpinner = ora('[2/5] Fazendo upload...').start();
+      const uploadSpinner = options.quiet ? null : ora(STEP_LABELS.upload).start();
 
       const campaignConfig: CampaignConfig = {
         type: 'sales',
@@ -95,30 +93,34 @@ const salesCommand = new Command('sales')
         pixelId: null,
       };
 
-      const result = await createCampaign(campaignConfig, bundle, {
-        onProgress: (step, _pct) => {
+      const callbacks = options.quiet ? undefined : {
+        onProgress: (step: string, _pct: number) => {
           switch (step) {
             case 'upload':
-              uploadSpinner.succeed('[2/5] Upload concluído');
+              uploadSpinner?.succeed(STEP_SUCCESS.upload);
               break;
             case 'campaign':
-              ora('[3/5] Criando campanha...').start().succeed('[3/5] Campanha criada');
+              ora(STEP_LABELS.campaign).start().succeed(STEP_SUCCESS.campaign);
               break;
             case 'adset':
-              ora('[4/5] Configurando anúncio...').start().succeed('[4/5] Anúncio configurado');
+              ora(STEP_LABELS.adset).start().succeed(STEP_SUCCESS.adset);
               break;
             case 'activate':
-              ora('[5/5] Ativando...').start().succeed('[5/5] Campanha ativada!');
+              ora(STEP_LABELS.activate).start().succeed(STEP_SUCCESS.activate);
               break;
           }
         },
-        onUploadProgress: (asset, pct) => {
-          uploadSpinner.text = `[2/5] Fazendo upload... ${asset} ${pct}%`;
+        onUploadProgress: (asset: string, pct: number) => {
+          if (uploadSpinner) {
+            uploadSpinner.text = `${STEP_LABELS.upload} ${asset} ${pct}%`;
+          }
         },
-      });
+      };
+
+      const result = await createCampaign(campaignConfig, bundle, callbacks);
 
       // Show result
-      console.log(`\n${GREEN}${BOLD}✓ Campanha criada com sucesso!${RESET}\n`);
+      console.log(`\n${COLORS.GREEN}${COLORS.BOLD}✓ Campanha criada com sucesso!${COLORS.RESET}\n`);
 
       const rows = [
         ['Nome', result.campaignName],
@@ -127,11 +129,12 @@ const salesCommand = new Command('sales')
         ['ID Anúncio', result.adId],
         ['Orçamento', `R$ ${result.dailyBudget.toFixed(2)}/dia`],
         ['Criativo', result.creativeFormat],
-        ['Status', `${GREEN}${result.status}${RESET}`],
+        ['Status', `${COLORS.GREEN}${result.status}${COLORS.RESET}`],
         ['Link', result.adsManagerUrl],
       ];
 
       console.log(formatTable(['Campo', 'Valor'], rows));
+      console.log(`\nTempo total: ${formatDuration(Date.now() - startTime)}`);
     } catch (error) {
       rl.close();
       if (
@@ -141,7 +144,7 @@ const salesCommand = new Command('sales')
         error instanceof MetaApiError ||
         error instanceof NetworkError
       ) {
-        console.error(`\n${RED}✗ ${error.message}${RESET}`);
+        console.error(`\n${COLORS.RED}✗ ${error.message}${COLORS.RESET}`);
         if ('action' in error && error.action) {
           console.error(`  ${error.action}`);
         }
@@ -156,14 +159,16 @@ const leadsCommand = new Command('leads')
   .description('Criar campanha de Leads (Landing Page)')
   .argument('[name]', 'Nome do anúncio')
   .option('--page <pageId>', 'ID da página do Facebook')
-  .action(async (nameArg: string | undefined, options: { page?: string }) => {
+  .option('--quiet', 'Exibir apenas resultado final')
+  .action(async (nameArg: string | undefined, options: { page?: string; quiet?: boolean }) => {
     const rl = createInterface({ input: stdin, output: stdout });
 
     try {
+      const startTime = Date.now();
       const config = await configRepo.load();
       const adAccountId = config.defaults.adAccountId;
       if (!adAccountId) {
-        console.error(`${RED}✗ Nenhuma conta de anúncios configurada. Execute: meta-ads config set-default ad-account <id>${RESET}`);
+        console.error(`${COLORS.RED}✗ Nenhuma conta de anúncios configurada. Execute: meta-ads config set-default ad-account <id>${COLORS.RESET}`);
         process.exitCode = 1;
         return;
       }
@@ -175,7 +180,7 @@ const leadsCommand = new Command('leads')
       const budgetStr = await prompt(rl, 'Orçamento diário (R$):');
       const dailyBudget = parseFloat(budgetStr);
       if (isNaN(dailyBudget) || dailyBudget <= 0) {
-        console.error(`${RED}✗ Orçamento inválido. Informe um valor positivo.${RESET}`);
+        console.error(`${COLORS.RED}✗ Orçamento inválido. Informe um valor positivo.${COLORS.RESET}`);
         process.exitCode = 1;
         return;
       }
@@ -188,15 +193,15 @@ const leadsCommand = new Command('leads')
       rl.close();
 
       // Step 1: Scan creatives
-      const spinner = ora('[1/5] Validando criativos...').start();
+      const spinner = options.quiet ? null : ora(STEP_LABELS.validate).start();
       const folderPath = resolvePath(config.creativesPath);
       const assets = await scanCreatives(folderPath);
       const validated = validateAll(assets);
       const bundle = buildBundle(validated);
-      spinner.succeed('[1/5] Criativos validados');
+      spinner?.succeed(STEP_SUCCESS.validate);
 
       // Step 2: Upload
-      const uploadSpinner = ora('[2/5] Fazendo upload...').start();
+      const uploadSpinner = options.quiet ? null : ora(STEP_LABELS.upload).start();
 
       const campaignConfig: CampaignConfig = {
         type: 'leads',
@@ -216,30 +221,34 @@ const leadsCommand = new Command('leads')
         pixelId: null,
       };
 
-      const result = await createCampaign(campaignConfig, bundle, {
-        onProgress: (step, _pct) => {
+      const callbacks = options.quiet ? undefined : {
+        onProgress: (step: string, _pct: number) => {
           switch (step) {
             case 'upload':
-              uploadSpinner.succeed('[2/5] Upload concluído');
+              uploadSpinner?.succeed(STEP_SUCCESS.upload);
               break;
             case 'campaign':
-              ora('[3/5] Criando campanha...').start().succeed('[3/5] Campanha criada');
+              ora(STEP_LABELS.campaign).start().succeed(STEP_SUCCESS.campaign);
               break;
             case 'adset':
-              ora('[4/5] Configurando anúncio...').start().succeed('[4/5] Anúncio configurado');
+              ora(STEP_LABELS.adset).start().succeed(STEP_SUCCESS.adset);
               break;
             case 'activate':
-              ora('[5/5] Ativando...').start().succeed('[5/5] Campanha ativada!');
+              ora(STEP_LABELS.activate).start().succeed(STEP_SUCCESS.activate);
               break;
           }
         },
-        onUploadProgress: (asset, pct) => {
-          uploadSpinner.text = `[2/5] Fazendo upload... ${asset} ${pct}%`;
+        onUploadProgress: (asset: string, pct: number) => {
+          if (uploadSpinner) {
+            uploadSpinner.text = `${STEP_LABELS.upload} ${asset} ${pct}%`;
+          }
         },
-      });
+      };
+
+      const result = await createCampaign(campaignConfig, bundle, callbacks);
 
       // Show result
-      console.log(`\n${GREEN}${BOLD}✓ Campanha criada com sucesso!${RESET}\n`);
+      console.log(`\n${COLORS.GREEN}${COLORS.BOLD}✓ Campanha criada com sucesso!${COLORS.RESET}\n`);
 
       const rows = [
         ['Nome', result.campaignName],
@@ -248,11 +257,12 @@ const leadsCommand = new Command('leads')
         ['ID Anúncio', result.adId],
         ['Orçamento', `R$ ${result.dailyBudget.toFixed(2)}/dia`],
         ['Criativo', result.creativeFormat],
-        ['Status', `${GREEN}${result.status}${RESET}`],
+        ['Status', `${COLORS.GREEN}${result.status}${COLORS.RESET}`],
         ['Link', result.adsManagerUrl],
       ];
 
       console.log(formatTable(['Campo', 'Valor'], rows));
+      console.log(`\nTempo total: ${formatDuration(Date.now() - startTime)}`);
     } catch (error) {
       rl.close();
       if (
@@ -262,7 +272,7 @@ const leadsCommand = new Command('leads')
         error instanceof MetaApiError ||
         error instanceof NetworkError
       ) {
-        console.error(`\n${RED}✗ ${error.message}${RESET}`);
+        console.error(`\n${COLORS.RED}✗ ${error.message}${COLORS.RESET}`);
         if ('action' in error && error.action) {
           console.error(`  ${error.action}`);
         }

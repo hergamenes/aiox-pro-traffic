@@ -8,6 +8,7 @@ import { buildBundle } from '../../creative/bundle-builder.js';
 import { createCampaign } from '../../campaign/orchestrator.js';
 import { formatTable } from '../display.js';
 import { resolvePageId } from '../page-resolver.js';
+import { COLORS, STEP_LABELS, STEP_SUCCESS, formatDuration } from '../progress.js';
 import {
   promptCampaignType,
   promptAdName,
@@ -19,11 +20,6 @@ import {
 import { MetaApiError, NetworkError, ValidationError, CreativeError, UploadError } from '../../errors/types.js';
 import * as configRepo from '../../config/config-repository.js';
 import type { CampaignConfig, CampaignType } from '../../types/campaign.js';
-
-const GREEN = '\x1b[32m';
-const RED = '\x1b[31m';
-const BOLD = '\x1b[1m';
-const RESET = '\x1b[0m';
 
 function resolvePath(inputPath: string): string {
   if (inputPath.startsWith('~')) {
@@ -41,12 +37,14 @@ export const upCommand = new Command('up')
   .option('--budget <value>', 'Orçamento diário em R$')
   .option('--page <pageId>', 'ID da página do Facebook')
   .option('--url <url>', 'URL do site (sales) ou landing page (leads)')
-  .action(async (typeArg: string | undefined, nameArg: string | undefined, options: { budget?: string; page?: string; url?: string }) => {
+  .option('--quiet', 'Exibir apenas resultado final')
+  .action(async (typeArg: string | undefined, nameArg: string | undefined, options: { budget?: string; page?: string; url?: string; quiet?: boolean }) => {
     try {
+      const startTime = Date.now();
       const config = await configRepo.load();
       const adAccountId = config.defaults.adAccountId;
       if (!adAccountId) {
-        console.error(`${RED}✗ Nenhuma conta de anúncios configurada. Execute: meta-ads config set-default ad-account <id>${RESET}`);
+        console.error(`${COLORS.RED}✗ Nenhuma conta de anúncios configurada. Execute: meta-ads config set-default ad-account <id>${COLORS.RESET}`);
         process.exitCode = 1;
         return;
       }
@@ -93,15 +91,15 @@ export const upCommand = new Command('up')
       const resolved = await resolvePageId({ pageFlag: options.page, config });
 
       // Step 1: Scan creatives
-      const spinner = ora('[1/5] Validando criativos...').start();
+      const spinner = options.quiet ? null : ora(STEP_LABELS.validate).start();
       const folderPath = resolvePath(config.creativesPath);
       const assets = await scanCreatives(folderPath);
       const validated = validateAll(assets);
       const bundle = buildBundle(validated);
-      spinner.succeed('[1/5] Criativos validados');
+      spinner?.succeed(STEP_SUCCESS.validate);
 
       // Step 2-5: Create campaign
-      const uploadSpinner = ora('[2/5] Fazendo upload...').start();
+      const uploadSpinner = options.quiet ? null : ora(STEP_LABELS.upload).start();
 
       const campaignConfig: CampaignConfig = {
         type,
@@ -116,30 +114,34 @@ export const upCommand = new Command('up')
         pixelId: null,
       };
 
-      const result = await createCampaign(campaignConfig, bundle, {
-        onProgress: (step, _pct) => {
+      const callbacks = options.quiet ? undefined : {
+        onProgress: (step: string, _pct: number) => {
           switch (step) {
             case 'upload':
-              uploadSpinner.succeed('[2/5] Upload concluído');
+              uploadSpinner?.succeed(STEP_SUCCESS.upload);
               break;
             case 'campaign':
-              ora('[3/5] Criando campanha...').start().succeed('[3/5] Campanha criada');
+              ora(STEP_LABELS.campaign).start().succeed(STEP_SUCCESS.campaign);
               break;
             case 'adset':
-              ora('[4/5] Configurando anúncio...').start().succeed('[4/5] Anúncio configurado');
+              ora(STEP_LABELS.adset).start().succeed(STEP_SUCCESS.adset);
               break;
             case 'activate':
-              ora('[5/5] Ativando...').start().succeed('[5/5] Campanha ativada!');
+              ora(STEP_LABELS.activate).start().succeed(STEP_SUCCESS.activate);
               break;
           }
         },
-        onUploadProgress: (asset, pct) => {
-          uploadSpinner.text = `[2/5] Fazendo upload... ${asset} ${pct}%`;
+        onUploadProgress: (asset: string, pct: number) => {
+          if (uploadSpinner) {
+            uploadSpinner.text = `${STEP_LABELS.upload} ${asset} ${pct}%`;
+          }
         },
-      });
+      };
+
+      const result = await createCampaign(campaignConfig, bundle, callbacks);
 
       // Show result
-      console.log(`\n${GREEN}${BOLD}✓ Campanha criada com sucesso!${RESET}\n`);
+      console.log(`\n${COLORS.GREEN}${COLORS.BOLD}✓ Campanha criada com sucesso!${COLORS.RESET}\n`);
 
       const rows = [
         ['Nome', result.campaignName],
@@ -148,11 +150,12 @@ export const upCommand = new Command('up')
         ['ID Anúncio', result.adId],
         ['Orçamento', `R$ ${result.dailyBudget.toFixed(2)}/dia`],
         ['Criativo', result.creativeFormat],
-        ['Status', `${GREEN}${result.status}${RESET}`],
+        ['Status', `${COLORS.GREEN}${result.status}${COLORS.RESET}`],
         ['Link', result.adsManagerUrl],
       ];
 
       console.log(formatTable(['Campo', 'Valor'], rows));
+      console.log(`\nTempo total: ${formatDuration(Date.now() - startTime)}`);
     } catch (error) {
       if (
         error instanceof ValidationError ||
@@ -161,7 +164,7 @@ export const upCommand = new Command('up')
         error instanceof MetaApiError ||
         error instanceof NetworkError
       ) {
-        console.error(`\n${RED}✗ ${error.message}${RESET}`);
+        console.error(`\n${COLORS.RED}✗ ${error.message}${COLORS.RESET}`);
         if ('action' in error && error.action) {
           console.error(`  ${error.action}`);
         }

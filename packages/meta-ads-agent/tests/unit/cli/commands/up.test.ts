@@ -79,4 +79,10 @@ describe('up CLI command', () => {
     expect(args[0].name()).toBe('type');
     expect(args[1].name()).toBe('name');
   });
+
+  it('should have --quiet option', () => {
+    const quietOption = upCommand.options.find((o) => o.long === '--quiet');
+    expect(quietOption).toBeDefined();
+    expect(quietOption?.description).toContain('resultado final');
+  });
 });

@@ -84,4 +84,18 @@ describe('create CLI command', () => {
     expect(pageOption).toBeDefined();
     expect(pageOption?.description).toContain('página');
   });
+
+  it('should have --quiet option on sales subcommand', () => {
+    const salesCmd = createCommand.commands.find((c) => c.name() === 'sales');
+    const quietOption = salesCmd?.options.find((o) => o.long === '--quiet');
+    expect(quietOption).toBeDefined();
+    expect(quietOption?.description).toContain('resultado final');
+  });
+
+  it('should have --quiet option on leads subcommand', () => {
+    const leadsCmd = createCommand.commands.find((c) => c.name() === 'leads');
+    const quietOption = leadsCmd?.options.find((o) => o.long === '--quiet');
+    expect(quietOption).toBeDefined();
+    expect(quietOption?.description).toContain('resultado final');
+  });
 });
