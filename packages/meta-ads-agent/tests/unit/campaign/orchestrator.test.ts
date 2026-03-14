@@ -139,7 +139,7 @@ describe('Campaign Orchestrator', () => {
     expect(result.status).toBe('ACTIVE');
     expect(result.creativeFormat).toBe('single_image');
     expect(result.createdAt).toBeInstanceOf(Date);
-    expect(result.campaignName).toContain('PPT_VENDAS_COMPRA_');
+    expect(result.campaignName).toBe('BlackFriday');
   });
 
   it('should build correct adsManagerUrl', async () => {
@@ -242,7 +242,7 @@ describe('Campaign Orchestrator', () => {
       const result = await createCampaign(leadsConfig, bundle);
 
       expect(result.type).toBe('leads');
-      expect(result.campaignName).toContain('PPT_LEADS_LP_');
+      expect(result.campaignName).toBe('Webinar');
       expect(result.status).toBe('ACTIVE');
     });
 

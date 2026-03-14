@@ -87,7 +87,7 @@ describe('Campaign Flow Integration (MSW)', () => {
     expect(result.adId).toBeDefined();
     expect(result.status).toBe('ACTIVE');
     expect(result.type).toBe('sales');
-    expect(result.campaignName).toContain('PPT_VENDAS_COMPRA_');
+    expect(result.campaignName).toBe('IntegrationTest');
     expect(result.adsManagerUrl).toContain('789012');
   });
 
@@ -138,7 +138,7 @@ describe('Campaign Flow Integration (MSW)', () => {
     expect(result.adId).toBeDefined();
     expect(result.status).toBe('ACTIVE');
     expect(result.type).toBe('leads');
-    expect(result.campaignName).toContain('PPT_LEADS_LP_');
+    expect(result.campaignName).toBe('LeadsIntegration');
     expect(result.adsManagerUrl).toContain('789012');
   });
 
@@ -222,7 +222,7 @@ describe('Campaign Flow Integration (MSW)', () => {
     expect(result.adId).toBeDefined();
     expect(result.status).toBe('ACTIVE');
     expect(result.type).toBe('sales');
-    expect(result.campaignName).toContain('PPT_VENDAS_COMPRA_');
+    expect(result.campaignName).toBe('UpCommandTest');
   });
 
   it('should complete up command flow with leads type', async () => {
@@ -249,7 +249,7 @@ describe('Campaign Flow Integration (MSW)', () => {
     expect(result.campaignId).toBeDefined();
     expect(result.status).toBe('ACTIVE');
     expect(result.type).toBe('leads');
-    expect(result.campaignName).toContain('PPT_LEADS_LP_');
+    expect(result.campaignName).toBe('UpLeadsTest');
   });
 
   it('should return Portuguese error on leads campaign creation failure', async () => {

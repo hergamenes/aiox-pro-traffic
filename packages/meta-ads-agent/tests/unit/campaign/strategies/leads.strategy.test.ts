@@ -112,31 +112,31 @@ describe('LeadsCampaignStrategy', () => {
       expect(linkData['image_hash']).toBe('hash_abc');
     });
 
-    it('should use video_id when imageHash is null', () => {
+    it('should use video_data with video_id when imageHash is null', () => {
       const videoOptions = { ...options, imageHash: null, videoId: 'vid_123' };
       const params = strategy.getAdParams(videoOptions);
       const creative = params['creative'] as Record<string, unknown>;
       const spec = creative['object_story_spec'] as Record<string, unknown>;
-      const linkData = spec['link_data'] as Record<string, unknown>;
+      const videoData = spec['video_data'] as Record<string, unknown>;
 
-      expect(linkData['video_id']).toBe('vid_123');
-      expect(linkData['image_hash']).toBeUndefined();
+      expect(videoData['video_id']).toBe('vid_123');
+      expect(spec['link_data']).toBeUndefined();
     });
 
-    it('should include instagram_actor_id when provided', () => {
+    it('should include instagram_user_id when provided', () => {
       const params = strategy.getAdParams(options);
       const creative = params['creative'] as Record<string, unknown>;
       const spec = creative['object_story_spec'] as Record<string, unknown>;
 
-      expect(spec['instagram_actor_id']).toBe('ig_222');
+      expect(spec['instagram_user_id']).toBe('ig_222');
     });
 
-    it('should not include instagram_actor_id when null', () => {
+    it('should not include instagram_user_id when null', () => {
       const params = strategy.getAdParams({ ...options, instagramAccountId: null });
       const creative = params['creative'] as Record<string, unknown>;
       const spec = creative['object_story_spec'] as Record<string, unknown>;
 
-      expect(spec['instagram_actor_id']).toBeUndefined();
+      expect(spec['instagram_user_id']).toBeUndefined();
     });
 
     it('should set adset_id correctly', () => {
