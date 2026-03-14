@@ -20,6 +20,24 @@ export interface CampaignConfig {
   websiteUrl: string | null;
   landingPageUrl: string | null;
   pixelId: string | null;
+  /** Image hash from Media Library (skips upload) */
+  imageHash?: string | null;
+  /** Video ID from Media Library (skips upload) */
+  videoId?: string | null;
+  /** Image hash for Stories placement (1080x1920) */
+  storiesImageHash?: string | null;
+  /** Enable Campaign Budget Optimization (Advantage budget) */
+  cboEnabled?: boolean;
+  /** Minimum age for targeting */
+  ageMin?: number;
+  /** Ad set start time (Unix timestamp) */
+  startTime?: number;
+  /** URL tracking tags appended to all links */
+  urlTags?: string;
+  /** Custom ad set name override */
+  adSetName?: string;
+  /** Custom ad name override */
+  adName?: string;
 }
 
 export interface CampaignResult {

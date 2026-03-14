@@ -1,0 +1,70 @@
+# KPI Thresholds — Valores de Referência
+
+## Instruções
+Estes são valores padrão de referência. Cada cliente/campanha pode ter metas específicas que substituem estes valores.
+
+---
+
+## Thresholds por Objetivo
+
+### Vendas (E-commerce)
+
+| KPI | Bom | Aceitável | Ruim | Crítico |
+|-----|-----|-----------|------|---------|
+| **ROAS** | > 3.0 | 2.0 - 3.0 | 1.0 - 2.0 | < 1.0 |
+| **CPA** | < R$ meta | R$ meta - 1.5x | 1.5x - 2x meta | > 2x meta |
+| **CTR (link)** | > 2.0% | 1.0% - 2.0% | 0.5% - 1.0% | < 0.5% |
+| **CPC** | < R$ 1.50 | R$ 1.50 - 3.00 | R$ 3.00 - 5.00 | > R$ 5.00 |
+| **Frequência** | < 2.0 | 2.0 - 3.0 | 3.0 - 4.0 | > 4.0 |
+
+### Geração de Leads
+
+| KPI | Bom | Aceitável | Ruim | Crítico |
+|-----|-----|-----------|------|---------|
+| **CPL** | < R$ meta | R$ meta - 1.5x | 1.5x - 2x meta | > 2x meta |
+| **CTR (link)** | > 1.5% | 0.8% - 1.5% | 0.5% - 0.8% | < 0.5% |
+| **Taxa LP→Lead** | > 20% | 10% - 20% | 5% - 10% | < 5% |
+| **CPC** | < R$ 2.00 | R$ 2.00 - 4.00 | R$ 4.00 - 7.00 | > R$ 7.00 |
+| **Frequência** | < 2.5 | 2.5 - 3.5 | 3.5 - 4.5 | > 4.5 |
+
+### Tráfego (Awareness)
+
+| KPI | Bom | Aceitável | Ruim | Crítico |
+|-----|-----|-----------|------|---------|
+| **CPC** | < R$ 0.50 | R$ 0.50 - 1.00 | R$ 1.00 - 2.00 | > R$ 2.00 |
+| **CTR** | > 3.0% | 1.5% - 3.0% | 0.8% - 1.5% | < 0.8% |
+| **CPM** | < R$ 15 | R$ 15 - 30 | R$ 30 - 50 | > R$ 50 |
+| **Frequência** | < 2.0 | 2.0 - 3.0 | 3.0 - 4.0 | > 4.0 |
+
+---
+
+## Regras de Decisão
+
+### Quando Escalar
+- KPI principal na zona "Bom" por **3+ dias consecutivos**
+- Volume de conversões **estável ou crescente**
+- Frequência na zona "Bom" ou "Aceitável"
+- Incremento recomendado: **20-30% do budget**
+
+### Quando Pausar
+- KPI principal na zona "Crítico" por **3+ dias**
+- OU Frequência na zona "Crítico"
+- OU CTR na zona "Crítico" por **5+ dias**
+
+### Quando Ajustar
+- KPI principal na zona "Ruim" por **3+ dias**
+- Opções: trocar criativo, ajustar público, reduzir budget, testar copy
+- Reavaliar em **3-5 dias** após ajuste
+
+### Quando Manter
+- KPI principal na zona "Aceitável"
+- Sem tendência clara
+- Reavaliar em **5-7 dias**
+
+---
+
+## Notas
+- Valores em BRL (Real Brasileiro)
+- Thresholds de CPC e CPL variam muito por nicho — ajustar conforme cliente
+- Mínimo de **1.000 impressões** e **50 cliques** para considerar dados significativos
+- Mínimo de **5 conversões** para decidir escalar/pausar

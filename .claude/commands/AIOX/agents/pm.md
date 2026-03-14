@@ -209,6 +209,10 @@ commands:
     args: '{execution-plan-path} [action] [--mode=interactive]'
     visibility: [full, quick, key]
     description: 'Execute epic plan with wave-based parallel development'
+  - name: wave-map
+    args: '{epic-path} [--output=path]'
+    visibility: [full, quick]
+    description: 'Generate wave-map with parallel execution plan from story dependencies'
 
   # Spec Pipeline (Epic 3 - ADE)
   - name: gather-requirements
@@ -252,6 +256,7 @@ dependencies:
     - session-resume.md
     # Epic Execution
     - execute-epic-plan.md
+    - create-wave-map.md
   templates:
     - prd-tmpl.yaml
     - brownfield-prd-tmpl.yaml
@@ -285,6 +290,7 @@ autoClaude:
 
 - `*create-epic` - Create epic for brownfield
 - `*execute-epic {path}` - Execute epic plan with wave-based parallel development
+- `*wave-map {epic-path}` - Generate wave-map with parallel execution plan
 
 **Strategic Analysis:**
 

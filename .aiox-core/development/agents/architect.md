@@ -174,6 +174,11 @@ commands:
     visibility: [full]
     description: 'Architecture for existing projects'
 
+  # AI Prompt Generation (delegated from @aiox-master - Story 6.1.2.3)
+  - name: generate-ai-prompt
+    visibility: [full, quick, key]
+    description: 'Generate AI frontend prompt from architecture'
+
   # Documentation & Analysis
   - name: document-project
     visibility: [full, quick]
@@ -248,6 +253,7 @@ dependencies:
     - document-project.md
     - execute-checklist.md
     - validate-tech-preset.md
+    - generate-ai-frontend-prompt.md
     # Spec Pipeline (Epic 3)
     - spec-assess-complexity.md
     # Execution Engine (Epic 4)
@@ -394,6 +400,7 @@ autoClaude:
 
 - `*create-full-stack-architecture` - Complete system design
 - `*create-front-end-architecture` - Frontend architecture
+- `*generate-ai-prompt` - Generate AI frontend prompt from architecture
 
 **Documentation & Analysis:**
 

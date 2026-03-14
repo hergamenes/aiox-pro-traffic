@@ -4,7 +4,6 @@ import type { CampaignConfig, CampaignResult } from '../types/campaign.js';
 import type { CreativeBundle } from '../types/creative.js';
 import { uploadBundle } from '../meta-api/uploader.js';
 import * as adapter from '../meta-api/adapter.js';
-import { generateCampaignName } from './naming.js';
 import { SalesCampaignStrategy } from './strategies/sales.strategy.js';
 import { LeadsCampaignStrategy } from './strategies/leads.strategy.js';
 import type { CampaignStrategy } from './strategies/campaign-strategy.js';
@@ -31,6 +30,9 @@ export interface OrchestratorCallbacks {
   onUploadProgress?: (asset: string, pct: number) => void;
 }
 
+/**
+ * Create a campaign with local creative upload.
+ */
 export async function createCampaign(
   config: CampaignConfig,
   bundle: CreativeBundle,
@@ -45,9 +47,6 @@ export async function createCampaign(
   }
   callbacks?.onProgress?.('validate', 100);
 
-  const strategy = getStrategy(config.type);
-  const campaignName = generateCampaignName(config.type, config.name);
-
   // Phase 2: Upload creatives
   callbacks?.onProgress?.('upload', 0);
   const uploadedBundle = await uploadBundle(config.adAccountId, bundle, (asset, pct) => {
@@ -60,6 +59,53 @@ export async function createCampaign(
   const uploadedId = uploadedBundle.uploadedIds.get(firstAsset.filePath) ?? null;
   const imageHash = firstAsset.type === 'image' ? uploadedId : null;
   const videoId = firstAsset.type === 'video' ? uploadedId : null;
+  const creativeFormat = uploadedBundle.format;
+  const creativeFiles = bundle.assets.map((a) => a.fileName);
+
+  return executeCampaignCreation(config, imageHash, videoId, creativeFormat, creativeFiles, callbacks);
+}
+
+/**
+ * Create a campaign using a creative already in the Media Library (no upload needed).
+ */
+export async function createCampaignFromLibrary(
+  config: CampaignConfig,
+  callbacks?: OrchestratorCallbacks,
+): Promise<CampaignResult> {
+  // Phase 1: Validate config
+  callbacks?.onProgress?.('validate', 0);
+  const parseResult = campaignConfigSchema.safeParse(config);
+  if (!parseResult.success) {
+    const errors = parseResult.error.errors.map((e) => e.message).join('; ');
+    throw new ValidationError(`Configuração inválida: ${errors}`);
+  }
+
+  if (!config.imageHash && !config.videoId) {
+    throw new ValidationError('imageHash ou videoId é obrigatório para criação via biblioteca de mídia');
+  }
+  callbacks?.onProgress?.('validate', 100);
+
+  // Skip upload phase
+  callbacks?.onProgress?.('upload', 100);
+
+  const imageHash = config.imageHash ?? null;
+  const videoId = config.videoId ?? null;
+  const creativeFormat = videoId ? 'video' : 'single_image';
+  const creativeLabel = videoId ? `video:${videoId}` : `image:${imageHash}`;
+
+  return executeCampaignCreation(config, imageHash, videoId, creativeFormat, [creativeLabel], callbacks);
+}
+
+async function executeCampaignCreation(
+  config: CampaignConfig,
+  imageHash: string | null,
+  videoId: string | null,
+  creativeFormat: string,
+  creativeFiles: string[],
+  callbacks?: OrchestratorCallbacks,
+): Promise<CampaignResult> {
+  const strategy = getStrategy(config.type);
+  const campaignName = config.name;
 
   let campaignId: string | null = null;
   let adSetId: string | null = null;
@@ -69,7 +115,10 @@ export async function createCampaign(
     // Phase 3: Create campaign
     callbacks?.onProgress?.('campaign', 0);
     const campaignParams = {
-      ...strategy.getCampaignParams(),
+      ...strategy.getCampaignParams({
+        cboEnabled: config.cboEnabled,
+        dailyBudget: config.dailyBudget,
+      }),
       name: campaignName,
     };
     campaignId = await adapter.createCampaign(config.adAccountId, campaignParams);
@@ -77,15 +126,27 @@ export async function createCampaign(
 
     // Phase 4: Create ad set + ad
     callbacks?.onProgress?.('adset', 0);
+    const adSetName = config.adSetName ?? `${campaignName}_ADSET`;
     const adSetParams = {
       ...strategy.getAdSetParams({
         campaignId,
         dailyBudget: config.dailyBudget,
         pixelId: config.pixelId,
+        cboEnabled: config.cboEnabled,
+        ageMin: config.ageMin,
+        startTime: config.startTime,
       }),
-      name: `${campaignName}_ADSET`,
+      name: adSetName,
     };
     adSetId = await adapter.createAdSet(config.adAccountId, adSetParams);
+
+    const adNameFinal = config.adName ?? `${campaignName}_AD`;
+
+    // Fetch video thumbnail if needed
+    let videoThumbnailUrl: string | null = null;
+    if (videoId) {
+      videoThumbnailUrl = await adapter.getVideoThumbnailUrl(videoId);
+    }
 
     const adParams = strategy.getAdParams({
       adSetId,
@@ -93,12 +154,15 @@ export async function createCampaign(
       instagramAccountId: config.instagramAccountId,
       imageHash,
       videoId,
+      videoThumbnailUrl,
+      storiesImageHash: config.storiesImageHash,
       headline: config.adText.headline,
       primaryText: config.adText.primaryText,
       description: config.adText.description,
       callToAction: config.adText.callToAction,
       websiteUrl: config.type === 'leads' ? (config.landingPageUrl ?? '') : (config.websiteUrl ?? ''),
-      name: `${campaignName}_AD`,
+      name: adNameFinal,
+      urlTags: config.urlTags,
     });
     adId = await adapter.createAd(config.adAccountId, adParams);
     callbacks?.onProgress?.('adset', 100);
@@ -118,14 +182,13 @@ export async function createCampaign(
       type: config.type,
       dailyBudget: config.dailyBudget,
       status: 'ACTIVE',
-      creativeFormat: uploadedBundle.format,
+      creativeFormat,
       adsManagerUrl: buildAdsManagerUrl(config.adAccountId, campaignId),
       createdAt: new Date(),
     };
 
     // Fire-and-forget campaign logging
     try {
-      const creativeFiles = bundle.assets.map((a) => a.fileName);
       await logCampaign(result, creativeFiles, config.pageId);
     } catch (logError) {
       logger.warn({ err: logError }, 'Failed to log campaign to history');

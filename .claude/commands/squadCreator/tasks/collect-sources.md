@@ -1,0 +1,1 @@
+/Users/hergamenessouza/aiox-app-1/squads/squad-creator/tasks/collect-sources.md

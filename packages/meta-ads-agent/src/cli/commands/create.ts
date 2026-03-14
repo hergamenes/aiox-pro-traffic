@@ -31,9 +31,15 @@ const salesCommand = new Command('sales')
   .description('Criar campanha de Vendas (Purchase/Compra)')
   .argument('[name]', 'Nome do anúncio')
   .option('--page <pageId>', 'ID da página do Facebook')
+  .option('--budget <value>', 'Orçamento diário em R$')
+  .option('--url <url>', 'URL do site/produto')
+  .option('--headline <text>', 'Título do anúncio')
+  .option('--text <text>', 'Texto principal do anúncio')
+  .option('--description <text>', 'Descrição do anúncio')
   .option('--quiet', 'Exibir apenas resultado final')
-  .action(async (nameArg: string | undefined, options: { page?: string; quiet?: boolean }) => {
-    const rl = createInterface({ input: stdin, output: stdout });
+  .action(async (nameArg: string | undefined, options: { page?: string; budget?: string; url?: string; headline?: string; text?: string; description?: string; quiet?: boolean }) => {
+    const allFlagsProvided = nameArg && options.budget && options.url && options.headline && options.text && options.description;
+    const rl = allFlagsProvided ? null : createInterface({ input: stdin, output: stdout });
 
     try {
       const startTime = Date.now();
@@ -47,9 +53,9 @@ const salesCommand = new Command('sales')
 
       const resolved = await resolvePageId({ pageFlag: options.page, config });
 
-      // Collect inputs
-      const name = nameArg ?? await prompt(rl, 'Nome do anúncio:');
-      const budgetStr = await prompt(rl, 'Orçamento diário (R$):');
+      // Collect inputs (use flags if provided, otherwise prompt)
+      const name = nameArg ?? await prompt(rl!, 'Nome do anúncio:');
+      const budgetStr = options.budget ?? await prompt(rl!, 'Orçamento diário (R$):');
       const dailyBudget = parseFloat(budgetStr);
       if (isNaN(dailyBudget) || dailyBudget <= 0) {
         console.error(`${COLORS.RED}✗ Orçamento inválido. Informe um valor positivo.${COLORS.RESET}`);
@@ -57,12 +63,12 @@ const salesCommand = new Command('sales')
         return;
       }
 
-      const websiteUrl = await prompt(rl, 'URL do site:');
-      const headline = await prompt(rl, 'Título do anúncio:');
-      const primaryText = await prompt(rl, 'Texto principal:');
-      const description = await prompt(rl, 'Descrição:');
+      const websiteUrl = options.url ?? await prompt(rl!, 'URL do site:');
+      const headline = options.headline ?? await prompt(rl!, 'Título do anúncio:');
+      const primaryText = options.text ?? await prompt(rl!, 'Texto principal:');
+      const description = options.description ?? await prompt(rl!, 'Descrição:');
 
-      rl.close();
+      rl?.close();
 
       // Step 1: Scan creatives
       const spinner = options.quiet ? null : ora(STEP_LABELS.validate).start();
@@ -136,7 +142,7 @@ const salesCommand = new Command('sales')
       console.log(formatTable(['Campo', 'Valor'], rows));
       console.log(`\nTempo total: ${formatDuration(Date.now() - startTime)}`);
     } catch (error) {
-      rl.close();
+      rl?.close();
       const result = handleError(error);
       console.error(`\n${COLORS.RED}✗ ${result.message}${COLORS.RESET}`);
       if (result.action) {

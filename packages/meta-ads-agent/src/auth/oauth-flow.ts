@@ -7,7 +7,7 @@ import { AuthError } from '../errors/types.js';
 import type { TokenInfo, OAuthCallbackResult } from '../types/auth.js';
 
 const META_API_VERSION = 'v21.0';
-const AUTH_TIMEOUT_MS = 120_000;
+const AUTH_TIMEOUT_MS = 300_000;
 
 export function buildAuthorizationUrl(
   appId: string,
@@ -17,7 +17,7 @@ export function buildAuthorizationUrl(
   const params = new URLSearchParams({
     client_id: appId,
     redirect_uri: redirectUri,
-    scope: 'ads_management,ads_read,pages_read_engagement',
+    scope: 'ads_management,ads_read,pages_read_engagement,pages_show_list,instagram_business_basic',
     response_type: 'code',
     state,
   });

@@ -10,7 +10,9 @@ import {
   instagramResponseSchema,
   getStatusLabel,
 } from './types.js';
-import type { AdAccount, Page, InstagramAccount } from './types.js';
+import type { AdAccount, Page, InstagramAccount, MediaImage, MediaVideo, BudgetInfo } from './types.js';
+import type { InsightsParams, RawInsightRow } from '../types/insights.js';
+import { rawInsightRowSchema } from '../types/insights.js';
 
 const require = createRequire(import.meta.url);
 const bizSdk = require('facebook-nodejs-business-sdk') as typeof import('facebook-nodejs-business-sdk');
@@ -318,4 +320,228 @@ export async function deleteAd(adId: string): Promise<void> {
   } catch {
     logger.warn({ adId }, 'Failed to delete ad during rollback');
   }
+}
+
+export async function getVideoThumbnailUrl(videoId: string): Promise<string> {
+  const token = await initApi();
+  logger.debug({ videoId }, 'Fetching video thumbnail');
+
+  try {
+    const url = `${BASE_URL}/${videoId}?fields=picture&access_token=${token}`;
+    const response = await fetch(url);
+    const json = (await response.json()) as Record<string, unknown>;
+
+    if (json['error']) {
+      handleMetaError({ body: json });
+    }
+
+    return (json['picture'] as string) ?? '';
+  } catch (error) {
+    if (error instanceof MetaApiError || error instanceof NetworkError) {
+      throw error;
+    }
+    handleMetaError(error);
+  }
+}
+
+export async function listMediaImages(adAccountId: string): Promise<MediaImage[]> {
+  const token = await initApi();
+  logger.debug({ adAccountId }, 'Fetching media images');
+
+  const images: MediaImage[] = [];
+  let url: string | null = `${BASE_URL}/act_${adAccountId}/adimages?fields=name,hash,url_128,created_time,status&limit=100&access_token=${token}`;
+
+  while (url) {
+    const response = await fetch(url);
+    const json = (await response.json()) as Record<string, unknown>;
+
+    if (json['error']) {
+      handleMetaError({ body: json });
+    }
+
+    const data = json['data'] as Record<string, unknown>[] | undefined;
+    if (!data) break;
+
+    for (const item of data) {
+      images.push({
+        name: (item['name'] as string) ?? 'untitled',
+        hash: item['hash'] as string,
+        url128: (item['url_128'] as string) ?? '',
+        createdTime: item['created_time'] as string,
+        status: (item['status'] as string) ?? 'ACTIVE',
+      });
+    }
+
+    const paging = json['paging'] as Record<string, unknown> | undefined;
+    url = (paging?.['next'] as string) ?? null;
+  }
+
+  return images;
+}
+
+export function periodToDateRange(
+  period: string,
+  from?: string,
+  to?: string,
+): { since: string; until: string } {
+  if (from && to) {
+    return { since: from, until: to };
+  }
+
+  const now = new Date();
+  const until = now.toISOString().split('T')[0];
+  const daysMap: Record<string, number> = { '7d': 7, '14d': 14, '30d': 30 };
+  const days = daysMap[period] ?? 7;
+  const sinceDate = new Date(now);
+  sinceDate.setDate(sinceDate.getDate() - days);
+  const since = sinceDate.toISOString().split('T')[0];
+
+  return { since, until };
+}
+
+export async function getInsights(params: InsightsParams): Promise<RawInsightRow[]> {
+  const token = await initApi();
+  logger.debug({ adAccountId: params.adAccountId, level: params.level }, 'Fetching insights');
+
+  const { since, until } = periodToDateRange(params.period, params.from, params.to);
+
+  const baseFields = 'spend,impressions,cpm,frequency,actions,cost_per_action_type,website_ctr,purchase_roas';
+  const levelFields: Record<string, string> = {
+    campaign: ',campaign_name,campaign_id',
+    adset: ',campaign_name,campaign_id,adset_name,adset_id',
+    ad: ',campaign_name,campaign_id,adset_name,adset_id,ad_name,ad_id',
+  };
+  const fields = baseFields + (levelFields[params.level] ?? '');
+
+  const queryParams = new URLSearchParams({
+    fields,
+    time_range: JSON.stringify({ since, until }),
+    access_token: token,
+    limit: '500',
+  });
+
+  if (params.level !== 'account') {
+    queryParams.set('level', params.level);
+  }
+
+  if (params.filter?.campaignId) {
+    queryParams.set(
+      'filtering',
+      JSON.stringify([
+        { field: 'campaign.id', operator: 'EQUAL', value: params.filter.campaignId },
+      ]),
+    );
+  }
+
+  const rows: RawInsightRow[] = [];
+  let url: string | null =
+    `${BASE_URL}/act_${params.adAccountId}/insights?${queryParams.toString()}`;
+
+  try {
+    while (url) {
+      const response = await fetch(url);
+      const json = (await response.json()) as Record<string, unknown>;
+
+      if (json['error']) {
+        handleMetaError({ body: json });
+      }
+
+      const data = json['data'] as Record<string, unknown>[] | undefined;
+      if (!data) break;
+
+      for (const item of data) {
+        rows.push(rawInsightRowSchema.parse(item));
+      }
+
+      const paging = json['paging'] as Record<string, unknown> | undefined;
+      url = (paging?.['next'] as string) ?? null;
+    }
+  } catch (error) {
+    if (error instanceof MetaApiError || error instanceof NetworkError) {
+      throw error;
+    }
+    handleMetaError(error);
+  }
+
+  return rows;
+}
+
+export async function getAdSetBudgets(adAccountId: string): Promise<BudgetInfo[]> {
+  const token = await initApi();
+  logger.debug({ adAccountId }, 'Fetching ad set budgets');
+
+  const budgets: BudgetInfo[] = [];
+  let url: string | null =
+    `${BASE_URL}/act_${adAccountId}/adsets?fields=name,daily_budget,lifetime_budget,campaign_id&limit=500&access_token=${token}`;
+
+  try {
+    while (url) {
+      const response = await fetch(url);
+      const json = (await response.json()) as Record<string, unknown>;
+
+      if (json['error']) {
+        handleMetaError({ body: json });
+      }
+
+      const data = json['data'] as Record<string, unknown>[] | undefined;
+      if (!data) break;
+
+      for (const item of data) {
+        const dailyRaw = item['daily_budget'] as string | undefined;
+        const lifetimeRaw = item['lifetime_budget'] as string | undefined;
+        budgets.push({
+          adsetName: (item['name'] as string) ?? '',
+          dailyBudget: dailyRaw ? parseInt(dailyRaw, 10) / 100 : null,
+          lifetimeBudget: lifetimeRaw ? parseInt(lifetimeRaw, 10) / 100 : null,
+          campaignId: (item['campaign_id'] as string) ?? '',
+        });
+      }
+
+      const paging = json['paging'] as Record<string, unknown> | undefined;
+      url = (paging?.['next'] as string) ?? null;
+    }
+  } catch (error) {
+    if (error instanceof MetaApiError || error instanceof NetworkError) {
+      throw error;
+    }
+    handleMetaError(error);
+  }
+
+  return budgets;
+}
+
+export async function listMediaVideos(adAccountId: string): Promise<MediaVideo[]> {
+  const token = await initApi();
+  logger.debug({ adAccountId }, 'Fetching media videos');
+
+  const videos: MediaVideo[] = [];
+  let url: string | null = `${BASE_URL}/act_${adAccountId}/advideos?fields=title,id,created_time,length,status&limit=100&access_token=${token}`;
+
+  while (url) {
+    const response = await fetch(url);
+    const json = (await response.json()) as Record<string, unknown>;
+
+    if (json['error']) {
+      handleMetaError({ body: json });
+    }
+
+    const data = json['data'] as Record<string, unknown>[] | undefined;
+    if (!data) break;
+
+    for (const item of data) {
+      const statusObj = item['status'] as Record<string, unknown> | undefined;
+      videos.push({
+        id: item['id'] as string,
+        title: (item['title'] as string) ?? 'untitled',
+        createdTime: item['created_time'] as string,
+        duration: (item['length'] as number) ?? 0,
+        status: (statusObj?.['video_status'] as string) ?? 'unknown',
+      });
+    }
+
+    const paging = json['paging'] as Record<string, unknown> | undefined;
+    url = (paging?.['next'] as string) ?? null;
+  }
+
+  return videos;
 }

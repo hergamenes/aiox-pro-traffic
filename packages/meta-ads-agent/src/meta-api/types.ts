@@ -62,6 +62,33 @@ export const instagramResponseSchema = z.object({
   username: z.string().optional().default(''),
 });
 
+// Media Library types
+
+export interface MediaImage {
+  name: string;
+  hash: string;
+  url128: string;
+  createdTime: string;
+  status: string;
+}
+
+export interface MediaVideo {
+  id: string;
+  title: string;
+  createdTime: string;
+  duration: number;
+  status: string;
+}
+
+// Budget info (Story 4.1)
+
+export interface BudgetInfo {
+  adsetName: string;
+  dailyBudget: number | null;
+  lifetimeBudget: number | null;
+  campaignId: string;
+}
+
 // Upload response types and schemas (Story 2.2)
 
 export interface ImageUploadResponse {

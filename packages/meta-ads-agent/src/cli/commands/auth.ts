@@ -68,6 +68,95 @@ authCommand
   });
 
 authCommand
+  .command('manual')
+  .description('Autenticar com token colado manualmente (do Graph API Explorer)')
+  .action(async () => {
+    try {
+      console.log('');
+      console.log('📋 Autenticação Manual');
+      console.log('━━━━━━━━━━━━━━━━━━━━━');
+      console.log('');
+      console.log('1. Acesse: https://developers.facebook.com/tools/explorer/');
+      console.log('2. No topo, selecione seu App (aiox-cli ou aiox-ads-agent)');
+      console.log('3. Clique em "Generate Access Token"');
+      console.log('4. Marque as permissões: ads_management, ads_read, pages_read_engagement');
+      console.log('5. Clique em "Generate Access Token" e autorize');
+      console.log('6. Copie o token gerado e cole abaixo');
+      console.log('');
+
+      const token = await promptInput('Cole o Access Token aqui: ');
+      if (!token) {
+        console.error('✗ Token é obrigatório.');
+        process.exitCode = 1;
+        return;
+      }
+
+      // Validate token by calling /me
+      const response = await fetch(`https://graph.facebook.com/v21.0/me?access_token=${token}`);
+      const data = (await response.json()) as Record<string, unknown>;
+
+      if (data['error']) {
+        const error = data['error'] as Record<string, string>;
+        console.error(`✗ Token inválido: ${error['message']}`);
+        process.exitCode = 1;
+        return;
+      }
+
+      console.log(`✓ Token válido! Usuário: ${data['name']}`);
+
+      // Try to exchange for long-lived token if we have app credentials
+      const appId = await keychain.getAppId();
+      const appSecret = await keychain.getAppSecret();
+
+      let finalToken = token;
+      let expiresAt = new Date(Date.now() + 3600 * 1000); // 1 hour default
+
+      if (appId && appSecret) {
+        try {
+          const params = new URLSearchParams({
+            grant_type: 'fb_exchange_token',
+            client_id: appId,
+            client_secret: appSecret,
+            fb_exchange_token: token,
+          });
+          const longResponse = await fetch(
+            `https://graph.facebook.com/v21.0/oauth/access_token?${params.toString()}`
+          );
+          const longData = (await longResponse.json()) as Record<string, unknown>;
+
+          if (longData['access_token']) {
+            finalToken = longData['access_token'] as string;
+            const expiresIn = (longData['expires_in'] as number) ?? 5_184_000;
+            expiresAt = new Date(Date.now() + expiresIn * 1000);
+            console.log('✓ Token convertido para longa duração (60 dias)');
+          }
+        } catch {
+          logger.debug('Could not exchange for long-lived token, using short-lived');
+        }
+      }
+
+      await tokenManager.saveToken({
+        accessToken: finalToken,
+        expiresAt,
+        appId: appId ?? '',
+      });
+
+      console.log('');
+      console.log('✓ Autenticação concluída!');
+      console.log(`  Expira em: ${expiresAt.toLocaleDateString('pt-BR')}`);
+    } catch (error) {
+      if (error instanceof AuthError) {
+        console.error(`✗ ${error.message}`);
+        if (error.action) console.error(`  ${error.action}`);
+      } else {
+        logger.error(error, 'Manual auth failed');
+        console.error('✗ Erro inesperado durante autenticação.');
+      }
+      process.exitCode = 1;
+    }
+  });
+
+authCommand
   .command('status')
   .description('Verificar status da autenticação')
   .action(async () => {

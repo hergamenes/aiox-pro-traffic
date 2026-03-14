@@ -283,6 +283,7 @@ dependencies:
     - deprecate-component.md
     - document-project.md
     - execute-checklist.md
+    - create-wave-map.md
     - improve-self.md
     - index-docs.md
     - kb-mode-interaction.md
