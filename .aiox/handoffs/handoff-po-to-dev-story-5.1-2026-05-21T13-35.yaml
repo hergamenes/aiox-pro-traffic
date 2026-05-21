@@ -1,0 +1,107 @@
+handoff:
+  from_agent: po
+  to_agent: dev
+  timestamp: "2026-05-21T13:35:00Z"
+  last_command: "*validate-story-draft 5.1"
+  consumed: false
+
+  story_context:
+    story_id: "5.1"
+    story_path: docs/stories/5.1.google-ads-cli-scaffold-auth.story.md
+    story_status: Ready
+    story_title: "Google Ads CLI Scaffold & OAuth Authentication"
+    branch: main
+    epic: epic-5-google-ads-agent
+
+  validation_result:
+    verdict: GO
+    score: 8.5
+    threshold: 7.0
+    rubric: 10-point checklist (story-lifecycle.md)
+    breakdown:
+      1_title: PASS
+      2_description: PASS
+      3_acceptance_criteria: PASS
+      4_scope: PASS
+      5_dependencies: PASS
+      6_complexity: PASS (added during validation)
+      7_business_value: PASS
+      8_risks: PASS (added during validation)
+      9_criteria_of_done: PASS
+      10_alignment: PASS
+
+  fixes_applied_during_validation:
+    - "Added Complexity Estimate section (T-shirt: M, 5 story points, 4-8h)"
+    - "Added Risks section (6 risks R1-R6 with probability/impact/mitigation)"
+    - "Promoted Status: Draft → Ready"
+    - "Logged transition in Change Log"
+
+  business_context: |
+    First story of epic-5-google-ads-agent. This is the foundation work
+    that unblocks stories 5.2 (accounts + config) and 5.3 (report).
+    Without this scaffold + auth, no other command can be built.
+
+    The traffic-google squad cannot be created (by squad-chief) until
+    the full Phase 1 MVP (5.1 + 5.2 + 5.3) is delivered.
+
+  ready_for_implementation:
+    confirmed: true
+    blockers_for_implementation: []
+    blockers_for_smoke_test:
+      - "User must provide: developer-token (Google Ads API Center)"
+      - "User must provide: Google Cloud OAuth client_id + client_secret"
+      - "User must authorize scope: https://www.googleapis.com/auth/adwords"
+      - "These do NOT block Tasks 1-10 — only Task 11 (smoke)"
+
+  scope_summary:
+    in_scope:
+      - "packages/google-ads-agent/ scaffold (mirror meta-ads-agent stack)"
+      - "src/auth/keychain.ts (6 keys under service name google-ads-agent)"
+      - "src/auth/oauth-flow.ts (Google OAuth loopback flow on port 8765)"
+      - "src/auth/token-manager.ts (ensureValidAuth, verifyToken)"
+      - "src/google-ads-api/client.ts (adapter port for SDK — MINIMAL for auth)"
+      - "src/cli/commands/auth.ts (setup | manual | status)"
+      - "src/errors/ (3 files: types, error-map, error-handler — PT-BR translation)"
+      - "Unit tests >= 80% coverage on new files"
+      - "Lint clean + build produces dist/bin/google-ads.js"
+    out_of_scope_for_this_story:
+      - "accounts command (Story 5.2)"
+      - "config set-default (Story 5.2)"
+      - "report command (Story 5.3)"
+      - "Mutations: create / up / batch / upload (Phase 2, future epic)"
+
+  references:
+    architecture_spec: docs/architecture/google-ads-agent.md
+    architect_handoff: .aiox/handoffs/handoff-architect-to-dev-google-ads-agent-2026-05-21T13-20.yaml
+    reference_implementation: packages/meta-ads-agent/
+    sdk_npm: https://www.npmjs.com/package/google-ads-api
+    google_oauth_docs: https://developers.google.com/identity/protocols/oauth2
+
+  recommended_execution_mode: interactive
+  rationale_for_mode: |
+    Story has 11 substantial tasks with clear dependencies between them.
+    YOLO mode risky because:
+    - OAuth flow has multiple integration points (URL builder, loopback server, code exchange, keychain persistence)
+    - Boundary rule enforcement (src/google-ads-api/ is the only place that imports the SDK) needs human checkpoint
+    - Keychain operations are platform-specific (macOS only via keytar) and may need adjustment
+    Interactive mode lets @dev confirm at each checkpoint without burning iterations.
+
+  qa_handoff_when_ready:
+    target: qa
+    trigger: "@dev completes all 11 tasks, marks Status: InReview"
+    artifact_to_pass:
+      - "Story 5.1 with Tasks/Subtasks all checked"
+      - "File List populated in story"
+      - "Dev Agent Record populated"
+      - "All AC verifiable via QA gate"
+
+  open_questions_for_user_when_smoke_test_arrives:
+    - "Do you already have a Google Ads Developer Token (waited ~1 week for approval in some cases)?"
+    - "Do you want to reuse an existing Google Cloud OAuth client or create a fresh one for google-ads-agent?"
+    - "If using MCC: what is your MCC customer-id?"
+
+  pop_notes:
+    - "@po reviewed story 5.1 against 10-point story-lifecycle checklist"
+    - "Score 8.5/10 — exceeds GO threshold of 7"
+    - "All 5 PASS criteria of story-draft-checklist.md (6th is N/A — CodeRabbit disabled)"
+    - "Story is READY for @dev to start *develop"

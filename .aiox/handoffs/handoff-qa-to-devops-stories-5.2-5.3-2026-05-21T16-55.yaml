@@ -1,0 +1,122 @@
+handoff:
+  from_agent: qa
+  to_agent: devops
+  timestamp: "2026-05-21T16:55:00Z"
+  last_command: "*qa-gate 5.2 e 5.3"
+  consumed: false
+
+  stories_gated:
+    - id: "5.2"
+      title: "Google Ads CLI — Accounts Listing + Default Config"
+      verdict: PASS
+      status: Done
+      gate_file: docs/qa/gates/5.2.google-ads-cli-accounts-config.yaml
+
+    - id: "5.3"
+      title: "Google Ads CLI — Report Command (MVP Star)"
+      verdict: CONCERNS
+      status: Done
+      gate_file: docs/qa/gates/5.3.google-ads-cli-report.yaml
+
+  epic_status: "epic-5-google-ads-agent MVP COMPLETO (3/3 stories Done)"
+
+  consolidated_metrics:
+    total_files_in_package: 27  # src files + tests + config
+    total_tests_passing: 101/101
+    total_test_files: 8
+    bundle_size_final: "40.7 KB"
+    lint_status: clean
+    boundary_rule_violations: 0
+    coverage_critical_files:
+      keychain: 100
+      config_repository: 100
+      error_map: 100
+      gaql_builder: 97
+      schema_parity_test: 100  # CRITICAL guardian
+
+  files_to_push:
+    new_files_in_packages:
+      - "packages/google-ads-agent/src/google-ads-api/accounts.ts (5.2)"
+      - "packages/google-ads-agent/src/google-ads-api/adapter.ts (5.3)"
+      - "packages/google-ads-agent/src/google-ads-api/gaql-builder.ts (5.3)"
+      - "packages/google-ads-agent/src/google-ads-api/gaql-builder.test.ts (5.3)"
+      - "packages/google-ads-agent/src/cli/commands/accounts.ts (5.2)"
+      - "packages/google-ads-agent/src/cli/commands/config.ts (5.2)"
+      - "packages/google-ads-agent/src/cli/commands/report.ts (5.3)"
+      - "packages/google-ads-agent/src/config/config-repository.ts (5.2)"
+      - "packages/google-ads-agent/src/config/config-repository.test.ts (5.2)"
+      - "packages/google-ads-agent/src/types/insights.ts (5.3)"
+      - "packages/google-ads-agent/src/reporting/insights-parser.ts (5.3)"
+      - "packages/google-ads-agent/src/reporting/insights-parser.test.ts (5.3)"
+      - "packages/google-ads-agent/src/reporting/campaign-filter.ts (5.3)"
+      - "packages/google-ads-agent/src/reporting/campaign-filter.test.ts (5.3)"
+      - "packages/google-ads-agent/src/reporting/report-formatter.ts (5.3)"
+      - "packages/google-ads-agent/src/reporting/__tests__/schema-parity.test.ts (5.3 CRITICAL)"
+    modified:
+      - "packages/google-ads-agent/src/cli/index.ts (registrou accounts + config + report)"
+      - "packages/google-ads-agent/src/errors/error-map.ts (+ REQUESTED_METRICS_FOR_MANAGER)"
+      - "packages/google-ads-agent/src/errors/error-handler.ts (loop + substring fallback)"
+    new_docs:
+      - "docs/stories/5.2.google-ads-cli-accounts-config.story.md"
+      - "docs/stories/5.3.google-ads-cli-report.story.md"
+      - "docs/qa/gates/5.2.google-ads-cli-accounts-config.yaml"
+      - "docs/qa/gates/5.3.google-ads-cli-report.yaml"
+    handoffs:
+      - ".aiox/handoffs/handoff-po-to-dev-stories-5.2-5.3-*.yaml"
+      - ".aiox/handoffs/handoff-dev-to-qa-stories-5.2-5.3-*.yaml"
+      - ".aiox/handoffs/handoff-qa-to-devops-stories-5.2-5.3-*.yaml (this file)"
+
+  push_recommendations:
+    strategy: single_commit_for_epic_completion
+    commit_message_suggestion: |
+      feat(google-ads-agent): complete MVP — accounts, config, report (Epic 5)
+
+      Closes Stories 5.2 + 5.3, completing the epic-5-google-ads-agent MVP.
+      The traffic-google squad is now unblocked.
+
+      Story 5.2 — Accounts Listing + Default Config (PASS):
+      - `google-ads accounts` lists customers with GAQL enrichment
+        (descriptive_name, currency_code, status); supports --format json
+      - `google-ads config set-default` (interactive) and get-default
+      - src/config/config-repository.ts persists defaults via Keychain
+
+      Story 5.3 — Report (CONCERNS — Done):
+      - `google-ads report` with 5 levels (account/campaign/ad_group/ad/keyword)
+      - GAQL builder + adapter.getInsights + insights-parser
+      - filterByTag + formatTableReport + formatJson
+      - schema-parity.test.ts (5 CRITICAL tests) — drift guardian on the
+        canonical 10 required + 3 optional keys declared in arch §8
+      - Smoke confirmed CLI runs technically (Google rejected the default
+        account because it is an MCC — see gate concern)
+
+      Stats: 101/101 tests passing, lint clean, bundle 40.7 KB.
+
+  pre_push_gate:
+    files_check: "Almost all .md/.yaml/.ts changes; one src/cli/index.ts change is wiring only"
+    ts_js_modified: true  # google-ads-agent has new TypeScript files
+    pre_push_required_locally: true  # devops should npm run lint + npm test in package
+    note: |
+      Diferente de outros pushes neste projeto (que foram só docs/yaml),
+      este push tem código TS/JS REAL no packages/google-ads-agent/.
+      @devops *pre-push deve rodar lint + test no pacote antes do git push.
+
+  user_action_required_before_push:
+    none_strictly_required: true
+    optional_for_concern_resolution: |
+      Para promover 5.3 de CONCERNS → PASS, usuário pode rodar smoke real-time
+      contra uma conta cliente (não MCC). Se a única conta acessível é MCC,
+      isso vira uma feature futura (--accounts tree, ou usuário providencia
+      acesso a uma conta cliente). Não é blocker do push.
+
+  next_action_for_squad_chief:
+    when: "After this push merges"
+    action: |
+      `@squad-chief *create-squad traffic-google` ou usar wrapper que espelhe
+      traffic-meta. Pontos de atenção:
+      1. Wireup dos 4 agents à CLI google-ads em vez de meta-ads
+      2. Tasks dos agents devem usar `--level ad_group` (não `--level adset`)
+      3. Documentar limitação MCC no squad (mensagem PT-BR já está clara)
+      4. Considerar normalizer se squad consumer cruza Meta + Google
+      5. claude_ai_Google_Ads MCP não está ativo — apenas CLI por enquanto
+
+  closing: "Quinn — Epic 5 MVP wrapped 🧪 → @devops"

@@ -1,0 +1,151 @@
+handoff:
+  from_agent: squad-chief
+  to_agent: architect
+  timestamp: "2026-05-21T13:04:00Z"
+  last_command: "*create-squad traffic-google (REOPENED — prerequisite missing)"
+  consumed: false
+
+  story_context:
+    story_id: null
+    story_path: null
+    story_status: planning
+    current_task: "Build Google Ads CLI (packages/google-ads-agent/) before creating traffic-google squad"
+    branch: main
+
+  business_context: |
+    User requested a new squad `traffic-google` mirroring the architecture of
+    `traffic-meta` (4 agents: planner, publisher, optimizer, analyst) with
+    real-time integration to Google Ads.
+
+    Squad-chief reopened the request after discovering that none of the
+    required real-time integrations exist in the project:
+    - No CLI in packages/ (only meta-ads-agent exists)
+    - No active Google Ads MCP (only Gmail/Calendar/Drive MCPs from Claude.ai)
+    - No google-ads SDK in any package.json
+
+    User decision: build the CLI FIRST, then create the squad in a separate
+    session. Squad creation is blocked until CLI is ready.
+
+  reference_artifact:
+    name: meta-ads-agent
+    path: packages/meta-ads-agent/
+    metrics:
+      lines_of_code: 5533
+      ts_files: 52
+      cli_commands: 12
+      tests: 117
+      dependencies:
+        - "@inquirer/prompts"
+        - commander
+        - facebook-nodejs-business-sdk
+        - keytar (macOS Keychain)
+        - sharp (image processing)
+        - fluent-ffmpeg (video)
+        - pino (logging)
+        - zod (validation)
+        - yaml
+    structure:
+      - src/auth/ (oauth-flow, token-manager, keychain)
+      - src/cli/commands/ (12 commands)
+      - src/campaign/ (strategies)
+      - src/creative/ (image/video upload)
+      - src/meta-api/ (adapter)
+      - src/reporting/ (insights-parser, campaign-filter, report-formatter)
+      - src/config/ (config-repository)
+      - src/errors/ (error-handler)
+      - src/log/ (pino logger)
+      - src/types/ (insights, creative)
+
+  target_artifact:
+    name: google-ads-agent
+    path: packages/google-ads-agent/ (TO BE CREATED)
+    sdk_candidate: "google-ads-api (npm) — official-compatible wrapper"
+    auth_requirements:
+      - developer_token (from Google Ads API Center)
+      - oauth_refresh_token (per user, longer-lived than Meta's 60d)
+      - customer_id (10-digit Google Ads account ID)
+      - login_customer_id (manager account, if applicable)
+    mvp_commands_for_squad_unblock:
+      - auth setup
+      - auth status
+      - accounts (list MCC + linked accounts)
+      - report (--customer-id, --from, --to, --level account/campaign/adgroup/ad, --format json)
+    full_command_set_later:
+      - create (Search / Display / PMax / YouTube)
+      - upload (images, videos, responsive search ads)
+      - history
+      - up (one-liner shortcut)
+      - batch (CSV-driven)
+      - config set-default
+
+  campaign_type_differences_meta_vs_google:
+    meta_ads_objectives: [sales, leads, traffic, awareness]
+    google_ads_campaign_types:
+      - Search
+      - Display
+      - Performance Max
+      - YouTube
+      - Shopping
+      - App
+      - Discovery / Demand Gen
+    structural_difference: |
+      Meta: campaign → ad set → ad
+      Google: campaign → ad group → ad
+      Google has additional layers: keyword themes, audience segments,
+      asset groups (PMax), conversion goals.
+
+  decisions_made_in_session:
+    - "User wants real-time integration (not manual CSV input)"
+    - "Squad architecture mirrors traffic-meta (planner/publisher/optimizer/analyst)"
+    - "CLI must come first — squad is blocked without it"
+    - "User explicitly requested @architect (Aria) handoff for CLI design"
+
+  files_modified_this_session: []  # Squad creation never started
+
+  blockers:
+    - "No google-ads CLI in project"
+    - "No active Google Ads MCP in Claude.ai integrations"
+    - "User has not yet provided: developer_token, customer_id, OAuth credentials"
+
+  next_action_for_architect: |
+    1. Design the google-ads-agent CLI architecture mirroring meta-ads-agent
+       (same patterns: commander + keytar + zod + pino).
+    2. Identify SDK: confirm `google-ads-api` (or `google-ads-node`) is the
+       right wrapper, or recommend alternative.
+    3. Plan auth flow (OAuth 2.0 + developer_token + customer_id handling).
+    4. Specify the MVP scope (auth + accounts + report) to unblock squad.
+    5. Hand off implementation to @dev (Dex).
+    6. When CLI is built and authenticated, signal back to @squad-chief to
+       create the traffic-google squad following the traffic-meta pattern.
+
+  related_artifacts:
+    existing_squad_for_pattern_reference:
+      - squads/traffic-meta/agents/campaign-launcher.md
+      - squads/traffic-meta/agents/campaign-publisher.md
+      - squads/traffic-meta/agents/campaign-optimizer.md
+      - squads/traffic-meta/agents/performance-analyst.md
+      - squads/traffic-meta/workflows/full-campaign-cycle.yaml
+      - squads/traffic-meta/tasks/launch-campaign.md
+      - squads/traffic-meta/tasks/publish-campaign.md
+      - squads/traffic-meta/tasks/optimize-cycle.md
+      - squads/traffic-meta/tasks/generate-report.md
+    existing_cli_for_implementation_reference:
+      - packages/meta-ads-agent/src/auth/keychain.ts
+      - packages/meta-ads-agent/src/auth/oauth-flow.ts
+      - packages/meta-ads-agent/src/auth/token-manager.ts
+      - packages/meta-ads-agent/src/cli/commands/auth.ts
+      - packages/meta-ads-agent/src/cli/commands/accounts.ts
+      - packages/meta-ads-agent/src/cli/commands/report.ts
+      - packages/meta-ads-agent/src/cli/index.ts
+      - packages/meta-ads-agent/package.json
+      - packages/meta-ads-agent/tsup.config.ts
+      - packages/meta-ads-agent/tsconfig.json
+
+  return_handoff_when_ready:
+    target: squad-chief
+    trigger: "CLI google-ads-agent built, authenticated, and `meta-ads accounts`-equivalent command working"
+    artifact_to_pass:
+      - "Path to packages/google-ads-agent/dist/bin/google-ads.js (or equivalent)"
+      - "List of working CLI commands with --help output"
+      - "Auth status confirmed (token valid)"
+      - "Sample output of report --format json (so squad can plan parsing)"

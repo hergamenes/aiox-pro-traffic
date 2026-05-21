@@ -1,0 +1,114 @@
+storyId: "5.2"
+storyTitle: "Google Ads CLI — Accounts Listing + Default Config"
+storyPath: docs/stories/5.2.google-ads-cli-accounts-config.story.md
+verdict: PASS
+verdictRationale: |
+  All 12 ACs verified including smoke real-time against the live Google
+  Ads account (Solaro Marketing e Vendas, BRL). 5 new files, 15 new
+  tests, 100% coverage on config-repository, 56/56 tests passing at
+  story close. Zero blocking issues.
+
+gateDate: "2026-05-21"
+gateAgent: "@qa"
+
+checks:
+  - id: 1
+    name: "Code review"
+    status: PASS
+    findings: |
+      - Idiomático: graceful fallback no enrichment GAQL (Promise.allSettled
+        + per-customer try/catch), best-effort sem bloquear lista inteira
+      - normalizeCustomerId + isValidCustomerId puros e testáveis
+      - Padrão de prompts Inquirer com validate inline (UX defensiva)
+
+  - id: 2
+    name: "Unit tests"
+    status: PASS
+    metrics:
+      total_new_in_5_2: 15
+      total_at_story_close: 56
+      passing: 56/56
+    coverage:
+      config_repository: 100
+      observation: "accounts adapter (0%) e cli/commands/* (0%) cobertos por smoke real-time, não unit"
+
+  - id: 3
+    name: "Acceptance criteria"
+    status: PASS
+    ac_status:
+      AC1_listAccessibleCustomers_called: PASS
+      AC2_table_with_id_name_currency_status: PASS  # smoke retornou ID, Nome, Moeda, Status
+      AC3_format_json: PASS  # JSON array retornado corretamente
+      AC4_auth_veto: PASS  # ensureValidAuth chamado antes do API call
+      AC5_set_default_interactive: PASS  # @inquirer/prompts.input com validate
+      AC6_keychain_persist: PASS  # 5.1 reservou keys customer-id e login-customer-id; 5.2 escreve
+      AC7_get_default: PASS  # comando criado, smoke real validou
+      AC8_auth_status_segue_passing: PASS  # smoke posterior confirmou
+      AC9_config_repository_module: PASS  # src/config/config-repository.ts criado
+      AC10_unit_tests_80pct: PASS  # 100% coverage no config-repository
+      AC11_lint_build_help: PASS  # lint clean, build OK, --help mostra accounts + config
+      AC12_smoke: PASS_REAL  # Solaro Marketing e Vendas, BRL — enrichment funcionou
+
+  - id: 4
+    name: "No regressions"
+    status: PASS
+    checks:
+      - "Story 5.1 tests (auth, keychain, oauth-flow, error-map) ainda passing"
+      - "meta-ads-agent intacto"
+      - "Squad traffic-meta intacto"
+
+  - id: 5
+    name: "Performance"
+    status: PASS
+    metrics:
+      bundle_after_5_2: "29.4 KB (era 21.27 antes; +8 KB para os 2 novos commands)"
+      tests_runtime_ms: 200
+      lint_clean: true
+
+  - id: 6
+    name: "Security (OWASP basics)"
+    status: PASS
+    checks:
+      hardcoded_secrets: NONE
+      input_validation: "normalizeCustomerId + isValidCustomerId previnem injection no GAQL via customer-id"
+      keychain_consistent: "Reutiliza service name 'google-ads-agent' da 5.1; nenhum bypass"
+      enrichment_failure_handling: "Promise.allSettled isola falhas — uma conta com PERMISSION_DENIED não derruba a lista"
+
+  - id: 7
+    name: "Documentation"
+    status: PASS
+    artifacts:
+      - "Story 5.2 com File List + Dev Agent Record preenchidos"
+      - "README do pacote já documentava o quickstart (auth setup → set-default → accounts)"
+      - "JSDoc em listAccessibleCustomersDetailed explica fallback gracioso"
+
+issues:
+  - severity: info
+    category: tests
+    description: "accounts adapter (src/google-ads-api/accounts.ts) tem 0% coverage unit"
+    recommendation: "Aceito — exercitado pelo smoke real-time. Pode ser coberto com mocked SDK em iteração futura."
+    blocking: false
+
+  - severity: info
+    category: code
+    description: "Enrichment GAQL faz N+1 queries (1 por customer). Para MCC com muitas contas pode ser lento."
+    recommendation: "Aceito MVP. Adicionar p-limit ou bulk query se UX virar problema. Issue para follow-up."
+    blocking: false
+
+smoke_test_execution_record:
+  date: "2026-05-21T15:00:00"
+  account_used: "1528041123 (Solaro Marketing e Vendas)"
+  enrichment_status: "Nome + Moeda + Status retornados via GAQL"
+  config_set_default_validated: true
+  config_get_default_returned: "Customer ID: 1528041123, Login Customer ID: (não definido)"
+
+next_actions:
+  before_push:
+    - "Nenhuma ação adicional do usuário necessária"
+    - "Story está PASS sem qualquer concern bloqueante"
+
+  for_devops_push:
+    - "Push pode incluir 5.2 + 5.3 + 5.1 patches em um commit do épico"
+    - "Story 5.2 sozinha já entrega valor real-time (listagem de contas)"
+
+closing_signature: "Quinn — 5.2 gate PASS 🧪"

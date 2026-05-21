@@ -1,0 +1,177 @@
+handoff:
+  from_agent: architect
+  to_agent: dev
+  timestamp: "2026-05-21T13:20:00Z"
+  last_command: "*create-doc architecture (google-ads-agent)"
+  consumed: true
+
+  story_context:
+    story_id: null  # @sm to draft; suggestion: epic-google-ads-agent with 3 stories (auth, accounts, report)
+    story_path: null
+    story_status: planning
+    current_task: "Implement packages/google-ads-agent MVP per architecture spec"
+    branch: main
+
+  business_context: |
+    The traffic-meta squad is wired to packages/meta-ads-agent for real-time
+    Meta Ads operations. User asked squad-chief to build traffic-google with
+    the same real-time promise. Squad-chief paused because no Google Ads CLI
+    exists. User chose to build the CLI first via @architect handoff.
+
+    Aria (architect) has produced the full architecture spec at
+    docs/architecture/google-ads-agent.md. @dev (Dex) implements Phase 1 (MVP)
+    so squad-chief can later create the traffic-google squad in a single
+    session, following the same pattern that worked for traffic-meta.
+
+  architecture_doc:
+    path: docs/architecture/google-ads-agent.md
+    summary: |
+      - Mirror packages/meta-ads-agent shape (same node22+TS+ESM+tsup stack).
+      - SDK: google-ads-api (Opteo, MIT, 220k weekly downloads).
+      - Port/Adapter discipline: nothing outside src/google-ads-api/ imports the SDK.
+      - 6 secrets in macOS Keychain (developer-token, client-id, client-secret,
+        refresh-token, customer-id, login-customer-id).
+      - MVP commands: auth (setup/manual/status), accounts, config set-default,
+        report (matching meta-ads report contract for squad parity).
+
+  sdk_decision:
+    chosen: google-ads-api (Opteo)
+    version: ^23.0.0
+    license: MIT
+    rationale: "MIT, 220k weekly downloads, TS native, MCC first-class, listAccessibleCustomers helper, reportStream async iterator, REST+Protobuf (no Bazel/gRPC binary chain)"
+    sample_call: |
+      const client = new GoogleAdsApi({ client_id, client_secret, developer_token });
+      const customer = client.Customer({ customer_id, login_customer_id, refresh_token });
+      const rows = await customer.report({
+        entity: 'campaign',
+        attributes: ['campaign.id', 'campaign.name'],
+        metrics: ['metrics.cost_micros', 'metrics.clicks', 'metrics.impressions', 'metrics.conversions'],
+        segments: ['segments.date'],
+        from_date: '2026-05-01', to_date: '2026-05-20',
+      });
+
+  implementation_checklist:
+    phase_1_mvp:
+      scaffolding:
+        - "Create packages/google-ads-agent/ directory"
+        - "package.json with bin entry, scripts (build/dev/lint/test), deps mirror meta-ads (swap facebook SDK for google-ads-api)"
+        - "tsup.config.ts (clone meta-ads tsup.config.ts, change entry points)"
+        - "tsconfig.json (clone meta-ads)"
+        - "eslint.config.js (clone meta-ads)"
+        - "bin/google-ads.ts (entrypoint shim — clone bin/meta-ads.ts)"
+      logging:
+        - "src/cli/logger.ts — port from meta-ads, rename env var to GOOGLE_ADS_DEBUG"
+      auth_module:
+        - "src/auth/keychain.ts — service name 'google-ads-agent', 6 keys (Section 6 of spec)"
+        - "src/auth/oauth-flow.ts — loopback server port 8765 (configurable via env), URL builder with scope 'https://www.googleapis.com/auth/adwords', code-for-token exchange"
+        - "src/auth/token-manager.ts — ensureValidAuth() returns {developerToken, clientId, clientSecret, refreshToken}"
+      adapter_port:
+        - "src/google-ads-api/client.ts — singleton GoogleAdsApi instance + Customer factory"
+        - "src/google-ads-api/accounts.ts — listAccessibleCustomers + MCC hierarchy expansion"
+        - "src/google-ads-api/adapter.ts — getInsights(InsightsParams) returning ParsedMetrics[]"
+        - "src/google-ads-api/types.ts — internal types"
+        - "BOUNDARY RULE: only files in this directory import 'google-ads-api' (npm). Enforce via lint rule if possible."
+      reporting:
+        - "src/reporting/insights-parser.ts — row → ParsedMetrics with canonical keys (parity with meta-ads parser output shape)"
+        - "src/reporting/campaign-filter.ts — substring match on campaign name (port from meta-ads)"
+        - "src/reporting/report-formatter.ts — formatTable + formatJson (port from meta-ads)"
+      config:
+        - "src/config/config-repository.ts — YAML at ~/.aiox/google-ads.yaml (mirror meta-ads at ~/.aiox/meta-ads.yaml)"
+      errors:
+        - "src/errors/error-handler.ts — central handler with PT-BR (port pattern)"
+        - "src/errors/error-map.ts — top 10 Google Ads error codes translated"
+        - "src/errors/types.ts — AppError, GoogleAdsApiError classes"
+      cli_commands:
+        - "src/cli/commands/auth.ts — setup | manual | status (+ refresh optional)"
+        - "src/cli/commands/accounts.ts — list (table/json)"
+        - "src/cli/commands/config.ts — set-default (customer-id + login-customer-id prompts)"
+        - "src/cli/commands/report.ts — matches Section 8 contract of arch spec (parity with meta-ads report)"
+      wiring:
+        - "src/cli/index.ts — Commander program with all commands registered"
+      tests:
+        - "vitest config (clone meta-ads)"
+        - "Unit: insights-parser, campaign-filter, report-formatter, error-map"
+        - "Integration: accounts + report with mocked SDK (msw or direct mock)"
+        - "Smoke (manual): real auth → real account → real report --format json"
+      docs:
+        - "packages/google-ads-agent/README.md — quickstart (auth setup → set-default → report)"
+
+  acceptance_criteria:
+    must_pass:
+      - "node dist/bin/google-ads.js --help lists auth, accounts, config, report"
+      - "auth setup writes 5+ keys to Keychain end-to-end"
+      - "auth status returns green for valid, red with actionable PT-BR message for missing keys"
+      - "accounts returns >=1 row for user with Google Ads access"
+      - "config set-default persists to ~/.aiox/google-ads.yaml"
+      - "report --period 7d --level campaign --format json returns JSON array"
+      - "report --from YYYY-MM-DD --to YYYY-MM-DD --level ad_group --format json works"
+      - "report --campaign-id <id> --format json filters correctly"
+      - "report exits non-zero with PT-BR message when auth is invalid"
+      - "npm run lint clean"
+      - "npm run build produces dist/bin/google-ads.js < 1 MB"
+      - "All unit tests pass (npm test)"
+
+  user_credentials_required:
+    blocker_for_smoke_test: true
+    items:
+      - "Developer Token (from https://developers.google.com/google-ads/api/docs/first-call/dev-token)"
+      - "Google Cloud OAuth client_id + client_secret"
+      - "OAuth scope authorized: https://www.googleapis.com/auth/adwords"
+      - "Default Customer ID (10-digit, format 123-456-7890)"
+      - "Login Customer ID if operating via MCC (optional)"
+    note: "User can complete auth setup once code is ready. Implementation can proceed up to smoke test without these."
+
+  json_output_contract:
+    description: "report --format json MUST emit objects with these keys (parity with meta-ads for squad reuse)"
+    keys:
+      - id
+      - name
+      - level  # account|campaign|ad_group|ad|keyword
+      - spend
+      - impressions
+      - clicks
+      - ctr
+      - cpc
+      - conversions
+      - cpa
+      - roas
+      - date_range  # { from: 'YYYY-MM-DD', to: 'YYYY-MM-DD' }
+    notes:
+      - "Convert cost_micros to BRL/USD using customer.currency_code (Google returns micros = currency * 1_000_000)"
+      - "If metric is absent, omit the key rather than emit null (parity with meta-ads parser)"
+
+  references:
+    architecture_spec: docs/architecture/google-ads-agent.md
+    reference_implementation: packages/meta-ads-agent/
+    sdk_docs: https://github.com/Opteo/google-ads-api
+    sdk_npm: https://www.npmjs.com/package/google-ads-api
+    google_ads_api_docs: https://developers.google.com/google-ads/api/docs/start
+    meta_ads_squad_consumer_pattern:
+      - squads/traffic-meta/agents/campaign-optimizer.md  # for parity expectations
+      - squads/traffic-meta/tasks/optimize-cycle.md
+      - squads/traffic-meta/tasks/generate-report.md
+
+  next_steps_after_dev:
+    immediate:
+      - "@dev implements Phase 1 per checklist above"
+      - "@qa runs acceptance criteria gate"
+      - "@devops pushes once green"
+    follow_up:
+      - "User runs 'google-ads auth setup' with their credentials"
+      - "@squad-chief creates traffic-google squad using google-ads-agent (mirror traffic-meta pattern)"
+      - "Optional: Phase 2 (create / upload / up / batch / history) scheduled when mutation needs arise"
+
+  open_questions_for_user:
+    - "Do you already have a Google Ads developer token, or do we need to request one?"
+    - "Reuse existing Google Cloud OAuth client or create fresh for google-ads-agent?"
+    - "Do you operate via MCC (Manager Account)? If yes, what is the MCC customer ID?"
+    - "Is read-only MVP enough for now, or is Phase 2 (campaign creation) needed within 30 days?"
+
+  return_handoff_when_ready:
+    target: squad-chief
+    trigger: "Phase 1 MVP merged to main, smoke test passed with real account"
+    artifact_to_pass:
+      - "Confirmation that google-ads auth/accounts/report all working"
+      - "Sample JSON output of 'google-ads report --period 7d --format json'"
+      - "Path to dist/bin/google-ads.js"
+      - "Auth status: token valid, default customer set"

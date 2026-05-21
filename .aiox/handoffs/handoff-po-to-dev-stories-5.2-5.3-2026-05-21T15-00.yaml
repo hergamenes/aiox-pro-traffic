@@ -1,0 +1,83 @@
+handoff:
+  from_agent: po
+  to_agent: dev
+  timestamp: "2026-05-21T15:00:00Z"
+  last_command: "*validate-story-draft 5.2 e 5.3"
+  consumed: false
+
+  story_context:
+    epic: epic-5-google-ads-agent
+    branch: main
+    stories_validated:
+      - id: "5.2"
+        title: "Google Ads CLI — Accounts Listing + Default Config"
+        path: docs/stories/5.2.google-ads-cli-accounts-config.story.md
+        status: Ready
+        verdict: GO
+        score: 10
+        complexity: S (3 pts / 2-4h)
+      - id: "5.3"
+        title: "Google Ads CLI — Report Command (MVP Star)"
+        path: docs/stories/5.3.google-ads-cli-report.story.md
+        status: Ready
+        verdict: GO
+        score: 10
+        complexity: M (5 pts / 4-6h)
+
+  validation_summary: |
+    Ambas as stories drafted pelo @sm passaram com 10/10 no 10-point
+    checklist da story-lifecycle. Nenhuma revisão exigida pelo @po —
+    Complexity Estimate e Risks já incluídos no draft inicial pelo SM
+    (aprendizado da Story 5.1 onde tiveram que ser adicionados durante
+    a validação).
+
+  critical_highlights_for_dev:
+    story_5_2:
+      - "Adapter port já criado na 5.1 — listAccessibleCustomers funciona; só faltam wrappers CLI"
+      - "Decisão pragmática: enrichment com Nome/Moeda via GAQL é 'best effort'. Começar sem; adicionar se UX do smoke for ruim com lista de IDs nus"
+      - "Persistência via Keychain (chaves customer-id e login-customer-id já reservadas na 5.1) — não criar YAML duplicado"
+      - "config-repository.ts pode ser wrapper finíssimo sobre keychain functions já existentes"
+
+    story_5_3:
+      - "AC #6 declara schema JSON EXATO — não improvisar; usar mesmas keys do meta-ads"
+      - "Task 7 inclui schema-parity.test.ts (CRÍTICO) — abre meta-ads-agent/types/insights.ts em runtime, compara keys, falha se houver drift. ESSE TESTE É O GUARDIÃO DO R1"
+      - "Conversão cost_micros / 1_000_000 é OBRIGATÓRIA em toda métrica monetária — esquecer = bug crítico"
+      - "GAQL builder é módulo novo. Pattern: function buildGaql(InsightsParams): string"
+      - "5 levels: account/campaign/ad_group/ad/keyword. keyword é Google-only (ad_group_criterion)"
+      - "PMax pode retornar zeros em ad_group level — esperado, não tratar como bug"
+
+  recommended_execution_order:
+    sequence: "5.2 first, then 5.3"
+    rationale: "5.3 lê customer-id default via config-repository (5.2). Sem 5.2 done, 5.3 precisaria sempre receber customer-id por arg — perde UX."
+
+  recommended_execution_mode:
+    story_5_2: yolo
+    story_5_2_rationale: "Small (3 pts), módulos já existem em meta-ads como referência verbatim, sem decisões arquiteturais novas."
+    story_5_3: interactive
+    story_5_3_rationale: "Medium (5 pts), GAQL builder é módulo NOVO sem espelho exato em meta-ads (Meta usa SDK methods diferentes). Schema parity é decisão crítica — checkpoint humano recomendado."
+
+  cross_story_dependencies:
+    - "5.2.Task3 (config-repository.ts) é consumido por 5.3.Task5 (report command lê default via config-repository.getDefaults())"
+    - "5.3 schema parity test depende de meta-ads-agent/src/types/insights.ts continuar com mesma estrutura — sinalizar mudanças cruzadas em PRs futuros"
+
+  user_credentials_status:
+    auth_status: "✓ Valid (verified 2026-05-21 14:42)"
+    customer_accessible: "1528041123 (1 account)"
+    note: "Smoke das 5.2 e 5.3 pode usar a mesma conta. Sem trabalho adicional do usuário antes de @dev começar."
+
+  references:
+    architecture_spec: docs/architecture/google-ads-agent.md
+    foundation_story: docs/stories/5.1.google-ads-cli-scaffold-auth.story.md
+    meta_ads_reference: packages/meta-ads-agent/
+    arch_section_for_schema: "docs/architecture/google-ads-agent.md §8 (Report command contract)"
+
+  qa_handoff_when_ready:
+    target: qa
+    trigger_per_story: "@dev completes story, marks Status: InReview, populates File List + Dev Agent Record"
+    note: "Each story has independent QA gate. 5.2 can ship before 5.3 starts if preferred — they're independent except for the soft dependency mentioned above."
+
+  squad_unblock_target:
+    when: "After Story 5.3 reaches Done"
+    action: "@squad-chief creates squad traffic-google mirroring traffic-meta pattern, wiring all 4 agents to google-ads CLI + appropriate MCP if available"
+
+  closing: "Pax — 2 stories Ready 🎯"

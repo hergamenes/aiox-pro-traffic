@@ -1,0 +1,197 @@
+storyId: "5.1"
+storyTitle: "Google Ads CLI Scaffold & OAuth Authentication"
+storyPath: docs/stories/5.1.google-ads-cli-scaffold-auth.story.md
+verdict: PASS
+verdictRationale: |
+  PROMOTED from CONCERNS to PASS on 2026-05-21 14:42:
+  - All 12 ACs verified including smoke test (AC12)
+  - 41/41 unit tests passing
+  - End-to-end auth flow validated against real Google Ads account
+  - Customer ID 1528041123 returned successfully
+
+  Two issues encountered during smoke were resolved:
+  1. URL truncation in terminal — fixed via tryOpenBrowser() patch
+     (browser opens automatically; URL also saved to /tmp/ as fallback)
+  2. Google Ads API not enabled in Cloud Project — user enabled it
+     in Console; documented in gate as info-level prerequisite
+
+  Outstanding non-blocking observations remain documented (gRPC stack
+  trace verbosity in error output, lint enforcement of boundary rule,
+  retry on transient network errors) — all suitable for follow-up
+  iterations without blocking push.
+
+gateDate: "2026-05-21"
+gateAgent: "@qa"
+
+checks:
+  - id: 1
+    name: "Code review"
+    status: PASS
+    findings: |
+      - Padrões idiomáticos (boundary rule comentada, JSDoc onde importa)
+      - Defensivo nos pontos certos (CSRF state validation, timer cleanup,
+        token redact pattern abrangente, token masking em CLI outputs)
+      - Singleton com signature-based invalidation em createClient
+      - Optional fields espalhados com `...(value ? {key} : {})` pattern
+      - PT-BR consistente em mensagens user-facing
+
+  - id: 2
+    name: "Unit tests"
+    status: PASS
+    metrics:
+      total: 41
+      passing: 41
+      failing: 0
+      files:
+        - "src/auth/keychain.test.ts (13)"
+        - "src/auth/oauth-flow.test.ts (15)"
+        - "src/errors/error-map.test.ts (13)"
+    coverage:
+      keychain.ts: 100
+      error-map.ts: 100
+      oauth-flow.ts: 100
+      overall: 40
+      note: "AC#11 wording 'arquivos novos' interpretado como os 3 arquivos nominados — todos 100%. Outros files (token-manager, error-handler, client, display) ficam para integration tests nas Stories 5.2/5.3 quando houver callers reais."
+
+  - id: 3
+    name: "Acceptance criteria"
+    status: PASS
+    ac_status:
+      AC1: PASS  # Scaffold completo
+      AC2: PASS  # package.json correto (@aiox/google-ads-agent, bin, scripts, google-ads-api ^23.0.0)
+      AC3: PASS  # --help mostra auth + 3 subcomandos verificado
+      AC4: PASS  # 6 keys + SERVICE_NAME = 'google-ads-agent'
+      AC5: PASS  # OAuth flow implementado (smoke pending)
+      AC6: PASS  # auth manual fallback
+      AC7: PASS  # listAccessibleCustomers via adapter (smoke pending)
+      AC8: PASS  # 8 códigos PT-BR (8 Google Ads + 4 network = 12 total; mínimo era 6)
+      AC9: PASS  # Boundary rule: grep confirma apenas 1 import em src/google-ads-api/client.ts
+      AC10: PASS  # GOOGLE_ADS_DEBUG env var em logger.ts
+      AC11: PASS  # Coverage 100% nos 3 arquivos exigidos
+      AC12_lint_build: PASS  # lint clean + build 21.27 KB (after patch)
+      AC12_smoke: PASS  # confirmed 2026-05-21 14:42 — auth status ✓ retornou 1 customer acessível (1528041123)
+
+  - id: 4
+    name: "No regressions"
+    status: PASS
+    checks:
+      - "meta-ads-agent build OK (123 KB, mesmo bundle)"
+      - "meta-ads --help intact"
+      - "squads/traffic-meta intacto: 4 agents, 4 tasks, 1 workflow"
+      - "Nenhuma modificação fora do escopo do google-ads-agent + docs/architecture + docs/stories + .aiox/handoffs"
+
+  - id: 5
+    name: "Performance"
+    status: PASS
+    metrics:
+      bundle_size_kb: 19.87
+      bundle_vs_meta_ads: "6x menor (meta-ads tem 123 KB com mais comandos + lib mídia)"
+      build_time_ms: 7
+      test_runtime_ms: 185
+      cli_startup_ms: 649
+    note: "Bundle limit do AC#12 (< 1 MB) folgadíssimo (19.87 KB << 1024 KB)"
+
+  - id: 6
+    name: "Security (OWASP basics)"
+    status: PASS
+    checks:
+      hardcoded_secrets: NONE
+      csrf_protection: "State mismatch (possible CSRF) handled with reject + 400 response"
+      logger_redaction: "10 patterns including developerToken, clientSecret, refreshToken, accessToken + snake_case variants"
+      token_masking_in_cli: "mask() applied to developer/client/refresh tokens in setup output"
+      https_only: "All external endpoints HTTPS; only localhost loopback uses HTTP (intended)"
+      npm_audit: "0 vulnerabilities in production deps"
+
+  - id: 7
+    name: "Documentation"
+    status: PASS
+    artifacts:
+      - "packages/google-ads-agent/README.md (10 sections, quickstart + env vars + boundary rule)"
+      - "docs/architecture/google-ads-agent.md (282 lines, 15 sections)"
+      - "Story 5.1 File List preenchido (22 arquivos)"
+      - "Story 5.1 Dev Agent Record com decisões técnicas, validações, gaps"
+      - "Boundary rule documentada inline em src/google-ads-api/client.ts"
+
+issues:
+  - severity: medium
+    category: tests
+    description: "Coverage geral em 40% (arquivos não exigidos pela AC#11: token-manager, error-handler, client, display, cli/commands/auth)"
+    recommendation: "Integration tests na Story 5.2 (accounts) exercitarão token-manager + client + error-handler reais. CLI commands ficam por smoke."
+    blocking: false
+
+  - severity: resolved
+    category: tests
+    description: "auth setup OAuth end-to-end nunca foi executado contra Google Ads real"
+    recommendation: "✅ EXECUTED 2026-05-21 14:42 — auth setup + auth status returned ✓ with 1 customer accessible. AC12 smoke PASS."
+    blocking: false
+    resolution: "Patch aplicado em cli/commands/auth.ts: tryOpenBrowser() abre browser automaticamente via 'open' (macOS); URL salva em /tmp/google-ads-auth-url.txt como fallback. Google Cloud Project também precisou habilitar Google Ads API (extra-CLI prereq, documentado abaixo)."
+
+  - severity: low
+    category: code
+    description: "exchangeCodeForRefreshToken não tem retry em falhas de rede transientes"
+    recommendation: "MVP aceito — usuário pode retry manualmente. Considerar adicionar retry com backoff exponencial em iteração futura se UX for problema."
+    blocking: false
+
+  - severity: low
+    category: code
+    description: "configSignature no client.ts usa slice(0, 8) do dev-token — colisão teórica em ~4 bilhões de combinações"
+    recommendation: "Risco baixíssimo; aceito MVP. Se virar problema, usar hash completo (não bloqueia)."
+    blocking: false
+
+  - severity: info
+    category: docs
+    description: "Lint rule customizada para enforce de boundary rule não foi implementada"
+    recommendation: "POST-MVP. Por enquanto, boundary rule documentada inline + QA grep ad-hoc é suficiente."
+    blocking: false
+
+  - severity: medium
+    category: ux
+    description: "Quando a SDK Google Ads lança erro, a stack trace bruta gRPC aparece em stderr antes da mensagem PT-BR do error-handler"
+    recommendation: "Capturar stderr da SDK 'google-ads-node' ou silenciar @grpc/grpc-js via env var. POST-MVP. UX ainda OK porque mensagem PT-BR aparece no final."
+    blocking: false
+    observed_during: "smoke test (PERMISSION_DENIED para Google Ads API SERVICE_DISABLED)"
+
+  - severity: info
+    category: docs
+    description: "Habilitar Google Ads API no projeto Google Cloud é pré-requisito não documentado no README"
+    recommendation: "Adicionar item no README quickstart: 'Antes de auth setup, habilite a Google Ads API no Google Cloud Console: https://console.developers.google.com/apis/api/googleads.googleapis.com/overview?project=YOUR_PROJECT_ID'. Pode ser commit follow-up ou ir junto no push da Story 5.1."
+    blocking: false
+    user_action_documented: true
+
+patches_applied_post_initial_review:
+  - description: "tryOpenBrowser() em cli/commands/auth.ts — abre browser automaticamente via spawn('open', [url])"
+    file: packages/google-ads-agent/src/cli/commands/auth.ts
+    reason: "Terminal quebrou URL longa em 3 linhas; Cmd+click no terminal pegou só primeira linha; OAuth retornou invalid_request (response_type missing)"
+    impact: "Build size 19.87 → 21.27 KB (+1.4 KB; under 1MB limit)"
+    tests_status: "41/41 still passing"
+
+smoke_test_execution_record:
+  date: "2026-05-21T14:42:33"
+  account_used: "user@solaro.com.br"
+  customer_returned: "1528041123"
+  account_count: 1
+  duration_seconds_estimated: 60
+  blockers_encountered:
+    - "URL truncation on Cmd+click (resolved via tryOpenBrowser patch)"
+    - "Google Ads API disabled on Cloud Project (resolved by user enabling in Console)"
+
+next_actions:
+  before_push:
+    - "Usuário deve completar 'google-ads auth setup' com credenciais reais (developer-token + OAuth client)"
+    - "Confirmar 'google-ads auth status' retorna ✓ + lista de customers acessíveis"
+    - "Documentar smoke result em comment do PR ou no .aiox/handoffs/handoff-qa-to-devops-*.yaml"
+
+  for_devops_push:
+    - "Push o pacote completo packages/google-ads-agent/"
+    - "Push story 5.1.google-ads-cli-scaffold-auth.story.md"
+    - "Push docs/qa/gates/5.1.google-ads-cli-scaffold-auth.yaml (este arquivo)"
+    - "Push docs/architecture/google-ads-agent.md (já pendente desde @architect)"
+    - "Push handoffs em .aiox/handoffs/ se eles não forem gitignored"
+    - "Commit message: 'feat(google-ads-agent): scaffold + OAuth auth (Story 5.1)'"
+
+  for_next_story:
+    - "Story 5.2 (@sm): accounts list + config set-default"
+    - "Story 5.3 (@sm): report command (espelho meta-ads contract)"
+    - "Após 5.3 done: @squad-chief cria squad traffic-google"
+
+closing_signature: "Quinn — gate emitido com rigor 🧪"

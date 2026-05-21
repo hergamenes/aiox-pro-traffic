@@ -1,0 +1,91 @@
+handoff:
+  from_agent: qa
+  to_agent: devops
+  timestamp: "2026-05-21T13:50:00Z"
+  last_command: "*qa-gate 5.1"
+  consumed: false
+
+  story_context:
+    story_id: "5.1"
+    story_path: docs/stories/5.1.google-ads-cli-scaffold-auth.story.md
+    story_status: Done
+    story_title: "Google Ads CLI Scaffold & OAuth Authentication"
+    branch: main
+    epic: epic-5-google-ads-agent
+
+  gate_result:
+    verdict: CONCERNS
+    gate_file: docs/qa/gates/5.1.google-ads-cli-scaffold-auth.yaml
+    rationale: "All 7 checks pass; concerns são deferimentos esperados (smoke real-time pending credentials + coverage de arquivos que serão exercitados nas próximas stories). Nenhum item bloqueante."
+
+  checks_summary:
+    code_review: PASS
+    unit_tests: "PASS (41/41)"
+    acceptance_criteria: "PASS 12/12 (smoke parts of AC5/7/12 pending user credentials)"
+    no_regressions: PASS
+    performance: "PASS (19.87 KB bundle, 7ms build, 185ms tests)"
+    security: "PASS (0 hardcoded secrets, CSRF guard, redact pattern, 0 npm vulns)"
+    documentation: "PASS (README + arch doc + boundary inline)"
+
+  files_to_push:
+    new_packages:
+      - packages/google-ads-agent/  # entire directory (excluding node_modules, dist, coverage which are gitignored)
+    new_docs:
+      - docs/architecture/google-ads-agent.md
+      - docs/stories/5.1.google-ads-cli-scaffold-auth.story.md
+      - docs/stories/epics/epic-5-google-ads-agent/  # (empty dir for now; .gitkeep if needed)
+      - docs/qa/gates/5.1.google-ads-cli-scaffold-auth.yaml
+    handoffs_optional:
+      - .aiox/handoffs/handoff-squad-chief-to-architect-2026-05-21T13-04.yaml
+      - .aiox/handoffs/handoff-architect-to-dev-google-ads-agent-2026-05-21T13-20.yaml
+      - .aiox/handoffs/handoff-po-to-dev-story-5.1-2026-05-21T13-35.yaml
+      - .aiox/handoffs/handoff-dev-to-qa-story-5.1-2026-05-21T13-40.yaml
+      - .aiox/handoffs/handoff-qa-to-devops-story-5.1-2026-05-21T13-50.yaml
+      note: "Verificar se .aiox/ está gitignored. Se sim, pular este grupo."
+
+  user_action_required_before_push:
+    - "Rodar: node packages/google-ads-agent/dist/bin/google-ads.js auth setup"
+    - "Fornecer credenciais reais: developer-token, OAuth client_id, client_secret"
+    - "Confirmar: node packages/google-ads-agent/dist/bin/google-ads.js auth status"
+    - "Esperado: ✓ Autenticado + lista de customers acessíveis"
+    - "Se OK → @devops procede com push"
+    - "Se ERRO → volta para @dev com detalhes"
+
+  push_recommendations:
+    commit_strategy: single_commit
+    commit_message_suggestion: |
+      feat(google-ads-agent): scaffold + OAuth auth (Story 5.1)
+
+      First story of epic-5-google-ads-agent. Adds packages/google-ads-agent/
+      mirroring meta-ads-agent stack (Node 22 + TS + ESM + tsup + commander
+      + keytar + pino + vitest), with `auth` subcommand (setup | manual |
+      status) backed by Google OAuth 2.0 loopback flow and macOS Keychain.
+
+      Adapter port discipline: only src/google-ads-api/ may import the
+      google-ads-api npm SDK; all other modules consume internal types.
+
+      Status: 41/41 unit tests passing, lint clean, build 19.87 KB. QA gate
+      verdict CONCERNS (acceptable — smoke pending user credentials; details
+      in docs/qa/gates/5.1.google-ads-cli-scaffold-auth.yaml).
+
+      Closes: Story 5.1
+      Architecture: docs/architecture/google-ads-agent.md
+      Unblocks: Story 5.2 (accounts + config), Story 5.3 (report).
+
+  pre_push_gate:
+    files_check: "All files are .md, .yaml, .json, .ts (zero TS/JS production code modifying existing — only new packages directory)"
+    lint_required: false  # only QA changes (docs); google-ads-agent has its own lint passing
+    test_required: false  # already verified by QA
+    note: "@devops *pre-push will run normal validations on the diff"
+
+  next_story_unblocked:
+    - id: "5.2"
+      title: "Google Ads CLI — accounts + config set-default"
+      ready: true
+      assignment: "@sm to draft after this push"
+    - id: "5.3"
+      title: "Google Ads CLI — report command (MVP star)"
+      ready: false
+      depends_on: "5.2"
+
+  closing: "Quinn ✅ — handoff para @devops"

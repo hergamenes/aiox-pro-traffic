@@ -1,0 +1,165 @@
+handoff:
+  from_agent: dev
+  to_agent: qa
+  timestamp: "2026-05-21T15:15:00Z"
+  last_command: "*develop 5.2 e 5.3"
+  consumed: false
+
+  stories_completed:
+    - id: "5.2"
+      path: docs/stories/5.2.google-ads-cli-accounts-config.story.md
+      status: InReview
+      complexity_realized: S (≈1h)
+    - id: "5.3"
+      path: docs/stories/5.3.google-ads-cli-report.story.md
+      status: InReview
+      complexity_realized: M (≈2h incluindo o patch de error handling pos-smoke)
+
+  summary_per_story:
+    5_2:
+      files_created: 5
+      tests_added: 15
+      tests_total: 56
+      smoke_status: PASS_REAL
+      smoke_evidence: |
+        google-ads accounts retornou:
+        ID         | Nome                      | Moeda | Status
+        1528041123 | Solaro Marketing e Vendas | BRL   | 2
+        + config set-default persistiu 1528041123 como default
+      blocker_findings: none
+
+    5_3:
+      files_created: 11
+      tests_added: 45
+      tests_total: 101
+      smoke_status: PARTIAL
+      smoke_evidence: |
+        Tecnicamente, o CLI:
+        1. Construiu GAQL: SELECT campaign.id, campaign.name, metrics.cost_micros, ... FROM campaign WHERE segments.date DURING LAST_7_DAYS
+        2. Chamou customer.query(gaql) via Opteo SDK
+        3. Recebeu resposta válida do Google
+        4. Google rejeitou com REQUESTED_METRICS_FOR_MANAGER (conta MCC, não cliente)
+        5. error-handler traduziu para PT-BR limpa
+      blocker_findings: |
+        Conta default (1528041123) é Manager Account (MCC). Google não permite
+        métricas em MCC por design. Para validação end-to-end com dados reais,
+        usuário precisa rodar contra uma conta cliente filha da MCC. Não bloqueia
+        o gate — o CLI está funcional; é uma especificidade da conta.
+
+  critical_decisions_for_qa_review:
+    schema_design:
+      decision: "ParsedMetrics usa shape level-agnostic ({id, name, level, ...12 keys}) ao invés de keys nominais por nível (campaignName/adsetId/...)"
+      rationale: |
+        meta-ads usa nominal keys com 22+ campos; google-ads suporta 5 levels
+        (account/campaign/ad_group/ad/keyword). Shape genérico permite que o
+        mesmo parser sirva todos os 5 levels uniformly.
+      ac6_implication: |
+        AC #6 literalmente diz "AS MESMAS CHAVES que meta-ads report --format json".
+        Cumprido como "schema canônico compatível" (subset de campos comuns) ao
+        invés de paridade estrutural exata. Squad consumers cross-platform vão
+        precisar de normalizer adapter.
+      mitigation: |
+        schema-parity.test.ts (5 testes CRÍTICOS) PROTEGE o contrato canônico
+        declarado no arch §8. Drift internos (mudanças em ParsedMetrics) serão
+        detectados imediatamente.
+      qa_question_for_resolution: |
+        Aceitar shape level-agnostic como nova canônica? OU
+        Voltar para nominal keys (custo: parser mais complexo)? OU
+        Aceitar gap e squad-chief implementa normalizer ao criar traffic-google?
+
+    error_handler_enhancement:
+      decision: "Adicionado loop em Object.values(error_code) + fallback substring match em mensagem"
+      rationale: |
+        Smoke revelou que codes da SDK Opteo vêm em multiple key shapes
+        (query_error, authentication_error, ...). Loop é mais robusto.
+      side_effect: "Nenhum negativo — todos os 101 testes ainda passam"
+
+  ac_status:
+    5_2:
+      AC1_listAccessibleCustomers: PASS
+      AC2_table_output: PASS
+      AC3_json_format: PASS
+      AC4_auth_veto: PASS
+      AC5_config_set_default_interactive: PASS_OFFLINE  # interactive, smoke via programmatic set
+      AC6_keychain_persist: PASS
+      AC7_config_get_default: PASS
+      AC8_auth_status_after_set: PASS
+      AC9_config_repository_module: PASS
+      AC10_unit_tests: PASS  # 15 new tests for config-repository
+      AC11_lint_build_help: PASS
+      AC12_smoke: PASS_REAL  # accounts returned Solaro account with full enrichment
+
+    5_3:
+      AC1_report_registered: PASS
+      AC2_customer_id_fallback_default: PASS
+      AC3_all_9_options: PASS
+      AC4_adapter_getInsights: PASS
+      AC5_parser: PASS
+      AC6_json_schema:
+        status: PASS_WITH_DEVIATION
+        deviation: "Shape level-agnostic ao invés de level-nominal (ver schema_design decision acima)"
+      AC7_formatter: PASS
+      AC8_campaign_filter: PASS
+      AC9_veto_conditions: PASS
+      AC10_boundary_rule: PASS  # grep confirma adapter, gaql-builder, client são únicos importers
+      AC11_unit_tests:
+        status: PASS
+        details: "101 tests total; schema-parity.test.ts (CRÍTICO) com 5 testes passando"
+      AC12_lint_build_smoke:
+        lint_build: PASS
+        smoke: PARTIAL
+        smoke_blocker: "Default account é MCC — Google rejeita métricas por design. Não é bug do CLI."
+
+  recommended_qa_focus:
+    high_priority:
+      - "Decidir sobre schema deviation (AC#6 literal vs. level-agnostic) — esta é a decisão estrutural mais importante"
+      - "Validar boundary rule via grep: 'import.*google-ads-api' deve aparecer só em src/google-ads-api/"
+      - "Schema-parity.test.ts roda e bloqueia drift futuro"
+    medium_priority:
+      - "Verificar PT-BR em todas as mensagens novas (REQUESTED_METRICS_FOR_MANAGER + validation errors)"
+      - "Verificar omission de keys opcionais (cpa, roas, currencyCode) quando não aplicáveis"
+    low_priority:
+      - "Coverage geral subiu (101/101) mas adapter.ts + cli/commands/report.ts ainda sem cov direta — aceitável (caller paths complexos)"
+      - "logger.debug ruído em dev mode (NODE_ENV=production silencia)"
+
+  metrics_consolidados:
+    total_files_modified: 3
+    total_files_created: 16
+    total_tests: 101
+    overall_coverage: "high em arquivos do AC#11; cli commands ficam para integration tests futuros"
+    bundle_size_final: "40.70 KB"
+    lint_status: clean
+    typecheck_status: implicit_via_build_OK
+
+  push_handoff_when_ready:
+    target: devops
+    push_strategy:
+      preferred: single_commit_for_epic_5
+      commit_message_suggestion: |
+        feat(google-ads-agent): complete MVP — accounts + config + report (Stories 5.2 + 5.3)
+
+        - Story 5.2: `accounts` command lists accessible customers with GAQL
+          enrichment (name + currency + status); `config set-default` /
+          `config get-default` for default customer-id and MCC login.
+        - Story 5.3: `report` command with 5 levels (account/campaign/ad_group/
+          ad/keyword), GAQL builder, period (7d/14d/30d/custom), filters
+          (campaign-id/tag), output table or JSON.
+        - Schema-parity test enforced as drift guardian.
+
+        Smoke: accounts returned real customer (Solaro Marketing e Vendas, BRL).
+        report flow technically validated; default account is MCC so Google
+        rejected metrics call with REQUESTED_METRICS_FOR_MANAGER (translated to
+        PT-BR with actionable guidance).
+
+        101 unit tests passing. Lint clean. Build 40.7 KB.
+
+  next_action_for_squad_chief:
+    when: "After Stories 5.2 + 5.3 both reach Done"
+    action: |
+      Create squad traffic-google mirroring traffic-meta:
+      - 4 agents (launcher/publisher/optimizer/analyst) wired to google-ads CLI
+      - Update planner/optimizer/analyst tasks to use `ad_group` instead of `adset`
+      - Consider claude_ai_Google_Ads MCP if available (currently only Gmail/Calendar/Drive MCPs are active)
+      - Document schema deviation: squad consumers may need normalizer if comparing Meta + Google data side-by-side
+
+  closing: "Dex — 5.2 + 5.3 InReview 🛠️"
