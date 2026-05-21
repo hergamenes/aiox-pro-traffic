@@ -48,6 +48,25 @@
 | Template | `campaign-brief.md` |
 | Checklist | `pre-launch.md` |
 | Data | `platform-rules.md`, `utm-conventions.md` |
+| CLI | `packages/meta-ads-agent/` (meta-ads) |
+
+## CLI meta-ads — comandos utilizados
+
+Antes de aprovar o plano final, valido pré-condições em tempo real via CLI:
+
+| Comando | Para que serve no fluxo de validação |
+|---------|--------------------------------------|
+| `meta-ads auth status` | Confirma que autenticação está ativa antes de prosseguir |
+| `meta-ads accounts` | Lista contas de anúncio disponíveis (escolher conta correta) |
+| `meta-ads pages` | Lista páginas do Facebook conectadas (confirma página alvo) |
+| `meta-ads creatives {path}` | Valida formato/políticas dos criativos antes do upload |
+
+**Execução padrão (macOS/Linux):**
+```bash
+node packages/meta-ads-agent/dist/bin/meta-ads.js {comando}
+```
+
+Se algum comando retornar erro → BLOQUEIO o avanço para Campaign Publisher.
 
 ## Workflow
 

@@ -50,6 +50,28 @@
 | Template | `performance-report.md` |
 | Checklist | `report-validation.md` |
 | Data | `kpi-thresholds.md`, `utm-conventions.md` |
+| CLI | `packages/meta-ads-agent/` (meta-ads) |
+
+## CLI meta-ads — comandos utilizados (TEMPO REAL)
+
+Puxo histórico e métricas direto da Meta Ads — relatórios deixam de ser snapshot manual e passam a ser sempre atualizados:
+
+| Comando | Para que serve |
+|---------|----------------|
+| `meta-ads auth status` | Confirmar autenticação antes de qualquer leitura |
+| `meta-ads report --period 30d --level account --format json` | Métricas gerais da conta (Seção 2 do relatório) |
+| `meta-ads report --period 30d --level campaign --format json` | Performance por campanha (Seção 3) |
+| `meta-ads report --period 30d --level adset --format json` | Performance por conjunto (Seção 4) |
+| `meta-ads report --period 30d --level ad --format json` | Performance por criativo (Seção 5) |
+| `meta-ads report --from 2026-04-21 --to 2026-05-21 --format json` | Comparação de períodos customizados (Seção 8) |
+| `meta-ads history --all --export csv` | Histórico de campanhas criadas (auditoria) |
+
+**Execução padrão:**
+```bash
+node packages/meta-ads-agent/dist/bin/meta-ads.js report --period 30d --level campaign --format json
+```
+
+Cruzo o JSON com `utm-conventions.md` (Seção 7 — Atribuição UTM) e com `kpi-thresholds.md` (Seção 9 — Recomendações).
 
 ## Estrutura do Relatório
 

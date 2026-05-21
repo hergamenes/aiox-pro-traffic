@@ -100,30 +100,39 @@ phases:
     on_pass: phase-4-optimize
 
   - id: phase-4-optimize
-    name: "Optimize Cycle"
+    name: "Optimize Cycle (Real-Time)"
     agent: campaign-optimizer
     task: optimize-cycle.md
     description: >-
-      Analisa dados consolidados, classifica cada campanha/conjunto
-      (Escalar / Pausar / Ajustar / Manter) e registra decisões com
-      justificativa no log de otimização.
+      Puxa dados consolidados via CLI `meta-ads report --format json`,
+      classifica cada campanha/conjunto (Escalar / Pausar / Ajustar / Manter)
+      e registra decisões com justificativa. Dados em tempo real — não
+      depende mais de CSV/screenshot manual.
     inputs:
-      - performance_data (3+ dias)
+      - campaign_id (output da phase-2)
       - kpis_alvo (CPA máximo, ROAS mínimo)
       - kpi-thresholds.md
-      - campaign_id (output da phase-2)
+      - meta-ads CLI autenticada (auth status = OK)
+    realtime_commands:
+      - "meta-ads auth status"
+      - "meta-ads report --campaign-id {id} --period 7d --level adset --format json"
     outputs:
       - diagnostico_por_conjunto
       - optimization-log.md
       - acoes_recomendadas
+      - cli_output_json (anexo do log)
     checkpoint:
       type: human_review
       question: "Recomendações de otimização aprovadas para execução?"
       pass_criteria:
+        - "Auth status verificado (Step 0)"
+        - "Dados puxados via CLI report --format json (Step 1)"
         - "Cada campanha/conjunto recebeu classificação"
         - "Ações têm justificativa baseada em dados"
         - "Log preenchido completamente"
       veto_conditions:
+        - "meta-ads auth expirado/não-configurado"
+        - "CLI report retornou erro persistente"
         - "Decisão de escalar/pausar sem 3+ dias confirmando"
         - "Thresholds de kpi-thresholds.md não foram referenciados"
         - "Recomendação sem suporte em dados"
@@ -131,22 +140,30 @@ phases:
     on_fail: phase-4-optimize  # iterar — não voltar para 3
 
   - id: phase-5-report
-    name: "Consolidated Report"
+    name: "Consolidated Report (Real-Time)"
     agent: performance-analyst
     task: generate-report.md
     description: >-
-      Consolida dados de todas as plataformas em relatório estruturado
-      com métricas gerais, detalhamentos (campanha, conjunto, criativo,
-      funil, UTM) e recomendações para o próximo ciclo.
+      Consolida dados de todas as plataformas em relatório estruturado.
+      Para Meta Ads, puxa dados em tempo real via CLI nos 4 níveis
+      (account/campaign/adset/ad). Para Google Ads, input manual (futuro).
     inputs:
-      - performance_data (todo o período)
+      - account_id ou campaign_id
       - optimization-log.md (output da phase-4)
       - dados_vendas_leads (opcional)
       - utm-conventions.md
+      - meta-ads CLI autenticada
+    realtime_commands:
+      - "meta-ads report --from {start} --to {end} --level account --format json"
+      - "meta-ads report --from {start} --to {end} --level campaign --format json"
+      - "meta-ads report --from {start} --to {end} --level adset --format json"
+      - "meta-ads report --from {start} --to {end} --level ad --format json"
+      - "meta-ads history --all --export csv  # auditoria"
     outputs:
       - performance-report.md
       - resumo_executivo
       - recomendacoes_proximo_ciclo
+      - cli_outputs_json (anexos por nível)
     checkpoint:
       type: automated
       pass_criteria:

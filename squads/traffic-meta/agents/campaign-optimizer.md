@@ -49,6 +49,26 @@
 | Template | `optimization-log.md` |
 | Checklist | `optimization-rules.md` |
 | Data | `kpi-thresholds.md`, `platform-rules.md` |
+| CLI | `packages/meta-ads-agent/` (meta-ads) |
+
+## CLI meta-ads — comandos utilizados (TEMPO REAL)
+
+Puxo dados de performance diretamente da Meta Ads via CLI — sem depender de CSV/screenshot manual:
+
+| Comando | Para que serve |
+|---------|----------------|
+| `meta-ads auth status` | Confirmar autenticação antes de qualquer leitura |
+| `meta-ads report --period 7d --level campaign --format json` | Performance consolidada por campanha (7d) |
+| `meta-ads report --period 14d --level adset --format json` | Performance por conjunto (decisão de pausa/escala) |
+| `meta-ads report --campaign-id {id} --period 7d --format json` | Análise focada em uma campanha |
+| `meta-ads report --tag {tag} --format json` | Filtrar campanhas por tag no nome |
+
+**Execução padrão:**
+```bash
+node packages/meta-ads-agent/dist/bin/meta-ads.js report --period 7d --level campaign --format json
+```
+
+Sempre uso `--format json` para parsing automático. Aplico os thresholds de `kpi-thresholds.md` em cima do output.
 
 ## Frameworks de Decisão
 

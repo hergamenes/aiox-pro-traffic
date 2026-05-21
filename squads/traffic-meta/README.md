@@ -2,6 +2,25 @@
 
 Squad especializado em operações de tráfego pago focado em Meta Ads (Facebook + Instagram) para gestores de tráfego e media buyers.
 
+> ⚡ **Real-time:** Os 4 agentes estão conectados à CLI `meta-ads` (em `packages/meta-ads-agent/`). Subida de campanhas, otimizações e relatórios são executados em tempo real direto na Meta Ads — sem CSV/screenshot manual.
+
+## Pré-requisitos
+
+Antes de usar o squad, a CLI precisa estar configurada:
+
+```bash
+# Autenticar (token expira em 60 dias)
+node packages/meta-ads-agent/dist/bin/meta-ads.js auth setup
+
+# Definir conta de anúncios padrão
+node packages/meta-ads-agent/dist/bin/meta-ads.js config set-default
+
+# Verificar status
+node packages/meta-ads-agent/dist/bin/meta-ads.js auth status
+```
+
+Todos os agentes vão BLOQUEAR a execução se `auth status` retornar expirado.
+
 ## Agentes
 
 | Agente | Icon | Função |

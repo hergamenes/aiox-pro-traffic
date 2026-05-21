@@ -14,6 +14,7 @@ Guiar o usuário através do processo completo de estruturação e validação d
 - **Links de destino** (landing pages, formulários, WhatsApp)
 - **Regras de UTM** do cliente (se houver convenção específica)
 - **Plataforma alvo** (Meta Ads, Google Ads, ambas)
+- **CLI meta-ads autenticada** (`meta-ads auth status` = OK)
 
 ## Veto Conditions
 NÃO executar (ou bloquear avanço) se:
@@ -22,8 +23,22 @@ NÃO executar (ou bloquear avanço) se:
 - ❌ Criativos não disponíveis no formato exigido pela plataforma
 - ❌ Links sem definição de UTM e o cliente exige rastreio
 - ❌ Checklist `pre-launch.md` com qualquer item FAIL
+- ❌ `meta-ads auth status` retornar expirado/não-configurado (para plataforma Meta Ads)
 
 ## Fluxo
+
+### Step 0: Pré-validação Real-Time (Meta Ads)
+Antes do briefing, confirmar infraestrutura via CLI:
+
+```bash
+node packages/meta-ads-agent/dist/bin/meta-ads.js auth status
+node packages/meta-ads-agent/dist/bin/meta-ads.js accounts
+node packages/meta-ads-agent/dist/bin/meta-ads.js pages
+```
+
+- Se auth expirado → BLOQUEAR e guiar usuário para `meta-ads auth setup`
+- Se conta padrão não definida → BLOQUEAR e guiar para `meta-ads config set-default`
+- Mostrar ao usuário as contas e páginas disponíveis para escolha consciente
 
 ### Step 1: Briefing
 Coletar informações essenciais da campanha:
@@ -52,6 +67,12 @@ Executar validações obrigatórias:
 - [ ] Orçamento distribuído de forma lógica
 - [ ] Naming convention seguida
 - [ ] Políticas da plataforma respeitadas
+
+**Validação de criativos via CLI** (quando criativos disponíveis):
+```bash
+node packages/meta-ads-agent/dist/bin/meta-ads.js creatives {path-dos-criativos}
+```
+Se retornar erros → corrigir antes de prosseguir.
 
 ### Step 4: Checklist Pré-Launch
 Executar `checklists/pre-launch.md` completo.
