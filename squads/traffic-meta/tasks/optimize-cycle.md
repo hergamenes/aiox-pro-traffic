@@ -67,13 +67,33 @@ Parsear JSON do CLI e organizar em tabela padronizada:
 | Campanha/Conjunto | Gasto | Impressões | Cliques | CTR | CPC | Conversões | CPA | ROAS | Frequência |
 |-------------------|-------|-----------|---------|-----|-----|-----------|-----|------|-----------|
 
-### Step 3: Diagnóstico
-Para cada campanha/conjunto, classificar:
+### Step 2.5: Validação Avançada via MCP (`claude_ai_Facebook`)
 
-- **🟢 Escalar:** ROAS > meta por 3+ dias, CPA < meta, frequência < 3.0
-- **🔴 Pausar:** CPA > 2x meta por 3+ dias, ROAS < 50% meta, frequência > 4.0
-- **🟡 Ajustar:** CPA entre 1-2x meta, ROAS entre 50-100% meta
-- **⚪ Manter:** Métricas dentro da meta, sem tendência clara
+Antes de classificar, cruzar dados do CLI com sinais do MCP:
+
+**Para cada conjunto candidato a pausar/escalar:**
+
+1. **Anomaly check** via `mcp__claude_ai_Facebook__ads_insights_anomaly_signal`
+   - Se anomalia detectada → NÃO classificar com base nos números brutos. Investigar causa raiz primeiro (bug de tracking, sazonalidade, problema de entrega)
+
+2. **Trend confirmation** via `mcp__claude_ai_Facebook__ads_insights_performance_trend`
+   - Confirma que a tendência observada nos 3+ dias é real e não ruído
+
+3. **Auction context** via `mcp__claude_ai_Facebook__ads_insights_auction_ranking_benchmarks`
+   - Se quality_ranking ou engagement_ranking baixos → diagnóstico vai além de "criativo ruim", é problema de leilão
+   - Se ad_relevance está OK mas custo subiu → competição aumentou, não é culpa do criativo
+
+4. **Opportunity score** via `mcp__claude_ai_Facebook__ads_get_opportunity_score`
+   - Se score alto + métricas boas → confirma decisão de escalar
+   - Se score baixo + métricas boas → cuidado, pode haver gargalo escondido
+
+### Step 3: Diagnóstico
+Para cada campanha/conjunto, classificar (usando CLI + MCP signals do Step 2.5):
+
+- **🟢 Escalar:** ROAS > meta por 3+ dias, CPA < meta, frequência < 3.0, **+ opportunity_score alto + sem anomaly**
+- **🔴 Pausar:** CPA > 2x meta por 3+ dias, ROAS < 50% meta, frequência > 4.0, **+ trend confirma + auction OK** (se auction está ruim, problema é leilão e ajustar é melhor que pausar)
+- **🟡 Ajustar:** CPA entre 1-2x meta, ROAS entre 50-100% meta, **OU auction_ranking baixo (problema de criativo)**
+- **⚪ Manter:** Métricas dentro da meta, sem tendência clara, **anomaly_signal recente (esperar estabilizar)**
 
 ### Step 4: Recomendações
 Para cada item classificado, detalhar a ação:
@@ -105,11 +125,15 @@ Preencher template `templates/optimization-log.md` com:
 - [ ] `meta-ads auth status` verificado e OK (Step 0)
 - [ ] Dados puxados via `meta-ads report --format json` com 3+ dias (Step 1)
 - [ ] JSON parseado e tabela padronizada montada com todas as métricas (Step 2)
+- [ ] MCP `anomaly_signal` consultado para conjuntos candidatos a pausa/escala (Step 2.5)
+- [ ] MCP `performance_trend` confirma tendência observada (Step 2.5)
+- [ ] MCP `auction_ranking_benchmarks` consultado quando há queda de performance (Step 2.5)
+- [ ] MCP `opportunity_score` consultado para conjuntos candidatos a escala (Step 2.5)
 - [ ] Cada campanha/conjunto recebeu classificação (🟢/🔴/🟡/⚪) (Step 3)
-- [ ] Recomendações detalham AÇÃO + JUSTIFICATIVA (Step 4)
+- [ ] Recomendações detalham AÇÃO + JUSTIFICATIVA + EVIDÊNCIA (CLI + MCP signals) (Step 4)
 - [ ] Log preenchido em `templates/optimization-log.md` (Step 5)
 - [ ] Thresholds de `kpi-thresholds.md` foram referenciados explicitamente
-- [ ] Output do CLI persistido como anexo do log (auditoria)
+- [ ] Output do CLI + outputs MCP persistidos como anexos do log (auditoria)
 
 ## Handoff
 - **Próximo agente:** Performance Analyst (`*report`) para consolidar resultados

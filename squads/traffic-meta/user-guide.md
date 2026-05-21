@@ -44,9 +44,11 @@ Use para consolidar dados e gerar relatórios. Ele vai:
 
 Você só precisa informar: período (`--from`/`--to`) + `account-id` (opcional, usa default).
 
-## ⚡ Real-Time via CLI meta-ads
+## ⚡ Real-Time via CLI meta-ads + MCP claude_ai_Facebook
 
-Todos os 4 agentes usam a CLI `meta-ads` em `packages/meta-ads-agent/`:
+Todos os 4 agentes usam duas fontes:
+
+**CLI `meta-ads`** (em `packages/meta-ads-agent/`) — operações e leituras básicas:
 
 | Agente | Comandos CLI principais |
 |--------|--------------------------|
@@ -54,6 +56,18 @@ Todos os 4 agentes usam a CLI `meta-ads` em `packages/meta-ads-agent/`:
 | 🎯 Publisher | `create sales/leads`, `up`, `upload`, `history` |
 | ⚡ Optimizer | `report --campaign-id --period --level adset --format json` |
 | 📊 Analyst | `report --from --to --level {account/campaign/adset/ad} --format json` |
+
+**MCP `claude_ai_Facebook`** — insights avançados (não existem na CLI):
+
+| Agente | MCP Tools |
+|--------|-----------|
+| ⚡ Optimizer | `ads_insights_anomaly_signal`, `ads_insights_performance_trend`, `ads_insights_auction_ranking_benchmarks`, `ads_get_opportunity_score` |
+| 📊 Analyst | `ads_insights_advertiser_context`, `ads_insights_industry_benchmark`, `ads_insights_performance_trend`, `ads_insights_anomaly_signal`, `ads_get_opportunity_score` |
+
+**Quando MCP entra em cena:**
+- Antes de pausar/escalar: optimizer consulta `anomaly_signal` para evitar agir em ruído
+- Antes de classificar: optimizer cruza com `auction_ranking_benchmarks` para entender se é problema de criativo ou de leilão
+- No relatório: analyst adiciona Seção 10 com `industry_benchmark` (comparação com a média do setor)
 
 **Antes de usar qualquer agente, certifique-se que a CLI está autenticada:**
 

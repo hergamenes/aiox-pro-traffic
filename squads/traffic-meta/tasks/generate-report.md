@@ -99,18 +99,37 @@ Gerar análises específicas:
 4. **Funil** — Impressão → Clique → Lead → Venda (com taxas de conversão)
 5. **UTM** — Atribuição por source/medium/campaign
 
-### Step 5: Comparação de Períodos
+### Step 5: Comparação de Períodos + MCP Performance Trend
 Se dados do período anterior disponíveis:
-- Variação % de cada métrica principal
+- Variação % de cada métrica principal (cálculo manual via CLI)
+- **Enriquecer com MCP `ads_insights_performance_trend`** para análise nativa da Meta
 - Tendências identificadas (melhora, piora, estável)
 - Correlação com ações tomadas no período
 
-### Step 6: Recomendações
+### Step 5.5: Benchmarks Indústria + Contexto do Anunciante (NOVO — via MCP)
+
+Consultar MCP para enriquecer o relatório:
+
+1. **`mcp__claude_ai_Facebook__ads_insights_advertiser_context`**
+   - Vertical do anunciante, maturidade da conta, características
+   - Usar na Seção 1 (Resumo Executivo)
+
+2. **`mcp__claude_ai_Facebook__ads_insights_industry_benchmark`**
+   - Comparar CPA/ROAS/CTR com média da indústria do anunciante
+   - Resultado vira Seção 10 (Benchmarks da Indústria) no relatório
+   - Permite afirmar "CPA de R$ 15 é 30% melhor que a média do segmento"
+
+3. **`mcp__claude_ai_Facebook__ads_insights_anomaly_signal`**
+   - Captura anomalias no período do relatório
+   - Anota na Seção 9 como pontos de atenção
+
+### Step 6: Recomendações + Opportunity Score
 Gerar lista de ações baseadas nos dados:
-- O que escalar (melhores performers)
+- O que escalar (melhores performers, **confirmado por `opportunity_score`**)
 - O que pausar (piores performers)
 - O que testar (hipóteses baseadas nos dados)
 - Próximos passos sugeridos
+- **Insights automatizados da Meta via `mcp__claude_ai_Facebook__ads_get_opportunity_score`**
 
 ### Step 7: Validação
 Executar `checklists/report-validation.md`:
@@ -132,10 +151,15 @@ Gerar relatório usando template `templates/performance-report.md`.
 - [ ] Tabela de métricas gerais preenchida com totais e comparações (Step 3)
 - [ ] 5 detalhamentos gerados: campanha, conjunto, criativo, funil, UTM (Step 4)
 - [ ] Comparação com período anterior incluída quando os dados existem (Step 5)
+- [ ] MCP `performance_trend` consultado e incluído na Seção 8 (Step 5)
+- [ ] MCP `advertiser_context` consultado e incluído na Seção 1 (Step 5.5)
+- [ ] MCP `industry_benchmark` consultado e incluído na nova Seção 10 (Step 5.5)
+- [ ] MCP `anomaly_signal` consultado e anomalias anotadas na Seção 9 (Step 5.5)
+- [ ] MCP `opportunity_score` consultado para recomendações de escala (Step 6)
 - [ ] Cada recomendação tem suporte em dados específicos do relatório (Step 6)
 - [ ] Checklist `report-validation.md` com 100% PASS (Step 7)
 - [ ] Relatório final gerado a partir de `templates/performance-report.md`
-- [ ] JSONs do CLI persistidos como anexos do relatório (auditoria)
+- [ ] JSONs do CLI + outputs MCP persistidos como anexos do relatório (auditoria)
 
 ## Handoff
 - **Próximo agente:** Campaign Optimizer (`*optimize`) caso recomendações exijam ação imediata

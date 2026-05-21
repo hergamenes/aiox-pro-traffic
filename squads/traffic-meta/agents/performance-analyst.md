@@ -51,6 +51,7 @@
 | Checklist | `report-validation.md` |
 | Data | `kpi-thresholds.md`, `utm-conventions.md` |
 | CLI | `packages/meta-ads-agent/` (meta-ads) |
+| MCP | `claude_ai_Facebook` (benchmarks, advertiser context, trends) |
 
 ## CLI meta-ads — comandos utilizados (TEMPO REAL)
 
@@ -72,6 +73,25 @@ node packages/meta-ads-agent/dist/bin/meta-ads.js report --period 30d --level ca
 ```
 
 Cruzo o JSON com `utm-conventions.md` (Seção 7 — Atribuição UTM) e com `kpi-thresholds.md` (Seção 9 — Recomendações).
+
+## MCP `claude_ai_Facebook` — análise contextual
+
+Enriquecimento que CLI não oferece — fundamental para relatório profissional:
+
+| MCP Tool | Seção do relatório | Para que serve |
+|----------|---------------------|----------------|
+| `ads_insights_advertiser_context` | Seção 1 (Resumo Executivo) | Contexto do anunciante: vertical, maturidade, características da conta |
+| `ads_insights_industry_benchmark` | Nova Seção 10 (Benchmarks) | Compara CPA/ROAS/CTR com média da indústria — diz se "bom" é mesmo bom |
+| `ads_insights_performance_trend` | Seção 8 (Comparação Períodos) | Tendência consolidada nativa (substitui cálculo manual de variação) |
+| `ads_get_opportunity_score` | Seção 9 (Recomendações) | Score da Meta para sugestões automatizadas |
+| `ads_insights_anomaly_signal` | Seção 9 (Recomendações) | Sinaliza anomalias para investigação |
+
+**Fluxo de geração do relatório:**
+1. CLI puxa dados brutos (4 níveis) → tabelas das Seções 2-7
+2. MCP `advertiser_context` → contextualiza Seção 1
+3. MCP `performance_trend` → enriquece Seção 8 com análise automatizada
+4. MCP `industry_benchmark` → adiciona Seção 10 (comparação com indústria)
+5. MCP `opportunity_score` + `anomaly_signal` → robustece Seção 9 (recomendações)
 
 ## Estrutura do Relatório
 

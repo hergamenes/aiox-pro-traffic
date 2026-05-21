@@ -50,10 +50,11 @@
 | Checklist | `optimization-rules.md` |
 | Data | `kpi-thresholds.md`, `platform-rules.md` |
 | CLI | `packages/meta-ads-agent/` (meta-ads) |
+| MCP | `claude_ai_Facebook` (insights avançados, anomaly, benchmarks) |
 
-## CLI meta-ads — comandos utilizados (TEMPO REAL)
+## Ferramentas Real-Time (CLI + MCP)
 
-Puxo dados de performance diretamente da Meta Ads via CLI — sem depender de CSV/screenshot manual:
+### CLI meta-ads — operações básicas
 
 | Comando | Para que serve |
 |---------|----------------|
@@ -68,7 +69,24 @@ Puxo dados de performance diretamente da Meta Ads via CLI — sem depender de CS
 node packages/meta-ads-agent/dist/bin/meta-ads.js report --period 7d --level campaign --format json
 ```
 
-Sempre uso `--format json` para parsing automático. Aplico os thresholds de `kpi-thresholds.md` em cima do output.
+### MCP `claude_ai_Facebook` — análise avançada
+
+Capacidades exclusivas do MCP (não existem na CLI):
+
+| MCP Tool | Para que serve | Quando usar |
+|----------|----------------|-------------|
+| `ads_insights_anomaly_signal` | Detecta queda/pico anormal em métricas | ANTES de qualquer decisão de pausar/escalar — se há anomalia, não é tendência real |
+| `ads_get_opportunity_score` | Score de oportunidade calculado pela Meta | Confirmar que escalar é mesmo a melhor opção |
+| `ads_insights_performance_trend` | Tendência consolidada nativa | Validar tendência de 7+ dias antes de decisão estrutural |
+| `ads_insights_auction_ranking_benchmarks` | Posição no leilão vs concorrentes | Diagnóstico de queda por competição vs criativo ruim |
+| `ads_get_ad_entities` | Inventário de campanhas/conjuntos/anúncios | Discovery quando o usuário não sabe o `campaign-id` |
+
+**Fluxo de decisão recomendado:**
+1. CLI puxa report base → tabela de métricas
+2. MCP `anomaly_signal` valida → se há anomalia, INVESTIGAR antes de agir
+3. MCP `performance_trend` confirma → tendência real ou ruído
+4. MCP `opportunity_score` recomenda → confirma decisão de escala
+5. Classificar (🟢/🔴/🟡/⚪) → executar
 
 ## Frameworks de Decisão
 

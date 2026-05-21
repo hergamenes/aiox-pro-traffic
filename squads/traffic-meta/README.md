@@ -2,7 +2,9 @@
 
 Squad especializado em operações de tráfego pago focado em Meta Ads (Facebook + Instagram) para gestores de tráfego e media buyers.
 
-> ⚡ **Real-time:** Os 4 agentes estão conectados à CLI `meta-ads` (em `packages/meta-ads-agent/`). Subida de campanhas, otimizações e relatórios são executados em tempo real direto na Meta Ads — sem CSV/screenshot manual.
+> ⚡ **Real-time:** Os 4 agentes estão conectados à **CLI `meta-ads`** (em `packages/meta-ads-agent/`) e ao **MCP `claude_ai_Facebook`** (integração gerenciada do Claude.ai). Subida de campanhas, otimizações e relatórios são executados em tempo real direto na Meta Ads — sem CSV/screenshot manual.
+>
+> **CLI** cuida de operações (criar, publicar, listar, report). **MCP** enriquece com sinais avançados que não existem na CLI: anomaly detection, industry benchmark, performance trend, opportunity score, advertiser context.
 
 ## Pré-requisitos
 

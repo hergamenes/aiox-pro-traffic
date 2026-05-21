@@ -116,11 +116,17 @@ phases:
     realtime_commands:
       - "meta-ads auth status"
       - "meta-ads report --campaign-id {id} --period 7d --level adset --format json"
+    mcp_tools:
+      - "mcp__claude_ai_Facebook__ads_insights_anomaly_signal"
+      - "mcp__claude_ai_Facebook__ads_insights_performance_trend"
+      - "mcp__claude_ai_Facebook__ads_insights_auction_ranking_benchmarks"
+      - "mcp__claude_ai_Facebook__ads_get_opportunity_score"
     outputs:
       - diagnostico_por_conjunto
       - optimization-log.md
       - acoes_recomendadas
       - cli_output_json (anexo do log)
+      - mcp_signals_json (anexo do log)
     checkpoint:
       type: human_review
       question: "Recomendações de otimização aprovadas para execução?"
@@ -159,11 +165,18 @@ phases:
       - "meta-ads report --from {start} --to {end} --level adset --format json"
       - "meta-ads report --from {start} --to {end} --level ad --format json"
       - "meta-ads history --all --export csv  # auditoria"
+    mcp_tools:
+      - "mcp__claude_ai_Facebook__ads_insights_advertiser_context"
+      - "mcp__claude_ai_Facebook__ads_insights_industry_benchmark"
+      - "mcp__claude_ai_Facebook__ads_insights_performance_trend"
+      - "mcp__claude_ai_Facebook__ads_insights_anomaly_signal"
+      - "mcp__claude_ai_Facebook__ads_get_opportunity_score"
     outputs:
-      - performance-report.md
+      - performance-report.md (10 seções incluindo benchmarks de indústria)
       - resumo_executivo
       - recomendacoes_proximo_ciclo
       - cli_outputs_json (anexos por nível)
+      - mcp_enrichment_json (anexos com benchmarks e contexto)
     checkpoint:
       type: automated
       pass_criteria:
