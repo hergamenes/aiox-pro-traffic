@@ -4857,14 +4857,6 @@ files:
     timestamp: '2026-05-21T13:51:26.083Z'
   - path: .cursor/rules/story-chief.md
     timestamp: '2026-05-21T13:51:26.083Z'
-  - path: .claude/commands/traffic-meta/campaign-launcher.md
-    timestamp: '2026-05-21T13:51:26.084Z'
-  - path: .claude/commands/traffic-meta/campaign-optimizer.md
-    timestamp: '2026-05-21T13:51:26.084Z'
-  - path: .claude/commands/traffic-meta/campaign-publisher.md
-    timestamp: '2026-05-21T13:51:26.084Z'
-  - path: .claude/commands/traffic-meta/performance-analyst.md
-    timestamp: '2026-05-21T13:51:26.085Z'
   - path: .codex/agents/campaign-launcher.md
     timestamp: '2026-05-21T13:51:26.085Z'
   - path: .codex/agents/campaign-optimizer.md
