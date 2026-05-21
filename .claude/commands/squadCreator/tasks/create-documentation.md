@@ -1,1 +1,1 @@
-/Users/hergamenessouza/aiox-app-1/squads/squad-creator/tasks/create-documentation.md
+/Users/hergamenessouza/aiox-meta-agents/squads/squad-creator-pro/tasks/create-documentation.md

@@ -1,0 +1,1 @@
+Activate @squad-chief from squads/squad-creator-pro/ and execute the *create-squad command. Load the agent definition from squads/squad-creator-pro/agents/squad-chief.md and follow its activation instructions, then immediately execute *create-squad.

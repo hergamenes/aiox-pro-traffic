@@ -1,1 +1,1 @@
-/Users/hergamenessouza/aiox-app-1/squads/squad-creator/tasks/extract-implicit.md
+/Users/hergamenessouza/aiox-meta-agents/squads/squad-creator-pro/tasks/extract-implicit.md

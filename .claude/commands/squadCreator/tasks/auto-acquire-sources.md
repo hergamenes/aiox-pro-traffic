@@ -1,1 +1,1 @@
-/Users/hergamenessouza/aiox-app-1/squads/squad-creator/tasks/auto-acquire-sources.md
+/Users/hergamenessouza/aiox-meta-agents/squads/squad-creator-pro/tasks/auto-acquire-sources.md

@@ -1,1 +1,1 @@
-/Users/hergamenessouza/aiox-app-1/squads/squad-creator/tasks/upgrade-squad.md
+/Users/hergamenessouza/aiox-meta-agents/squads/squad-creator-pro/tasks/upgrade-squad.md

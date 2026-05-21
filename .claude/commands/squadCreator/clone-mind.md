@@ -1,0 +1,1 @@
+Activate @oalanicolas from squads/squad-creator-pro/ and execute the *clone-mind command via wf-clone-mind workflow. Load the agent definition from squads/squad-creator-pro/agents/oalanicolas.md and follow its activation instructions, then immediately execute *clone-mind.

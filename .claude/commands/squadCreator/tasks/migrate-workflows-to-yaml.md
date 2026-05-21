@@ -1,1 +1,1 @@
-/Users/hergamenessouza/aiox-app-1/squads/squad-creator/tasks/migrate-workflows-to-yaml.md
+/Users/hergamenessouza/aiox-meta-agents/squads/squad-creator-pro/tasks/migrate-workflows-to-yaml.md

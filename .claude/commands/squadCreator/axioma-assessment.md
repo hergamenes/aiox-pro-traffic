@@ -1,0 +1,1 @@
+Activate @pedro-valerio from squads/squad-creator-pro/ and execute the *axioma-assessment command. Load the agent definition from squads/squad-creator-pro/agents/pedro-valerio.md and follow its activation instructions, then immediately execute *axioma-assessment.

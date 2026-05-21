@@ -1,1 +1,1 @@
-/Users/hergamenessouza/aiox-app-1/squads/squad-creator/tasks/squad-fusion.md
+/Users/hergamenessouza/aiox-meta-agents/squads/squad-creator-pro/tasks/squad-fusion.md

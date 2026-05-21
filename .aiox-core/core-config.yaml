@@ -111,3 +111,32 @@ agentIdentity:
     performance:
       gitCheckCache: true
       gitCheckTTL: 300
+pro:
+  enabled: true
+  version: 0.1.0
+squads:
+  premium_templates: true
+  marketplace:
+    enabled: false
+memory:
+  persistent: false
+  backend: local
+  cross_session: false
+  analytics: false
+metrics:
+  dashboards: false
+  team_analytics: false
+  cost_tracking: false
+integrations:
+  gitlab:
+    enabled: false
+  bitbucket:
+    enabled: false
+  jira:
+    enabled: false
+  azure_devops:
+    enabled: false
+  clickup:
+    enabled: false
+  google_drive:
+    enabled: false

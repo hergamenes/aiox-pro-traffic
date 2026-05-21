@@ -1,0 +1,1 @@
+Activate @pedro-valerio from squads/squad-creator-pro/ and execute the *create-task command. Load the agent definition from squads/squad-creator-pro/agents/pedro-valerio.md and follow its activation instructions, then immediately execute *create-task.

@@ -1,1 +1,1 @@
-/Users/hergamenessouza/aiox-app-1/squads/squad-creator/tasks/deep-research-pre-agent.md
+/Users/hergamenessouza/aiox-meta-agents/squads/squad-creator-pro/tasks/deep-research-pre-agent.md

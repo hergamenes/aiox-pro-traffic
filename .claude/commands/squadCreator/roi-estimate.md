@@ -1,0 +1,1 @@
+Activate @thiago_finch from squads/squad-creator-pro/ and execute the *roi-estimate command. Load the agent definition from squads/squad-creator-pro/agents/thiago_finch.md and follow its activation instructions, then immediately execute *roi-estimate.

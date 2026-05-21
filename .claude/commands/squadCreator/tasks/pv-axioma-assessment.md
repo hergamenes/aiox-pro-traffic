@@ -1,1 +1,1 @@
-/Users/hergamenessouza/aiox-app-1/squads/squad-creator/tasks/pv-axioma-assessment.md
+/Users/hergamenessouza/aiox-meta-agents/squads/squad-creator-pro/tasks/pv-axioma-assessment.md

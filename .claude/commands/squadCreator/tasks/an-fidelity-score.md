@@ -1,1 +1,1 @@
-/Users/hergamenessouza/aiox-app-1/squads/squad-creator/tasks/an-fidelity-score.md
+/Users/hergamenessouza/aiox-meta-agents/squads/squad-creator-pro/tasks/an-fidelity-score.md

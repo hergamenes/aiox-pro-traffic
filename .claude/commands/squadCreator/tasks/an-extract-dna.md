@@ -1,1 +1,1 @@
-/Users/hergamenessouza/aiox-app-1/squads/squad-creator/tasks/an-extract-dna.md
+/Users/hergamenessouza/aiox-meta-agents/squads/squad-creator-pro/tasks/an-extract-dna.md

@@ -1,1 +1,1 @@
-/Users/hergamenessouza/aiox-app-1/squads/squad-creator/tasks/qa-after-creation.md
+/Users/hergamenessouza/aiox-meta-agents/squads/squad-creator-pro/tasks/qa-after-creation.md

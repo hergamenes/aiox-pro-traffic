@@ -1,0 +1,1 @@
+/Users/hergamenessouza/aiox-meta-agents/squads/squad-creator-pro/tasks/validate-final-artifacts.md

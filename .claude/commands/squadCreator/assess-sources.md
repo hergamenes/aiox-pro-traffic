@@ -1,0 +1,1 @@
+Activate @oalanicolas from squads/squad-creator-pro/ and execute the *assess-sources command. Load the agent definition from squads/squad-creator-pro/agents/oalanicolas.md and follow its activation instructions, then immediately execute *assess-sources.
