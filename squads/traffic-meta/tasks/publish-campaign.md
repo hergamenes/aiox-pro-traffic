@@ -9,6 +9,23 @@
 ## Objetivo
 Guiar o usuário para criar e publicar uma campanha na Meta Ads usando o CLI `meta-ads`.
 
+## Inputs
+- **Plano de campanha aprovado** pelo Campaign Launcher (`campaign-plan.md`)
+- **Tipo de campanha** (sales ou leads)
+- **Nome, orçamento diário, URL, título, texto, descrição**
+- **Autenticação Meta Ads** ativa (`meta-ads auth status` = OK)
+- **Conta de anúncios padrão** configurada
+- **Confirmação explícita do usuário** (custos reais envolvidos)
+
+## Veto Conditions
+NÃO publicar se:
+- ❌ `meta-ads auth status` retornar expirado ou não configurado
+- ❌ Conta de anúncios padrão não estiver definida
+- ❌ Usuário não confirmar explicitamente o resumo (Step 3)
+- ❌ Plano de campanha não tiver passado pelo Campaign Launcher
+- ❌ Orçamento, URL ou texto principal estiverem vazios
+- ❌ Tipo de campanha for diferente de "sales" ou "leads"
+
 ## Fluxo
 
 ### Step 1: Verificar Autenticação
@@ -98,3 +115,23 @@ Sugerir:
 - SEMPRE confirmar com o usuário antes de executar (Step 3)
 - NUNCA pular a verificação de autenticação (Step 1)
 - Se qualquer comando falhar → Mostrar erro claro e sugerir solução
+
+## Output
+- ID da campanha criada (`campaign_id`)
+- ID do conjunto de anúncios (`adset_id`)
+- ID do anúncio (`ad_id`)
+- Link direto para o Ads Manager
+- Mensagem de confirmação com resumo do publicado
+- Entrada em histórico (`meta-ads history`)
+
+## Acceptance Criteria
+- [ ] Autenticação verificada com sucesso (Step 1)
+- [ ] 7 campos do briefing coletados (Step 2)
+- [ ] Resumo apresentado e usuário confirmou explicitamente "sim" (Step 3)
+- [ ] Comando `meta-ads create {type}` executado sem erro (Step 4)
+- [ ] IDs e link do Ads Manager retornados ao usuário (Step 5)
+- [ ] Campanha registrada no histórico (`meta-ads history`)
+
+## Handoff
+- **Próximo agente:** Campaign Optimizer (após 3-5 dias de dados) via `*optimize`
+- **Artefato passado:** `campaign_id` + status inicial da campanha

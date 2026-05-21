@@ -18,7 +18,7 @@ Use ANTES de publicar qualquer campanha. Ele vai:
 - Executar checklist obrigatório
 - Gerar o plano final
 
-**Comando:** `/trafficOps:agents:campaign-launcher` depois `*launch`
+**Comando:** `/trafficMeta:agents:campaign-launcher` depois `*launch`
 
 ### ⚡ Campaign Optimizer — "Preciso otimizar minhas campanhas"
 Use quando tiver dados de performance (mínimo 3 dias). Ele vai:
@@ -28,7 +28,7 @@ Use quando tiver dados de performance (mínimo 3 dias). Ele vai:
 - Sugerir redistribuição de budget
 - Registrar tudo no log de otimização
 
-**Comando:** `/trafficOps:agents:campaign-optimizer` depois `*optimize`
+**Comando:** `/trafficMeta:agents:campaign-optimizer` depois `*optimize`
 
 ### 📊 Performance Analyst — "Preciso de um relatório"
 Use para consolidar dados e gerar relatórios. Ele vai:
@@ -38,7 +38,7 @@ Use para consolidar dados e gerar relatórios. Ele vai:
 - Comparar com período anterior
 - Entregar recomendações acionáveis
 
-**Comando:** `/trafficOps:agents:performance-analyst` depois `*report`
+**Comando:** `/trafficMeta:agents:performance-analyst` depois `*report`
 
 ## Fluxo típico de trabalho
 

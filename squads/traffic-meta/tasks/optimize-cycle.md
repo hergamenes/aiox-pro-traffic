@@ -8,6 +8,22 @@
 ## Objetivo
 Analisar dados de performance e gerar recomendações de otimização baseadas em frameworks de decisão pré-definidos.
 
+## Inputs
+- **Dados de performance** (CSV, texto colado, screenshots) com no mínimo 3 dias
+- **Período de análise** (3, 7, 14 ou 30 dias)
+- **Objetivo da campanha** (Vendas, Leads, Tráfego)
+- **KPIs alvo** (CPA máximo, ROAS mínimo)
+- **Thresholds de referência** (`data/kpi-thresholds.md`)
+- **ID da campanha** publicada pelo Campaign Publisher
+
+## Veto Conditions
+NÃO executar se:
+- ❌ Período de dados < 3 dias (insuficiente para decisão estatística)
+- ❌ KPIs alvo não definidos (CPA máximo ou ROAS mínimo ausentes)
+- ❌ Dados em formato ilegível ou incompletos (sem gasto, impressões ou conversões)
+- ❌ Objetivo da campanha não declarado
+- ❌ Recomendação de pausar/escalar sem 3+ dias consecutivos confirmando tendência
+
 ## Fluxo
 
 ### Step 1: Coleta de Dados
@@ -57,3 +73,15 @@ Preencher template `templates/optimization-log.md` com:
 - Diagnóstico por campanha/conjunto
 - Lista de ações recomendadas
 - Log de otimização preenchido
+
+## Acceptance Criteria
+- [ ] Dados de no mínimo 3 dias coletados (Step 1)
+- [ ] Tabela padronizada montada com todas as métricas (Step 2)
+- [ ] Cada campanha/conjunto recebeu classificação (🟢/🔴/🟡/⚪) (Step 3)
+- [ ] Recomendações detalham AÇÃO + JUSTIFICATIVA (Step 4)
+- [ ] Log preenchido em `templates/optimization-log.md` (Step 5)
+- [ ] Thresholds de `kpi-thresholds.md` foram referenciados explicitamente
+
+## Handoff
+- **Próximo agente:** Performance Analyst (`*report`) para consolidar resultados
+- **Artefato passado:** log de otimização + diagnóstico

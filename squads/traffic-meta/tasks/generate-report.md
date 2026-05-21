@@ -8,6 +8,23 @@
 ## Objetivo
 Consolidar dados de múltiplas campanhas e plataformas em um relatório estruturado com recomendações acionáveis.
 
+## Inputs
+- **Plataformas-fonte** (Facebook Ads, Google Ads, ou ambas)
+- **Período do relatório** (data início + data fim)
+- **Dados das campanhas** (CSV, texto, screenshots)
+- **Dados de vendas/leads** para atribuição (opcional, recomendado)
+- **Dados do período anterior** para comparação (opcional, recomendado)
+- **Convenções UTM** (`data/utm-conventions.md`)
+- **Thresholds de KPI** (`data/kpi-thresholds.md`)
+
+## Veto Conditions
+NÃO gerar relatório se:
+- ❌ Período não estiver definido (sem data início OU sem data fim)
+- ❌ Dados de campanha estiverem ilegíveis ou ausentes para todo o período
+- ❌ Checklist `report-validation.md` tiver qualquer item FAIL após Step 7
+- ❌ Métricas básicas (Investimento, Cliques, Impressões) estiverem inconsistentes (totais não batem)
+- ❌ Recomendações forem geradas sem suporte nos dados consolidados
+
 ## Fluxo
 
 ### Step 1: Coleta de Dados
@@ -74,3 +91,16 @@ Gerar relatório usando template `templates/performance-report.md`.
 - Relatório completo de performance
 - Resumo executivo (1 página)
 - Recomendações acionáveis
+
+## Acceptance Criteria
+- [ ] Dados de todas as plataformas declaradas foram consolidados (Step 2)
+- [ ] Tabela de métricas gerais preenchida com totais e comparações (Step 3)
+- [ ] 5 detalhamentos gerados: campanha, conjunto, criativo, funil, UTM (Step 4)
+- [ ] Comparação com período anterior incluída quando os dados existem (Step 5)
+- [ ] Cada recomendação tem suporte em dados específicos do relatório (Step 6)
+- [ ] Checklist `report-validation.md` com 100% PASS (Step 7)
+- [ ] Relatório final gerado a partir de `templates/performance-report.md`
+
+## Handoff
+- **Próximo agente:** Campaign Optimizer (`*optimize`) caso recomendações exijam ação imediata
+- **Artefato passado:** relatório consolidado + lista priorizada de ações

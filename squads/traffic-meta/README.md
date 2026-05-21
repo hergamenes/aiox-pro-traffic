@@ -1,6 +1,6 @@
-# Squad de Tráfego Pago (traffic-ops)
+# Squad de Tráfego Meta (traffic-meta)
 
-Squad especializado em operações de tráfego pago para gestores de tráfego e media buyers.
+Squad especializado em operações de tráfego pago focado em Meta Ads (Facebook + Instagram) para gestores de tráfego e media buyers.
 
 ## Agentes
 
@@ -16,9 +16,10 @@ Squad especializado em operações de tráfego pago para gestores de tráfego e 
 Ative os agentes usando slash commands:
 
 ```
-/trafficOps:agents:campaign-launcher    → Lançar/validar campanhas
-/trafficOps:agents:campaign-optimizer   → Otimizar campanhas ativas
-/trafficOps:agents:performance-analyst  → Gerar relatórios
+/trafficMeta:agents:campaign-launcher    → Lançar/validar campanhas
+/trafficMeta:agents:campaign-publisher   → Publicar campanhas via CLI meta-ads
+/trafficMeta:agents:campaign-optimizer   → Otimizar campanhas ativas
+/trafficMeta:agents:performance-analyst  → Gerar relatórios
 ```
 
 ## Comandos Principais
@@ -27,6 +28,11 @@ Ative os agentes usando slash commands:
 - `*launch` — Fluxo completo de lançamento
 - `*validate` — Validar campanha existente
 - `*checklist` — Checklist pré-lançamento
+
+### Campaign Publisher
+- `*publish-sales` — Publicar campanha de vendas
+- `*publish-leads` — Publicar campanha de leads
+- `*quick-publish` — Publicação rápida com defaults
 
 ### Campaign Optimizer
 - `*optimize` — Ciclo de otimização
@@ -41,16 +47,20 @@ Ative os agentes usando slash commands:
 ## Estrutura
 
 ```
-squads/traffic-ops/
+squads/traffic-meta/
 ├── config.yaml
 ├── agents/
 │   ├── campaign-launcher.md
+│   ├── campaign-publisher.md
 │   ├── campaign-optimizer.md
 │   └── performance-analyst.md
 ├── tasks/
 │   ├── launch-campaign.md
+│   ├── publish-campaign.md
 │   ├── optimize-cycle.md
 │   └── generate-report.md
+├── workflows/
+│   └── full-campaign-cycle.yaml
 ├── templates/
 │   ├── campaign-brief.md
 │   ├── optimization-log.md

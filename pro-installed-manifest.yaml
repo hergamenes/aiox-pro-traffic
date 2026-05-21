@@ -4857,13 +4857,13 @@ files:
     timestamp: '2026-05-21T13:51:26.083Z'
   - path: .cursor/rules/story-chief.md
     timestamp: '2026-05-21T13:51:26.083Z'
-  - path: .claude/commands/traffic-ops/campaign-launcher.md
+  - path: .claude/commands/traffic-meta/campaign-launcher.md
     timestamp: '2026-05-21T13:51:26.084Z'
-  - path: .claude/commands/traffic-ops/campaign-optimizer.md
+  - path: .claude/commands/traffic-meta/campaign-optimizer.md
     timestamp: '2026-05-21T13:51:26.084Z'
-  - path: .claude/commands/traffic-ops/campaign-publisher.md
+  - path: .claude/commands/traffic-meta/campaign-publisher.md
     timestamp: '2026-05-21T13:51:26.084Z'
-  - path: .claude/commands/traffic-ops/performance-analyst.md
+  - path: .claude/commands/traffic-meta/performance-analyst.md
     timestamp: '2026-05-21T13:51:26.085Z'
   - path: .codex/agents/campaign-launcher.md
     timestamp: '2026-05-21T13:51:26.085Z'
@@ -4873,13 +4873,13 @@ files:
     timestamp: '2026-05-21T13:51:26.085Z'
   - path: .codex/agents/performance-analyst.md
     timestamp: '2026-05-21T13:51:26.085Z'
-  - path: .gemini/rules/traffic-ops/campaign-launcher.md
+  - path: .gemini/rules/traffic-meta/campaign-launcher.md
     timestamp: '2026-05-21T13:51:26.086Z'
-  - path: .gemini/rules/traffic-ops/campaign-optimizer.md
+  - path: .gemini/rules/traffic-meta/campaign-optimizer.md
     timestamp: '2026-05-21T13:51:26.086Z'
-  - path: .gemini/rules/traffic-ops/campaign-publisher.md
+  - path: .gemini/rules/traffic-meta/campaign-publisher.md
     timestamp: '2026-05-21T13:51:26.086Z'
-  - path: .gemini/rules/traffic-ops/performance-analyst.md
+  - path: .gemini/rules/traffic-meta/performance-analyst.md
     timestamp: '2026-05-21T13:51:26.086Z'
   - path: .cursor/rules/campaign-launcher.md
     timestamp: '2026-05-21T13:51:26.086Z'

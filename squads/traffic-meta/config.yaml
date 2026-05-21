@@ -1,18 +1,18 @@
-name: traffic-ops
+name: traffic-meta
 version: 1.0.0
 tested: false
-updated_at: "2026-03-10"
-short-title: Squad de Tráfego Pago
+updated_at: "2026-05-21"
+short-title: Squad de Tráfego Meta Ads
 description: >-
-  Squad especializado em operações de tráfego pago.
+  Squad especializado em operações de tráfego pago focado em Meta Ads.
   4 agentes: Campaign Launcher (estruturação e validação pré-lançamento),
   Campaign Publisher (criação automática de campanhas via CLI meta-ads),
   Campaign Optimizer (otimização com frameworks de decisão),
   Performance Analyst (relatórios consolidados e análise de funil).
-  Foco: Meta Ads, Google Ads, gestores de tráfego e media buyers.
+  Foco: Meta Ads (Facebook + Instagram), gestores de tráfego e media buyers.
 author: Hergamenes Souza
 entry_agent: campaign-launcher
-slashPrefix: trafficOps
+slashPrefix: trafficMeta
 
 settings:
   activation:
