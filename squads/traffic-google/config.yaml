@@ -1,0 +1,21 @@
+name: traffic-google
+version: 1.0.0
+tested: false
+updated_at: "2026-05-21"
+short-title: Squad de Tráfego Google Ads
+description: >-
+  Squad especializado em operações de tráfego pago focado em Google Ads.
+  4 agentes: Campaign Launcher (estruturação e validação pré-lançamento),
+  Campaign Publisher (criação automática de campanhas via CLI google-ads),
+  Campaign Optimizer (otimização com frameworks de decisão),
+  Performance Analyst (relatórios consolidados e análise de funil).
+  Foco: Google Ads (Search, Display, Performance Max, YouTube),
+  gestores de tráfego e media buyers.
+author: Hergamenes Souza
+entry_agent: campaign-launcher
+slashPrefix: trafficGoogle
+
+settings:
+  activation:
+    show_greeting: true
+    show_quick_commands: true
