@@ -1,0 +1,84 @@
+handoff:
+  from_agent: po
+  to_agent: dev
+  timestamp: "2026-05-21T17:40:00Z"
+  last_command: "*validate-story-draft 5.4"
+  consumed: false
+
+  story_context:
+    story_id: "5.4"
+    story_path: docs/stories/5.4.google-ads-cli-accounts-tree.story.md
+    story_status: Ready
+    story_title: "Google Ads CLI — `accounts --tree` (MCC Children Expansion)"
+    branch: main
+    epic: epic-5-google-ads-agent
+
+  validation_result:
+    verdict: GO
+    score: 10
+    threshold: 7
+    breakdown:
+      1_title: PASS
+      2_description: PASS
+      3_acceptance_criteria: PASS
+      4_scope: PASS
+      5_dependencies: PASS
+      6_complexity: PASS
+      7_business_value: PASS
+      8_risks: PASS
+      9_criteria_of_done: PASS
+      10_alignment: PASS
+
+  zero_revisions_needed: |
+    Drafted no padrão estabelecido em 5.2/5.3 (Complexity + Risks incluídos
+    desde o início; aprendizado da 5.1). Sem revisões necessárias na validação.
+
+  critical_highlights_for_dev:
+    - "Pequeno escopo (S/3pts/30-45min) — extensão pura, não-quebrante"
+    - "Adapter port já estabelecido (Story 5.2) — adicionar 1 função em src/google-ads-api/accounts.ts"
+    - "Opção A para detectar MCC (try listMccTree, catch CUSTOMER_NOT_MCC) — Dev Notes especifica"
+    - "Visual reference do tree no Dev Notes — não improvise formato"
+    - "TreeNodeInfo extends CustomerInfo (Task 1) — types limpos"
+    - "stripCustomersPrefix é helper puro testável (Task 2)"
+    - "Veto retrocompat: comportamento sem --tree NÃO PODE mudar"
+
+  recommended_execution_mode: yolo
+  yolo_rationale: |
+    Small story, módulos já existem como referência (Story 5.2 estabeleceu
+    listAccessibleCustomersDetailed; vamos estender). Visual reference do
+    tree e GAQL específico fornecidos. Decisão técnica (Opção A vs B) já
+    feita pelo @sm. @dev pode rodar autônomo com checkpoint só no smoke.
+
+  user_credentials_status:
+    auth_status: "✓ Valid"
+    mcc_customer_id: "1528041123 (Solaro Marketing e Vendas)"
+    smoke_target: "MCC 1528041123 deve retornar >=1 conta cliente filha"
+    note: "Se MCC tem 0 filhas, AC #9 cobre — output mostra warning amigável (não falha)"
+
+  cross_story_impact:
+    unlocks:
+      - "Squad traffic-google ponta-a-ponta (operator pode rodar config set-default cliente)"
+      - "Campaign Publisher *publish funcional"
+      - "Campaign Optimizer *optimize com dados reais"
+      - "Performance Analyst *report com dados reais"
+    no_risk_to:
+      - "Stories 5.1, 5.2, 5.3 (extensão aditiva)"
+      - "Squad traffic-meta (independente)"
+      - "Schema parity do report (não toca)"
+
+  references:
+    handoff_publisher: .aiox/handoffs/handoff-publisher-to-sm-story-5.4-2026-05-21T17-30.yaml
+    architecture_spec: docs/architecture/google-ads-agent.md
+    foundation: docs/stories/5.2.google-ads-cli-accounts-config.story.md
+    cli_code: packages/google-ads-agent/src/google-ads-api/accounts.ts
+
+  qa_handoff_when_ready:
+    target: qa
+    trigger: "@dev marks Status: InReview after Tasks 1-8 done + smoke OK"
+    note: "Smoke deve confirmar que ao menos 1 conta cliente aparece como filha da MCC 1528041123"
+
+  squad_unblock_target:
+    when: "After Story 5.4 reaches Done + user runs config set-default with a child account"
+    action: "Voltar ao /trafficGoogle:agents:campaign-publisher → *publish (testar end-to-end)"
+
+  closing: "Pax — 10/10 GO 🎯"

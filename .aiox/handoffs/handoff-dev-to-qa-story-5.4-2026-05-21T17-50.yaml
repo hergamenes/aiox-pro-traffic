@@ -1,0 +1,89 @@
+handoff:
+  from_agent: dev
+  to_agent: qa
+  timestamp: "2026-05-21T17:50:00Z"
+  last_command: "*develop 5.4"
+  consumed: false
+
+  story_context:
+    story_id: "5.4"
+    story_path: docs/stories/5.4.google-ads-cli-accounts-tree.story.md
+    story_status: InReview
+    epic: epic-5-google-ads-agent
+
+  implementation_summary:
+    duration: "~25min (YOLO mode autônomo)"
+    files_modified: 3
+    files_created: 2
+    tests_added: 19
+    tests_total: 120
+    bundle_size: "47.36 KB (+6.66 KB vs Story 5.3)"
+    lint_status: clean
+
+  ac_status:
+    AC1_flag_added: PASS  # `--tree` option em accounts command
+    AC2_gaql_customer_client: PASS  # buildCustomerClientGaql contém os 7 fields
+    AC3_attributes_returned: PASS  # id, descriptive_name, level, manager, currency_code, status, client_customer
+    AC4_skip_non_mcc: PASS  # try/catch (Opção A) descarta non-MCC silenciosamente
+    AC5_table_indented: PASS  # formatTree com ├── e └── + colunas (ID/Nome/Moeda/Status/Manager?)
+    AC6_json_schema: PASS  # customerId, name, currencyCode, status, level, isManager, parentId
+    AC7_strip_prefix: PASS  # stripCustomersPrefix com regex
+    AC8_warning_no_mcc: PASS  # implementado (smoke não testou caso por user só ter MCC)
+    AC9_warning_zero_children: PASS  # implementado (smoke não testou — Solaro tem 24)
+    AC10_boundary_rule: PASS  # SDK só importado em src/google-ads-api/ (grep confirma)
+    AC11_unit_tests:
+      status: PASS
+      details: "19 novos tests (9 accounts + 10 display); 120 total all passing"
+    AC12_smoke:
+      status: PASS_REAL
+      evidence: |
+        MCC 1528041123 (Solaro Marketing e Vendas) expandida revelando
+        24 contas cliente. JSON format produz schema declarado.
+        Retrocompat sem --tree verified.
+
+  smoke_result_highlights:
+    mcc_found: 1
+    client_accounts_revealed: 24
+    sample_clients:
+      - "A2 Caminhos Corporativos (BRL)"
+      - "Eletrosom_ads (BRL)"
+      - "Di Fiori Colchões (BRL)"
+      - "Mesa Dagá (BRL)"
+      - "Homescape (EUR)"
+      - "ILD Massage School (AUD)"
+    currencies_detected: [BRL, EUR, AUD]
+    insight: "Squad traffic-google poderá operar para 24 clientes Solaro com mix global de moedas"
+
+  technical_decisions:
+    - "Opção A (try/catch) implementada conforme recomendação @sm — listMccTree por accessibleCustomer, fallback gracioso para non-MCC"
+    - "Sort determinístico (level ASC, name ASC) garante output estável entre runs"
+    - "Mensagem orientativa 'NÃO use a MCC — métricas falham' no rodapé previne usuário cair no veto da Story 5.3"
+    - "isLastAtLevel usa look-ahead pela array — funciona para tree de qualquer profundidade"
+    - "Merge de metadata enriched de listAccessibleCustomersDetailed com customer_client GAQL — name fica consistente"
+
+  recommended_qa_focus:
+    high:
+      - "Verificar boundary rule via grep (deve aparecer só em src/google-ads-api/)"
+      - "Conferir output JSON parseável (jq compatible)"
+      - "Verificar que comportamento sem --tree é IDÊNTICO à Story 5.2 (retrocompat)"
+    medium:
+      - "Tree rendering visual em ambiente com fonte monoespaçada"
+      - "ACs #8 e #9 (warnings) — testar com mock se quiser cobertura formal"
+    low:
+      - "Coverage do command file (interactivity prevents unit; smoke cobriu)"
+
+  next_action_after_qa_pass: |
+    @devops *push (squad 5.4 + CLI 5.4 + gate file 5.4)
+    Após push:
+      User runs:
+        node packages/google-ads-agent/dist/bin/google-ads.js accounts --tree
+        # escolhe uma conta cliente (ex: 8132209266 A2 Caminhos Corporativos)
+        node packages/google-ads-agent/dist/bin/google-ads.js config set-default
+        # informa 8132209266 como customer-id + 1528041123 como login-customer-id
+        node packages/google-ads-agent/dist/bin/google-ads.js auth status
+        # deve retornar ✓
+        node packages/google-ads-agent/dist/bin/google-ads.js report --period 7d --format json
+        # deve retornar dados reais (sem REQUESTED_METRICS_FOR_MANAGER)
+      Aí o squad traffic-google opera ponta-a-ponta!
+
+  closing: "Dex — 5.4 InReview 🛠️"

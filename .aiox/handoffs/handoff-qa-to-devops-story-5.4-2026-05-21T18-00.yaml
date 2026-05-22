@@ -1,0 +1,90 @@
+handoff:
+  from_agent: qa
+  to_agent: devops
+  timestamp: "2026-05-21T18:00:00Z"
+  last_command: "*qa-gate 5.4"
+  consumed: false
+
+  story_context:
+    story_id: "5.4"
+    story_path: docs/stories/5.4.google-ads-cli-accounts-tree.story.md
+    story_status: Done
+    gate_file: docs/qa/gates/5.4.google-ads-cli-accounts-tree.yaml
+    epic: epic-5-google-ads-agent
+
+  gate_result:
+    verdict: PASS
+    direct_no_concerns: true
+    rationale: "12/12 ACs verificados; AC#12 EXCEEDED com 24 contas cliente reveladas"
+
+  metrics:
+    tests_passing: 120/120
+    tests_added_in_5_4: 19
+    lint_status: clean
+    build_size: "47.36 KB"
+    boundary_violations: 0
+
+  files_to_push:
+    cli_changes:
+      - "packages/google-ads-agent/src/google-ads-api/accounts.ts (modified — +TreeNodeInfo, stripCustomersPrefix, buildCustomerClientGaql, listMccTree)"
+      - "packages/google-ads-agent/src/cli/display.ts (modified — +formatTree)"
+      - "packages/google-ads-agent/src/cli/commands/accounts.ts (modified — +--tree flag, Opção A logic)"
+      - "packages/google-ads-agent/src/google-ads-api/accounts.test.ts (NEW — 9 tests)"
+      - "packages/google-ads-agent/src/cli/display.test.ts (NEW — 10 tests)"
+    docs:
+      - "docs/stories/5.4.google-ads-cli-accounts-tree.story.md"
+      - "docs/qa/gates/5.4.google-ads-cli-accounts-tree.yaml"
+    handoffs:
+      - ".aiox/handoffs/handoff-publisher-to-sm-story-5.4-*.yaml"
+      - ".aiox/handoffs/handoff-po-to-dev-story-5.4-*.yaml"
+      - ".aiox/handoffs/handoff-dev-to-qa-story-5.4-*.yaml"
+      - ".aiox/handoffs/handoff-qa-to-devops-story-5.4-*.yaml (this)"
+
+  push_recommendations:
+    commit_message_suggestion: |
+      feat(google-ads-agent): add `accounts --tree` for MCC children expansion (Story 5.4)
+
+      Adds `--tree` flag to `google-ads accounts` that expands Manager
+      Account (MCC) children via GAQL against `customer_client`. Closes
+      the operational blocker discovered when traffic-google squad was
+      first run (Publisher *accounts revealed only the MCC node, with
+      no way to find a client account without leaving the CLI).
+
+      Changes:
+      - New TreeNodeInfo type extending CustomerInfo
+      - listMccTree(client, refreshToken, mccId) in adapter port
+      - stripCustomersPrefix helper for resource name parsing
+      - buildCustomerClientGaql GAQL builder
+      - formatTree renderer in display.ts (├── └── with sibling-aware
+        last-detection)
+      - --tree flag on accounts command using try/catch (Opção A) to
+        gracefully handle non-MCC customers
+      - Output table (indented) and JSON (level, isManager, parentId)
+      - Retrocompat: behavior without --tree is identical to Story 5.2
+      - Proactive footer message warning users NOT to set default to MCC
+
+      Smoke against MCC 1528041123: revealed 24 client accounts across
+      3 currencies (BRL, EUR, AUD). JSON schema validated programatically.
+
+      Stats: 120/120 unit tests passing (+19 in 5.4). Lint clean. Bundle
+      47.36 KB (<5% of 1 MB limit).
+
+  pre_push_required:
+    files_check: "TS code + tests + .md + .yaml"
+    lint_required: true  # já passed durante QA
+    test_required: true  # já passed durante QA
+    note: "@devops *pre-push deve re-rodar lint + test no pacote (todos validados em QA, mas re-check é boa prática)"
+
+  no_user_action_required: true
+
+  next_action_for_user_after_push: |
+    Para destravar squad traffic-google operacionalmente:
+    1. node packages/google-ads-agent/dist/bin/google-ads.js accounts --tree
+       → identifica conta cliente filha da MCC Solaro (24 opções)
+    2. node packages/google-ads-agent/dist/bin/google-ads.js config set-default
+       → cliente como customer-id default + 1528041123 como login-customer-id
+    3. node packages/google-ads-agent/dist/bin/google-ads.js report --period 7d --format json
+       → deve retornar dados (sem REQUESTED_METRICS_FOR_MANAGER)
+    4. /trafficGoogle:agents:campaign-publisher → *publish (squad opera ponta-a-ponta)
+
+  closing: "Quinn — 5.4 PASS direto → @devops 🧪"

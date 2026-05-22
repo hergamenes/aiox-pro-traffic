@@ -1,0 +1,100 @@
+handoff:
+  from_agent: campaign-publisher (traffic-google squad)
+  to_agent: sm
+  timestamp: "2026-05-21T17:30:00Z"
+  last_command: "*accounts (discovered MCC limitation requires feature)"
+  consumed: true
+
+  story_to_draft:
+    proposed_id: "5.4"
+    proposed_title: "Google Ads CLI — accounts --tree (MCC children expansion)"
+    parent_epic: epic-5-google-ads-agent
+
+  business_context: |
+    During the first operational use of the traffic-google squad
+    (via /trafficGoogle:agents:campaign-publisher → *accounts), we
+    discovered that the only customer accessible to the user is a
+    Manager Account (MCC = 1528041123 "Solaro Marketing e Vendas").
+    Google Ads API rejects metrics queries on MCCs by design with
+    REQUESTED_METRICS_FOR_MANAGER. This blocks the entire downstream
+    flow: campaign-publisher (publish), campaign-optimizer (report
+    consumption), performance-analyst (5-level reports).
+
+    listAccessibleCustomers (Story 5.1/5.2 base call) only returns
+    the customers the OAuth user has DIRECT access to — it does NOT
+    expand MCC trees. So when the user authenticates with an account
+    that owns an MCC, they see only the MCC node, not its children.
+
+    Without an `accounts --tree` command, the operator must leave the
+    CLI and open Google Ads UI to find a client account ID — breaking
+    the real-time CLI-driven workflow the squad promises.
+
+  proposed_scope:
+    must_have:
+      - "New `--tree` flag on `google-ads accounts` command"
+      - "When `--tree`, query GAQL: SELECT customer_client.{id,descriptive_name,level,manager,currency_code,status} FROM customer_client (against the MCC with login_customer_id = MCC id)"
+      - "Detect which accessible customers are MCCs (status flag) and offer to expand each automatically"
+      - "Output table: indented tree by `level` (Manager → Client → Sub-client)"
+      - "Output JSON: array with `level`, `isManager`, plus existing fields (customerId, name, currencyCode, status)"
+      - "Veto: skip expansion for non-MCC customers (no child query)"
+      - "Unit tests: tree formatter (no network), GAQL builder for customer_client"
+      - "Smoke test against real MCC (1528041123) — must return at least 1 client account"
+    out_of_scope:
+      - "Recursive MCC-of-MCC trees > 3 levels (rare; aceito loop simples)"
+      - "Filtering by status (all returned; UI can filter)"
+      - "Pagination (Google Ads MCC trees raramente passam 100 contas)"
+
+  technical_notes_for_dev:
+    sdk_method: |
+      // Already inside the adapter port boundary in src/google-ads-api/accounts.ts
+      const customer = client.Customer({
+        customer_id: stripDashes(mccId),
+        login_customer_id: stripDashes(mccId),
+        refresh_token,
+      });
+      const rows = await customer.query(`
+        SELECT
+          customer_client.id,
+          customer_client.descriptive_name,
+          customer_client.level,
+          customer_client.manager,
+          customer_client.currency_code,
+          customer_client.status,
+          customer_client.client_customer
+        FROM customer_client
+      `);
+    file_changes:
+      - "src/google-ads-api/accounts.ts — new exported function `listMccTree(client, refreshToken, mccId)` returning enriched tree array"
+      - "src/cli/commands/accounts.ts — add `--tree` option, branch to tree rendering when flag is set"
+      - "src/cli/display.ts — small helper `formatTree(rows)` for indented output"
+
+  acceptance_criteria_suggested:
+    - "`node dist/bin/google-ads.js accounts --tree` lists MCC + children indented"
+    - "`accounts --tree --format json` emits structured JSON with `level` and `isManager`"
+    - "Smoke: roda contra 1528041123 (MCC) e retorna >=1 conta cliente"
+    - "Sem --tree, comportamento atual permanece (não-quebrante)"
+    - "Lint clean + tests passing"
+    - "Build OK + bundle delta < 5 KB"
+
+  current_blocker:
+    operator: "Hergamenes (cleverertraffic@gmail.com)"
+    situation: |
+      Cannot run *publish / *optimize / *report end-to-end until a
+      client customer-id (not MCC) is configured as default. Quickest
+      workaround until 5.4 ships: list children manually via Google
+      Ads UI and run `google-ads config set-default` with that id.
+
+  references:
+    - "Story 5.3 gate: docs/qa/gates/5.3.google-ads-cli-report.yaml (REQUESTED_METRICS_FOR_MANAGER concern)"
+    - "Architecture: docs/architecture/google-ads-agent.md §11 (Risks table item about MCC users)"
+    - "CLI base: packages/google-ads-agent/src/google-ads-api/accounts.ts (listAccessibleCustomersDetailed)"
+
+  recommended_next_chain:
+    1: "@sm drafts Story 5.4 using the scope + ACs proposed here"
+    2: "@po *validate-story-draft 5.4"
+    3: "@dev *develop 5.4 (estimated S — 30-45 min)"
+    4: "@qa *qa-gate 5.4"
+    5: "@devops *push"
+    6: "Return to /trafficGoogle:agents:campaign-publisher → *accounts --tree → set default to a client account → unblock the squad"
+
+  closing: "Publisher 🎯 → SM 🌊 — squad operations blocked until 5.4 ships"
