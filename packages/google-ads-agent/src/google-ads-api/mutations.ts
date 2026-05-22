@@ -14,6 +14,24 @@
 import type { GoogleAdsApi, resources, MutateOperation } from 'google-ads-api';
 import { getCustomer } from './client.js';
 import { logger } from '../cli/logger.js';
+
+/**
+ * Type helper: each entry in `response.mutate_operation_responses[]` is
+ * a union of resource-specific fields. The SDK's IMutateOperationResponse
+ * type doesn't expose these statically, so we cast via this shape to
+ * read the resource_name from whichever entity was mutated.
+ */
+type MutateResponseEntry = {
+  campaign_budget?: { resource_name?: string };
+  campaign?: { resource_name?: string };
+  ad_group?: { resource_name?: string };
+  ad_group_ad?: { resource_name?: string };
+  ad_group_criterion?: { resource_name?: string };
+  asset?: { resource_name?: string };
+  asset_group?: { resource_name?: string };
+};
+const asMutateEntry = (r: unknown): MutateResponseEntry =>
+  (r ?? {}) as MutateResponseEntry;
 import {
   buildSearchCampaignOperations,
   buildDisplayCampaignOperations,
@@ -126,7 +144,8 @@ export async function readCampaignBudgetSnapshot(
   }
 
   const status = String(first.campaign.status ?? '');
-  if (status === 'REMOVED' || status === '3') {
+  // Google Ads CampaignStatus enum: 2=ENABLED, 3=PAUSED, 4=REMOVED
+  if (status === 'REMOVED' || status === '4') {
     throw new Error(`Campanha ${campaignId} está REMOVED — não é possível mutar.`);
   }
 
@@ -189,7 +208,7 @@ export async function updateCampaignBudget(
 
   const resultEntry = response.mutate_operation_responses?.[0];
   const resourceName =
-    (resultEntry?.campaign_budget as { resource_name?: string } | undefined)?.resource_name ??
+    asMutateEntry(resultEntry).campaign_budget?.resource_name ??
     snapshot.budgetResourceName;
 
   logger.debug(
@@ -256,7 +275,8 @@ export async function readCampaignBiddingSnapshot(
   }
 
   const status = String(first.campaign.status ?? '');
-  if (status === 'REMOVED' || status === '3') {
+  // Google Ads CampaignStatus enum: 2=ENABLED, 3=PAUSED, 4=REMOVED
+  if (status === 'REMOVED' || status === '4') {
     throw new Error(`Campanha ${campaignId} está REMOVED — não é possível mutar.`);
   }
 
@@ -337,7 +357,7 @@ export async function updateCampaignBidding(
 
   const resultEntry = response.mutate_operation_responses?.[0];
   const returnedResourceName =
-    (resultEntry?.campaign as { resource_name?: string } | undefined)?.resource_name ?? resourceName;
+    asMutateEntry(resultEntry).campaign?.resource_name ?? resourceName;
 
   logger.debug(
     {
@@ -567,7 +587,7 @@ export async function setCampaignStatus(
 
   const resultEntry = response.mutate_operation_responses?.[0];
   const returnedResourceName =
-    (resultEntry?.campaign as { resource_name?: string } | undefined)?.resource_name ??
+    asMutateEntry(resultEntry).campaign?.resource_name ??
     resourceName;
 
   logger.debug(
@@ -629,7 +649,7 @@ export async function setAdGroupStatus(
 
   const resultEntry = response.mutate_operation_responses?.[0];
   const returnedResourceName =
-    (resultEntry?.ad_group as { resource_name?: string } | undefined)?.resource_name ??
+    asMutateEntry(resultEntry).ad_group?.resource_name ??
     resourceName;
 
   logger.debug(
@@ -785,10 +805,10 @@ export async function createSearchCampaign(
   const cidStripped = input.customerId.replace(/-/g, '');
 
   const budgetResourceName =
-    (budgetResult?.campaign_budget as { resource_name?: string } | undefined)?.resource_name ??
+    asMutateEntry(budgetResult).campaign_budget?.resource_name ??
     `customers/${cidStripped}/campaignBudgets/-1`;
   const campaignResourceName =
-    (campaignResult?.campaign as { resource_name?: string } | undefined)?.resource_name ??
+    asMutateEntry(campaignResult).campaign?.resource_name ??
     `customers/${cidStripped}/campaigns/-2`;
 
   const budgetId = budgetResourceName.split('/').pop() ?? '';
@@ -868,10 +888,10 @@ export async function createDisplayCampaign(
   const cidStripped = input.customerId.replace(/-/g, '');
 
   const budgetResourceName =
-    (budgetResult?.campaign_budget as { resource_name?: string } | undefined)?.resource_name ??
+    asMutateEntry(budgetResult).campaign_budget?.resource_name ??
     `customers/${cidStripped}/campaignBudgets/-1`;
   const campaignResourceName =
-    (campaignResult?.campaign as { resource_name?: string } | undefined)?.resource_name ??
+    asMutateEntry(campaignResult).campaign?.resource_name ??
     `customers/${cidStripped}/campaigns/-2`;
 
   const budgetId = budgetResourceName.split('/').pop() ?? '';
@@ -982,13 +1002,13 @@ export async function createPmaxCampaign(
   const cidStripped = input.customerId.replace(/-/g, '');
 
   const budgetResourceName =
-    (budgetResult?.campaign_budget as { resource_name?: string } | undefined)?.resource_name ??
+    asMutateEntry(budgetResult).campaign_budget?.resource_name ??
     `customers/${cidStripped}/campaignBudgets/-1`;
   const campaignResourceName =
-    (campaignResult?.campaign as { resource_name?: string } | undefined)?.resource_name ??
+    asMutateEntry(campaignResult).campaign?.resource_name ??
     `customers/${cidStripped}/campaigns/-2`;
   const assetGroupResourceName =
-    (assetGroupResult?.asset_group as { resource_name?: string } | undefined)?.resource_name ??
+    asMutateEntry(assetGroupResult).asset_group?.resource_name ??
     `customers/${cidStripped}/assetGroups/-3`;
 
   const budgetId = budgetResourceName.split('/').pop() ?? '';
@@ -1307,7 +1327,7 @@ export async function createAdGroup(
 
   const result = response.mutate_operation_responses?.[0];
   const adGroupResourceName =
-    (result?.ad_group as { resource_name?: string } | undefined)?.resource_name ??
+    asMutateEntry(result).ad_group?.resource_name ??
     `customers/${cidStripped}/adGroups/-1`;
   const adGroupId = adGroupResourceName.split('/').pop() ?? '';
 
@@ -1360,7 +1380,7 @@ export async function addKeyword(
 
   const result = response.mutate_operation_responses?.[0];
   const criterionResourceName =
-    (result?.ad_group_criterion as { resource_name?: string } | undefined)?.resource_name ??
+    asMutateEntry(result).ad_group_criterion?.resource_name ??
     `${adGroupResourceName}/criteria/-1`;
   // criterion resource_name format: customers/{cid}/adGroupCriteria/{adGroupId}~{criterionId}
   const tail = criterionResourceName.split('/').pop() ?? '';
@@ -1550,7 +1570,7 @@ export async function createRsa(
 
   const result = response.mutate_operation_responses?.[0];
   const adResourceName =
-    (result?.ad_group_ad as { resource_name?: string } | undefined)?.resource_name ??
+    asMutateEntry(result).ad_group_ad?.resource_name ??
     `${adGroupResourceName}/ads/-1`;
   const adId = adResourceName.split('/').pop() ?? '';
 
@@ -1621,7 +1641,7 @@ export async function createRda(
 
   const result = response.mutate_operation_responses?.[0];
   const adResourceName =
-    (result?.ad_group_ad as { resource_name?: string } | undefined)?.resource_name ??
+    asMutateEntry(result).ad_group_ad?.resource_name ??
     `${adGroupResourceName}/ads/-1`;
   const adId = adResourceName.split('/').pop() ?? '';
 
@@ -1751,7 +1771,7 @@ export async function uploadImageAsset(
   const result = response.mutate_operation_responses?.[0];
   const cidStripped = input.customerId.replace(/-/g, '');
   const resourceName =
-    (result?.asset as { resource_name?: string } | undefined)?.resource_name ??
+    asMutateEntry(result).asset?.resource_name ??
     `customers/${cidStripped}/assets/-1`;
   const assetId = resourceName.split('/').pop() ?? '';
 
@@ -1800,7 +1820,7 @@ export async function uploadVideoAsset(
   const result = response.mutate_operation_responses?.[0];
   const cidStripped = input.customerId.replace(/-/g, '');
   const resourceName =
-    (result?.asset as { resource_name?: string } | undefined)?.resource_name ??
+    asMutateEntry(result).asset?.resource_name ??
     `customers/${cidStripped}/assets/-1`;
   const assetId = resourceName.split('/').pop() ?? '';
 
@@ -1841,7 +1861,7 @@ export async function uploadTextAsset(
   const result = response.mutate_operation_responses?.[0];
   const cidStripped = input.customerId.replace(/-/g, '');
   const resourceName =
-    (result?.asset as { resource_name?: string } | undefined)?.resource_name ??
+    asMutateEntry(result).asset?.resource_name ??
     `customers/${cidStripped}/assets/-1`;
   const assetId = resourceName.split('/').pop() ?? '';
 
