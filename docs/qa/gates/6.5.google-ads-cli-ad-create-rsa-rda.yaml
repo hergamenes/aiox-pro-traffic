@@ -1,0 +1,125 @@
+storyId: "6.5"
+storyTitle: "Google Ads CLI — Ad Create (RSA + RDA)"
+storyPath: docs/stories/6.5.google-ads-cli-ad-create-rsa-rda.story.md
+verdict: CONCERNS
+verdictRationale: |
+  Story 6.5 entregue com sucesso — 2 subcomandos novos (`create ad rsa`
+  + `create ad rda`). 287/287 tests passing (+23 da 6.5). Lint clean.
+  Boundary rule OK.
+
+  Implementação cobre:
+   - Char limits client-side validados ANTES da API (lista todos os
+     erros de uma vez vs Google rejeitar no primeiro)
+   - 7 vetos validados via offline smoke: too few headlines, > 30 chars,
+     description > 90 chars, path > 15 chars, path2 sem path1,
+     non-HTTPS finalUrl, pinned not in list (RSA); empty headlines,
+     business_name > 25, long_headline > 90, empty assets (RDA)
+   - Asset existence check via GAQL para RDA (findMissingAssetIds)
+   - Veto ad type mismatch (RSA exige Search, RDA exige Display)
+   - Pinning warning amarelo
+   - Status PAUSED hardcoded
+
+  CONCERNS por:
+   1. Smoke real (criação) NÃO executado (padrão 6.3 series + escolha
+      conservadora do user)
+   2. RDA smoke real depende de Story 6.6 (asset upload) — soft block
+
+gateDate: "2026-05-22"
+gateAgent: "@qa"
+
+checks:
+  - id: 1
+    name: "Code review"
+    status: PASS
+    findings: |
+      - ad-validator.ts (puro) separado de mutations.ts — boa separação
+      - AD_LIMITS exportado como const para reuso e clarity
+      - registerAdSubcommands factory function — modular attach a create
+      - Asset IDs verificados via findMissingAssetIds antes de mutate (boa UX)
+      - Pinning warning não-bloqueante (R5 mitigado)
+      - Validation retorna TODAS as violações de uma vez (UX superior)
+
+  - id: 2
+    name: "Unit tests"
+    status: PASS
+    metrics:
+      total_new_in_6_5: 23
+      total_at_story_close: 287
+      passing: 287/287
+      coverage_new:
+        - "ad-validator.ts: 100% (puro)"
+        - "validateRsaInputs: 12 testes (boundary + happy + edge)"
+        - "validateRdaInputs: 8 testes"
+        - "AD_LIMITS constants: 2 testes"
+
+  - id: 3
+    name: "Acceptance criteria"
+    status: CONCERNS
+    ac_status:
+      AC1_rsa_command: PASS
+      AC2_rsa_flags: PASS
+      AC3_rda_command: PASS
+      AC4_prefetch: PASS
+      AC5_veto_ad_type_mismatch: PASS  # implementado em ambos rsa+rda
+      AC6_veto_char_limits:
+        status: PASS_VALIDATED
+        evidence: "Smoke offline: headline 31/30 + long-headline 91/90 + http (não https) todos rejeitados"
+      AC7_veto_counts: PASS  # min/max validados nos tests
+      AC8_veto_asset_references: PASS  # findMissingAssetIds implementado
+      AC9_veto_https: PASS_VALIDATED  # smoke 2 confirmou
+      AC10_status_paused: PASS  # hardcoded em createRsa e createRda
+      AC11_warning_pinning: PASS  # amarelo, não-bloqueante
+      AC12_confirmation_ux: PASS
+      AC13_post_create_output: PASS
+      AC14_audit_log: PASS  # create_rsa + create_rda no enum
+      AC15_boundary_rule: PASS
+      AC16_unit_tests: PASS  # 23 testes novos
+      AC17_smoke_realtime:
+        status: PARTIAL
+        evidence: |
+          Offline vetos validados (7 cenários). Smoke real (criação)
+          deferido por escolha do user. RDA smoke real adicionalmente
+          bloqueado por dependência de Story 6.6 (asset upload).
+        recommendation: |
+          RSA: rodar smoke real contra ad_group existente em campaign
+                23478792639 (campanha Search no sandbox)
+          RDA: rodar após Story 6.6 ship + asset upload em conta sandbox
+
+  - id: 4
+    name: "No regressions"
+    status: PASS
+    checks:
+      - "Stories 5.x + 6.1-6.4: 264 tests anteriores passam"
+      - "287/287 total"
+
+  - id: 5
+    name: "Performance"
+    status: PASS
+    metrics:
+      bundle_size_kb: "372.33 (delta +44 vs 6.4)"
+
+  - id: 6
+    name: "Security"
+    status: PASS
+    checks:
+      input_validation: "Char limits + count limits + HTTPS + pinning consistency"
+      asset_verification: "findMissingAssetIds previne refs órfãos"
+
+  - id: 7
+    name: "Documentation"
+    status: PASS
+
+issues:
+  - severity: medium
+    category: testing
+    description: "Smoke real-time não executado (padrão 6.3 series)"
+    recommendation: "RSA smoke é prerequisite p/ promover RSA → PASS. RDA depende de 6.6."
+    blocking: false
+
+  - severity: info
+    category: code
+    description: "ad.ts é grande (~430 LOC) com 2 subcommands"
+    recommendation: "POST-MVP: extrair handler comum entre rsa e rda"
+    blocking: false
+
+closing_signature: "Quinn — 6.5 CONCERNS (Done; padrão 6.3 series mantido) 🧪⚠️"

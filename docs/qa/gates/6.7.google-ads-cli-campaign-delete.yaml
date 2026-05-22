@@ -1,0 +1,133 @@
+storyId: "6.7"
+storyTitle: "Google Ads CLI — Campaign Delete (IRREVERSIBLE)"
+storyPath: docs/stories/6.7.google-ads-cli-campaign-delete.story.md
+verdict: CONCERNS
+verdictRationale: |
+  Última story do Epic 6 entregue — a mais sensível por ser
+  IRREVERSÍVEL. 327/327 tests passing (+10 da 6.7). Lint clean.
+  Boundary rule OK.
+
+  Safeguards implementados (todos os 9):
+   1. `--dry-run` é DEFAULT — sem --confirm-delete, sempre dry-run
+   2. --confirm-delete obrigatório para mutação real
+   3. Triple-tier UX:
+      Tier 1: PAUSE-suggestion screen (recomenda alternativa reversível)
+      Tier 2: typed `remover {full-campaign-name}` (frase exata)
+      Tier 3: condicional `sim, remover campanha com gasto recente` se spend_24h>0
+   4. Cascade transparente: snapshot mostra N ad_groups + M ads
+   5. Idempotente: já-REMOVED retorna sem mutar, sem log
+   6. Batch refusal: --all, --batch, --from-file rejeitados (exit 1)
+   7. Hard cap 1 per invocation
+   8. Audit log forense com snapshot completo (90d/7d/24h spend, counts,
+      operator_confirmed_phrase, triple_confirm_required)
+   9. Smoke usa [TEST-6.7] disposable — campanha 23478792639 NÃO tocada
+
+  CONCERNS pelo padrão estabelecido: AC#17 smoke real NÃO executado
+  por escolha conservadora do user (mais relevante AQUI do que em
+  outras stories — irreversibility).
+
+gateDate: "2026-05-22"
+gateAgent: "@qa"
+
+checks:
+  - id: 1
+    name: "Code review"
+    status: PASS
+    findings: |
+      - removal-prompt.ts encapsula triple-tier UX em funções testáveis
+      - tripleConfirmCampaignRemoval orquestra os 3 tiers com cancel reasons
+      - --confirm-delete invertido (default OFF) é único pattern no projeto
+      - operator_confirmed_phrase + triple_confirm_required no audit log = forense
+      - removeCampaign/removeAdGroup minimalistas (operation: 'remove' sem update_mask)
+      - readCampaignRemovalSnapshot busca 3 spend windows em paralelo (Promise.all)
+      - Pre-fetch defensive: cascade counts tentam queries mas tolera failure (.catch)
+      - Hidden file edge case test cobre input pathológicos no validator base
+
+  - id: 2
+    name: "Unit tests"
+    status: PASS
+    metrics:
+      total_new_in_6_7: 10
+      total_at_story_close: 327
+      passing: 327/327
+      coverage_new:
+        - "removal-prompt.ts (formatters): 100%"
+        - "Audit log forensic schema: validated"
+
+  - id: 3
+    name: "Acceptance criteria"
+    status: CONCERNS
+    ac_status:
+      AC1_remove_command: PASS  # `remove` registered
+      AC2_dry_run_default_inverted: PASS_VALIDATED  # smoke confirmou
+      AC3_confirm_delete_required: PASS_VALIDATED
+      AC4_idempotent_veto: PASS  # já-REMOVED handled
+      AC5_pause_suggestion_tier1: PASS  # showPauseSuggestionTier1
+      AC6_pre_removal_snapshot: PASS
+      AC7_spend_windows_90d_7d_24h: PASS  # 3 GAQL queries em Promise.all
+      AC8_cascade_counts: PASS  # ad_group + ad counts no snapshot
+      AC9_snapshot_display: PASS_VALIDATED  # smoke offline mostra layout
+      AC10_double_confirm_phrase: PASS  # requireRemovalPhrase
+      AC11_triple_confirm_spend: PASS  # requireRecentSpendPhrase
+      AC12_batch_refusal:
+        status: PASS_VALIDATED
+        evidence: "Smoke: --all + --batch rejeitados antes da auth"
+      AC13_post_mutate_output: PASS  # cascade counts no output
+      AC14_audit_log_forensic:
+        status: PASS
+        details: "operator_confirmed_phrase + triple_confirm_required campos adicionados em MutationLogEntry; snapshot completo (90d/7d/24h spend + counts) preserved no before"
+      AC15_boundary_rule: PASS
+      AC16_unit_tests: PASS  # 10 testes novos
+      AC17_smoke_realtime:
+        status: NOT_EXECUTED
+        evidence: "Smoke real exige criar campanha disposable [TEST-6.7] e removê-la — não executado por escolha do user (justified for IRREVERSIBLE op)"
+        recommendation: |
+          Para promover PASS:
+            1. google-ads create campaign-search --name "[TEST-6.7] Remove Me" --daily 5 (cria PAUSED)
+            2. Capturar campaign-id retornado
+            3. google-ads remove campaign {id} (default dry-run — preview)
+            4. google-ads remove campaign {id} --confirm-delete (apply real)
+            5. Verificar audit log com operator_confirmed_phrase
+
+  - id: 4
+    name: "No regressions"
+    status: PASS
+    checks:
+      - "Stories 5.x + 6.1-6.6: 317 tests anteriores passam"
+      - "327/327 total"
+      - "MutationLogEntry retrocompat: novos campos são optional"
+
+  - id: 5
+    name: "Performance"
+    status: PASS
+    metrics:
+      bundle_size_kb: 457.29
+      bundle_delta_vs_6_6: "+40 KB"
+
+  - id: 6
+    name: "Security (CRITICAL — irreversible op)"
+    status: PASS
+    checks:
+      irreversibility_protection: "9 safeguards implementados (vide verdictRationale)"
+      forensic_audit: "operator_confirmed_phrase + triple_confirm_required preservados"
+      batch_refusal: "--all/--batch/--from-file todos rejeitados"
+      dry_run_default: "ÚNICO comando do projeto onde --dry-run é default"
+
+  - id: 7
+    name: "Documentation"
+    status: PASS
+
+issues:
+  - severity: medium
+    category: testing
+    description: "AC#17 smoke real-time não executado — risco mais alto que outras stories pq removal é irreversível"
+    recommendation: "Recomendado promover PASS via smoke completo em campanha disposable [TEST-6.7] antes de declarar Epic 6 oficialmente completo"
+    blocking: false
+
+  - severity: info
+    category: feature
+    description: "ad_group remove tem 2-tier confirm (não 3) — não tem spend tracking"
+    recommendation: "Aceito como design — ad_group sem spend próprio. Triple-confirm faz sentido apenas em campaign."
+    blocking: false
+
+closing_signature: "Quinn — 6.7 CONCERNS (Done; Epic 6 funcionalmente completo aguardando smokes reais) 🧪⚠️🎯"

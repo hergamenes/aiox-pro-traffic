@@ -1453,3 +1453,766 @@ export async function updateKeywordBid(
     dryRun: Boolean(dryRun),
   };
 }
+
+// ============================================================================
+// Story 6.5 — Ad create (RSA + RDA)
+// ============================================================================
+
+export interface CreateRsaInput {
+  customerId: string;
+  adGroupId: string;
+  headlines: string[];
+  descriptions: string[];
+  finalUrl: string;
+  path1?: string;
+  path2?: string;
+  pinnedHeadline1?: string;
+  refreshToken: string;
+  loginCustomerId?: string;
+  dryRun?: boolean;
+}
+
+export interface CreateRdaInput {
+  customerId: string;
+  adGroupId: string;
+  headlines: string[];
+  longHeadline: string;
+  descriptions: string[];
+  businessName: string;
+  finalUrl: string;
+  logoAssetId: string;
+  marketingImageAssetIds: string[];
+  squareMarketingImageAssetIds?: string[];
+  refreshToken: string;
+  loginCustomerId?: string;
+  dryRun?: boolean;
+}
+
+export interface CreateAdResult {
+  adResourceName: string;
+  adId: string;
+  dryRun: boolean;
+}
+
+/**
+ * Creates a Responsive Search Ad in an existing ad_group (PAUSED status).
+ */
+export async function createRsa(
+  client: GoogleAdsApi,
+  input: CreateRsaInput,
+): Promise<CreateAdResult> {
+  const customer = getCustomer(client, {
+    customerId: input.customerId,
+    refreshToken: input.refreshToken,
+    ...(input.loginCustomerId ? { loginCustomerId: input.loginCustomerId } : {}),
+  });
+
+  const cidStripped = input.customerId.replace(/-/g, '');
+  const adGroupResourceName = `customers/${cidStripped}/adGroups/${input.adGroupId}`;
+
+  const headlineAssets = input.headlines.map((text) => {
+    const asset: Record<string, unknown> = { text };
+    if (input.pinnedHeadline1 && text === input.pinnedHeadline1) {
+      asset['pinned_field'] = 'HEADLINE_1';
+    }
+    return asset;
+  });
+
+  const descriptionAssets = input.descriptions.map((text) => ({ text }));
+
+  const responsiveSearchAd: Record<string, unknown> = {
+    headlines: headlineAssets,
+    descriptions: descriptionAssets,
+  };
+  if (input.path1) responsiveSearchAd['path1'] = input.path1;
+  if (input.path2) responsiveSearchAd['path2'] = input.path2;
+
+  const resource: Record<string, unknown> = {
+    ad_group: adGroupResourceName,
+    status: 'PAUSED',
+    ad: {
+      final_urls: [input.finalUrl],
+      responsive_search_ad: responsiveSearchAd,
+    },
+  };
+
+  const operations: MutateOperation<resources.IAdGroupAd>[] = [
+    {
+      entity: 'ad_group_ad',
+      operation: 'create',
+      resource: resource as resources.IAdGroupAd,
+    } as MutateOperation<resources.IAdGroupAd>,
+  ];
+
+  const response = await customer.mutateResources(operations, {
+    validate_only: Boolean(input.dryRun),
+  });
+
+  const result = response.mutate_operation_responses?.[0];
+  const adResourceName =
+    (result?.ad_group_ad as { resource_name?: string } | undefined)?.resource_name ??
+    `${adGroupResourceName}/ads/-1`;
+  const adId = adResourceName.split('/').pop() ?? '';
+
+  logger.debug(
+    { customerId: input.customerId, adGroupId: input.adGroupId, adId, dryRun: input.dryRun },
+    'createRsa completed',
+  );
+
+  return { adResourceName, adId, dryRun: Boolean(input.dryRun) };
+}
+
+/**
+ * Creates a Responsive Display Ad in an existing ad_group (PAUSED).
+ * Requires asset IDs (upload via Story 6.6 first).
+ */
+export async function createRda(
+  client: GoogleAdsApi,
+  input: CreateRdaInput,
+): Promise<CreateAdResult> {
+  const customer = getCustomer(client, {
+    customerId: input.customerId,
+    refreshToken: input.refreshToken,
+    ...(input.loginCustomerId ? { loginCustomerId: input.loginCustomerId } : {}),
+  });
+
+  const cidStripped = input.customerId.replace(/-/g, '');
+  const adGroupResourceName = `customers/${cidStripped}/adGroups/${input.adGroupId}`;
+
+  // Asset references in RDA format: { asset: "customers/{cid}/assets/{id}" }
+  const assetRef = (id: string): { asset: string } => ({
+    asset: `customers/${cidStripped}/assets/${id}`,
+  });
+
+  const responsiveDisplayAd: Record<string, unknown> = {
+    headlines: input.headlines.map((text) => ({ text })),
+    long_headline: { text: input.longHeadline },
+    descriptions: input.descriptions.map((text) => ({ text })),
+    business_name: input.businessName,
+    logo_images: [assetRef(input.logoAssetId)],
+    marketing_images: input.marketingImageAssetIds.map(assetRef),
+  };
+
+  if (input.squareMarketingImageAssetIds && input.squareMarketingImageAssetIds.length > 0) {
+    responsiveDisplayAd['square_marketing_images'] =
+      input.squareMarketingImageAssetIds.map(assetRef);
+  }
+
+  const resource: Record<string, unknown> = {
+    ad_group: adGroupResourceName,
+    status: 'PAUSED',
+    ad: {
+      final_urls: [input.finalUrl],
+      responsive_display_ad: responsiveDisplayAd,
+    },
+  };
+
+  const operations: MutateOperation<resources.IAdGroupAd>[] = [
+    {
+      entity: 'ad_group_ad',
+      operation: 'create',
+      resource: resource as resources.IAdGroupAd,
+    } as MutateOperation<resources.IAdGroupAd>,
+  ];
+
+  const response = await customer.mutateResources(operations, {
+    validate_only: Boolean(input.dryRun),
+  });
+
+  const result = response.mutate_operation_responses?.[0];
+  const adResourceName =
+    (result?.ad_group_ad as { resource_name?: string } | undefined)?.resource_name ??
+    `${adGroupResourceName}/ads/-1`;
+  const adId = adResourceName.split('/').pop() ?? '';
+
+  logger.debug(
+    { customerId: input.customerId, adGroupId: input.adGroupId, adId, dryRun: input.dryRun },
+    'createRda completed',
+  );
+
+  return { adResourceName, adId, dryRun: Boolean(input.dryRun) };
+}
+
+/**
+ * Checks that the given asset IDs all exist in the customer account.
+ * Returns the list of MISSING IDs (empty if all present).
+ */
+export async function findMissingAssetIds(
+  client: GoogleAdsApi,
+  refreshToken: string,
+  customerId: string,
+  assetIds: string[],
+  loginCustomerId?: string,
+): Promise<string[]> {
+  if (assetIds.length === 0) return [];
+
+  const customer = getCustomer(client, {
+    customerId,
+    refreshToken,
+    ...(loginCustomerId ? { loginCustomerId } : {}),
+  });
+
+  const inList = assetIds.map((id) => Number(id)).filter((n) => Number.isFinite(n)).join(',');
+  if (!inList) return assetIds;
+
+  const rows = (await customer.query(`
+    SELECT asset.id
+    FROM asset
+    WHERE asset.id IN (${inList})
+  `)) as unknown as Array<{ asset?: { id?: string | number } }>;
+
+  const found = new Set<string>(
+    (rows ?? []).map((r) => String(r.asset?.id ?? '')).filter((id) => id !== ''),
+  );
+  return assetIds.filter((id) => !found.has(id));
+}
+
+// ============================================================================
+// Story 6.6 — Asset upload (image / video / text)
+// ============================================================================
+
+export interface UploadImageAssetInput {
+  customerId: string;
+  refreshToken: string;
+  loginCustomerId?: string;
+  name: string;
+  type: 'IMAGE' | 'LOGO_IMAGE';
+  imageBuffer: Buffer;
+  mimeType: 'IMAGE_PNG' | 'IMAGE_JPEG';
+  width: number;
+  height: number;
+  dryRun?: boolean;
+}
+
+export interface UploadVideoAssetInput {
+  customerId: string;
+  refreshToken: string;
+  loginCustomerId?: string;
+  name: string;
+  youtubeVideoId: string;
+  dryRun?: boolean;
+}
+
+export interface UploadTextAssetInput {
+  customerId: string;
+  refreshToken: string;
+  loginCustomerId?: string;
+  name: string;
+  text: string;
+  dryRun?: boolean;
+}
+
+export interface UploadAssetResult {
+  resourceName: string;
+  assetId: string;
+  dryRun: boolean;
+}
+
+/**
+ * Uploads an image asset (IMAGE or LOGO_IMAGE) to the Google Ads account.
+ * Image binary is base64-encoded in the request.
+ */
+export async function uploadImageAsset(
+  client: GoogleAdsApi,
+  input: UploadImageAssetInput,
+): Promise<UploadAssetResult> {
+  const customer = getCustomer(client, {
+    customerId: input.customerId,
+    refreshToken: input.refreshToken,
+    ...(input.loginCustomerId ? { loginCustomerId: input.loginCustomerId } : {}),
+  });
+
+  const resource: Record<string, unknown> = {
+    type: input.type,
+    name: input.name,
+    image_asset: {
+      data: input.imageBuffer.toString('base64'),
+      file_size: input.imageBuffer.length,
+      mime_type: input.mimeType,
+      full_size: {
+        width_pixels: input.width,
+        height_pixels: input.height,
+      },
+    },
+  };
+
+  const operations: MutateOperation<resources.IAsset>[] = [
+    {
+      entity: 'asset',
+      operation: 'create',
+      resource: resource as resources.IAsset,
+    } as MutateOperation<resources.IAsset>,
+  ];
+
+  const response = await customer.mutateResources(operations, {
+    validate_only: Boolean(input.dryRun),
+  });
+
+  const result = response.mutate_operation_responses?.[0];
+  const cidStripped = input.customerId.replace(/-/g, '');
+  const resourceName =
+    (result?.asset as { resource_name?: string } | undefined)?.resource_name ??
+    `customers/${cidStripped}/assets/-1`;
+  const assetId = resourceName.split('/').pop() ?? '';
+
+  logger.debug(
+    { customerId: input.customerId, assetId, name: input.name, dryRun: input.dryRun },
+    'uploadImageAsset completed',
+  );
+
+  return { resourceName, assetId, dryRun: Boolean(input.dryRun) };
+}
+
+/**
+ * Creates a YouTube video asset (references an existing YT video; does
+ * NOT upload video bytes — Google requires the video to be public on YT).
+ */
+export async function uploadVideoAsset(
+  client: GoogleAdsApi,
+  input: UploadVideoAssetInput,
+): Promise<UploadAssetResult> {
+  const customer = getCustomer(client, {
+    customerId: input.customerId,
+    refreshToken: input.refreshToken,
+    ...(input.loginCustomerId ? { loginCustomerId: input.loginCustomerId } : {}),
+  });
+
+  const resource: Record<string, unknown> = {
+    type: 'YOUTUBE_VIDEO',
+    name: input.name,
+    youtube_video_asset: {
+      youtube_video_id: input.youtubeVideoId,
+    },
+  };
+
+  const operations: MutateOperation<resources.IAsset>[] = [
+    {
+      entity: 'asset',
+      operation: 'create',
+      resource: resource as resources.IAsset,
+    } as MutateOperation<resources.IAsset>,
+  ];
+
+  const response = await customer.mutateResources(operations, {
+    validate_only: Boolean(input.dryRun),
+  });
+
+  const result = response.mutate_operation_responses?.[0];
+  const cidStripped = input.customerId.replace(/-/g, '');
+  const resourceName =
+    (result?.asset as { resource_name?: string } | undefined)?.resource_name ??
+    `customers/${cidStripped}/assets/-1`;
+  const assetId = resourceName.split('/').pop() ?? '';
+
+  return { resourceName, assetId, dryRun: Boolean(input.dryRun) };
+}
+
+/**
+ * Creates a TEXT asset for use in ad copy library.
+ */
+export async function uploadTextAsset(
+  client: GoogleAdsApi,
+  input: UploadTextAssetInput,
+): Promise<UploadAssetResult> {
+  const customer = getCustomer(client, {
+    customerId: input.customerId,
+    refreshToken: input.refreshToken,
+    ...(input.loginCustomerId ? { loginCustomerId: input.loginCustomerId } : {}),
+  });
+
+  const resource: Record<string, unknown> = {
+    type: 'TEXT',
+    name: input.name,
+    text_asset: { text: input.text },
+  };
+
+  const operations: MutateOperation<resources.IAsset>[] = [
+    {
+      entity: 'asset',
+      operation: 'create',
+      resource: resource as resources.IAsset,
+    } as MutateOperation<resources.IAsset>,
+  ];
+
+  const response = await customer.mutateResources(operations, {
+    validate_only: Boolean(input.dryRun),
+  });
+
+  const result = response.mutate_operation_responses?.[0];
+  const cidStripped = input.customerId.replace(/-/g, '');
+  const resourceName =
+    (result?.asset as { resource_name?: string } | undefined)?.resource_name ??
+    `customers/${cidStripped}/assets/-1`;
+  const assetId = resourceName.split('/').pop() ?? '';
+
+  return { resourceName, assetId, dryRun: Boolean(input.dryRun) };
+}
+
+export interface AssetListInfo {
+  assetId: string;
+  resourceName: string;
+  type: string;
+  name?: string;
+  width?: number;
+  height?: number;
+  youtubeVideoId?: string;
+  text?: string;
+}
+
+/**
+ * Lists assets in the customer account (read-only).
+ * Filter by type or pass 'ALL'.
+ */
+export async function listAssets(
+  client: GoogleAdsApi,
+  refreshToken: string,
+  customerId: string,
+  type: 'IMAGE' | 'VIDEO' | 'TEXT' | 'ALL',
+  loginCustomerId?: string,
+): Promise<AssetListInfo[]> {
+  const customer = getCustomer(client, {
+    customerId,
+    refreshToken,
+    ...(loginCustomerId ? { loginCustomerId } : {}),
+  });
+
+  let typeFilter = '';
+  if (type === 'IMAGE') typeFilter = "WHERE asset.type IN ('IMAGE', 'LOGO_IMAGE')";
+  else if (type === 'VIDEO') typeFilter = "WHERE asset.type = 'YOUTUBE_VIDEO'";
+  else if (type === 'TEXT') typeFilter = "WHERE asset.type = 'TEXT'";
+
+  const rows = (await customer.query(`
+    SELECT
+      asset.id,
+      asset.resource_name,
+      asset.type,
+      asset.name,
+      asset.image_asset.full_size.width_pixels,
+      asset.image_asset.full_size.height_pixels,
+      asset.youtube_video_asset.youtube_video_id,
+      asset.text_asset.text
+    FROM asset
+    ${typeFilter}
+    LIMIT 500
+  `)) as unknown as Array<{
+    asset?: {
+      id?: string | number;
+      resource_name?: string;
+      type?: string | number;
+      name?: string;
+      image_asset?: {
+        full_size?: { width_pixels?: number; height_pixels?: number };
+      };
+      youtube_video_asset?: { youtube_video_id?: string };
+      text_asset?: { text?: string };
+    };
+  }>;
+
+  return (rows ?? []).map((r) => {
+    const a = r.asset ?? {};
+    const info: AssetListInfo = {
+      assetId: String(a.id ?? ''),
+      resourceName: String(a.resource_name ?? ''),
+      type: String(a.type ?? ''),
+    };
+    if (a.name) info.name = String(a.name);
+    const w = a.image_asset?.full_size?.width_pixels;
+    const h = a.image_asset?.full_size?.height_pixels;
+    if (w) info.width = Number(w);
+    if (h) info.height = Number(h);
+    if (a.youtube_video_asset?.youtube_video_id) {
+      info.youtubeVideoId = String(a.youtube_video_asset.youtube_video_id);
+    }
+    if (a.text_asset?.text) info.text = String(a.text_asset.text);
+    return info;
+  });
+}
+
+// ============================================================================
+// Story 6.7 — Campaign delete (REMOVE — IRREVERSIBLE)
+// ============================================================================
+
+export interface CampaignRemovalSnapshot {
+  campaignId: string;
+  campaignName: string;
+  status: EntityStatus;
+  budgetMicros: number;
+  biddingStrategy: string;
+  adGroupCount: number;
+  adCount: number;
+  spend90dMicros: number;
+  spend7dMicros: number;
+  spend24hMicros: number;
+  currencyCode: string;
+}
+
+export interface AdGroupRemovalSnapshot {
+  adGroupId: string;
+  adGroupName: string;
+  status: EntityStatus;
+  campaignId: string;
+  campaignName: string;
+  adCount: number;
+  keywordCount: number;
+  currencyCode: string;
+}
+
+export interface RemoveResult {
+  resourceName: string;
+  cascade: { adGroupCount: number; adCount: number };
+  dryRun: boolean;
+}
+
+/**
+ * Pre-removal snapshot — reads everything needed for the triple-confirm
+ * UX and the forensic audit log.
+ *
+ * Throws if campaign is already REMOVED (idempotent veto handled by caller).
+ */
+export async function readCampaignRemovalSnapshot(
+  client: GoogleAdsApi,
+  refreshToken: string,
+  customerId: string,
+  campaignId: string,
+  loginCustomerId?: string,
+): Promise<CampaignRemovalSnapshot> {
+  const customer = getCustomer(client, {
+    customerId,
+    refreshToken,
+    ...(loginCustomerId ? { loginCustomerId } : {}),
+  });
+
+  // Main snapshot (campaign + budget + bidding)
+  const mainRows = (await customer.query(`
+    SELECT
+      campaign.id,
+      campaign.name,
+      campaign.status,
+      campaign.bidding_strategy_type,
+      campaign_budget.amount_micros,
+      customer.currency_code
+    FROM campaign
+    WHERE campaign.id = ${campaignId}
+    LIMIT 1
+  `)) as unknown as Array<{
+    campaign?: {
+      id?: string | number;
+      name?: string;
+      status?: string | number;
+      bidding_strategy_type?: string | number;
+    };
+    campaign_budget?: { amount_micros?: string | number };
+    customer?: { currency_code?: string };
+  }>;
+
+  const first = Array.isArray(mainRows) && mainRows.length > 0 ? mainRows[0] : null;
+  if (!first?.campaign) {
+    throw new Error(`Campanha ${campaignId} não encontrada na conta ${customerId}.`);
+  }
+
+  // Ad group + ad counts (cascade-aware) — use ad_group + ad_group_ad queries
+  const adGroupRows = (await customer.query(`
+    SELECT ad_group.id
+    FROM ad_group
+    WHERE ad_group.campaign = 'customers/${customerId.replace(/-/g, '')}/campaigns/${campaignId}'
+      AND ad_group.status != 'REMOVED'
+  `)) as unknown as Array<{ ad_group?: { id?: string | number } }>;
+  const adGroupCount = Array.isArray(adGroupRows) ? adGroupRows.length : 0;
+
+  const adRows = (await customer.query(`
+    SELECT ad_group_ad.ad.id
+    FROM ad_group_ad
+    WHERE ad_group_ad.ad_group IN (
+      SELECT ad_group.resource_name FROM ad_group
+      WHERE ad_group.campaign = 'customers/${customerId.replace(/-/g, '')}/campaigns/${campaignId}'
+    )
+      AND ad_group_ad.status != 'REMOVED'
+  `).catch(() => [])) as unknown as Array<unknown>;
+  const adCount = Array.isArray(adRows) ? adRows.length : 0;
+
+  // Spend windows — 3 GAQL queries for 90d, 7d, 24h
+  const spend = async (days: number): Promise<number> => {
+    try {
+      const rows = (await customer.query(`
+        SELECT metrics.cost_micros
+        FROM campaign
+        WHERE campaign.id = ${campaignId}
+          AND segments.date DURING LAST_${days === 1 ? '24_HOURS' : `${days}_DAYS`}
+      `)) as unknown as Array<{ metrics?: { cost_micros?: string | number } }>;
+      const total = (rows ?? []).reduce(
+        (acc, r) => acc + Number(r.metrics?.cost_micros ?? 0),
+        0,
+      );
+      return total;
+    } catch {
+      return 0;
+    }
+  };
+
+  const [spend90d, spend7d, spend24h] = await Promise.all([
+    spend(90),
+    spend(7),
+    spend(1), // mapped to LAST_24_HOURS
+  ]);
+
+  return {
+    campaignId: String(first.campaign.id ?? campaignId),
+    campaignName: String(first.campaign.name ?? ''),
+    status: normalizeStatus(first.campaign.status),
+    budgetMicros: Number(first.campaign_budget?.amount_micros ?? 0),
+    biddingStrategy: String(first.campaign.bidding_strategy_type ?? ''),
+    adGroupCount,
+    adCount,
+    spend90dMicros: spend90d,
+    spend7dMicros: spend7d,
+    spend24hMicros: spend24h,
+    currencyCode: String(first.customer?.currency_code ?? 'BRL'),
+  };
+}
+
+/**
+ * Pre-removal snapshot for ad_group — simpler than campaign.
+ */
+export async function readAdGroupRemovalSnapshot(
+  client: GoogleAdsApi,
+  refreshToken: string,
+  customerId: string,
+  adGroupId: string,
+  loginCustomerId?: string,
+): Promise<AdGroupRemovalSnapshot> {
+  const customer = getCustomer(client, {
+    customerId,
+    refreshToken,
+    ...(loginCustomerId ? { loginCustomerId } : {}),
+  });
+
+  const rows = (await customer.query(`
+    SELECT
+      ad_group.id,
+      ad_group.name,
+      ad_group.status,
+      campaign.id,
+      campaign.name,
+      customer.currency_code
+    FROM ad_group
+    WHERE ad_group.id = ${adGroupId}
+    LIMIT 1
+  `)) as unknown as Array<{
+    ad_group?: { id?: string | number; name?: string; status?: string | number };
+    campaign?: { id?: string | number; name?: string };
+    customer?: { currency_code?: string };
+  }>;
+
+  const first = Array.isArray(rows) && rows.length > 0 ? rows[0] : null;
+  if (!first?.ad_group) {
+    throw new Error(`Ad group ${adGroupId} não encontrado na conta ${customerId}.`);
+  }
+
+  // Ad + keyword counts
+  const adRows = (await customer.query(`
+    SELECT ad_group_ad.ad.id
+    FROM ad_group_ad
+    WHERE ad_group_ad.ad_group = 'customers/${customerId.replace(/-/g, '')}/adGroups/${adGroupId}'
+      AND ad_group_ad.status != 'REMOVED'
+  `).catch(() => [])) as unknown as Array<unknown>;
+  const keywordRows = (await customer.query(`
+    SELECT ad_group_criterion.criterion_id
+    FROM ad_group_criterion
+    WHERE ad_group_criterion.ad_group = 'customers/${customerId.replace(/-/g, '')}/adGroups/${adGroupId}'
+      AND ad_group_criterion.type = 'KEYWORD'
+      AND ad_group_criterion.status != 'REMOVED'
+  `).catch(() => [])) as unknown as Array<unknown>;
+
+  return {
+    adGroupId: String(first.ad_group.id ?? adGroupId),
+    adGroupName: String(first.ad_group.name ?? ''),
+    status: normalizeStatus(first.ad_group.status),
+    campaignId: String(first.campaign?.id ?? ''),
+    campaignName: String(first.campaign?.name ?? ''),
+    adCount: Array.isArray(adRows) ? adRows.length : 0,
+    keywordCount: Array.isArray(keywordRows) ? keywordRows.length : 0,
+    currencyCode: String(first.customer?.currency_code ?? 'BRL'),
+  };
+}
+
+/**
+ * Removes a campaign (status → REMOVED).
+ * IRREVERSIBLE — Google does not support restore from removed state.
+ * Caller MUST have shown triple-confirm UX before invoking.
+ */
+export async function removeCampaign(
+  client: GoogleAdsApi,
+  customerId: string,
+  campaignId: string,
+  refreshToken: string,
+  loginCustomerId?: string,
+  dryRun?: boolean,
+): Promise<RemoveResult> {
+  const customer = getCustomer(client, {
+    customerId,
+    refreshToken,
+    ...(loginCustomerId ? { loginCustomerId } : {}),
+  });
+
+  const cidStripped = customerId.replace(/-/g, '');
+  const resourceName = `customers/${cidStripped}/campaigns/${campaignId}`;
+
+  const operations: MutateOperation<resources.ICampaign>[] = [
+    {
+      entity: 'campaign',
+      operation: 'remove',
+      resource: { resource_name: resourceName } as resources.ICampaign,
+    } as MutateOperation<resources.ICampaign>,
+  ];
+
+  await customer.mutateResources(operations, { validate_only: Boolean(dryRun) });
+
+  logger.debug(
+    { customerId, campaignId, dryRun },
+    'removeCampaign completed (campaign + cascade REMOVED)',
+  );
+
+  // Cascade counts come from the snapshot (read separately by caller)
+  return {
+    resourceName,
+    cascade: { adGroupCount: 0, adCount: 0 },
+    dryRun: Boolean(dryRun),
+  };
+}
+
+/**
+ * Removes an ad_group (status → REMOVED). Irreversible.
+ */
+export async function removeAdGroup(
+  client: GoogleAdsApi,
+  customerId: string,
+  adGroupId: string,
+  refreshToken: string,
+  loginCustomerId?: string,
+  dryRun?: boolean,
+): Promise<RemoveResult> {
+  const customer = getCustomer(client, {
+    customerId,
+    refreshToken,
+    ...(loginCustomerId ? { loginCustomerId } : {}),
+  });
+
+  const cidStripped = customerId.replace(/-/g, '');
+  const resourceName = `customers/${cidStripped}/adGroups/${adGroupId}`;
+
+  const operations: MutateOperation<resources.IAdGroup>[] = [
+    {
+      entity: 'ad_group',
+      operation: 'remove',
+      resource: { resource_name: resourceName } as resources.IAdGroup,
+    } as MutateOperation<resources.IAdGroup>,
+  ];
+
+  await customer.mutateResources(operations, { validate_only: Boolean(dryRun) });
+
+  return {
+    resourceName,
+    cascade: { adGroupCount: 0, adCount: 0 },
+    dryRun: Boolean(dryRun),
+  };
+}

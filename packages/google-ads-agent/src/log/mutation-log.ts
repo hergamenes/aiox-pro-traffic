@@ -19,7 +19,14 @@ export type MutationOperation =
   | 'create_ad_group'
   | 'add_keyword'
   | 'remove_keyword'
-  | 'update_keyword_bid';
+  | 'update_keyword_bid'
+  | 'create_rsa'
+  | 'create_rda'
+  | 'upload_asset_image'
+  | 'upload_asset_video'
+  | 'upload_asset_text'
+  | 'remove_campaign'
+  | 'remove_ad_group';
 
 export interface MutationLogEntry {
   timestamp: string;
@@ -31,6 +38,10 @@ export interface MutationLogEntry {
   dryRun: boolean;
   success: boolean;
   error?: string;
+  /** Story 6.7: exact phrase typed by operator for irreversible removals. */
+  operator_confirmed_phrase?: string;
+  /** Story 6.7: true if spend_24h > 0 forced the additional confirmation tier. */
+  triple_confirm_required?: boolean;
 }
 
 /**

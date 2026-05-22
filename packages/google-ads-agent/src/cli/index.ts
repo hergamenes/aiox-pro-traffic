@@ -8,8 +8,12 @@ import { updateCommand } from './commands/update.js';
 import { pauseCommand, enableCommand } from './commands/pause-enable.js';
 import { createCommand } from './commands/create.js';
 import { keywordCommand, registerAdGroupSubcommand } from './commands/keyword.js';
+import { registerAdSubcommands } from './commands/ad.js';
+import { uploadCommand, listAssetsCommand } from './commands/upload.js';
+import { removeCommand } from './commands/remove.js';
 
 registerAdGroupSubcommand(createCommand);
+registerAdSubcommands(createCommand);
 
 const require = createRequire(import.meta.url);
 const pkg = require('../../package.json') as { version: string; description: string };
@@ -30,6 +34,9 @@ program.addCommand(pauseCommand);
 program.addCommand(enableCommand);
 program.addCommand(createCommand);
 program.addCommand(keywordCommand);
+program.addCommand(uploadCommand);
+program.addCommand(listAssetsCommand);
+program.addCommand(removeCommand);
 
 export function run(): void {
   program.parse();

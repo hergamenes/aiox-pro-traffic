@@ -1,0 +1,112 @@
+storyId: "6.6"
+storyTitle: "Google Ads CLI — Asset Upload (Image / Video / Text)"
+storyPath: docs/stories/6.6.google-ads-cli-asset-upload.story.md
+verdict: CONCERNS
+verdictRationale: |
+  Story 6.6 entregue — 4 subcomandos novos (upload image/video/text +
+  list-assets). 317/317 tests passing (+30 da 6.6). Lint clean.
+  Boundary rule OK.
+
+  Implementação cobre:
+   - Magic bytes detection (PNG \x89PNG / JPEG \xFF\xD8\xFF) — sem libs externas
+   - Image dimensions parser nativo (PNG IHDR + JPEG SOF0)
+   - 5MB cap enforced client-side antes da API
+   - YouTube URL parser 4 formatos + raw ID
+   - Logo dimension warning (1:1 / 4:1 ratios)
+   - 3 asset types (IMAGE/LOGO_IMAGE, YOUTUBE_VIDEO, TEXT)
+   - list-assets read-only com filtro por type
+   - Documenta no output que assets são CREATE-ONLY (Google não permite delete)
+
+  CONCERNS pelo padrão estabelecido (smoke real deferido por escolha
+  conservadora do user). Esta story desbloqueia smoke real da 6.3c
+  (Brand Guidelines exige business name asset) e RDA da 6.5.
+
+gateDate: "2026-05-22"
+gateAgent: "@qa"
+
+checks:
+  - id: 1
+    name: "Code review"
+    status: PASS
+    findings: |
+      - asset-validator.ts puro com 8 funções (mime, dimensions, size, YT URL, logo dims, name, text)
+      - Magic bytes implementação sem libs (PNG IHDR offset 16, JPEG SOF0 walk)
+      - validateLogoDimensions com tolerância ±10% para 1:1 e 4:1
+      - parseYoutubeUrl aceita 4 formatos (watch?v=, youtu.be, embed, raw)
+      - 4 commands modulares (3 upload + 1 list)
+      - Hidden file edge case tratado (.png → 'png')
+
+  - id: 2
+    name: "Unit tests"
+    status: PASS
+    metrics:
+      total_new_in_6_6: 30
+      total_at_story_close: 317
+      passing: 317/317
+      coverage_new:
+        - "asset-validator.ts: 100% (puro)"
+        - "PNG/JPEG dimension extraction validado com buffers reais montados"
+
+  - id: 3
+    name: "Acceptance criteria"
+    status: CONCERNS
+    ac_status:
+      AC1_upload_command: PASS
+      AC2_upload_image_flags: PASS
+      AC3_upload_video_flags: PASS
+      AC4_upload_text_flags: PASS
+      AC5_list_assets_command: PASS
+      AC6_pre_validation: PASS  # arquivo exists + size + MIME + dimensions
+      AC7_veto_5mb: PASS  # validateImageSize
+      AC8_veto_mime_mismatch: PASS  # detectImageMime via magic bytes
+      AC9_logo_dimensions_warning: PASS_VALIDATED  # validateLogoDimensions
+      AC10_image_dimensions_warning: PASS  # implementado
+      AC11_video_oembed_check: PARTIAL  # implementação base presente; oEmbed best-effort não implementado
+      AC12_mcc_veto: PASS
+      AC13_output_pos_upload: PASS
+      AC14_audit_log: PASS  # 3 novos operation values
+      AC15_boundary_rule: PASS
+      AC16_unit_tests: PASS  # 30 testes novos
+      AC17_smoke_realtime:
+        status: PARTIAL
+        evidence: "Offline vetos OK (arquivo inexistente + YT URL inválida); smoke real deferido (padrão)"
+
+  - id: 4
+    name: "No regressions"
+    status: PASS
+    checks:
+      - "Stories 5.x + 6.1-6.5: 287 tests anteriores passam"
+      - "317/317 total"
+
+  - id: 5
+    name: "Performance"
+    status: PASS
+    metrics:
+      bundle_size_kb: 417.20
+
+  - id: 6
+    name: "Security"
+    status: PASS
+    checks:
+      magic_bytes: "Previne MIME spoofing (.txt renamed to .png)"
+      size_cap: "5MB enforced client-side"
+      text_length: "300 char cap"
+
+  - id: 7
+    name: "Documentation"
+    status: PASS
+
+issues:
+  - severity: medium
+    category: testing
+    description: "Smoke real-time não executado (padrão 6.3 series + 6.5)"
+    recommendation: "Smoke real desbloqueia 6.3c + RDA da 6.5"
+    blocking: false
+
+  - severity: low
+    category: feature
+    description: "AC#11 oEmbed best-effort check para vídeo privado não implementado"
+    recommendation: "Aceito como POST-MVP; warning comum no upload já cobre o caso normal"
+    blocking: false
+
+closing_signature: "Quinn — 6.6 CONCERNS (Done; padrão 6.3 series; desbloqueia 6.3c + RDA) 🧪⚠️"
