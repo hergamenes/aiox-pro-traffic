@@ -59,12 +59,14 @@ Puxo histórico e métricas direto da Google Ads — relatórios deixam de ser s
 | Comando | Para que serve |
 |---------|----------------|
 | `google-ads auth status` | Confirmar autenticação antes de qualquer leitura |
+| `google-ads accounts --tree` | Listar estrutura MCC (customer-ids) antes de relatórios multi-conta (Story 5.4) |
 | `google-ads report --period 30d --level account --format json` | Métricas gerais da conta (Seção 2 do relatório) |
 | `google-ads report --period 30d --level campaign --format json` | Performance por campanha (Seção 3) |
 | `google-ads report --period 30d --level ad_group --format json` | Performance por grupo de anúncios (Seção 4) |
 | `google-ads report --period 30d --level ad --format json` | Performance por criativo (Seção 5) |
 | `google-ads report --period 30d --level keyword --format json` | Performance por palavra-chave (Google-only — não existe no Meta) |
 | `google-ads report --from {start} --to {end} --format json` | Comparação de períodos customizados (Seção 8) |
+| `google-ads list-assets --type IMAGE\|VIDEO\|TEXT\|ALL --format json` | Inventário de assets criativos para Seção 5b (RDA/PMax — Story 6.6) |
 
 **Execução padrão:**
 ```bash
@@ -82,10 +84,12 @@ Cruzo o JSON com `utm-conventions.md` (Seção 7 — Atribuição UTM) e com `kp
 > Se MCP Google Ads ficar disponível no futuro, atualizar este agente para enriquecer com industry_benchmark + advertiser_context + trends.
 
 **Fluxo atual do relatório (CLI-only):**
-1. CLI puxa dados brutos nos 5 níveis (account/campaign/ad_group/ad/keyword) → tabelas das Seções 2-7
-2. Cálculo manual de variação % vs período anterior (Seção 8)
-3. Cruzar com `kpi-thresholds.md` (Seção 9 — Recomendações)
-4. Cruzar com `utm-conventions.md` (Seção 7 — Atribuição UTM)
+1. Se MCC: `google-ads accounts --tree` para listar customer-ids → iterar relatório por conta e consolidar (Story 5.4)
+2. CLI puxa dados brutos nos 5 níveis (account/campaign/ad_group/ad/keyword) → tabelas das Seções 2-7
+3. `google-ads list-assets` para popular Seção 5b — Asset Library (RDA/PMax — Story 6.6)
+4. Cálculo manual de variação % vs período anterior (Seção 8)
+5. Cruzar com `kpi-thresholds.md` (Seção 9 — Recomendações)
+6. Cruzar com `utm-conventions.md` (Seção 7 — Atribuição UTM)
 
 ## Estrutura do Relatório
 

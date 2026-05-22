@@ -1,11 +1,13 @@
 id: full-campaign-cycle
 name: "Full Campaign Cycle"
-version: 1.0.0
+version: 2.0.0
 squad: traffic-google
 description: >-
   Ciclo completo de uma campanha de tráfego pago — do briefing até o
-  relatório consolidado. Orquestra os 4 agentes do squad em sequência
-  unidirecional com checkpoints e veto conditions por fase.
+  relatório consolidado, com controle programático TOTAL via CLI google-ads
+  (pós-Epic 6). Orquestra os 4 agentes do squad em sequência unidirecional
+  com checkpoints e veto conditions por fase. Publisher e Optimizer agora
+  são executores autônomos (não redirecionam mais ao UI).
 
 owner: "@campaign-launcher"
 entry_phase: phase-1-plan
@@ -19,18 +21,25 @@ phases:
     agent: campaign-launcher
     task: launch-campaign.md
     description: >-
-      Coleta briefing, monta estrutura (campanha → conjuntos → anúncios),
-      valida UTMs, segmentação, criativos e orçamento. Executa checklist
-      pré-lançamento.
+      Coleta briefing, monta estrutura (campanha → ad groups → keywords →
+      anúncios), valida UTMs, segmentação, criativos e orçamento. Executa
+      checklist pré-lançamento. Verifica auth e disponibilidade de assets
+      existentes na conta antes de seguir para a publicação autônoma.
     inputs:
       - briefing
       - criativos
       - links_de_destino
       - regras_utm
+    realtime_commands:
+      - "google-ads auth status                        # valida autenticação"
+      - "google-ads accounts --tree                    # confirma conta-alvo e MCC"
+      - "google-ads list-assets --type image           # inventário de criativos já no Ads"
+      - "google-ads list-assets --type video           # inventário de vídeos já no Ads"
     outputs:
       - campaign-plan.md
       - validation_report
       - pre-launch.md (checklist preenchido)
+      - asset_inventory (lista de assets reutilizáveis)
     checkpoint:
       type: human_review
       question: "Plano de campanha aprovado? Checklist 100% PASS?"
@@ -38,44 +47,70 @@ phases:
         - "Briefing capturado nos 7 campos"
         - "Todos os 6 itens de validação marcados PASS"
         - "Checklist pre-launch.md com 100% PASS"
+        - "auth status retornou OK e conta-alvo confirmada"
       veto_conditions:
         - "Briefing sem objetivo claro"
         - "Orçamento ausente ou impreciso"
         - "Criativos não disponíveis no formato exigido"
         - "Qualquer item do pre-launch.md em FAIL"
+        - "auth status falhou ou conta-alvo não acessível"
     on_pass: phase-2-publish
     on_fail: HALT
 
   - id: phase-2-publish
-    name: "Publish to Google Ads"
+    name: "Publish to Google Ads (Autonomous Execution)"
     agent: campaign-publisher
     task: publish-campaign.md
     description: >-
-      Verifica autenticação, coleta parâmetros finais, apresenta resumo
-      e cria a campanha REAL na Google Ads via CLI google-ads. Custos
-      reais envolvidos — exige confirmação explícita.
+      Executor AUTÔNOMO via CLI google-ads (pós-Epic 6). Faz upload de
+      assets, cria campanha + ad groups + keywords + anúncios, e ativa
+      explicitamente ao final. Custos reais envolvidos — exige confirmação
+      explícita do resumo antes de iniciar a sequência de mutações.
+      Campanha permanece PAUSED até o `enable` final.
     inputs:
       - campaign-plan.md (output da phase-1)
-      - meta_ads_auth (ativa)
+      - google-ads_auth (ativa)
       - default_account (configurada)
+      - asset_files (paths locais de imagens/vídeos novos)
+    realtime_commands:
+      - "# 1. Upload de assets novos (se necessário)"
+      - "google-ads upload image  --file {path} --name {label}"
+      - "google-ads upload video  --file {path} --name {label}"
+      - "google-ads upload text   --headline {h} --description {d}"
+      - "# 2. Criação da campanha (sempre PAUSED por padrão)"
+      - "google-ads create campaign-search  --budget {n} --bidding {strategy} --name {label}"
+      - "google-ads create campaign-display --budget {n} --bidding {strategy} --name {label}"
+      - "google-ads create campaign-pmax    --budget {n} --bidding {strategy} --name {label}"
+      - "# 3. Estrutura de ad group + keywords + anúncios"
+      - "google-ads create ad-group --campaign-id {id} --name {label} --cpc-bid {n}"
+      - "google-ads keyword add --ad-group-id {id} --text {kw} --match {EXACT|PHRASE|BROAD}   # múltiplas chamadas"
+      - "google-ads create ad rsa --ad-group-id {id} --headlines {...} --descriptions {...}    # Search"
+      - "google-ads create ad rda --ad-group-id {id} --images {...} --videos {...}             # Display"
+      - "# 4. Ativação explícita (último passo, sob confirmação)"
+      - "google-ads enable campaign --id {id}"
     outputs:
+      - asset_ids (uploaded)
       - campaign_id
-      - ad_group_id
-      - ad_id
+      - ad_group_ids
+      - keyword_ids
+      - ad_ids
       - ads_manager_link
     checkpoint:
       type: explicit_confirmation
-      question: "Resumo apresentado ao usuário. Usuário digitou 'sim'?"
+      question: "Resumo apresentado ao usuário (assets+campanha+grupos+keywords+ads). Usuário digitou 'sim'?"
       pass_criteria:
         - "google-ads auth status retornou OK"
-        - "Usuário confirmou explicitamente o resumo"
-        - "Comando create executado sem erro"
-        - "IDs retornados ao usuário"
+        - "Usuário confirmou explicitamente o resumo completo"
+        - "Sequência de create/upload executada sem erro"
+        - "IDs (campaign/ad_group/keyword/ad) retornados ao usuário"
+        - "Campanha foi explicitamente habilitada via `enable campaign` (ou mantida PAUSED por opção)"
       veto_conditions:
         - "Autenticação expirada ou não configurada"
         - "Conta de anúncios padrão não definida"
         - "Usuário não confirmou explicitamente"
         - "Plano não veio aprovado da phase-1-plan"
+        - "Qualquer comando create retornou erro não-recuperável"
+        - "`enable campaign` executado sem confirmação humana"
     on_pass: phase-3-wait
     on_fail: HALT
 
@@ -100,44 +135,65 @@ phases:
     on_pass: phase-4-optimize
 
   - id: phase-4-optimize
-    name: "Optimize Cycle (Real-Time)"
+    name: "Optimize Cycle (Apply Mode Capable)"
     agent: campaign-optimizer
     task: optimize-cycle.md
     description: >-
       Puxa dados consolidados via CLI `google-ads report --format json`,
-      classifica cada campanha/conjunto (Escalar / Pausar / Ajustar / Manter)
-      e registra decisões com justificativa. Dados em tempo real — não
-      depende mais de CSV/screenshot manual.
+      classifica cada campanha/ad group/keyword (Escalar / Pausar / Ajustar /
+      Manter) e registra decisões com justificativa. Pós-Epic 6, o agente
+      pode APLICAR mutações via CLI quando rodando em `--apply`. SAFE-BY-DEFAULT:
+      sem `--apply`, apenas recomenda; com `--apply`, executa após confirmação
+      explícita do checkpoint humano.
     inputs:
       - campaign_id (output da phase-2)
       - kpis_alvo (CPA máximo, ROAS mínimo)
       - kpi-thresholds.md
       - google-ads CLI autenticada (auth status = OK)
     realtime_commands:
+      - "# READ — diagnóstico (sempre, default safe)"
       - "google-ads auth status"
-      - "google-ads report --campaign-id {id} --period 7d --level ad_group --format json"
-      - "google-ads report --campaign-id {id} --period 14d --level keyword --format json  # Search-only"
-    mcp_tools_note: "MCP Google Ads not active in this project — analysis is CLI-only. See platform-rules.md."
+      - "google-ads report --campaign-id {id} --period 7d  --level ad_group --format json"
+      - "google-ads report --campaign-id {id} --period 14d --level keyword  --format json   # Search-only"
+      - "# MUTATE — apenas com flag --apply e após approval humano"
+      - "google-ads update budget       --campaign-id {id} --amount {n}                     # escalar/cortar"
+      - "google-ads update bidding      --campaign-id {id} --strategy {MAX_CONV|TARGET_CPA|TARGET_ROAS} --target {n}"
+      - "google-ads pause campaign     --id {id}                                            # campanha inteira"
+      - "google-ads pause ad-group     --id {id}                                            # apenas ad group"
+      - "google-ads keyword update-bid --keyword-id {id} --cpc-bid {n}                      # ajuste fino"
+      - "google-ads keyword remove     --keyword-id {id}                                    # negativar/remover"
+    mcp_tools_note: "MCP Google Ads not active in this project — analysis & mutations are CLI-only via google-ads CLI (Epic 6). See platform-rules.md."
+    apply_mode:
+      default: false
+      flag: "--apply"
+      safeguards:
+        - "Sem --apply: agente apenas recomenda (dry-run)"
+        - "Com --apply: cada mutação precisa estar em optimization-log.md aprovado"
+        - "Cada comando de mutação é logado com timestamp + user + justificativa"
+        - "Rollback documentado por ação (qual comando reverte)"
     outputs:
       - diagnostico_por_conjunto
       - optimization-log.md
       - acoes_recomendadas
+      - acoes_aplicadas (se --apply)
       - cli_output_json (anexo do log)
     checkpoint:
       type: human_review
-      question: "Recomendações de otimização aprovadas para execução?"
+      question: "Recomendações de otimização aprovadas? Executar em --apply ou manter como recomendação?"
       pass_criteria:
         - "Auth status verificado (Step 0)"
         - "Dados puxados via CLI report --format json (Step 1)"
-        - "Cada campanha/conjunto recebeu classificação"
+        - "Cada campanha/ad group/keyword recebeu classificação"
         - "Ações têm justificativa baseada em dados"
         - "Log preenchido completamente"
+        - "Se --apply: cada mutação executada gerou log com ID antes/depois"
       veto_conditions:
         - "google-ads auth expirado/não-configurado"
         - "CLI report retornou erro persistente"
         - "Decisão de escalar/pausar sem 3+ dias confirmando"
         - "Thresholds de kpi-thresholds.md não foram referenciados"
         - "Recomendação sem suporte em dados"
+        - "Mutação executada (--apply) sem entrada correspondente no optimization-log.md"
     on_pass: phase-5-report
     on_fail: phase-4-optimize  # iterar — não voltar para 3
 
@@ -148,7 +204,9 @@ phases:
     description: >-
       Consolida dados de todas as plataformas em relatório estruturado.
       Para Google Ads, puxa dados em tempo real via CLI nos 4 níveis
-      (account/campaign/ad_group/ad). Para Google Ads, input manual (futuro).
+      (account/campaign/ad_group/ad) + keyword (Search). Operação 100%
+      READ — não executa mutações. Cleanup pós-relatório (remove de
+      campanhas obsoletas) é opcional e exige `--confirm-delete`.
     inputs:
       - account_id ou campaign_id
       - optimization-log.md (output da phase-4)
@@ -156,17 +214,30 @@ phases:
       - utm-conventions.md
       - google-ads CLI autenticada
     realtime_commands:
-      - "google-ads report --from {start} --to {end} --level account --format json"
-      - "google-ads report --from {start} --to {end} --level campaign --format json"
-      - "google-ads report --from {start} --to {end} --level ad_group --format json"
-      - "google-ads report --from {start} --to {end} --level ad --format json"
-      - "google-ads report --from {start} --to {end} --level keyword --format json  # Search-only"
+      - "# READ — leitura completa para o relatório"
+      - "google-ads accounts --tree                                                          # contexto MCC"
+      - "google-ads report --from {start} --to {end} --level account   --format json"
+      - "google-ads report --from {start} --to {end} --level campaign  --format json"
+      - "google-ads report --from {start} --to {end} --level ad_group  --format json"
+      - "google-ads report --from {start} --to {end} --level ad        --format json"
+      - "google-ads report --from {start} --to {end} --level keyword   --format json         # Search-only"
+      - "google-ads list-assets --type image                                                 # inventário pós-ciclo"
+      - "google-ads list-assets --type video"
+      - "# CLEANUP — apenas se explicitamente autorizado (opcional, pós-relatório)"
+      - "google-ads remove campaign --id {id} --confirm-delete                               # safeguard duplo"
     mcp_tools_note: "MCP Google Ads not active in this project — relatório é CLI-only + análise manual de comparação. See platform-rules.md and analyst agent docs."
+    cleanup_safeguards:
+      - "Cleanup é OPT-IN, nunca automático"
+      - "Requer flag --confirm-delete explícita"
+      - "Campanha deve estar pausada há 7+ dias antes de remover"
+      - "Log de cleanup com ID + timestamp + autorizador"
+      - "Rollback impossível — só executar após report assinado pelo usuário"
     outputs:
       - performance-report.md (9 seções; sem benchmarks de indústria por enquanto)
       - resumo_executivo
       - recomendacoes_proximo_ciclo
       - cli_outputs_json (anexos por nível)
+      - cleanup_log.md (se cleanup foi executado)
     checkpoint:
       type: automated
       pass_criteria:
@@ -174,20 +245,22 @@ phases:
         - "5 detalhamentos gerados (campanha/conjunto/criativo/funil/UTM)"
         - "report-validation.md com 100% PASS"
         - "Cada recomendação tem suporte em dados"
+        - "Se cleanup executado: cleanup_log.md preenchido com autorização explícita"
       veto_conditions:
         - "Métricas básicas inconsistentes"
         - "Período do relatório incompleto"
         - "report-validation.md em FAIL"
+        - "Cleanup executado sem --confirm-delete ou sem autorização registrada"
     on_pass: COMPLETE
     on_fail: phase-5-report
 
 handoffs:
   phase-1-plan → phase-2-publish:
-    artifact: campaign-plan.md
+    artifact: campaign-plan.md + asset_inventory
     gap_time: "imediato após aprovação humana"
 
   phase-2-publish → phase-3-wait:
-    artifact: campaign_id + ads_manager_link
+    artifact: campaign_id + ad_group_ids + ad_ids + ads_manager_link
     gap_time: "imediato após publicação"
 
   phase-3-wait → phase-4-optimize:
@@ -195,7 +268,7 @@ handoffs:
     gap_time: "72h-7d (obrigatório)"
 
   phase-4-optimize → phase-5-report:
-    artifact: optimization-log.md
+    artifact: optimization-log.md (+ acoes_aplicadas se --apply)
     gap_time: "imediato após aprovação humana"
 
 completion_criteria:
@@ -206,13 +279,13 @@ completion_criteria:
 
 acceptance_criteria:
   - phase: phase-1-plan
-    criteria: "Plano aprovado + checklist pre-launch.md 100% PASS"
+    criteria: "Plano aprovado + checklist pre-launch.md 100% PASS + auth OK"
   - phase: phase-2-publish
-    criteria: "Campanha publicada com campaign_id retornado"
+    criteria: "Campanha publicada autonomamente via CLI com IDs retornados (assets+campaign+ad_groups+keywords+ads)"
   - phase: phase-3-wait
     criteria: "Mínimo 72h decorridas + dados disponíveis"
   - phase: phase-4-optimize
-    criteria: "optimization-log.md preenchido + decisões aprovadas"
+    criteria: "optimization-log.md preenchido + decisões aprovadas (e aplicadas se --apply)"
   - phase: phase-5-report
     criteria: "performance-report.md gerado + report-validation.md 100% PASS"
 
@@ -221,4 +294,7 @@ notes:
   - "Exceção: on_fail dentro da mesma phase (re-iteração permitida em 4 e 5)."
   - "Phase 3 (Wait) não tem agente — é uma porta temporal obrigatória."
   - "Custos reais são incorridos a partir da phase-2-publish."
-  - "Workflow assume google-ads CLI autenticado e configurado."
+  - "Workflow assume google-ads CLI autenticado e configurado (Epic 6)."
+  - "Publisher (phase-2) e Optimizer (phase-4) são EXECUTORES AUTÔNOMOS via CLI — não redirecionam mais ao UI."
+  - "Optimizer roda em modo SAFE por default; --apply é opt-in com approval explícito."
+  - "Phase-5 é READ-ONLY por padrão; cleanup (remove campaign) é opt-in via --confirm-delete."

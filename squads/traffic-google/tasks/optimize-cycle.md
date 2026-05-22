@@ -2,11 +2,16 @@
 
 ## Metadata
 - **Agent:** Campaign Optimizer
-- **Tipo:** Workflow analítico
+- **Tipo:** Workflow analítico + mutacional (post-Epic 6)
 - **Elicit:** true
+- **Modos:** `--analyze` (default SAFE, somente leitura) | `--apply` (executa mutações via CLI)
 
 ## Objetivo
-Analisar dados de performance e gerar recomendações de otimização baseadas em frameworks de decisão pré-definidos.
+Analisar dados de performance e gerar recomendações de otimização baseadas em frameworks de decisão pré-definidos. Em modo `--apply`, executar as mutações aprovadas diretamente via CLI `google-ads` com guardrails anti-runaway/anti-bid-shock.
+
+## SAFE-by-default
+- `*optimize` ou `*optimize --analyze` → **modo padrão**: apenas lê dados e gera recomendações em texto. Nada é alterado na conta.
+- `*optimize --apply` → **opt-in explícito do operador**: executa os comandos de mutação correspondentes às recomendações aprovadas. Requer confirmação humana antes de cada lote.
 
 ## Inputs
 - **Período de análise** (3, 7, 14 ou 30 dias)
@@ -26,6 +31,15 @@ NÃO executar se:
 - ❌ CLI `google-ads report` retornar erro (rede, permissões, account-id inválido)
 - ❌ Objetivo da campanha não declarado
 - ❌ Recomendação de pausar/escalar sem 3+ dias consecutivos confirmando tendência
+
+### Veto adicional para modo `--apply`
+NÃO executar mutação se:
+- ❌ Operador não confirmou explicitamente `--apply` (default é `--analyze`)
+- ❌ Aumento de budget > 50% sem flag `--max-budget-increase` explícita (anti-runaway built-in)
+- ❌ Aumento de lance de keyword > 50% sem confirmação explícita (anti-bid-shock)
+- ❌ Pausar campanha com gasto < 3 dias de histórico
+- ❌ Mutação em massa (>5 entidades) sem confirmação humana lote-a-lote
+- ❌ Audit log (`~/.aiox/google-ads-mutations.log`) não-gravável
 
 ## Fluxo
 
@@ -101,15 +115,85 @@ Preencher template `templates/optimization-log.md` com:
 - Justificativas
 - Resultados esperados
 
+### Step 6: Execução de Mutações (apenas modo `--apply`)
+
+> ⚠️ Esta etapa SÓ roda quando o operador invocou `*optimize --apply`. No modo default (`--analyze`), pule direto para o Handoff.
+
+#### 6.1 — Comandos de mutação (modo `--apply`)
+
+Comandos CLI que o Optimizer pode executar quando autorizado:
+
+```bash
+# Escalar budget (anti-runaway built-in: bloqueia aumento > +50% sem override)
+google-ads update budget {id} --daily {amount}
+
+# Override do threshold anti-runaway (uso consciente; aumenta até o limite passado)
+google-ads update budget {id} --daily {amount} --max-budget-increase 100
+
+# Troca de estratégia de lances
+google-ads update bidding {id} --strategy {strategy}
+
+# Pausar campanha inteira (kill underperformer)
+google-ads pause campaign {id}
+
+# Pausar ad group (kill granular)
+google-ads pause ad-group {id}
+
+# Re-ativar campanha previamente pausada
+google-ads enable campaign {id}
+
+# Ajustar lance de keyword (anti-bid-shock built-in: bloqueia +50% sem override)
+google-ads keyword update-bid {criterion-id} --cpc-bid {amount}
+
+# Remover keyword de baixa performance
+google-ads keyword remove {criterion-id}
+```
+
+#### 6.2 — Mapa decisão → comando
+
+| Classificação | Condição | Comando CLI |
+|---|---|---|
+| 🟢 **Escalar** | ROAS > meta por 3+ dias | `google-ads update budget {id} --daily {atual * 1.2-1.3}` |
+| 🔴 **Pausar** | CPA > 2x meta por 3+ dias | `google-ads pause campaign {id}` (ou `pause ad-group {id}` se granular) |
+| 🟡 **Ajustar (lance)** | CPA entre 1-2x meta | `google-ads update bidding {id} --strategy {nova}` ou `google-ads keyword update-bid {criterion-id} --cpc-bid {ajustado}` |
+| 🟡 **Ajustar (keyword)** | Keyword puxa CPA p/ cima sem converter | `google-ads keyword remove {criterion-id}` |
+| ⚪ **Manter** | Métricas dentro da meta | **não executa nada** — só registra observação |
+
+#### 6.3 — Protocolo de execução
+
+1. **Apresentar plano** ao operador: lista de comandos que serão executados, agrupados por entidade
+2. **Aguardar confirmação humana** lote-a-lote (não executar em massa sem aprovação)
+3. **Executar comando** via Bash
+4. **Capturar stdout/stderr** e validar exit code
+5. **Registrar no audit log** (passo automático, ver 6.4)
+6. **Se falhar:** abortar lote, reportar erro, não tentar rollback automático (operador decide)
+
+#### 6.4 — Audit log automático
+
+Todas as mutações são gravadas em `~/.aiox/google-ads-mutations.log` automaticamente pela CLI. Formato JSON-lines com:
+- timestamp ISO-8601
+- comando completo executado
+- entidade afetada (campaign/ad-group/keyword + id)
+- valor antes / valor depois
+- exit code + resposta da API
+- operador (usuário do sistema)
+
+Este log é a fonte de verdade para auditoria pós-execução e rollback manual.
+
 ## Regras
 - Mínimo 3 dias de dados para qualquer decisão
 - Sempre comparar contra thresholds de `data/kpi-thresholds.md`
 - Registrar TODA decisão no log
+- **SAFE-by-default:** modo `--analyze` é o padrão; `--apply` requer opt-in explícito do operador
+- **Anti-runaway:** aumentos de budget > 50% só com `--max-budget-increase` explícito
+- **Anti-bid-shock:** aumentos de lance > 50% só com confirmação adicional
+- **Audit trail obrigatório:** todas as mutações vão para `~/.aiox/google-ads-mutations.log`
 
 ## Output
 - Diagnóstico por campanha/conjunto
 - Lista de ações recomendadas
 - Log de otimização preenchido
+- **Modo `--apply`:** plano de execução + resultados das mutações + linhas adicionadas ao audit log
 
 ## Acceptance Criteria
 - [ ] `google-ads auth status` verificado e OK (Step 0)
@@ -123,6 +207,16 @@ Preencher template `templates/optimization-log.md` com:
 - [ ] Log preenchido em `templates/optimization-log.md` (Step 5)
 - [ ] Thresholds de `kpi-thresholds.md` foram referenciados explicitamente
 - [ ] Output do CLI (JSONs por nível) persistido como anexo do log (auditoria)
+- [ ] Modo de execução declarado explicitamente (`--analyze` ou `--apply`)
+
+### Acceptance Criteria adicionais — modo `--apply`
+- [ ] Operador confirmou opt-in explícito para `--apply`
+- [ ] Plano de execução apresentado e aprovado lote-a-lote antes de rodar
+- [ ] Mapa decisão → comando aplicado conforme tabela 6.2
+- [ ] Guardrails anti-runaway / anti-bid-shock respeitados (sem overrides não-autorizados)
+- [ ] Toda mutação gravada em `~/.aiox/google-ads-mutations.log`
+- [ ] Falhas de execução reportadas com exit code + resposta da API
+- [ ] Log de otimização atualizado com resultado real das mutações (não só recomendações)
 
 ## Handoff
 - **Próximo agente:** Performance Analyst (`*report`) para consolidar resultados

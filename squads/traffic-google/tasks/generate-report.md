@@ -12,6 +12,7 @@ Consolidar dados de múltiplas campanhas e plataformas em um relatório estrutur
 - **Plataformas-fonte** (Google Ads via CLI / Google Ads manual / ambas)
 - **Período do relatório** (data início + data fim)
 - **`account-id` da Google Ads** (ou usa default configurado)
+- **Escopo de contas** (single account OU MCC tree — quando MCC, agrega múltiplas contas)
 - **Dados de vendas/leads** para atribuição (opcional, recomendado)
 - **Período anterior** para comparação (opcional, recomendado)
 - **Convenções UTM** (`data/utm-conventions.md`)
@@ -36,6 +37,18 @@ NÃO gerar relatório se:
 node packages/google-ads-agent/dist/bin/google-ads.js auth status
 ```
 - Se expirado → BLOQUEAR e guiar para `google-ads auth setup`
+
+### Step 0.5: Detecção de Escopo MCC (Story 5.4)
+
+Antes de coletar dados, verificar se o `account-id` é um MCC (manager) — se for, listar a árvore de contas filhas para agregação multi-account:
+
+```bash
+node packages/google-ads-agent/dist/bin/google-ads.js accounts --tree
+```
+
+- Se o customer é um MCC → coletar lista de child accounts (read-only) e iterar Step 1 para cada uma
+- Se é single account → seguir fluxo padrão
+- Esta operação é **read-only** (apenas lista a hierarquia, não muta nada)
 
 ### Step 1: Coleta de Dados em Tempo Real
 
@@ -75,6 +88,7 @@ Parsear cada JSON do CLI e organizar:
 - Converter moedas se necessário (CLI já retorna em BRL para contas BR)
 - Marcar dados faltantes (campanhas pausadas no período etc)
 - Cruzar com dados de Google Ads (input manual) se aplicável
+- **Multi-account (MCC):** se o escopo for MCC tree (Step 0.5), agregar métricas de todas as child accounts — somar Investimento/Impressões/Cliques/Conversões, recalcular CTR/CPC/CPA/ROAS ponderados, e produzir uma seção "Por Conta" no relatório listando contribuição de cada account
 
 ### Step 3: Métricas Gerais
 Calcular totais e médias:
@@ -107,6 +121,31 @@ Se dados do período anterior disponíveis:
 - Variação % de cada métrica principal (cálculo manual a partir dos dois JSONs do CLI)
 - Tendências identificadas (melhora, piora, estável)
 - Correlação com ações tomadas no período
+
+### Step 5b: Asset Library (somente RDA / Performance Max — Story 6.6)
+
+Quando o account possuir campanhas **Responsive Display Ads (RDA)** ou **Performance Max (PMax)**, incluir uma seção de inventário de assets — operação **read-only**:
+
+```bash
+node packages/google-ads-agent/dist/bin/google-ads.js list-assets \
+  --type IMAGE --format json > /tmp/assets-image.json
+
+node packages/google-ads-agent/dist/bin/google-ads.js list-assets \
+  --type VIDEO --format json > /tmp/assets-video.json
+
+node packages/google-ads-agent/dist/bin/google-ads.js list-assets \
+  --type TEXT --format json > /tmp/assets-text.json
+
+# Ou puxar tudo de uma vez:
+node packages/google-ads-agent/dist/bin/google-ads.js list-assets \
+  --type ALL --format json > /tmp/assets-all.json
+```
+
+- Listar quantidade de assets por tipo (IMAGE/VIDEO/TEXT)
+- Identificar assets reutilizáveis entre campanhas (cross-campaign reuse)
+- Sinalizar gaps (ex: PMax sem video assets, RDA sem long headlines)
+- Esta seção é **omitida** quando não há RDA/PMax no account
+- Analyst **não muta** assets — apenas lista para análise
 
 ### Step 5.5: Análise por Palavra-Chave (Google-only)
 
@@ -147,17 +186,21 @@ Gerar relatório usando template `templates/performance-report.md`.
 
 ## Acceptance Criteria
 - [ ] `google-ads auth status` verificado e OK (Step 0)
+- [ ] Escopo MCC detectado via `accounts --tree` quando aplicável (Step 0.5)
 - [ ] Dados puxados via `google-ads report --format json` nos 4 níveis (account/campaign/ad_group/ad) (Step 1)
 - [ ] Dados de todas as plataformas declaradas foram consolidados (Step 2)
+- [ ] Agregação multi-account aplicada quando o customer é um MCC tree (Step 2)
 - [ ] Tabela de métricas gerais preenchida com totais e comparações (Step 3)
 - [ ] 5 detalhamentos gerados: campanha, conjunto, criativo, funil, UTM (Step 4)
 - [ ] Comparação com período anterior incluída quando os dados existem (Step 5)
 - [ ] Comparação de períodos calculada manualmente a partir dos JSONs (Step 5)
+- [ ] Seção Asset Library incluída quando account possui RDA/PMax via `list-assets` (Step 5b)
 - [ ] Análise por keyword incluída para campanhas Search (Step 5.5)
 - [ ] Cada recomendação tem suporte em dados específicos do relatório (Step 6)
 - [ ] Checklist `report-validation.md` com 100% PASS (Step 7)
 - [ ] Relatório final gerado a partir de `templates/performance-report.md`
-- [ ] JSONs do CLI (5 níveis) persistidos como anexos do relatório (auditoria)
+- [ ] JSONs do CLI (5 níveis + assets quando aplicável) persistidos como anexos do relatório (auditoria)
+- [ ] Nenhuma mutação executada — task estritamente read-only (Analyst não muta)
 
 ## Handoff
 - **Próximo agente:** Campaign Optimizer (`*optimize`) caso recomendações exijam ação imediata

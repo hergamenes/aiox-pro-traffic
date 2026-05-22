@@ -2,100 +2,128 @@
 
 ## Metadata
 - **Agent:** Campaign Launcher
-- **Tipo:** Workflow interativo
+- **Tipo:** Workflow interativo (PRIMEIRO no fluxo da squad)
 - **Elicit:** true
+- **Modo:** Read-only (NÃO executa publicação)
 
 ## Objetivo
-Guiar o usuário através do processo completo de estruturação e validação de uma campanha antes da publicação.
+Validar (read-only) o briefing, a infraestrutura CLI e o plano de campanha ANTES de qualquer execução. O Launcher é o primeiro agente da squad e produz um **plano validado** que será consumido pelo Campaign Publisher (que executa autonomamente via CLI).
 
 ## Inputs
 - **Briefing do cliente/gestor** (objetivo, público, budget, prazo)
-- **Criativos** (caminhos para imagens, vídeos, copies)
+- **Criativos** (caminhos para imagens, vídeos, copies — referenciados por ID/nome de asset já existente)
 - **Links de destino** (landing pages, formulários, WhatsApp)
 - **Regras de UTM** do cliente (se houver convenção específica)
-- **Plataforma alvo** (Google Ads, Google Ads, ambas)
+- **Plataforma alvo** (Google Ads)
 - **CLI google-ads autenticada** (`google-ads auth status` = OK)
 
 ## Veto Conditions
-NÃO executar (ou bloquear avanço) se:
-- ❌ Briefing sem objetivo claro (Vendas/Leads/Tráfego/Reconhecimento)
-- ❌ Orçamento ausente ou impreciso
-- ❌ Criativos não disponíveis no formato exigido pela plataforma
-- ❌ Links sem definição de UTM e o cliente exige rastreio
-- ❌ Checklist `pre-launch.md` com qualquer item FAIL
-- ❌ `google-ads auth status` retornar expirado/não-configurado (para plataforma Google Ads)
+NÃO aprovar o plano (bloquear avanço para o Publisher) se:
+- Briefing sem objetivo claro (Vendas/Leads/Tráfego/Reconhecimento)
+- Orçamento ausente ou impreciso
+- Criativos referenciados não encontrados em `google-ads list-assets`
+- Links sem definição de UTM e o cliente exige rastreio
+- Checklist `pre-launch.md` com qualquer item FAIL
+- `google-ads auth status` retornar expirado/não-configurado
+- Conta padrão não configurada (`google-ads config get-default` vazio)
 
 ## Fluxo
 
-### Step 0: Pré-validação Real-Time (Google Ads)
-Antes do briefing, confirmar infraestrutura via CLI:
+### Step 0: Pré-validação Real-Time (read-only)
+Antes do briefing, confirmar infraestrutura via CLI (somente leitura):
 
 ```bash
+# Autenticação
 node packages/google-ads-agent/dist/bin/google-ads.js auth status
-node packages/google-ads-agent/dist/bin/google-ads.js accounts
-node packages/google-ads-agent/dist/bin/google-ads.js pages
+
+# Conta padrão configurada
+node packages/google-ads-agent/dist/bin/google-ads.js config get-default
+
+# Árvore de contas MCC (Story 5.4)
+node packages/google-ads-agent/dist/bin/google-ads.js accounts --tree
+
+# Baseline de performance dos últimos 7 dias
+node packages/google-ads-agent/dist/bin/google-ads.js report --period 7d --level campaign --format json
 ```
 
-- Se auth expirado → BLOQUEAR e guiar usuário para `google-ads auth setup`
-- Se conta padrão não definida → BLOQUEAR e guiar para `google-ads config set-default`
-- Mostrar ao usuário as contas e páginas disponíveis para escolha consciente
+- Se `auth status` expirado → BLOQUEAR e guiar para `google-ads auth setup`
+- Se `config get-default` vazio → BLOQUEAR e guiar para `google-ads config set-default`
+- Mostrar ao usuário a árvore de contas (MCC → clientes) para escolha consciente
+- Registrar baseline de performance (CTR/CPA/ROAS médios) para comparação posterior
 
 ### Step 1: Briefing
 Coletar informações essenciais da campanha:
 
 1. **Objetivo:** Qual o objetivo? (Vendas, Leads, Tráfego, Reconhecimento)
-2. **Plataforma:** Onde será veiculada? (Google Ads, Google Ads, ambos)
+2. **Plataforma:** Onde será veiculada? (Google Ads)
 3. **Público-alvo:** Quem é o público? (idade, gênero, interesses, localização)
 4. **Orçamento:** Quanto será investido? (diário ou total, período)
-5. **Criativos:** Quais peças serão usadas? (imagens, vídeos, copies)
+5. **Criativos:** Quais assets serão usados? (IDs/nomes já presentes na conta)
 6. **Links:** Para onde o tráfego será direcionado? (landing page, WhatsApp, site)
 7. **Prazo:** Quando começa e quando termina?
 
-### Step 2: Estruturação
-Com base no briefing, montar:
+### Step 2: Estruturação (somente em arquivo, sem publicar)
+Com base no briefing, montar a estrutura no plano:
 
 - **Campanha:** Nome seguindo convenção, objetivo configurado
 - **Conjuntos de anúncios:** Segmentação, orçamento, posicionamento
 - **Anúncios:** Criativos vinculados, copies, CTAs, links com UTM
 
-### Step 3: Validação
-Executar validações obrigatórias:
+### Step 3: Validação de Assets (read-only via CLI — Story 6.6)
+Verificar se todos os assets referenciados no briefing existem na conta:
+
+```bash
+# Listar todos os assets disponíveis
+node packages/google-ads-agent/dist/bin/google-ads.js list-assets --type ALL
+
+# Ou filtrar por tipo específico
+node packages/google-ads-agent/dist/bin/google-ads.js list-assets --type IMAGE
+node packages/google-ads-agent/dist/bin/google-ads.js list-assets --type VIDEO
+node packages/google-ads-agent/dist/bin/google-ads.js list-assets --type TEXT
+```
+
+Para cada asset referenciado no plano:
+- Confirmar que aparece na listagem (por ID ou nome)
+- Se algum asset estiver ausente → BLOQUEAR e solicitar upload prévio
+
+### Step 4: Validação do Plano
+Checklist obrigatório:
 
 - [ ] UTMs corretos em todos os links (source, medium, campaign, content)
 - [ ] Segmentação coerente com o objetivo
-- [ ] Criativos nos formatos corretos da plataforma
+- [ ] Assets referenciados encontrados via `list-assets`
 - [ ] Orçamento distribuído de forma lógica
 - [ ] Naming convention seguida
 - [ ] Políticas da plataforma respeitadas
 
-**Validação de criativos via CLI** (quando criativos disponíveis):
-```bash
-node packages/google-ads-agent/dist/bin/google-ads.js creatives {path-dos-criativos}
-```
-Se retornar erros → corrigir antes de prosseguir.
-
-### Step 4: Checklist Pré-Launch
+### Step 5: Checklist Pré-Launch
 Executar `checklists/pre-launch.md` completo.
 
-- Se 100% PASS → Gerar plano final
+- Se 100% PASS → Gerar plano validado
 - Se qualquer FAIL → Listar correções e BLOQUEAR
 
-### Step 5: Plano Final
-Gerar documento `campaign-plan.md` usando template `templates/campaign-brief.md` com toda a estrutura aprovada.
+### Step 6: Plano Validado
+Gerar `campaign-plan.md` usando template `templates/campaign-brief.md` com toda a estrutura aprovada, marcado como **VALIDATED** e pronto para o Publisher consumir.
 
 ## Output
-- Plano de campanha completo e validado
-- Relatório de validação
-- Checklist pré-lançamento preenchido
+- `campaign-plan.md` (status: VALIDATED) — plano completo e validado
+- Relatório de validação (Steps 3–5)
+- Checklist `pre-launch.md` preenchido (100% PASS)
+- Baseline de performance (`report --period 7d`) registrado para comparação pós-launch
 
 ## Acceptance Criteria
+- [ ] `auth status`, `config get-default` e `accounts --tree` executados e OK
 - [ ] Briefing capturado nos 7 campos (Step 1)
 - [ ] Estrutura montada com campanha + conjuntos + anúncios
-- [ ] Todos os 6 itens da seção "Validação" (Step 3) marcados como PASS
+- [ ] Assets referenciados confirmados via `list-assets` (Step 3)
+- [ ] Todos os 6 itens da seção "Validação do Plano" (Step 4) marcados como PASS
 - [ ] Checklist `pre-launch.md` com 100% PASS
-- [ ] Arquivo `campaign-plan.md` gerado a partir do template `campaign-brief.md`
+- [ ] Arquivo `campaign-plan.md` gerado a partir do template `campaign-brief.md` com status VALIDATED
 - [ ] UTMs verificados (source/medium/campaign/content) em todos os links
+- [ ] Baseline de métricas dos últimos 7 dias salvo junto ao plano
 
 ## Handoff
+- **Modo:** Launcher é **read-only** — NÃO executa publicação.
 - **Próximo agente:** Campaign Publisher (`*publish-sales` ou `*publish-leads`)
-- **Artefato passado:** `campaign-plan.md` aprovado pelo Launcher
+- **Artefato passado:** `campaign-plan.md` com status `VALIDATED` + baseline de performance
+- **Contrato:** O Publisher confiará que o plano está validado e executará autonomamente via CLI (sem UI). Qualquer dúvida sobre estrutura, assets ou autenticação deve ser resolvida pelo Launcher ANTES do handoff — não pelo Publisher durante a execução.
