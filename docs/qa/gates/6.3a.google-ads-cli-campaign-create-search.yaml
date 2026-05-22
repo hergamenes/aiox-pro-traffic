@@ -1,0 +1,149 @@
+storyId: "6.3a"
+storyTitle: "Google Ads CLI — Campaign Create (Search)"
+storyPath: docs/stories/6.3a.google-ads-cli-campaign-create-search.story.md
+verdict: CONCERNS
+verdictRationale: |
+  Implementação core sólida — 15 de 16 ACs entregues. Pipeline end-to-end
+  validado via SDK validate_only (dry-run), 4 vetos críticos validados
+  (target sem strategy correta, anti-runaway batch, MCC veto, --target
+  com strategy não-aceita). 212/212 tests passing (+31 da 6.3a). Lint
+  clean. Boundary rule respeitada.
+
+  Bug crítico do EU Digital Services Act (campo
+  `contains_eu_political_advertising` obrigatório) foi detectado pelo
+  @dev DURANTE o dry-run smoke e corrigido em tempo. Excellent
+  validate-before-deploy pattern.
+
+  CONCERNS (não PASS) porque AC#15 smoke real-time NÃO foi executado
+  por escolha do user (modo conservador). Pipeline foi validado via
+  `validate_only=true` da SDK — Google API confirmou que payload é
+  válido e processaria criação. Promover para PASS exige 1 invocação
+  real (custo R$ 0,00, campanha nasce PAUSED).
+
+gateDate: "2026-05-22"
+gateAgent: "@qa"
+
+checks:
+  - id: 1
+    name: "Code review"
+    status: PASS
+    findings: |
+      - campaign-builder.ts separado de mutations.ts (helpers puros sem SDK runtime)
+      - Temp resource_names com convenção Google bem documentada
+      - Status hardcoded 'PAUSED' (R6 anti-burn — não-negociável)
+      - session-budget-tracker com TTL 2h + fire-and-forget para fs failures
+      - addToSessionBudget só após sucesso real (dry-runs não consomem cota)
+      - Bug menor (target+maximize_conversions) detectado e corrigido pelo @dev
+      - Cancellation cria audit log com success=false
+
+  - id: 2
+    name: "Unit tests"
+    status: PASS
+    metrics:
+      total_new_in_6_3a: 31
+      total_at_story_close: 212
+      passing: 212/212
+      runtime_ms: 942
+      coverage_new_files:
+        - "campaign-builder.ts: 100% (puro)"
+        - "session-budget-tracker.ts: ~90% (filesystem mocked)"
+
+  - id: 3
+    name: "Acceptance criteria"
+    status: CONCERNS
+    ac_status:
+      AC1_create_command: PASS
+      AC2_campaign_search_flags: PASS  # todos os flags presentes
+      AC3_prefetch_obligatory: PASS  # readCustomerCurrencyAndTz + checkCampaignNameExists implementados
+      AC4_veto_mcc: PASS
+      AC5_veto_duplicate_name: PASS  # checkCampaignNameExists implementado
+      AC6_veto_burn_protection: PASS_HARDCODED  # status='PAUSED' não-negociável no builder
+      AC7_veto_anti_runaway: PASS_VALIDATED  # smoke 3 validou
+      AC8_confirmation_ux: PASS_VALIDATED  # dry-run 1 mostrou preview correto
+      AC9_atomic_mutateresources: PASS  # buildSearchCampaignOperations retorna 2 ops com temp -1
+      AC10_network_settings: PASS  # Search puro (Display + Partners OFF)
+      AC11_post_mutate_output: PASS  # Code paths validados via dry-run
+      AC12_audit_log_create_campaign_search: PASS  # operation enum ampliado
+      AC13_boundary_rule: PASS  # grep verificado
+      AC14_unit_tests: PASS  # 31 testes novos
+      AC15_smoke_realtime:
+        status: PARTIAL
+        evidence: "Dry-run smoke OK (4 cenários); smoke real (criação) NÃO executado por escolha do user"
+        recommendation: "Para promover CONCERNS → PASS: rodar 1 invocação real (custo R$ 0,00)"
+      AC16_help_documented: PASS  # --help mostra create + campaign-search
+
+  - id: 4
+    name: "No regressions"
+    status: PASS
+    checks:
+      - "Stories 5.x + 6.1 + 6.2: 181 tests anteriores continuam passando"
+      - "Schema-parity guardian (5.3 critical): OK"
+      - "212/212 total"
+
+  - id: 5
+    name: "Performance"
+    status: PASS
+    metrics:
+      bundle_size_kb: 106.32
+      bundle_delta_vs_6_2: "+21.03 KB"
+      bundle_vs_limit: "<11% do limite 1 MB"
+
+  - id: 6
+    name: "Security (OWASP basics)"
+    status: PASS
+    checks:
+      hardcoded_secrets: NONE
+      input_validation: |
+        - parseMicros valida budget
+        - validateBiddingStrategy rejeita inputs incoerentes
+        - GAQL escape de single quotes no nome (anti-injection no checkCampaignNameExists)
+        - max length 255 do --name validado
+      anti_burn_protection: "Status PAUSED hardcoded — operator humano DEVE chamar enable explicitamente"
+      anti_runaway_session: "Session budget tracker com cap default R$ 500"
+      boundary_rule_enforced: "SDK só em src/google-ads-api/"
+
+  - id: 7
+    name: "Documentation"
+    status: PASS
+    artifacts:
+      - "Story 6.3a com File List + Dev Agent Record completos"
+      - "Bug EU compliance documentado para 6.3b/6.3c herdarem o fix"
+      - "Dev Notes com SDK signature + decisão arquitetural (skeleton-only)"
+      - "JSDoc em mutations.ts + campaign-builder.ts"
+      - "--help documenta todos os flags + cita próximas stories no fluxo"
+
+issues:
+  - severity: medium
+    category: testing
+    description: "AC#15 smoke real-time NÃO executado — pipeline validado apenas via SDK validate_only"
+    recommendation: |
+      Para promover de CONCERNS → PASS, rodar smoke real com:
+      ```
+      node packages/google-ads-agent/dist/bin/google-ads.js create campaign-search \
+        --name "[TEST-6.3a] Search smoke {timestamp}" --daily 5 \
+        --customer-id 5562216599 --login-customer-id 1528041123
+      ```
+      Custo esperado: R$ 0,00. Campanha nasce PAUSED, não roda.
+      Verifica também:
+      - Audit log gera entrada com operation='create_campaign_search'
+      - campaign_id retornado é válido
+      - Campanha aparece no Google Ads UI como PAUSED
+    blocking: false
+
+  - severity: low
+    category: testing
+    description: "Coverage de mutations.ts (createSearchCampaign + helpers de pre-fetch) ~10% via unit"
+    recommendation: "Pattern aceito desde 5.x. POST-MVP: integration tests com mock SDK."
+    blocking: false
+
+bug_caught_and_fixed_during_smoke:
+  bug_critical: "contains_eu_political_advertising é campo obrigatório (EU DSA 2023)"
+  detected_by: dev
+  detection_method: "Dry-run 1 retornou field_error: REQUIRED apontando para o campo"
+  fix: "Adicionado 'DOES_NOT_CONTAIN_EU_POLITICAL_ADVERTISING' no campaign-builder.ts"
+  lesson_learned: "SDK exemplos antigos podem omitir campos novos da API. Stories 6.3b/6.3c devem herdar este fix."
+
+  bug_minor: "--target permitido com strategies que não aceitam (maximize_conversions, manual_cpc, maximize_conversion_value)"
+  fix: "Check explícito no command (exit 1 antes da API)"
+
+closing_signature: "Quinn — 6.3a CONCERNS (Done com nota — smoke real deferido) 🧪⚠️"

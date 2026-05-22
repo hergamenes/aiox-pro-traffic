@@ -12,7 +12,10 @@ export type MutationOperation =
   | 'pause_campaign'
   | 'enable_campaign'
   | 'pause_ad_group'
-  | 'enable_ad_group';
+  | 'enable_ad_group'
+  | 'create_campaign_search'
+  | 'create_campaign_display'
+  | 'create_campaign_pmax';
 
 export interface MutationLogEntry {
   timestamp: string;

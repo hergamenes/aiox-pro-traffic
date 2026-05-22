@@ -14,6 +14,10 @@
 import type { GoogleAdsApi, resources, MutateOperation } from 'google-ads-api';
 import { getCustomer } from './client.js';
 import { logger } from '../cli/logger.js';
+import {
+  buildSearchCampaignOperations,
+  type BiddingStrategy,
+} from './campaign-builder.js';
 
 export interface CampaignBudgetSnapshot {
   campaignId: string;
@@ -638,6 +642,168 @@ export async function setAdGroupStatus(
     before: { status: snapshot.status },
     after: { status: input.dryRun ? snapshot.status : input.newStatus },
     resourceName: returnedResourceName,
+    dryRun: Boolean(input.dryRun),
+  };
+}
+
+// ============================================================================
+// Story 6.3a — Campaign create (Search)
+// ============================================================================
+
+export interface CustomerContext {
+  currencyCode: string;
+  timeZone: string;
+  isManager: boolean;
+}
+
+export interface CreateSearchCampaignInput {
+  customerId: string;
+  name: string;
+  dailyMicros: number;
+  bidding: BiddingStrategy;
+  targetMicros?: number;
+  targetRoas?: number;
+  startDateYYYYMMDD: string;
+  refreshToken: string;
+  loginCustomerId?: string;
+  dryRun?: boolean;
+}
+
+export interface CreateCampaignResult {
+  campaignResourceName: string;
+  campaignId: string;
+  budgetResourceName: string;
+  budgetId: string;
+  dryRun: boolean;
+}
+
+/**
+ * Reads customer metadata (currency, timezone, manager flag) for the
+ * pre-flight check before any campaign create.
+ */
+export async function readCustomerCurrencyAndTz(
+  client: GoogleAdsApi,
+  refreshToken: string,
+  customerId: string,
+  loginCustomerId?: string,
+): Promise<CustomerContext> {
+  const customer = getCustomer(client, {
+    customerId,
+    refreshToken,
+    ...(loginCustomerId ? { loginCustomerId } : {}),
+  });
+
+  const rows = (await customer.query(`
+    SELECT
+      customer.currency_code,
+      customer.time_zone,
+      customer.manager
+    FROM customer
+    LIMIT 1
+  `)) as unknown as Array<{
+    customer?: { currency_code?: string; time_zone?: string; manager?: boolean };
+  }>;
+
+  const first = Array.isArray(rows) && rows.length > 0 ? rows[0] : null;
+  if (!first?.customer) {
+    throw new Error(`Não foi possível ler metadata da conta ${customerId}.`);
+  }
+
+  return {
+    currencyCode: String(first.customer.currency_code ?? 'BRL'),
+    timeZone: String(first.customer.time_zone ?? 'America/Sao_Paulo'),
+    isManager: Boolean(first.customer.manager),
+  };
+}
+
+/**
+ * Checks whether a campaign with the exact given name exists in the
+ * account. Pre-create veto so operator gets a friendly error.
+ */
+export async function checkCampaignNameExists(
+  client: GoogleAdsApi,
+  refreshToken: string,
+  customerId: string,
+  name: string,
+  loginCustomerId?: string,
+): Promise<boolean> {
+  const customer = getCustomer(client, {
+    customerId,
+    refreshToken,
+    ...(loginCustomerId ? { loginCustomerId } : {}),
+  });
+
+  const escaped = name.replace(/'/g, "\\'");
+  const rows = (await customer.query(`
+    SELECT campaign.id
+    FROM campaign
+    WHERE campaign.name = '${escaped}'
+    LIMIT 1
+  `)) as unknown as Array<{ campaign?: { id?: string | number } }>;
+
+  return Array.isArray(rows) && rows.length > 0 && Boolean(rows[0]?.campaign?.id);
+}
+
+/**
+ * Atomic create of CampaignBudget + Campaign (Search type).
+ *
+ * Uses temporary resource_name `.../campaignBudgets/-1` so Google resolves
+ * the cross-reference atomically. Status is **always** PAUSED.
+ */
+export async function createSearchCampaign(
+  client: GoogleAdsApi,
+  input: CreateSearchCampaignInput,
+): Promise<CreateCampaignResult> {
+  const customer = getCustomer(client, {
+    customerId: input.customerId,
+    refreshToken: input.refreshToken,
+    ...(input.loginCustomerId ? { loginCustomerId: input.loginCustomerId } : {}),
+  });
+
+  const operations = buildSearchCampaignOperations({
+    customerId: input.customerId,
+    name: input.name,
+    dailyMicros: input.dailyMicros,
+    bidding: input.bidding,
+    ...(input.targetMicros !== undefined ? { targetMicros: input.targetMicros } : {}),
+    ...(input.targetRoas !== undefined ? { targetRoas: input.targetRoas } : {}),
+    startDateYYYYMMDD: input.startDateYYYYMMDD,
+  });
+
+  const response = await customer.mutateResources(operations, {
+    validate_only: Boolean(input.dryRun),
+    partial_failure: false,
+  });
+
+  const budgetResult = response.mutate_operation_responses?.[0];
+  const campaignResult = response.mutate_operation_responses?.[1];
+  const cidStripped = input.customerId.replace(/-/g, '');
+
+  const budgetResourceName =
+    (budgetResult?.campaign_budget as { resource_name?: string } | undefined)?.resource_name ??
+    `customers/${cidStripped}/campaignBudgets/-1`;
+  const campaignResourceName =
+    (campaignResult?.campaign as { resource_name?: string } | undefined)?.resource_name ??
+    `customers/${cidStripped}/campaigns/-2`;
+
+  const budgetId = budgetResourceName.split('/').pop() ?? '';
+  const campaignId = campaignResourceName.split('/').pop() ?? '';
+
+  logger.debug(
+    {
+      customerId: input.customerId,
+      campaignId,
+      budgetId,
+      dryRun: input.dryRun,
+    },
+    'createSearchCampaign completed',
+  );
+
+  return {
+    campaignResourceName,
+    campaignId,
+    budgetResourceName,
+    budgetId,
     dryRun: Boolean(input.dryRun),
   };
 }

@@ -6,6 +6,7 @@ import { configCommand } from './commands/config.js';
 import { reportCommand } from './commands/report.js';
 import { updateCommand } from './commands/update.js';
 import { pauseCommand, enableCommand } from './commands/pause-enable.js';
+import { createCommand } from './commands/create.js';
 
 const require = createRequire(import.meta.url);
 const pkg = require('../../package.json') as { version: string; description: string };
@@ -24,6 +25,7 @@ program.addCommand(reportCommand);
 program.addCommand(updateCommand);
 program.addCommand(pauseCommand);
 program.addCommand(enableCommand);
+program.addCommand(createCommand);
 
 export function run(): void {
   program.parse();
