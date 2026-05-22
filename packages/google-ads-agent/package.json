@@ -10,9 +10,11 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "lint": "eslint src/",
+    "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "verify": "npm run lint && npm run typecheck && npm test && npm run build"
   },
   "keywords": [
     "google-ads",
