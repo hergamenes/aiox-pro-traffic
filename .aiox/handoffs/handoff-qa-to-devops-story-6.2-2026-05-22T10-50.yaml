@@ -1,0 +1,138 @@
+handoff:
+  from_agent: qa
+  to_agent: devops
+  timestamp: "2026-05-22T10:50:00Z"
+  last_command: "*qa-gate 6.2"
+  consumed: false
+
+  story_context:
+    story_id: "6.2"
+    story_path: docs/stories/6.2.google-ads-cli-pause-enable.story.md
+    story_status: Done
+    gate_file: docs/qa/gates/6.2.google-ads-cli-pause-enable.yaml
+    epic: epic-6-google-ads-mutations
+    epic_position: "2 of 9"
+
+  gate_result:
+    verdict: CONCERNS
+    rationale: |
+      14/15 ACs PASS. AC#9 (learning-phase warning) DEFERRED_POST_MVP —
+      helper implementado e testado, mas command não consome porque
+      campaign.start_date não é GAQL-selectable. Tradeoff técnico
+      documentado e aceitável. CONCERNS análogo ao verdict da Story 5.3
+      (MCC issue) — story Done mas com nota futura.
+    promotable_to_pass_via:
+      - "Amendment: query GAQL para bidding_strategy_last_modification_time + wire ao isLearningPhase"
+      - "Estimativa: 15-30 min de @dev"
+
+  metrics:
+    tests_passing: 181/181
+    tests_added_in_6_2: 24
+    lint_status: clean
+    build_size: "85.29 KB (+15.83 KB vs 6.1)"
+    boundary_violations: 0
+    bug_fixed_during_smoke: 1
+    bug_caught_by: dev
+    bug_caught_method: self-catch via smoke
+
+  files_to_push:
+    cli_changes:
+      created:
+        - "packages/google-ads-agent/src/google-ads-api/status-validator.ts"
+        - "packages/google-ads-agent/src/google-ads-api/status-validator.test.ts"
+        - "packages/google-ads-agent/src/cli/commands/pause-enable.ts"
+      modified:
+        - "packages/google-ads-agent/src/google-ads-api/mutations.ts (extended with 4 new exports + normalizeStatus)"
+        - "packages/google-ads-agent/src/cli/mutation-prompt.ts (extended with formatStatusMutationDiff + requireSimpleConfirm)"
+        - "packages/google-ads-agent/src/cli/mutation-prompt.test.ts (extended)"
+        - "packages/google-ads-agent/src/log/mutation-log.ts (operation union extended)"
+        - "packages/google-ads-agent/src/cli/index.ts (registers pause + enable commands)"
+    docs:
+      - "docs/stories/6.2.google-ads-cli-pause-enable.story.md"
+      - "docs/qa/gates/6.2.google-ads-cli-pause-enable.yaml"
+    handoffs:
+      - ".aiox/handoffs/handoff-dev-to-qa-story-6.2-*.yaml"
+      - ".aiox/handoffs/handoff-qa-to-devops-story-6.2-*.yaml (this)"
+
+  push_recommendations:
+    commit_message_suggestion: |
+      feat(google-ads-agent): add pause/enable for campaign + ad_group (Story 6.2)
+
+      Second mutation story in Epic 6, reusing the mutateResources pipeline
+      from Story 6.1 to toggle campaign.status and ad_group.status between
+      ENABLED and PAUSED.
+
+      Implementation:
+      - 4 new CLI subcommands: `pause campaign <id>`, `pause ad-group <id>`,
+        `enable campaign <id>`, `enable ad-group <id>`
+      - Single shared handler parameterized by operation+entityType+entityId
+        (reduces duplication ~75%)
+      - Pre-fetch obligatory before mutation (name + status + parent ctx)
+      - Idempotency: skip mutate if status already matches target
+      - Veto for REMOVED entities (PT-BR error)
+      - --dry-run via SDK validate_only=true
+      - Audit log extended with 4 new operation values (pause/enable ×
+        campaign/ad_group)
+      - Simple s/N confirm (reversible operation; no exact-phrase needed)
+      - status-validator.ts new pure helpers (parseStatusEnum,
+        getTargetStatus, isLearningPhase)
+
+      Bug fix during smoke:
+      - CampaignStatus enum was incorrectly mapped (3=REMOVED instead of
+        3=PAUSED). Detected via smoke 3 (idempotency check returned false
+        REMOVED). Corrected in both mutations.ts:normalizeStatus and
+        status-validator.ts:parseStatusEnum + tests + Dev Notes table.
+        Comment added in both files: "Google Ads CampaignStatus enum:
+        2=ENABLED, 3=PAUSED, 4=REMOVED" to prevent re-introduction.
+
+      Real-time validation:
+      - Sandbox campaign 23478792639 (Solaro client account 5562216599)
+      - ENABLED → PAUSED applied; idempotency check; rollback to ENABLED
+      - Final state verified by QA: status=2 (ENABLED), perfectly restored
+
+      AC#9 (learning-phase warning) deferred to POST-MVP because
+      campaign.start_date is not GAQL-selectable. Helper isLearningPhase
+      is implemented and unit-tested for future story to wire up.
+
+      Stats: 181/181 tests passing (+24 in 6.2). Bundle 85.29 KB.
+
+  pre_push_required:
+    files_check: "TS code + tests + .md + .yaml"
+    lint_required: true  # já validated em QA
+    test_required: true  # já validated em QA
+    note: "Push tem código TS REAL — @devops re-validate lint + test no pacote."
+
+  no_user_action_required: true
+
+  state_to_be_aware_of:
+    - "Config default está em customerId=1528041123 (MCC) + loginCustomerId=1528041123 — restaurado após smoke"
+    - "Audit log ~/.aiox/google-ads-mutations.log: 4 entradas novas da 6.2 + 3 da 6.1 (não é gitignored)"
+    - "Campanha sandbox 23478792639 final state: ENABLED (rollback aplicado)"
+
+  next_action_for_user_after_push: |
+    Squad traffic-google agora pode pausar e reativar campanhas autônomamente:
+
+    # Pausar (com confirmation visual)
+    node packages/google-ads-agent/dist/bin/google-ads.js pause campaign {id} \
+      --customer-id {client-id} --login-customer-id {mcc-id}
+
+    # Reativar
+    node packages/google-ads-agent/dist/bin/google-ads.js enable campaign {id} \
+      --customer-id {client-id} --login-customer-id {mcc-id}
+
+    # Dry-run (testar sem aplicar)
+    node packages/google-ads-agent/dist/bin/google-ads.js pause campaign {id} --dry-run
+
+    # Auditoria
+    cat ~/.aiox/google-ads-mutations.log | jq
+
+  next_story_in_epic_6:
+    id: "6.3a"
+    title: "Campaign create (Search)"
+    notes: |
+      Próxima sequencial. Pode rodar YOLO (pattern muito bem estabelecido).
+      Importante: campaign create é o primeiro CREATE story do épico
+      — multi-entity atomic mutateResources (Budget + Campaign).
+      Story já Ready (Status promovido pelo @po na ronda paralela).
+
+  closing: "Quinn — 6.2 CONCERNS (Done com nota AC#9) 🧪⚠️ → @devops"

@@ -368,3 +368,276 @@ export async function updateCampaignBidding(
 function stripDashes(id: string): string {
   return id.replace(/-/g, '');
 }
+
+// ============================================================================
+// Story 6.2 — Pause / Enable (campaign + ad_group status mutations)
+// ============================================================================
+
+export type EntityStatus = 'ENABLED' | 'PAUSED' | 'REMOVED' | 'UNKNOWN';
+
+export interface CampaignStatusSnapshot {
+  campaignId: string;
+  campaignName: string;
+  status: EntityStatus;
+  biddingStrategyType?: string;
+  startDate?: string;
+}
+
+export interface AdGroupStatusSnapshot {
+  adGroupId: string;
+  adGroupName: string;
+  campaignId: string;
+  campaignName: string;
+  status: EntityStatus;
+}
+
+export interface SetStatusInput {
+  customerId: string;
+  targetId: string;
+  newStatus: 'ENABLED' | 'PAUSED';
+  refreshToken: string;
+  loginCustomerId?: string;
+  dryRun?: boolean;
+}
+
+export interface SetStatusResult {
+  before: { status: EntityStatus };
+  after: { status: EntityStatus };
+  resourceName: string;
+  dryRun: boolean;
+}
+
+function normalizeStatus(raw: unknown): EntityStatus {
+  if (raw === undefined || raw === null) return 'UNKNOWN';
+  const s = String(raw).toUpperCase();
+  // Google Ads CampaignStatus enum: 2=ENABLED, 3=PAUSED, 4=REMOVED
+  if (s === '2' || s === 'ENABLED') return 'ENABLED';
+  if (s === '3' || s === 'PAUSED') return 'PAUSED';
+  if (s === '4' || s === 'REMOVED') return 'REMOVED';
+  return 'UNKNOWN';
+}
+
+/**
+ * Reads campaign metadata for status mutation pre-fetch:
+ * id, name, status, bidding_strategy_type, start_date.
+ *
+ * Throws if campaign not found.
+ */
+export async function readCampaignStatusSnapshot(
+  client: GoogleAdsApi,
+  refreshToken: string,
+  customerId: string,
+  campaignId: string,
+  loginCustomerId?: string,
+): Promise<CampaignStatusSnapshot> {
+  const customer = getCustomer(client, {
+    customerId,
+    refreshToken,
+    ...(loginCustomerId ? { loginCustomerId } : {}),
+  });
+
+  const rows = (await customer.query(`
+    SELECT
+      campaign.id,
+      campaign.name,
+      campaign.status,
+      campaign.bidding_strategy_type
+    FROM campaign
+    WHERE campaign.id = ${campaignId}
+    LIMIT 1
+  `)) as unknown as Array<{
+    campaign?: {
+      id?: string | number;
+      name?: string;
+      status?: string | number;
+      bidding_strategy_type?: string;
+    };
+  }>;
+
+  const first = Array.isArray(rows) && rows.length > 0 ? rows[0] : null;
+  if (!first?.campaign) {
+    throw new Error(`Campanha ${campaignId} não encontrada na conta ${customerId}.`);
+  }
+
+  const snapshot: CampaignStatusSnapshot = {
+    campaignId: String(first.campaign.id ?? campaignId),
+    campaignName: String(first.campaign.name ?? ''),
+    status: normalizeStatus(first.campaign.status),
+  };
+  if (first.campaign.bidding_strategy_type) {
+    snapshot.biddingStrategyType = String(first.campaign.bidding_strategy_type);
+  }
+  return snapshot;
+}
+
+/**
+ * Reads ad_group metadata for status mutation pre-fetch.
+ */
+export async function readAdGroupStatusSnapshot(
+  client: GoogleAdsApi,
+  refreshToken: string,
+  customerId: string,
+  adGroupId: string,
+  loginCustomerId?: string,
+): Promise<AdGroupStatusSnapshot> {
+  const customer = getCustomer(client, {
+    customerId,
+    refreshToken,
+    ...(loginCustomerId ? { loginCustomerId } : {}),
+  });
+
+  const rows = (await customer.query(`
+    SELECT
+      ad_group.id,
+      ad_group.name,
+      ad_group.status,
+      campaign.id,
+      campaign.name
+    FROM ad_group
+    WHERE ad_group.id = ${adGroupId}
+    LIMIT 1
+  `)) as unknown as Array<{
+    ad_group?: { id?: string | number; name?: string; status?: string | number };
+    campaign?: { id?: string | number; name?: string };
+  }>;
+
+  const first = Array.isArray(rows) && rows.length > 0 ? rows[0] : null;
+  if (!first?.ad_group) {
+    throw new Error(`Ad group ${adGroupId} não encontrado na conta ${customerId}.`);
+  }
+
+  return {
+    adGroupId: String(first.ad_group.id ?? adGroupId),
+    adGroupName: String(first.ad_group.name ?? ''),
+    campaignId: String(first.campaign?.id ?? ''),
+    campaignName: String(first.campaign?.name ?? ''),
+    status: normalizeStatus(first.ad_group.status),
+  };
+}
+
+/**
+ * Sets campaign.status to ENABLED or PAUSED via mutateResources.
+ *
+ * Does NOT validate transitions (caller should check REMOVED + idempotency).
+ * If dryRun=true, sends validate_only=true.
+ */
+export async function setCampaignStatus(
+  client: GoogleAdsApi,
+  input: SetStatusInput,
+): Promise<SetStatusResult> {
+  const snapshot = await readCampaignStatusSnapshot(
+    client,
+    input.refreshToken,
+    input.customerId,
+    input.targetId,
+    input.loginCustomerId,
+  );
+
+  const customer = getCustomer(client, {
+    customerId: input.customerId,
+    refreshToken: input.refreshToken,
+    ...(input.loginCustomerId ? { loginCustomerId: input.loginCustomerId } : {}),
+  });
+
+  const resourceName = `customers/${stripDashes(input.customerId)}/campaigns/${input.targetId}`;
+  const operations: MutateOperation<resources.ICampaign>[] = [
+    {
+      entity: 'campaign',
+      operation: 'update',
+      resource: {
+        resource_name: resourceName,
+        status: input.newStatus,
+      } as resources.ICampaign,
+      update_mask: { paths: ['status'] },
+    } as MutateOperation<resources.ICampaign>,
+  ];
+
+  const response = await customer.mutateResources(operations, {
+    validate_only: Boolean(input.dryRun),
+  });
+
+  const resultEntry = response.mutate_operation_responses?.[0];
+  const returnedResourceName =
+    (resultEntry?.campaign as { resource_name?: string } | undefined)?.resource_name ??
+    resourceName;
+
+  logger.debug(
+    {
+      campaignId: input.targetId,
+      customerId: input.customerId,
+      dryRun: input.dryRun,
+      before: snapshot.status,
+      after: input.newStatus,
+    },
+    'setCampaignStatus completed',
+  );
+
+  return {
+    before: { status: snapshot.status },
+    after: { status: input.dryRun ? snapshot.status : input.newStatus },
+    resourceName: returnedResourceName,
+    dryRun: Boolean(input.dryRun),
+  };
+}
+
+/**
+ * Sets ad_group.status to ENABLED or PAUSED via mutateResources.
+ */
+export async function setAdGroupStatus(
+  client: GoogleAdsApi,
+  input: SetStatusInput,
+): Promise<SetStatusResult> {
+  const snapshot = await readAdGroupStatusSnapshot(
+    client,
+    input.refreshToken,
+    input.customerId,
+    input.targetId,
+    input.loginCustomerId,
+  );
+
+  const customer = getCustomer(client, {
+    customerId: input.customerId,
+    refreshToken: input.refreshToken,
+    ...(input.loginCustomerId ? { loginCustomerId: input.loginCustomerId } : {}),
+  });
+
+  const resourceName = `customers/${stripDashes(input.customerId)}/adGroups/${input.targetId}`;
+  const operations: MutateOperation<resources.IAdGroup>[] = [
+    {
+      entity: 'ad_group',
+      operation: 'update',
+      resource: {
+        resource_name: resourceName,
+        status: input.newStatus,
+      } as resources.IAdGroup,
+      update_mask: { paths: ['status'] },
+    } as MutateOperation<resources.IAdGroup>,
+  ];
+
+  const response = await customer.mutateResources(operations, {
+    validate_only: Boolean(input.dryRun),
+  });
+
+  const resultEntry = response.mutate_operation_responses?.[0];
+  const returnedResourceName =
+    (resultEntry?.ad_group as { resource_name?: string } | undefined)?.resource_name ??
+    resourceName;
+
+  logger.debug(
+    {
+      adGroupId: input.targetId,
+      customerId: input.customerId,
+      dryRun: input.dryRun,
+      before: snapshot.status,
+      after: input.newStatus,
+    },
+    'setAdGroupStatus completed',
+  );
+
+  return {
+    before: { status: snapshot.status },
+    after: { status: input.dryRun ? snapshot.status : input.newStatus },
+    resourceName: returnedResourceName,
+    dryRun: Boolean(input.dryRun),
+  };
+}

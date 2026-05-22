@@ -6,11 +6,19 @@ import { logger } from '../cli/logger.js';
 export const MUTATION_LOG_DIR = join(homedir(), '.aiox');
 export const MUTATION_LOG_FILE = join(MUTATION_LOG_DIR, 'google-ads-mutations.log');
 
+export type MutationOperation =
+  | 'update_budget'
+  | 'update_bidding'
+  | 'pause_campaign'
+  | 'enable_campaign'
+  | 'pause_ad_group'
+  | 'enable_ad_group';
+
 export interface MutationLogEntry {
   timestamp: string;
   customerId: string;
   campaignId: string;
-  operation: 'update_budget' | 'update_bidding';
+  operation: MutationOperation;
   before: Record<string, unknown>;
   after: Record<string, unknown>;
   dryRun: boolean;

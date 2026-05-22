@@ -1,5 +1,9 @@
 import { describe, it, expect } from 'vitest';
-import { formatBudgetMutationDiff, buildBudgetConfirmPhrase } from './mutation-prompt.js';
+import {
+  formatBudgetMutationDiff,
+  buildBudgetConfirmPhrase,
+  formatStatusMutationDiff,
+} from './mutation-prompt.js';
 import { calculateBudgetDelta } from '../google-ads-api/budget-validator.js';
 
 // Strip ANSI codes for assertions
@@ -115,5 +119,74 @@ describe('buildBudgetConfirmPhrase', () => {
     const phrase = buildBudgetConfirmPhrase(30_000_000, 60_000_000, 'USD');
     expect(phrase).toContain('$ 30.00');
     expect(phrase).toContain('$ 60.00');
+  });
+});
+
+describe('formatStatusMutationDiff', () => {
+  it('renders campaign diff (basic, no warning)', () => {
+    const out = stripAnsi(
+      formatStatusMutationDiff({
+        entityType: 'campaign',
+        name: 'My Campaign',
+        entityId: 'C123',
+        before: 'ENABLED',
+        after: 'PAUSED',
+        customerId: '5562216599',
+      }),
+    );
+    expect(out).toContain('Campanha My Campaign (C123)');
+    expect(out).toContain('Status atual:     ENABLED');
+    expect(out).toContain('Status novo:      PAUSED');
+    expect(out).toContain('Conta:            5562216599');
+    expect(out).not.toContain('learning phase');
+    expect(out).not.toContain('learning phase');
+  });
+
+  it('renders campaign diff with learning phase warning', () => {
+    const out = stripAnsi(
+      formatStatusMutationDiff({
+        entityType: 'campaign',
+        name: 'X',
+        entityId: 'C1',
+        before: 'ENABLED',
+        after: 'PAUSED',
+        customerId: '5562216599',
+        learningPhaseWarning: true,
+        learningPhaseDays: 7,
+      }),
+    );
+    expect(out).toContain('Bidding strategy modificada há 7 dia(s)');
+    expect(out).toContain('learning phase');
+  });
+
+  it('renders ad_group diff including parent campaign name', () => {
+    const out = stripAnsi(
+      formatStatusMutationDiff({
+        entityType: 'ad_group',
+        name: 'AG1',
+        entityId: 'AG-1',
+        before: 'ENABLED',
+        after: 'PAUSED',
+        customerId: '5562216599',
+        parentCampaignName: 'Search Campaign',
+      }),
+    );
+    expect(out).toContain('Ad Group AG1 (AG-1)');
+    expect(out).toContain('Campanha pai:     Search Campaign');
+  });
+
+  it('shows customer name when provided', () => {
+    const out = stripAnsi(
+      formatStatusMutationDiff({
+        entityType: 'campaign',
+        name: 'X',
+        entityId: 'C1',
+        before: 'PAUSED',
+        after: 'ENABLED',
+        customerId: '5562216599',
+        customerName: 'Solaro Marketing e Vendas',
+      }),
+    );
+    expect(out).toContain('5562216599 (Solaro Marketing e Vendas)');
   });
 });

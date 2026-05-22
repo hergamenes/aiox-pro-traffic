@@ -93,3 +93,76 @@ export function buildBudgetConfirmPhrase(beforeMicros: number, afterMicros: numb
   const after = formatMicros(afterMicros, currency);
   return `sim, ${verb} de ${before} para ${after}`;
 }
+
+// ============================================================================
+// Story 6.2 — Status mutation prompts (pause/enable)
+// ============================================================================
+
+export interface StatusMutationPreview {
+  entityType: 'campaign' | 'ad_group';
+  name: string;
+  entityId: string;
+  before: 'ENABLED' | 'PAUSED' | 'REMOVED' | 'UNKNOWN';
+  after: 'ENABLED' | 'PAUSED';
+  customerId: string;
+  customerName?: string;
+  parentCampaignName?: string;
+  learningPhaseWarning?: boolean;
+  learningPhaseDays?: number;
+}
+
+/**
+ * Renders the before/after status diff for an entity (campaign or ad_group).
+ * Simpler than the budget diff — no percentage, no threshold.
+ */
+export function formatStatusMutationDiff(preview: StatusMutationPreview): string {
+  const lines: string[] = [];
+  const customerLabel = preview.customerName
+    ? `${preview.customerId} (${preview.customerName})`
+    : preview.customerId;
+
+  const entityLabel = preview.entityType === 'campaign' ? 'Campanha' : 'Ad Group';
+  lines.push(
+    `${COLORS.bold}📋 Mudança proposta — ${entityLabel} ${preview.name} (${preview.entityId})${COLORS.reset}`,
+  );
+  lines.push('━'.repeat(50));
+  lines.push(`Status atual:     ${preview.before}`);
+  lines.push(`Status novo:      ${preview.after}`);
+  if (preview.parentCampaignName) {
+    lines.push(`Campanha pai:     ${preview.parentCampaignName}`);
+  }
+  lines.push(`Conta:            ${customerLabel}`);
+
+  if (preview.learningPhaseWarning) {
+    lines.push('');
+    const daysText =
+      preview.learningPhaseDays !== undefined
+        ? `há ${preview.learningPhaseDays} dia(s)`
+        : 'recentemente';
+    lines.push(
+      `${COLORS.yellow}⚠️  Bidding strategy modificada ${daysText} (< 14d).${COLORS.reset}`,
+    );
+    lines.push(
+      `${COLORS.yellow}    Pausar agora pode interromper o learning phase do Google.${COLORS.reset}`,
+    );
+  }
+
+  return lines.join('\n');
+}
+
+/**
+ * Simple s/N confirmation prompt. Accepts 's', 'sim', 'y', 'yes' (any case) as
+ * true; everything else as false. Default is N (rejection-biased).
+ */
+export async function requireSimpleConfirm(message = 'Confirme'): Promise<boolean> {
+  try {
+    const answer = await input({
+      message: `${message} [s/N]:`,
+      default: 'n',
+    });
+    const normalized = answer.trim().toLowerCase();
+    return normalized === 's' || normalized === 'sim' || normalized === 'y' || normalized === 'yes';
+  } catch {
+    return false;
+  }
+}

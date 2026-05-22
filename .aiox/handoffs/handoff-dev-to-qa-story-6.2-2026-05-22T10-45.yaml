@@ -1,0 +1,91 @@
+handoff:
+  from_agent: dev
+  to_agent: qa
+  timestamp: "2026-05-22T10:45:00Z"
+  last_command: "*develop 6.2"
+  consumed: false
+
+  story_context:
+    story_id: "6.2"
+    story_path: docs/stories/6.2.google-ads-cli-pause-enable.story.md
+    story_status: InReview
+    epic: epic-6-google-ads-mutations
+    epic_position: "2 of 9 (segunda mutação)"
+
+  implementation_summary:
+    duration: "~50 min (YOLO autônomo, com 1 bug fix iterado durante smoke)"
+    files_created: 3
+    files_modified: 4
+    tests_added: 24
+    tests_total: 181
+    bundle_size: "85.29 KB (+16 KB vs 6.1)"
+    lint_status: clean
+
+  ac_status:
+    AC1_pause_enable_commands: PASS
+    AC2_pause_campaign_flags: PASS
+    AC3_enable_campaign_flags: PASS
+    AC4_ad_group_commands: PASS (smoke não validou ad_group; código simétrico)
+    AC5_campaign_prefetch: PARTIAL  # bidding_strategy.last_modified_time não disponível via GAQL — learning-phase deferido
+    AC6_ad_group_prefetch: PASS
+    AC7_veto_removed: PASS (validado in vivo após enum fix)
+    AC8_idempotency: PASS_VALIDATED  # smoke 3 mostrou "já está pausada"
+    AC9_learning_phase_warning: DEFERRED_POST_MVP  # helper testado mas command não chama (justificativa nos Dev Notes)
+    AC10_confirmation_ux: PASS_VALIDATED
+    AC11_post_mutate_output: PASS_VALIDATED
+    AC12_audit_log: PASS_VALIDATED  # 4 novas entradas com novos operation values
+    AC13_boundary_rule: PASS
+    AC14_unit_tests: PASS
+    AC15_smoke_realtime: PASS (4 cenários: dry-run + real + idempotente + rollback)
+
+  critical_bug_caught_and_fixed:
+    bug: "CampaignStatus enum incorretamente mapeado"
+    original_mapping_wrong:
+      - "3 = REMOVED ❌"
+      - "4 = PAUSED ❌"
+    correct_mapping:
+      - "3 = PAUSED ✓"
+      - "4 = REMOVED ✓"
+    where: "src/google-ads-api/mutations.ts:normalizeStatus + src/google-ads-api/status-validator.ts:parseStatusEnum"
+    detected_at: "Smoke 3 (idempotência) — campanha recém-pausada (status 3) foi reportada como REMOVED, causando veto falso"
+    fix_iterations: 1
+    verification: "Tests atualizados + smoke 3+4 re-rodados ✅"
+    lesson: "Sempre confirmar enum values direto no .d.ts da SDK antes de implementar — não assumir baseado em ordem alfabética ou intuição"
+
+  technical_decisions:
+    - "Handler único parameterizado em pause-enable.ts (4 commands reusam) — reduz duplicação ~75%"
+    - "Idempotência ANTES de bidding info pre-fetch — economiza quota + UX clara"
+    - "Cancellation cria audit log com success=false — forensics"
+    - "requireSimpleConfirm (s/N) vs requireDoubleConfirm (frase exata da 6.1) — operação reversível justifica prompt simples"
+    - "Learning-phase warning deferido — campaign.start_date não é GAQL-selectable; bidding_strategy_last_modification_time seria 1 GAQL extra; out of MVP scope"
+
+  recommended_qa_focus:
+    high:
+      - "Validar veto REMOVED via dry-run em campanha que estaria REMOVED (não temos uma no sandbox — pode skip)"
+      - "Conferir audit log gerou novos operation values (pause_campaign, enable_campaign)"
+      - "Verificar boundary rule (SDK só em src/google-ads-api/)"
+      - "Tests passing: 181/181"
+      - "Stories 5.x + 6.1 sem regressão"
+    medium:
+      - "ad_group smoke não foi executado — código simétrico; QA pode validar dry-run se quiser cobertura visual"
+      - "AC#9 (learning-phase warning) marcado DEFERRED_POST_MVP — aceitar como CONCERNS ou PASS-com-nota"
+    low:
+      - "Coverage de mutations.ts (status snapshot/setters) continua baixo via unit (pattern aceito)"
+
+  pre_qa_state:
+    smoke_campaign_id: "23478792639"
+    smoke_campaign_name: "[SOL] Rede de pesquisa | Institucional | Porto Alegre"
+    smoke_customer_id: "5562216599 (Solaro Marketing e Vendas — sandbox)"
+    config_restored: true
+    config_state_after_smoke: 'customerId="1528041123" (MCC); loginCustomerId="1528041123"'
+    campaign_final_state: ENABLED (rollback aplicado — exatamente como estava antes do smoke)
+
+  cross_story_dependencies:
+    epic_5: "5.1+5.2+5.3+5.4 estabelecidos"
+    epic_6: "6.1 (Done) — adapter port, audit log, mutation-prompt; 6.2 estende tudo"
+    epic_6_downstream:
+      - "6.3a/b/c (campaign create) — reusa pattern de pre-fetch + mutateResources"
+      - "6.4 (ad_group create + keywords) — reusa setAdGroupStatus para auto-pause após create"
+      - "6.7 (delete) — reusa veto REMOVED detection"
+
+  closing: "Dex — 6.2 InReview 🛠️"
