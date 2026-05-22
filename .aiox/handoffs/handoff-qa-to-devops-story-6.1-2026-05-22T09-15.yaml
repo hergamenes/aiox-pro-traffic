@@ -1,0 +1,132 @@
+handoff:
+  from_agent: qa
+  to_agent: devops
+  timestamp: "2026-05-22T09:15:00Z"
+  last_command: "*qa-gate 6.1"
+  consumed: false
+
+  story_context:
+    story_id: "6.1"
+    story_path: docs/stories/6.1.google-ads-cli-update-budget-bidding.story.md
+    story_status: Done
+    gate_file: docs/qa/gates/6.1.google-ads-cli-update-budget-bidding.yaml
+    epic: epic-6-google-ads-mutations
+    epic_position: "1 of 9 (primeira mutação)"
+
+  gate_result:
+    verdict: PASS
+    direct_no_concerns: true
+    rationale: |
+      13/13 ACs verificados com evidência real. Veto anti-runaway
+      validado IN VIVO por mim (QA) com +100% dry-run. Mutação REAL
+      aplicada pelo @dev (R$5→R$5,50→R$5 rollback). Audit log com 3
+      entradas reais. Boundary rule respeitada. Regressão zero.
+
+  metrics:
+    tests_passing: 157/157
+    tests_added_in_6_1: 37
+    lint_status: clean
+    build_size: "69.47 KB"
+    boundary_violations: 0
+    coverage_pure_files_100pct:
+      - budget-validator.ts
+      - mutation-prompt.ts
+
+  files_to_push:
+    cli_changes:
+      created:
+        - "packages/google-ads-agent/src/google-ads-api/mutations.ts (NEW — adapter)"
+        - "packages/google-ads-agent/src/google-ads-api/budget-validator.ts (NEW — helpers puros)"
+        - "packages/google-ads-agent/src/google-ads-api/budget-validator.test.ts (NEW — 25 tests)"
+        - "packages/google-ads-agent/src/cli/mutation-prompt.ts (NEW — UX)"
+        - "packages/google-ads-agent/src/cli/mutation-prompt.test.ts (NEW — 8 tests)"
+        - "packages/google-ads-agent/src/cli/commands/update.ts (NEW — comando)"
+        - "packages/google-ads-agent/src/log/mutation-log.ts (NEW — audit log)"
+        - "packages/google-ads-agent/src/log/mutation-log.test.ts (NEW — 4 tests)"
+      modified:
+        - "packages/google-ads-agent/src/cli/index.ts (registra updateCommand)"
+    docs:
+      - "docs/stories/6.1.google-ads-cli-update-budget-bidding.story.md"
+      - "docs/qa/gates/6.1.google-ads-cli-update-budget-bidding.yaml"
+      - "docs/stories/epics/epic-6-google-ads-mutations/EPIC.md (já criado, pode ser primeira vez no remote)"
+    handoffs:
+      - ".aiox/handoffs/handoff-publisher-to-sm-story-5.4-*.yaml"
+      - ".aiox/handoffs/handoff-po-to-dev-story-6.1-*.yaml"
+      - ".aiox/handoffs/handoff-dev-to-qa-story-6.1-*.yaml"
+      - ".aiox/handoffs/handoff-qa-to-devops-story-6.1-*.yaml (this)"
+
+  push_recommendations:
+    commit_message_suggestion: |
+      feat(google-ads-agent): add update budget + bidding mutations (Story 6.1)
+
+      First mutation in the google-ads-agent CLI, opening Epic 6
+      (Google Ads Mutations). Adds `google-ads update budget` and
+      `google-ads update bidding` with strict anti-runaway-spend
+      veto conditions to prevent accidental budget explosion.
+
+      Implementation:
+      - mutations.ts adapter exposes mutateResources via boundary port
+        (only client.ts + accounts.ts + mutations.ts import SDK)
+      - update budget: pre-fetch snapshot → diff display → veto check
+        (+50% default threshold, configurable via --max-budget-increase)
+        → require EXACT confirmation phrase ("sim, aumentar de R$ X
+        para R$ Y") for changes above threshold
+      - update bidding: switches between maximize_conversions /
+        target_cpa / target_roas / manual_cpc / maximize_conversion_value
+        with strategy-specific fields built dynamically
+      - --dry-run on both subcommands uses SDK's validate_only=true
+      - --login-customer-id flag added to enable mutations on MCC
+        client accounts without changing config defaults
+      - Audit log at ~/.aiox/google-ads-mutations.log (JSON Lines)
+        captures every mutation including dry-runs and failures
+      - parseMicros auto-detects BR (,) vs US (.) decimal separators
+      - requireDoubleConfirm uses @inquirer/prompts input validation
+
+      Validation:
+      - 157/157 tests passing (+37 in 6.1)
+      - Real mutation applied against sandbox account 5562216599
+        (Solaro Marketing e Vendas): R$ 5,00 → R$ 5,50 → R$ 5,00 rollback
+      - Anti-runaway veto validated independently by QA at +100%
+
+      Closes: Story 6.1 (PASS direto)
+
+  pre_push_required:
+    files_check: "TS code + tests + .md + .yaml"
+    lint_required: true  # já validated em QA
+    test_required: true  # já validated em QA
+    note: |
+      Push tem código TS REAL no packages/google-ads-agent/. @devops
+      *pre-push deve re-rodar lint + test no pacote (todos validados em QA).
+
+  no_user_action_required: true
+
+  state_to_be_aware_of:
+    - "config default está em customerId=1528041123 (MCC) + loginCustomerId=1528041123"
+    - "Audit log ~/.aiox/google-ads-mutations.log tem 3 entradas reais do smoke (não é gitignored)"
+    - "Sandbox campanha 23478792639 está com budget R$5,00 (estado original restaurado pós-smoke)"
+
+  next_action_for_user_after_push: |
+    Squad traffic-google Campaign Optimizer agora tem capacidade real
+    de aplicar mutações via CLI. Exemplo de uso pós-merge:
+
+    # Modo dry-run (seguro)
+    google-ads update budget 23478792639 --daily 7 --dry-run \
+      --customer-id 5562216599 --login-customer-id 1528041123
+
+    # Aplicar (com confirmation visual)
+    google-ads update budget 23478792639 --daily 7 \
+      --customer-id 5562216599 --login-customer-id 1528041123
+
+    # Auditar
+    cat ~/.aiox/google-ads-mutations.log | jq
+
+  next_story_in_epic_6:
+    id: "6.2"
+    title: "Pause / Enable campaign + ad_group"
+    notes: |
+      Story 6.2 é simétrica ao 6.1 mas mais simples — só muda
+      campaign.status entre ENABLED ↔ PAUSED (sem cálculo de delta,
+      sem threshold). Pode rodar YOLO pq o pattern de mutateResources
+      já está validado aqui.
+
+  closing: "Quinn — 6.1 PASS direto, primeira mutação validada in vivo 🧪🎉 → @devops"

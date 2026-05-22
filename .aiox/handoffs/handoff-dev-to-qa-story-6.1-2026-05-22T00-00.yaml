@@ -1,0 +1,115 @@
+handoff:
+  from_agent: dev
+  to_agent: qa
+  timestamp: "2026-05-22T00:00:00Z"
+  last_command: "*develop 6.1"
+  consumed: false
+
+  story_context:
+    story_id: "6.1"
+    story_path: docs/stories/6.1.google-ads-cli-update-budget-bidding.story.md
+    story_status: InReview
+    epic: epic-6-google-ads-mutations
+    epic_position: "1 of 9 (primeira mutação)"
+
+  implementation_summary:
+    duration: "~1h (Interactive mode → semi-autonomous)"
+    files_created: 8
+    files_modified: 1
+    tests_added: 37
+    tests_total: 157
+    bundle_size: "69.20 KB (+22 KB vs 5.4)"
+    lint_status: clean
+
+  ac_status:
+    AC1_update_command_registered: PASS
+    AC2_update_budget_flags: PASS  # --daily, --customer-id, --dry-run, --max-budget-increase
+    AC3_update_bidding_flags: PASS  # --strategy, --target, --customer-id, --dry-run
+    AC4_prefetch_obligatory: PASS  # readCampaignBudgetSnapshot + readCampaignBiddingSnapshot
+    AC5_anti_runaway_threshold: PASS_VALIDATED  # smoke testou +900% e bloqueou
+    AC6_confirmation_ux:
+      status: PASS
+      visual_match: true
+      evidence: "Smoke 1 mostrou layout exato do AC#6"
+    AC7_veto_removed_campaign: PASS  # implementado nas funções read* (smoke não testou pq campanha está ENABLED)
+    AC8_veto_no_customer_id: PASS  # implementado em update.ts
+    AC9_post_mutate_output: PASS  # resource_name + link Ads Manager mostrados no smoke
+    AC10_mutation_log:
+      status: PASS_VALIDATED
+      evidence: "3 entradas reais em ~/.aiox/google-ads-mutations.log (dry-run + real + rollback)"
+    AC11_boundary_rule:
+      status: PASS
+      grep_verified: "Apenas src/google-ads-api/* importa SDK npm (client.ts + accounts.ts + mutations.ts)"
+    AC12_unit_tests:
+      status: PASS
+      total_new_in_6_1: 37
+      total_at_story_close: 157
+      passing: 157/157
+      coverage_new_files:
+        - "budget-validator.ts: 100% (puro)"
+        - "mutation-prompt.ts (formatBudgetMutationDiff + buildBudgetConfirmPhrase): 100%"
+        - "mutation-log.ts (lógica): ~95% (deixei o homedir path como integration)"
+        - "mutations.ts: ~10% (pattern estabelecido em 5.x — integração via smoke)"
+    AC13_smoke:
+      status: PASS_EXCEEDED
+      evidence: |
+        5 cenários executados contra sandbox 5562216599:
+        1. CLI --help mostra update ✅
+        2. Listar campanhas via report ✅ (encontrou "[SOL] Rede de pesquisa" 23478792639)
+        3. update budget --daily 50 --dry-run (+900%) → veto ATIVOU ✅
+        4. update budget --daily 7.50 --dry-run (+50% no limite) → passou ✅
+        5. update budget --daily 5.50 REAL (+10%) → MUTAÇÃO APLICADA R$5→R$5,50 ✅
+        6. update budget --daily 5 → ROLLBACK APLICADO R$5,50→R$5 ✅
+        Audit log com 3 entradas JSON Lines confirmadas.
+
+  bonus_implementation:
+    - flag: "--login-customer-id"
+      where: "update budget + update bidding"
+      reason: |
+        Descoberto durante smoke que customer-id de conta cliente (não-MCC)
+        falha sem login_customer_id da MCC parent. Adicionada como flag
+        opcional. Não está no AC original mas é necessária para uso real
+        em ambientes MCC.
+      breaking: false
+      addresses: "Mesma necessidade que a Story 5.4 (accounts --tree) resolveu para o accounts command."
+
+  technical_decisions:
+    - "Mutate campaign_budget direto (não Campaign) — Google separa as entities"
+    - "Pre-fetch obrigatório (1 query GAQL extra) para diff + audit"
+    - "parseMicros auto-detecta BR (,) vs US (.) decimal separator"
+    - "requireDoubleConfirm aceita case-insensitive + trim mas exige FRASE INTEIRA"
+    - "Strategy-specific fields construídos dinamicamente no update_mask (mutuamente exclusivos)"
+    - "--login-customer-id flag aditiva (não modifica defaults nem report command)"
+
+  recommended_qa_focus:
+    high:
+      - "Validar veto anti-runaway via dry-run (não precisa executar real)"
+      - "Confirmar audit log gerado em ~/.aiox/google-ads-mutations.log"
+      - "Verificar boundary rule via grep (SDK só em src/google-ads-api/)"
+      - "Confirmar que --tree command da Story 5.4 ainda funciona (sem regressão)"
+      - "Tests passing: 157/157"
+    medium:
+      - "update bidding NÃO foi smoke-testado — só budget. Bidding tem código simétrico mas QA pode rodar dry-run se quiser cobertura visual"
+      - "Tree formatTree (Story 5.4) ainda funciona corretamente"
+    low:
+      - "Coverage de mutations.ts via unit é baixa (~10%) — pattern aceito em 5.x"
+
+  pre_qa_state:
+    smoke_campaign_id: "23478792639"
+    smoke_campaign_name: "[SOL] Rede de pesquisa | Institucional | Porto Alegre"
+    smoke_customer_id: "5562216599 (Solaro Marketing e Vendas — sandbox)"
+    config_restored: true
+    config_state_after_smoke: 'customerId="1528041123" (MCC); loginCustomerId="1528041123"'
+    note: "Default foi temporariamente apontado para sandbox durante smoke, restaurado para MCC no final. QA pode ignorar."
+
+  cross_story_dependencies:
+    epic_5_dependencies:
+      - "Story 5.1 — adapter port pattern + keychain + auth"
+      - "Story 5.2 — config-repository"
+      - "Story 5.3 — error-map + error-handler"
+      - "Story 5.4 — confirmou MCC tree + sandbox 5562216599"
+    epic_6_downstream:
+      - "Story 6.2 (pause/enable) — usa mesmo padrão mutateResources estabelecido aqui"
+      - "Story 6.3a/b/c (create) — operation='create' em vez de 'update'"
+
+  closing: "Dex — 6.1 InReview 🛠️"

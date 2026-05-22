@@ -1,0 +1,94 @@
+handoff:
+  from_agent: po
+  to_agent: dev
+  timestamp: "2026-05-21T18:25:00Z"
+  last_command: "*validate-story-draft 6.1"
+  consumed: false
+
+  story_context:
+    story_id: "6.1"
+    story_path: docs/stories/6.1.google-ads-cli-update-budget-bidding.story.md
+    story_status: Ready
+    story_title: "Google Ads CLI — Update Budget + Bidding Strategy"
+    branch: main
+    epic: epic-6-google-ads-mutations
+
+  validation_result:
+    verdict: GO
+    score: 10
+    threshold: 7
+    rubric: 10-point story-lifecycle checklist
+
+  zero_revisions_needed: |
+    Drafted pelo @pm no padrão consolidado das stories 5.x — Complexity,
+    Risks, SDK signatures e decisões confirmadas (token Standard, sandbox
+    5562216599, anti-runaway +50%) já registradas. Sem revisões na
+    validação.
+
+  critical_highlights_for_dev:
+    - "PRIMEIRA mutação do épico — adapter port precisa expor customer.mutateResources pela primeira vez (criar src/google-ads-api/mutations.ts)"
+    - "Anti-runaway-spend é o veto MAIS IMPORTANTE — risco crítico financeiro real. NÃO basta 'sim' — exige frase EXATA 'sim, aumentar de R$ X para R$ Y'"
+    - "Pre-fetch é obrigatório (read budget atual antes de mutar) — sem isso, não há diff para mostrar"
+    - "Mutation log em ~/.aiox/google-ads-mutations.log é parte do AC#10 — fire-and-forget mas obrigatório"
+    - "--dry-run usa validate_only=true na SDK — não muta de verdade, só valida sintaxe"
+    - "Bidding strategy update tem warning sobre janela de aprendizado de 7-14 dias quando muda Manual ↔ Automated"
+    - "Conversão de currency: Google usa MICROS (1 unit = 1_000_000) — parseMicros e formatMicros são helpers críticos"
+
+  recommended_execution_mode: interactive
+  interactive_rationale: |
+    Story é PRIMEIRA mutação do épico — adapter port nunca expôs mutate
+    antes. Embora bem documentada, há decisões integrationais que merecem
+    checkpoint humano:
+    1. Confirmar shape do mutateResources retornado pela SDK (untested
+       no projeto até agora)
+    2. Validar visual do double-confirm UX antes de smoke real
+    3. Decidir sobre fallback se validate_only=true não for suportado
+       em todas as operações
+    Após este pioneer, próximas mutações (6.2/6.3a/etc) podem rodar YOLO.
+
+  user_credentials_status:
+    auth_status: "✓ Valid (verified Story 5.1)"
+    developer_token_level: "Standard (sem rate limits práticos)"
+    sandbox_customer_id: "5562216599 (Solaro Marketing e Vendas)"
+    sandbox_is_client_not_mcc: true
+    note: "Smoke real-time pode aplicar mutações reais nesta conta sandbox. Limitação: a conta precisa ter pelo menos 1 campanha ENABLED para smoke completo. Caso contrário, --dry-run cobre validação sintática."
+
+  cross_story_dependencies:
+    epic_5_dependencies:
+      - "Story 5.1 — adapter port pattern + keychain + auth"
+      - "Story 5.2 — config-repository (default customer-id)"
+      - "Story 5.3 — error-map + error-handler (estender para erros de mutate)"
+      - "Story 5.4 — confirmou MCC tree + sandbox account"
+    epic_6_downstream:
+      - "Story 6.2 (pause/enable) — usa mesmo padrão mutateResources estabelecido aqui"
+      - "Story 6.3a/b/c (create) — também usa mutate, mas operation='create' em vez de 'update'"
+
+  references:
+    architecture: docs/architecture/google-ads-agent.md
+    epic_doc: docs/stories/epics/epic-6-google-ads-mutations/EPIC.md
+    cli_base: packages/google-ads-agent/
+    sdk_docs: https://github.com/Opteo/google-ads-api
+    google_ads_mutate_docs: https://developers.google.com/google-ads/api/docs/best-practices/mutating-resources
+
+  qa_handoff_when_ready:
+    target: qa
+    trigger: "@dev marks Status: InReview after Tasks 1-8 done + smoke OK in sandbox"
+    note: |
+      QA deve verificar especialmente:
+      1. Veto anti-runaway BLOQUEIA sem double-confirm (smoke deve testar tentativa de aumento >50% e recusa)
+      2. Mutation log gerado em ~/.aiox/google-ads-mutations.log
+      3. --dry-run NÃO muta de verdade (idempotent)
+      4. Output mostra resource_name + link Ads Manager
+      5. Boundary rule mantida (SDK mutate só em src/google-ads-api/mutations.ts)
+
+  squad_unblock_target:
+    when: "Story 6.1 Done"
+    action: |
+      Squad traffic-google Campaign Optimizer ganha capacidade futura
+      de --apply em recomendações (próxima story de squad upgrade).
+      Por enquanto, operador opera CLI diretamente:
+        google-ads update budget {campaign-id} --daily 50
+        google-ads update bidding {campaign-id} --strategy target_cpa --target 30
+      Substitui ~70% das visitas diárias ao Google Ads UI.
+
+  closing: "Pax — 10/10 GO 🎯"
