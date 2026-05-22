@@ -7,6 +7,9 @@ import { reportCommand } from './commands/report.js';
 import { updateCommand } from './commands/update.js';
 import { pauseCommand, enableCommand } from './commands/pause-enable.js';
 import { createCommand } from './commands/create.js';
+import { keywordCommand, registerAdGroupSubcommand } from './commands/keyword.js';
+
+registerAdGroupSubcommand(createCommand);
 
 const require = createRequire(import.meta.url);
 const pkg = require('../../package.json') as { version: string; description: string };
@@ -26,6 +29,7 @@ program.addCommand(updateCommand);
 program.addCommand(pauseCommand);
 program.addCommand(enableCommand);
 program.addCommand(createCommand);
+program.addCommand(keywordCommand);
 
 export function run(): void {
   program.parse();

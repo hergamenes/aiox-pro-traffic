@@ -1,5 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import { parseMicros, formatMicros, calculateBudgetDelta } from './budget-validator.js';
+import {
+  parseMicros,
+  formatMicros,
+  calculateBudgetDelta,
+  calculatePercentDelta,
+} from './budget-validator.js';
 
 describe('parseMicros', () => {
   it('parses plain integer', () => {
@@ -118,6 +123,25 @@ describe('calculateBudgetDelta', () => {
   it('handles zero to zero (no change)', () => {
     const delta = calculateBudgetDelta(0, 0);
     expect(delta.pct).toBe(0);
+    expect(delta.exceedsThreshold(50)).toBe(false);
+  });
+});
+
+describe('calculatePercentDelta (alias of calculateBudgetDelta, used by 6.4)', () => {
+  it('alias is identical to calculateBudgetDelta', () => {
+    expect(calculatePercentDelta).toBe(calculateBudgetDelta);
+  });
+
+  it('works for keyword bid scenario (small CPC values)', () => {
+    // R$ 0,50 → R$ 0,80 = +60%
+    const delta = calculatePercentDelta(500_000, 800_000);
+    expect(delta.pct).toBeCloseTo(60, 1);
+    expect(delta.exceedsThreshold(50)).toBe(true);
+  });
+
+  it('works for keyword bid scenario within threshold', () => {
+    // R$ 1,00 → R$ 1,10 = +10%
+    const delta = calculatePercentDelta(1_000_000, 1_100_000);
     expect(delta.exceedsThreshold(50)).toBe(false);
   });
 });

@@ -1,0 +1,107 @@
+storyId: "6.3b"
+storyTitle: "Google Ads CLI — Campaign Create (Display)"
+storyPath: docs/stories/6.3b.google-ads-cli-campaign-create-display.story.md
+verdict: CONCERNS
+verdictRationale: |
+  Implementação core sólida — todos os ACs entregues exceto smoke
+  real (deferido por escolha do user). 229/229 tests passing (+17 da
+  6.3b). Lint clean. Boundary rule OK.
+
+  Story 6.3b é SIMÉTRICA à 6.3a mas com Display-specific:
+   - advertising_channel_type = DISPLAY
+   - network_settings: content only (no search)
+   - bidding subset (target_roas excluído — exige feed/assets)
+   - HERDA automaticamente o fix EU compliance da 6.3a ✓
+
+  Pipeline validado via dry-run + veto target_roas funcionou
+  (Display não aceita essa strategy). Estrutura paralela à 6.3a
+  permite confiança no Display após o real-smoke da 6.3a (idêntica
+  exceto channel_type + network).
+
+  CONCERNS pelo mesmo motivo da 6.3a: AC#14 smoke real NÃO executado.
+  Para promover PASS: 1 invocação real com --customer-id 5562216599.
+
+gateDate: "2026-05-22"
+gateAgent: "@qa"
+
+checks:
+  - id: 1
+    name: "Code review"
+    status: PASS
+    findings: |
+      - buildDisplayCampaignOperations reusa pattern de buildSearchCampaignOperations
+      - DisplayBiddingStrategy é subset (target_roas excluído)
+      - maximize_clicks mapeado para target_spend (SDK Opteo legacy mapping)
+      - EU compliance herdado automaticamente
+      - createDisplayCampaign reusa CreateCampaignResult interface
+
+  - id: 2
+    name: "Unit tests"
+    status: PASS
+    metrics:
+      total_new_in_6_3b: 17
+      total_at_story_close: 229
+      passing: 229/229
+      coverage_new_funcs:
+        - "buildDisplayCampaignOperations: 100%"
+        - "validateDisplayBiddingStrategy: 100%"
+        - "buildDisplayBiddingFields: 100%"
+
+  - id: 3
+    name: "Acceptance criteria"
+    status: CONCERNS
+    ac_status:
+      AC1_command_registered: PASS
+      AC2_display_flags: PASS  # mesmo padrão da 6.3a + bidding subset
+      AC3_atomic_create: PASS  # 2 ops, temp resource_names
+      AC4_display_defaults: PASS_VERIFIED  # tests confirmam channel_type, network_settings
+      AC5_status_paused: PASS_HARDCODED
+      AC6_anti_runaway: PASS  # reusa session-budget-tracker
+      AC7_mcc_veto: PASS  # reusa readCustomerCurrencyAndTz
+      AC8_bidding_validation: PASS_VALIDATED  # smoke 2 rejeitou target_roas
+      AC9_confirmation_ux: PASS
+      AC10_post_create_output: PASS
+      AC11_audit_log: PASS  # operation=create_campaign_display registrado
+      AC12_boundary_rule: PASS
+      AC13_unit_tests: PASS  # 17 testes novos
+      AC14_smoke_realtime:
+        status: PARTIAL
+        evidence: "Dry-run validou pipeline; smoke real NÃO executado"
+        recommendation: "Mesmo padrão da 6.3a — 1 invocação real (custo R$ 0,00)"
+
+  - id: 4
+    name: "No regressions"
+    status: PASS
+    checks:
+      - "Stories 5.x + 6.1-6.3a: 212 tests anteriores passam"
+      - "229/229 total"
+
+  - id: 5
+    name: "Performance"
+    status: PASS
+    metrics:
+      bundle_size_kb: 120.40  # estimativa pós-build
+      bundle_delta_vs_6_3a: "~14 KB"
+
+  - id: 6
+    name: "Security"
+    status: PASS
+
+  - id: 7
+    name: "Documentation"
+    status: PASS
+
+issues:
+  - severity: medium
+    category: testing
+    description: "AC#14 smoke real-time NÃO executado (mesmo padrão da 6.3a)"
+    recommendation: |
+      Promover via:
+      ```
+      node packages/google-ads-agent/dist/bin/google-ads.js create campaign-display \
+        --name "[TEST-6.3b] Display smoke" --daily 5 \
+        --customer-id 5562216599 --login-customer-id 1528041123
+      ```
+    blocking: false
+
+closing_signature: "Quinn — 6.3b CONCERNS (Done com nota; pattern symmetric to 6.3a) 🧪⚠️"

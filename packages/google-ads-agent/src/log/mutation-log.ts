@@ -15,7 +15,11 @@ export type MutationOperation =
   | 'enable_ad_group'
   | 'create_campaign_search'
   | 'create_campaign_display'
-  | 'create_campaign_pmax';
+  | 'create_campaign_pmax'
+  | 'create_ad_group'
+  | 'add_keyword'
+  | 'remove_keyword'
+  | 'update_keyword_bid';
 
 export interface MutationLogEntry {
   timestamp: string;

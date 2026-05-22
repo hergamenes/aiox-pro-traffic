@@ -100,12 +100,14 @@ export interface BudgetDelta {
 }
 
 /**
- * Calculates the delta between an old and a new micros value.
+ * Calculates the percentage delta between an old and a new micros value.
+ * Polymorphic — used for budget updates (6.1), keyword bid updates (6.4),
+ * and any future numeric mutation with anti-runaway threshold.
  *
  * If `oldMicros` is 0, any positive new value is treated as +∞%
  * (always exceeds threshold). Returns 0 if both are 0.
  */
-export function calculateBudgetDelta(oldMicros: number, newMicros: number): BudgetDelta {
+export function calculatePercentDelta(oldMicros: number, newMicros: number): BudgetDelta {
   let pct: number;
   if (oldMicros === 0) {
     pct = newMicros === 0 ? 0 : Number.POSITIVE_INFINITY;
@@ -123,3 +125,6 @@ export function calculateBudgetDelta(oldMicros: number, newMicros: number): Budg
     },
   };
 }
+
+/** @deprecated Alias preserved for Story 6.1 compatibility. Use calculatePercentDelta. */
+export const calculateBudgetDelta = calculatePercentDelta;

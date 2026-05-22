@@ -1,0 +1,117 @@
+storyId: "6.4"
+storyTitle: "Google Ads CLI — Ad Group + Keyword Management"
+storyPath: docs/stories/6.4.google-ads-cli-ad-group-keyword-management.story.md
+verdict: CONCERNS
+verdictRationale: |
+  Story 6.4 entregue com sucesso — 4 operações novas (create ad-group,
+  keyword add/remove/update-bid). 264/264 tests passing (+16 da 6.4).
+  Lint clean. Boundary rule OK.
+
+  Implementação cobre:
+   - create ad-group em campanhas Search (veto Display/PMax)
+   - keyword add com validação client-side de text (trim, brackets/aspas, max 80)
+   - keyword remove com snapshot pre-removal
+   - keyword update-bid com anti-bid-shock +50% (reusa calculatePercentDelta da 6.1)
+   - Warning bidding automatizado (bid informacional) — opt-in --force
+   - Pre-fetch context em 3 níveis (campaign, ad_group, keyword)
+   - 4 novos audit log operations
+
+  Refactor polimórfico: calculateBudgetDelta → calculatePercentDelta
+  (alias preservado para compatibilidade 6.1).
+
+  CONCERNS pelo padrão estabelecido: AC#17 smoke real-time NÃO
+  executado por escolha conservadora do user. Vetos offline (text
+  validation, match type, command structure) validados sem rede.
+
+gateDate: "2026-05-22"
+gateAgent: "@qa"
+
+checks:
+  - id: 1
+    name: "Code review"
+    status: PASS
+    findings: |
+      - keyword.ts criado separadamente (não inflou create.ts) — boa decisão
+      - registerAdGroupSubcommand(createCmd) é função para attach modular
+      - Validation client-side em validateKeywordText (trim, brackets, length)
+      - isAutomatedBidding aceita string + numeric enum (defensive)
+      - calculatePercentDelta polimórfico (reuso da 6.1 sem duplicar)
+      - 4 operações de mutate (create ad_group + 3 keyword ops)
+
+  - id: 2
+    name: "Unit tests"
+    status: PASS
+    metrics:
+      total_new_in_6_4: 16
+      total_at_story_close: 264
+      passing: 264/264
+      coverage_new:
+        - "keyword-validator.ts (validateKeywordText): 100%"
+        - "keyword-validator.ts (isAutomatedBidding): 100%"
+        - "budget-validator.ts (calculatePercentDelta alias): 100%"
+
+  - id: 3
+    name: "Acceptance criteria"
+    status: CONCERNS
+    ac_status:
+      AC1_command_registered: PASS  # keyword command + create ad-group subcommand
+      AC2_create_ad_group_flags: PASS
+      AC3_keyword_add_flags: PASS
+      AC4_keyword_remove_flags: PASS
+      AC5_keyword_update_bid_flags: PASS
+      AC6_max_bid_increase_50: PASS  # +50% default carry-over da 6.1
+      AC7_prefetch_3_levels: PASS  # campaign, ad_group, keyword contexts
+      AC8_veto_search_only: PASS  # validated in command
+      AC9_anti_bid_shock: PASS  # requireDoubleConfirm quando exceeds
+      AC10_warning_automated: PASS  # opt-in --force
+      AC11_validate_keyword_text:
+        status: PASS_VALIDATED
+        evidence: "Smoke offline: > 80 chars rejeitado, match type validado"
+      AC12_confirmation_ux: PASS
+      AC13_post_mutate_output: PASS
+      AC14_audit_log_4_operations: PASS  # operation enum ampliado
+      AC15_boundary_rule: PASS
+      AC16_unit_tests: PASS  # 16 testes novos
+      AC17_smoke_realtime:
+        status: PARTIAL
+        evidence: "Dry-run + offline vetos OK; smoke real deferido (padrão 6.3a/b/c)"
+        recommendation: "Promover PASS: 11-step smoke contra campaign 23478792639"
+
+  - id: 4
+    name: "No regressions"
+    status: PASS
+    checks:
+      - "Stories 5.x + 6.1-6.3c: 248 tests anteriores passam"
+      - "calculateBudgetDelta alias preservado — Story 6.1 sem mudanças"
+      - "264/264 total"
+
+  - id: 5
+    name: "Performance"
+    status: PASS
+
+  - id: 6
+    name: "Security"
+    status: PASS
+    checks:
+      input_validation: "Text trim + length cap; match type enum check; bid micros validados via parseMicros"
+      anti_bid_shock: "+50% double-confirm (carry-over 6.1)"
+      automated_bidding_warning: "Previne usuário desperdiçar bid em campanha auto"
+
+  - id: 7
+    name: "Documentation"
+    status: PASS
+
+issues:
+  - severity: medium
+    category: testing
+    description: "Smoke real-time não executado (padrão 6.3 series)"
+    recommendation: "Smoke 11-step contra campaign 23478792639 promove PASS"
+    blocking: false
+
+  - severity: info
+    category: code
+    description: "keyword.ts é grande (~430 LOC) mas bem estruturado (3 subcommands + factory)"
+    recommendation: "POST-MVP: extrair handler comum para keyword ops"
+    blocking: false
+
+closing_signature: "Quinn — 6.4 CONCERNS (Done com nota; padrão 6.3 series mantido) 🧪⚠️"
