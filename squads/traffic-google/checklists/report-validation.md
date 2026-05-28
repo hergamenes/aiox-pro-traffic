@@ -20,7 +20,7 @@ Todos os itens devem ser PASS para considerar o relatório válido.
 
 ## 3. Detalhamentos
 - [ ] Performance por campanha incluída
-- [ ] Performance por conjunto incluída (se dados disponíveis)
+- [ ] Performance por grupo de anúncios incluída (se dados disponíveis)
 - [ ] Performance por criativo incluída (se dados disponíveis)
 - [ ] Rankings de melhor a pior presentes
 

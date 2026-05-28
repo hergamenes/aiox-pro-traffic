@@ -9,7 +9,7 @@
 Consolidar dados de múltiplas campanhas e plataformas em um relatório estruturado com recomendações acionáveis.
 
 ## Inputs
-- **Plataformas-fonte** (Google Ads via CLI / Google Ads manual / ambas)
+- **Fonte de dados** (Google Ads via CLI — tempo real)
 - **Período do relatório** (data início + data fim)
 - **`account-id` da Google Ads** (ou usa default configurado)
 - **Escopo de contas** (single account OU MCC tree — quando MCC, agrega múltiplas contas)
@@ -19,12 +19,12 @@ Consolidar dados de múltiplas campanhas e plataformas em um relatório estrutur
 - **Thresholds de KPI** (`data/kpi-thresholds.md`)
 - **CLI google-ads autenticada** (`google-ads auth status` = OK)
 
-> Para Google Ads, dados vêm em **tempo real via CLI** (`google-ads report --format json`). Para Google Ads (futuro), input ainda é manual.
+> Os dados vêm em **tempo real via CLI** (`google-ads report --format json`), nos 5 níveis (account, campaign, ad_group, ad, keyword).
 
 ## Veto Conditions
 NÃO gerar relatório se:
 - ❌ Período não estiver definido (sem data início OU sem data fim)
-- ❌ `google-ads auth status` retornar expirado/não-configurado (quando plataforma inclui Meta)
+- ❌ `google-ads auth status` retornar expirado/não-configurado
 - ❌ CLI `google-ads report` retornar erro persistente (rede, account-id inválido)
 - ❌ Métricas básicas (Investimento, Cliques, Impressões) estiverem inconsistentes (totais não batem)
 - ❌ Checklist `report-validation.md` tiver qualquer item FAIL após Step 7
@@ -54,7 +54,7 @@ node packages/google-ads-agent/dist/bin/google-ads.js accounts --tree
 
 Coletar parâmetros do usuário:
 
-1. **Plataformas:** Google (CLI) / Google (manual) / ambas
+1. **Fonte:** Google Ads via CLI (tempo real)
 2. **Período:** Data início e fim (`--from YYYY-MM-DD --to YYYY-MM-DD`)
 3. **Account-ID** (opcional — usa default se não informado)
 4. **Dados de vendas/leads:** Se disponível, para atribuição (opcional)
@@ -87,7 +87,6 @@ Parsear cada JSON do CLI e organizar:
 - Padronizar nomes de métricas (ex: "spend" → "Gasto")
 - Converter moedas se necessário (CLI já retorna em BRL para contas BR)
 - Marcar dados faltantes (campanhas pausadas no período etc)
-- Cruzar com dados de Google Ads (input manual) se aplicável
 - **Multi-account (MCC):** se o escopo for MCC tree (Step 0.5), agregar métricas de todas as child accounts — somar Investimento/Impressões/Cliques/Conversões, recalcular CTR/CPC/CPA/ROAS ponderados, e produzir uma seção "Por Conta" no relatório listando contribuição de cada account
 
 ### Step 3: Métricas Gerais
@@ -108,7 +107,7 @@ Calcular totais e médias:
 Gerar análises específicas:
 
 1. **Por campanha** — Ranking de melhor a pior performance
-2. **Por conjunto** — Quais públicos performam melhor
+2. **Por grupo de anúncios** — Quais grupos/segmentações performam melhor
 3. **Por criativo** — Top 3 e Bottom 3 criativos
 4. **Funil** — Impressão → Clique → Lead → Venda (com taxas de conversão)
 5. **UTM** — Atribuição por source/medium/campaign
@@ -184,6 +183,41 @@ Gerar relatório usando template `templates/performance-report.md`.
 - Resumo executivo (1 página)
 - Recomendações acionáveis
 
+## Output Example
+
+```markdown
+# 📊 Relatório de Performance — Google Ads
+**Conta:** Grupo Prestarh (9631900143) · **Período:** 22–28/05/2026 (7d)
+**Fonte:** CLI google-ads (tempo real) · **Moeda:** BRL
+
+## 1. Resumo Executivo
+Investiu R$ 133,21, gerou 14 conversões a CPA de R$ 9,52. Vs. semana anterior:
+gasto +25,7%, conversões +40%, CPA −10,2% → conta mais eficiente.
+
+## 2. Métricas Gerais
+| Métrica | Atual | Anterior | Δ |
+|---------|-------|----------|---|
+| Investimento | R$ 133,21 | R$ 105,99 | +25,7% |
+| Conversões | 14 | 10 | +40% |
+| CPA | R$ 9,52 | R$ 10,60 | −10,2% |
+
+## 3. Por Campanha
+| Campanha | Invest. | CPC | Conv. | CPA |
+|----------|---------|-----|-------|-----|
+| INSTITUCIONAL | R$ 58,12 | R$ 2,08 | 8 | R$ 7,27 ✅ |
+| SERVIÇOS | R$ 75,09 | R$ 5,01 🔴 | 6 | R$ 12,52 ⚠️ |
+
+## 5.5 Palavras-chave (Google-only)
+"Grupo Prestarh" (marca) é a melhor (CPA R$ 7,26); "consultoria de rh para
+empresas" consome 53% do gasto com CPC R$ 5,07.
+
+## 9. Recomendações
+1. 🟢 Escalar INSTITUCIONAL (+20–30%) — melhor CPA da conta.
+2. 🟡 Investigar SERVIÇOS — CPC zona "Ruim", adicionar negativas.
+```
+
+> O relatório completo segue as 9 seções de `templates/performance-report.md`. Este exemplo é abreviado.
+
 ## Acceptance Criteria
 - [ ] `google-ads auth status` verificado e OK (Step 0)
 - [ ] Escopo MCC detectado via `accounts --tree` quando aplicável (Step 0.5)
@@ -191,7 +225,7 @@ Gerar relatório usando template `templates/performance-report.md`.
 - [ ] Dados de todas as plataformas declaradas foram consolidados (Step 2)
 - [ ] Agregação multi-account aplicada quando o customer é um MCC tree (Step 2)
 - [ ] Tabela de métricas gerais preenchida com totais e comparações (Step 3)
-- [ ] 5 detalhamentos gerados: campanha, conjunto, criativo, funil, UTM (Step 4)
+- [ ] 5 detalhamentos gerados: campanha, grupo de anúncios, criativo, funil, UTM (Step 4)
 - [ ] Comparação com período anterior incluída quando os dados existem (Step 5)
 - [ ] Comparação de períodos calculada manualmente a partir dos JSONs (Step 5)
 - [ ] Seção Asset Library incluída quando account possui RDA/PMax via `list-assets` (Step 5b)

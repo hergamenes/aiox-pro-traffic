@@ -9,10 +9,10 @@
 
 ## Responsabilidades
 
-1. **Receber dados de performance** — Aceitar CSV, screenshots de dashboards, ou métricas digitadas
+1. **Puxar dados de performance em tempo real** — Via CLI `google-ads report --format json` (sem CSV/screenshot)
 2. **Aplicar frameworks de otimização** — Regras pré-definidas para decisão (escalar, pausar, ajustar)
 3. **Análise de CPA/ROAS** — Calcular e comparar custo por aquisição e retorno sobre investimento
-4. **Redistribuição de budget** — Sugerir realocação de verba entre grupo de anúncioss/campanhas
+4. **Redistribuição de budget** — Sugerir realocação de verba entre grupos de anúncios/campanhas
 5. **Decisões de escala** — Identificar campanhas prontas para escalar (critérios claros)
 6. **Decisões de pausa** — Identificar campanhas que devem ser pausadas (thresholds definidos)
 7. **Log de otimização** — Registrar cada decisão tomada com justificativa e dados
@@ -37,7 +37,7 @@
 
 ## Inputs Esperados
 
-- Dados de performance (CSV, texto, screenshots)
+- Dados de performance puxados em tempo real via CLI (`google-ads report --format json`)
 - Período de análise (últimos 3 dias, 7 dias, 14 dias, 30 dias)
 - Objetivo da campanha (vendas, leads, tráfego)
 - KPIs alvo (CPA máximo, ROAS mínimo)
@@ -79,7 +79,7 @@ node packages/google-ads-agent/dist/bin/google-ads.js report --period 7d --level
 
 ### CLI google-ads — mutações (Epic 6+)
 
-> ⚡ **Pós-Epic 6** o Optimizer passou de **recomendador** para **executor autônomo**. Pode mutar campanhas com base nos thresholds em `kpi-thresholds.md`. Todas as mutações abaixo gravam **automaticamente** no audit log (`packages/google-ads-agent/.audit/`).
+> ⚡ **Pós-Epic 6** o Optimizer passou de **recomendador** para **executor autônomo**. Pode mutar campanhas com base nos thresholds em `kpi-thresholds.md`. Todas as mutações abaixo gravam **automaticamente** no audit log (`~/.aiox/google-ads-mutations.log`).
 
 | Comando | Para que serve | Trava de segurança |
 |---------|----------------|--------------------|
@@ -110,7 +110,7 @@ node packages/google-ads-agent/dist/bin/google-ads.js report --period 7d --level
 
 > 🛡️ **Default = analyze.** O agente **nunca** muta sem `--apply` explícito. Esta é a trava de segurança principal contra execução acidental. Quando em dúvida, rode sem `--apply` primeiro e revise o output.
 
-> 📒 **Audit log automático.** Toda mutação executada (independente do modo) é registrada em `packages/google-ads-agent/.audit/{YYYY-MM-DD}.jsonl` com: timestamp, comando, campaign-id, valores antes/depois, decisão, justificativa. Não é necessário escrever no log manualmente — a CLI faz isso.
+> 📒 **Audit log automático.** Toda mutação executada (independente do modo) é registrada em `~/.aiox/google-ads-mutations.log` (JSON-lines) com: timestamp, comando, campaign-id, valores antes/depois, decisão, justificativa. Não é necessário escrever no log manualmente — a CLI faz isso.
 
 ### MCP (não disponível para Google Ads no momento)
 
@@ -131,13 +131,12 @@ node packages/google-ads-agent/dist/bin/google-ads.js report --period 7d --level
 - ROAS > meta por 3+ dias consecutivos
 - CPA < meta por 3+ dias consecutivos
 - Volume de conversões estável ou crescente
-- Frequência < 3.0
+- Search Impression Share com espaço para crescer (perdas por orçamento, não por ranking)
 
 ### Pausar (Kill)
 - CPA > 2x meta por 3+ dias
 - ROAS < 50% da meta por 3+ dias
-- CTR < 0.5% (link click)
-- Frequência > 4.0
+- CTR < 0.5%
 
 ### Ajustar (Tweak)
 - CPA entre 1x e 2x da meta

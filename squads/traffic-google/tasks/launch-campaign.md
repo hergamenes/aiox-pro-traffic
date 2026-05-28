@@ -66,7 +66,7 @@ Coletar informações essenciais da campanha:
 Com base no briefing, montar a estrutura no plano:
 
 - **Campanha:** Nome seguindo convenção, objetivo configurado
-- **Conjuntos de anúncios:** Segmentação, orçamento, posicionamento
+- **Grupos de anúncios:** Segmentação, orçamento, posicionamento
 - **Anúncios:** Criativos vinculados, copies, CTAs, links com UTM
 
 ### Step 3: Validação de Assets (read-only via CLI — Story 6.6)
@@ -111,10 +111,34 @@ Gerar `campaign-plan.md` usando template `templates/campaign-brief.md` com toda 
 - Checklist `pre-launch.md` preenchido (100% PASS)
 - Baseline de performance (`report --period 7d`) registrado para comparação pós-launch
 
+## Output Example
+
+```markdown
+# Campaign Plan — STATUS: VALIDATED ✅
+**Conta:** Grupo Prestarh (9631900143) · **Objetivo:** Leads · **Tipo:** Search
+
+## Estrutura
+- Campanha: SOL_LEADS_GRUPOPRESTARH_SERVIÇOS · budget R$ 30/dia · tCPA R$ 12
+- Ad Group "Consultoria de RH": keywords [consultoria de rh para empresas (PHRASE),
+  consultoria em gestão de pessoas (PHRASE)]
+- RSA: 5 headlines / 4 descriptions · URL final com utm_source=google&utm_medium=cpc
+
+## Validação
+| Item | Status |
+|------|--------|
+| auth status / config get-default | ✅ OK |
+| Assets via list-assets | ✅ encontrados |
+| UTMs (source/medium/campaign/content) | ✅ |
+| pre-launch.md (27 itens) | ✅ 100% PASS |
+
+**Baseline 7d:** CTR 9,7% · CPC R$ 2,52 · CPA R$ 10,60 (registrado p/ comparação)
+→ Pronto para handoff ao Campaign Publisher (`*publish`).
+```
+
 ## Acceptance Criteria
 - [ ] `auth status`, `config get-default` e `accounts --tree` executados e OK
 - [ ] Briefing capturado nos 7 campos (Step 1)
-- [ ] Estrutura montada com campanha + conjuntos + anúncios
+- [ ] Estrutura montada com campanha + grupos de anúncios + anúncios
 - [ ] Assets referenciados confirmados via `list-assets` (Step 3)
 - [ ] Todos os 6 itens da seção "Validação do Plano" (Step 4) marcados como PASS
 - [ ] Checklist `pre-launch.md` com 100% PASS
@@ -124,6 +148,6 @@ Gerar `campaign-plan.md` usando template `templates/campaign-brief.md` com toda 
 
 ## Handoff
 - **Modo:** Launcher é **read-only** — NÃO executa publicação.
-- **Próximo agente:** Campaign Publisher (`*publish-sales` ou `*publish-leads`)
+- **Próximo agente:** Campaign Publisher (`*publish`)
 - **Artefato passado:** `campaign-plan.md` com status `VALIDATED` + baseline de performance
 - **Contrato:** O Publisher confiará que o plano está validado e executará autonomamente via CLI (sem UI). Qualquer dúvida sobre estrutura, assets ou autenticação deve ser resolvida pelo Launcher ANTES do handoff — não pelo Publisher durante a execução.

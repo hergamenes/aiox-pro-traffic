@@ -13,7 +13,7 @@
 
 ## Dados Analisados
 
-| Campanha/Conjunto | Gasto | Impressões | Cliques | CTR | CPC | Conv. | CPA | ROAS | Freq. |
+| Campanha/Grupo de Anúncios | Gasto | Impressões | Cliques | CTR | CPC | Conv. | CPA | ROAS | Freq. |
 |-------------------|-------|-----------|---------|-----|-----|-------|-----|------|-------|
 | {{row_data}} | | | | | | | | | |
 

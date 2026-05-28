@@ -2,7 +2,7 @@
 
 Squad especializado em operações de tráfego pago focado em Google Ads (Search, Display, Performance Max, YouTube) para gestores de tráfego e media buyers.
 
-> ⚡ **Real-time (parcial):** Os 4 agentes estão conectados à **CLI `google-ads`** (em `packages/google-ads-agent/`). Leituras (`accounts`, `report` nos 5 níveis) são em tempo real. **Publicação no MVP atual é coordenada manualmente no Google Ads UI** — Phase 2 da CLI vai adicionar `create`/`upload`/`up` para automação completa.
+> ⚡ **Real-time + execução autônoma (pós-Epic 6):** Os 4 agentes estão conectados à **CLI `google-ads`** (em `packages/google-ads-agent/`). Leituras (`accounts`, `report` nos 5 níveis) são em tempo real e a **publicação é autônoma via CLI** — `create campaign/ad-group/ad`, `keyword add`, `upload`, `enable`, `pause`, `update`, `remove`. Não há mais necessidade do Google Ads UI para operar.
 >
 > **MCP Google Ads:** ❌ não disponível neste projeto. Diferente do `traffic-meta` que usa `claude_ai_Facebook` MCP, o traffic-google opera apenas com CLI + análise manual.
 
@@ -30,7 +30,7 @@ node packages/google-ads-agent/dist/bin/google-ads.js auth status
 | Agente | Icon | Função |
 |--------|------|--------|
 | **Campaign Launcher** | 🚀 | Estrutura e valida campanhas antes da publicação (briefing → plano → pré-launch checklist) |
-| **Campaign Publisher** | 🎯 | Coordena publicação no Google Ads UI + captura IDs (MVP — `create` automático é Phase 2) |
+| **Campaign Publisher** | 🎯 | Executa publicação autônoma via CLI (cria hierarquia PAUSED → `enable` com GO explícito) |
 | **Campaign Optimizer** | ⚡ | Otimiza campanhas com base em `report` real-time e thresholds de `kpi-thresholds.md` |
 | **Performance Analyst** | 📊 | Consolida dados de 5 níveis (account/campaign/ad_group/ad/keyword) em relatório |
 
@@ -53,9 +53,10 @@ Ative os agentes usando slash commands:
 - `*checklist` — Checklist pré-lançamento
 
 ### Campaign Publisher (🎯)
-- `*publish` — Coordenar publicação (apresenta plano, valida, redireciona ao UI, captura IDs)
-- `*accounts` — Listar contas de anúncio acessíveis
-- `*capture-ids` — Capturar customer-id + campaign-id pós-publicação no UI
+- `*publish` — Executar publicação autônoma completa via CLI (cria hierarquia PAUSED)
+- `*enable {campaign-id}` — Ativar campanha PAUSED após GO explícito do operador
+- `*pause {campaign-id}` — Pausar campanha ativa (safety stop)
+- `*accounts` — Listar contas de anúncio acessíveis (árvore MCC → clientes)
 
 ### Campaign Optimizer (⚡)
 - `*optimize` — Ciclo de otimização (puxa report, classifica, recomenda)
@@ -73,7 +74,7 @@ Ative os agentes usando slash commands:
 |---------|--------------|----------------|
 | Hierarquia | Campaign → Ad Set → Ad | Campaign → Ad Group → Ad |
 | Granularidade extra | — | Keyword (Search-only) |
-| Publicação | CLI cria automático (`*publish-sales`) | MVP: usuário cria no UI; Phase 2: CLI automatizado |
+| Publicação | CLI cria automático (`*publish-sales`) | CLI cria automático (`*publish` → PAUSED → `*enable`) |
 | MCP de insights | ✅ `claude_ai_Facebook` | ❌ não disponível ainda |
 | Token de auth | Expira em 60 dias | Refresh token longo prazo |
 

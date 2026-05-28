@@ -1,7 +1,11 @@
 name: traffic-google
-version: 1.0.0
+version: 2.0.0
 tested: false
-updated_at: "2026-05-21"
+# test_status: leituras (auth, accounts, report nos 5 níveis incl. keyword) validadas
+# em conta real (Grupo Prestarh, 2026-05-28). Publicação autônoma (create/enable/
+# remove) e o workflow full-campaign-cycle end-to-end NÃO foram testados em conta real.
+test_status: reads-validated
+updated_at: "2026-05-28"
 short-title: Squad de Tráfego Google Ads
 description: >-
   Squad especializado em operações de tráfego pago focado em Google Ads.

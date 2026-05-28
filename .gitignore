@@ -28,3 +28,8 @@ Thumbs.db
 .claude/settings.local.json
 .aiox/install-log.txt
 coverage/
+
+# AIOX runtime artifacts & backups
+*.bak
+reports/
+.aiox/project-status.yaml

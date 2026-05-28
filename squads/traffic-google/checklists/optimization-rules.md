@@ -12,7 +12,7 @@ Usar este checklist durante cada ciclo de otimização para garantir que as deci
 
 ## Análise por Item
 
-Para cada campanha/conjunto, verificar:
+Para cada campanha/grupo de anúncios, verificar:
 
 ### Métricas de Volume
 - [ ] Impressões suficientes para significância (mín. 1.000)
@@ -25,14 +25,14 @@ Para cada campanha/conjunto, verificar:
 - [ ] ROAS > meta por 3+ dias consecutivos
 - [ ] CPA < meta por 3+ dias consecutivos
 - [ ] Volume de conversões estável ou crescente
-- [ ] Frequência < 3.0
+- [ ] Impression Share (Search) com espaço para crescer (perdas por orçamento, não por ranking)
 - [ ] Ação: Aumentar budget 20-30% por vez
 
 #### 🔴 Pausar — QUALQUER UM verdade:
 - [ ] CPA > 2x meta por 3+ dias
 - [ ] ROAS < 50% da meta por 3+ dias
-- [ ] CTR < 0.5% (link click) por 3+ dias
-- [ ] Frequência > 4.0
+- [ ] CTR < 0.5% por 3+ dias
+- [ ] (Display/YouTube) Frequência > 4.0
 - [ ] Ação: Pausar imediatamente
 
 #### 🟡 Ajustar — cenário intermediário:
@@ -47,8 +47,8 @@ Para cada campanha/conjunto, verificar:
 
 ## Regras de Redistribuição de Budget
 - [ ] Nunca redistribuir mais de 30% do budget total de uma vez
-- [ ] Priorizar conjuntos com ROAS comprovado
-- [ ] Manter pelo menos 2 conjuntos ativos por campanha
+- [ ] Priorizar grupos de anúncios com ROAS comprovado
+- [ ] Manter pelo menos 2 grupos de anúncios ativos por campanha
 - [ ] Documentar toda redistribuição no log
 
 ## Validação Final

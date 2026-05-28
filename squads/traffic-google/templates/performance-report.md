@@ -18,13 +18,13 @@
 | Métrica | Valor |
 |---------|-------|
 | Impressões | {{impressions}} |
-| Cliques (link) | {{clicks}} |
+| Cliques | {{clicks}} |
 | CTR | {{ctr}}% |
 | CPC Médio | R$ {{avg_cpc}} |
 | Conversões | {{conversions}} |
 | CPA | R$ {{cpa}} |
 | ROAS | {{roas}} |
-| Frequência Média | {{frequency}} |
+| Impression Share (Search) | {{impression_share}}% |
 
 ---
 
@@ -36,9 +36,9 @@
 
 ---
 
-## 4. Performance por Conjunto
+## 4. Performance por Grupo de Anúncios
 
-| Conjunto | Público | Gasto | Conv. | CPA | CTR |
+| Grupo de Anúncios | Público | Gasto | Conv. | CPA | CTR |
 |----------|---------|-------|-------|-----|-----|
 | {{ad_group_rows}} | | | | | |
 

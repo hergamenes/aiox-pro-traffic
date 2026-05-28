@@ -94,7 +94,7 @@ phases:
       - ad_group_ids
       - keyword_ids
       - ad_ids
-      - ads_manager_link
+      - mutation_log_entries (~/.aiox/google-ads-mutations.log)
     checkpoint:
       type: explicit_confirmation
       question: "Resumo apresentado ao usuário (assets+campanha+grupos+keywords+ads). Usuário digitou 'sim'?"
@@ -172,7 +172,7 @@ phases:
         - "Cada comando de mutação é logado com timestamp + user + justificativa"
         - "Rollback documentado por ação (qual comando reverte)"
     outputs:
-      - diagnostico_por_conjunto
+      - diagnostico_por_grupo_de_anuncios
       - optimization-log.md
       - acoes_recomendadas
       - acoes_aplicadas (se --apply)
@@ -242,7 +242,7 @@ phases:
       type: automated
       pass_criteria:
         - "Dados de todas as plataformas declaradas consolidados"
-        - "5 detalhamentos gerados (campanha/conjunto/criativo/funil/UTM)"
+        - "5 detalhamentos gerados (campanha/grupo de anúncios/criativo/funil/UTM)"
         - "report-validation.md com 100% PASS"
         - "Cada recomendação tem suporte em dados"
         - "Se cleanup executado: cleanup_log.md preenchido com autorização explícita"
@@ -260,7 +260,7 @@ handoffs:
     gap_time: "imediato após aprovação humana"
 
   phase-2-publish → phase-3-wait:
-    artifact: campaign_id + ad_group_ids + ad_ids + ads_manager_link
+    artifact: campaign_id + ad_group_ids + ad_ids + mutation_log_entries
     gap_time: "imediato após publicação"
 
   phase-3-wait → phase-4-optimize:
