@@ -5,6 +5,7 @@ vi.mock('../../../src/cli/logger.js', () => ({
 }));
 
 import { withRetry } from '../../../src/utils/retry.js';
+import { MetaApiError, UploadError, ValidationError } from '../../../src/errors/types.js';
 
 describe('withRetry', () => {
   beforeEach(() => {
@@ -98,6 +99,68 @@ describe('withRetry', () => {
 
     expect(result).toBe('ok');
     expect(fn).toHaveBeenCalledTimes(2);
+  });
+
+  it('should retry on transient MetaApiError (rate limit code 4)', async () => {
+    vi.useRealTimers();
+    const fn = vi
+      .fn()
+      .mockRejectedValueOnce(new MetaApiError('Rate limit', 4, ''))
+      .mockResolvedValue('ok');
+
+    const result = await withRetry(fn, { baseDelay: 1 });
+
+    expect(result).toBe('ok');
+    expect(fn).toHaveBeenCalledTimes(2);
+  });
+
+  it('should retry on MetaApiError with HTTP 200 but transient subcode 80004', async () => {
+    vi.useRealTimers();
+    const fn = vi
+      .fn()
+      .mockRejectedValueOnce(new MetaApiError('Ad rate limit', 0, '', { subcode: 80004, httpStatus: 200 }))
+      .mockResolvedValue('ok');
+
+    const result = await withRetry(fn, { baseDelay: 1 });
+
+    expect(result).toBe('ok');
+    expect(fn).toHaveBeenCalledTimes(2);
+  });
+
+  it('should NOT retry on non-transient MetaApiError (invalid token code 190)', async () => {
+    const error = new MetaApiError('Invalid token', 190, '');
+    const fn = vi.fn().mockRejectedValue(error);
+
+    await expect(withRetry(fn)).rejects.toBe(error);
+    expect(fn).toHaveBeenCalledTimes(1);
+  });
+
+  it('should retry on transient UploadError (5xx)', async () => {
+    vi.useRealTimers();
+    const fn = vi
+      .fn()
+      .mockRejectedValueOnce(
+        new UploadError('upload failed', {
+          filePath: '/x.mp4',
+          adAccountId: '',
+          assetType: 'video',
+          httpStatus: 503,
+        }),
+      )
+      .mockResolvedValue('ok');
+
+    const result = await withRetry(fn, { baseDelay: 1 });
+
+    expect(result).toBe('ok');
+    expect(fn).toHaveBeenCalledTimes(2);
+  });
+
+  it('should NOT retry on non-transient app error (ValidationError)', async () => {
+    const error = new ValidationError('bad config');
+    const fn = vi.fn().mockRejectedValue(error);
+
+    await expect(withRetry(fn)).rejects.toBe(error);
+    expect(fn).toHaveBeenCalledTimes(1);
   });
 
   it('should use custom shouldRetry function', async () => {

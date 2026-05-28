@@ -18,7 +18,7 @@ vi.mock('facebook-nodejs-business-sdk', () => ({
 }));
 
 import { getAccessToken } from '../../../src/auth/token-manager.js';
-import { listAdAccounts, listPages, getInstagramAccount } from '../../../src/meta-api/adapter.js';
+import { listAdAccounts, listPages, getInstagramAccount, createCampaign } from '../../../src/meta-api/adapter.js';
 
 describe('meta-api/adapter', () => {
   beforeEach(() => {
@@ -125,6 +125,48 @@ describe('meta-api/adapter', () => {
         instagramAccountId: '222',
       });
       expect(pages[1]?.instagramAccountId).toBeNull();
+    });
+  });
+
+  describe('createCampaign (response.ok + id validation)', () => {
+    it('should throw MetaApiError when HTTP is non-2xx without error field', async () => {
+      // 400 é não-transitório, então não dispara retry (mantém o teste rápido).
+      vi.stubGlobal(
+        'fetch',
+        vi.fn().mockResolvedValue({
+          ok: false,
+          status: 400,
+          json: () => Promise.resolve({}),
+        }),
+      );
+
+      await expect(createCampaign('123', { name: 'X' })).rejects.toThrow(MetaApiError);
+    });
+
+    it('should throw MetaApiError when response has no id (would be undefined)', async () => {
+      vi.stubGlobal(
+        'fetch',
+        vi.fn().mockResolvedValue({
+          ok: true,
+          status: 200,
+          json: () => Promise.resolve({ success: true }),
+        }),
+      );
+
+      await expect(createCampaign('123', { name: 'X' })).rejects.toThrow('ID válido');
+    });
+
+    it('should return the id on success', async () => {
+      vi.stubGlobal(
+        'fetch',
+        vi.fn().mockResolvedValue({
+          ok: true,
+          status: 200,
+          json: () => Promise.resolve({ id: 'camp_999' }),
+        }),
+      );
+
+      await expect(createCampaign('123', { name: 'X' })).resolves.toBe('camp_999');
     });
   });
 

@@ -86,10 +86,19 @@ export const adTextSchema = z.object({
 /** Objetivos cujo destino é uma URL de site (campo websiteUrl). */
 const WEBSITE_URL_TYPES: CampaignType[] = ['sales', 'awareness', 'traffic', 'engagement'];
 
+/** Orçamento diário mínimo (em reais) aceito pela CLI = R$6,00/dia. */
+export const MIN_DAILY_BUDGET_BRL = 6;
+
 export const campaignConfigSchema = z.object({
   type: z.enum(['sales', 'leads', 'awareness', 'traffic', 'engagement', 'whatsapp', 'leadform', 'app']),
   name: z.string().min(1, 'Nome do anúncio é obrigatório'),
-  dailyBudget: z.number().positive('Orçamento diário deve ser maior que zero'),
+  // Orçamento diário em reais (multiplicado por 100 = centavos antes de enviar
+  // à Meta). A Meta exige um mínimo por ad set; usamos R$6,00/dia (600 centavos)
+  // como piso seguro para a maioria dos objetivos no Brasil.
+  dailyBudget: z
+    .number()
+    .positive('Orçamento diário deve ser maior que zero')
+    .min(MIN_DAILY_BUDGET_BRL, `Orçamento diário deve ser de pelo menos R$${MIN_DAILY_BUDGET_BRL.toFixed(2)} por dia`),
   adText: adTextSchema,
   pageId: z.string().min(1, 'Page ID é obrigatório'),
   instagramAccountId: z.string().nullable(),

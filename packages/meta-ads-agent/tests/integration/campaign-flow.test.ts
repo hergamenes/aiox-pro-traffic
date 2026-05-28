@@ -260,7 +260,10 @@ describe('Campaign Flow Integration (MSW)', () => {
     const leadsConfig: CampaignConfig = {
       type: 'leads',
       name: 'LeadsError',
-      dailyBudget: 1,
+      // Orçamento válido localmente (>= R$6) para que a requisição chegue à
+      // API — o erro 2635 (budget too low) é simulado pelo handler MSW e
+      // traduzido para PT-BR pelo error-map.
+      dailyBudget: 10,
       adText: {
         headline: 'Test',
         primaryText: 'Test',

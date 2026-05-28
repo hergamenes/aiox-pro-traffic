@@ -33,7 +33,8 @@ vi.mock('node:fs/promises', async () => {
 const mockFetch = vi.fn();
 vi.stubGlobal('fetch', mockFetch);
 
-import { uploadImage, uploadVideo, uploadBundle } from '../../../src/meta-api/uploader.js';
+import { uploadImage, uploadVideo, uploadBundle, waitForVideoReady } from '../../../src/meta-api/uploader.js';
+import { UploadError } from '../../../src/errors/types.js';
 import type { CreativeBundle, CreativeAsset } from '../../../src/types/creative.js';
 
 function makeAsset(overrides: Partial<CreativeAsset> = {}): CreativeAsset {
@@ -96,20 +97,21 @@ describe('uploadVideo', () => {
 
   it('should send correct POST and return video ID', async () => {
     mockFetch.mockResolvedValue({
-      json: () => Promise.resolve({ id: 'video_789' }),
+      json: () => Promise.resolve({ id: 'video_789', status: { video_status: 'ready' } }),
     });
 
     const videoId = await uploadVideo('12345', '/mock/clip.mp4');
 
     expect(videoId).toBe('video_789');
-    expect(mockFetch).toHaveBeenCalledTimes(1);
+    // 1 chamada de upload + 1 chamada de polling de status do vídeo
+    expect(mockFetch).toHaveBeenCalledTimes(2);
     const [url] = mockFetch.mock.calls[0] as [string];
     expect(url).toBe('https://graph.facebook.com/v21.0/act_12345/advideos');
   });
 
   it('should call onProgress callback with percentage', async () => {
     mockFetch.mockResolvedValue({
-      json: () => Promise.resolve({ id: 'video_789' }),
+      json: () => Promise.resolve({ id: 'video_789', status: { video_status: 'ready' } }),
     });
 
     const onProgress = vi.fn();
@@ -131,6 +133,37 @@ describe('uploadVideo', () => {
     await expect(uploadVideo('12345', '/mock/clip.mp4')).rejects.toThrow(
       'Falha no upload do vídeo',
     );
+  });
+});
+
+describe('waitForVideoReady', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it('should resolve when video_status is ready', async () => {
+    mockFetch.mockResolvedValue({
+      json: () => Promise.resolve({ status: { video_status: 'ready' } }),
+    });
+
+    await expect(waitForVideoReady('vid_1', 'tok')).resolves.toBeUndefined();
+    expect(mockFetch).toHaveBeenCalledTimes(1);
+  });
+
+  it('should resolve when processing_phase status is complete', async () => {
+    mockFetch.mockResolvedValue({
+      json: () => Promise.resolve({ status: { processing_phase: { status: 'complete' } } }),
+    });
+
+    await expect(waitForVideoReady('vid_1', 'tok')).resolves.toBeUndefined();
+  });
+
+  it('should throw UploadError when video processing errors', async () => {
+    mockFetch.mockResolvedValue({
+      json: () => Promise.resolve({ status: { video_status: 'error' } }),
+    });
+
+    await expect(waitForVideoReady('vid_1', 'tok')).rejects.toThrow(UploadError);
   });
 });
 
@@ -191,7 +224,7 @@ describe('uploadBundle', () => {
 
   it('should handle video in bundle', async () => {
     mockFetch.mockResolvedValue({
-      json: () => Promise.resolve({ id: 'video_999' }),
+      json: () => Promise.resolve({ id: 'video_999', status: { video_status: 'ready' } }),
     });
 
     const bundle: CreativeBundle = {

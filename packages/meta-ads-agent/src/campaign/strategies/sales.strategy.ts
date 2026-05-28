@@ -1,9 +1,12 @@
 import type { CampaignStrategy, CampaignOptions, AdSetOptions, AdOptions } from './campaign-strategy.js';
+import { OBJECTIVE_SPECS } from '../objectives.js';
+
+const SPEC = OBJECTIVE_SPECS.sales;
 
 export class SalesCampaignStrategy implements CampaignStrategy {
   getCampaignParams(options?: CampaignOptions): Record<string, unknown> {
     const params: Record<string, unknown> = {
-      objective: 'OUTCOME_SALES',
+      objective: SPEC.objective,
       special_ad_categories: [],
       status: 'PAUSED',
     };
@@ -30,10 +33,16 @@ export class SalesCampaignStrategy implements CampaignStrategy {
 
     const params: Record<string, unknown> = {
       campaign_id: options.campaignId,
-      optimization_goal: hasPixel ? 'OFFSITE_CONVERSIONS' : 'LINK_CLICKS',
-      billing_event: 'IMPRESSIONS',
+      // Com pixel, otimiza por conversões offsite (do registry); sem pixel,
+      // cai para LINK_CLICKS (não há evento de conversão para otimizar).
+      optimization_goal: hasPixel ? SPEC.optimizationGoal : 'LINK_CLICKS',
+      billing_event: SPEC.billingEvent,
       targeting,
     };
+
+    if (SPEC.destinationType) {
+      params['destination_type'] = SPEC.destinationType;
+    }
 
     if (!options.cboEnabled) {
       // Non-CBO: budget and bid strategy on ad set

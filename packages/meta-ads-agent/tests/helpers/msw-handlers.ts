@@ -26,6 +26,14 @@ export const videoUploadSuccessHandler = http.post(
   },
 );
 
+// Polling de processamento de vídeo: GET /{video_id}?fields=status
+export const videoStatusReadyHandler = http.get(
+  `${BASE_URL}/:videoId`,
+  () => {
+    return HttpResponse.json({ status: { video_status: 'ready' } });
+  },
+);
+
 export const metaApiErrorHandler = (code: number, message: string) =>
   http.post(`${BASE_URL}/act_:adAccountId/adimages`, () => {
     return HttpResponse.json({
@@ -103,6 +111,7 @@ export const campaignApiErrorHandler = (endpoint: string, code: number, message:
 export const defaultHandlers = [
   imageUploadSuccessHandler,
   videoUploadSuccessHandler,
+  videoStatusReadyHandler,
 ];
 
 export const campaignHandlers = [

@@ -1,4 +1,5 @@
 import { logger } from '../cli/logger.js';
+import { MetaApiError, UploadError } from '../errors/types.js';
 
 export interface RetryOptions {
   maxAttempts?: number;
@@ -15,6 +16,13 @@ const RETRYABLE_NETWORK_CODES = new Set([
 ]);
 
 function isRetryableError(error: unknown): boolean {
+  // Erros da Meta (rate limit / instabilidade temporária) sinalizam via
+  // getter isTransient — a Meta frequentemente retorna esses erros com
+  // HTTP 200 e o código no corpo JSON, então é nosso sinal mais confiável.
+  if (error instanceof MetaApiError || error instanceof UploadError) {
+    return error.isTransient;
+  }
+
   const err = error as Record<string, unknown>;
 
   // Network errors

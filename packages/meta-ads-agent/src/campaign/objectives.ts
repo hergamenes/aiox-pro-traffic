@@ -43,6 +43,9 @@ export const OBJECTIVE_SPECS: Record<CampaignType, ObjectiveSpec> = {
     objective: 'OUTCOME_SALES',
     optimizationGoal: 'OFFSITE_CONVERSIONS',
     billingEvent: 'IMPRESSIONS',
+    // Vendas direciona para um site/produto e otimiza por conversões offsite,
+    // exatamente como traffic/leads — portanto exige destino de site.
+    destinationType: 'WEBSITE',
     ctaDefault: 'SHOP_NOW',
     urlField: 'websiteUrl',
     label: 'Vendas',
@@ -60,6 +63,8 @@ export const OBJECTIVE_SPECS: Record<CampaignType, ObjectiveSpec> = {
     objective: 'OUTCOME_AWARENESS',
     optimizationGoal: 'REACH',
     billingEvent: 'IMPRESSIONS',
+    // Sem destinationType: REACH otimiza por alcance/impressão, não por clique
+    // num destino de site — a Meta não exige destination_type aqui.
     ctaDefault: 'LEARN_MORE',
     urlField: 'websiteUrl',
     label: 'Reconhecimento',
@@ -77,6 +82,8 @@ export const OBJECTIVE_SPECS: Record<CampaignType, ObjectiveSpec> = {
     objective: 'OUTCOME_ENGAGEMENT',
     optimizationGoal: 'POST_ENGAGEMENT',
     billingEvent: 'IMPRESSIONS',
+    // Sem destinationType: POST_ENGAGEMENT otimiza interações no próprio
+    // post/anúncio (ON_AD implícito), não tráfego para um site.
     ctaDefault: 'LEARN_MORE',
     urlField: 'websiteUrl',
     label: 'Engajamento',

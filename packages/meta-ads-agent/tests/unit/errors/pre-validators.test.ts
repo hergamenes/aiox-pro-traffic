@@ -94,5 +94,12 @@ describe('pre-validators', () => {
       await expect(validatePreConditions(config, bundle)).rejects.toThrow(ValidationError);
       await expect(validatePreConditions(config, bundle)).rejects.toThrow('Orçamento');
     });
+
+    it('should throw ValidationError when dailyBudget is below the Meta minimum (R$6)', async () => {
+      const config = makeConfig({ dailyBudget: 5 });
+      const bundle = makeBundle();
+      await expect(validatePreConditions(config, bundle)).rejects.toThrow(ValidationError);
+      await expect(validatePreConditions(config, bundle)).rejects.toThrow('mínimo');
+    });
   });
 });

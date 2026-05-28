@@ -22,12 +22,57 @@ export class ValidationError extends AppError {
   }
 }
 
+/**
+ * Códigos de erro da Meta que indicam condição TRANSITÓRIA (rate limit ou
+ * instabilidade temporária) e que, portanto, valem a pena ser retentados.
+ *
+ * Referência (Graph API error codes):
+ * - 1   API Unknown (frequentemente transitório)
+ * - 2   API Service (temporário)
+ * - 4   Application request limit reached (rate limit)
+ * - 17  User request limit reached (rate limit)
+ * - 32  Page-level throttling (rate limit)
+ * - 613 Calls to this api have exceeded the rate limit
+ * - 80004 Limite de taxa específico de anúncios
+ */
+const TRANSIENT_META_CODES = new Set([1, 2, 4, 17, 32, 613, 80004]);
+
+/** Subcódigos transitórios conhecidos (ex.: 80004 aparece como subcode). */
+const TRANSIENT_META_SUBCODES = new Set([80004]);
+
 export class MetaApiError extends AppError {
   public readonly metaErrorCode: number;
+  /** Subcódigo de erro da Meta (`error_subcode`), quando disponível. */
+  public readonly subcode?: number;
+  /** Trace ID retornado pela Meta (`fbtrace_id`) para suporte/diagnóstico. */
+  public readonly fbtraceId?: string;
+  /** Status HTTP da resposta, quando aplicável. */
+  public readonly httpStatus?: number;
 
-  constructor(message: string, metaErrorCode: number, action: string = '') {
+  constructor(
+    message: string,
+    metaErrorCode: number,
+    action: string = '',
+    options?: { subcode?: number; fbtraceId?: string; httpStatus?: number },
+  ) {
     super(message, 'META_API_ERROR', action);
     this.metaErrorCode = metaErrorCode;
+    this.subcode = options?.subcode;
+    this.fbtraceId = options?.fbtraceId;
+    this.httpStatus = options?.httpStatus;
+  }
+
+  /**
+   * Indica se o erro é transitório (rate limit / instabilidade) e portanto
+   * elegível para retry com backoff. Considera código, subcódigo e status HTTP.
+   */
+  get isTransient(): boolean {
+    if (TRANSIENT_META_CODES.has(this.metaErrorCode)) return true;
+    if (this.subcode !== undefined && TRANSIENT_META_SUBCODES.has(this.subcode)) return true;
+    if (this.httpStatus !== undefined && (this.httpStatus === 429 || this.httpStatus >= 500)) {
+      return true;
+    }
+    return false;
   }
 }
 
@@ -55,15 +100,42 @@ export class UploadError extends AppError {
   public readonly filePath: string;
   public readonly adAccountId: string;
   public readonly assetType: 'image' | 'video';
+  /** Código de erro da Meta (quando o upload falhou por erro da API). */
+  public readonly metaErrorCode?: number;
+  public readonly subcode?: number;
+  public readonly httpStatus?: number;
 
   constructor(
     message: string,
-    options: { filePath: string; adAccountId: string; assetType: 'image' | 'video'; action?: string },
+    options: {
+      filePath: string;
+      adAccountId: string;
+      assetType: 'image' | 'video';
+      action?: string;
+      metaErrorCode?: number;
+      subcode?: number;
+      httpStatus?: number;
+    },
   ) {
     super(message, 'UPLOAD_ERROR', options.action ?? '');
     this.filePath = options.filePath;
     this.adAccountId = options.adAccountId;
     this.assetType = options.assetType;
+    this.metaErrorCode = options.metaErrorCode;
+    this.subcode = options.subcode;
+    this.httpStatus = options.httpStatus;
+  }
+
+  /** Mesmo critério de transitoriedade do MetaApiError (rate limit / 5xx). */
+  get isTransient(): boolean {
+    if (this.metaErrorCode !== undefined && TRANSIENT_META_CODES.has(this.metaErrorCode)) {
+      return true;
+    }
+    if (this.subcode !== undefined && TRANSIENT_META_SUBCODES.has(this.subcode)) return true;
+    if (this.httpStatus !== undefined && (this.httpStatus === 429 || this.httpStatus >= 500)) {
+      return true;
+    }
+    return false;
   }
 }
 

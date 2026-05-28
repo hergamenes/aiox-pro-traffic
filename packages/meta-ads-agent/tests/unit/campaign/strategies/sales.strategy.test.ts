@@ -43,6 +43,11 @@ describe('SalesCampaignStrategy', () => {
       expect(params['billing_event']).toBe('IMPRESSIONS');
     });
 
+    it('should return WEBSITE destination type', () => {
+      const params = strategy.getAdSetParams(options);
+      expect(params['destination_type']).toBe('WEBSITE');
+    });
+
     it('should include promoted_object with pixel_id and PURCHASE event', () => {
       const params = strategy.getAdSetParams(options);
       expect(params['promoted_object']).toEqual({

@@ -36,12 +36,19 @@ function handleMetaError(error: unknown): never {
   const err = error as Record<string, unknown>;
   const body = err['body'] as Record<string, unknown> | undefined;
   const metaError = body?.['error'] as Record<string, unknown> | undefined;
+  const httpStatus = typeof err['httpStatus'] === 'number' ? (err['httpStatus'] as number) : undefined;
 
   if (metaError) {
     const code = (metaError['code'] as number) ?? 0;
+    const subcode = metaError['error_subcode'] as number | undefined;
+    const fbtraceId = metaError['fbtrace_id'] as string | undefined;
     const detail = metaError['message'] as string | undefined;
     const translated = translateMetaError(code, detail);
-    throw new MetaApiError(translated.message, code, translated.action);
+    throw new MetaApiError(translated.message, code, translated.action, {
+      subcode,
+      fbtraceId,
+      httpStatus,
+    });
   }
 
   const errCode = err['code'] as string | undefined;
@@ -52,11 +59,52 @@ function handleMetaError(error: unknown): never {
     );
   }
 
+  // Resposta HTTP não-2xx sem campo `error` parseável: ainda é falha.
+  // Sem isso, o código seguiria como sucesso e retornaria id undefined.
+  if (httpStatus !== undefined) {
+    throw new MetaApiError(
+      `A API Meta respondeu com HTTP ${httpStatus} sem detalhes de erro.`,
+      0,
+      'Tente novamente. Se persistir, verifique o status da API Meta.',
+      { httpStatus },
+    );
+  }
+
   throw new MetaApiError(
     'Erro inesperado ao comunicar com a API Meta.',
     0,
     '',
   );
+}
+
+/**
+ * Verifica a resposta da Meta após o parse do JSON. Lança MetaApiError se:
+ * - houver `json.error` (delegando a handleMetaError com o status HTTP), ou
+ * - a resposta HTTP for não-2xx mesmo sem campo `error`.
+ *
+ * `response.ok` pode ser `undefined` em ambientes de teste que stubam fetch
+ * apenas com `{ json }` — por isso só tratamos como erro quando ok === false.
+ */
+function assertOk(response: { ok?: boolean; status?: number }, json: Record<string, unknown>): void {
+  if (json['error']) {
+    handleMetaError({ body: json, httpStatus: response.status });
+  }
+  if (response.ok === false) {
+    handleMetaError({ httpStatus: response.status ?? 0 });
+  }
+}
+
+/** Garante que um id de entidade veio preenchido na resposta da Meta. */
+function requireId(json: Record<string, unknown>, entity: string): string {
+  const id = json['id'];
+  if (typeof id !== 'string' || id.length === 0) {
+    throw new MetaApiError(
+      `A API Meta não retornou um ID válido ao criar ${entity}.`,
+      0,
+      'Tente novamente. Se persistir, verifique o status da API Meta.',
+    );
+  }
+  return id;
 }
 
 export async function listAdAccounts(): Promise<AdAccount[]> {
@@ -68,9 +116,7 @@ export async function listAdAccounts(): Promise<AdAccount[]> {
     const response = await fetch(url);
     const json = (await response.json()) as Record<string, unknown>;
 
-    if (json['error']) {
-      handleMetaError({ body: json });
-    }
+    assertOk(response, json);
 
     const data = json['data'] as Record<string, unknown>[];
     if (!data) return [];
@@ -103,9 +149,7 @@ export async function listPages(): Promise<Page[]> {
     const response = await fetch(url);
     const json = (await response.json()) as Record<string, unknown>;
 
-    if (json['error']) {
-      handleMetaError({ body: json });
-    }
+    assertOk(response, json);
 
     const data = json['data'] as Record<string, unknown>[];
     if (!data) return [];
@@ -138,9 +182,7 @@ export async function getInstagramAccount(
     const response = await fetch(url);
     const json = (await response.json()) as Record<string, unknown>;
 
-    if (json['error']) {
-      handleMetaError({ body: json });
-    }
+    assertOk(response, json);
 
     const igData = json['instagram_business_account'] as Record<string, unknown> | undefined;
     if (!igData) return null;
@@ -175,9 +217,7 @@ export async function getPageAccessToken(pageId: string): Promise<string> {
     const response = await fetch(url);
     const json = (await response.json()) as Record<string, unknown>;
 
-    if (json['error']) {
-      handleMetaError({ body: json });
-    }
+    assertOk(response, json);
 
     const pageToken = json['access_token'] as string | undefined;
     if (!pageToken) {
@@ -217,11 +257,9 @@ export async function createLeadForm(
     });
     const json = (await response.json()) as Record<string, unknown>;
 
-    if (json['error']) {
-      handleMetaError({ body: json });
-    }
+    assertOk(response, json);
 
-    const id = json['id'] as string;
+    const id = requireId(json, 'o formulário de Lead Ads');
     logger.info({ leadFormId: id }, 'Lead form created');
     return id;
   });
@@ -267,11 +305,9 @@ export async function createCampaign(
     });
     const json = (await response.json()) as Record<string, unknown>;
 
-    if (json['error']) {
-      handleMetaError({ body: json });
-    }
+    assertOk(response, json);
 
-    const id = json['id'] as string;
+    const id = requireId(json, 'a campanha');
     logger.info({ campaignId: id }, 'Campaign created');
     return id;
   });
@@ -294,11 +330,9 @@ export async function createAdSet(
     });
     const json = (await response.json()) as Record<string, unknown>;
 
-    if (json['error']) {
-      handleMetaError({ body: json });
-    }
+    assertOk(response, json);
 
-    const id = json['id'] as string;
+    const id = requireId(json, 'o conjunto de anúncios');
     logger.info({ adSetId: id }, 'Ad set created');
     return id;
   });
@@ -321,11 +355,9 @@ export async function createAd(
     });
     const json = (await response.json()) as Record<string, unknown>;
 
-    if (json['error']) {
-      handleMetaError({ body: json });
-    }
+    assertOk(response, json);
 
-    const id = json['id'] as string;
+    const id = requireId(json, 'o anúncio');
     logger.info({ adId: id }, 'Ad created');
     return id;
   });
@@ -348,9 +380,7 @@ export async function updateCampaignStatus(
     });
     const json = (await response.json()) as Record<string, unknown>;
 
-    if (json['error']) {
-      handleMetaError({ body: json });
-    }
+    assertOk(response, json);
 
     logger.info({ campaignId, status }, 'Campaign status updated');
   });
@@ -422,9 +452,7 @@ export async function getVideoThumbnailUrl(videoId: string): Promise<string> {
     const response = await fetch(url);
     const json = (await response.json()) as Record<string, unknown>;
 
-    if (json['error']) {
-      handleMetaError({ body: json });
-    }
+    assertOk(response, json);
 
     return (json['picture'] as string) ?? '';
   } catch (error) {
@@ -446,9 +474,7 @@ export async function listMediaImages(adAccountId: string): Promise<MediaImage[]
     const response = await fetch(url);
     const json = (await response.json()) as Record<string, unknown>;
 
-    if (json['error']) {
-      handleMetaError({ body: json });
-    }
+    assertOk(response, json);
 
     const data = json['data'] as Record<string, unknown>[] | undefined;
     if (!data) break;
@@ -470,6 +496,21 @@ export async function listMediaImages(adAccountId: string): Promise<MediaImage[]
   return images;
 }
 
+/** Fuso usado para o range de datas dos relatórios (alinha ao fuso do usuário). */
+const REPORT_TIMEZONE = 'America/Sao_Paulo';
+
+/** Formata uma Date como YYYY-MM-DD no fuso de São Paulo (não em UTC). */
+function formatSaoPauloDate(date: Date): string {
+  // en-CA produz o formato ISO YYYY-MM-DD; timeZone garante o dia correto
+  // em SP (UTC-3), evitando a divergência de 1 dia que ocorria com toISOString().
+  return new Intl.DateTimeFormat('en-CA', {
+    timeZone: REPORT_TIMEZONE,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(date);
+}
+
 export function periodToDateRange(
   period: string,
   from?: string,
@@ -480,12 +521,12 @@ export function periodToDateRange(
   }
 
   const now = new Date();
-  const until = now.toISOString().split('T')[0];
+  const until = formatSaoPauloDate(now);
   const daysMap: Record<string, number> = { '7d': 7, '14d': 14, '30d': 30 };
   const days = daysMap[period] ?? 7;
   const sinceDate = new Date(now);
   sinceDate.setDate(sinceDate.getDate() - days);
-  const since = sinceDate.toISOString().split('T')[0];
+  const since = formatSaoPauloDate(sinceDate);
 
   return { since, until };
 }
@@ -533,9 +574,7 @@ export async function getInsights(params: InsightsParams): Promise<RawInsightRow
       const response = await fetch(url);
       const json = (await response.json()) as Record<string, unknown>;
 
-      if (json['error']) {
-        handleMetaError({ body: json });
-      }
+      assertOk(response, json);
 
       const data = json['data'] as Record<string, unknown>[] | undefined;
       if (!data) break;
@@ -570,9 +609,7 @@ export async function getAdSetBudgets(adAccountId: string): Promise<BudgetInfo[]
       const response = await fetch(url);
       const json = (await response.json()) as Record<string, unknown>;
 
-      if (json['error']) {
-        handleMetaError({ body: json });
-      }
+      assertOk(response, json);
 
       const data = json['data'] as Record<string, unknown>[] | undefined;
       if (!data) break;
@@ -612,9 +649,7 @@ export async function listMediaVideos(adAccountId: string): Promise<MediaVideo[]
     const response = await fetch(url);
     const json = (await response.json()) as Record<string, unknown>;
 
-    if (json['error']) {
-      handleMetaError({ body: json });
-    }
+    assertOk(response, json);
 
     const data = json['data'] as Record<string, unknown>[] | undefined;
     if (!data) break;

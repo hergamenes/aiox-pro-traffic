@@ -13,6 +13,7 @@ import { AppCampaignStrategy } from './strategies/app.strategy.js';
 import type { CampaignStrategy } from './strategies/campaign-strategy.js';
 import { applyPlacements } from './placements.js';
 import { ValidationError } from '../errors/types.js';
+import { validatePreConditions } from '../errors/pre-validators.js';
 import { logCampaign } from '../log/log-repository.js';
 
 function getStrategy(type: string): CampaignStrategy {
@@ -60,6 +61,9 @@ export async function createCampaign(
     const errors = parseResult.error.errors.map((e) => e.message).join('; ');
     throw new ValidationError(`Configuração inválida: ${errors}`);
   }
+  // Pré-condições reais antes de gastar qualquer upload: token válido, conta,
+  // página, criativos presentes e orçamento. Falha cedo, com mensagem em pt-BR.
+  await validatePreConditions(config, bundle);
   callbacks?.onProgress?.('validate', 100);
 
   // Phase 2: Upload creatives

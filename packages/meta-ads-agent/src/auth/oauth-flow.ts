@@ -1,7 +1,7 @@
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
 import { URL } from 'node:url';
 import { randomBytes } from 'node:crypto';
-import { exec } from 'node:child_process';
+import { execFile } from 'node:child_process';
 import { logger } from '../cli/logger.js';
 import { AuthError } from '../errors/types.js';
 import type { TokenInfo, OAuthCallbackResult } from '../types/auth.js';
@@ -150,7 +150,9 @@ function waitForCallback(
 }
 
 function openBrowser(url: string): void {
-  exec(`open "${url}"`);
+  // execFile (não exec) evita interpolar a URL numa shell — sem risco de
+  // injeção de comando via parâmetros maliciosos na URL de autorização.
+  execFile('open', [url]);
 }
 
 export async function startAuthFlow(

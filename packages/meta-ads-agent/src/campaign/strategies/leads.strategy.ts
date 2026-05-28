@@ -1,9 +1,12 @@
 import type { CampaignStrategy, CampaignOptions, AdSetOptions, AdOptions } from './campaign-strategy.js';
+import { OBJECTIVE_SPECS } from '../objectives.js';
+
+const SPEC = OBJECTIVE_SPECS.leads;
 
 export class LeadsCampaignStrategy implements CampaignStrategy {
   getCampaignParams(options?: CampaignOptions): Record<string, unknown> {
     const params: Record<string, unknown> = {
-      objective: 'OUTCOME_LEADS',
+      objective: SPEC.objective,
       special_ad_categories: [],
       status: 'PAUSED',
     };
@@ -29,9 +32,9 @@ export class LeadsCampaignStrategy implements CampaignStrategy {
 
     const params: Record<string, unknown> = {
       campaign_id: options.campaignId,
-      optimization_goal: 'LANDING_PAGE_VIEWS',
-      billing_event: 'IMPRESSIONS',
-      destination_type: 'WEBSITE',
+      optimization_goal: SPEC.optimizationGoal,
+      billing_event: SPEC.billingEvent,
+      ...(SPEC.destinationType ? { destination_type: SPEC.destinationType } : {}),
       targeting,
     };
 
