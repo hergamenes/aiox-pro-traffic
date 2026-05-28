@@ -2,7 +2,53 @@
 
 | Date | Version | Description | Author |
 |------|---------|-------------|--------|
-| 09-03-26 | 0.1 | Initial architecture document | Aria (Architect) |
+| 09-03-26 | 0.1 | Initial architecture document (Sales/Leads MVP) | Aria (Architect) |
+| 28-05-26 | 1.0 | Atualização pós-entrega: 8 objetivos, placements, reporting, batch/media + dívida técnica | Orion (Master) |
+
+---
+
+## 0. Status de Implementação (atualização v1.0 — 28-05-26)
+
+> O corpo deste documento (Seções abaixo) descreve o MVP original de **2 objetivos** (Sales/Leads) e continua válido como blueprint dos padrões base (pipeline, adapter, OAuth, keychain, errors PT-BR). A implementação real **cresceu** — esta seção registra o delta. Para os padrões compartilhados entre Meta e Google, ver `docs/architecture/overview.md`.
+
+**Escopo real entregue** (`packages/meta-ads-agent/`):
+
+- **8 objetivos de campanha** (`src/campaign/objectives.ts` = registry central + estratégias dedicadas em `src/campaign/strategies/`):
+  | Objetivo | Strategy | Comando |
+  |---|---|---|
+  | sales | `sales.strategy.ts` | `create sales` |
+  | leads | `leads.strategy.ts` | `create leads` |
+  | awareness | `generic.strategy.ts` (via base) | `create awareness` |
+  | traffic | `generic.strategy.ts` | `create traffic` |
+  | engagement | `generic.strategy.ts` | `create engagement` |
+  | whatsapp | `whatsapp.strategy.ts` | `create whatsapp` |
+  | leadform | `leadform.strategy.ts` | `create leadform` |
+  | app | `app.strategy.ts` | `create app` |
+  - Todas as strategies derivam de `base.strategy.ts` via interface `campaign-strategy.ts`.
+- **Placements / plataformas:** `src/campaign/placements.ts` (`--plataforma`).
+- **Criação em lote:** `src/cli/commands/batch.ts` (CSV, suporta os 8 objetivos).
+- **Biblioteca de mídia + criação rápida:** `src/cli/commands/media.ts`, `src/cli/commands/up.ts`.
+- **Reporting:** `src/reporting/` (insights-parser, campaign-filter, report-formatter) + insights na `meta-api/adapter.ts`. Contrato JSON idêntico ao Google (ver `overview.md`).
+- **Rollback transacional:** em falha, `orchestrator.ts` deleta ad → adset → campaign → leadform criados parcialmente.
+- **Pré-validações:** `src/errors/pre-validators.ts` (ver dívida técnica — atualmente não acoplado ao fluxo principal).
+- **Qualidade:** 379 testes passando (45 arquivos), typecheck + lint limpos.
+
+### Dívida Técnica Conhecida (auditoria 28-05-26)
+
+| Sev | Item | Local |
+|---|---|---|
+| 🔴 CRÍTICO | `withRetry` nunca retenta 429/5xx da Meta (erros vêm no corpo JSON com HTTP 200; `MetaApiError`/`UploadError` não têm `status`/`code` numérico). Falha sob lote/rate limit. | `utils/retry.ts:17-36`, `meta-api/adapter.ts:260-277`, `uploader.ts:59-81` |
+| 🔴 CRÍTICO | Falta checagem de `response.ok` — HTTP 5xx sem `json.error` passa como sucesso e cria entidade com ID `undefined`. | `meta-api/adapter.ts:224,274,301,329` |
+| 🟠 ALTO | Upload de vídeo não-chunked, lê arquivo inteiro na memória, sem esperar `video_status=ready` antes de criar o ad. | `uploader.ts:83-123`, `orchestrator.ts:196-219` |
+| 🟠 ALTO | `validatePreConditions` é código morto (testado mas não chamado no fluxo real); bundle vazio só falha tarde. | `errors/pre-validators.ts` |
+| 🟡 MÉDIO | `destinationType` ausente em sales/awareness/engagement (pode gerar combinação inválida em conta real). | `campaign/objectives.ts:42-83` |
+| 🟡 MÉDIO | sales/leads strategies duplicam a base com strings hardcoded — não leem os números do registry (risco de divergência). | `sales.strategy.ts`, `leads.strategy.ts` |
+| 🟡 MÉDIO | Sem validação de orçamento mínimo da Meta (~R$6/dia); só checa `> 0`. | `types/campaign.ts:92` |
+| 🟡 MÉDIO | `special_ad_categories: []` fixo — nichos regulados (crédito/emprego/habitação) criados errado. | strategies |
+| 🟢 BAIXO | `report` usa datas em UTC (`toISOString`), pode divergir 1 dia do fuso de São Paulo. | `meta-api/adapter.ts:483-488` |
+| 🟡 QA | 4 dos 8 objetivos (whatsapp, leadform, app, parcial awareness/engagement) ainda não validados em conta real. | — |
+
+> **Nota positiva:** OAuth com CSRF `state`, tokens só no Keychain, rollback transacional e error-map PT-BR estão sólidos. Nenhum segredo hardcoded.
 
 ---
 

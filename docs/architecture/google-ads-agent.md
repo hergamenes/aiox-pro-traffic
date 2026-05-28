@@ -2,14 +2,27 @@
 
 | | |
 |---|---|
-| **Status** | Draft — pending @dev implementation |
+| **Status** | ✅ Implementado (Phases 1-3 entregues) — com CONCERNS de QA pendentes |
 | **Author** | Aria (Architect) |
-| **Date** | 2026-05-21 |
-| **Version** | 0.1 |
+| **Date** | 2026-05-21 (spec) · 2026-05-28 (atualização pós-entrega) |
+| **Version** | 1.0 |
 | **Handoff source** | `.aiox/handoffs/handoff-squad-chief-to-architect-2026-05-21T13-04.yaml` |
-| **Reference impl** | `packages/meta-ads-agent/` (v0.1.0) |
+| **Reference impl** | `packages/meta-ads-agent/` |
 
 ---
+
+## 0. Status de Implementação (atualização v1.0 — 28-05-26)
+
+> Este documento começou como spec pré-implementação (v0.1, "Draft"). **Tudo foi entregue** — incluindo o que estava marcado como Phase 2/3 (mutações, criação, keywords, assets, delete). As seções 1-9 abaixo permanecem como registro das decisões arquiteturais (SDK, auth, contrato de report) e continuam válidas. As seções 10+ foram atualizadas para refletir a entrega real.
+
+**Resumo do que existe hoje** (`packages/google-ads-agent/`):
+- ✅ **Read:** `auth`, `accounts` (+ árvore MCC), `config`, `report` (GAQL por nível, incl. keyword via `keyword_view`).
+- ✅ **Mutações:** `update budget/bidding`, `pause`/`enable` (campaign + ad-group), `remove` (campaign + ad-group).
+- ✅ **Criação:** `create campaign-search`, `campaign-display`, `campaign-pmax`, `ad-group`, `ad rsa`, `ad rda`.
+- ✅ **Keywords/Assets:** `keyword add/remove/update-bid`, `upload`/`list-assets` (image, video, text).
+- ✅ **Guard-rails de segurança** (ver Seção 16): PAUSED-by-default, dry-run (`validate_only`), preview + confirmação, limite de orçamento de sessão (`session-budget-tracker`), log de mutações (`mutation-log`), prompts dedicados de mutação/remoção.
+- **Qualidade:** 332 testes passando, typecheck + lint limpos. Cobertura ~41% linhas / 72% funções / 87% branches (descoberto: comandos CLI e camada de API real).
+- **Dívida técnica:** ver Seção 17.
 
 ## 1. Context
 
@@ -25,13 +38,19 @@ This document specifies the architecture for `packages/google-ads-agent/` — a 
 - **G4.** Match Meta CLI's report contract: `--from`, `--to`, `--period`, `--level`, `--format json`, `--campaign-id`, `--tag` work and emit JSON shaped the same way the squad already knows how to parse.
 - **G5.** Same operational ergonomics: `node dist/bin/google-ads.js auth status` mirrors `meta-ads auth status` so squad tasks can use a parameterized command path.
 
-## 3. Non-Goals (out of MVP)
+## 3. Non-Goals do MVP original — STATUS ATUAL
 
-- Campaign creation (`create`, `up`, `batch`) — second phase.
-- Creative upload (`upload`, `media`, `creatives`) — second phase.
-- History tracking with local persistence — second phase.
-- Audience management — not on roadmap; squad covers via MCP if needed.
-- Google Ads scripts (server-side JS) — out of scope.
+> O que era "Non-Goal" do MVP read-only foi, em sua maioria, **entregue** nas fases seguintes:
+
+- ~~Campaign creation~~ → ✅ **ENTREGUE** (`create campaign-search/display/pmax`, `ad-group`, `ad rsa/rda`).
+- ~~Creative/asset upload~~ → ✅ **ENTREGUE** (`upload`/`list-assets` para image/video/text).
+- Keyword management → ✅ **ENTREGUE** (`keyword add/remove/update-bid`).
+- Mutations (budget/bidding/status/delete) → ✅ **ENTREGUE**.
+- History tracking persistido em YAML → ⚠️ parcial (há `mutation-log`; histórico completo de criação não persiste como no Meta).
+- `batch` CSV e `media` library → ❌ **NÃO implementado no Google** (existe só no Meta).
+- `up` shortcut → ❌ **NÃO implementado no Google**.
+- Audience management → ❌ fora do roadmap (squad cobre via MCP se necessário).
+- Google Ads scripts (server-side JS) → ❌ fora de escopo.
 
 ## 4. Constraints
 
@@ -142,7 +161,34 @@ packages/google-ads-agent/
 └── vitest.config.ts (or inline)
 ```
 
-**Adapter port boundary (the most important architectural rule):** outside of `src/google-ads-api/`, **nothing imports from `google-ads-api` (the npm package)**. Every other module talks to `GoogleAdsClient` / `getInsights` / `listAccessibleCustomers` — our own functions. This is the same discipline the meta-ads-agent applies through `src/meta-api/adapter.ts`.
+**Adapter port boundary (the most important architectural rule):** outside of `src/google-ads-api/`, **nothing imports from `google-ads-api` (the npm package)**. Every other module talks to `GoogleAdsClient` / `getInsights` / `listAccessibleCustomers` — our own functions. This is the same discipline the meta-ads-agent applies through `src/meta-api/adapter.ts`. *(Boundary verificado na auditoria de 28-05-26: respeitado.)*
+
+### 7.1 Módulos adicionais entregues (além da spec original)
+
+A entrega real cresceu para além da árvore acima. Módulos extras (todos dentro do boundary):
+
+```
+src/cli/commands/
+├── create.ts            # campaign-search | campaign-display | campaign-pmax | ad-group
+├── ad.ts                # ad rsa (Search) | ad rda (Display) — com vetos de tipo
+├── keyword.ts           # add | remove | update-bid
+├── update.ts            # budget | bidding
+├── pause-enable.ts      # pause/enable campaign | ad-group
+├── remove.ts            # remove campaign | ad-group (triple-confirm)
+└── upload.ts            # image | video | text assets + list-assets
+src/cli/
+├── mutation-prompt.ts          # preview + confirmação de mutação
+├── removal-prompt.ts           # triple-confirm de exclusão
+└── session-budget-tracker.ts   # teto de orçamento por sessão (anti-burn)
+src/google-ads-api/
+├── campaign-builder.ts  # monta campanha por tipo + bidding strategy
+├── gaql-builder.ts      # builder de queries GAQL (incl. keyword_view)
+├── mutations.ts         # camada de mutação (única que muta via SDK)
+├── ad-validator.ts · asset-validator.ts · budget-validator.ts
+├── keyword-validator.ts · status-validator.ts
+src/log/
+└── mutation-log.ts      # trilha de auditoria de mutações
+```
 
 ## 8. MVP — Report Command Contract
 
@@ -211,17 +257,18 @@ Estimated: 2-3 sessions of @dev work.
 - [ ] `bin/google-ads.ts` + `package.json` bin entry.
 - [ ] Smoke test: real auth, real account, `report --period 7d --format json` returns rows.
 
-### Phase 2 — Mutations
-- `create` (Search, Display campaigns first; PMax later).
-- `upload` for image/video assets.
-- `up` shortcut.
-- `history` persisted to YAML.
+### Phase 2 — Mutations ✅ ENTREGUE
+- ✅ `create` (Search, Display, PMax — todos).
+- ✅ `upload` for image/video/text assets (+ `list-assets`).
+- ✅ `update budget/bidding`, `pause`/`enable`, `remove`.
+- ❌ `up` shortcut — não implementado.
+- ⚠️ `history` persistido — parcial (apenas `mutation-log`).
 
-### Phase 3 — Advanced
-- `batch` CSV-driven.
-- `media` library management.
-- `keywords` add/pause/bid commands.
-- Conversion goal config helpers.
+### Phase 3 — Advanced ✅ PARCIAL
+- ✅ `keyword add/remove/update-bid` + ad-group management.
+- ✅ `ad rsa`/`ad rda`.
+- ❌ `batch` CSV-driven — não implementado.
+- ❌ `media` library management — não implementado.
 
 ## 11. Risks & Mitigations
 
@@ -258,25 +305,42 @@ The build is done when ALL of these are true:
 - **No squad creation in this work item.** Squad-chief will own `traffic-google` squad creation in a follow-up session, using this CLI exactly as the meta-ads CLI is used by `traffic-meta`.
 - **No CI/CD pipeline changes.** The package will be local; publishing to a registry is a later decision.
 
-## 14. Open Questions for User (before @dev starts)
+## 14. Open Questions — RESOLVIDAS
 
-1. **Developer token**: do you already have one for your Google Ads account, or do we need to walk through the request process?
-2. **Default OAuth client**: do you want to reuse the same Google Cloud project used elsewhere, or create a fresh one for `google-ads-agent`?
-3. **MCC**: do you operate via a Manager Account? If yes, capture the MCC customer ID upfront so `config set-default` can prompt for it.
-4. **Phase 2 priority**: is `create` (mutations) needed within the next 30 days, or is read-only MVP enough for now?
+As perguntas pré-implementação foram resolvidas durante a entrega (developer token obtido, OAuth client configurado, MCC suportado via `login-customer-id`, criação/mutações entregues). Mantidas como registro histórico — não há pendência aberta aqui.
 
-## 15. Handoff to @dev
+## 15. Status do Story-Driven Development
 
-After this document is approved, the implementation work is delegated to @dev (Dex). A separate handoff artifact (`.aiox/handoffs/handoff-architect-to-dev-google-ads-agent-<timestamp>.yaml`) will package this spec with a structured implementation checklist.
+Implementação concluída via SDC. Stories em `docs/stories/epics/epic-5-google-ads-agent/` e `epic-6-google-ads-mutations/`. QA gates em `docs/qa/gates/` (5.x e 6.x). `traffic-google` squad criado em `squads/traffic-google/`.
 
-The implementation follows Story-Driven Development:
-1. @pm or @sm drafts a story (or epic with stories) for the build.
-2. @po validates draft.
-3. @dev implements following Phase 1 plan in Section 10.
-4. @qa gate against acceptance criteria in Section 12.
-5. @devops pushes once green.
-6. squad-chief picks up to create `traffic-google` squad.
+## 16. Guard-rails de Segurança (implementados)
+
+A camada de mutação não-trivial protege o operador contra ações destrutivas acidentais:
+
+| Guard-rail | Onde | O que faz |
+|---|---|---|
+| **PAUSED-by-default** | `campaign-builder.ts` | Toda campanha nasce pausada (anti-burn de orçamento). |
+| **Dry-run** | mutações via `validate_only` | `--dry-run` valida contra a API sem aplicar. |
+| **Preview + confirmação** | `mutation-prompt.ts` | Mostra o que vai mudar e exige confirmação. |
+| **Triple-confirm de exclusão** | `removal-prompt.ts` | Antes de deletar, snapshot de gasto + 3 confirmações. |
+| **Limite de orçamento de sessão** | `session-budget-tracker.ts` | Teto acumulado de orçamento por sessão. |
+| **Log de mutações** | `log/mutation-log.ts` | Trilha de auditoria de cada mutação. |
+| **Vetos de tipo** | `ad.ts`, `keyword.ts` | RSA→SEARCH, RDA→DISPLAY, ad-group→SEARCH (enum string + numérico). |
+| **Create atômico** | `mutations.ts` | `resource_name` temporário + `partial_failure: false`. |
+
+## 17. Dívida Técnica Conhecida (auditoria 28-05-26)
+
+| Sev | Item | Local |
+|---|---|---|
+| 🟠 ALTO | Constantes GAQL inválidas `LAST_24_HOURS` / `LAST_90_DAYS` no snapshot de remoção → exibe "gasto 0" falso na tela de confirmação de exclusão. | `mutations.ts:2060,2073-2075` |
+| 🟡 MÉDIO | Subquery GAQL não suportada no snapshot → `adCount` tende a 0 (cascade já é hardcoded `{0,0}`). | `mutations.ts:2045-2048` |
+| 🟡 MÉDIO | `ensureValidAuth()` só confere existência de chaves; nome sugere validação contra API (refresh real é feito pelo SDK). | `token-manager.ts:16-26` |
+| 🟢 BAIXO | URL "Ads Manager" gerada com `ocid=` vazio (link pode não abrir a conta certa). | `create.ts:318,583,872` |
+| 🟢 BAIXO | `maximize_clicks` (Display) mapeado para `target_spend` (estratégia legada/deprecada). | `campaign-builder.ts:289-291` |
+| 🟡 QA | Nenhum teste de integração contra conta real — primeira execução real é o teste de fato. **Operar com `--dry-run` primeiro.** | — |
+
+> **Nota positiva da auditoria:** o fix recente do `keyword_view` (relatório nível keyword) está **correto**. Sem resíduos de Meta no código. Sem segredos hardcoded.
 
 ---
 
-*Aria signed.*
+*Aria signed (spec). Atualizado por Orion em 28-05-26 pós-auditoria.*
