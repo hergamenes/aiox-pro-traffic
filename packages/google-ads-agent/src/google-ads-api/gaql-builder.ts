@@ -36,7 +36,11 @@ const ENTITY_BY_LEVEL: Record<InsightsLevel, EntityShape> = {
     nameField: 'ad_group_ad.ad.name',
   },
   keyword: {
-    resource: 'ad_group_criterion',
+    // keyword_view é o resource correto para puxar MÉTRICAS por palavra-chave.
+    // ad_group_criterion guarda só a config da keyword (sem métricas) e a API
+    // rejeita métricas nele (PROHIBITED_METRIC_IN_SELECT_OR_WHERE_CLAUSE).
+    // Os campos ad_group_criterion.* continuam selecionáveis a partir de keyword_view.
+    resource: 'keyword_view',
     idField: 'ad_group_criterion.criterion_id',
     nameField: 'ad_group_criterion.keyword.text',
   },

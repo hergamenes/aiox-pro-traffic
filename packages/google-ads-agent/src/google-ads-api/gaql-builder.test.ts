@@ -90,6 +90,26 @@ describe('gaql-builder', () => {
     });
   });
 
+  // Regression: keyword level must query keyword_view, not ad_group_criterion.
+  // ad_group_criterion does not support metrics → the API rejected the query
+  // with PROHIBITED_METRIC_IN_SELECT_OR_WHERE_CLAUSE. keyword_view exposes the
+  // same ad_group_criterion.* fields AND allows metrics.
+  describe('keyword level uses keyword_view (regression)', () => {
+    it('queries FROM keyword_view, not FROM ad_group_criterion', () => {
+      const out = buildGaql({ ...baseParams, level: 'keyword' });
+      expect(out.query).toContain('FROM keyword_view');
+      expect(out.query).not.toContain('FROM ad_group_criterion');
+    });
+
+    it('selects keyword identity fields alongside metrics', () => {
+      const out = buildGaql({ ...baseParams, level: 'keyword' });
+      expect(out.query).toContain('ad_group_criterion.criterion_id');
+      expect(out.query).toContain('ad_group_criterion.keyword.text');
+      expect(out.query).toContain('metrics.clicks');
+      expect(out.query).toContain('metrics.conversions');
+    });
+  });
+
   describe('always selects required metrics', () => {
     it('includes cost_micros, impressions, clicks, ctr, average_cpc, conversions, conversions_value', () => {
       const out = buildGaql(baseParams);
