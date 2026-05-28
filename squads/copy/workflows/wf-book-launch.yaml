@@ -1,0 +1,710 @@
+# Book Launch Workflow
+# Sistema Unificado: Russell Brunson (Book Funnel) + Jeff Walker (PLF)
+# Validação: $100M+ em vendas documentadas
+
+workflow:
+  id: wf-book-launch
+  name: "Book Launch System"
+  type: launch
+  description: >-
+    Sistema unificado de book launch que combina book funnel, pré-lançamento e
+    operação pós-open-cart para transformar um livro em escada de valor.
+  operational_roles:
+    orchestrator: copy-chief
+    human_review_agent: launch-owner
+    delivery_agent: copy-ops-worker
+  state_machine:
+    states: [init, foundation, funnel, prelaunch, cart, final-system, complete, failed]
+    transitions:
+      - { trigger: start, source: init, dest: foundation }
+      - { trigger: foundation_complete, source: foundation, dest: funnel }
+      - { trigger: funnel_complete, source: funnel, dest: prelaunch }
+      - { trigger: prelaunch_complete, source: prelaunch, dest: cart }
+      - { trigger: cart_complete, source: cart, dest: final-system }
+      - { trigger: final-system_complete, source: final-system, dest: complete }
+      - { trigger: fail, source: "*", dest: failed }
+  quality_gate_refs: [QG-CP-1.1, QG-CP-2.1, QG-CP-3.1, QG-CP-4.1, QG-CP-5.1]
+  sequence:
+    - phase: foundation
+      id: foundation
+      agent: alex-hormozi
+      task_ref: tasks/create-offer.md
+      action: "Definir value ladder, promessa e arquitetura da oferta de entrada"
+      creates: book-launch-foundation
+      on_complete: { trigger: foundation_complete }
+    - phase: funnel
+      id: funnel
+      agent: russell-brunson
+      task_ref: tasks/brunson/create-book-funnel.md
+      requires: book-launch-foundation
+      action: "Construir o book funnel e os ativos principais de conversão"
+      creates: book-funnel-assets
+      on_complete: { trigger: funnel_complete }
+    - phase: prelaunch
+      id: prelaunch
+      agent: jeff-walker
+      task_ref: tasks/plf/create-plc-sequence.md
+      requires: book-funnel-assets
+      action: "Planejar e produzir o conteúdo de pré-lançamento"
+      creates: book-launch-prelaunch
+      on_complete: { trigger: prelaunch_complete }
+    - phase: cart
+      id: cart
+      agent: andre-chaperon
+      task_ref: tasks/plf/create-open-cart-sequence.md
+      requires: book-launch-prelaunch
+      action: "Montar open cart, follow-up e sequência de fechamento"
+      creates: book-launch-cart
+      on_complete: { trigger: cart_complete }
+    - phase: final-system
+      id: final-system
+      agent: copy-chief
+      task_ref: tasks/plf/create-evergreen-launch.md
+      requires: book-launch-cart
+      action: "Consolidar operação pós-lançamento e versão evergreen"
+      creates: book-launch-system
+      on_complete: { trigger: final-system_complete }
+
+  handoff_prompts:
+    default: "Entregue o artefato criado, decisões tomadas, riscos abertos e o critério exato para o próximo agente continuar sem reinterpretar o contexto."
+
+name: "Book Launch System"
+id: wf-book-launch
+version: "2.0"
+created: "2026-01-28"
+updated: "2026-01-28"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# VISUAL FLOWCHART - O SISTEMA COMPLETO EM UMA IMAGEM
+# ═══════════════════════════════════════════════════════════════════════════════
+
+visual_overview: |
+  ┌─────────────────────────────────────────────────────────────────────────────┐
+  │                    BOOK LAUNCH SYSTEM - FLOWCHART COMPLETO                   │
+  └─────────────────────────────────────────────────────────────────────────────┘
+
+                                    START
+                                      │
+                                      ▼
+  ┌──────────────────────────────────────────────────────────────────────────────┐
+  │  DECISÃO: Qual path seguir?                                                   │
+  │                                                                               │
+  │  ┌─────────────┐     ┌─────────────┐     ┌─────────────┐                     │
+  │  │ FULL LAUNCH │     │ FAST LAUNCH │     │  EVERGREEN  │                     │
+  │  │  (8 semanas)│     │  (4 semanas)│     │  (2 semanas)│                     │
+  │  │             │     │             │     │             │                     │
+  │  │ PLF +       │     │ Funnel +    │     │ Funnel +    │                     │
+  │  │ Book Funnel │     │ Launch      │     │ Tráfego     │                     │
+  │  └──────┬──────┘     └──────┬──────┘     └──────┬──────┘                     │
+  └─────────│────────────────────│────────────────────│───────────────────────────┘
+            │                    │                    │
+            ▼                    ▼                    │
+  ┌──────────────────┐  ┌──────────────────┐         │
+  │ PHASE 0:         │  │ PHASE 0:         │         │
+  │ Foundation       │  │ Foundation       │         │
+  │ (2 semanas)      │  │ (1 semana)       │         │
+  │                  │  │                  │         │
+  │ • Avatar         │  │ • Avatar rápido  │         │
+  │ • Value Ladder   │  │ • Value Ladder   │         │
+  │ • Funnel Hack    │  │ • Hook/Story     │         │
+  └────────┬─────────┘  └────────┬─────────┘         │
+           │                     │                    │
+           ▼                     ▼                    ▼
+  ┌──────────────────────────────────────────────────────────────────────────────┐
+  │ PHASE 1: FUNNEL BUILD (2 semanas para todos)                                 │
+  │                                                                               │
+  │ @russell-brunson                                                              │
+  │                                                                               │
+  │ ┌─────────────┐     ┌─────────────┐     ┌─────────────┐     ┌─────────────┐ │
+  │ │ Sales Page  │ ──► │  Checkout   │ ──► │  Upsells    │ ──► │ Thank You   │ │
+  │ │ (Free+Ship) │     │ +Order Bumps│     │ OTO #1, #2  │     │   Page      │ │
+  │ └─────────────┘     └─────────────┘     └─────────────┘     └─────────────┘ │
+  │                                                                               │
+  │ + Follow-up Email Sequence (14-30 emails)                                    │
+  └──────────────────────────────────────────────────────────────────────────────┘
+           │                     │                    │
+           ▼                     │                    │
+  ┌──────────────────┐           │                    │
+  │ PHASE 2:         │           │                    │
+  │ Pre-Launch (PLF) │◄──────────┘                    │
+  │ (3-4 semanas)    │    (skip se Fast Launch)       │
+  │                  │                                │
+  │ @jeff-walker     │                                │
+  │                  │                                │
+  │ • Pre-Prelaunch  │                                │
+  │ • PLC1, PLC2,    │                                │
+  │   PLC3           │                                │
+  │ • 9 Mental       │                                │
+  │   Triggers       │                                │
+  └────────┬─────────┘                                │
+           │                                          │
+           ▼                                          │
+  ┌──────────────────────────────────────────────────────────────────────────────┐
+  │ PHASE 3: LAUNCH WEEK (5-7 dias)                  ◄────────────────────────────┘
+  │                                                                               │
+  │ Conjunto: @russell-brunson + @jeff-walker                                    │
+  │                                                                               │
+  │ DIA 1 ──────► DIA 2-5 ──────► DIA FINAL                                      │
+  │ ABERTURA      MID-LAUNCH       CLOSE CART                                    │
+  │ (25% vendas)  (25% vendas)     (50% vendas)                                  │
+  │                                                                               │
+  │ • Email Open  • Case studies   • Urgência real                               │
+  │ • Múltiplos   • FAQ            • Últimas horas                               │
+  │   emails      • Reminder       • Scarcity                                    │
+  └────────────────────────────────────────────────────────────────────────────┘
+                                      │
+                                      ▼
+  ┌──────────────────────────────────────────────────────────────────────────────┐
+  │ PHASE 4: POST-LAUNCH & EVERGREEN                                             │
+  │                                                                               │
+  │ @russell-brunson                                                              │
+  │                                                                               │
+  │ • Onboarding compradores                                                      │
+  │ • Coleta de testimonials                                                      │
+  │ • Conversão para evergreen                                                    │
+  │ • Tráfego pago (Dream 100)                                                   │
+  │ • Otimização contínua                                                        │
+  └──────────────────────────────────────────────────────────────────────────────┘
+                                      │
+                                      ▼
+                             HIGH-TICKET FUNNEL
+                            ([FAIXA_HIGH_TICKET_EXEMPLO])
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# DECISION TREE - QUAL PATH ESCOLHER?
+# ═══════════════════════════════════════════════════════════════════════════════
+
+decision_tree:
+  question_1:
+    question: "Você tem uma lista de email existente?"
+    if_yes:
+      question_2:
+        question: "Sua lista está aquecida (abriram emails nos últimos 30 dias)?"
+        if_yes:
+          question_3:
+            question: "Você quer maximizar resultados com pre-launch?"
+            if_yes: "FULL LAUNCH (8 semanas) - PLF + Book Funnel"
+            if_no: "FAST LAUNCH (4 semanas) - Funnel + Launch"
+        if_no: "FULL LAUNCH (8 semanas) - Precisa aquecer com PLCs"
+    if_no:
+      question_4:
+        question: "Você tem orçamento para tráfego pago?"
+        if_yes: "EVERGREEN (2 semanas) - Funnel + Ads"
+        if_no: "FULL LAUNCH (8 semanas) - Precisa construir lista primeiro"
+
+  summary_table: |
+    ┌─────────────────┬──────────────────────────────────────────────────────────┐
+    │ SITUAÇÃO        │ RECOMENDAÇÃO                                              │
+    ├─────────────────┼──────────────────────────────────────────────────────────┤
+    │ Lista grande    │ FAST LAUNCH - Lista já está pronta, não precisa PLCs    │
+    │ e aquecida      │                                                          │
+    ├─────────────────┼──────────────────────────────────────────────────────────┤
+    │ Lista existente │ FULL LAUNCH - Usa PLCs para reaquecer e criar           │
+    │ mas fria        │ antecipação                                              │
+    ├─────────────────┼──────────────────────────────────────────────────────────┤
+    │ Sem lista +     │ EVERGREEN - Usa tráfego pago para alimentar o funil     │
+    │ com verba       │ diretamente                                              │
+    ├─────────────────┼──────────────────────────────────────────────────────────┤
+    │ Sem lista +     │ FULL LAUNCH - Precisa do tempo para construir lista     │
+    │ sem verba       │ organicamente com PLCs                                   │
+    └─────────────────┴──────────────────────────────────────────────────────────┘
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUICK START COMMANDS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quick_start_commands:
+  full_launch:
+    command: "@russell-brunson *book-launch --full"
+    duration: "8 semanas"
+    phases: [0, 1, 2, 3, 4]
+    description: "Processo completo com PLF + Book Funnel"
+
+  fast_launch:
+    command: "@russell-brunson *book-launch --fast"
+    duration: "4 semanas"
+    phases: [0, 1, 3, 4]
+    description: "Funnel + Launch sem PLCs"
+
+  evergreen:
+    command: "@russell-brunson *book-launch --evergreen"
+    duration: "2 semanas"
+    phases: [1, 4]
+    description: "Direto para funil + tráfego"
+
+  book_funnel_only:
+    command: "@russell-brunson *book-funnel"
+    duration: "2 semanas"
+    phases: [1]
+    description: "Apenas criação do funil (sem launch)"
+
+description: |
+  Sistema completo de lançamento de livro combinando:
+  - Russell Brunson: Book Funnel (Free+Shipping) com Value Ladder
+  - Jeff Walker: Product Launch Formula com PLCs e Mental Triggers
+
+  VALIDAÇÃO:
+  - Russell Brunson: $100M+ com DotCom Secrets, Expert Secrets, Traffic Secrets
+  - Jeff Walker: $1B+ em vendas de alunos usando PLF
+
+  FILOSOFIA:
+  O livro NÃO é o produto final. O livro é a PORTA DE ENTRADA para toda a Value Ladder.
+  O objetivo não é lucrar no livro - é adquirir clientes que sobem a escada.
+
+owner: "@russell-brunson"
+collaborators:
+  - "@jeff-walker"
+  - "@copy-chief"
+  - "@eugene-schwartz"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# WORKFLOW PHASES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+phases:
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 0: FOUNDATION (Semana -8 a -6)
+  # ─────────────────────────────────────────────────────────────────────────────
+  phase_0_foundation:
+    name: "Foundation & Strategy"
+    duration: "2 semanas"
+    owner: "@russell-brunson"
+    support: "@eugene-schwartz"
+
+    objectives:
+      - "Definir avatar e nível de consciência"
+      - "Mapear Value Ladder completa"
+      - "Funnel hack competidores"
+      - "Estruturar oferta do livro"
+
+    tasks:
+      - id: "0.1"
+        name: "Avatar & Awareness Analysis"
+        agent: "@eugene-schwartz"
+        command: "*diagnose-awareness"
+        output: "Documento de avatar com awareness level"
+
+      - id: "0.2"
+        name: "Value Ladder Design"
+        agent: "@russell-brunson"
+        command: "*value-ladder"
+        output: "Value Ladder completa do negócio"
+
+      - id: "0.3"
+        name: "Funnel Hack Analysis"
+        agent: "@russell-brunson"
+        command: "*funnel-hack"
+        input: "10+ book funnels do nicho"
+        output: "Relatório de padrões identificados"
+
+      - id: "0.4"
+        name: "Book Offer Structure"
+        agent: "@russell-brunson"
+        command: "*hook-story-offer"
+        output: "Hook, Story, Offer do livro"
+
+    deliverables:
+      - "Avatar documento completo"
+      - "Value Ladder visual"
+      - "Funnel hack report"
+      - "Book positioning document"
+
+    checklist:
+      - "[ ] Avatar definido com dores, desejos, objeções"
+      - "[ ] Awareness level identificado (Schwartz)"
+      - "[ ] Value Ladder mapeada (do livro ao high-ticket)"
+      - "[ ] 10+ funnels analisados no nicho"
+      - "[ ] Hook, Story, Offer do livro definidos"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 1: FUNNEL BUILD (Semana -6 a -4)
+  # ─────────────────────────────────────────────────────────────────────────────
+  phase_1_funnel_build:
+    name: "Book Funnel Construction"
+    duration: "2 semanas"
+    owner: "@russell-brunson"
+
+    objectives:
+      - "Construir todas as páginas do funil"
+      - "Criar sequência de upsells"
+      - "Desenvolver follow-up funnel"
+      - "Configurar tech stack"
+
+    tasks:
+      - id: "1.1"
+        name: "Sales Page (Free+Shipping)"
+        agent: "@russell-brunson"
+        command: "*book-funnel"
+        deliverable: "Página de vendas completa"
+        elements:
+          - "Headline com hook"
+          - "VSL ou carta de vendas"
+          - "Stack de valor"
+          - "Testimonials"
+          - "Attractive Character story"
+          - "CTA claro"
+
+      - id: "1.2"
+        name: "Order Bumps"
+        agent: "@russell-brunson"
+        command: "*order-bumps"
+        deliverables:
+          - "Order Bump #1: Audiobook"
+          - "Order Bump #2: Workshop/Training"
+
+      - id: "1.3"
+        name: "Upsell Sequence"
+        agent: "@russell-brunson"
+        command: "*upsell-sequence"
+        deliverables:
+          - "OTO #1: Oferta complementar"
+          - "Downsell #1: Versão menor"
+          - "OTO #2: Programa/Curso"
+          - "Downsell #2: Opção de parcelamento"
+
+      - id: "1.4"
+        name: "Thank You Page"
+        agent: "@russell-brunson"
+        deliverable: "Página de confirmação + próximos passos"
+
+      - id: "1.5"
+        name: "Follow-up Email Sequence"
+        agent: "@russell-brunson"
+        command: "*follow-up"
+        deliverable: "14-30 dias de emails pós-compra"
+
+    deliverables:
+      - "Sales page (Free+Shipping)"
+      - "Order bumps (2)"
+      - "Upsell pages (2-4)"
+      - "Downsell pages (2)"
+      - "Thank you page"
+      - "Email sequence (14-30 emails)"
+
+    checklist:
+      - "[ ] Sales page com Hook, Story, Offer"
+      - "[ ] Order bump #1 (Audiobook) configurado"
+      - "[ ] Order bump #2 (Workshop) configurado"
+      - "[ ] OTO #1 criado com urgência"
+      - "[ ] Downsell #1 criado"
+      - "[ ] OTO #2 criado"
+      - "[ ] Thank you page com próximos passos"
+      - "[ ] Follow-up sequence (mínimo 14 emails)"
+      - "[ ] Integração de pagamento testada"
+      - "[ ] Automação de emails configurada"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 2: PRE-LAUNCH (Semana -4 a -1) - Jeff Walker PLF
+  # ─────────────────────────────────────────────────────────────────────────────
+  phase_2_prelaunch:
+    name: "Pre-Launch Content (PLF)"
+    duration: "3-4 semanas"
+    owner: "@jeff-walker"
+
+    objectives:
+      - "Construir antecipação"
+      - "Ativar mental triggers"
+      - "Aquecer audiência"
+      - "Criar desejo pelo livro"
+
+    note: |
+      Esta fase é OPCIONAL mas RECOMENDADA para maximizar resultados.
+      Se você já tem uma lista aquecida e quer ir direto para vendas,
+      pode pular para Phase 3. Porém, os resultados tendem a ser 2-5x
+      maiores com pre-launch bem executado.
+
+    tasks:
+      - id: "2.1"
+        name: "Pre-Prelaunch"
+        agent: "@jeff-walker"
+        command: "*preprelaunch"
+        duration: "1-2 semanas antes dos PLCs"
+        activities:
+          - "Teaser do que está vindo"
+          - "Pesquisa de objeções e desejos"
+          - "Aquecimento da lista"
+          - "Construção de lista (se necessário)"
+
+      - id: "2.2"
+        name: "PLC1 - The Opportunity"
+        agent: "@jeff-walker"
+        command: "*plc-sequence"
+        timing: "Dia 1 do prelaunch"
+        elements:
+          - "Apresentar o problema/oportunidade"
+          - "Estabelecer autoridade"
+          - "Entregar valor real"
+          - "Criar antecipação para PLC2"
+        triggers: ["Authority", "Anticipation", "Reciprocity"]
+
+      - id: "2.3"
+        name: "PLC2 - The Transformation"
+        agent: "@jeff-walker"
+        timing: "Dia 3-5"
+        elements:
+          - "Case studies e provas"
+          - "Mostrar transformação em ação"
+          - "Responder objeções principais"
+          - "Criar antecipação para PLC3"
+        triggers: ["Social Proof", "Trust", "Reciprocity"]
+
+      - id: "2.4"
+        name: "PLC3 - The Ownership"
+        agent: "@jeff-walker"
+        timing: "Dia 5-7"
+        elements:
+          - "Fazer prospect se ver usando"
+          - "Preparar para abertura"
+          - "Criar urgência"
+          - "Anunciar data de abertura"
+        triggers: ["Anticipation", "Community", "Events"]
+
+    deliverables:
+      - "Pre-prelaunch content"
+      - "PLC1 script/vídeo"
+      - "PLC2 script/vídeo"
+      - "PLC3 script/vídeo"
+      - "Emails de suporte aos PLCs"
+
+    checklist:
+      - "[ ] Pre-prelaunch executado"
+      - "[ ] PLC1 publicado e engajamento alto"
+      - "[ ] PLC2 publicado com prova social"
+      - "[ ] PLC3 publicado com urgência"
+      - "[ ] 9 Mental Triggers mapeados e ativados"
+      - "[ ] Lista aquecida e ansiosa"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 3: LAUNCH (Semana 0)
+  # ─────────────────────────────────────────────────────────────────────────────
+  phase_3_launch:
+    name: "Open Cart Launch"
+    duration: "5-7 dias"
+    owner: "Conjunto (@russell-brunson + @jeff-walker)"
+
+    objectives:
+      - "Abrir vendas com impacto"
+      - "Maximizar conversões no período"
+      - "Executar urgência real"
+      - "Capturar o maior número de clientes"
+
+    tasks:
+      - id: "3.1"
+        name: "Launch Day"
+        timing: "Dia 1"
+        activities:
+          - "Email 1 (manhã): ABRIU! Livro disponível"
+          - "Email 2 (tarde): Primeiros resultados"
+          - "Email 3 (noite): FAQ / Objeções"
+        expected: "25% das vendas totais"
+
+      - id: "3.2"
+        name: "Mid-Launch"
+        timing: "Dias 2-5"
+        activities:
+          - "1 email por dia"
+          - "Case studies de compradores"
+          - "FAQ e objeções"
+          - "Behind the scenes"
+          - "Reminder do deadline"
+        expected: "25% das vendas totais"
+
+      - id: "3.3"
+        name: "Close Cart"
+        timing: "Último dia"
+        activities:
+          - "Email 1 (manhã): Último dia"
+          - "Email 2 (tarde): Horas finais"
+          - "Email 3 (noite): Fechando em X horas"
+          - "Email 4 (23h): Última chance"
+        expected: "50% das vendas totais"
+
+      - id: "3.4"
+        name: "Funnel Monitoring"
+        agent: "@russell-brunson"
+        activities:
+          - "Monitorar conversão em cada etapa"
+          - "Ajustar order bumps se necessário"
+          - "Otimizar upsells em tempo real"
+          - "Verificar entrega de emails"
+
+    deliverables:
+      - "Emails de launch (10-15)"
+      - "Relatório de vendas diário"
+      - "Ajustes em tempo real"
+
+    metrics_to_track:
+      - "Opt-in rate (se tiver lead magnet)"
+      - "Book sales (Free+Shipping)"
+      - "Order bump take rate"
+      - "OTO #1 conversion"
+      - "OTO #2 conversion"
+      - "Revenue per customer"
+      - "Email open rates"
+      - "Email click rates"
+
+    checklist:
+      - "[ ] Emails de launch agendados"
+      - "[ ] Funil testado end-to-end"
+      - "[ ] Pagamentos funcionando"
+      - "[ ] Fulfillment do livro configurado"
+      - "[ ] Suporte preparado para volume"
+      - "[ ] Analytics tracking ativo"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 4: POST-LAUNCH & EVERGREEN (Semana 1+)
+  # ─────────────────────────────────────────────────────────────────────────────
+  phase_4_post_launch:
+    name: "Post-Launch & Evergreen"
+    duration: "Ongoing"
+    owner: "@russell-brunson"
+
+    objectives:
+      - "Onboarding dos compradores"
+      - "Coletar testimonials"
+      - "Analisar métricas"
+      - "Converter para evergreen"
+      - "Escalar com tráfego pago"
+
+    tasks:
+      - id: "4.1"
+        name: "Customer Onboarding"
+        activities:
+          - "Welcome sequence ativa"
+          - "Instruções de como usar o livro"
+          - "Acesso a comunidade/grupo"
+          - "Quick wins iniciais"
+
+      - id: "4.2"
+        name: "Testimonial Collection"
+        activities:
+          - "Pedir feedback após 7 dias"
+          - "Pedir testimonial após 14 dias"
+          - "Case study requests após 30 dias"
+          - "Video testimonials se possível"
+
+      - id: "4.3"
+        name: "Launch Analysis"
+        deliverable: "Relatório completo de lançamento"
+        metrics:
+          - "Total revenue"
+          - "Books sold"
+          - "Order bump rate"
+          - "Upsell rates"
+          - "Revenue per customer"
+          - "Cost per acquisition"
+          - "ROI"
+
+      - id: "4.4"
+        name: "Evergreen Conversion"
+        agent: "@russell-brunson"
+        activities:
+          - "Remover deadline (ou criar deadline automático)"
+          - "Configurar tráfego pago"
+          - "Testar diferentes hooks/angles"
+          - "Otimização contínua"
+
+      - id: "4.5"
+        name: "Scale with Traffic"
+        agent: "@russell-brunson"
+        command: "*dream-100"
+        activities:
+          - "Facebook/Instagram Ads"
+          - "YouTube Ads"
+          - "Dream 100 outreach"
+          - "Affiliate/JV program"
+
+    checklist:
+      - "[ ] Onboarding sequence funcionando"
+      - "[ ] Testimonials coletados"
+      - "[ ] Relatório de launch completo"
+      - "[ ] Funil convertido para evergreen"
+      - "[ ] Tráfego pago iniciado"
+      - "[ ] Otimização contínua em andamento"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# TIMELINE VISUAL
+# ═══════════════════════════════════════════════════════════════════════════════
+
+timeline:
+  semana_menos_8: "Phase 0: Foundation (Avatar, Value Ladder, Funnel Hack)"
+  semana_menos_6: "Phase 0: Foundation (Hook, Story, Offer)"
+  semana_menos_5: "Phase 1: Funnel Build (Sales Page, Order Bumps)"
+  semana_menos_4: "Phase 1: Funnel Build (Upsells, Follow-up)"
+  semana_menos_3: "Phase 2: Pre-Launch (Pre-Prelaunch, PLC1)"
+  semana_menos_2: "Phase 2: Pre-Launch (PLC2, PLC3)"
+  semana_menos_1: "Phase 2: Pre-Launch (Final prep, PLC3)"
+  semana_0: "Phase 3: LAUNCH WEEK"
+  semana_1_plus: "Phase 4: Post-Launch & Evergreen"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUICK START OPTIONS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quick_start_options:
+  full_launch:
+    name: "Full Launch (8 semanas)"
+    description: "Processo completo com PLF + Book Funnel"
+    phases: ["0", "1", "2", "3", "4"]
+    best_for: "Máximo resultado, lista existente"
+
+  fast_launch:
+    name: "Fast Launch (4 semanas)"
+    description: "Funnel + Launch sem PLCs completos"
+    phases: ["0 (condensado)", "1", "3", "4"]
+    best_for: "Lista aquecida, urgência de tempo"
+
+  evergreen_only:
+    name: "Evergreen Only (2 semanas)"
+    description: "Direto para funil evergreen"
+    phases: ["1", "4"]
+    best_for: "Tráfego pago, sem launch event"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SUCCESS METRICS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+success_metrics:
+  book_funnel:
+    order_bump_rate: "30-50% (target)"
+    oto_1_rate: "10-20% (target)"
+    oto_2_rate: "5-10% (target)"
+    revenue_per_customer: "2-5x do preço do frete"
+
+  launch:
+    day_1_sales: "25% do total"
+    mid_launch_sales: "25% do total"
+    last_day_sales: "50% do total"
+
+  overall:
+    front_end_goal: "Break-even ou pequeno lucro"
+    follow_up_goal: "2-10% conversão para high-ticket"
+    ltv_multiplier: "10-50x valor do livro"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# DEPENDENCIES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+dependencies:
+  agents:
+    - russell-brunson (owner)
+    - jeff-walker (pre-launch)
+    - eugene-schwartz (diagnosis)
+    - copy-chief (validation)
+
+  tasks:
+    - tasks/brunson/create-book-funnel.md
+    - tasks/brunson/create-upsell-sequence.md
+    - tasks/brunson/create-follow-up-funnel.md
+    - tasks/plf/create-plc-sequence.md
+    - tasks/plf/create-open-cart-sequence.md
+
+  templates:
+    - templates/brunson/book-funnel-sales-page-tmpl.md
+    - templates/plf/plc1-script-tmpl.md
+    - templates/plf/plc2-script-tmpl.md
+    - templates/plf/plc3-script-tmpl.md
+
+  checklists:
+    - checklists/brunson/book-funnel-completeness.md
+    - checklists/plf/launch-day-execution.md

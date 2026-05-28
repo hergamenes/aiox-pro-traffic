@@ -1,0 +1,88 @@
+sop:
+  id: lampropoulos-lead-type-matrix
+  version: "1.0"
+  title: "Lampropoulos Lead Type Selection Matrix"
+  purpose: >
+    Select optimal lead type based on prospect awareness level (1-5). Includes
+    competitive positioning rules for beating controls and freshness requirements
+    for proof elements.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: parris-lampropoulos
+    tier: T1
+
+  steps:
+    - step: 1
+      name: "Awareness-Based Lead Selection"
+      decision_point:
+        condition: "What is the prospect awareness level?"
+        branches:
+          - if: "Level 5 (Most Aware)"
+            action: "Primary: Offer Lead. Secondary: Promise Lead."
+            next_step: 2
+          - if: "Level 4 (Product Aware)"
+            action: "Primary: Promise Lead. Secondary: Invitation Lead."
+            next_step: 2
+          - if: "Level 3 (Solution Aware)"
+            action: "Primary: Problem-Solution Lead. Secondary: Secret Lead."
+            next_step: 2
+          - if: "Level 2 (Problem Aware)"
+            action: "Primary: Secret/Discovery Lead. Secondary: Story Lead."
+            next_step: 2
+          - if: "Level 1 (Unaware)"
+            action: "Primary: Story Lead. Secondary: Secret Lead."
+            next_step: 2
+
+    - step: 2
+      name: "WOW Factor Check"
+      decision_point:
+        condition: "Does the copy have WOW factor (novelty + surprise)?"
+        branches:
+          - if: "Useful but not memorable"
+            action: "Inject WOW (novelty + surprise). Useful is boring."
+            next_step: 3
+          - if: "WOW factor present"
+            action: "Proceed to competitive check."
+            next_step: 3
+
+    - step: 3
+      name: "Competitive Angle Check"
+      decision_point:
+        condition: "Is this competing against an existing control?"
+        branches:
+          - if: "Competing with control"
+            action: "NEVER use same angle. Find different angle that exploits control's vulnerability."
+            next_step: 4
+          - if: "No existing control"
+            action: "Proceed with chosen lead type."
+            next_step: 4
+
+    - step: 4
+      name: "Proof Freshness Audit"
+      decision_point:
+        condition: "How old is the proof/data used?"
+        branches:
+          - if: "Proof > 3 years old"
+            action: "Seek more recent proof. Outdated data = vulnerability #1 of old controls."
+            terminal: true
+          - if: "Proof current (< 3 years)"
+            action: "Proceed with confidence."
+            terminal: true
+
+  error_handling:
+    - error: "Same angle used as existing control"
+      recovery: "Identify control's vulnerabilities. Develop completely different angle."
+    - error: "Copy lacks WOW factor"
+      recovery: "Add novelty + surprise elements. Useful alone is boring."
+    - error: "Outdated proof used (> 3 years)"
+      recovery: "Source fresh data and studies. Replace all dated proof."
+
+  quality_gate:
+    min_criteria: 4
+    checks:
+      - "Awareness level correctly identified (1-5)"
+      - "Lead type matches awareness level"
+      - "WOW factor present (not just useful)"
+      - "Angle differs from existing control"
+      - "All proof elements less than 3 years old"

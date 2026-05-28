@@ -1,0 +1,113 @@
+# Urgency Engineering - Dan Kennedy
+# Extracted from: squads/copy/agents/dan-kennedy.md
+# Category: conversion_optimization
+
+name: "Urgency Engineering"
+category: conversion_optimization
+origin: "Kennedy's core specialization"
+command: "*urgency"
+
+philosophy: |
+  Imagine your prospect as a giant sloth, spread out on the couch,
+  loath to move, phone just out of reach. Your offer must force
+  the prospect to move RIGHT NOW.
+
+urgency_types:
+  deadline_driven:
+    description: "Tied to a specific date/time"
+    examples:
+      - "Offer expires Friday at midnight"
+      - "Enrollment closes December 31st"
+      - "Price increases January 1st"
+    strength: "High - if deadline is real and enforced"
+
+  quantity_limited:
+    description: "Limited number available"
+    examples:
+      - "Only 50 spots available"
+      - "First 100 buyers get bonus"
+      - "One per region (B2B exclusivity)"
+    strength: "Very high - creates competition"
+
+  bonus_expiring:
+    description: "Bonus removed after deadline"
+    examples:
+      - "Order today and get [bonus] FREE"
+      - "First 25 orders receive [bonus]"
+    strength: "Medium-high - adds extra incentive"
+
+  price_increase:
+    description: "Price goes up after deadline"
+    examples:
+      - "Founding member pricing ends Sunday"
+      - "Beta price of $X - retail will be $Y"
+    strength: "High - fear of paying more"
+
+  event_unique:
+    description: "One-time opportunity"
+    examples:
+      - "This workshop will not be repeated"
+      - "Once-in-a-lifetime opportunity"
+    strength: "Highest - FOMO maximized"
+
+countdown_sequence:
+  principle: "Progressive urgency increases conversion"
+  example:
+    day_minus_7: "50 spots available"
+    day_minus_5: "33 spots remaining"
+    day_minus_3: "Only 17 spots left"
+    day_minus_1: "Last 5 spots"
+    final_hours: "2 spots remaining - deadline tonight"
+
+sloth_test:
+  description: "Before finalizing any offer, apply Kennedy's Sloth Test"
+  question: |
+    Imagine your prospect as a giant sloth, spread out on the couch,
+    loath to move, phone just out of reach. Does your offer FORCE
+    them to move RIGHT NOW?
+  if_no: "Add urgency until it does."
+
+validation_rule: |
+  CRITICAL: Urgency MUST be genuine and verifiable.
+  If you say it closes, IT CLOSES. No extensions.
+  Fake urgency destroys trust permanently.
+
+output_example:
+  context: "Creating urgency for a coaching program enrollment"
+  input: |
+    Program: Business Acceleration Coaching
+    Price: $5,000
+    Start date: February 1st
+    Capacity: 12 spots
+
+  output: |
+    ### 1. DEADLINE (Inviolable)
+    "Enrollment closes January 28th at 11:59 PM. Not January 29th.
+    Not 'one more day because you asked nicely.' January 28th. Period.
+
+    Why? Because the program starts February 1st, and I need 48 hours
+    to prepare your personalized onboarding materials. If you're not
+    enrolled by the 28th, you're not in the February cohort. Simple."
+
+    ### 2. QUANTITY SCARCITY (Real)
+    "12 spots. Not 13. Not 'we'll squeeze you in.'
+
+    Here's why 12: I do personal hot seats with each member. More than
+    12 means I can't give you the attention that justifies the $5,000.
+    As of right now, 7 spots are filled. That leaves 5."
+
+    ### 3. BONUS EXPIRATION
+    "The first 3 people to enroll get a 90-minute private strategy
+    session with me (normally $2,500). Why only 3? Because I only have
+    3 open slots in my calendar before February 1st."
+
+    ### 4. PRICE INCREASE WARNING
+    "After January 28th, the program price for the April cohort goes
+    to $7,500. Not because I'm greedy - because this cohort proved
+    the results justify it."
+
+    **KENNEDY VALIDATION:**
+    - All urgency is REAL and VERIFIABLE
+    - Deadline has logical reason
+    - Scarcity has capacity justification
+    - No fake countdown timers

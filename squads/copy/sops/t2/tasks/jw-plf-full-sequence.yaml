@@ -1,0 +1,112 @@
+sop:
+  id: jw-plf-full-sequence
+  version: 1.0.0
+  title: Product Launch Formula (PLF) — Full Sequence
+  purpose: 'Execute the complete Product Launch Formula: Pre-Prelaunch → 3 PLCs → Open Cart → Close Cart → Post-Launch'
+  classification:
+    domain: copywriting
+    category: systematizer
+    source_agent: jeff-walker
+    artifact_type: task
+    tier: t2
+  status: ACTIVE
+  trigger:
+    type: manual
+    description: When launching a digital product, course, membership, or service to an existing email list
+  context:
+    input:
+    - name: email_list
+      type: list
+      required: true
+      description: Email list with minimum 500 subscribers
+    - name: product_offer
+      type: object
+      required: true
+      description: Complete offer with pricing, bonuses, guarantee
+    - name: ideal_customer_avatar
+      type: object
+      required: true
+      description: Detailed avatar with desires, fears, objections
+  steps:
+  - id: S001
+    name: Pre-Prelaunch
+    action: execute_step_1
+    description: '''Shot across the bow'' — alert market something is coming without selling; gather intelligence via survey'
+    performer: copywriter
+    critical: true
+    on_success: S002
+    on_failure: retry
+  - id: S002
+    name: Prelaunch
+    action: execute_step_2
+    description: Release 3 pieces of Prelaunch Content (PLC) over 5-12 days, layering mental triggers
+    performer: copywriter
+    critical: true
+    on_success: S003
+    on_failure: retry
+  - id: S003
+    name: 'PLC #1 — The Opportunity'
+    action: execute_step_3
+    description: 'Show transformation, position yourself, teach, raise/answer objections, foreshadow PLC #2, CTA for comments'
+    performer: copywriter
+    critical: true
+    on_success: S004
+    on_failure: retry
+  - id: S004
+    name: 'PLC #2 — The Transformation'
+    action: execute_step_4
+    description: 'Recap opportunity, teach tip/trick that creates shift, crush top 2-3 objections, foreshadow PLC #3, CTA'
+    performer: copywriter
+    critical: false
+    on_success: S005
+    on_failure: retry
+  - id: S005
+    name: 'PLC #3 — The Ownership Experience'
+    action: execute_step_5
+    description: Answer 'how', continue teaching, pivot to offer in last 25%, seed scarcity, CTA
+    performer: copywriter
+    critical: false
+    on_success: S006
+    on_failure: retry
+  - id: S006
+    name: Open Cart
+    action: execute_step_6
+    description: Send short email with link to sales page; watch orders roll in
+    performer: copywriter
+    critical: false
+    on_success: S007
+    on_failure: retry
+  - id: S007
+    name: Open Cart Period (4-7 days)
+    action: execute_step_7
+    description: Daily emails — Day 1 two emails, Day 2 social proof, Day 3 FAQ/objections, Day 4 scarcity warning, Day 5
+      close with 2-3 emails
+    performer: copywriter
+    critical: false
+    on_success: S008
+    on_failure: retry
+  - id: S008
+    name: Close Cart
+    action: execute_step_8
+    description: Hard close with real scarcity — price increase, bonus removal, or offer disappears entirely
+    performer: copywriter
+    critical: false
+    on_success: S009
+    on_failure: retry
+  - id: S009
+    name: Post-Launch
+    action: execute_step_9
+    description: Over-deliver to buyers with surprise bonuses; follow up with non-buyers via content to keep relationship
+      warm
+    performer: copywriter
+    critical: false
+    on_success: COMPLETE
+    on_failure: retry
+  quality_gate:
+    pass_threshold: 9
+    total_checks: 9
+    mandatory_passes:
+    - S001
+    - S002
+    - S003
+    verdict_on_fail: BLOCK

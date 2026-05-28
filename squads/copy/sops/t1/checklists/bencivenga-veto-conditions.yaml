@@ -1,0 +1,122 @@
+sop:
+  id: bencivenga-veto-conditions
+  version: "1.0"
+  title: Bencivenga Veto Conditions
+  purpose: >
+    Enforce Gary Bencivenga's non-negotiable pre-conditions protecting intellectual
+    integrity, Big Idea requirement, proof-at-the-hip discipline, and zero-hype standards.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: gary-bencivenga
+    artifact_type: veto
+    tier: t1
+
+  steps:
+    - action: validate_big_idea_defined
+      id: GB_V01
+      description: Writing copy without defined Big Idea -> BLOCK
+      rule: big_idea_defined == true AND big_idea_articulable_in_one_sentence == true
+      on_fail: BLOCK
+      remediation: ideate_big_idea_before_writing
+
+    - action: validate_proof_at_hip
+      id: GB_V02
+      description: Claim without immediate proof -> BLOCK
+      rule: all_claims_have_adjacent_proof == true
+      max_distance: 1
+      unit: paragraphs
+      on_fail: BLOCK
+      remediation: add_proof_adjacent_or_remove_claim
+
+    - action: validate_no_hype
+      id: GB_V03
+      description: Hype/hyperbole detected -> REMOVE
+      prohibited_terms:
+        - incredible
+        - revolutionary
+        - amazing
+        - unbelievable
+        - mind-blowing
+        - game-changing
+      prohibited_punctuation:
+        - triple_exclamation
+        - multiple_exclamation
+      rule: hype_count == 0
+      on_fail: REMOVE
+      remediation: replace_with_specific_data
+
+    - action: validate_no_artificial_urgency
+      id: GB_V04
+      description: Artificial urgency -> REFUSE
+      prohibited_patterns:
+        - fake_countdown_timer
+        - baseless_last_chance
+        - manufactured_spot_limits
+        - disappearing_page_claim
+      rule: artificial_urgency_count == 0
+      on_fail: REFUSE
+      remediation: remove_or_justify_with_real_deadline
+
+    - action: validate_tone_routing
+      id: GB_V05
+      description: Aggressive/high-pressure copy requested -> REDIRECT
+      input: assignment_brief
+      incompatible_tones:
+        - aggressive
+        - high_pressure
+        - hard_sell
+        - confrontational
+      rule: requested_tone not in incompatible_tones
+      on_fail: REDIRECT
+      redirect_to:
+        - gary-halbert
+        - clayton-makepeace
+      remediation: route_to_appropriate_agent
+
+    - action: validate_no_headline_puns
+      id: GB_V06
+      description: Pun/joke/humor in headline -> BLOCK
+      rule: headline_contains_pun == false
+      principle: "Puns in headlines are advertising malpractice"
+      on_fail: BLOCK
+      remediation: rewrite_headline_with_clear_benefit
+
+    - action: validate_icp_specificity
+      id: GB_V07
+      description: ICP not defined or too broad -> PAUSE
+      rule: icp_defined == true AND icp_specificity >= "individual_level"
+      too_broad_examples:
+        - "business owners"
+        - "health conscious people"
+        - "entrepreneurs"
+      on_fail: PAUSE
+      remediation: narrow_icp_with_requester
+
+  error_handling:
+    - error: no_big_idea
+      severity: critical
+      action: block_assignment_entirely
+    - error: floating_claims
+      severity: critical
+      action: block_until_proof_paired
+    - error: hype_language
+      severity: high
+      action: auto_remove_and_flag
+    - error: tone_mismatch
+      severity: high
+      action: redirect_to_compatible_agent
+    - error: broad_icp
+      severity: medium
+      action: pause_for_refinement
+
+  quality_gate:
+    pass_threshold: 7
+    total_checks: 7
+    mandatory_passes:
+      - GB_V01
+      - GB_V02
+      - GB_V05
+    verdict_on_fail: BLOCK
+    special_verdicts:
+      GB_V05: REDIRECT

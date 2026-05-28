@@ -1,0 +1,138 @@
+sop:
+  id: fw-10-villain-pillars
+  version: "1.0"
+  title: "The 10 Villain Charisma Pillars"
+  purpose: "Build personal brand charisma and influence via the villain archetype — mission-driven conviction and sovereignty"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: ben-settle
+    tier: t3
+  steps:
+    - id: apply_mission_altar
+      name: "Bow Only at the Altar of Your Mission"
+      description: "Define mission so clearly it filters every decision"
+      inputs:
+        - core_purpose
+        - business_goals
+      outputs:
+        - mission_statement
+      validation:
+        - one_sentence: true
+        - filters_decisions: true
+    - id: apply_nix_neediness
+      name: "Nix All Neediness"
+      description: "Remove approval-seeking language from all communication"
+      inputs:
+        - current_copy
+        - communication_audit
+      outputs:
+        - neediness_free_copy
+      validation:
+        - no_approval_seeking: true
+        - conviction_present: true
+    - id: apply_pay_yourself_first
+      name: "Pay Yourself First"
+      description: "Protect first hour and financial reserves for sovereignty"
+      inputs:
+        - daily_schedule
+        - financial_plan
+      outputs:
+        - sovereignty_plan
+      validation:
+        - first_hour_protected: true
+        - financial_reserves_planned: true
+    - id: apply_screw_you_fund
+      name: "Keep a Screw You Fund"
+      description: "Maintain financial reserves for freedom to say no"
+      inputs:
+        - financial_status
+      outputs:
+        - independence_strategy
+      validation:
+        - fund_established: true
+    - id: apply_no_pedestals
+      name: "Shove People Off Pedestals"
+      description: "Only mission on pedestal; no guru deference"
+      inputs:
+        - content_references
+        - authority_positioning
+      outputs:
+        - pedestal_audit
+      validation:
+        - mission_primary: true
+        - no_guru_deference: true
+    - id: apply_kind_not_nice
+      name: "Slay Inner Nice Guy"
+      description: "Replace performative niceness with honest kindness"
+      inputs:
+        - brand_voice
+        - communication_patterns
+      outputs:
+        - kind_voice_guidelines
+      validation:
+        - honest_not_performative: true
+        - strong_not_pleasing: true
+    - id: apply_time_vampires
+      name: "Stake the Time Vampires"
+      description: "Eliminate time-draining obligations not aligned with mission"
+      inputs:
+        - time_audit
+        - obligation_inventory
+      outputs:
+        - time_protection_plan
+      validation:
+        - vampires_identified: true
+        - boundaries_set: true
+    - id: apply_ignore_sheep
+      name: "Ignore the Sheep"
+      description: "Disregard criticism from non-target audience"
+      inputs:
+        - feedback_sources
+        - target_audience_definition
+      outputs:
+        - feedback_filter
+      validation:
+        - non_customer_noise_filtered: true
+    - id: apply_patience
+      name: "Submit to Patience"
+      description: "Commit to long-term compound consistency over shortcuts"
+      inputs:
+        - growth_timeline
+        - strategy_plan
+      outputs:
+        - long_term_plan
+      validation:
+        - timeline_years_not_weeks: true
+        - no_shortcut_chasing: true
+    - id: apply_joker_impact
+      name: "Be the Joker"
+      description: "Ensure every touchpoint has deliberate IMPACT"
+      inputs:
+        - content_inventory
+        - touchpoint_audit
+      outputs:
+        - impact_audit
+        - brand_positioning_document
+      validation:
+        - every_piece_has_impact: true
+        - memorable_presence: true
+  error_handling:
+    - error: villain_as_cruelty
+      condition: "Pillars interpreted as license to be mean"
+      action: "Refocus on sovereignty and conviction; villain is about strength, not toxicity"
+    - error: missing_mission
+      condition: "Pillar 1 not defined; other pillars lack anchor"
+      action: "Define mission first; all pillars flow from it"
+    - error: nice_not_kind
+      condition: "Copy still approval-seeking despite villain positioning"
+      action: "Audit for 'nice' language; replace with honest, strong 'kind' language"
+  quality_gate:
+    min_sections: 10
+    required_elements:
+      - mission_statement
+      - neediness_audit
+      - sovereignty_plan
+      - kind_voice
+      - impact_in_every_piece
+    pass_threshold: "all 10 pillars addressed with specific implementation"

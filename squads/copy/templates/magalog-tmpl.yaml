@@ -1,0 +1,815 @@
+# Magalog Template
+# CopywriterOS - Template para Magalogs (Magazine + Catalog)
+# Baseado na metodologia Jim Rutz
+
+template:
+  id: magalog-template-v1
+  name: "Magalog Template"
+  version: "1.0"
+  origin: "Jim Rutz methodology"
+  output:
+    format: markdown
+    filename: "magalog-{{product_slug}}.md"
+
+# Variáveis de Input
+variables:
+  required:
+    - publication_name: "Nome da publicação (ex: 'The Health Advisor')"
+    - volume_issue: "Volume/Edição (ex: 'Vol. 12, No. 3')"
+    - publication_date: "Data da publicação"
+    - product_name: "Nome do produto sendo vendido"
+    - product_description: "Descrição do produto"
+    - target_avatar: "Cliente ideal"
+    - main_problem: "Problema principal"
+    - main_benefit: "Benefício principal"
+    - price: "Preço"
+  optional:
+    - publisher_name: "Nome do publisher/editor"
+    - cover_price: "Preço de capa (ex: '$4.95')"
+    - guarantee: "Garantia oferecida"
+    - bonuses: "Lista de bônus"
+    - testimonials: "Depoimentos/Case Studies"
+    - urgency: "Elementos de urgência"
+    - faq: "Perguntas frequentes"
+    - expert_sources: "Especialistas citados"
+    - studies: "Estudos científicos"
+
+# Estrutura do Magalog
+sections:
+
+  # =============================================================================
+  # CAPA (Page 1)
+  # =============================================================================
+  - id: cover
+    name: "Cover Page"
+    template: |
+      # {{publication_name}}
+
+      **{{volume_issue}}** | {{publication_date}} | {{cover_price}}
+
+      ---
+
+      ## {{cover_headline}}
+
+      ![Cover Image]({{cover_image_url}})
+
+      ### Inside This Issue:
+
+      {{#each cover_bullets}}
+      - {{text}} **...pg {{page}}**
+      {{/each}}
+
+      ---
+
+      *Published by {{publisher_name}}*
+
+  # =============================================================================
+  # TABLE OF CONTENTS (Page 2)
+  # =============================================================================
+  - id: table_of_contents
+    name: "Table of Contents"
+    template: |
+      ---
+
+      ## IN THIS ISSUE
+
+      ### Features
+
+      {{#each feature_articles}}
+      **{{title}}** ...............................................pg {{page}}
+      *{{teaser}}*
+
+      {{/each}}
+
+      ### Special Reports
+
+      {{#each special_reports}}
+      **{{title}}** ...............................................pg {{page}}
+      *{{teaser}}*
+
+      {{/each}}
+
+      ### Departments
+
+      {{#each departments}}
+      - {{name}} .........pg {{page}}
+      {{/each}}
+
+      ---
+
+      ### FASCINATION BULLETS (What You'll Discover)
+
+      {{#each toc_fascinations}}
+      - {{bullet}} *(pg {{page}})*
+      {{/each}}
+
+  # =============================================================================
+  # MAIN FEATURE ARTICLE (Pages 3-10)
+  # =============================================================================
+  - id: main_feature
+    name: "Main Feature Article"
+    template: |
+      ---
+
+      # {{feature_headline}}
+
+      *{{feature_subheadline}}*
+
+      **By {{author_name}}** | {{dateline}}
+
+      ---
+
+      {{opening_story_or_hook}}
+
+      ## {{section_1_headline}}
+
+      {{section_1_content}}
+
+      > **SIDEBAR: {{sidebar_1_title}}**
+      >
+      > {{sidebar_1_content}}
+
+      ## {{section_2_headline}}
+
+      {{section_2_content}}
+
+      ### What the Research Shows
+
+      {{#each studies_cited}}
+      According to a study published in *{{journal}}* ({{year}}), researchers at {{institution}} found that {{finding}}.
+
+      {{/each}}
+
+      > **DID YOU KNOW?**
+      >
+      > {{did_you_know_fact}}
+
+      ## {{section_3_headline}}
+
+      {{section_3_content}}
+
+      ### Expert Insights
+
+      {{#each expert_quotes}}
+      "{{quote}}"
+      — **{{name}}**, {{credentials}}, {{institution}}
+
+      {{/each}}
+
+      > **SIDEBAR: {{sidebar_2_title}}**
+      >
+      > {{sidebar_2_content}}
+
+      ## {{conclusion_headline}}
+
+      {{conclusion_content}}
+
+      ---
+
+      *{{author_bio}}*
+
+  # =============================================================================
+  # SUPPORTING ARTICLE 1: CASE STUDY
+  # =============================================================================
+  - id: case_study
+    name: "Case Study Article"
+    template: |
+      ---
+
+      # {{case_study_headline}}
+
+      *{{case_study_subheadline}}*
+
+      ---
+
+      **{{subject_name}}**, {{subject_age}}, {{subject_location}}
+
+      {{subject_story_intro}}
+
+      ### The Challenge
+
+      {{challenge_description}}
+
+      ### The Turning Point
+
+      {{turning_point_story}}
+
+      ### The Results
+
+      {{#each results}}
+      - **{{metric}}:** {{before}} → {{after}}
+      {{/each}}
+
+      ### {{subject_name}}'s Advice
+
+      "{{subject_quote}}"
+
+      ---
+
+      > **BY THE NUMBERS**
+      >
+      > {{#each stats}}
+      > - **{{number}}** {{description}}
+      > {{/each}}
+
+  # =============================================================================
+  # SUPPORTING ARTICLE 2: HOW-TO GUIDE
+  # =============================================================================
+  - id: how_to_guide
+    name: "How-To Guide Article"
+    template: |
+      ---
+
+      # {{how_to_headline}}
+
+      *{{how_to_subheadline}}*
+
+      ---
+
+      {{how_to_intro}}
+
+      {{#each steps}}
+      ## Step {{@index}}: {{title}}
+
+      {{description}}
+
+      **Pro Tip:** {{tip}}
+
+      {{/each}}
+
+      > **WARNING BOX**
+      >
+      > ⚠️ {{warning_content}}
+
+      ### Quick Reference
+
+      {{#each quick_tips}}
+      - ✓ {{tip}}
+      {{/each}}
+
+  # =============================================================================
+  # SUPPORTING ARTICLE 3: RESEARCH SUMMARY
+  # =============================================================================
+  - id: research_summary
+    name: "Research Summary Article"
+    template: |
+      ---
+
+      # {{research_headline}}
+
+      *{{research_subheadline}}*
+
+      ---
+
+      {{research_intro}}
+
+      ### Key Findings
+
+      {{#each findings}}
+      **Finding #{{@index}}:** {{title}}
+
+      {{description}}
+
+      *Source: {{source}}, {{date}}*
+
+      {{/each}}
+
+      > **WHAT THIS MEANS FOR YOU**
+      >
+      > {{implications}}
+
+      ### The Bottom Line
+
+      {{bottom_line}}
+
+  # =============================================================================
+  # SUPPORTING ARTICLE 4: EXPERT INTERVIEW
+  # =============================================================================
+  - id: expert_interview
+    name: "Expert Interview Article"
+    template: |
+      ---
+
+      # {{interview_headline}}
+
+      *An exclusive interview with {{expert_name}}, {{expert_credentials}}*
+
+      ---
+
+      ![{{expert_name}}]({{expert_photo_url}})
+
+      **About {{expert_name}}:** {{expert_bio}}
+
+      ---
+
+      {{#each qa_pairs}}
+      **Q: {{question}}**
+
+      **A:** {{answer}}
+
+      {{/each}}
+
+      > **EXPERT'S TOP RECOMMENDATIONS**
+      >
+      > {{#each recommendations}}
+      > {{@index}}. {{recommendation}}
+      > {{/each}}
+
+  # =============================================================================
+  # FASCINATION BULLETS SPREAD
+  # =============================================================================
+  - id: fascination_spread
+    name: "Fascination Bullets Spread"
+    template: |
+      ---
+
+      # What You'll Discover Inside {{product_name}}
+
+      ---
+
+      ### Secrets Revealed:
+
+      {{#each secret_bullets}}
+      - {{bullet}} *(pg {{page}})*
+      {{/each}}
+
+      ### How-To Discoveries:
+
+      {{#each how_to_bullets}}
+      - {{bullet}} *(pg {{page}})*
+      {{/each}}
+
+      ### Warnings & Mistakes to Avoid:
+
+      {{#each warning_bullets}}
+      - ⚠️ {{bullet}} *(pg {{page}})*
+      {{/each}}
+
+      ### Surprising Facts:
+
+      {{#each surprising_bullets}}
+      - {{bullet}} *(pg {{page}})*
+      {{/each}}
+
+      ### What You'll Never Do Again:
+
+      {{#each what_never_bullets}}
+      - {{bullet}} *(pg {{page}})*
+      {{/each}}
+
+      ### By the Numbers:
+
+      {{#each number_bullets}}
+      - {{bullet}} *(pg {{page}})*
+      {{/each}}
+
+  # =============================================================================
+  # OFFER SECTION (Transition from Editorial)
+  # =============================================================================
+  - id: offer_transition
+    name: "Offer Transition Section"
+    template: |
+      ---
+
+      # {{offer_transition_headline}}
+
+      ---
+
+      {{transition_paragraph}}
+
+      As you've seen throughout this issue, {{connection_to_editorial}}.
+
+      That's why we've arranged something special for readers of {{publication_name}}...
+
+      ## Introducing: {{product_name}}
+
+      {{product_description}}
+
+      ### What's Inside:
+
+      {{#each product_components}}
+      **{{name}}** — {{description}}
+
+      {{/each}}
+
+      ### The {{mechanism_name}} Advantage
+
+      {{mechanism_explanation}}
+
+  # =============================================================================
+  # VALUE STACK
+  # =============================================================================
+  - id: value_stack
+    name: "Value Stack Section"
+    template: |
+      ---
+
+      ## Your Complete {{product_name}} Package
+
+      | What You Receive | Retail Value |
+      |------------------|--------------|
+      {{#each offer_items}}
+      | {{name}} | ${{value}} |
+      {{/each}}
+      | **Total Value** | **${{total_value}}** |
+
+      ### Plus These Special Bonuses:
+
+      {{#each bonuses}}
+      **FREE BONUS #{{@index}}: {{name}}** (Value: ${{value}})
+
+      {{description}}
+
+      {{/each}}
+
+      ---
+
+      **Total Package Value: ${{total_value}}**
+
+      **Your Investment Today: ${{price}}**
+
+      **You Save: ${{savings}} ({{savings_percent}}%)**
+
+  # =============================================================================
+  # GUARANTEE SECTION
+  # =============================================================================
+  - id: guarantee
+    name: "Guarantee Section"
+    template: |
+      ---
+
+      ## {{guarantee_name}}
+
+      {{guarantee_description}}
+
+      {{guarantee_terms}}
+
+      Here's how it works:
+
+      {{guarantee_process}}
+
+      **In other words: the risk is entirely on us.**
+
+  # =============================================================================
+  # URGENCY SECTION
+  # =============================================================================
+  - id: urgency
+    name: "Urgency Section"
+    condition: "{{#if urgency}}"
+    template: |
+      ---
+
+      ## Important Notice for {{publication_name}} Readers
+
+      {{urgency_reason}}
+
+      **Deadline: {{deadline}}**
+
+      {{consequence_of_missing}}
+
+      {{#if limited_quantity}}
+      **Note:** Due to {{scarcity_reason}}, we can only accept {{quantity_limit}} responses to this offer.
+      {{/if}}
+
+  # =============================================================================
+  # ORDER FORM (Reservation Form)
+  # =============================================================================
+  - id: order_form
+    name: "Reservation Form"
+    template: |
+      ---
+
+      # {{order_form_title}}
+
+      ---
+
+      **YES!** {{commitment_statement}}
+
+      I understand I'll receive:
+
+      {{#each summary_items}}
+      ✓ {{item}}
+      {{/each}}
+
+      Plus all {{bonus_count}} FREE bonuses worth ${{bonus_total_value}}.
+
+      ---
+
+      **My Investment Today:** ${{price}}
+
+      ---
+
+      ### How to Reserve Your Copy:
+
+      **By Phone:** Call {{phone_number}} ({{phone_hours}})
+
+      **Online:** Visit {{website_url}}
+
+      **By Mail:** Complete and return this form to:
+      {{mailing_address}}
+
+      ---
+
+      **Guarantee Reminder:** {{guarantee_reminder}}
+
+      **Deadline Reminder:** {{deadline_reminder}}
+
+  # =============================================================================
+  # BACK COVER
+  # =============================================================================
+  - id: back_cover
+    name: "Back Cover"
+    template: |
+      ---
+
+      # {{back_cover_headline}}
+
+      ---
+
+      {{#if back_cover_strategy == 'testimonial'}}
+      ## What Readers Are Saying:
+
+      {{#each featured_testimonials}}
+      > "{{quote}}"
+      >
+      > — **{{name}}**, {{location}}
+
+      {{/each}}
+      {{/if}}
+
+      {{#if back_cover_strategy == 'bullets'}}
+      ## Inside This Issue, Discover:
+
+      {{#each final_bullets}}
+      - {{bullet}}
+      {{/each}}
+      {{/if}}
+
+      {{#if back_cover_strategy == 'urgency'}}
+      ## Don't Miss This Opportunity
+
+      {{final_urgency_pitch}}
+
+      **Call Now: {{phone_number}}**
+      **Visit: {{website_url}}**
+
+      *Offer expires: {{deadline}}*
+      {{/if}}
+
+      {{#if back_cover_strategy == 'credibility'}}
+      ## About {{publisher_name}}
+
+      {{publisher_credibility}}
+
+      {{#each credentials}}
+      - {{credential}}
+      {{/each}}
+      {{/if}}
+
+      ---
+
+      *{{publication_name}} — {{tagline}}*
+
+      {{contact_info}}
+
+# =============================================================================
+# SIDEBAR TEMPLATES
+# =============================================================================
+sidebar_templates:
+
+  quick_tips:
+    template: |
+      > **QUICK TIPS**
+      >
+      > {{#each tips}}
+      > - {{tip}}
+      > {{/each}}
+
+  did_you_know:
+    template: |
+      > **DID YOU KNOW?**
+      >
+      > {{fact}}
+      >
+      > *Source: {{source}}*
+
+  warning_box:
+    template: |
+      > **⚠️ WARNING**
+      >
+      > {{warning}}
+
+  expert_quote:
+    template: |
+      > **EXPERT INSIGHT**
+      >
+      > "{{quote}}"
+      >
+      > — **{{name}}**, {{credentials}}
+
+  by_the_numbers:
+    template: |
+      > **BY THE NUMBERS**
+      >
+      > {{#each stats}}
+      > - **{{number}}** {{description}}
+      > {{/each}}
+
+  case_snapshot:
+    template: |
+      > **CASE SNAPSHOT: {{name}}**
+      >
+      > **Before:** {{before}}
+      > **After:** {{after}}
+      > **Time:** {{timeframe}}
+
+# =============================================================================
+# BULLET TYPE TEMPLATES
+# =============================================================================
+bullet_templates:
+
+  how_to:
+    pattern: "How to {{action}} — {{qualifier}}"
+    examples:
+      - "How to eliminate joint pain — without dangerous drugs"
+      - "How to double your energy — in just 7 days"
+
+  secret:
+    pattern: "The {{adjective}} secret {{source}} {{use/know}}"
+    examples:
+      - "The little-known secret Olympic athletes use to recover faster"
+      - "The ancient secret Tibetan monks know about mental clarity"
+
+  warning:
+    pattern: "Warning: {{danger}} — {{consequence}}"
+    examples:
+      - "Warning: This common breakfast food may be aging you faster"
+      - "Warning: Never take this supplement after 2pm"
+
+  why:
+    pattern: "Why {{thing}} {{surprising_fact}}"
+    examples:
+      - "Why doctors are now recommending what they once forbade"
+      - "Why everything you know about cholesterol is wrong"
+
+  what_never:
+    pattern: "What you should never {{action}} — {{reason}}"
+    examples:
+      - "What you should never eat before bed — and the surprising reason why"
+      - "What you should never tell your doctor"
+
+  number:
+    pattern: "{{number}} {{things}} that {{result}}"
+    examples:
+      - "7 foods that fight inflammation naturally"
+      - "12 warning signs your body gives you before a heart attack"
+
+  surprising:
+    pattern: "The surprising {{thing}} about {{topic}}"
+    examples:
+      - "The surprising truth about whole wheat bread"
+      - "The surprising link between gut health and mood"
+
+  question:
+    pattern: "Are you making these {{number}} {{mistakes}}?"
+    examples:
+      - "Are you making these 5 common medication mistakes?"
+      - "Are you sabotaging your sleep without knowing it?"
+
+# =============================================================================
+# COPYWRITER STYLE VARIATIONS
+# =============================================================================
+copywriter_patterns:
+
+  jim_rutz:
+    cover_headline: "{{dramatic_claim}} — {{qualifier}}"
+    feature_lead: "{{dateline}} — {{news_hook}}"
+    bullet_style: "fascination with page number"
+    sidebar_frequency: "every 2-page spread"
+    voice: "editorial journalist"
+
+  david_deutsch:
+    cover_headline: "{{big_promise}} ({{specific_proof}})"
+    feature_lead: "{{paradox_or_question}}"
+    bullet_style: "curiosity with specificity"
+    sidebar_frequency: "high density"
+    voice: "investigative reporter"
+
+  parris_lampropoulos:
+    cover_headline: "{{fascination_headline}}"
+    feature_lead: "{{story_hook}}"
+    bullet_style: "maximum fascination"
+    sidebar_frequency: "strategic placement"
+    voice: "trusted advisor"
+
+# =============================================================================
+# QUALITY VALIDATION
+# =============================================================================
+validation:
+
+  required_sections:
+    - cover
+    - table_of_contents
+    - main_feature
+    - offer_transition
+    - order_form
+
+  recommended_sections:
+    - case_study
+    - how_to_guide
+    - research_summary
+    - expert_interview
+    - fascination_spread
+    - guarantee
+    - back_cover
+
+  bullet_counts:
+    cover: "10-15"
+    toc: "15-20"
+    body: "50+"
+    offer: "20-30"
+    total_minimum: 100
+
+  page_count:
+    minimum: 16
+    typical: "24-32"
+    maximum: 48
+
+  content_ratios:
+    valuable_information: "60%"
+    proof_testimonials: "25%"
+    direct_selling: "15%"
+
+  rutz_tests:
+    - "If order form removed, would this be worth reading on its own?"
+    - "Can someone put it down? (If yes, revise)"
+    - "Is every paragraph fascinating?"
+
+  editorial_voice_check:
+    - "Reads like journalist wrote it"
+    - "Informative, not promotional"
+    - "Conversational but authoritative"
+    - "Respects reader intelligence"
+    - "No 'buy now' language in editorial sections"
+
+  forbidden_words_in_editorial:
+    - "buy now"
+    - "order now"
+    - "limited time offer"
+    - "act now"
+    - "don't miss out"
+    - "amazing" # (without proof)
+    - "incredible" # (without proof)
+
+  checklist:
+    format:
+      - "Has publication name (masthead)"
+      - "Includes volume/issue number"
+      - "Has publication date"
+      - "Multi-column format"
+      - "Editorial typography (not ad-style)"
+      - "Pull quotes throughout"
+      - "Photos with captions"
+      - "Page numbers on all pages"
+    cover:
+      - "Editorial-style headline"
+      - "10-15 bullets with page numbers"
+      - "Cover image relevant"
+      - "Clear visual hierarchy"
+    editorial:
+      - "Main feature opens with story/question/paradox"
+      - "Expert sources cited"
+      - "Statistics sourced"
+      - "3-5 supporting articles"
+      - "All maintain editorial voice"
+    proof:
+      - "10+ testimonials"
+      - "Full names and locations"
+      - "Studies cited with sources"
+      - "Expert quotes with credentials"
+    offer:
+      - "Natural transition from editorial"
+      - "Product as logical conclusion"
+      - "Clear value stack"
+      - "Named guarantee"
+      - "Specific deadline"
+
+# =============================================================================
+# EXAMPLE STRUCTURE
+# =============================================================================
+example_structure:
+  pages_1_2: "Cover + Table of Contents"
+  pages_3_10: "Main Feature Article (4-8 pages)"
+  pages_11_12: "Case Study Article"
+  pages_13_14: "How-To Guide"
+  pages_15_16: "Research Summary"
+  pages_17_18: "Expert Interview"
+  pages_19_20: "Fascination Bullets Spread"
+  pages_21_24: "Offer Section + Value Stack"
+  pages_25_26: "Guarantee + Urgency"
+  pages_27_28: "Order Form"
+  page_back: "Back Cover"
+
+# Template Version: 1.0
+# Created: 2026-01-23
+# Methodology: Jim Rutz Magalog Format

@@ -1,0 +1,128 @@
+sop:
+  id: makepeace-copy-validation
+  version: "1.0"
+  title: Makepeace Copy Validation Checklist
+  purpose: >
+    Validate copy against Clayton Makepeace's standards for ESP activation,
+    radical specificity, proof density, consequence-based urgency, transparent
+    writing, and relentless tonal consistency.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: clayton-makepeace
+    artifact_type: quality_gate
+    tier: t1
+
+  steps:
+    - action: validate_esp_activation
+      description: ESP defined and active from first paragraph, threaded throughout
+      input: full_copy_text
+      checks:
+        - esp_explicitly_defined
+        - esp_in_first_paragraph
+        - esp_threaded_throughout
+      note: ESP is emotional (how reader FEELS), not logical (product feature)
+      on_fail: define_and_activate_esp
+
+    - action: validate_specific_numbers
+      description: SPECIFIC numbers in every claim, zero generalizations
+      input: full_copy_text
+      prohibited_terms:
+        - improves
+        - saves money
+        - boosts energy
+        - significant
+        - substantial
+        - many
+        - several
+      rule: generalization_count == 0
+      on_fail: research_and_replace_with_exact_figures
+
+    - action: validate_proof_density
+      description: At least 3 proof types per main claim
+      input: full_copy_text
+      proof_types:
+        - clinical_study
+        - user_testimonial
+        - expert_endorsement
+        - mechanism_explanation
+        - before_after_data
+        - third_party_testing
+      rule: min_proof_types_per_claim >= 3
+      on_fail: add_missing_proof_types
+
+    - action: validate_consequence_urgency
+      description: Urgency based on consequence of inaction, not arbitrary timer
+      input: full_copy_text
+      valid_urgency:
+        - health_consequence
+        - competitive_disadvantage
+        - opportunity_cost
+        - natural_deadline
+      prohibited_urgency:
+        - countdown_timer
+        - arbitrary_spot_limits
+        - disappearing_page
+        - baseless_deadline
+      rule: artificial_urgency_count == 0
+      on_fail: replace_with_consequence_urgency
+
+    - action: validate_no_emojis
+      description: Zero emojis in entire document
+      input: full_copy_text
+      rule: emoji_count == 0
+      on_fail: remove_all_emojis
+
+    - action: validate_transparent_writing
+      description: Copy is invisible -- reader experiences desire, not craft
+      input: full_copy_text
+      transparency_checks:
+        - no_attention_calling_cleverness
+        - no_unusual_metaphors_for_style
+        - no_stylistic_flourishes
+        - writing_disappears_into_desire
+      on_fail: simplify_until_invisible
+
+    - action: validate_tonal_consistency
+      description: Relentless tone consistent from title to PS
+      input: full_copy_text
+      checks:
+        - no_energy_drops
+        - consistent_urgency_level
+        - no_disconnected_sections
+        - sustained_forward_momentum
+      on_fail: rebuild_momentum_throughout
+
+    - action: validate_voice_authenticity
+      description: Sounds like $1.5B copywriter -- supreme confidence, tactical precision
+      input: full_copy_text
+      voice_markers:
+        - supreme_confidence_not_arrogance
+        - tactical_precision
+        - zero_wasted_words
+        - proven_results_authority
+      on_fail: rewrite_in_master_voice
+
+  error_handling:
+    - error: esp_missing
+      severity: critical
+      action: block_until_esp_defined
+    - error: generalizations_detected
+      severity: high
+      action: research_exact_figures
+    - error: insufficient_proof
+      severity: critical
+      action: block_until_3_types_per_claim
+    - error: fake_urgency
+      severity: high
+      action: replace_with_consequence
+
+  quality_gate:
+    pass_threshold: 8
+    total_checks: 8
+    mandatory_passes:
+      - validate_esp_activation
+      - validate_specific_numbers
+      - validate_proof_density
+      - validate_consequence_urgency
+    verdict_on_fail: REJECT

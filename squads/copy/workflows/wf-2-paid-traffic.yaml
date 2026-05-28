@@ -1,0 +1,379 @@
+# WF-2: Paid Traffic Workflow
+# Framework: Copy Expansion Pack v2.0
+# Focus: Ads, landing pages, and paid traffic funnels
+# Duration: 3 days
+# Target: High-converting paid traffic campaigns
+
+workflow:
+  id: wf-2-paid-traffic
+  name: "Quick Traffic - Paid Traffic Pipeline"
+  type: campaign
+  duration: "3 days"
+  description: |
+    Fast-execution workflow for paid traffic campaigns.
+    Designed for rapid ad creation, landing page development, and conversion optimization.
+    Uses Eugene Schwartz's awareness levels, John Carlton's direct response ads,
+    Dan Kennedy's urgency frameworks, and Gary Halbert's visceral copy.
+  operational_roles:
+    orchestrator: copy-chief
+    human_review_agent: launch-owner
+    delivery_agent: copy-ops-worker
+  state_machine:
+    states: [init, diagnosis, ad-copy, landing-assets, complete, failed]
+    transitions:
+      - { trigger: start, source: init, dest: diagnosis }
+      - { trigger: diagnosis_complete, source: diagnosis, dest: ad-copy }
+      - { trigger: ad-copy_complete, source: ad-copy, dest: landing-assets }
+      - { trigger: landing-assets_complete, source: landing-assets, dest: complete }
+      - { trigger: fail, source: "*", dest: failed }
+  quality_gate_refs: [QG-CP-1.1, QG-CP-2.1, QG-CP-3.1, QG-CP-8.1, QG-CP-5.1]
+
+  target_output:
+    - "Ad copy (Meta, Google, YouTube, TikTok, LinkedIn)"
+    - "Landing pages (squeeze, sales, webinar registration)"
+    - "Thank you pages with upsells"
+    - "Retargeting sequences"
+
+  key_agents:
+    primary:
+      - eugene-schwartz    # Awareness diagnosis, market sophistication
+      - john-carlton       # Direct response ads, SWS Method
+      - dan-kennedy        # Urgency, deadline, direct response
+      - gary-halbert       # Visceral copy, A-pile letters
+    secondary:
+      - todd-brown         # Big ideas for unique mechanism
+      - joe-sugarman       # Slippery slide for landing pages
+
+  sequence:
+    - phase: diagnosis
+      id: diagnosis
+      agent: eugene-schwartz
+      task_ref: tasks/diagnose-awareness-level.md
+      action: "Diagnosticar awareness e sofisticação do mercado para tráfego pago"
+      creates: traffic-diagnosis
+      on_complete: { trigger: diagnosis_complete }
+    - phase: ad-copy
+      id: ad-copy
+      agent: john-carlton
+      task_ref: tasks/create-ad-copy.md
+      requires: traffic-diagnosis
+      action: "Criar anúncios e hooks alinhados ao estágio de consciência"
+      creates: ad-copy-suite
+      on_complete: { trigger: ad-copy_complete }
+    - phase: landing-assets
+      id: landing-assets
+      agent: gary-halbert
+      task_ref: tasks/create-landing-page.md
+      requires: ad-copy-suite
+      action: "Montar landing page e ativos de conversão do tráfego pago"
+      creates: paid-traffic-package
+      on_complete: { trigger: landing-assets_complete }
+
+  handoff_prompts:
+    default: "Entregue o artefato criado, decisões tomadas, riscos abertos e o critério exato para o próximo agente continuar sem reinterpretar o contexto."
+
+# ==============================================================================
+# PHASE 1: AWARENESS & MARKET DIAGNOSIS
+# ==============================================================================
+
+phases:
+  - id: PHASE-1
+    name: "Awareness & Market Diagnosis"
+    day: 1
+    tier: 0
+    description: |
+      MANDATORY FIRST STEP before any copy creation.
+      Diagnose prospect awareness level (Schwartz's 5 Levels) and
+      market sophistication to determine copy strategy.
+
+    tasks:
+      - task_file: diagnose-awareness-level.md
+        agent: eugene-schwartz
+        required: true
+        focus: "Determine prospect awareness level (1-5)"
+        output: "Awareness diagnosis with copy implications"
+
+      - task_file: diagnose-market-sophistication.md
+        agent: eugene-schwartz
+        required: true
+        focus: "Determine market sophistication stage (1-5)"
+        output: "Market sophistication analysis"
+
+      - task_file: avatar-research.md
+        agent: dan-kennedy
+        required: true
+        focus: "Define ideal customer avatar for paid traffic"
+        output: "Buyer avatar document"
+
+    checkpoint:
+      criteria:
+        - "AWARENESS LEVEL diagnosed (1-5)"
+        - "MARKET SOPHISTICATION determined"
+        - "BUYER AVATAR defined"
+      human_review: false
+      message: "Diagnosis complete. Awareness level and market sophistication determined."
+
+# ==============================================================================
+# PHASE 2: AD COPY CREATION
+# ==============================================================================
+
+  - id: PHASE-2
+    name: "Ad Copy Creation"
+    day: 2
+    tier: 1
+    description: |
+      Create high-converting ad copy for multiple platforms.
+      Apply John Carlton's SWS Method, Dan Kennedy's urgency,
+      and awareness-level-appropriate messaging.
+
+    tasks:
+      - task_file: create-headlines.md
+        agent: john-carlton
+        required: true
+        focus: "Create 20+ headlines matched to awareness level"
+        output: "Headline swipe file"
+
+      - task_file: create-ad-copy.md
+        agent: john-carlton
+        required: true
+        focus: "Multi-platform ad variations (Meta, Google, YouTube)"
+        output: "Ad copy suite"
+
+      - task_file: create-video-hook.md
+        agent: gary-halbert
+        required: false
+        focus: "Video ad hooks for YouTube/TikTok/Reels"
+        output: "5 video hooks with scripts"
+
+      - task_file: create-native-ads.md
+        agent: dan-kennedy
+        required: false
+        focus: "Native ad content for Taboola/Outbrain"
+        output: "Native ad variations"
+
+    checkpoint:
+      criteria:
+        - "HEADLINES created (20+)"
+        - "AD COPY for 3+ platforms"
+        - "COPY matches awareness level"
+      human_review: true
+      message: "Review ad copy before landing page creation."
+
+# ==============================================================================
+# PHASE 3: LANDING PAGE & CONVERSION
+# ==============================================================================
+
+  - id: PHASE-3
+    name: "Landing Page & Conversion"
+    day: 3
+    tier: 2
+    description: |
+      Create landing pages with conversion optimization.
+      Apply MECLABS Conversion Heuristic, Unbounce 7 Principles,
+      and message-match with ads.
+
+    tasks:
+      - task_file: create-landing-page.md
+        agent: gary-halbert
+        required: true
+        focus: "Primary landing page matched to ad copy"
+        output: "Landing page copy document"
+
+      - task_file: create-thank-you-page.md
+        agent: dan-kennedy
+        required: true
+        focus: "Thank you page with immediate next step"
+        output: "Thank you page with upsell hook"
+
+      - task_file: create-upsell-page.md
+        agent: todd-brown
+        required: false
+        focus: "One-click upsell with big idea mechanism"
+        output: "Upsell page copy"
+
+      - task_file: create-email-sequence.md
+        agent: dan-kennedy
+        required: true
+        focus: "5-email follow-up sequence for leads"
+        output: "Lead nurture sequence"
+
+    checkpoint:
+      criteria:
+        - "LANDING PAGE complete"
+        - "THANK YOU PAGE complete"
+        - "MESSAGE MATCH verified (ad → landing page)"
+        - "EMAIL SEQUENCE drafted"
+      human_review: true
+      message: "Review landing page and conversion flow before launch."
+
+# ==============================================================================
+# WORKFLOW OUTPUTS
+# ==============================================================================
+
+outputs:
+  ad_copy:
+    - "20+ headlines"
+    - "Meta ad copy (3-5 variations)"
+    - "Google ad copy (3-5 variations)"
+    - "YouTube/TikTok video hooks (5)"
+    - "Native ad variations (optional)"
+
+  landing_pages:
+    - "Primary landing page"
+    - "Thank you page with upsell hook"
+    - "Upsell page (optional)"
+
+  email_sequences:
+    - "5-email lead nurture sequence"
+
+  documentation:
+    - "Awareness level diagnosis"
+    - "Market sophistication analysis"
+    - "Buyer avatar document"
+
+# ==============================================================================
+# SIGNALS & AUTOMATION
+# ==============================================================================
+
+completion_signal: "<promise>COMPLETE</promise>"
+checkpoint_signal: "<promise>CHECKPOINT:PHASE-X</promise>"
+blocked_signal: "<promise>BLOCKED:T-X.Y</promise>"
+
+automation:
+  state_file: "copy-state.json"
+  progress_file: "progress.txt"
+  handoff_file: "handoff.md"
+
+# ==============================================================================
+# AGENT SPECIALIZATIONS
+# ==============================================================================
+
+agent_roles:
+  eugene-schwartz:
+    specialty: "Awareness levels and market sophistication diagnosis"
+    applies_to:
+      - "Awareness diagnosis (Tier 0)"
+      - "Market sophistication analysis"
+      - "Copy strategy foundation"
+    key_framework: "5 Levels of Awareness + 5 Stages of Market Sophistication"
+
+  john-carlton:
+    specialty: "Direct response ads that demand attention"
+    applies_to:
+      - "Ad headlines"
+      - "Ad copy (all platforms)"
+      - "Direct response frameworks"
+    key_framework: "SWS Method (Simple Writing System)"
+
+  dan-kennedy:
+    specialty: "Urgency, deadlines, and direct response marketing"
+    applies_to:
+      - "Avatar research"
+      - "Thank you pages"
+      - "Email sequences"
+      - "Native ads"
+    key_framework: "No B.S. Direct Marketing + Urgency Stack"
+
+  gary-halbert:
+    specialty: "Visceral, emotional copy that creates connection"
+    applies_to:
+      - "Landing pages"
+      - "Video hooks"
+      - "Story-driven copy"
+    key_framework: "A-Pile Letter Method + Visceral Copy"
+
+  todd-brown:
+    specialty: "Big ideas and unique mechanisms"
+    applies_to:
+      - "Upsell pages"
+      - "Unique mechanism development"
+    key_framework: "E5 Method + Big Idea Framework"
+
+  joe-sugarman:
+    specialty: "Slippery slide engagement"
+    applies_to:
+      - "First lines"
+      - "Scroll optimization"
+    key_framework: "Slippery Slide + Psychological Triggers"
+
+# ==============================================================================
+# AWARENESS LEVEL COPY STRATEGIES
+# ==============================================================================
+
+awareness_strategies:
+  level_1_unaware:
+    headline_approach: "Story/Curiosity - Pattern interrupt"
+    copy_length: "Very Long (5000+ words)"
+    proof_focus: "Education first, establish problem existence"
+    example: "A strange thing happened when..."
+
+  level_2_problem_aware:
+    headline_approach: "Problem agitation"
+    copy_length: "Long (2000-5000 words)"
+    proof_focus: "Solution is possible, others succeeded"
+    example: "If you suffer from..."
+
+  level_3_solution_aware:
+    headline_approach: "Mechanism/Big Idea differentiation"
+    copy_length: "Medium-Long (1500-3000 words)"
+    proof_focus: "Why THIS solution, unique mechanism"
+    example: "The new way to [achieve X]..."
+
+  level_4_product_aware:
+    headline_approach: "Offer/Proof heavy"
+    copy_length: "Medium (1000-2000 words)"
+    proof_focus: "Why buy NOW, risk reversal, testimonials"
+    example: "Get [product] with [bonus]..."
+
+  level_5_most_aware:
+    headline_approach: "Deal/Direct offer"
+    copy_length: "Short (500-1000 words)"
+    proof_focus: "Just the offer, price, deal, CTA"
+    example: "[Product] now 50% off..."
+
+# ==============================================================================
+# QUALITY GATES
+# ==============================================================================
+
+quality_gates:
+  awareness_match:
+    - "Copy matches diagnosed awareness level"
+    - "Headline approach aligns with level"
+    - "Copy length appropriate for level"
+
+  ad_standards:
+    - "Headlines under platform character limits"
+    - "Primary text optimized for each platform"
+    - "CTAs clear and compelling"
+    - "Hooks grab attention in 3 seconds"
+
+  landing_page_standards:
+    - "Message match with ads verified"
+    - "Single clear CTA"
+    - "Above-fold captures attention"
+    - "Proof elements present"
+    - "Mobile-optimized"
+
+  conversion_flow:
+    - "Ad → Landing Page message match"
+    - "Landing Page → Thank You continuity"
+    - "Upsell relevance verified"
+    - "Email sequence aligned with offer"
+
+# ==============================================================================
+# METADATA
+# ==============================================================================
+
+metadata:
+  version: "1.0"
+  framework: "copy-framework-v2"
+  created: "2026-01-23"
+  story_id: "US-004"
+  primary_use_case: "Paid traffic campaigns and performance marketing"
+  secondary_use_cases:
+    - "Meta/Facebook ads"
+    - "Google Ads"
+    - "YouTube ads"
+    - "TikTok ads"
+    - "LinkedIn ads"
+    - "Native advertising"

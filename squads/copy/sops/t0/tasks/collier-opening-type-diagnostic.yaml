@@ -1,0 +1,98 @@
+sop:
+  id: collier-opening-type-diagnostic
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Opening Type Diagnostic (4 Types)"
+  purpose: >
+    Determine correct opening type based on prospect's current state.
+    Four types: Offer Direct, Problem/Fear, Story/Curiosity, Identification.
+    Wrong type = prospect ignores you immediately.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: robert-collier
+    artifact_type: task
+
+  steps:
+    - id: assess_state
+      action: evaluate_prospect_state
+      description: "Determine prospect's relationship with product: know and want it? Have a problem? Need education? Indifferent?"
+      inputs:
+        - prospect_state
+        - product_description
+      output: state_assessment
+
+    - id: test_offer_direct
+      action: evaluate_offer_opening
+      description: "Prospect knows and WANTS product? → Offer Direct: lead with deal/terms/CTA"
+      depends_on: assess_state
+      output: offer_result
+
+    - id: test_problem_fear
+      action: evaluate_problem_opening
+      description: "Prospect has PROBLEM product solves? → Problem/Fear: lead with pain, connect to solution"
+      depends_on: test_offer_direct
+      output: problem_result
+
+    - id: test_story_curiosity
+      action: evaluate_story_opening
+      description: "Prospect doesn't know product, needs education? → Story/Curiosity: education as entertainment"
+      depends_on: test_problem_fear
+      output: story_result
+
+    - id: test_identification
+      action: evaluate_identification_opening
+      description: "Prospect indifferent/saturated? → Identification: WHO uses it, tribal belonging"
+      depends_on: test_story_curiosity
+      output: identification_result
+
+    - id: handle_no_match
+      action: return_to_conversation_mapping
+      description: "If no type fits, return to Mental Conversation Mapping; entry point was not correctly identified"
+      depends_on: test_identification
+      output: fallback_action
+
+    - id: prescribe_opening
+      action: write_opening_prescription
+      description: "Explain WHY type is correct, provide specific example opening for this product/audience"
+      depends_on:
+        - test_offer_direct
+        - test_problem_fear
+        - test_story_curiosity
+        - test_identification
+      output: opening_prescription
+
+  error_handling:
+    - error: default_story
+      symptom: "Every opening uses a story regardless of prospect state"
+      resolution: "Test all 4 types; Story only for unaware prospects needing education"
+    - error: offer_for_unaware
+      symptom: "Offer Direct used when prospect does not know the product"
+      resolution: "Only use Offer Direct when prospect knows AND wants the product"
+    - error: disconnected_problem
+      symptom: "Problem named but never bridges to solution"
+      resolution: "Problem opening must connect to product within 3-5 sentences"
+
+  quality_gate:
+    criteria:
+      - "Prospect state clearly assessed"
+      - "All 4 types tested sequentially"
+      - "Selected type matches prospect state"
+      - "Example opening specific to product and audience"
+      - "Reasoning documented"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: opening_type
+      format: recommendation
+      description: "Offer Direct / Problem-Fear / Story-Curiosity / Identification"
+    - name: type_reasoning
+      format: explanation
+      description: "Why this type fits the prospect state"
+    - name: example_opening
+      format: copy_text
+      description: "Tailored example opening sentence"

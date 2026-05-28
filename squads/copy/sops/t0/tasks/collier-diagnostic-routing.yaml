@@ -1,0 +1,85 @@
+sop:
+  id: collier-diagnostic-routing
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Diagnostic Input Routing"
+  purpose: >
+    Route incoming diagnostic requests to correct Collier sub-protocol based on
+    input type. NEW PROSPECT → Conversation Mapping, EXISTING COPY → 6 Essentials
+    Audit + Opening Diagnostic, SEQUENCE PLAN → Follow-Up Protocol.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: robert-collier
+    artifact_type: task
+
+  steps:
+    - id: classify_input
+      action: determine_input_type
+      description: "Classify input as NEW PROSPECT, EXISTING COPY, or SEQUENCE PLAN based on indicators"
+      inputs:
+        - diagnostic_request
+      critical: true
+      output: input_classification
+
+    - id: route_protocol
+      action: execute_routed_subprotocol
+      description: "Route to correct sub-protocol: Conversation Mapping, 6 Essentials + Opening Type, or Follow-Up Sequence"
+      depends_on: classify_input
+      output: subprotocol_output
+
+    - id: apply_motives
+      action: classify_six_prime_motives
+      description: "ALWAYS: Identify dominant motive from Six Prime Motives (Love, Gain, Duty, Pride, Self-Indulgence, Self-Preservation)"
+      depends_on: classify_input
+      output: motive_classification
+
+    - id: apply_desire_hierarchy
+      action: map_desire_hierarchy
+      description: "ALWAYS: Map desire hierarchy 4 levels deep (Surface, Emotional, Identity, Core Fear)"
+      depends_on: classify_input
+      output: desire_hierarchy
+
+    - id: compile_output
+      action: merge_diagnostic_outputs
+      description: "Combine sub-protocol output with universal diagnostics into single deliverable"
+      depends_on:
+        - route_protocol
+        - apply_motives
+        - apply_desire_hierarchy
+      output: complete_diagnostic
+
+  error_handling:
+    - error: misclassified_input
+      symptom: "Wrong diagnostic tool applied to input"
+      resolution: "Classify by what is PROVIDED, not what is asked"
+    - error: skipped_universals
+      symptom: "Output missing motive or desire hierarchy"
+      resolution: "ALWAYS run motives and hierarchy regardless of input type"
+    - error: incomplete_existing_copy_routing
+      symptom: "Only 6 Essentials or only Opening Type applied"
+      resolution: "EXISTING COPY requires BOTH protocols"
+
+  quality_gate:
+    criteria:
+      - "Input correctly classified"
+      - "Correct sub-protocol executed"
+      - "Universal diagnostics applied"
+      - "Conversation map and entry point present"
+      - "All sub-protocol outputs included"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: routed_diagnostic
+      format: composite_report
+      description: "Combined output from sub-protocol and universal diagnostics"
+    - name: conversation_map
+      format: structured_map
+      description: "Entry point and opening prescription (always present)"
+    - name: motive_classification
+      format: classification
+      description: "Dominant prime motive identified"

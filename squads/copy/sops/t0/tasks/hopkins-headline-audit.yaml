@@ -1,0 +1,98 @@
+sop:
+  id: hopkins-headline-audit
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Headline Audit (4 Filters)"
+  purpose: >
+    Audit any headline against Hopkins' four mandatory filters: service to reader,
+    novelty, curiosity, and salesman test. Determines whether a headline will
+    attract the right readers and justify advertising investment.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: claude-hopkins
+    artifact_type: task
+
+  steps:
+    - id: read_headline
+      action: receive_headline_text
+      description: "Read the headline exactly as written without adding context"
+      inputs:
+        - headline_text
+        - target_audience
+      output: headline_under_audit
+
+    - id: filter_service
+      action: evaluate_reader_service
+      description: "Filter 1: Does headline offer service/benefit appealing to reader's self-interest?"
+      depends_on: read_headline
+      critical: true
+      output: service_verdict
+
+    - id: filter_novelty
+      action: evaluate_novelty
+      description: "Filter 2: Does headline contain news, new discovery, or fresh perspective?"
+      depends_on: read_headline
+      output: novelty_verdict
+
+    - id: filter_curiosity
+      action: evaluate_curiosity
+      description: "Filter 3: Does headline create enough curiosity to compel reading body copy?"
+      depends_on: read_headline
+      output: curiosity_verdict
+
+    - id: filter_salesman
+      action: evaluate_salesman_test
+      description: "Filter 4: Could a salesman use this exact phrase face-to-face?"
+      depends_on: read_headline
+      output: salesman_verdict
+
+    - id: emit_verdict
+      action: compile_headline_verdict
+      description: "Combine filter results: PASS (4/4), PARTIAL (2-3), FAIL (0-1)"
+      depends_on:
+        - filter_service
+        - filter_novelty
+        - filter_curiosity
+        - filter_salesman
+      output: overall_verdict
+
+    - id: prescribe_improvements
+      action: write_headline_prescriptions
+      description: "Write specific alternative headline text for each failed filter"
+      depends_on: emit_verdict
+      output: improvement_prescriptions
+
+  error_handling:
+    - error: cleverness_as_curiosity
+      symptom: "Wordplay headline falsely passes curiosity filter"
+      resolution: "Curiosity must be about the BENEFIT, not decoding a pun"
+    - error: company_focused_headline
+      symptom: "Headline about the company passes service filter"
+      resolution: "Reframe: what does this mean FOR the reader?"
+    - error: skipped_salesman_test
+      symptom: "Headline sounds like advertising, not conversation"
+      resolution: "Read aloud as if talking to one person"
+
+  quality_gate:
+    criteria:
+      - "All 4 filters explicitly evaluated"
+      - "Each evaluation includes reasoning"
+      - "Overall verdict assigned"
+      - "Failed filters have prescriptions with alternative text"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: filter_results
+      format: structured_report
+      description: "Pass/fail per filter with reasoning"
+    - name: headline_verdict
+      format: verdict
+      description: "PASS / PARTIAL / FAIL"
+    - name: prescriptions
+      format: actionable_list
+      description: "Alternative headline text for failed filters"

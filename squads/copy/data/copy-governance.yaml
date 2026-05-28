@@ -1,0 +1,131 @@
+version: "1.0.0"
+owner: "copy-chief"
+status: active
+updated_at: "2026-03-28"
+source_of_truth: "squads/copy/data/copy-governance.yaml"
+information_architecture: "squads/copy/data/copy-information-architecture.yaml"
+
+campaign_taxonomy:
+  canonical_terms:
+    - Campaign Brief
+    - Message Architecture
+    - Creative Brief
+    - Asset Brief
+    - Copy Deck
+    - Review Gates
+    - Validation Loop
+  naming_rules:
+    use_as_primary_labels:
+      - "Campaign Brief para framing de campanha"
+      - "Message Architecture para lógica de mensagem"
+      - "Creative Brief para direção de execução"
+      - "Asset Brief para especificação de uma peça"
+      - "Copy Deck para o artefato final de copy"
+    avoid_as_primary_labels:
+      - PRD
+      - Epic
+      - Story
+  storage:
+    planning_root: "workspace/businesses/{business}/L4-operational/campaigns/{campaign_slug}/"
+    delivery_root: "outputs/copy/{business}/"
+    rule: "Planning artifacts vivem em workspace (ADR-012); copy entregue vive em outputs/copy."
+  source_of_truth_rules:
+    - "Business truth vem de L0-identity, L1-strategy e L2-tactical/brand."
+    - "Product truth vem de L3-product/{product}/ e narrativa associada."
+    - "Campaign truth vem de workspace/businesses/{business}/L4-operational/campaigns/{campaign_slug}/ (ADR-012)."
+    - "Delivery-ready copy vive em outputs/copy/{business}/."
+
+principles:
+  - "Clareza antes de sofisticação"
+  - "Uma seção, uma ideia dominante"
+  - "Especificidade antes de adjetivo"
+  - "Prova e mecanismo antes de hype"
+  - "Arquitetura L0-L4 do Hub é a base; campaign layer é overlay operacional"
+  - "Sem campaign brief persistido, estratégico/high-ticket/FINAL não sobe"
+
+surfaces:
+  S1:
+    name: transacional
+    contexts:
+      - cta_labels
+      - form_hints
+      - validation_messages
+      - error_messages
+      - empty_states
+    language_profile:
+      target: "very_simple"
+      sentence_max_words: 20
+      preferred_sentence_range: "8-14"
+      jargon_policy: "forbidden_unless_explained"
+      passive_voice: "avoid"
+      cta_policy: "explicit_action"
+    required_rules:
+      - "Ação compreensível em menos de 5 segundos"
+      - "Nada de CTA abstrato"
+      - "Erro inclui causa e próximo passo"
+
+  S2:
+    name: operacional
+    contexts:
+      - landing_pages
+      - sales_pages
+      - email_sequences
+      - ads
+      - campaign_planning
+    language_profile:
+      target: "simple_with_domain_terms"
+      sentence_max_words: 24
+      preferred_sentence_range: "10-18"
+      jargon_policy: "allowed_if_core_term"
+      passive_voice: "discouraged"
+      cta_policy: "specific_and_contextual"
+    required_rules:
+      - "Termos de domínio consistentes"
+      - "Instruções diretamente executáveis"
+      - "Parágrafos com uma ideia dominante"
+
+  S3:
+    name: especialista
+    contexts:
+      - advanced_docs
+      - setup_runbooks
+      - architecture_notes
+      - planning_artifacts
+    language_profile:
+      target: "deep_but_scannable"
+      sentence_max_words: 32
+      preferred_sentence_range: "12-24"
+      jargon_policy: "allowed_with_definition"
+      passive_voice: "allowed_if_clear"
+      cta_policy: "task-oriented"
+    required_rules:
+      - "Complexidade progressiva"
+      - "Exemplos para instruções não triviais"
+      - "Checklist ou TLDR quando aplicável"
+
+enforcement:
+  automation:
+    tool: null
+    run_in_ci: false
+    note: "Ainda sem copy-linter determinístico portado para o Hub."
+  human_review:
+    required_for:
+      - "Copy de posicionamento"
+      - "Brand voice final pass"
+      - "Claims sensíveis"
+      - "Qualquer promoção para FINAL"
+
+quality_gates:
+  S1:
+    max_errors: 0
+    max_warns: 3
+  S2:
+    max_errors: 0
+    max_warns: 5
+  S3:
+    max_errors: 0
+    max_warns: 8
+
+notes:
+  - "A heurística de simplicidade é obrigatória em S1, recomendada em S2 e contextual em S3."
+  - "Não simplificar conteúdo especialista até virar commodity."

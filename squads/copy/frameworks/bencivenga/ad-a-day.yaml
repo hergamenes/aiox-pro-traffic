@@ -1,0 +1,33 @@
+# The Ad-A-Day Habit
+# Source: Bencivenga's personal practice
+# Category: skill_development
+
+name: "The Ad-A-Day Habit"
+category: "skill_development"
+origin: "Bencivenga's personal practice"
+
+philosophy: |
+  "One of the secrets I teach copywriters and marketers who want to be more
+  successful is to be sure they read a great direct response ad every day."
+
+principle: |
+  "I've been writing copy for more than 40 years now, and I still do my
+  'ad-a-day' thing, just to keep sharp."
+
+implementation:
+  daily_practice:
+    - "Find one great direct response ad or sales letter"
+    - "Read it completely, as a consumer would"
+    - "Read it again, analytically, as a copywriter"
+    - "Identify what makes it work"
+    - "Note techniques you can adapt"
+
+  sources:
+    - "Swipe files (yours and others')"
+    - "Classic direct mail pieces"
+    - "Successful online sales letters"
+    - "Award-winning campaigns"
+
+quote: |
+  "Investing in your own knowledge is always the greatest investment
+  you can make."

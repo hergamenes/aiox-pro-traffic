@@ -1,0 +1,61 @@
+sop:
+  id: schwartz-seven-breakthrough-techniques
+  version: "1.0"
+  title: "7 Tecnicas do Breakthrough Copy"
+  purpose: "Seven core body copy techniques from Breakthrough Advertising — each addresses a different persuasion challenge, selected based on triad diagnosis."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: eugene-schwartz
+  steps:
+    - id: apply_intensification
+      action: "Build desire through layered images, claims, and promises"
+      input: "Product benefits, use cases, emotional payoffs"
+      output: "Copy section stacking multiple dimensions of desire"
+      validation: "Each paragraph adds a new benefit dimension; desire builds progressively"
+    - id: apply_identification
+      action: "Make the prospect see themselves in the copy"
+      input: "Prospect language, daily scenarios, specific frustrations"
+      output: "Copy section using prospect's own language and life situations"
+      validation: "Scenarios are specific enough that prospect feels ad was written for them"
+    - id: apply_gradualization
+      action: "Build belief incrementally through small agreements"
+      input: "Prospect's existing beliefs, product claims requiring belief"
+      output: "Copy section with progressive agreement chain leading to product claim"
+      validation: "No single belief step requires a large leap; each builds on the previous"
+    - id: apply_redefinition
+      action: "Remove objections by reframing perceived disadvantages"
+      input: "Known product objections, alternative frames"
+      output: "Redefined perception for each disadvantage"
+      validation: "Frame shift is credible and does not require changing the product"
+    - id: apply_mechanization
+      action: "Explain HOW and WHY the product works"
+      input: "Product process, ingredients, technology, method"
+      output: "Mechanism explanation that creates believability"
+      validation: "Mechanism is specific, credible, and answers 'why does it work?'"
+    - id: apply_concentration
+      action: "Destroy confidence in competing approaches"
+      input: "Competitor weaknesses, alternative approach failures"
+      output: "Copy section contrasting competitor approach failures with product strengths"
+      validation: "Attacks the approach, not the brand name; uses contrast or temporal sequence"
+    - id: apply_camouflage
+      action: "Borrow credibility from trusted external sources"
+      input: "Relevant studies, expert endorsements, institutional citations"
+      output: "Copy section with cited authority transferring credibility to product"
+      validation: "Source is credible, relevant, and verifiable"
+  error_handling:
+    - error: "Copy uses only one technique"
+      resolution: "Review technique arsenal; add at least 2 additional techniques based on triad"
+    - error: "Identification is too generic"
+      resolution: "Replace with specific prospect scenarios, daily frustrations, exact language"
+    - error: "Mechanism is not credible"
+      resolution: "Ground mechanism in verifiable science, process, or ingredient data"
+  quality_gate:
+    criteria:
+      - "Minimum 3 of 7 techniques used in body copy"
+      - "Technique selection matches triad diagnosis"
+      - "Intensification builds multiple desire layers"
+      - "Identification uses prospect's actual language"
+      - "No competitor names used in concentration sections"
+    pass_threshold: "All 5 criteria met"

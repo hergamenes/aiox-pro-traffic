@@ -1,0 +1,94 @@
+sop:
+  id: jw-internal-launch
+  version: 1.0.0
+  title: Internal Launch
+  purpose: Full PLF launch to your own list with 3 PLC videos + Open Cart sequence. Test and refine before JV
+  classification:
+    domain: copywriting
+    category: systematizer
+    source_agent: jeff-walker
+    artifact_type: task
+    tier: t2
+  status: ACTIVE
+  trigger:
+    type: manual
+    description: When you have an existing list (1000+) and a proven product from Seed Launch
+  context:
+    input:
+    - name: email_list
+      type: list
+      required: true
+      description: Own email list, minimum 1000 subscribers
+    - name: product
+      type: object
+      required: true
+      description: Finished product with testimonials from Seed Launch
+    - name: conversion_data
+      type: object
+      required: false
+      description: Previous launch data if available
+  steps:
+  - id: S001
+    name: Step 1
+    action: execute_step_1
+    description: Take the finished product from Seed Launch (or create new product)
+    performer: copywriter
+    critical: true
+    on_success: S002
+    on_failure: retry
+  - id: S002
+    name: Build full Prelaunch Sequence
+    action: execute_step_2
+    description: 3 PLC videos + Open Cart sequence
+    performer: copywriter
+    critical: true
+    on_success: S003
+    on_failure: retry
+  - id: S003
+    name: Step 3
+    action: execute_step_3
+    description: Launch to your own list only (no JV partners)
+    performer: copywriter
+    critical: true
+    on_success: S004
+    on_failure: retry
+  - id: S004
+    name: Step 4
+    action: execute_step_4
+    description: Test and refine offer, pricing, sales page, and conversion
+    performer: copywriter
+    critical: false
+    on_success: S005
+    on_failure: retry
+  - id: S005
+    name: Collect data
+    action: execute_step_5
+    description: conversion rates, EPC, objections, feedback
+    performer: copywriter
+    critical: false
+    on_success: S006
+    on_failure: retry
+  - id: S006
+    name: Step 6
+    action: execute_step_6
+    description: Use results to prove the offer works before approaching JV partners
+    performer: copywriter
+    critical: false
+    on_success: S007
+    on_failure: retry
+  - id: S007
+    name: Step 7
+    action: execute_step_7
+    description: Build testimonials and Case Studies from buyers
+    performer: copywriter
+    critical: false
+    on_success: COMPLETE
+    on_failure: retry
+  quality_gate:
+    pass_threshold: 7
+    total_checks: 7
+    mandatory_passes:
+    - S001
+    - S002
+    - S003
+    verdict_on_fail: BLOCK

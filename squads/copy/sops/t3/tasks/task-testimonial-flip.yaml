@@ -1,0 +1,58 @@
+sop:
+  id: task-testimonial-flip
+  version: "1.0"
+  title: "Testimonial Flip Technique"
+  purpose: "Transform third-person testimonials into immersive second-person reader experiences using sensory language to increase emotional engagement"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: jon-benson
+    tier: T3
+
+  inputs:
+    - name: testimonials
+      type: list
+      required: true
+      description: "Real testimonials from actual customers with names and specific results"
+
+  outputs:
+    - name: flipped_testimonials
+      type: list
+      description: "Testimonial blocks with third-person proof flipped to second-person experience"
+
+  steps:
+    - id: step_1
+      action: present_testimonial
+      description: "Write testimonial in standard third-person format with real name and specific result"
+
+    - id: step_2
+      action: execute_flip
+      description: "Pivot to second person placing reader inside the experience, contrasting current pain with result"
+      critical: true
+
+    - id: step_3
+      action: apply_sensory_language
+      description: "Layer visual, tactile, and auditory cues so reader physically experiences the outcome"
+      critical: true
+      error_handling:
+        condition: "Sensory language is generic (e.g., 'feel better')"
+        action: "Replace with specific sensory cues: what they see, touch, hear"
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "Original testimonial uses real customer name"
+      - "Flip transitions smoothly from third to second person"
+      - "At least 2 senses used in sensory language"
+      - "Flip is 2-4 sentences not a full paragraph"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies: []
+
+  related_sops:
+    - task-vsl-5-step
+    - task-mht-exercise
+    - task-outcome-description-rewrite

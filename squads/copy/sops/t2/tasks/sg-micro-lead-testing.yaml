@@ -1,0 +1,116 @@
+sop:
+  id: "sg-micro-lead-testing"
+  version: "1.0.0"
+  title: "Micro-Lead Testing Architecture"
+  purpose: "Test 3-5 opening variants against constant body copy to identify the highest-converting lead, targeting 33-40% conversion lift"
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    risk_level: "low"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "After completing body copy via RMBC, or when optimizing an existing copy piece with proven body"
+  context:
+    input:
+      - name: "completed_body_copy"
+        type: "string"
+        required: true
+        description: "Finalized body copy that will remain constant across all micro-lead variants"
+  steps:
+    - id: "S001"
+      name: "Lock body copy"
+      action: "freeze_body_copy"
+      description: "Finalize and freeze body copy. Define the exact cut point where the lead ends and the body begins. Document this transition point."
+      performer: "copywriter"
+      critical: true
+      on_success: "S002"
+      on_failure: "retry"
+    - id: "S002"
+      name: "Write emotional/sentimental variant"
+      action: "write_lead_variant_emotional"
+      description: "Write 150-300 word lead opening with vivid emotional scene the prospect recognizes. Heavy on feeling, imagery, and 'you've been there' language."
+      performer: "copywriter"
+      critical: false
+      on_success: "S003"
+      on_failure: "retry"
+    - id: "S003"
+      name: "Write pure curiosity variant"
+      action: "write_lead_variant_curiosity"
+      description: "Write 150-300 word lead with counterintuitive or mysterious statement that creates an information gap the reader must close."
+      performer: "copywriter"
+      critical: false
+      on_success: "S004"
+      on_failure: "retry"
+    - id: "S004"
+      name: "Write contrarian variant"
+      action: "write_lead_variant_contrarian"
+      description: "Write 150-300 word lead that challenges a widely held belief in the market and makes the reader question what they thought they knew."
+      performer: "copywriter"
+      critical: false
+      on_success: "S005"
+      on_failure: "retry"
+    - id: "S005"
+      name: "Write story-based variant"
+      action: "write_lead_variant_story"
+      description: "Write 150-300 word lead with specific narrative including character, setting, date, and tension. Reader follows story naturally into body."
+      performer: "copywriter"
+      critical: false
+      on_success: "S006"
+      on_failure: "retry"
+    - id: "S006"
+      name: "Write big promise + fascinations variant"
+      action: "write_lead_variant_promise"
+      description: "Write 150-300 word lead with bold specific promise followed by bullet-point fascinations. Combine large claim with curiosity-driven mini-hooks."
+      performer: "copywriter"
+      critical: false
+      on_success: "S007"
+      on_failure: "retry"
+    - id: "S007"
+      name: "Validate transitions"
+      action: "check_lead_body_transitions"
+      description: "Review each variant's final paragraph to confirm smooth, natural connection to the body's opening paragraph. No jarring changes in tone, topic, or logic."
+      performer: "copywriter"
+      critical: true
+      on_success: "S008"
+      on_failure: "S002"
+    - id: "S008"
+      name: "Configure A/B test"
+      action: "setup_split_test"
+      description: "Configure each variant as a separate test cell with equal traffic split. Ensure tracking for primary conversion metric. Define 95% confidence threshold."
+      performer: "copywriter"
+      critical: false
+      on_success: "END"
+      on_failure: "retry"
+  error_handling:
+    global_timeout: "PT4H"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "body_copy_frozen"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "variant_count"
+        type: "numeric"
+        target: 3
+        weight: 0.2
+      - name: "variants_are_distinct_styles"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "word_count_150_300"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "smooth_transitions"
+        type: "boolean"
+        target: true
+        weight: 0.2
+    pass_threshold: 0.85
+  outputs:
+    artifacts:
+      - name: "micro_lead_variants"
+        type: "file"
+        format: "md"
+        description: "3-5 micro-lead variants (150-300 words each) in distinct styles ready for A/B testing"

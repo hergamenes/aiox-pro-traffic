@@ -1,0 +1,18 @@
+# Headlines & Subject Lines
+# Target: 150-200 entries
+# Attention-grabbing openers
+
+category: headlines
+target_count: "150-200"
+description: "Attention-grabbing openers"
+created: 2026-01-23T04:07:02-03:00
+entries: []
+tags: []
+
+# Quality distribution (target)
+quality_distribution:
+  5_star: "10%"
+  4_star: "30%"
+  3_star: "40%"
+  2_star: "15%"
+  1_star: "5%"

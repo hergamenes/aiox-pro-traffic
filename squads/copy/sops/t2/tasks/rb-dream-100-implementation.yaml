@@ -1,0 +1,101 @@
+sop:
+  id: "rb-dream-100-implementation"
+  version: "1.0.0"
+  title: "Dream 100 Implementation"
+  purpose: "Systematically identify, engage, and leverage 100 people and channels that already have your dream customers, converting their audiences into your traffic through relationship-building and strategic outreach."
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    risk_level: "low"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "When entering a new market, launching a new funnel, or needing to build/expand audience reach through strategic relationship-based traffic acquisition."
+  context:
+    input:
+      - name: "niche_market"
+        type: "string"
+        required: true
+        description: "Clearly defined niche and target market for identifying relevant audience congregations."
+      - name: "avatar_profile"
+        type: "object"
+        required: false
+        description: "Completed avatar profile defining the dream customer's demographics, psychographics, and online behavior."
+  steps:
+    - id: "S001"
+      name: "Build Initial Dream 100 List"
+      action: "compile_dream_100"
+      description: "Identify 100 people, channels, and communities that already have the target audience. Categorize by type, document audience size and engagement, rank by relevance in 3 tiers."
+      performer: "copywriter"
+      critical: true
+      on_success: "S002"
+      on_failure: "retry"
+    - id: "S002"
+      name: "Dig Your Well"
+      action: "begin_pre_outreach_engagement"
+      description: "Follow and engage with all 100 entries for 30-60 days before any ask. Consume their content, start relationship logs, and add value with zero expectation."
+      performer: "copywriter"
+      critical: true
+      on_success: "S003"
+      on_failure: "retry"
+    - id: "S003"
+      name: "Execute Daily Engagement Routine"
+      action: "daily_10_comments_10_dms"
+      description: "Commit to daily 30-60 minute block: 10 substantive comments (3+ sentences) on Dream 100 content plus 10 value-first direct messages. Track all interactions in relationship log."
+      performer: "copywriter"
+      critical: true
+      on_success: "S004"
+      on_failure: "retry"
+    - id: "S004"
+      name: "Work Your Way In"
+      action: "propose_collaborations"
+      description: "After 30+ days of engagement, propose value exchanges to responsive members: guest appearances, joint content, newsletter swaps. Lead with what you offer them."
+      performer: "copywriter"
+      critical: false
+      on_success: "S005"
+      on_failure: "retry"
+    - id: "S005"
+      name: "Buy Your Way In"
+      action: "launch_paid_placements"
+      description: "Identify paid opportunities (sponsorships, ads, shoutouts) targeting Dream 100 audiences. Test with $100-500 budgets, track ROI, scale winners."
+      performer: "copywriter"
+      critical: false
+      on_success: "S006"
+      on_failure: "retry"
+    - id: "S006"
+      name: "Quarterly Re-evaluation"
+      action: "audit_and_update_list"
+      description: "Every 2-3 months, remove inactive/irrelevant entries, add emerging creators, promote high-performers to tier 1, archive removed entries with notes."
+      performer: "copywriter"
+      critical: false
+      on_success: "DONE"
+      on_failure: "retry"
+  error_handling:
+    global_timeout: "PT4H"
+    retry_policy: "max 2 retries per step before escalation"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "full_100_list_compiled"
+        type: "boolean"
+        target: true
+        weight: 1.0
+      - name: "30_day_pre_engagement_completed"
+        type: "boolean"
+        target: true
+        weight: 1.0
+      - name: "daily_routine_active"
+        type: "boolean"
+        target: true
+        weight: 0.8
+      - name: "quarterly_review_scheduled"
+        type: "boolean"
+        target: true
+        weight: 0.5
+    pass_threshold: 0.8
+  outputs:
+    artifacts:
+      - name: "dream_100_list"
+        type: "file"
+        format: "md"
+        description: "Tiered Dream 100 list with relationship status tracking, engagement logs, and quarterly update schedule."

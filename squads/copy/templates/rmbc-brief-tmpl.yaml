@@ -1,0 +1,513 @@
+# RMBC Brief Template
+# CopywriterOS - Template para Brief de Copy usando RMBC Method
+# Baseado na metodologia Stefan Georgi
+
+template:
+  id: rmbc-brief-template-v1
+  name: "RMBC Brief Template"
+  version: "1.0"
+  origin: "Stefan Georgi - RMBC Method"
+  output:
+    format: markdown
+    filename: "brief-{{product_slug}}.md"
+
+# Variáveis de Input
+variables:
+  required:
+    - product_name: "Nome do produto"
+    - mechanism_name: "Nome do mecanismo"
+    - mechanism_description: "Descrição do mecanismo"
+    - main_benefit: "Benefício principal"
+    - avatar: "Descrição do avatar"
+    - price: "Preço"
+  optional:
+    - research_doc: "Link para documento de research"
+    - guarantee: "Garantia oferecida"
+    - bonuses: "Lista de bônus"
+    - urgency_type: "Tipo de urgência"
+    - deadline: "Data limite"
+
+# Estrutura do Brief
+sections:
+
+  # =============================================================================
+  # HEADER
+  # =============================================================================
+  - id: header
+    name: "Brief Header"
+    template: |
+      # RMBC BRIEF: {{product_name}}
+
+      **Data:** {{date}}
+      **Autor:** {{author}}
+      **Versão:** {{version}}
+
+      ---
+
+      ## META INFORMATION
+
+      | Campo | Valor |
+      |-------|-------|
+      | Produto | {{product_name}} |
+      | Mecanismo | {{mechanism_name}} |
+      | Avatar | {{avatar_summary}} |
+      | Formato | {{format_type}} |
+      | Research Doc | {{research_doc_link}} |
+
+      ---
+
+  # =============================================================================
+  # SECTION 1: HEADLINE & SUB-HEADLINE
+  # =============================================================================
+  - id: headlines
+    name: "Headline Section"
+    template: |
+      ## SECTION 1: HEADLINE & SUB-HEADLINE
+
+      ### Headline Principal
+      ```
+      {{main_headline}}
+      ```
+
+      **Estrutura Usada:** {{headline_structure}}
+      - Benefício: {{headline_benefit}}
+      - Mecanismo: {{headline_mechanism}}
+      - Curiosidade: {{headline_curiosity}}
+
+      ### Sub-headline
+      ```
+      {{sub_headline}}
+      ```
+
+      ### Headlines de Backup (para teste A/B)
+
+      **Backup 1:**
+      ```
+      {{backup_headline_1}}
+      ```
+
+      **Backup 2:**
+      ```
+      {{backup_headline_2}}
+      ```
+
+      **Backup 3:**
+      ```
+      {{backup_headline_3}}
+      ```
+
+  # =============================================================================
+  # SECTION 2: LEAD/OPENING
+  # =============================================================================
+  - id: lead
+    name: "Lead Section"
+    template: |
+      ---
+
+      ## SECTION 2: LEAD/OPENING
+
+      ### Tipo de Lead Escolhido
+      - [ ] Story Lead (história pessoal)
+      - [ ] Problem Lead (direto no problema)
+      - [ ] News Lead (novidade/descoberta)
+      - [ ] Question Lead (pergunta provocativa)
+      - [ ] Prediction Lead (futuro/consequência)
+
+      **Tipo selecionado:** {{lead_type}}
+      **Justificativa:** {{lead_justification}}
+
+      ### Hook de Abertura (primeiras 3-5 frases)
+
+      ```
+      {{opening_hook}}
+      ```
+
+      ### Bullets da Lead
+
+      **Estabelecer rapport/identificação:**
+      - {{rapport_bullet_1}}
+      - {{rapport_bullet_2}}
+
+      **Agitar o problema:**
+      - {{problem_bullet_1}}
+      - {{problem_bullet_2}}
+      - {{problem_bullet_3}}
+
+      **Prometer solução (sem revelar ainda):**
+      - {{promise_bullet_1}}
+      - {{promise_bullet_2}}
+
+      ### Transição para Mecanismo
+
+      ```
+      {{mechanism_transition}}
+      ```
+
+  # =============================================================================
+  # SECTION 3: MECHANISM REVEAL
+  # =============================================================================
+  - id: mechanism
+    name: "Mechanism Reveal Section"
+    template: |
+      ---
+
+      ## SECTION 3: MECHANISM REVEAL
+
+      ### O Mecanismo
+
+      **Nome:** {{mechanism_name}}
+      **Tipo:** {{mechanism_type}}
+
+      ### Bullets do Mecanismo
+
+      **O que o mecanismo é:**
+      - {{mechanism_what_1}}
+      - {{mechanism_what_2}}
+
+      **Como funciona (ciência/lógica):**
+      - {{mechanism_how_1}}
+      - {{mechanism_how_2}}
+      - {{mechanism_how_3}}
+
+      **Por que é diferente:**
+      - {{mechanism_different_1}}
+      - {{mechanism_different_2}}
+
+      **Por que você não sabia disso:**
+      - {{mechanism_hidden_1}}
+
+      **Prova de que funciona:**
+      - {{mechanism_proof_1}}
+      - {{mechanism_proof_2}}
+
+      ### Analogia/Visualização
+
+      {{mechanism_analogy}}
+
+      ### Objeções a Endereçar
+
+      **"Isso parece bom demais para ser verdade"**
+      Resposta: {{objection_tgtbt}}
+
+      **"Por que nunca ouvi falar disso?"**
+      Resposta: {{objection_never_heard}}
+
+      **"Isso funciona para pessoas como eu?"**
+      Resposta: {{objection_works_for_me}}
+
+  # =============================================================================
+  # SECTION 4: BODY/BENEFITS
+  # =============================================================================
+  - id: body
+    name: "Body/Benefits Section"
+    template: |
+      ---
+
+      ## SECTION 4: BODY/BENEFITS
+
+      ### Benefício #1: {{benefit_1_name}}
+
+      **Descrição:**
+      {{benefit_1_description}}
+
+      **Conexão com mecanismo:**
+      {{benefit_1_mechanism_connection}}
+
+      **Prova:**
+      {{benefit_1_proof}}
+
+      **Future Pacing:**
+      {{benefit_1_future_pacing}}
+
+      ---
+
+      ### Benefício #2: {{benefit_2_name}}
+
+      **Descrição:**
+      {{benefit_2_description}}
+
+      **Conexão com mecanismo:**
+      {{benefit_2_mechanism_connection}}
+
+      **Prova:**
+      {{benefit_2_proof}}
+
+      **Future Pacing:**
+      {{benefit_2_future_pacing}}
+
+      ---
+
+      ### Benefício #3: {{benefit_3_name}}
+
+      **Descrição:**
+      {{benefit_3_description}}
+
+      **Conexão com mecanismo:**
+      {{benefit_3_mechanism_connection}}
+
+      **Prova:**
+      {{benefit_3_proof}}
+
+      **Future Pacing:**
+      {{benefit_3_future_pacing}}
+
+      ---
+
+      ### Benefício #4: {{benefit_4_name}}
+
+      **Descrição:**
+      {{benefit_4_description}}
+
+      **Conexão com mecanismo:**
+      {{benefit_4_mechanism_connection}}
+
+      **Prova:**
+      {{benefit_4_proof}}
+
+      ---
+
+      ### Benefício #5: {{benefit_5_name}}
+
+      **Descrição:**
+      {{benefit_5_description}}
+
+      **Conexão com mecanismo:**
+      {{benefit_5_mechanism_connection}}
+
+      **Prova:**
+      {{benefit_5_proof}}
+
+      ---
+
+      ### Objeções no Body
+
+      | Objeção | Resposta |
+      |---------|----------|
+      | {{body_objection_1}} | {{body_response_1}} |
+      | {{body_objection_2}} | {{body_response_2}} |
+      | {{body_objection_3}} | {{body_response_3}} |
+
+  # =============================================================================
+  # SECTION 5: CREDIBILITY
+  # =============================================================================
+  - id: credibility
+    name: "Credibility Section"
+    template: |
+      ---
+
+      ## SECTION 5: CREDIBILITY
+
+      ### História do Criador
+
+      **Background/qualificações:**
+      {{creator_background}}
+
+      **Por que criou isso:**
+      {{creator_why}}
+
+      **Resultados pessoais:**
+      {{creator_results}}
+
+      **Por que está compartilhando agora:**
+      {{creator_why_sharing}}
+
+      ### Testemunhos Principais
+
+      **Testemunho #1:**
+      - Nome: {{testimonial_1_name}}
+      - Resultado: {{testimonial_1_result}}
+      - Situação antes: {{testimonial_1_before}}
+      - Quote key: "{{testimonial_1_quote}}"
+
+      **Testemunho #2:**
+      - Nome: {{testimonial_2_name}}
+      - Resultado: {{testimonial_2_result}}
+      - Situação antes: {{testimonial_2_before}}
+      - Quote key: "{{testimonial_2_quote}}"
+
+      **Testemunho #3:**
+      - Nome: {{testimonial_3_name}}
+      - Resultado: {{testimonial_3_result}}
+      - Situação antes: {{testimonial_3_before}}
+      - Quote key: "{{testimonial_3_quote}}"
+
+      ### Prova de Autoridade
+
+      **Mídia/publicações:**
+      {{authority_media}}
+
+      **Experts que endossam:**
+      {{authority_experts}}
+
+      **Números impressionantes:**
+      {{authority_numbers}}
+
+      ### Elementos de Confiança
+
+      - Garantia: {{guarantee_preview}}
+      - Suporte: {{support_info}}
+      - Comunidade: {{community_info}}
+
+  # =============================================================================
+  # SECTION 6: OFFER
+  # =============================================================================
+  - id: offer
+    name: "Offer Section"
+    template: |
+      ---
+
+      ## SECTION 6: OFFER
+
+      ### Produto Principal
+
+      | Componente | Descrição | Valor |
+      |------------|-----------|-------|
+      | {{component_1_name}} | {{component_1_desc}} | R$ {{component_1_value}} |
+      | {{component_2_name}} | {{component_2_desc}} | R$ {{component_2_value}} |
+      | {{component_3_name}} | {{component_3_desc}} | R$ {{component_3_value}} |
+
+      ### Bônus
+
+      **Bônus #1: {{bonus_1_name}}**
+      - Descrição: {{bonus_1_description}}
+      - Por que incluir: {{bonus_1_why}}
+      - Valor: R$ {{bonus_1_value}}
+
+      **Bônus #2: {{bonus_2_name}}**
+      - Descrição: {{bonus_2_description}}
+      - Por que incluir: {{bonus_2_why}}
+      - Valor: R$ {{bonus_2_value}}
+
+      **Bônus #3: {{bonus_3_name}}**
+      - Descrição: {{bonus_3_description}}
+      - Por que incluir: {{bonus_3_why}}
+      - Valor: R$ {{bonus_3_value}}
+
+      ### Value Stack
+
+      ```
+      {{component_1_name}}........................R$ {{component_1_value}}
+      {{component_2_name}}........................R$ {{component_2_value}}
+      {{component_3_name}}........................R$ {{component_3_value}}
+      BÔNUS: {{bonus_1_name}}.....................R$ {{bonus_1_value}}
+      BÔNUS: {{bonus_2_name}}.....................R$ {{bonus_2_value}}
+      BÔNUS: {{bonus_3_name}}.....................R$ {{bonus_3_value}}
+      ─────────────────────────────────────────────────────────
+      VALOR TOTAL:                              R$ {{total_value}}
+
+      SEU INVESTIMENTO HOJE:                    R$ {{price}}
+
+      VOCÊ ECONOMIZA:                           R$ {{savings}} ({{savings_percent}}%)
+      ```
+
+      ### Ancoragem de Preço
+
+      {{price_anchoring}}
+
+      ### Garantia
+
+      **Nome da garantia:** {{guarantee_name}}
+      **Duração:** {{guarantee_duration}}
+      **Termos:** {{guarantee_terms}}
+      **Processo:** {{guarantee_process}}
+
+  # =============================================================================
+  # SECTION 7: CLOSE/CTA
+  # =============================================================================
+  - id: close
+    name: "Close/CTA Section"
+    template: |
+      ---
+
+      ## SECTION 7: CLOSE/CTA
+
+      ### Urgência
+
+      **Tipo:** {{urgency_type}}
+      - [ ] Deadline (data específica)
+      - [ ] Escassez (quantidade limitada)
+      - [ ] Preço sobe
+
+      **Razão legítima:**
+      {{urgency_reason}}
+
+      **Consequência de não agir:**
+      {{urgency_consequence}}
+
+      ### Risk Reversal
+
+      {{risk_reversal_statement}}
+
+      ### Recap Final de Benefícios
+
+      Ao se inscrever hoje, você vai:
+      - ✓ {{final_benefit_1}}
+      - ✓ {{final_benefit_2}}
+      - ✓ {{final_benefit_3}}
+
+      ### CTA Principal
+
+      **Texto do botão:** {{cta_button_text}}
+      **Micro-copy abaixo:** {{cta_micro_copy}}
+
+      ### P.S. Statements
+
+      **P.S. #1 (Benefício principal):**
+      {{ps_1}}
+
+      **P.S. #2 (Urgência):**
+      {{ps_2}}
+
+      **P.S. #3 (Garantia) [opcional]:**
+      {{ps_3}}
+
+# =============================================================================
+# VALIDATION CHECKLIST
+# =============================================================================
+validation:
+  required_sections:
+    - headlines
+    - lead
+    - mechanism
+    - body
+    - credibility
+    - offer
+    - close
+
+  minimum_requirements:
+    benefits: 5
+    testimonials: 3
+    backup_headlines: 2
+    bonuses: 2
+    ps_statements: 2
+
+  quality_gates:
+    - "Headline combina benefício + mecanismo + curiosidade?"
+    - "Lead prende atenção nas primeiras 3 frases?"
+    - "Mecanismo passa no teste de 5 perguntas (3+ SIMs)?"
+    - "Cada benefício tem prova associada?"
+    - "Credibilidade estabelece confiança?"
+    - "Oferta tem valor percebido 10x o preço?"
+    - "Urgência é legítima e justificada?"
+    - "CTA é claro e impossível de perder?"
+
+# =============================================================================
+# BRIEF QUALITY SCORING
+# =============================================================================
+scoring:
+  sections:
+    headlines: 2
+    lead: 2
+    mechanism: 2
+    body: 2
+    credibility: 2
+    offer: 2
+    close: 2
+
+  total_possible: 14
+  minimum_acceptable: 10
+  target: 12
+
+# Template Version: 1.0
+# Created: 2026-01-23
+# Methodology: Stefan Georgi RMBC Method

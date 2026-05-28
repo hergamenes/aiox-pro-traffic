@@ -1,0 +1,127 @@
+sop:
+  id: makepeace-veto-conditions
+  version: "1.0"
+  title: Makepeace Veto Conditions
+  purpose: >
+    Enforce Clayton Makepeace's non-negotiable proof requirements for health and
+    financial copy, including clinical study minimums, cure claim prohibition,
+    urgency authenticity, and bare necessities pre-assignment check.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: clayton-makepeace
+    artifact_type: veto
+    tier: t1
+
+  steps:
+    - action: validate_health_proof_minimum
+      id: CM_V01
+      description: Health copy requires 1 clinical study + 3 testimonials + 1 expert endorsement
+      condition: copy_vertical in ["health", "supplement", "wellness"]
+      required:
+        clinical_studies: 1
+        testimonials: 3
+        expert_endorsements: 1
+      rule: clinical_studies >= 1 AND testimonials >= 3 AND expert_endorsements >= 1
+      on_fail: BLOCK
+      remediation: gather_missing_proof_before_writing
+
+    - action: validate_no_cure_claims
+      id: CM_V02
+      description: Health copy containing cure claim -> VETO
+      prohibited_terms:
+        - cures
+        - treats
+        - heals
+        - eliminates disease
+        - guaranteed to fix
+        - reverses
+        - eradicates
+      compliant_alternatives:
+        - contributes to
+        - supports
+        - may help
+        - promotes
+        - helps maintain
+      rule: cure_claim_count == 0
+      on_fail: VETO
+      remediation: reformulate_with_compliant_language
+
+    - action: validate_no_artificial_urgency
+      id: CM_V03
+      description: Artificial urgency without real basis -> REFUSE
+      prohibited_patterns:
+        - resetting_countdown_timer
+        - unverified_spot_limits
+        - false_offer_expiration
+        - manufactured_scarcity
+      valid_urgency:
+        - seasonal_ingredient_availability
+        - batch_production_limits
+        - scheduled_price_increases
+        - natural_supply_constraints
+      rule: artificial_urgency_count == 0
+      on_fail: REFUSE
+      remediation: replace_with_natural_urgency
+
+    - action: validate_promise_proof_ratio
+      id: CM_V04
+      description: Copy promising without proving -> REWORK
+      rule: proof_count >= promise_count
+      territory_check: scammy_if_promises >> proofs
+      on_fail: REWORK
+      remediation: add_proof_or_reduce_promises
+
+    - action: validate_word_count_minimum
+      id: CM_V05
+      description: Health/finance copy must be at least 2000 words
+      condition: copy_vertical in ["health", "supplement", "financial", "investment"]
+      rule: word_count >= 2000
+      on_fail: EXPAND
+      remediation: add_proof_case_studies_objection_handling
+
+    - action: validate_bare_necessities
+      id: CM_V06
+      description: All 6 bare necessities must be present before accepting assignment
+      bare_necessities:
+        - product_mechanism_documented
+        - clinical_evidence_available
+        - real_customer_results_verified
+        - expert_willing_to_endorse
+        - competitive_differentiation_identified
+        - target_market_pain_researched
+      rule: all_6_present == true
+      on_fail: REFUSE
+      remediation: return_assignment_with_requirements_checklist
+
+  error_handling:
+    - error: insufficient_health_proof
+      severity: critical
+      action: block_until_proof_gathered
+    - error: cure_claim_detected
+      severity: critical
+      action: veto_and_reformulate
+    - error: fake_urgency
+      severity: high
+      action: refuse_and_replace
+    - error: scammy_territory
+      severity: high
+      action: rework_promise_proof_balance
+    - error: under_word_minimum
+      severity: medium
+      action: expand_with_proof_and_depth
+    - error: missing_bare_necessities
+      severity: critical
+      action: refuse_assignment_entirely
+
+  quality_gate:
+    pass_threshold: 6
+    total_checks: 6
+    mandatory_passes:
+      - CM_V01
+      - CM_V02
+      - CM_V06
+    verdict_on_fail: BLOCK
+    special_verdicts:
+      CM_V05: EXPAND
+      CM_V06: REFUSE

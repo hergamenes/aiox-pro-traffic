@@ -1,0 +1,106 @@
+sop:
+  id: ah-veto-conditions
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Alex Hormozi Veto Conditions"
+  purpose: >
+    Define hard-stop conditions for the alex-hormozi agent that prevent price-based
+    competition, copy without clear offers, artificial scarcity, hypothetical
+    calculations, and vague guarantees from reaching production.
+  classification:
+    domain: copywriting
+    category: systematizer
+    subcategory: veto-conditions
+    source_agent: alex-hormozi
+    tier: T2
+  status: ACTIVE
+
+  trigger:
+    event: task_intake
+    conditions:
+      - agent == "alex-hormozi"
+      - task_type in ["offer-design", "copy-request", "pricing-strategy", "guarantee-review"]
+
+  context:
+    input:
+      - task_brief: string
+      - offer_definition: object | null
+      - pricing_strategy: string | null
+      - urgency_claims: list | null
+      - financial_data: object | null
+      - guarantee_statement: string | null
+    required_knowledge:
+      - alex-hormozi/thinking_dna.yaml
+
+  steps:
+    - id: step_01
+      action: validate_no_price_lowering
+      description: "AH_V01: Verify strategy doesn't lower price to compete"
+      check: "pricing_strategy != 'reduce' AND pricing_strategy != 'match_competitor'"
+      on_success: continue
+      on_failure:
+        action: block
+        severity: critical
+        message: "BLOCK — Never lower price. Increase value using Value Equation."
+
+    - id: step_02
+      action: validate_offer_exists
+      description: "AH_V02: Verify complete offer is defined before writing copy"
+      check: "offer_definition is not null AND has [deliverables, value, price, guarantee]"
+      on_success: continue
+      on_failure:
+        action: pause
+        severity: critical
+        message: "PAUSE — No clear offer. Build offer with Value Equation first."
+
+    - id: step_03
+      action: validate_genuine_urgency
+      description: "AH_V03: Verify urgency/scarcity is genuine, not fabricated"
+      check: "urgency_claims are real_constraints NOT fabricated_pressure"
+      on_success: continue
+      on_failure:
+        action: refuse
+        severity: high
+        message: "REFUSE — Artificial scarcity. Create genuine urgency or remove claim."
+
+    - id: step_04
+      action: validate_real_data
+      description: "AH_V04: Verify calculations use real data, not assumptions"
+      check: "financial_data.source == 'actual' NOT 'projected' OR 'hypothetical'"
+      on_success: continue
+      on_failure:
+        action: stop
+        severity: high
+        message: "STOP — Hypothetical numbers. Provide actual conversion rates, LTV, churn."
+
+    - id: step_05
+      action: validate_specific_guarantee
+      description: "AH_V05: Verify guarantee specifies result + deadline + condition"
+      check: "guarantee has [specific_result, timeframe, remedy_condition]"
+      on_success: continue
+      on_failure:
+        action: reject
+        severity: high
+        message: "REJECT — Vague guarantee. Specify result + deadline + exact remedy."
+
+  error_handling:
+    max_retries: 0
+    on_any_failure: block_task
+    fallback: return_veto_report_with_remediation
+
+  quality_gate:
+    min_pass_rate: 1.0
+    min_steps_passed: 5
+    critical_steps: [step_01, step_02]
+    verdict_map:
+      all_pass: PROCEED
+      any_veto: BLOCKED
+
+  outputs:
+    - veto_verdict: enum[PROCEED, BLOCKED]
+    - triggered_vetos: list
+    - remediation_instructions: list
+    - value_equation_recommendation: string | null

@@ -1,0 +1,63 @@
+sop:
+  id: deutsch-idea-power
+  version: "1.0"
+  title: "IDEA POWER Toolkit"
+  purpose: "Deploy David Deutsch's IDEA POWER Toolkit to generate radically different creative ideas, not cosmetic variations. This toolkit provides 7 specific tools for transforming a conventional approach into "
+  classification:
+    domain: copywriting
+    category: master
+    tier: t1
+    source_agent: david-deutsch
+  steps:
+    - id: apply_opposite_zag
+      action: "If everyone zigs, zag."
+      input: "Opposite/Zag: if everyone zigs, zag. Invert conventional."
+      output: "Step 1 deliverable: Opposite/Zag completed with documented findings"
+      validation: "All 7 tools applied to the base idea -- no tool skipped"
+    - id: apply_zoom_in
+      action: "Focus on a minuscule, specific detail that nobody else has noticed or emphasized."
+      input: "Zoom In: focus on a minuscule specific detail."
+      output: "Step 2 deliverable: Zoom In completed with documented findings"
+      validation: "Results are genuinely different directions, not cosmetic variations"
+    - id: apply_zoom_out
+      action: "Expand to bigger implications than anyone in the market is claiming."
+      input: "Zoom Out: expand to bigger implications."
+      output: "Step 3 deliverable: Zoom Out completed with documented findings"
+      validation: "At least 3 results are uncomfortable or counterintuitive -- signs of real creativity"
+    - id: apply_add_something
+      action: "Add an unexpected element to the idea."
+      input: "Add Something: add unexpected element (celebrity, current event, cultural analogy)."
+      output: "Step 4 deliverable: Add Something completed with documented findings"
+      validation: "Change the Hypothesis produced a fundamentally different strategic premise"
+    - id: apply_subtract_something
+      action: "Remove an expected element from the idea."
+      input: "Subtract Something: remove expected element (tell story from the end)."
+      output: "Step 5 deliverable: Subtract Something completed with documented findings"
+      validation: "Extend the Benefit reached emotional/identity level, not just practical"
+    - id: apply_change_the_hypothesis
+      action: "Change the fundamental PREMISE of the main benefit."
+      input: "Change the Hypothesis: change the PREMISE of the main benefit."
+      output: "Step 6 deliverable: Change the Hypothesis completed with documented findings"
+      validation: "Extend the Benefit reached emotional/identity level, not just practical"
+    - id: apply_extend_the_benefit
+      action: "Take the benefit to its emotional consequence."
+      input: "Extend the Benefit: take benefit to emotional consequence."
+      output: "Step 7 deliverable: Extend the Benefit completed with documented findings"
+      validation: "Extend the Benefit reached emotional/identity level, not just practical"
+  error_handling:
+    - error: "Using only 1-2 tools and stopping when something 'good enough' appears"
+      resolution: "Discipline yourself to use ALL 7 tools before evaluating any result"
+    - error: "Creating cosmetic variations and calling them 'different ideas'"
+      resolution: "Each tool must produce a result that could not be confused with any other"
+    - error: "Discarding uncomfortable results too quickly"
+      resolution: "Keep ALL results for 24 hours before judging; discomfort often signals innovation"
+    - error: "Applying tools superficially"
+      resolution: "Each tool application must produce a concrete, specific, usable idea"
+  quality_gate:
+    criteria:
+      - "All 7 tools applied to the base idea -- no tool skipped"
+      - "Results are genuinely different directions, not cosmetic variations"
+      - "At least 3 results are uncomfortable or counterintuitive -- signs of real creativity"
+      - "Change the Hypothesis produced a fundamentally different strategic premise"
+      - "Extend the Benefit reached emotional/identity level, not just practical"
+    pass_threshold: "All 5 criteria met"

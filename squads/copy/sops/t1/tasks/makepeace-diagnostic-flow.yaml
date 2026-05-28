@@ -1,0 +1,108 @@
+sop:
+  id: makepeace-diagnostic-flow
+  version: "1.0"
+  title: "Makepeace Diagnostic & Writing Flow"
+  purpose: "Complete Makepeace diagnostic-to-delivery pipeline: classify, collect intel, build ESP, select theme/lead, execute Machine, stack proof, QwikCrit, guarantee"
+  classification:
+    domain: copywriting
+    category: master
+    tier: T1
+    source_agent: clayton-makepeace
+
+  inputs:
+    - name: product_brief
+      type: document
+      required: true
+    - name: icp_definition
+      type: document
+      required: true
+    - name: proof_elements
+      type: collection
+      required: true
+
+  outputs:
+    - name: esp_driven_copy
+      type: document
+      description: "Long-form copy with ESP anchor, 40+ proof elements, QwikCrit 37+, and guarantee essay"
+
+  steps:
+    - id: step_01
+      action: classify_input
+      description: "Determine path: NEW COPY, REVIEW, or ESP CRAFT"
+      critical: false
+
+    - id: step_02
+      action: collect_market_intelligence
+      description: "Gather product, ICP, market, awareness level (Schwartz 1-5), and available proof"
+      critical: false
+
+    - id: step_03
+      action: identify_dre
+      description: "Determine primary and secondary Dominant Resident Emotions with emotional specificity"
+      critical: true
+      error_handling:
+        condition: "dre_is_generic"
+        action: "drill_into_specific_emotion_about_specific_problem_at_specific_moment"
+
+    - id: step_04
+      action: build_esp
+      description: "Construct ESP: [Benefit] + [DRE] = ESP Statement as emotional core of copy"
+      critical: true
+      error_handling:
+        condition: "esp_is_benefit_only"
+        action: "force_explicit_fusion_with_dre"
+
+    - id: step_05
+      action: validate_esp_score
+      description: "Score ESP 1-10, require minimum 7/10 to proceed"
+      critical: true
+      error_handling:
+        condition: "score_below_7"
+        action: "block_writing_return_to_dre_identification"
+
+    - id: step_06
+      action: select_theme_and_lead
+      description: "Choose from 8 themes and 24 leads based on awareness level"
+      critical: true
+      error_handling:
+        condition: "theme_mismatches_awareness_level"
+        action: "realign_selection_to_prospect_awareness"
+
+    - id: step_07
+      action: execute_makepeace_machine
+      description: "Write 5-phase copy: Wake-Up, Hidden Enemy, Breakthrough, Proof Avalanche, Inevitable Close"
+      critical: false
+
+    - id: step_08
+      action: stack_proof
+      description: "Count and catalog proof elements, target 40+ across testimonials, studies, endorsements, before/after"
+      critical: true
+      error_handling:
+        condition: "fewer_than_40_proof_elements"
+        action: "add_elements_until_40_minimum"
+
+    - id: step_09
+      action: run_qwikcrit
+      description: "Score all 12 dimensions, target 37/60+ total, revise any dimension below 3"
+      critical: true
+      error_handling:
+        condition: "total_below_37"
+        action: "revise_lowest_dimensions_rescore_until_37_plus"
+
+    - id: step_10
+      action: build_guarantee_essay
+      description: "Execute 10 Steps for Guarantee Power, create 3-5 paragraph selling essay"
+      critical: false
+
+  quality_gate:
+    min_criteria_met: 7
+    criteria:
+      - "input_classified"
+      - "intelligence_collected_5_areas"
+      - "primary_and_secondary_dre_identified"
+      - "esp_score_7_plus"
+      - "theme_and_lead_match_awareness"
+      - "machine_5_phases_complete"
+      - "40_plus_proof_elements"
+      - "qwikcrit_37_plus"
+      - "guarantee_addresses_5_risk_types"

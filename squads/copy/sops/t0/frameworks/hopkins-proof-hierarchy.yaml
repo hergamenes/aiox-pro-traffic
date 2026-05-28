@@ -1,0 +1,56 @@
+sop:
+  id: hopkins-proof-hierarchy
+  version: "1.0"
+  title: "Proof Hierarchy (6 Levels)"
+  purpose: "Classify and rank proof types in copy from strongest (demonstration) to weakest (unsupported claim) to ensure maximum persuasive strength."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: claude-hopkins
+  steps:
+    - id: apply_level_1_demonstration
+      action: "Check if product can prove itself through direct experience"
+      input: "Product capabilities, distribution model"
+      output: "Demonstration proof asset (sample, trial, demo) or 'not available'"
+      validation: "Prospect can experience the result before purchase"
+    - id: apply_level_2_specific_fact
+      action: "Identify measurable, verifiable data points"
+      input: "Product performance data, research, measurements"
+      output: "List of specific facts with exact numbers"
+      validation: "Each fact is concrete, measurable, and avoids round numbers"
+    - id: apply_level_3_verifiable_testimonial
+      action: "Locate testimonials with real attribution and specific results"
+      input: "Customer database, reviews, case studies"
+      output: "Testimonial set with name, location, and quantified outcome"
+      validation: "Each testimonial is attributable and result is specific"
+    - id: apply_level_4_reason_why
+      action: "Explain the mechanism — how and why the product works"
+      input: "Product specs, process documentation, ingredient/method details"
+      output: "Reason-why explanation describing cause-effect relationship"
+      validation: "Explanation answers 'how does it work?' with specifics"
+    - id: apply_level_5_authority_citation
+      action: "Reference credible experts, institutions, or certifications"
+      input: "Third-party endorsements, certifications, studies"
+      output: "Authority proof with source attribution"
+      validation: "Source is credible and relevant to the claim"
+    - id: apply_level_6_flag_unsupported
+      action: "Flag all claims with zero supporting evidence"
+      input: "Complete copy draft"
+      output: "List of Level 6 claims requiring upgrade or removal"
+      validation: "No Level 6 claim remains as primary proof in final copy"
+  error_handling:
+    - error: "Primary claim has only Level 6 proof"
+      resolution: "Block publication; escalate to research for proof upgrade"
+    - error: "Testimonials lack attribution"
+      resolution: "Contact customers for permission to use full name and result"
+    - error: "Specific facts use round numbers"
+      resolution: "Replace with actual measured values from product data"
+  quality_gate:
+    criteria:
+      - "Every claim classified by proof level (1-6)"
+      - "No claim relies solely on Level 6"
+      - "Primary claim uses highest available proof level"
+      - "At least one Level 1-3 proof present in copy"
+      - "All facts use actual measured numbers"
+    pass_threshold: "All 5 criteria met"

@@ -1,0 +1,261 @@
+# Ad Copy Template
+# CopywriterOS - Template para Anúncios
+
+template:
+  id: ad-copy-template-v1
+  name: "Ad Copy Template"
+  version: "1.0"
+  output:
+    format: markdown
+    filename: "ads-{{campaign_name}}.md"
+
+# Variáveis de Input
+variables:
+  required:
+    - platform: "facebook | instagram | google | youtube | tiktok | linkedin"
+    - objective: "awareness | traffic | leads | sales"
+    - product_name: "Produto/serviço"
+    - target_audience: "Público-alvo"
+  optional:
+    - hook: "Gancho principal"
+    - tone: "Tom desejado"
+
+# Platform Specifications
+platforms:
+  facebook:
+    primary_text:
+      visible: 125
+      max: 500
+    headline:
+      max: 40
+    description:
+      max: 30
+    aspect_ratio: ["1:1", "4:5", "16:9"]
+
+  instagram:
+    feed:
+      caption: 125
+      max: 2200
+      aspect_ratio: ["1:1", "4:5"]
+    stories:
+      text_overlay: "minimal"
+      duration: 15
+      aspect_ratio: "9:16"
+    reels:
+      caption: 125
+      duration: [15, 30, 60, 90]
+      aspect_ratio: "9:16"
+
+  google:
+    search:
+      headlines: 3
+      headline_chars: 30
+      descriptions: 2
+      description_chars: 90
+    display:
+      headline: 30
+      description: 90
+
+  youtube:
+    hook_time: 5
+    script_duration: [30, 60, 90]
+    cta: "verbal + visual"
+
+  tiktok:
+    hook_time: 3
+    duration: [15, 30, 60]
+    style: "native"
+
+  linkedin:
+    intro: 150
+    headline: 70
+    tone: "professional"
+
+# Ad Templates por Plataforma
+
+templates:
+  facebook_feed:
+    template: |
+      ## Facebook Feed Ad
+
+      **Hook:** {{hook}}
+
+      ---
+
+      **Primary Text:**
+      {{primary_text}}
+
+      **Headline:** {{headline}}
+      **Description:** {{description}}
+      **CTA Button:** {{cta_button}}
+
+      ---
+
+      **Image Direction:** {{image_suggestion}}
+      **Audience:** {{audience_targeting}}
+
+  instagram_stories:
+    template: |
+      ## Instagram Stories Ad
+
+      **Hook (1-3s):** {{hook}}
+
+      ---
+
+      **Slide 1:** {{slide_1}}
+      **Slide 2:** {{slide_2}}
+      **Slide 3:** {{slide_3}}
+
+      **CTA:** {{cta}}
+
+      ---
+
+      **Visual Direction:** {{visual_suggestion}}
+
+  google_search:
+    template: |
+      ## Google Search Ad
+
+      **Headlines:**
+      1. {{headline_1}} ({{headline_1_chars}}/30)
+      2. {{headline_2}} ({{headline_2_chars}}/30)
+      3. {{headline_3}} ({{headline_3_chars}}/30)
+
+      **Descriptions:**
+      1. {{description_1}} ({{description_1_chars}}/90)
+      2. {{description_2}} ({{description_2_chars}}/90)
+
+      **Display Path:** {{display_path}}
+
+      ---
+
+      **Keywords:** {{target_keywords}}
+
+  youtube_ad:
+    template: |
+      ## YouTube Ad Script
+
+      **Duration:** {{duration}}s
+
+      ---
+
+      **[0-5s] HOOK - Before Skip:**
+      {{hook_script}}
+
+      **[5-15s] PROBLEM:**
+      {{problem_script}}
+
+      **[15-30s] SOLUTION:**
+      {{solution_script}}
+
+      **[30s+] CTA:**
+      {{cta_script}}
+
+      ---
+
+      **Visual Notes:** {{visual_notes}}
+      **End Screen:** {{end_screen}}
+
+  tiktok_ad:
+    template: |
+      ## TikTok Ad Script
+
+      **Duration:** {{duration}}s
+      **Style:** Native/Organic
+
+      ---
+
+      **[0-3s] HOOK:**
+      {{hook}} (pattern interrupt)
+
+      **[3-15s] CONTENT:**
+      {{content}}
+
+      **[15-end] CTA:**
+      {{cta}}
+
+      ---
+
+      **Sound:** {{sound_suggestion}}
+      **Text Overlays:** {{text_overlays}}
+
+  linkedin_ad:
+    template: |
+      ## LinkedIn Ad
+
+      **Intro Text:**
+      {{intro}}
+
+      **Headline:** {{headline}}
+
+      **CTA:** {{cta}}
+
+      ---
+
+      **Image:** {{image_suggestion}}
+      **Targeting:** {{targeting}}
+
+# Hook Formulas
+hook_formulas:
+  curiosity:
+    - "Ninguém te contou isso sobre {{topic}}"
+    - "O erro de R${{value}} que você está cometendo"
+    - "Por que {{common_belief}} está errado"
+
+  result:
+    - "{{result}} em {{time}} - sem {{objection}}"
+    - "Como {{avatar}} conseguiu {{result}}"
+    - "De {{before}} para {{after}} em {{time}}"
+
+  question:
+    - "Você comete esse erro com {{topic}}?"
+    - "Quer {{result}} mesmo {{objection}}?"
+
+  story:
+    - "Eu estava {{situation}} quando..."
+    - "Meu cliente {{name}} tinha {{problem}}..."
+
+  pattern_interrupt:
+    - "ESPERA! Antes de {{action}}..."
+    - "Não {{action}} até ver isso"
+
+# Frameworks
+frameworks:
+  PAS:
+    problem: "{{problem_statement}}"
+    agitate: "{{agitation}}"
+    solution: "{{solution_intro}}"
+    cta: "{{cta}}"
+
+  AIDA:
+    attention: "{{hook}}"
+    interest: "{{benefit}}"
+    desire: "{{proof}}"
+    action: "{{cta}}"
+
+  BAB:
+    before: "{{current_situation}}"
+    after: "{{desired_outcome}}"
+    bridge: "{{how_product_helps}}"
+
+# Quality Validation
+validation:
+  per_platform:
+    - "Dentro dos limites de caracteres?"
+    - "Hook prende em tempo correto?"
+    - "CTA claro?"
+    - "Visual e copy se complementam?"
+  general:
+    - "Benefício específico?"
+    - "Relevante para avatar?"
+    - "Ação clara?"
+
+# A/B Test Recommendations
+ab_testing:
+  elements_to_test:
+    - hooks: "3 variações"
+    - headlines: "2-3 variações"
+    - ctas: "2 variações"
+    - images: "2 variações"
+  minimum_budget: "R$50-100 por variação"
+  test_duration: "3-7 dias"

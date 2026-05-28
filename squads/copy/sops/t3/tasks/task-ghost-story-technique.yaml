@@ -1,0 +1,69 @@
+sop:
+  id: task-ghost-story-technique
+  version: "1.0"
+  title: "Ghost Story Technique"
+  purpose: "Identify the ghost topic that triggers maximum visceral audience engagement and inject it strategically into content"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: ben-settle
+    tier: T3
+
+  inputs:
+    - name: engagement_data
+      type: dataset
+      required: true
+      description: "Market engagement data across different topics"
+    - name: test_content
+      type: list
+      required: true
+      description: "Test emails/posts touching various subjects"
+
+  outputs:
+    - name: ghost_topic
+      type: string
+      description: "Identified ghost topic for the market"
+    - name: engagement_benchmark
+      type: object
+      description: "Before/after engagement comparison data"
+
+  steps:
+    - id: step_1
+      action: identify_ghost
+      description: "Run engagement tests across topics, measure visceral reactions — most replies, clicks, controversy"
+      critical: true
+
+    - id: step_2
+      action: inject_ghost
+      description: "Insert ghost topic reference into any content — mention, reference, or comparison — as seasoning"
+
+    - id: step_3
+      action: calibrate_usage
+      description: "Use ghost in 30-40% of content, not 100% — strategic enhancement not replacement"
+      error_handling:
+        condition: "Ghost used in every piece of content"
+        action: "Reduce to 30-40% frequency to prevent audience desensitization"
+
+    - id: step_4
+      action: measure_reaction
+      description: "Track reply rates, social sharing, passionate agreement/disagreement, forwarding behavior"
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "Ghost identified through data not assumption"
+      - "Ghost triggers measurably higher engagement"
+      - "Ghost used as seasoning not entire content"
+      - "Visceral reactions tracked across multiple pieces"
+      - "Ghost does not alienate core buying audience"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies: []
+
+  related_sops:
+    - task-infotainment-email
+    - task-subject-line-micro-riddle
+    - task-daily-email-flywheel

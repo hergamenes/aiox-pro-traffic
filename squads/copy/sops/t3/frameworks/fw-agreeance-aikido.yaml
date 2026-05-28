@@ -1,0 +1,62 @@
+sop:
+  id: fw-agreeance-aikido
+  version: "1.0"
+  title: "Agreeance Principle (Aikido)"
+  purpose: "Overcome prospect objections by agreeing first, then redirecting energy toward the desired conclusion"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: jon-benson
+    tier: t3
+  steps:
+    - id: apply_identify_objection
+      name: "Identify the Objection"
+      description: "List top 3-5 objections with their emotional root causes"
+      inputs:
+        - prospect_objection_list
+        - emotional_root_causes
+      outputs:
+        - prioritized_objection_map
+      validation:
+        - objection_count: "3-5"
+        - has_emotional_root: true
+    - id: apply_agree_first
+      name: "Agree First (Move Toward)"
+      description: "Write genuine, specific agreement with each objection"
+      inputs:
+        - prioritized_objection_map
+      outputs:
+        - agreement_statements
+      validation:
+        - agreement_is_genuine: true
+        - agreement_is_specific: true
+        - no_dismissive_but: true
+    - id: apply_redirect_after
+      name: "Redirect After (Dissipate Energy)"
+      description: "Introduce truthful reframe that channels objection energy toward solution"
+      inputs:
+        - agreement_statements
+        - solution_differentiators
+      outputs:
+        - agree_redirect_copy_segments
+      validation:
+        - redirect_is_truthful: true
+        - flow_is_natural: true
+        - prospect_feels_understood: true
+  error_handling:
+    - error: weak_agreement
+      condition: "Agreement uses 'but' or feels dismissive"
+      action: "Replace 'but' with 'and' or use period + new sentence"
+    - error: skipped_agreement
+      condition: "Redirect appears without prior agreement"
+      action: "Add 1-2 sentences of genuine validation before redirect"
+    - error: manufactured_objection
+      condition: "Addressing objections prospect doesn't actually hold"
+      action: "Validate objection list against real customer feedback data"
+  quality_gate:
+    min_sections: 3
+    required_elements:
+      - objection_identified
+      - genuine_agreement
+      - truthful_redirect
+    pass_threshold: "all objections have agree-redirect pairs"

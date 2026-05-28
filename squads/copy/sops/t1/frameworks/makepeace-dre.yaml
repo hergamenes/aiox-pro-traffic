@@ -1,0 +1,64 @@
+sop:
+  id: makepeace-dre
+  version: "1.0"
+  title: "Dominant Resident Emotion (DRE)"
+  purpose: >
+    Identify the single dominant emotion the largest prospect group already
+    feels, then use it as copy entry point. DRE headline says 'I FEEL what
+    you FEEL' — instant rapport before any selling begins.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: clayton-makepeace
+    tier: t1
+
+  steps:
+    - id: apply_research_emotions
+      action: "Catalog ALL specific emotions prospects have about the topic from reviews, forums, support tickets"
+      input: "audience_research_sources"
+      output: "emotion_catalog"
+
+    - id: apply_identify_dominant
+      action: "Select emotion that is both most PREVALENT and most INTENSE — the Dominant Resident Emotion"
+      input: "emotion_catalog"
+      output: "dre_identified"
+      condition: "prevalence >= high AND intensity >= high"
+
+    - id: apply_headline_call
+      action: "Write headline that NAMES and VALIDATES the DRE directly — not hints, calls it out"
+      input: "dre_identified"
+      output: "dre_headline"
+
+    - id: apply_deck_validation
+      action: "Expand and validate emotion in deck copy using prospect's language and specific scenarios"
+      output: "deck_copy"
+
+    - id: apply_frenzy_build
+      action: "Intensify DRE in opening copy to full weight before introducing any solution"
+      output: "frenzy_opening"
+
+    - id: apply_solution_elimination
+      action: "Position product as the antidote that ELIMINATES the DRE, not just improves it"
+      output: "solution_positioning"
+
+    - id: apply_benefit_bridge
+      action: "Use DRE as logical bridge: 'Because you feel [DRE], you need [benefit], which gives [transformation]'"
+      output: "benefit_bridge"
+
+  error_handling:
+    - error: "assumed_dre"
+      severity: critical
+      action: "Research real customer language; never assume the dominant emotion"
+    - error: "rare_emotion_selected"
+      severity: high
+      action: "DRE must be both widespread AND intense; rare emotions serve niches only"
+    - error: "solution_before_frenzy"
+      severity: high
+      action: "Build emotional frenzy BEFORE introducing solution; follow 7-step sequence"
+
+  quality_gate:
+    emotions_researched: true
+    dre_prevalent_and_intense: true
+    headline_calls_directly: true
+    frenzy_before_solution: true
+    bridge_to_benefits: true

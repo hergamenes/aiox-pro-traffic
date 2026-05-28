@@ -1,0 +1,115 @@
+sop:
+  id: jw-seed-launch
+  version: 1.0.0
+  title: Seed Launch
+  purpose: Launch from scratch with a tiny list (50-200). Sell before creating, deliver live, collect testimonials for Internal
+    Launch
+  classification:
+    domain: copywriting
+    category: systematizer
+    source_agent: jeff-walker
+    artifact_type: task
+    tier: t2
+  status: ACTIVE
+  trigger:
+    type: manual
+    description: When starting from zero — no list, no product, no proof. The 'bootstrapper's launch'
+  context:
+    input:
+    - name: small_list
+      type: list
+      required: true
+      description: Personal contacts, social media connections, past clients (50-200 people)
+    - name: topic_expertise
+      type: string
+      required: true
+      description: Subject you can teach live over 4-6 sessions
+  steps:
+  - id: S001
+    name: Step 1
+    action: execute_step_1
+    description: Start with a tiny list (even 50-200 people from personal contacts, social media, past clients)
+    performer: copywriter
+    critical: true
+    on_success: S002
+    on_failure: retry
+  - id: S002
+    name: Step 2
+    action: execute_step_2
+    description: Run a simplified prelaunch — can be email-only, no video required
+    performer: copywriter
+    critical: true
+    on_success: S003
+    on_failure: retry
+  - id: S003
+    name: Step 3
+    action: execute_step_3
+    description: Make an offer for a small-group interactive program (teleclass series, coaching group, workshop)
+    performer: copywriter
+    critical: true
+    on_success: S004
+    on_failure: retry
+  - id: S004
+    name: Step 4
+    action: execute_step_4
+    description: Sell the program BEFORE creating the product — get paid first, then deliver
+    performer: copywriter
+    critical: false
+    on_success: S005
+    on_failure: retry
+  - id: S005
+    name: Step 5
+    action: execute_step_5
+    description: Deliver the product over several weeks via live calls/sessions
+    performer: copywriter
+    critical: false
+    on_success: S006
+    on_failure: retry
+  - id: S006
+    name: Step 6
+    action: execute_step_6
+    description: Survey students before each session to learn what they need
+    performer: copywriter
+    critical: false
+    on_success: S007
+    on_failure: retry
+  - id: S007
+    name: Step 7
+    action: execute_step_7
+    description: Use student feedback to fine-tune content in real-time
+    performer: copywriter
+    critical: false
+    on_success: S008
+    on_failure: retry
+  - id: S008
+    name: Step 8
+    action: execute_step_8
+    description: Record all sessions — recordings become your finished product
+    performer: copywriter
+    critical: false
+    on_success: S009
+    on_failure: retry
+  - id: S009
+    name: Step 9
+    action: execute_step_9
+    description: Collect testimonials and Case Studies from the live cohort
+    performer: copywriter
+    critical: false
+    on_success: S010
+    on_failure: retry
+  - id: S010
+    name: Step 10
+    action: execute_step_10
+    description: Use finished product + testimonials for subsequent Internal Launch
+    performer: copywriter
+    critical: false
+    on_success: COMPLETE
+    on_failure: retry
+  quality_gate:
+    pass_threshold: 10
+    total_checks: 10
+    mandatory_passes:
+    - S001
+    - S002
+    - S003
+    verdict_on_fail: BLOCK

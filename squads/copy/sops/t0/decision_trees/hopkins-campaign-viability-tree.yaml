@@ -1,0 +1,48 @@
+sop:
+  id: hopkins-campaign-viability-tree
+  version: "1.0"
+  title: "Campaign Viability Decision Tree"
+  purpose: "Gate de viabilidade financeira: CAC vs LTV determina ESCALAR, OTIMIZAR ou ABANDONAR."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: claude-hopkins
+  steps:
+    - step: 1
+      action: "Calcular Custo por Cliente (CAC) e Lucro por Cliente ao Longo do Tempo (LTV)"
+    - step: 2
+      action: "Comparar CAC vs LTV"
+      decision_point:
+        condition: "Relacao CAC vs LTV?"
+        branches:
+          - if: "CAC < LTV (custo menor que lucro)"
+            then: "ESCALAR — campanha lucrativa, aumentar budget proporcionalmente, monitorar ratio"
+          - if: "CAC ~ LTV (custo aproximadamente igual)"
+            then: "OTIMIZAR antes de escalar — reduzir CAC ou aumentar LTV, escalar somente quando CAC < LTV confirmado"
+          - if: "CAC > LTV (custo maior que lucro)"
+            then: "Avaliar margem de melhoria"
+            next_decision:
+              condition: "Margem de melhoria viavel?"
+              branches:
+                - if: "Sim, melhoria viavel"
+                  then: "REFORMULAR — novo angulo, nova oferta, novo canal"
+                - if: "Nao, melhoria inviavel"
+                  then: "ABANDONAR — realocar budget"
+  error_handling:
+    - error: "Escalar sem calcular CAC/LTV"
+      severity: critical
+      action: "Gate obrigatorio: calcular antes de qualquer decisao"
+    - error: "LTV superestimado"
+      severity: critical
+      action: "Usar dados historicos conservadores"
+    - error: "Custos ocultos nao incluidos no CAC"
+      severity: warning
+      action: "Incluir todos os custos no calculo"
+  quality_gate:
+    criteria:
+      - "CAC e LTV calculados com dados reais"
+      - "Dados de pelo menos um ciclo completo"
+      - "Decisao documentada com numeros"
+      - "Monitoramento continuo configurado"
+    pass_threshold: "Todos os criterios atendidos"

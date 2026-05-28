@@ -1,0 +1,108 @@
+sop:
+  id: makepeace-guarantee-10-steps
+  version: "1.0"
+  title: "10 Steps for Guarantee Power"
+  purpose: "Transform guarantee from legal afterthought into selling tool addressing 5 risk types: money, time, hassle, embarrassment, opportunity cost"
+  classification:
+    domain: copywriting
+    category: master
+    tier: T1
+    source_agent: clayton-makepeace
+
+  inputs:
+    - name: product_details
+      type: document
+      required: true
+    - name: offer_structure
+      type: document
+      required: true
+
+  outputs:
+    - name: guarantee_essay
+      type: text
+      description: "3-5 paragraph selling essay positioning guarantee as conversion driver"
+    - name: risk_reversal
+      type: document
+      description: "Complete risk reversal covering all 5 risk types"
+
+  steps:
+    - id: step_01
+      action: establish_money_back_baseline
+      description: "State clear money-back guarantee as foundation"
+      critical: false
+
+    - id: step_02
+      action: extend_time_period
+      description: "Push guarantee period beyond industry standard (30->60, 60->90, 90->365)"
+      critical: true
+      error_handling:
+        condition: "period_at_or_below_industry_standard"
+        action: "extend_minimum_50_percent_beyond_competitors"
+
+    - id: step_03
+      action: add_keep_the_gifts
+      description: "State bonuses and premiums are kept regardless of refund decision"
+      critical: false
+
+    - id: step_04
+      action: use_no_questions_asked
+      description: "Explicitly remove interrogation from refund process: no questions, no forms, no explanation"
+      critical: true
+      error_handling:
+        condition: "refund_process_implies_justification"
+        action: "rewrite_with_explicit_no_questions_language"
+
+    - id: step_05
+      action: address_time_risk
+      description: "Acknowledge time value: if no results in timeframe, don't deserve their time or money"
+      critical: false
+
+    - id: step_06
+      action: address_hassle_risk
+      description: "Describe exact refund process: contact method, steps, timeline for processing"
+      critical: true
+      error_handling:
+        condition: "vague_refund_process"
+        action: "add_specific_steps_timeline_contact_method"
+
+    - id: step_07
+      action: address_embarrassment_risk
+      description: "Cover privacy concerns: discreet packaging, no information sharing"
+      critical: false
+
+    - id: step_08
+      action: address_opportunity_cost
+      description: "Frame NOT trying as the real risk: what they miss by not acting"
+      critical: true
+      error_handling:
+        condition: "opportunity_cost_not_framed"
+        action: "add_cost_of_inaction_framing"
+
+    - id: step_09
+      action: state_complete_risk_reversal
+      description: "Explicitly transfer 100% risk to seller using the word 'risk'"
+      critical: true
+      error_handling:
+        condition: "risk_transfer_implicit_not_explicit"
+        action: "state_explicitly_I_am_transferring_100_percent_risk"
+
+    - id: step_10
+      action: write_guarantee_as_selling_essay
+      description: "Compose 3-5 paragraph essay selling the guarantee as evidence of confidence"
+      critical: true
+      error_handling:
+        condition: "guarantee_reads_as_legal_boilerplate"
+        action: "rewrite_as_conversational_selling_copy"
+
+  quality_gate:
+    min_criteria_met: 7
+    criteria:
+      - "money_back_clearly_stated"
+      - "time_period_exceeds_industry_standard"
+      - "keep_the_gifts_included"
+      - "no_questions_asked_explicit"
+      - "time_risk_addressed"
+      - "hassle_risk_addressed_with_specifics"
+      - "opportunity_cost_framed"
+      - "100_percent_risk_reversal_stated"
+      - "guarantee_written_as_selling_essay"

@@ -1,0 +1,42 @@
+sop:
+  id: rutz-three-faiths
+  version: "1.0"
+  title: "Three Faiths Framework (Qualification Gate)"
+  purpose: "Apply Jim Rutz's Three Faiths Framework as a qualification gate before accepting or writing any copy project. If you do not have all three faiths, do not write. This framework prevents cynical, ineffe"
+  classification:
+    domain: copywriting
+    category: master
+    tier: t1
+    source_agent: jim-rutz
+  steps:
+    - id: apply_faith_in_a_purpose_beyond_money
+      action: "Ask yourself: does this project serve a purpose beyond generating revenue? Can you articulate a genuine benefit to th..."
+      input: "Faith in a purpose beyond money"
+      output: "Step 1 deliverable: Faith in a Purpose Beyond Money completed with documented findings"
+      validation: "All three faiths documented with honest, specific answers"
+    - id: apply_faith_that_the_product_genuinely_helps_peopl
+      action: "Evaluate whether the product delivers on its promises."
+      input: "Faith that the product genuinely helps people"
+      output: "Step 2 deliverable: Faith That the Product Genuinely Helps People completed with documented findings"
+      validation: "Any missing faith identified with clear decision: decline or resolve"
+    - id: apply_faith_in_the_intelligence_of_the_reader
+      action: "Do you respect the prospect? Not as a 'target' or 'mark' but as an intelligent person making a real decision with rea..."
+      input: "Faith in the intelligence of the reader"
+      output: "Step 3 deliverable: Faith in the Intelligence of the Reader completed with documented findings"
+      validation: "Product experience verified: used personally or reviewed credible customer outcomes"
+  error_handling:
+    - error: "Rationalizing missing faith for the sake of the fee"
+      resolution: "If any faith is genuinely missing, decline the project -- the best copy comes from conviction"
+    - error: "Assuming product quality without verification"
+      resolution: "Use the product or interview at least 5 genuine customers before writing"
+    - error: "Confusing 'faith in reader intelligence' with 'writing above their level'"
+      resolution: "Respecting intelligence means clear, honest communication -- not complex vocabulary"
+    - error: "Treating Three Faiths as a one-time check"
+      resolution: "Re-evaluate Three Faiths quarterly for ongoing clients"
+  quality_gate:
+    criteria:
+      - "All three faiths documented with honest, specific answers"
+      - "Any missing faith identified with clear decision: decline or resolve"
+      - "Product experience verified: used personally or reviewed credible customer outcomes"
+      - "Reader respect evident in copy tone: no manipulation, condescension, or fake urgency"
+    pass_threshold: "All 4 criteria met"

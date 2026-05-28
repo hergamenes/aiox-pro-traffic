@@ -1,0 +1,760 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# WF-EVALUATE-CPL — Complete CPL Evaluation using Production Aids
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+# Framework: Product Launch Formula (Jeff Walker)
+# Version: 2.0
+# Updated: 2026-02-01
+# Author: Copy Squad
+#
+# CHANGELOG:
+#   v2.0 - Full Production Aid integration (Sections 4, 5, 8, 9)
+#   v1.0 - Basic checklist-based evaluation
+#
+# ═══════════════════════════════════════════════════════════════════════════════
+
+workflow:
+  id: wf-evaluate-cpl
+  name: "Evaluate CPL"
+  type: evaluation
+  description: >-
+    Workflow de avaliação completa de um CPL com análise beat-by-beat, rubric
+    scoring, detecção de erros críticos e relatório final acionável.
+  operational_roles:
+    orchestrator: copy-chief
+    human_review_agent: launch-owner
+    delivery_agent: copy-ops-worker
+  state_machine:
+    states: [init, context, beat-analysis, rubric, trigger-map, findings, report, complete, failed]
+    transitions:
+      - { trigger: start, source: init, dest: context }
+      - { trigger: context_complete, source: context, dest: beat-analysis }
+      - { trigger: beat-analysis_complete, source: beat-analysis, dest: rubric }
+      - { trigger: rubric_complete, source: rubric, dest: trigger-map }
+      - { trigger: trigger-map_complete, source: trigger-map, dest: findings }
+      - { trigger: findings_complete, source: findings, dest: report }
+      - { trigger: report_complete, source: report, dest: complete }
+      - { trigger: fail, source: "*", dest: failed }
+  quality_gate_refs: [QG-CP-1.1, QG-CP-6.1, QG-CP-4.1, QG-CP-5.1]
+  sequence:
+    - phase: context
+      id: context
+      agent: copy-chief
+      task_ref: tasks/load-workspace-context.md
+      action: "Coletar contexto do lançamento e organizar os insumos da avaliação"
+      creates: cpl-context
+      on_complete: { trigger: context_complete }
+    - phase: beat-analysis
+      id: beat-analysis
+      agent: jeff-walker
+      task_ref: tasks/plf/evaluate-cpl.md
+      requires: cpl-context
+      action: "Analisar o CPL beat-by-beat com critérios de PLF"
+      creates: cpl-beat-analysis
+      on_complete: { trigger: beat-analysis_complete }
+    - phase: rubric
+      id: rubric
+      agent: jeff-walker
+      task_ref: tasks/plf/evaluate-cpl.md
+      requires: cpl-beat-analysis
+      action: "Pontuar o CPL com a rubric de autoavaliação"
+      creates: cpl-rubric
+      on_complete: { trigger: rubric_complete }
+    - phase: trigger-map
+      id: trigger-map
+      agent: joe-sugarman
+      task_ref: tasks/plf/map-mental-triggers.md
+      requires: cpl-rubric
+      action: "Mapear gatilhos mentais e alavancas de persuasão"
+      creates: cpl-trigger-map
+      on_complete: { trigger: trigger-map_complete }
+    - phase: findings
+      id: findings
+      agent: claude-hopkins
+      task_ref: tasks/audit-copy-hopkins.md
+      requires: cpl-trigger-map
+      action: "Detectar erros críticos, inconsistências e riscos de performance"
+      creates: cpl-findings
+      on_complete: { trigger: findings_complete }
+    - phase: report
+      id: report
+      agent: copy-chief
+      task_ref: tasks/plf/evaluate-cpl.md
+      requires: cpl-findings
+      action: "Gerar o relatório final de avaliação do CPL"
+      creates: cpl-evaluation-report
+      on_complete: { trigger: report_complete }
+
+  handoff_prompts:
+    default: "Entregue o artefato criado, decisões tomadas, riscos abertos e o critério exato para o próximo agente continuar sem reinterpretar o contexto."
+
+name: evaluate-cpl
+description: |
+  Workflow completo para avaliar CPLs (Conteúdo de Pré-Lançamento) usando os
+  Production Aids do PLF. Analisa beat-by-beat, aplica rubric scoring, detecta
+  mistakes críticos e gera relatório com recomendações de melhoria.
+
+  DIFERENCIAL desta versão:
+  - Integração com Production Aids de 10 seções cada
+  - Beat-by-beat analysis usando Section 4
+  - Mental Trigger mapping usando Section 5
+  - Self-Assessment Rubric usando Section 8
+  - Mistake detection usando Section 9
+  - Veto conditions para falhas críticas
+
+trigger:
+  command: "*evaluate-cpl"
+  shorthand: ["*eval-cpl", "*avalia-cpl"]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# INPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+inputs:
+  required:
+    cpl_transcript:
+      description: "Caminho do arquivo de transcrição do CPL"
+      type: file_path
+      example: "outputs/copy/sobral/cpl1-fundamentos-anuncios-online.txt"
+
+    cpl_number:
+      description: "Número do CPL sendo avaliado"
+      type: enum
+      options: [1, 2, 3, 4]
+      mapping:
+        1: "PLC #1 — The Opportunity (WHY)"
+        2: "PLC #2 — The Transformation (WHAT)"
+        3: "PLC #3 — The Ownership (HOW + Pivot)"
+        4: "Sales Video — Open Cart"
+
+  optional:
+    evaluation_depth:
+      description: "Profundidade da avaliação"
+      type: enum
+      options: ["quick", "deep"]
+      default: "deep"
+      note: "quick usa checklists básicos, deep usa Production Aids completos"
+
+    launch_context:
+      product_name:
+        description: "Nome do produto sendo lançado"
+        example: "Comunidade Subido"
+      creator_name:
+        description: "Nome do expert/criador"
+        example: "Pedro Sobral"
+      avatar:
+        description: "Breve descrição do público-alvo"
+        example: "Empreendedores que querem aprender gestão de tráfego"
+
+    output_format:
+      description: "Formato do relatório final"
+      type: enum
+      options: ["markdown", "whatsapp", "yaml"]
+      default: "markdown"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# OUTPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+outputs:
+  primary:
+    - file: "cpl{N}_evaluation_report.md"
+      template: "squads/copy/templates/plf/cpl-evaluation-report-tmpl.md"
+      description: "Relatório completo de avaliação"
+
+  artifacts:
+    - file: "cpl{N}_beat_analysis.yaml"
+      template: "squads/copy/templates/plf/beat-analysis-tmpl.yaml"
+      description: "Análise beat-by-beat estruturada"
+
+    - file: "cpl{N}_rubric_scores.yaml"
+      template: "squads/copy/templates/plf/rubric-scores-tmpl.yaml"
+      description: "Scores detalhados por dimensão"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PRODUCTION AIDS (Core Dependencies)
+# ═══════════════════════════════════════════════════════════════════════════════
+production_aids:
+  mapping:
+    1: "squads/copy/checklists/plf/plc1-complete-production-aid.md"
+    2: "squads/copy/checklists/plf/plc2-complete-production-aid.md"
+    3: "squads/copy/checklists/plf/plc3-complete-production-aid.md"
+    4: "squads/copy/checklists/plf/sales-video-complete-production-aid.md"
+
+  sections_used:
+    section_4: "SCRIPT STRUCTURE — BEAT BY BEAT"
+    section_5: "MENTAL TRIGGER ACTIVATION MAP"
+    section_8: "SELF-ASSESSMENT RUBRIC"
+    section_9: "TOP 15 MISTAKES"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENTS
+# ═══════════════════════════════════════════════════════════════════════════════
+agents:
+  primary:
+    id: "@jeff-walker"
+    file: "squads/copy/agents/jeff-walker.md"
+    role: "Avaliador principal — aplica metodologia PLF"
+    phases: [1, 2, 3, 4, 5]
+
+  orchestrator:
+    id: "@copy-chief"
+    file: "squads/copy/agents/copy-chief.md"
+    role: "Consolida análises e gera relatório final"
+    phases: [6]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASES
+# ═══════════════════════════════════════════════════════════════════════════════
+phases:
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 1: Context Gathering
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_1_context_gathering
+    name: "Gather Launch Context"
+    description: "Coletar informações sobre o lançamento e carregar Production Aid"
+    agent: "@jeff-walker"
+
+    steps:
+      - action: elicit
+        if_missing: "launch_context"
+        questions:
+          - "Qual é o produto sendo lançado?"
+          - "Quem é o criador/expert?"
+          - "Descreva brevemente o avatar/público-alvo"
+
+      - action: load
+        file: "{{production_aids.mapping[cpl_number]}}"
+        as: "production_aid"
+        note: "Carrega o Production Aid específico para este CPL"
+
+      - action: extract
+        from: "production_aid"
+        sections:
+          - "STRATEGIC FOUNDATION"
+          - "THE EMOTIONAL ARCHITECTURE"
+        output: "strategic_context"
+
+    outputs:
+      - launch_brief.yaml
+
+    checkpoint:
+      name: "Context Complete"
+      criteria:
+        - "product_name is not empty"
+        - "creator_name is not empty"
+        - "production_aid loaded successfully"
+      on_fail: "Elicitar informações faltantes antes de prosseguir"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 2: Transcript Analysis (Beat-by-Beat)
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_2_transcript_analysis
+    name: "Analyze Transcript Beat-by-Beat"
+    description: "Analisar transcrição identificando cada beat conforme Section 4"
+    agent: "@jeff-walker"
+
+    dependencies:
+      - "{{production_aids.mapping[cpl_number]}} → Section 4 (SCRIPT STRUCTURE)"
+
+    steps:
+      - action: read_complete
+        file: "{{cpl_transcript}}"
+        chunking:
+          enabled: true
+          chunk_size: 500
+          overlap: 50
+        output: "transcript_full"
+
+      - action: extract
+        from: "production_aid"
+        section: "SCRIPT STRUCTURE — BEAT BY BEAT"
+        output: "expected_beats"
+
+      - action: analyze
+        description: |
+          Para cada beat esperado (conforme Section 4 do Production Aid):
+
+          1. IDENTIFICAR onde o beat começa na transcrição
+             - Linha aproximada
+             - Timestamp se disponível
+             - Frase que marca o início
+
+          2. EXTRAIR o conteúdo do beat
+             - Copy usado
+             - Duração relativa (% do total)
+             - Elementos presentes vs. esperados
+
+          3. AVALIAR qualidade do beat
+             - Score 1-5 baseado nos critérios do Production Aid
+             - Copy frameworks utilizados (Strategy A, B, ou C)
+             - Gaps identificados
+
+          4. DOCUMENTAR evidências
+             - Citações diretas da transcrição
+             - Referência às linhas
+
+      - action: generate
+        template: "squads/copy/templates/plf/beat-analysis-tmpl.yaml"
+        output: "beat_analysis.yaml"
+
+    outputs:
+      - beat_analysis.yaml
+
+    checkpoint:
+      name: "All Beats Identified"
+      criteria:
+        - "All expected beats mapped to transcript segments"
+        - "Each beat has a score assigned"
+        - "Missing beats explicitly documented"
+      veto_conditions:
+        - condition: "Opening beat missing or score < 2"
+          severity: "critical"
+          action: "Flag — CPL cannot engage without effective opening"
+        - condition: "More than 2 beats completely absent"
+          severity: "warning"
+          action: "Flag for structural revision"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 3: Rubric Scoring
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_3_rubric_scoring
+    name: "Score Against Self-Assessment Rubric"
+    description: "Pontuar cada dimensão do Self-Assessment Rubric (Section 8)"
+    agent: "@jeff-walker"
+
+    dependencies:
+      - "{{production_aids.mapping[cpl_number]}} → Section 8 (SELF-ASSESSMENT RUBRIC)"
+      - "beat_analysis.yaml from Phase 2"
+
+    steps:
+      - action: extract
+        from: "production_aid"
+        section: "SELF-ASSESSMENT RUBRIC"
+        output: "rubric_dimensions"
+
+      - action: score
+        description: |
+          Para cada dimensão do Rubric (tipicamente 10 dimensões):
+
+          1. LER a definição de 1 (Weak), 3 (Solid), 5 (Exceptional)
+
+          2. AVALIAR a transcrição contra cada nível
+             - Buscar evidências específicas
+             - Citar trechos que justificam o score
+
+          3. ATRIBUIR score (1-5)
+             - Não usar decimais
+             - Documentar justificativa
+
+          4. IDENTIFICAR gaps para atingir próximo nível
+             - O que falta para ir de 3 para 4?
+             - Sugestões específicas de melhoria
+
+        rubric_dimensions_plc1:
+          - dimension: "Empathy"
+            weight: 1.0
+            critical: false
+          - dimension: "Opportunity clarity"
+            weight: 1.2
+            critical: true
+          - dimension: "Positioning"
+            weight: 1.0
+            critical: false
+          - dimension: "Teaching value"
+            weight: 1.2
+            critical: true
+          - dimension: "Objection handling"
+            weight: 0.8
+            critical: false
+          - dimension: "Anticipation"
+            weight: 1.0
+            critical: true
+          - dimension: "CTA"
+            weight: 0.8
+            critical: false
+          - dimension: "Zero pitch"
+            weight: 1.5
+            critical: true
+          - dimension: "Emotional arc"
+            weight: 1.0
+            critical: false
+          - dimension: "Rewatchability"
+            weight: 0.5
+            critical: false
+
+      - action: calculate
+        formula: |
+          weighted_score = sum(dimension_score * dimension_weight) / sum(weights)
+          overall_score = weighted_score * 2  # Convert 1-5 to 1-10 scale
+
+      - action: generate
+        template: "squads/copy/templates/plf/rubric-scores-tmpl.yaml"
+        output: "rubric_scores.yaml"
+
+    outputs:
+      - rubric_scores.yaml
+
+    checkpoint:
+      name: "Rubric Scored"
+      criteria:
+        - "All dimensions have scores"
+        - "All scores have evidence/justification"
+        - "No critical dimension below threshold"
+      veto_conditions:
+        - condition: "Any dimension scores 1"
+          severity: "critical"
+          action: "VETO — Immediate attention required. Cannot proceed without fixing"
+        - condition: "Zero pitch dimension < 4"
+          severity: "critical"
+          action: "VETO — Product/offer leaked into pre-launch content"
+        - condition: "More than 3 dimensions below 3"
+          severity: "warning"
+          action: "Flag for significant revision before launch"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 4: Mistake Detection
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_4_mistake_detection
+    name: "Detect Top 15 Mistakes"
+    description: "Verificar se algum dos Top 15 Mistakes (Section 9) foi cometido"
+    agent: "@jeff-walker"
+
+    dependencies:
+      - "{{production_aids.mapping[cpl_number]}} → Section 9 (TOP 15 MISTAKES)"
+      - "transcript_full from Phase 2"
+
+    steps:
+      - action: extract
+        from: "production_aid"
+        section: "TOP 15 .* MISTAKES"
+        output: "mistake_catalog"
+
+      - action: detect
+        description: |
+          Para cada mistake no catálogo (ranked por damage):
+
+          1. DEFINIR o que constitui este mistake
+             - Comportamento específico a detectar
+             - Indicadores textuais
+
+          2. BUSCAR na transcrição
+             - Evidência de que o mistake foi cometido
+             - OU evidência de que foi evitado
+
+          3. CLASSIFICAR
+             - DETECTED: Mistake presente, com evidência
+             - AVOIDED: Explicitamente evitado
+             - UNCLEAR: Não é possível determinar
+
+          4. CALCULAR damage score
+             - Mistakes #1-5: Critical (damage 3x)
+             - Mistakes #6-10: Significant (damage 2x)
+             - Mistakes #11-15: Minor (damage 1x)
+
+          5. DOCUMENTAR
+             - Citação da transcrição como evidência
+             - Impacto específico neste CPL
+
+        critical_mistakes_plc1:
+          1: "Opening with credentials instead of empathy"
+          2: "Teaching too little"
+          3: "Selling or hinting at a product"
+          4: "Abstract transformation"
+          5: "Skipping the empathy layer in positioning"
+
+    outputs:
+      - mistakes_found.yaml
+
+    checkpoint:
+      name: "Mistakes Analyzed"
+      criteria:
+        - "All 15 mistakes checked"
+        - "Detected mistakes have evidence"
+        - "Damage score calculated"
+      veto_conditions:
+        - condition: "Mistake #3 detected (selling/hinting at product)"
+          severity: "fatal"
+          action: "FAIL — This violates core PLF principle. Requires rewrite"
+        - condition: "Mistakes #1 AND #2 both detected"
+          severity: "critical"
+          action: "FAIL — Opening and teaching both failed. Major revision needed"
+        - condition: "More than 5 mistakes detected"
+          severity: "warning"
+          action: "Flag — Multiple issues indicate need for structural review"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 5: Mental Trigger Analysis
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_5_trigger_analysis
+    name: "Analyze Mental Triggers"
+    description: "Verificar ativação dos mental triggers conforme Section 5"
+    agent: "@jeff-walker"
+
+    dependencies:
+      - "{{production_aids.mapping[cpl_number]}} → Section 5 (MENTAL TRIGGER ACTIVATION MAP)"
+      - "beat_analysis.yaml from Phase 2"
+
+    steps:
+      - action: extract
+        from: "production_aid"
+        section: "MENTAL TRIGGER ACTIVATION MAP"
+        output: "trigger_map"
+
+      - action: analyze
+        description: |
+          Para cada beat e seus triggers esperados (conforme Section 5):
+
+          1. VERIFICAR presença do trigger
+             - Está ativado? (Sim/Não/Parcial)
+             - Mecanismo usado para ativar
+
+          2. AVALIAR intensidade
+             - 1-5 scale
+             - Compared to expected for this beat
+
+          3. IDENTIFICAR triggers faltantes
+             - Quais triggers esperados não foram ativados?
+             - Qual o impacto da ausência?
+
+          4. MAPEAR cumulative effect
+             - Ao final do CPL, quais triggers estão "carregados"?
+             - O viewer está no estado emocional esperado?
+
+        trigger_catalog:
+          primary:
+            - trigger: "Authority"
+              expected_in: ["Positioning", "Teaching"]
+              critical_for: [1, 2]  # CPL numbers where critical
+            - trigger: "Reciprocity"
+              expected_in: ["Teaching"]
+              critical_for: [1, 2, 3]
+            - trigger: "Trust"
+              expected_in: ["Positioning", "Objections"]
+              critical_for: [1, 2, 3]
+            - trigger: "Anticipation"
+              expected_in: ["Foreshadow"]
+              critical_for: [1, 2]
+            - trigger: "Likability"
+              expected_in: ["Opening", "Positioning"]
+              critical_for: [1]
+          secondary:
+            - trigger: "Events"
+              expected_in: ["Opening", "CTA"]
+              critical_for: [3, 4]
+            - trigger: "Community"
+              expected_in: ["CTA"]
+              critical_for: [2, 3]
+            - trigger: "Social Proof"
+              expected_in: ["Cases"]
+              critical_for: [2, 3]
+            - trigger: "Scarcity"
+              expected_in: ["Foreshadow", "Bridge"]
+              critical_for: [3, 4]
+
+    outputs:
+      - trigger_analysis.yaml
+
+    checkpoint:
+      name: "Triggers Analyzed"
+      criteria:
+        - "All expected triggers for this CPL number checked"
+        - "Intensity scores assigned"
+        - "Missing critical triggers flagged"
+      veto_conditions:
+        - condition: "Primary trigger for this CPL number not activated"
+          severity: "critical"
+          action: "Flag — Core emotional driver missing"
+        - condition: "Anticipation trigger missing in CPL 1 or 2"
+          severity: "critical"
+          action: "Flag — Viewer won't return for next CPL"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 6: Report Generation
+  # ─────────────────────────────────────────────────────────────────────────────
+  - id: phase_6_report_generation
+    name: "Generate Evaluation Report"
+    description: "Consolidar todas as análises em relatório final"
+    agent: "@copy-chief"
+
+    dependencies:
+      - "beat_analysis.yaml from Phase 2"
+      - "rubric_scores.yaml from Phase 3"
+      - "mistakes_found.yaml from Phase 4"
+      - "trigger_analysis.yaml from Phase 5"
+
+    steps:
+      - action: consolidate
+        inputs:
+          - beat_analysis.yaml
+          - rubric_scores.yaml
+          - mistakes_found.yaml
+          - trigger_analysis.yaml
+        output: "consolidated_data"
+
+      - action: calculate_overall_score
+        formula: |
+          # Score composition:
+          beat_score = average(beat_scores) * 2  # 0-10 scale
+          rubric_score = weighted_rubric_score   # 0-10 scale
+          mistake_penalty = sum(detected_mistakes * damage_multiplier) / max_possible_penalty
+          trigger_score = (activated_triggers / expected_triggers) * 10
+
+          # Final calculation:
+          base_score = (beat_score * 0.3) + (rubric_score * 0.4) + (trigger_score * 0.3)
+          final_score = base_score - mistake_penalty
+
+          # Clamp to 0-10
+          overall_score = max(0, min(10, final_score))
+
+      - action: determine_status
+        thresholds:
+          pass: 7.0
+          launch_winning: 8.5
+          fail: 5.0
+        status_mapping:
+          ">= 8.5": "LAUNCH WINNING — Ready as-is"
+          ">= 7.0": "PASS — Minor improvements recommended"
+          ">= 5.0": "NEEDS WORK — Significant gaps to address"
+          "< 5.0": "FAIL — Requires major revision"
+
+      - action: prioritize_recommendations
+        description: |
+          Ordenar recomendações por:
+          1. Veto conditions triggered (fix first)
+          2. Critical dimension gaps
+          3. Detected mistakes by damage ranking
+          4. Missing triggers by criticality
+          5. Beat improvements by impact
+
+      - action: generate_rewrite_suggestions
+        for_each: "low_scoring_beat"
+        description: |
+          Para beats com score < 3:
+          - Analisar copy usado
+          - Sugerir copy alternativo usando frameworks do Production Aid
+          - Fornecer exemplo concreto de melhoria
+
+      - action: generate
+        template: "squads/copy/templates/plf/cpl-evaluation-report-tmpl.md"
+        output: "cpl{{cpl_number}}_evaluation_report.md"
+
+    outputs:
+      - "cpl{{cpl_number}}_evaluation_report.md"
+      - "cpl{{cpl_number}}_beat_analysis.yaml"
+      - "cpl{{cpl_number}}_rubric_scores.yaml"
+
+    checkpoint:
+      name: "Report Generated"
+      criteria:
+        - "Overall score calculated"
+        - "Status determined"
+        - "Recommendations prioritized"
+        - "Report file generated"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# VETO CONDITIONS (Global)
+# ═══════════════════════════════════════════════════════════════════════════════
+veto_conditions:
+  fatal:
+    - id: "VETO_001"
+      condition: "Product/offer mentioned in CPL 1, 2, or 3"
+      action: "FAIL evaluation immediately"
+      override: false
+
+    - id: "VETO_002"
+      condition: "No teaching content in CPL that requires it"
+      action: "FAIL evaluation — reciprocity impossible"
+      override: false
+
+  critical:
+    - id: "VETO_003"
+      condition: "Any rubric dimension scores 1"
+      action: "Flag for immediate revision"
+      override: "With explicit justification"
+
+    - id: "VETO_004"
+      condition: "Top 5 mistake detected"
+      action: "Require acknowledgment before proceeding"
+      override: "User accepts risk"
+
+  warning:
+    - id: "VETO_005"
+      condition: "Overall score < 7.0"
+      action: "Recommend revision before launch"
+      override: "User decision"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SCORING SYSTEM
+# ═══════════════════════════════════════════════════════════════════════════════
+scoring:
+  scale: "0-10"
+
+  components:
+    beat_analysis:
+      weight: 0.30
+      source: "Phase 2"
+      calculation: "Average of beat scores * 2"
+
+    rubric_score:
+      weight: 0.40
+      source: "Phase 3"
+      calculation: "Weighted average of dimension scores * 2"
+
+    trigger_activation:
+      weight: 0.30
+      source: "Phase 5"
+      calculation: "(Activated / Expected) * 10"
+
+  penalties:
+    mistake_detected:
+      rank_1_5: -0.5 each
+      rank_6_10: -0.3 each
+      rank_11_15: -0.1 each
+
+    veto_triggered:
+      fatal: "Auto-fail (score = 0)"
+      critical: -1.0
+      warning: -0.5
+
+  grades:
+    "9.0-10.0": "Exceptional — Launch-winning content"
+    "8.0-8.9": "Excellent — Minor polish only"
+    "7.0-7.9": "Good — Ready with small improvements"
+    "6.0-6.9": "Adequate — Revision recommended"
+    "5.0-5.9": "Below Standard — Significant work needed"
+    "0.0-4.9": "Failing — Major revision or rewrite required"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# EXECUTION
+# ═══════════════════════════════════════════════════════════════════════════════
+execution:
+  mode: "sequential"
+  agents:
+    primary: "@jeff-walker"
+    fallback: "@copy-chief"
+
+  parallel_phases: false
+  checkpoint_behavior: "pause_on_veto"
+
+  output_location: "{{output_dir}}/evaluations/"
+  language: "pt-BR"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUICK MODE (Alternative)
+# ═══════════════════════════════════════════════════════════════════════════════
+quick_mode:
+  enabled_when: "evaluation_depth == 'quick'"
+  description: "Avaliação simplificada usando checklists básicos"
+
+  phases_skipped:
+    - phase_2_transcript_analysis  # Replaced with simple structure check
+    - phase_5_trigger_analysis     # Replaced with trigger presence check
+
+  dependencies_used:
+    - "squads/copy/checklists/plf/cpl{{cpl_number}}-*-checklist.md"
+
+  output: "quick_evaluation_report.md"
+
+  note: |
+    Quick mode é útil para avaliação inicial rápida, mas NÃO substitui
+    a avaliação completa (deep mode) antes do lançamento.

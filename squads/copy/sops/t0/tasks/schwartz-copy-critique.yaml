@@ -1,0 +1,84 @@
+sop:
+  id: schwartz-copy-critique
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Copy Critique (3 Lenses)"
+  purpose: >
+    Analyze existing copy through three diagnostic lenses: Channeling (existing
+    desire vs. created desire), Sophistication (headline matches market stage),
+    and Credibility (belief architecture sustains promises).
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: eugene-schwartz
+    artifact_type: task
+
+  steps:
+    - id: lens_channeling
+      action: diagnose_desire_channeling
+      description: "Does copy channel existing mass desire or try to create new desire? Verdict: CANALIZA or TENTA CRIAR"
+      inputs:
+        - existing_copy
+        - market_context
+      critical: true
+      output: channeling_verdict
+
+    - id: lens_sophistication
+      action: evaluate_headline_stage_match
+      description: "Does headline approach match market sophistication stage? Verdict: ALINHADO or DESALINHADO"
+      inputs:
+        - existing_copy
+        - sophistication_stage
+      critical: true
+      output: sophistication_verdict
+
+    - id: lens_credibility
+      action: audit_belief_architecture
+      description: "Does belief architecture sustain promises? Check inclusion question, identification, false belief contradiction, logic language, syllogism, promise-proof alternation. Verdict: SUSTENTA or FRAGIL"
+      inputs:
+        - existing_copy
+        - product_claims
+      critical: true
+      output: credibility_verdict
+
+    - id: issue_prescription
+      action: compile_three_lens_prescription
+      description: "Compile all three verdicts into priority-ordered prescription: fix channeling first, then sophistication, then credibility"
+      depends_on:
+        - lens_channeling
+        - lens_sophistication
+        - lens_credibility
+      output: combined_prescription
+
+  error_handling:
+    - error: skipped_channeling
+      symptom: "Copy has great claims but targets no real desire"
+      resolution: "Always start with channeling lens; if desire is wrong, nothing else matters"
+    - error: wrong_sophistication_match
+      symptom: "Headline seems strong but market moved past that stage"
+      resolution: "Verify market stage with competitive evidence"
+    - error: credibility_volume_vs_sequence
+      symptom: "More proof added but belief chain still broken"
+      resolution: "Fix the SEQUENCE of belief-building, not just the volume of proof"
+
+  quality_gate:
+    criteria:
+      - "All three lenses applied systematically"
+      - "Each lens has explicit verdict"
+      - "Channeling correctly identified"
+      - "Sophistication cross-referenced with market stage"
+      - "Credibility checks each belief layer"
+      - "Prescriptions are specific with locations"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: three_lens_report
+      format: diagnostic_report
+      description: "Verdict per lens with reasoning"
+    - name: prescriptions
+      format: priority_list
+      description: "Specific changes per lens, channeling fixes first"

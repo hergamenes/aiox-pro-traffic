@@ -1,0 +1,148 @@
+sop:
+  id: tb-lead-opening-formula
+  version: "1.0"
+  title: "Lead Opening Formula"
+  purpose: >
+    Six-line opening template for sales copy or VSL that delivers promise,
+    names unique mechanism, differentiates from commodities, and hooks the
+    prospect within 350 words.
+  classification:
+    domain: copywriting
+    subdomain: lead-writing
+    tier: t2
+    source_agent: todd-brown
+    artifact_type: framework
+
+  steps:
+    - id: step_1_promise_mechanism
+      action: apply_promise_and_mechanism_open
+      label: "Open With Promise + Mechanism"
+      description: >
+        Write first line: 'It's true — there's a [new/different] way for you
+        to [result].' Result must be specific, singular, and the prospect's
+        most desired outcome.
+      inputs:
+        - primary_result
+        - novelty_type
+      outputs:
+        - line_1_text
+      validation:
+        - field: primary_result
+          rule: is_specific_and_singular
+        - field: line_1_text
+          rule: follows_template
+
+    - id: step_2_name_mechanism
+      action: apply_mechanism_naming
+      label: "Name the Mechanism"
+      description: >
+        Write second line: 'This new way is called [UNIQUE MECHANISM].'
+        Name must be memorable, specific, and proprietary.
+      inputs:
+        - mechanism_name
+      outputs:
+        - line_2_text
+      validation:
+        - field: mechanism_name
+          rule: is_proprietary_and_memorable
+        - field: mechanism_name
+          rule: not_generic
+
+    - id: step_3_differentiate
+      action: apply_commodity_differentiation
+      label: "Differentiate From Commodities"
+      description: >
+        Write third line: 'It's completely different from [commodity 1],
+        [commodity 2].' Name 2-3 specific alternatives the prospect has tried.
+      inputs:
+        - commodity_alternatives
+      outputs:
+        - line_3_text
+      validation:
+        - field: commodity_alternatives
+          rule: count_2_to_3
+        - field: commodity_alternatives
+          rule: named_specifically
+
+    - id: step_4_state_differentiators
+      action: apply_differentiator_statements
+      label: "State the Differentiators"
+      description: >
+        Write fourth line: 'What makes it much better is [differentiator 1, 2, 3].'
+        Each must be concrete with numbers or timeframes.
+      inputs:
+        - differentiators
+      outputs:
+        - line_4_text
+      validation:
+        - field: differentiators
+          rule: max_3
+        - field: differentiators
+          rule: contains_specifics
+
+    - id: step_5_eliminate_objection
+      action: apply_objection_elimination
+      label: "Eliminate the Primary Objection"
+      description: >
+        Write fifth line: 'So you can [benefit] without having to worry about
+        [objection eliminated].' Targets the #1 hesitation point.
+      inputs:
+        - primary_benefit
+        - primary_objection
+      outputs:
+        - line_5_text
+      validation:
+        - field: primary_objection
+          rule: is_real_number_1_hesitation
+
+    - id: step_6_close_command
+      action: apply_transition_command
+      label: "Close With a Command"
+      description: >
+        Write sixth line: 'If you care about [primary promise], pay close
+        attention.' Creates micro-commitment and transitions to body copy.
+      inputs:
+        - primary_promise
+      outputs:
+        - line_6_text
+        - complete_lead
+      validation:
+        - field: complete_lead
+          rule: max_350_words
+        - field: complete_lead
+          rule: reads_naturally_aloud
+
+  error_handling:
+    - error: vague_result
+      symptom: "Prospect does not engage with opening"
+      resolution: "Specify the exact outcome with numbers and timeframe"
+    - error: generic_mechanism_name
+      symptom: "No differentiation from competitors"
+      resolution: "Create a proprietary name that sounds distinct and memorable"
+    - error: no_commodities_named
+      symptom: "Prospect does not see how this is different"
+      resolution: "Name 2-3 specific alternatives they have tried and failed with"
+    - error: lead_too_long
+      symptom: "Prospect drops off before body copy"
+      resolution: "Cut to 350 words maximum"
+
+  quality_gate:
+    min_score: 7
+    criteria:
+      - "All six lines present in sequence"
+      - "Result is specific and singular"
+      - "Mechanism is named and proprietary"
+      - "2-3 commodities named specifically"
+      - "Differentiators have specifics"
+      - "Objection is the real #1 hesitation"
+      - "Under 350 words total"
+
+  outputs:
+    - type: lead_opening
+      format: text
+      max_words: 350
+      lines: 6
+    - type: mechanism_brief
+      format: text
+    - type: commodity_comparison
+      format: list

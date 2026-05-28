@@ -1,0 +1,204 @@
+# The Makepeace 20-Point Sales Letter Outline
+# Source: Clayton Makepeace - Pretty Darned Good Outline
+# Command: *sales-letter
+
+name: "The Makepeace 20-Point Sales Letter Outline"
+category: "copywriting"
+origin: "Clayton Makepeace - Pretty Darned Good Outline"
+command: "*sales-letter"
+
+philosophy: |
+  A great sales letter is like a symphony - every element in its proper place,
+  building emotion until the crescendo demands action. Miss one element and
+  the whole thing falls flat.
+
+outline:
+  section_1:
+    name: "The Pre-Head"
+    elements:
+      - "Envelope teaser / Subject line"
+      - "Johnson Box with key benefit"
+      - "Personalization"
+    purpose: "Get them to open and start reading"
+
+  section_2:
+    name: "The Headline"
+    elements:
+      - "Main headline (promise + intrigue)"
+      - "Deck copy (expand headline)"
+      - "Sub-headlines"
+    purpose: "Stop them cold and pull them into the copy"
+
+  section_3:
+    name: "The Lead"
+    elements:
+      - "Opening hook (story, question, or shocking fact)"
+      - "Dominant emotion identification"
+      - "Problem statement"
+    purpose: "Connect emotionally and establish relevance"
+
+  section_4:
+    name: "The Agitation"
+    elements:
+      - "Pain amplification"
+      - "Failed attempts acknowledged"
+      - "Future projection without solution"
+    purpose: "Make the problem unbearable"
+
+  section_5:
+    name: "The Solution Introduction"
+    elements:
+      - "External enemy revelation"
+      - "New mechanism/discovery introduction"
+      - "Hope establishment"
+    purpose: "Shift from problem to possibility"
+
+  section_6:
+    name: "The Product Reveal"
+    elements:
+      - "Product name and positioning"
+      - "How it works (simplified)"
+      - "Why it's different"
+    purpose: "Introduce the solution"
+
+  section_7:
+    name: "Credibility Section"
+    elements:
+      - "Creator credentials"
+      - "Scientific backing"
+      - "Media mentions"
+    purpose: "Establish trust"
+
+  section_8:
+    name: "Benefit Explosion"
+    elements:
+      - "Dimensionalized benefits (3-5 major)"
+      - "Future pacing sequences"
+      - "Transformation stories"
+    purpose: "Make them WANT it"
+
+  section_9:
+    name: "Proof Section"
+    elements:
+      - "Testimonials (specific, believable)"
+      - "Case studies"
+      - "Before/after evidence"
+    purpose: "Make them BELIEVE it"
+
+  section_10:
+    name: "Fascination Bullets"
+    elements:
+      - "15-50 bullets using the 21 types"
+      - "Varied bullet formats"
+      - "Page number references"
+    purpose: "Create overwhelming desire"
+
+  section_11:
+    name: "The Offer Stack"
+    elements:
+      - "Main product with full value"
+      - "Bonuses (3-7 with individual values)"
+      - "Total value establishment"
+    purpose: "Make the value obvious"
+
+  section_12:
+    name: "Price Introduction"
+    elements:
+      - "Value comparison (what they'd pay elsewhere)"
+      - "Price reveal"
+      - "Price justification"
+    purpose: "Make price seem small"
+
+  section_13:
+    name: "Risk Reversal"
+    elements:
+      - "Guarantee (named and specific)"
+      - "Guarantee terms"
+      - "Why you can offer it"
+    purpose: "Remove all risk"
+
+  section_14:
+    name: "Urgency/Scarcity"
+    elements:
+      - "Deadline (real and specific)"
+      - "Limited quantity (if applicable)"
+      - "Bonus removal deadline"
+    purpose: "Force immediate action"
+
+  section_15:
+    name: "The CTA"
+    elements:
+      - "Clear action step"
+      - "Multiple response options"
+      - "Repeat key benefit"
+    purpose: "Tell them exactly what to do"
+
+  section_16:
+    name: "The Close"
+    elements:
+      - "Final emotional appeal"
+      - "Future pacing (with product)"
+      - "Decision framing"
+    purpose: "Push them over the edge"
+
+  section_17:
+    name: "P.S. Sequence"
+    elements:
+      - "P.S. - Restate main benefit and deadline"
+      - "P.P.S. - Guarantee reminder"
+      - "P.P.P.S. - Bonus reminder"
+    purpose: "Capture skimmers and reinforce"
+
+  section_18:
+    name: "Response Device"
+    elements:
+      - "Order form design"
+      - "Summary of offer"
+      - "Multiple payment options"
+    purpose: "Make ordering easy"
+
+checklist:
+  pre_head:
+    - "[ ] Teaser creates curiosity"
+    - "[ ] Johnson Box highlights key benefit"
+
+  headline:
+    - "[ ] Promises specific benefit"
+    - "[ ] Creates intrigue/curiosity"
+    - "[ ] Targets ideal prospect"
+
+  lead:
+    - "[ ] Hooks immediately"
+    - "[ ] Identifies dominant emotion"
+    - "[ ] Establishes relevance"
+
+  agitation:
+    - "[ ] Pain is vivid and visceral"
+    - "[ ] Failed attempts acknowledged"
+    - "[ ] Future without solution painted"
+
+  solution:
+    - "[ ] External enemy revealed"
+    - "[ ] Mechanism explained simply"
+    - "[ ] Hope established"
+
+  benefits:
+    - "[ ] Benefits dimensionalized (3 dimensions)"
+    - "[ ] Future pacing present"
+    - "[ ] Transformation stories included"
+
+  proof:
+    - "[ ] Testimonials specific and believable"
+    - "[ ] Statistics/studies cited"
+    - "[ ] Before/after evidence"
+
+  offer:
+    - "[ ] Value stack clear"
+    - "[ ] Price justified"
+    - "[ ] Bonuses add value"
+
+  close:
+    - "[ ] Guarantee removes risk"
+    - "[ ] Urgency is genuine"
+    - "[ ] CTA is crystal clear"
+    - "[ ] P.S. sequence included"

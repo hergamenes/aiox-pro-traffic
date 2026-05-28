@@ -1,0 +1,71 @@
+sop:
+  id: task-slippery-slide-evaluation
+  version: "1.0"
+  title: "Slippery Slide 5-Layer Evaluation"
+  purpose: "Evaluate copy structural flow against 5 Slippery Slide layers determining whether reader slides from headline to CTA or drops off"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: joe-sugarman
+    tier: T4
+
+  inputs:
+    - name: copy_draft
+      type: document
+      required: true
+      description: "Complete copy draft to evaluate"
+
+  outputs:
+    - name: layer_assessment
+      type: object
+      description: "Per-layer verdicts with evidence and recommendations"
+
+  steps:
+    - id: layer_1
+      action: evaluate_gravitational_pull
+      description: "Assess headline (short, provocative?), subheadline (~16 words?), caption, opening force"
+      critical: true
+      verdicts: ["PULLS_IN", "WEAK_PULL", "REPELS"]
+
+    - id: layer_2
+      action: evaluate_reducing_friction
+      description: "Assess first sentence (max 12 words?), layout cleanliness, typography accessibility"
+      verdicts: ["SMOOTH", "FRICTION", "BLOCKED"]
+
+    - id: layer_3
+      action: evaluate_building_agreement
+      description: "Assess true statements, personal tone, emotion-before-logic, yes-set patterns"
+      critical: true
+      verdicts: ["HARMONIZED", "PARTIAL", "DISSONANT"]
+
+    - id: layer_4
+      action: evaluate_greasing_slide
+      description: "Assess Seeds of Curiosity, rhythm variation, storytelling, dead zones"
+      verdicts: ["GREASED", "DRY_SPOTS", "STOPPED"]
+      error_handling:
+        condition: "Dead zones identified"
+        action: "Flag exact location and recommend Seeds of Curiosity insertion"
+
+    - id: layer_5
+      action: evaluate_landing
+      description: "Assess benefits re-affirmation, Satisfaction Conviction, explicit CTA, genuine urgency"
+      verdicts: ["CONVERTS", "LEAKS", "FAILS"]
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "All 5 layers individually assessed"
+      - "Each layer has clear verdict with evidence"
+      - "Dead zones specifically located"
+      - "Recommendations provided per non-optimal layer"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies: []
+
+  related_sops:
+    - task-sugarman-qa-gate
+    - task-two-sweeps-audit
+    - task-objection-raising-protocol

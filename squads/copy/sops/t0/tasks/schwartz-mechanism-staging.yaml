@@ -1,0 +1,93 @@
+sop:
+  id: schwartz-mechanism-staging
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Mechanism Staging (3 Stages)"
+  purpose: >
+    Determine correct level of mechanism presentation based on prospect
+    understanding and market sophistication. Decides whether to name,
+    describe, or feature the mechanism in the headline.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: eugene-schwartz
+    artifact_type: task
+
+  steps:
+    - id: assess_understanding
+      action: evaluate_prospect_mechanism_knowledge
+      description: "Determine if prospect already understands how this type of product works"
+      inputs:
+        - market_sophistication_level
+        - prospect_knowledge
+      output: understanding_assessment
+
+    - id: test_stage_1
+      action: evaluate_naming_stage
+      description: "If prospect understands mechanism → Stage 1 (Nomear): name it, compete on other dimensions"
+      depends_on: assess_understanding
+      output: stage_1_result
+
+    - id: test_stage_2
+      action: evaluate_description_stage
+      description: "If prospect does NOT understand → Stage 2 (Descrever): Promise + Reason Why in body copy"
+      depends_on: test_stage_1
+      output: stage_2_result
+
+    - id: test_stage_3
+      action: evaluate_featuring_stage
+      description: "If market sophisticated with same promises → Stage 3 (Destacar): mechanism IS the headline"
+      depends_on: test_stage_2
+      critical: true
+      output: stage_3_result
+
+    - id: verify_selling_power
+      action: test_mechanism_persuasion
+      description: "For Stage 3: verify mechanism copy sells as powerfully as promise copy (not scientific lecture)"
+      depends_on: test_stage_3
+      output: selling_power_verdict
+
+    - id: document_classification
+      action: record_mechanism_staging
+      description: "Record stage (1-3), placement (headline vs body), space allocation, and selling verification"
+      depends_on:
+        - test_stage_1
+        - test_stage_2
+        - test_stage_3
+        - verify_selling_power
+      output: mechanism_prescription
+
+  error_handling:
+    - error: overexplaining_known_mechanism
+      symptom: "Copy wastes space explaining something obvious"
+      resolution: "Name it and compete on other dimensions"
+    - error: scientific_lecture
+      symptom: "Mechanism section reads like a whitepaper"
+      resolution: "Mechanism copy must excite and persuade, not just inform"
+    - error: fake_mechanism
+      symptom: "Marketing label with no real substance"
+      resolution: "Mechanism must be real, explainable, and believable"
+    - error: buried_mechanism_stage_3
+      symptom: "Promise leads headline in Stage 3+ market"
+      resolution: "Move mechanism INTO the headline"
+
+  quality_gate:
+    criteria:
+      - "Prospect understanding assessed with evidence"
+      - "Market sophistication cross-referenced"
+      - "Classification matches both understanding and stage"
+      - "Stage 3 mechanism copy verified to sell"
+      - "Mechanism is real and explainable"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: mechanism_classification
+      format: classification
+      description: "Stage 1-3 with reasoning"
+    - name: presentation_prescription
+      format: prescription
+      description: "Name, describe, or feature — with placement"

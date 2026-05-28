@@ -1,0 +1,184 @@
+# Copy Mappings — Canonical Vocabulary
+# Translation tables for refining vague user requests into professional copy terminology.
+# All copy squad agents should consult this file before generating output.
+#
+# Based on: Stitch design-mappings pattern (google-labs-code/stitch-skills)
+# Extended with: Schwartz awareness levels, Kennedy 3M, Bencivenga proof hierarchy
+#
+# Epic: epic-cross-squad-prompt-consistency (Story 1)
+# Version: 1.0.0
+
+metadata:
+  version: "1.0.0"
+  squad: "aiox-copy"
+  created: "2026-03-23"
+
+# ═══════════════════════════════════════════════════════════════════════════
+# TABLE 1: Copy Terms
+# Translates vague user requests into professional copy terminology.
+# ═══════════════════════════════════════════════════════════════════════════
+copy_terms:
+  # --- Asset Types ---
+  - vague: "texto de vendas"
+    enhanced: "direct response sales letter with hook, story, offer, close structure"
+  - vague: "sales page"
+    enhanced: "long-form sales page with hero, problem agitation, mechanism, offer stack, and CTA"
+  - vague: "email"
+    enhanced: "direct response email with subject line, opening hook, body narrative, and single CTA"
+  - vague: "sequencia de emails"
+    enhanced: "email sequence with soap opera structure: hook, conflict, epiphany, resolution, CTA per email"
+  - vague: "anuncio"
+    enhanced: "ad creative with pattern-interrupt hook, body copy, and clear CTA"
+  - vague: "ad copy"
+    enhanced: "paid traffic creative with thumb-stopping hook (3s), body (problem-agitation-solution), and single CTA"
+  - vague: "headline"
+    enhanced: "pattern-interrupt headline with specificity, curiosity gap, and implied benefit"
+  - vague: "titulo"
+    enhanced: "pattern-interrupt headline with specificity, curiosity gap, and implied benefit"
+  - vague: "VSL"
+    enhanced: "video sales letter script with hook (0-30s), problem (30-90s), mechanism (90-180s), proof (180-300s), offer (300-420s), close (420-480s)"
+  - vague: "script"
+    enhanced: "spoken-word script with timing marks, tonal directions, and pause indicators"
+  - vague: "landing page"
+    enhanced: "conversion-optimized landing page with above-fold hook, below-fold proof, and sticky CTA"
+  - vague: "lead magnet"
+    enhanced: "high-perceived-value free resource that solves a narrow, specific problem for the ICP"
+  - vague: "webinar"
+    enhanced: "Perfect Webinar structure: hook, 3 secrets (limiting beliefs), stack, close, urgency"
+  - vague: "carta de vendas"
+    enhanced: "Gary Halbert-style direct mail letter: AIDA structure, handwritten feel, PS with urgency"
+  - vague: "depoimento"
+    enhanced: "structured testimonial: before state, skepticism, turning point, transformation, specific result"
+  - vague: "bullet points"
+    enhanced: "fascination bullets with curiosity gap, specificity, and implied benefit per bullet"
+  - vague: "CTA"
+    enhanced: "call-to-action with action verb, value reinforcement, and urgency/scarcity element"
+  - vague: "garantia"
+    enhanced: "risk reversal guarantee with specific terms, timeline, and bold claim"
+  - vague: "objection handling"
+    enhanced: "objection destroyer using feel-felt-found or preemptive reframe technique"
+
+  # --- Structural Elements ---
+  - vague: "introducao"
+    enhanced: "opening hook that enters the existing conversation in the prospect's mind (Collier)"
+  - vague: "problema"
+    enhanced: "problem agitation section that amplifies pain, cost of inaction, and emotional stakes"
+  - vague: "solucao"
+    enhanced: "unique mechanism reveal that explains WHY this solution works differently (Todd Brown)"
+  - vague: "prova"
+    enhanced: "proof stack: statistical proof + testimonial proof + demonstration proof + credential proof (Bencivenga hierarchy)"
+  - vague: "oferta"
+    enhanced: "irresistible offer stack: core offer + bonuses + guarantee + urgency + price anchor"
+  - vague: "fechamento"
+    enhanced: "close sequence: recap value, future pace, final CTA, PS with deadline"
+
+# ═══════════════════════════════════════════════════════════════════════════
+# TABLE 2: Tone Descriptors
+# Translates basic tone requests into professional voice direction.
+# ═══════════════════════════════════════════════════════════════════════════
+tone_descriptors:
+  - basic: "persuasivo"
+    enhanced: "Visceral, emotionally-charged, with specific proof points and urgency. Pain before pleasure. Makepeace-style."
+  - basic: "persuasive"
+    enhanced: "Visceral, emotionally-charged, with specific proof points and urgency. Pain before pleasure."
+  - basic: "profissional"
+    enhanced: "Authoritative, research-backed, with measured claims and credential-heavy proof. Ogilvy-style."
+  - basic: "casual"
+    enhanced: "Conversational, first-person, with slang and contractions. Reads like a friend texting. Kern-style."
+  - basic: "urgente"
+    enhanced: "Deadline-driven, scarcity-loaded, with countdown language and loss-framing. Kennedy-style."
+  - basic: "educativo"
+    enhanced: "Teaching-first, value-stacking, building authority through insights before the ask. Brunson-style."
+  - basic: "storytelling"
+    enhanced: "Narrative-driven, soap opera structure, with cliffhangers and emotional arc. Chaperon-style."
+  - basic: "direto"
+    enhanced: "Blunt, no-BS, short sentences, imperative verbs, zero filler. Carlton-style."
+  - basic: "empático"
+    enhanced: "Mirror the prospect's language, validate their struggle, then reframe with hope. Collier-style."
+  - basic: "controverso"
+    enhanced: "Polarizing, contrarian take, challenges conventional wisdom. Settle-style."
+  - basic: "luxo"
+    enhanced: "Understated, aspirational, implies exclusivity through restraint. Deutsch-style."
+  - basic: "data-driven"
+    enhanced: "Numbers-heavy, specific percentages, before/after metrics, ROI calculations. Hopkins-style."
+  - basic: "transformacional"
+    enhanced: "Identity-shift language, before/after state, future pacing the new self. Benson-style."
+  - basic: "engraçado"
+    enhanced: "Infotainment blend: teach through humor, personality-driven, memorable through laughs. Settle-style."
+  - basic: "aspiracional"
+    enhanced: "Dream outcome visualization, lifestyle imagery, possibility expansion. Koe-style."
+
+# ═══════════════════════════════════════════════════════════════════════════
+# TABLE 3: Awareness Levels (Schwartz)
+# Maps awareness level to appropriate copy approach.
+# ═══════════════════════════════════════════════════════════════════════════
+awareness_levels:
+  - level: "unaware"
+    description: "Prospect does not know they have a problem"
+    approach: "Lead with story, curiosity, or controversy. Never mention product. Enter existing conversation."
+    headline_style: "Curiosity-driven, indirect, content-like"
+    example_hook: "The strange reason why [unexpected thing] is actually [counterintuitive claim]..."
+
+  - level: "problem-aware"
+    description: "Prospect knows the problem but not the solution"
+    approach: "Agitate the problem, amplify the pain, introduce the idea that a solution exists."
+    headline_style: "Problem-amplification, fear-based, identification"
+    example_hook: "If [painful situation], here's what's really going on..."
+
+  - level: "solution-aware"
+    description: "Prospect knows solutions exist but not yours specifically"
+    approach: "Differentiate through Unique Mechanism. Explain WHY your approach works differently."
+    headline_style: "Mechanism-reveal, differentiation, 'new discovery'"
+    example_hook: "Why [common solution] fails, and the [new mechanism] that actually works..."
+
+  - level: "product-aware"
+    description: "Prospect knows your product, hasn't bought yet"
+    approach: "Stack proof, handle objections, create urgency. They need a push, not education."
+    headline_style: "Proof-heavy, offer-focused, deadline-driven"
+    example_hook: "[Specific result] in [timeframe]. Here's the proof..."
+
+  - level: "most-aware"
+    description: "Prospect is ready to buy, just needs the right offer"
+    approach: "Lead with offer. Price, bonus, guarantee, deadline. Minimal copy, maximum offer."
+    headline_style: "Direct offer, discount, limited-time, exclusive"
+    example_hook: "[Product Name]: [price/discount] until [deadline]. [Guarantee]."
+
+# ═══════════════════════════════════════════════════════════════════════════
+# TABLE 4: Proof Hierarchy (Bencivenga)
+# Ranks proof types by persuasive power.
+# ═══════════════════════════════════════════════════════════════════════════
+proof_hierarchy:
+  - rank: 1
+    type: "demonstration"
+    description: "Show the product working in real-time. Video, live demo, before/after."
+    persuasive_power: "highest"
+
+  - rank: 2
+    type: "statistical"
+    description: "Specific numbers: percentages, revenue, time saved, units sold."
+    persuasive_power: "very high"
+
+  - rank: 3
+    type: "testimonial"
+    description: "Customer stories with specific results, named individuals, verifiable details."
+    persuasive_power: "high"
+
+  - rank: 4
+    type: "credential"
+    description: "Expert endorsements, media mentions, awards, certifications."
+    persuasive_power: "medium-high"
+
+  - rank: 5
+    type: "logical"
+    description: "Reason-why copy that explains the mechanism. 'Here's why this works...'"
+    persuasive_power: "medium"
+
+  - rank: 6
+    type: "social"
+    description: "Number of customers, community size, social media following."
+    persuasive_power: "medium"
+
+  - rank: 7
+    type: "guarantee"
+    description: "Risk reversal. The bolder the guarantee, the higher the implied proof."
+    persuasive_power: "supporting"

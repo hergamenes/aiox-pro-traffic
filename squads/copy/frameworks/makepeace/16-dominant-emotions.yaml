@@ -1,0 +1,212 @@
+# The 16 Dominant Resident Emotions Framework
+# Source: Clayton Makepeace - The Total Package
+# Command: *16-emotions
+
+name: "The 16 Dominant Resident Emotions"
+category: "emotional_foundation"
+origin: "Clayton Makepeace - The Total Package"
+command: "*16-emotions"
+
+philosophy: |
+  Nobody really NEEDS your product. What they need is to feel a certain way.
+  Every prospect has a DOMINANT RESIDENT EMOTION - a pre-existing emotional
+  state that colors everything they see and do. Find it. Amplify it. Channel it
+  toward your product.
+
+emotions:
+  # TIER 1: POWER EMOTIONS (Most Commonly Used)
+  emotion_1:
+    name: "GREED"
+    definition: "The desire for more - more money, more status, more success"
+    trigger_words: ["profit", "wealth", "fortune", "windfall", "bonanza", "cash"]
+    when_to_use: "Financial offers, business opportunities, investment products"
+    amplification: "Paint vivid pictures of wealth - the car, the house, the lifestyle"
+    example: |
+      "Imagine checking your brokerage account and seeing [GANHO_DIÁRIO_EXEMPLO] MORE than yesterday...
+      from a single trade that took 3 minutes to place..."
+
+  emotion_2:
+    name: "FEAR"
+    definition: "The anticipation of loss, danger, or pain"
+    trigger_words: ["protect", "danger", "warning", "threat", "crisis", "urgent"]
+    when_to_use: "Security products, health products, insurance, survival"
+    amplification: "Make the threat vivid and immediate - happening NOW"
+    example: |
+      "Right now, while you're reading this, a silent killer is attacking your arteries...
+      building up plaque that could trigger a heart attack without warning..."
+
+  emotion_3:
+    name: "VANITY"
+    definition: "The desire to look good to others and feel attractive"
+    trigger_words: ["admire", "envy", "beautiful", "stunning", "turn heads"]
+    when_to_use: "Beauty products, fashion, fitness, dating"
+    amplification: "Paint the social proof - the compliments, the stares, the jealousy"
+    example: |
+      "Picture the look on your husband's face when you walk into the room...
+      the way his eyes light up like they did on your wedding day..."
+
+  emotion_4:
+    name: "LOVE"
+    definition: "The desire to protect, nurture, and connect with loved ones"
+    trigger_words: ["family", "children", "protect", "together", "bond"]
+    when_to_use: "Family products, life insurance, education, health"
+    amplification: "Make them see their loved ones' faces - the gratitude, the relief"
+    example: |
+      "When your grandchildren ask how you stayed so sharp at 80...
+      you'll smile and think back to the day you discovered this..."
+
+  emotion_5:
+    name: "PRIDE"
+    definition: "The desire for achievement, recognition, and self-respect"
+    trigger_words: ["achieve", "accomplish", "master", "expert", "elite"]
+    when_to_use: "Education, professional development, exclusive memberships"
+    amplification: "Paint the moment of victory - the recognition, the respect"
+    example: |
+      "Imagine your colleagues' faces when you present the solution that
+      saves the company [ECONOMIA_EMPRESARIAL_EXEMPLO]... and the corner office that follows..."
+
+  emotion_6:
+    name: "LUST"
+    definition: "The desire for pleasure, sensory gratification"
+    trigger_words: ["indulge", "pleasure", "savor", "delicious", "irresistible"]
+    when_to_use: "Luxury products, food, travel, entertainment"
+    amplification: "Engage all five senses - make them taste it, feel it, smell it"
+    example: |
+      "Feel the buttery-soft leather as you sink into the driver's seat...
+      hear the throaty purr of 500 horses waiting at your command..."
+
+  # TIER 2: SOCIAL EMOTIONS
+  emotion_7:
+    name: "REVENGE"
+    definition: "The desire to prove doubters wrong, to triumph over adversaries"
+    trigger_words: ["prove", "show them", "silence", "vindicate", "triumph"]
+    when_to_use: "Self-improvement, business success, competition"
+    amplification: "Paint the face of the doubter - then their shock at your success"
+    example: |
+      "Remember when your brother-in-law laughed at your 'little business idea'?
+      Imagine his face when you pull up in a brand-new Mercedes..."
+
+  emotion_8:
+    name: "ANGER"
+    definition: "Frustration at injustice, being wronged, or obstacles"
+    trigger_words: ["unfair", "ripped off", "fed up", "enough", "fight back"]
+    when_to_use: "Consumer advocacy, political, competitive positioning"
+    amplification: "Validate their anger - then position yourself as the weapon"
+    example: |
+      "Aren't you SICK of Wall Street insiders getting rich while you watch
+      your 401(k) get decimated? It's time to level the playing field..."
+
+  emotion_9:
+    name: "GUILT"
+    definition: "The weight of not meeting obligations or expectations"
+    trigger_words: ["should", "owe", "deserve", "responsibility", "duty"]
+    when_to_use: "Family products, health, charitable giving"
+    amplification: "Make them feel the weight - then offer absolution"
+    example: |
+      "Your kids are counting on you to be there for their graduations,
+      their weddings, their children's births. Are you doing everything
+      you can to make sure you'll be there?"
+
+  emotion_10:
+    name: "HOPE"
+    definition: "The belief that things can and will get better"
+    trigger_words: ["finally", "breakthrough", "at last", "new beginning", "light"]
+    when_to_use: "Health solutions, debt relief, career change"
+    amplification: "Paint the contrast - the darkness before, the light ahead"
+    example: |
+      "After years of joint pain that made every step a reminder of your age...
+      imagine waking up tomorrow and FORGETTING you ever had a problem..."
+
+  # TIER 3: CONNECTION EMOTIONS
+  emotion_11:
+    name: "ENVY"
+    definition: "The desire to have what others have"
+    trigger_words: ["they know", "secret", "exclusive", "inner circle", "while you"]
+    when_to_use: "Exclusive offers, insider information, status products"
+    amplification: "Paint the 'haves' enjoying what the 'have-nots' lack"
+    example: |
+      "While most investors panic at every market dip, a small group of insiders
+      smile... because they know something the rest of Wall Street doesn't..."
+
+  emotion_12:
+    name: "LAZINESS"
+    definition: "The desire for ease, shortcuts, and minimum effort"
+    trigger_words: ["easy", "effortless", "automatic", "done-for-you", "simple"]
+    when_to_use: "Automation products, services, done-for-you solutions"
+    amplification: "Paint the contrast between hard work and easy results"
+    example: |
+      "While other traders spend 8 hours a day glued to their screens...
+      you'll place one trade in the morning and spend the rest of your day
+      however you please..."
+
+  emotion_13:
+    name: "EMBARRASSMENT"
+    definition: "Fear of looking foolish or being exposed"
+    trigger_words: ["humiliating", "embarrassing", "avoid", "never again", "don't let"]
+    when_to_use: "Personal improvement, education, protection products"
+    amplification: "Paint the embarrassing moment vividly - then the escape"
+    example: |
+      "Picture standing at the podium, hundreds of eyes on you...
+      and going completely blank. Now imagine never fearing that again..."
+
+  # TIER 4: DESIRE EMOTIONS
+  emotion_14:
+    name: "EXCLUSIVITY"
+    definition: "The desire to be part of an elite, select group"
+    trigger_words: ["exclusive", "invitation only", "select few", "elite", "members only"]
+    when_to_use: "Premium products, memberships, limited offers"
+    amplification: "Paint the velvet rope - who's inside, who's left out"
+    example: |
+      "This opportunity is NOT available to the general public.
+      Only 100 qualified individuals will be invited to join..."
+
+  emotion_15:
+    name: "CURIOSITY"
+    definition: "The need to know, to solve the mystery"
+    trigger_words: ["secret", "hidden", "revealed", "discover", "mystery", "truth"]
+    when_to_use: "Information products, all copy (especially headlines/bullets)"
+    amplification: "Open a loop that DEMANDS to be closed"
+    example: |
+      "What do Warren Buffett, George Soros, and a retired schoolteacher
+      from Ohio have in common? The answer will shock you..."
+
+  emotion_16:
+    name: "FRUSTRATION"
+    definition: "The exhaustion of trying and failing repeatedly"
+    trigger_words: ["finally", "at last", "tired of", "nothing works", "given up"]
+    when_to_use: "Solutions to chronic problems, new approaches"
+    amplification: "Validate every failed attempt - then reveal the real answer"
+    example: |
+      "If you've tried every diet, every exercise program, every pill...
+      and STILL can't lose the weight... it's NOT your fault.
+      Here's why nothing has worked - until now..."
+
+application_guide:
+  step_1: "Identify the PRIMARY emotion (usually 1 of the 16)"
+  step_2: "Identify any SECONDARY emotions that reinforce it"
+  step_3: "Choose trigger words that activate the emotion"
+  step_4: "Write copy that validates the emotion first"
+  step_5: "Amplify the emotion to unbearable intensity"
+  step_6: "Channel the emotional energy toward your solution"
+
+tier_classification:
+  tier_1_power:
+    - "FEAR"
+    - "GREED"
+    - "FRUSTRATION"
+  tier_2_social:
+    - "VANITY"
+    - "ENVY"
+    - "PRIDE"
+    - "EMBARRASSMENT"
+  tier_3_connection:
+    - "LOVE"
+    - "GUILT"
+    - "REVENGE"
+  tier_4_desire:
+    - "LUST"
+    - "LAZINESS"
+    - "CURIOSITY"
+    - "HOPE"
+    - "ANGER"
+    - "EXCLUSIVITY"

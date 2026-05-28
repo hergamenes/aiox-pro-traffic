@@ -1,0 +1,135 @@
+sop:
+  id: tb-immune-system
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Todd Brown Auto-Reject List"
+  purpose: >
+    Automatic immune system for the todd-brown agent. Any copy or strategy matching
+    these 8 patterns is immediately rejected — no further review needed. Represents
+    the most fundamental violations of mechanism-first marketing.
+  classification:
+    domain: copywriting
+    category: systematizer
+    subcategory: auto-reject
+    source_agent: todd-brown
+    tier: T2
+  status: ACTIVE
+
+  trigger:
+    event: copy_draft_complete
+    conditions:
+      - agent == "todd-brown"
+    priority: high
+    run_before: ["tb-voice-validation", "tb-veto-conditions"]
+
+  context:
+    input:
+      - copy_draft: string
+      - output_type: string
+      - offer_structure: object | null
+      - big_idea: string | null
+    required_knowledge:
+      - todd-brown/thinking_dna.yaml
+
+  steps:
+    - id: step_01
+      action: validate_mechanism_exists
+      description: "Copy without unique mechanism — promise without explanation is generic"
+      check: "mechanism_explanation is present in copy"
+      on_success: continue
+      on_failure:
+        action: auto_reject
+        severity: critical
+        message: "AUTO-REJECT — No unique mechanism. Promise without explanation."
+
+    - id: step_02
+      action: validate_no_e1e2_skip
+      description: "Campaigns skipping E1-E2 going straight to sale — no buy-in on thesis"
+      check: "if is_campaign then e1_present AND e2_present"
+      on_success: continue
+      on_failure:
+        action: auto_reject
+        severity: critical
+        message: "AUTO-REJECT — Campaign skips E1-E2. No belief buy-in."
+
+    - id: step_03
+      action: validate_offer_completeness
+      description: "Offer as product + price without terms, premiums, guarantee"
+      check: "offer has [terms, premiums, guarantee] not just [product, price]"
+      on_success: continue
+      on_failure:
+        action: auto_reject
+        severity: high
+        message: "AUTO-REJECT — Incomplete offer. Needs terms, premiums, guarantee."
+
+    - id: step_04
+      action: validate_big_idea_not_slogan
+      description: "Big Ideas that are slogans instead of intellectual propositions"
+      check: "big_idea is intellectual_proposition not tagline"
+      on_success: continue
+      on_failure:
+        action: auto_reject
+        severity: high
+        message: "AUTO-REJECT — Big Idea is slogan. Needs intellectual proposition."
+
+    - id: step_05
+      action: validate_no_price_differentiation
+      description: "Differentiation by price instead of mechanism — race to the bottom"
+      check: "competitive_strategy != price_based"
+      on_success: continue
+      on_failure:
+        action: auto_reject
+        severity: high
+        message: "AUTO-REJECT — Price-based differentiation. Use mechanism instead."
+
+    - id: step_06
+      action: validate_diagnosis_before_fix
+      description: "Optimization without diagnosis — guessing instead of diagnosing issue type"
+      check: "if has_optimization then issue_type_classified == true"
+      on_success: continue
+      on_failure:
+        action: auto_reject
+        severity: high
+        message: "AUTO-REJECT — Optimization without diagnosis. Classify issue first."
+
+    - id: step_07
+      action: validate_mechanism_education
+      description: "Education about commodity instead of unique mechanism — Google Marketing Slap"
+      check: "educational_content references unique_mechanism not generic_category"
+      on_success: continue
+      on_failure:
+        action: auto_reject
+        severity: critical
+        message: "AUTO-REJECT — Educating about commodity. Educate about YOUR mechanism."
+
+    - id: step_08
+      action: validate_no_hyperbolic_copy
+      description: "Hyperbolic copy with power words instead of persuasive argument"
+      check: "power_words_without_substance == 0"
+      on_success: continue
+      on_failure:
+        action: auto_reject
+        severity: high
+        message: "AUTO-REJECT — Hyperbolic copy. Replace power words with mechanism argument."
+
+  error_handling:
+    max_retries: 0
+    on_any_failure: immediate_reject
+    fallback: return_rejection_report
+
+  quality_gate:
+    min_pass_rate: 1.0
+    min_steps_passed: 8
+    critical_steps: [step_01, step_02, step_07]
+    verdict_map:
+      all_pass: PASS
+      any_fail: AUTO_REJECT
+
+  outputs:
+    - immune_verdict: enum[PASS, AUTO_REJECT]
+    - triggered_patterns: list
+    - pattern_count: integer
+    - rejection_citations: list

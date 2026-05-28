@@ -1,0 +1,87 @@
+sop:
+  id: collier-hook-penalty-close
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Hook/Penalty Close"
+  purpose: >
+    Structure every close with inducement (gain) AND penalty (loss). Fear of loss
+    is stronger than desire for gain. Key insight: 7/10 readers jump to last
+    paragraph first — the hook must be there.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: robert-collier
+    artifact_type: framework
+
+  steps:
+    - id: apply_inducement
+      action: apply_craft_hook
+      description: "Craft inducement: What they GAIN by acting now. Specific, concrete outcomes. Not vague benefits."
+      critical: true
+      inputs:
+        - offer_details
+        - product_benefits
+      output: inducement_copy
+
+    - id: apply_penalty
+      action: apply_craft_penalty
+      description: "Craft penalty: What they LOSE by not acting. What actively gets worse or disappears. Not failure to gain — active loss."
+      critical: true
+      inputs:
+        - deadline_scarcity
+        - cost_of_inaction
+      output: penalty_copy
+
+    - id: apply_combination
+      action: apply_combine_hook_penalty
+      description: "Combine both in final paragraph. Inducement first (pulls), Penalty second (pushes). Irresistible action force."
+      depends_on:
+        - apply_inducement
+        - apply_penalty
+      output: close_paragraph
+
+    - id: apply_first_read_test
+      action: apply_standalone_validation
+      description: "Validate: 7/10 readers read last paragraph FIRST. Close must work standalone — offer, gain, cost of inaction all clear."
+      depends_on: apply_combination
+      critical: true
+      output: validated_close
+
+  error_handling:
+    - error: inducement_only
+      symptom: "Prospects agree it's good but don't act urgently"
+      resolution: "Add specific penalty: what they lose by waiting"
+    - error: penalty_only
+      symptom: "Close feels threatening; creates resentment"
+      resolution: "Lead with the gain, then add the penalty"
+    - error: vague_inducement
+      symptom: "'Get started on your journey' — no concrete outcome"
+      resolution: "State specific, tangible result of acting now"
+    - error: fabricated_urgency
+      symptom: "'Only 3 spots left!' when unlimited"
+      resolution: "Use real deadlines, real scarcity, real consequences"
+    - error: close_requires_context
+      symptom: "Reader cannot understand close without body"
+      resolution: "Rewrite to work standalone; include offer summary"
+
+  quality_gate:
+    criteria:
+      - "Inducement is specific and concrete"
+      - "Penalty describes active loss, not missed gain"
+      - "Both inducement AND penalty present"
+      - "Close works standalone (first read test)"
+      - "Penalty is real and verifiable"
+      - "One clear action specified"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: close_paragraph
+      format: copy_block
+      description: "Close containing both inducement and penalty"
+    - name: cta
+      format: action_directive
+      description: "One specific action: click, call, reply, order"

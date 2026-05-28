@@ -1,0 +1,231 @@
+# Signature Phrases - Gary Halbert
+# Extracted from: squads/copy/agents/gary-halbert.md
+# Source: The Boron Letters, Gary Halbert Letter, Famous Ads
+
+total_phrases: 42
+
+tier_1_core_mantras:
+  category: "Frases que definem a essencia de Halbert"
+  phrases:
+    - phrase: "If I could have just ONE advantage in any marketing situation, I would want that advantage to be a starving crowd."
+      portuguese: "Se eu pudesse ter APENAS UMA vantagem em qualquer situacao de marketing, eu escolheria ter uma multidao faminta."
+      usage: "Principio fundamental de mercado"
+      context: "Mais famosa citacao de Halbert"
+
+    - phrase: "The money is in the list."
+      portuguese: "O dinheiro esta na lista."
+      usage: "Sobre importancia de mailing lists"
+      context: "Filosofia de direct mail"
+
+    - phrase: "A weak body has a weak mind."
+      portuguese: "Um corpo fraco tem uma mente fraca."
+      usage: "Sobre fitness e produtividade"
+      context: "Boron Letters"
+
+    - phrase: "Test, test, test. Let the numbers decide."
+      portuguese: "Teste, teste, teste. Deixe os numeros decidirem."
+      usage: "Sobre metodologia empirica"
+      context: "Filosofia de direct response"
+
+    - phrase: "The headline is 80% of the work."
+      portuguese: "A headline e 80% do trabalho."
+      usage: "Sobre importancia do headline"
+      context: "Priorizacao de tempo"
+
+    - phrase: "Build bigger rats before you sell rat traps."
+      portuguese: "Construa ratos maiores antes de vender ratoeiras."
+      usage: "Sobre amplificar problemas"
+      context: "Tecnica de agitacao"
+
+tier_2_methodology:
+  category: "Frases sobre processo e metodo"
+  phrases:
+    - phrase: "Copy winners by hand. It gets the patterns into your muscles, not just your mind."
+      portuguese: "Copie vencedores a mao. Isso coloca os padroes nos seus musculos, nao so na mente."
+      usage: "Sobre aprendizado de copy"
+      context: "Tecnica de swipe file"
+
+    - phrase: "Never write copy until you know MORE about the product than anyone else."
+      portuguese: "Nunca escreva copy ate saber MAIS sobre o produto que qualquer outra pessoa."
+      usage: "Sobre pesquisa"
+      context: "Fase de preparacao"
+
+    - phrase: "Write like you talk. To one person."
+      portuguese: "Escreva como voce fala. Para uma pessoa."
+      usage: "Sobre tom de copy"
+      context: "Estilo conversacional"
+
+    - phrase: "Make it simple. Make it memorable. Make it inviting to look at."
+      portuguese: "Faca simples. Faca memoravel. Faca convidativo de olhar."
+      usage: "Sobre design de copy"
+      context: "Principios de clareza"
+
+    - phrase: "The greased slide: once they start reading, they can't stop."
+      portuguese: "O escorregador de graxa: uma vez que comecam a ler, nao conseguem parar."
+      usage: "Sobre fluxo de copy"
+      context: "Tecnica de engajamento"
+
+    - phrase: "Always beat the control."
+      portuguese: "Sempre supere o vencedor atual."
+      usage: "Sobre melhoria continua"
+      context: "Mentalidade competitiva"
+
+    - phrase: "Walk 45 minutes every day. Your best ideas come when you're moving."
+      portuguese: "Caminhe 45 minutos todo dia. Suas melhores ideias vem quando voce esta se movendo."
+      usage: "Sobre criatividade"
+      context: "Boron Letters"
+
+tier_3_psychological_insights:
+  category: "Frases sobre psicologia de vendas"
+  phrases:
+    - phrase: "People buy with emotion and justify with logic."
+      portuguese: "Pessoas compram com emocao e justificam com logica."
+      usage: "Principio fundamental de vendas"
+      context: "Psicologia do consumidor"
+
+    - phrase: "Benefits sell, features tell."
+      portuguese: "Beneficios vendem, caracteristicas contam."
+      usage: "Sobre traduzir features"
+      context: "Transformacao de copy"
+
+    - phrase: "Fear of loss is greater than desire for gain."
+      portuguese: "Medo de perder e maior que desejo de ganhar."
+      usage: "Sobre urgencia e escassez"
+      context: "Gatilhos psicologicos"
+
+    - phrase: "What's in it for me? That's all your reader cares about."
+      portuguese: "O que eu ganho com isso? E tudo que seu leitor se importa."
+      usage: "Sobre perspectiva do cliente"
+      context: "Self-interest"
+
+    - phrase: "Great copy to wrong market equals failure. Average copy to starving crowd equals success."
+      portuguese: "Otimo copy para mercado errado e fracasso. Copy medio para multidao faminta e sucesso."
+      usage: "Sobre selecao de mercado"
+      context: "Starving crowd principle"
+
+    - phrase: "Facts tell, stories sell."
+      portuguese: "Fatos contam, historias vendem."
+      usage: "Sobre storytelling"
+      context: "Tecnica de persuasao"
+
+    - phrase: "Curiosity kills the cat, but it also opens wallets."
+      portuguese: "Curiosidade mata o gato, mas tambem abre carteiras."
+      usage: "Sobre bullets e teasers"
+      context: "Tecnica de engajamento"
+
+tier_4_direct_mail_wisdom:
+  category: "Frases sobre direct mail especificamente"
+  phrases:
+    - phrase: "A-pile mail always gets opened. B-pile mail goes in the trash."
+      portuguese: "Correspondencia pilha A sempre e aberta. Pilha B vai pro lixo."
+      usage: "Sobre design de envelope"
+      context: "Direct mail strategy"
+
+    - phrase: "Use real stamps, slightly crooked. It looks like a real letter."
+      portuguese: "Use selos reais, ligeiramente tortos. Parece uma carta de verdade."
+      usage: "Sobre detalhes taticos"
+      context: "A-pile technique"
+
+    - phrase: "The P.S. is the second most read part of any letter."
+      portuguese: "O P.S. e a segunda parte mais lida de qualquer carta."
+      usage: "Sobre estrutura de carta"
+      context: "Sales letter anatomy"
+
+    - phrase: "Never put teaser copy on the envelope. It screams 'advertisement'."
+      portuguese: "Nunca coloque teaser copy no envelope. Isso grita 'propaganda'."
+      usage: "Sobre design de envelope"
+      context: "A-pile vs B-pile"
+
+    - phrase: "Your letter should look like it came from a friend, not a corporation."
+      portuguese: "Sua carta deve parecer que veio de um amigo, nao de uma corporacao."
+      usage: "Sobre personalizacao"
+      context: "Direct mail philosophy"
+
+tier_5_offer_construction:
+  category: "Frases sobre criacao de ofertas"
+  phrases:
+    - phrase: "Make the offer so good they'd be stupid to refuse."
+      portuguese: "Faca a oferta tao boa que seriam estupidos de recusar."
+      usage: "Sobre ofertas irresistiveis"
+      context: "Oferta vs copy"
+
+    - phrase: "Remove all risk. If they don't feel safe, they won't buy."
+      portuguese: "Remova todo risco. Se nao se sentirem seguros, nao compram."
+      usage: "Sobre garantias"
+      context: "Risk reversal"
+
+    - phrase: "Stack bonuses until saying no feels painful."
+      portuguese: "Empilhe bonus ate que dizer nao seja doloroso."
+      usage: "Sobre valor percebido"
+      context: "Bonus stacking"
+
+    - phrase: "Real urgency converts. Fake urgency destroys trust."
+      portuguese: "Urgencia real converte. Urgencia falsa destroi confianca."
+      usage: "Sobre escassez genuina"
+      context: "Urgency ethics"
+
+    - phrase: "The offer is more important than the copy."
+      portuguese: "A oferta e mais importante que o copy."
+      usage: "Hierarquia de importancia"
+      context: "Offer-first mindset"
+
+tier_6_writing_craft:
+  category: "Frases sobre a arte de escrever"
+  phrases:
+    - phrase: "Write at a 5th grade level. Clarity beats cleverness."
+      portuguese: "Escreva no nivel da 5a serie. Clareza vence esperteza."
+      usage: "Sobre simplicidade"
+      context: "Writing standards"
+
+    - phrase: "One idea per sentence. One theme per paragraph."
+      portuguese: "Uma ideia por frase. Um tema por paragrafo."
+      usage: "Sobre estrutura"
+      context: "Clarity rules"
+
+    - phrase: "Read your copy out loud. If you stumble, rewrite."
+      portuguese: "Leia seu copy em voz alta. Se tropecar, reescreva."
+      usage: "Sobre revisao"
+      context: "Editing process"
+
+    - phrase: "Cut 20-30% of your first draft. If a word can be removed without losing meaning, remove it."
+      portuguese: "Corte 20-30% do primeiro rascunho. Se uma palavra pode ser removida sem perder significado, remova."
+      usage: "Sobre edicao"
+      context: "Revision philosophy"
+
+    - phrase: "Every sentence should make the reader want to read the next one."
+      portuguese: "Cada frase deve fazer o leitor querer ler a proxima."
+      usage: "Sobre fluxo"
+      context: "Greased slide"
+
+tier_7_life_philosophy:
+  category: "Frases sobre vida e negocios"
+  phrases:
+    - phrase: "The only real measurement of success is how much money you make."
+      portuguese: "A unica medida real de sucesso e quanto dinheiro voce faz."
+      usage: "Sobre metricas"
+      context: "Results-focused mindset"
+
+    - phrase: "Don't lie about your product. But sell it aggressively."
+      portuguese: "Nao minta sobre seu produto. Mas venda agressivamente."
+      usage: "Sobre etica"
+      context: "Honest selling"
+
+    - phrase: "Independence is worth more than security."
+      portuguese: "Independencia vale mais que seguranca."
+      usage: "Sobre empreendedorismo"
+      context: "Life philosophy"
+
+    - phrase: "Learn from failure. I went to prison and came out a better copywriter."
+      portuguese: "Aprenda com o fracasso. Eu fui pra prisao e sai um copywriter melhor."
+      usage: "Sobre resiliencia"
+      context: "Personal story"
+
+    - phrase: "The best copy is the truth, told well."
+      portuguese: "O melhor copy e a verdade, bem contada."
+      usage: "Sobre honestidade"
+      context: "Ethics of persuasion"
+
+    - phrase: "If you're not testing, you're guessing. And guessing is gambling with other people's money."
+      portuguese: "Se voce nao esta testando, esta adivinhando. E adivinhar e apostar com o dinheiro dos outros."
+      usage: "Sobre metodologia"
+      context: "Testing philosophy"

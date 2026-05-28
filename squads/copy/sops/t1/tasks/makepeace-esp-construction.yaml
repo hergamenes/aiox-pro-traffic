@@ -1,0 +1,72 @@
+sop:
+  id: makepeace-esp-construction
+  version: "1.0"
+  title: "ESP (Emotional Selling Proposition) Construction"
+  purpose: "Construct Emotional Selling Proposition by fusing product benefit with prospect's Dominant Resident Emotion (DRE), scoring minimum 7/10 before writing"
+  classification:
+    domain: copywriting
+    category: master
+    tier: T1
+    source_agent: clayton-makepeace
+
+  inputs:
+    - name: prospect_research
+      type: document
+      required: true
+    - name: product_benefits
+      type: list
+      required: true
+    - name: market_emotional_landscape
+      type: document
+      required: true
+
+  outputs:
+    - name: esp_statement
+      type: text
+      description: "ESP with DRE alignment: [Benefit] + [DRE] = ESP"
+    - name: esp_score
+      type: number
+      description: "ESP intensity score (minimum 7/10 to proceed)"
+
+  steps:
+    - id: step_01
+      action: identify_dominant_resident_emotion
+      description: "Determine prospect's actual DRE — what they feel at 2 AM, not what they say in surveys"
+      critical: true
+      error_handling:
+        condition: "generic_emotion_identified"
+        action: "drill_into_which_fear_about_what_why_now"
+
+    - id: step_02
+      action: connect_benefit_to_emotion
+      description: "Fuse strongest benefit with DRE: [Benefit] + [Emotion] = ESP statement"
+      critical: true
+      error_handling:
+        condition: "benefit_without_emotion_connection"
+        action: "force_explicit_fusion_not_benefit_restated_with_adjectives"
+
+    - id: step_03
+      action: validate_intensity
+      description: "Test ESP against 2 AM criterion: would prospect lose sleep over this?"
+      critical: true
+      error_handling:
+        condition: "esp_creates_only_mild_interest"
+        action: "find_deeper_dre_or_stronger_benefit_connection"
+
+    - id: step_04
+      action: score_esp
+      description: "Rate 1-10: weak(1-3)=interesting, medium(4-6)=need more, strong(7-8)=need NOW, devastating(9-10)=FEARS not having"
+      critical: true
+      error_handling:
+        condition: "score_below_7"
+        action: "block_writing_return_to_step_01"
+
+  quality_gate:
+    min_criteria_met: 5
+    criteria:
+      - "dre_is_specific_to_prospect_and_market"
+      - "dre_reflects_actual_emotions_not_stated"
+      - "benefit_to_emotion_connection_explicit"
+      - "passes_2am_sleep_loss_test"
+      - "esp_score_7_or_above"
+      - "esp_drives_need_now_or_fear_response"

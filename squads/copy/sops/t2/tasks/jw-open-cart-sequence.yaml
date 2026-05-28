@@ -1,0 +1,102 @@
+sop:
+  id: jw-open-cart-sequence
+  version: 1.0.0
+  title: Open Cart Email Sequence
+  purpose: Write the 5-7 day Open Cart email sequence with daily escalation, social proof, FAQ, and hard close
+  classification:
+    domain: copywriting
+    category: systematizer
+    source_agent: jeff-walker
+    artifact_type: task
+    tier: t2
+  status: ACTIVE
+  trigger:
+    type: manual
+    description: When cart is about to open after PLC sequence is complete
+  context:
+    input:
+    - name: sales_page_url
+      type: string
+      required: true
+      description: Link to the sales page
+    - name: scarcity_type
+      type: string
+      required: true
+      description: 'Type of scarcity: deadline, limited spots, price increase, bonus removal'
+    - name: testimonials
+      type: list
+      required: true
+      description: Social proof and success stories to deploy across the sequence
+  steps:
+  - id: S001
+    name: Day 1 Email 1 (Open)
+    action: execute_step_1
+    description: Ultra-short, link to sales page within first sentence. 'Okay, I just opened up registration. We're now live.'
+    performer: copywriter
+    critical: true
+    on_success: S002
+    on_failure: retry
+  - id: S002
+    name: Day 1 Email 2 (4 hours later)
+    action: execute_step_2
+    description: Confirm everything is up and running
+    performer: copywriter
+    critical: true
+    on_success: S003
+    on_failure: retry
+  - id: S003
+    name: Day 2 Email
+    action: execute_step_3
+    description: Social proof — share great response, early testimonials
+    performer: copywriter
+    critical: true
+    on_success: S004
+    on_failure: retry
+  - id: S004
+    name: Day 3 Email
+    action: execute_step_4
+    description: Longer email answering top questions about the product (FAQ/objections)
+    performer: copywriter
+    critical: false
+    on_success: S005
+    on_failure: retry
+  - id: S005
+    name: Day 4 Email
+    action: execute_step_5
+    description: Scarcity shift — 24-hour warning, be explicit about what they'll lose
+    performer: copywriter
+    critical: false
+    on_success: S006
+    on_failure: retry
+  - id: S006
+    name: Day 5 Email 1 (morning)
+    action: execute_step_6
+    description: Reiterate closing today
+    performer: copywriter
+    critical: false
+    on_success: S007
+    on_failure: retry
+  - id: S007
+    name: Day 5 Email 2 (6-8 hours before close)
+    action: execute_step_7
+    description: Final reminder
+    performer: copywriter
+    critical: false
+    on_success: S008
+    on_failure: retry
+  - id: S008
+    name: Day 5 Email 3 (optional, 1-2 hours before close)
+    action: execute_step_8
+    description: Last chance
+    performer: copywriter
+    critical: false
+    on_success: COMPLETE
+    on_failure: retry
+  quality_gate:
+    pass_threshold: 8
+    total_checks: 8
+    mandatory_passes:
+    - S001
+    - S002
+    - S003
+    verdict_on_fail: BLOCK

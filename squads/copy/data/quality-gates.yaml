@@ -1,0 +1,249 @@
+# Quality Gates — Copy Squad
+# Materializa checkpoints formais com thresholds e veto conditions
+# Remediação P1 do audit SINKRA
+
+quality_gates:
+  version: "1.0.0"
+  philosophy: |
+    Copy só avança quando contexto, promessa, provas, entrega e handoff passam
+    por critérios explícitos. REVIEW desacelera. VETO bloqueia.
+
+  gate_types:
+    auto:
+      executor: "Worker"
+      max_duration: "PT2M"
+    hybrid:
+      executor: "Agent + Human"
+      max_duration: "PT10M"
+    manual:
+      executor: "Human"
+      max_duration: "scheduled"
+
+  veto_conditions_catalog:
+    CP_VC_001: "Oferta principal ausente ou contraditória ao briefing"
+    CP_VC_002: "Avatar crítico não definido ou sem evidência mínima"
+    CP_VC_003: "Mecanismo genérico, indistinguível do mercado"
+    CP_VC_004: "Promessa sem prova suficiente ou com risco de claim frágil"
+    CP_VC_005: "Ativo core ausente para o primary output do workflow"
+    CP_VC_006: "Review humano identificou claim inventado, distorção ou desalinhamento comercial"
+    CP_VC_007: "Pacote final sem handoff manifest, próximos passos ou owner explícito"
+    CP_VC_008: "Relatório avaliativo sem trilha mínima de evidência"
+    CP_VC_009: "Voice clone distorce a oferta ou sacrifica clareza comercial"
+    CP_VC_010: "Plano de experimento sem baseline, hipótese ou sucesso mensurável"
+
+  thresholds:
+    default:
+      pass: 0.80
+      review: 0.65
+      fail: 0.64
+
+  gates:
+    QG_CP_1_1:
+      id: "QG-CP-1.1"
+      name: "Briefing Integrity Gate"
+      phase: "entry"
+      placement: "entry"
+      type: "hybrid"
+      severity: "blocking"
+      description: "Valida se o workflow entrou com briefing, avatar, oferta e output principal definidos."
+      criteria:
+        - metric: "briefing_completeness_pct"
+          threshold: 0.90
+          operator: ">="
+        - metric: "avatar_defined"
+          threshold: true
+        - metric: "offer_defined"
+          threshold: true
+        - metric: "primary_output_defined"
+          threshold: true
+      veto_conditions: ["CP_VC_001", "CP_VC_002"]
+      executor:
+        ai_agent: "copy-chief"
+        human_review: "launch-owner"
+        worker_support: "copy-ops-worker"
+      pass_action: "Prosseguir para estratégia/diagnóstico"
+      fail_action: "REVIEW ou VETO até completar contexto mínimo"
+
+    QG_CP_2_1:
+      id: "QG-CP-2.1"
+      name: "Strategic Message Gate"
+      phase: "strategy"
+      placement: "transition"
+      type: "hybrid"
+      severity: "blocking"
+      description: "Valida awareness, mecanismo, promessa e lastro estratégico antes de produção pesada."
+      criteria:
+        - metric: "awareness_alignment_score"
+          threshold: 0.80
+          operator: ">="
+        - metric: "mechanism_clarity_score"
+          threshold: 0.75
+          operator: ">="
+        - metric: "promise_specificity_score"
+          threshold: 0.75
+          operator: ">="
+        - metric: "proof_points_count"
+          threshold: 3
+          operator: ">="
+      veto_conditions: ["CP_VC_003", "CP_VC_004"]
+      executor:
+        ai_agent: "copy-chief"
+        human_review: "launch-owner"
+      pass_action: "Liberar produção dos ativos"
+      fail_action: "Revisar mecanismo, promessa ou prova"
+
+    QG_CP_3_1:
+      id: "QG-CP-3.1"
+      name: "Asset Completeness Gate"
+      phase: "execution"
+      placement: "exit"
+      type: "auto"
+      severity: "blocking"
+      description: "Valida se o conjunto mínimo de entregáveis foi produzido com CTA e prova suficientes."
+      criteria:
+        - metric: "deliverable_completeness_pct"
+          threshold: 0.90
+          operator: ">="
+        - metric: "cta_count"
+          threshold: 1
+          operator: ">="
+        - metric: "proof_injections_count"
+          threshold: 3
+          operator: ">="
+        - metric: "channel_constraints_respected"
+          threshold: true
+      veto_conditions: ["CP_VC_005"]
+      executor:
+        ai_agent: "copy-ops-worker"
+      pass_action: "Liberar pacote para review comercial"
+      fail_action: "Bloquear até completar os ativos core"
+
+    QG_CP_4_1:
+      id: "QG-CP-4.1"
+      name: "Human Truth Gate"
+      phase: "review"
+      placement: "transition"
+      type: "manual"
+      severity: "blocking"
+      description: "Gate humano para verdade da oferta, risco comercial e coerência final."
+      criteria:
+        - metric: "truth_risk_flags_count"
+          threshold: 0
+          operator: "=="
+        - metric: "commercial_alignment_score"
+          threshold: 0.80
+          operator: ">="
+        - metric: "risk_log_present"
+          threshold: true
+        - metric: "checkpoint_decision_recorded"
+          threshold: true
+      veto_conditions: ["CP_VC_006"]
+      executor:
+        human_review: "launch-owner"
+      pass_action: "Emitir PASS/REVIEW e encaminhar para packaging"
+      fail_action: "VETO ou devolver para ajuste"
+
+    QG_CP_5_1:
+      id: "QG-CP-5.1"
+      name: "Packaging and Handoff Gate"
+      phase: "handoff"
+      placement: "exit"
+      type: "hybrid"
+      severity: "blocking"
+      description: "Valida completude do pacote, handoff manifest e ownership explícito da entrega."
+      criteria:
+        - metric: "deliverable_completeness_pct"
+          threshold: 0.95
+          operator: ">="
+        - metric: "handoff_manifest_present"
+          threshold: true
+        - metric: "owners_explicit"
+          threshold: true
+        - metric: "open_dependencies_count"
+          threshold: 2
+          operator: "<="
+      veto_conditions: ["CP_VC_007"]
+      executor:
+        ai_agent: "copy-ops-worker"
+        human_review: "launch-owner"
+      pass_action: "Liberar entrega final"
+      fail_action: "Bloquear handoff até normalizar o pacote"
+
+    QG_CP_6_1:
+      id: "QG-CP-6.1"
+      name: "Evaluation Evidence Gate"
+      phase: "evaluation"
+      placement: "transition"
+      type: "hybrid"
+      severity: "blocking"
+      description: "Valida se avaliações e diagnósticos mantêm score, evidência e recomendação rastreáveis."
+      criteria:
+        - metric: "evidence_refs_count"
+          threshold: 5
+          operator: ">="
+        - metric: "scoring_trace_complete"
+          threshold: true
+        - metric: "critical_findings_named"
+          threshold: true
+        - metric: "recommendation_specificity_score"
+          threshold: 0.80
+          operator: ">="
+      veto_conditions: ["CP_VC_008"]
+      executor:
+        ai_agent: "copy-chief"
+        human_review: "launch-owner"
+      pass_action: "Liberar relatório avaliativo"
+      fail_action: "Refazer análise com evidência e score rastreável"
+
+    QG_CP_7_1:
+      id: "QG-CP-7.1"
+      name: "Voice Fidelity Gate"
+      phase: "enhancement"
+      placement: "transition"
+      type: "hybrid"
+      severity: "blocking"
+      description: "Valida aderência de voz sem sacrificar clareza de oferta e verdade comercial."
+      criteria:
+        - metric: "voice_match_score"
+          threshold: 0.85
+          operator: ">="
+        - metric: "signature_phrase_count"
+          threshold: 3
+          operator: ">="
+        - metric: "offer_clarity_retained"
+          threshold: true
+        - metric: "distortion_flags_count"
+          threshold: 0
+          operator: "=="
+      veto_conditions: ["CP_VC_009"]
+      executor:
+        ai_agent: "copy-chief"
+        human_review: "launch-owner"
+      pass_action: "Liberar copy com voz clonada"
+      fail_action: "Reescrever sem distorcer a oferta"
+
+    QG_CP_8_1:
+      id: "QG-CP-8.1"
+      name: "Experiment Readiness Gate"
+      phase: "optimization"
+      placement: "exit"
+      type: "hybrid"
+      severity: "blocking"
+      description: "Valida se o plano de teste tem baseline, hipótese e critério de sucesso mensurável."
+      criteria:
+        - metric: "baseline_metric_present"
+          threshold: true
+        - metric: "hypothesis_count"
+          threshold: 1
+          operator: ">="
+        - metric: "success_threshold_defined"
+          threshold: true
+        - metric: "test_window_days"
+          threshold: 7
+          operator: ">="
+      veto_conditions: ["CP_VC_010"]
+      executor:
+        ai_agent: "claude-hopkins"
+        human_review: "launch-owner"
+      pass_action: "Liberar experimento para execução"
+      fail_action: "Replanejar teste com baseline e métrica de sucesso"

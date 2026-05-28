@@ -1,0 +1,29 @@
+# Extraction State - Eugene Schwartz
+# Auto-generated: 2026-03-19
+
+extraction:
+  status: "completed"
+  started: "2026-01-26"
+  completed: "2026-01-26"
+
+sources:
+  total: 3
+  tier_1_estimated: 2
+  types_detected: ["books", "interviews", "articles"]
+
+voice_dna:
+  extracted: true
+  power_words: 17
+  signature_phrases: 25
+  anti_patterns: 9
+  quality_estimate: "high"
+
+thinking_dna:
+  extracted: true
+  frameworks: 12
+  heuristics: 12
+  quality_estimate: "high"
+
+overall:
+  fidelity_estimate: "75%"
+  needs_improvement: []

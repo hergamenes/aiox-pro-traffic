@@ -1,0 +1,87 @@
+sop:
+  id: collier-four-opening-types
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "The 4 Opening Types"
+  purpose: >
+    Select correct opening approach based on prospect's awareness and receptivity.
+    Wrong opening type kills response regardless of body copy quality. Matches
+    opening strategy to prospect psychology.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: robert-collier
+    artifact_type: framework
+
+  steps:
+    - id: apply_offer_direct_assessment
+      action: apply_assess_offer_direct
+      description: "Assess: Does prospect know and want the product? If actively searching, use Offer Direct. Lead with deal."
+      inputs:
+        - prospect_awareness
+        - mental_conversation_map
+      output: offer_direct_score
+
+    - id: apply_problem_fear_assessment
+      action: apply_assess_problem_fear
+      description: "Assess: Has prospect recognized problem product solves? If problem-aware but not product-aware, use Problem/Fear."
+      output: problem_fear_score
+
+    - id: apply_story_curiosity_assessment
+      action: apply_assess_story_curiosity
+      description: "Assess: Does prospect need education? If not problem-aware, use Story/Curiosity. Pull in via narrative."
+      output: story_curiosity_score
+
+    - id: apply_identification_assessment
+      action: apply_assess_identification
+      description: "Assess: Is prospect indifferent or saturated? If skeptical of all approaches, use Identification. Speak to who they ARE."
+      output: identification_score
+
+    - id: apply_type_selection
+      action: apply_select_opening_type
+      description: "Select ONE opening type based on assessment. Do not blend. Commit fully to selected type."
+      depends_on:
+        - apply_offer_direct_assessment
+        - apply_problem_fear_assessment
+        - apply_story_curiosity_assessment
+        - apply_identification_assessment
+      critical: true
+      output: selected_opening_type
+
+  error_handling:
+    - error: offer_direct_to_unaware
+      symptom: "High-intent offer ignored; prospect does not know why they should care"
+      resolution: "Switch to Story/Curiosity or Problem/Fear to educate first"
+    - error: problem_fear_to_saturated
+      symptom: "Prospect rolls eyes at another pain-point opening"
+      resolution: "Switch to Identification to bypass skepticism"
+    - error: story_to_ready_buyer
+      symptom: "Reader interested in story but impatient"
+      resolution: "Switch to Offer Direct; do not slow ready buyer"
+    - error: blended_opening
+      symptom: "First paragraph tries everything; no clear entry"
+      resolution: "Choose ONE type and commit fully"
+
+  quality_gate:
+    criteria:
+      - "Prospect state correctly assessed"
+      - "One opening type selected (no blending)"
+      - "Opening matches prospect awareness level"
+      - "Opening enters prospect's conversation, not writer's"
+      - "Validated against Mental Conversation Mapping"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: prospect_state
+      format: classification
+      description: "Ready, problem-aware, unaware, or saturated"
+    - name: opening_type
+      format: selection
+      description: "Selected type with rationale"
+    - name: opening_draft
+      format: copy_draft
+      description: "Opening aligned to selected type"

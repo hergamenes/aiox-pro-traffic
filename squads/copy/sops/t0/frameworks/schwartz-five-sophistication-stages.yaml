@@ -1,0 +1,51 @@
+sop:
+  id: schwartz-five-sophistication-stages
+  version: "1.0"
+  title: "5 Estagios de Sofisticacao do Mercado"
+  purpose: "Classify market sophistication (1-5) to determine headline strategy — each stage demands a fundamentally different creative approach."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: eugene-schwartz
+  steps:
+    - id: apply_stage_1_virgin
+      action: "Check if market has no competing advertisers — use DIRECT CLAIM"
+      input: "Competitor audit, market history"
+      output: "If Stage 1: simple direct claim headline"
+      validation: "No competitors are advertising to this specific desire"
+    - id: apply_stage_2_competition
+      action: "Check if competitors make similar claims — AMPLIFY and QUANTIFY"
+      input: "Competitor claim inventory, quantification data"
+      output: "If Stage 2: quantified claim with size, speed, or magnitude"
+      validation: "Claim is bigger, faster, or more specific than competitors"
+    - id: apply_stage_3_saturation
+      action: "Check if market is flooded with quantified claims — introduce NEW MECHANISM"
+      input: "Competitor headline analysis, mechanism research"
+      output: "If Stage 3: headline leading with unique mechanism (HOW it works)"
+      validation: "Mechanism is genuinely different from competitors and credible"
+    - id: apply_stage_4_mechanism_saturation
+      action: "Check if multiple competitors use mechanisms — ELABORATE the mechanism"
+      input: "Competitor mechanism inventory, credibility assets"
+      output: "If Stage 4: elaborated mechanism (faster, easier, more proven, clinical)"
+      validation: "Mechanism elaboration is specific, credible, and differentiated"
+    - id: apply_stage_5_exhausted
+      action: "Check if all claims and mechanisms are exhausted — use IDENTIFICATION"
+      input: "Market exhaustion evidence, identity research, audience tribes"
+      output: "If Stage 5: identity-based headline (who uses it, not what it does)"
+      validation: "Identity angle is authentic, resonant, and avoids product claims"
+  error_handling:
+    - error: "Stage misclassified (too low)"
+      resolution: "Recount competitors making similar claims; upgrade stage if >5 similar claims exist"
+    - error: "No credible mechanism found for Stage 3"
+      resolution: "Conduct deeper product/process research; consider preemptive claims"
+    - error: "Identity angle feels forced (Stage 5)"
+      resolution: "Research actual customer identity; use their language, not marketing jargon"
+  quality_gate:
+    criteria:
+      - "Sophistication stage classified with competitor evidence"
+      - "Number of competing claims documented"
+      - "Headline strategy matches classified stage"
+      - "If Stage 3+: mechanism is identified and credible"
+      - "Classification includes reassessment timeline"
+    pass_threshold: "All 5 criteria met"

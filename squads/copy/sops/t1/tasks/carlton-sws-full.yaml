@@ -1,0 +1,120 @@
+sop:
+  id: carlton-sws-full
+  version: "1.0"
+  title: "Simple Writing System (SWS) — Full 4-Phase Process"
+  purpose: "Execute Carlton's 4-phase direct response copy system: Sales Detective Work, Build Spine, Create Ad (precise sequence), Test & Optimize"
+  classification:
+    domain: copywriting
+    category: master
+    tier: T1
+    source_agent: john-carlton
+
+  inputs:
+    - name: product_service
+      type: text
+      required: true
+    - name: insider_access
+      type: resource
+      required: true
+    - name: market_research
+      type: document
+      required: true
+
+  outputs:
+    - name: complete_ad
+      type: document
+      description: "Sales letter following SWS sequence with hook, story, One-Two Punch bullets"
+    - name: tracking_codes
+      type: list
+      description: "Key codes for each ad version/placement"
+    - name: test_results_framework
+      type: framework
+      description: "Framework for measuring and optimizing performance"
+
+  steps:
+    - id: phase_01a
+      action: conduct_sales_detective_work
+      description: "Read ALL product material, interview insiders for stories/accidents/gossip (not hooks), 1-3 days"
+      critical: true
+      error_handling:
+        condition: "asking_for_hooks_instead_of_stories"
+        action: "redirect_to_personal_stories_accidents_gossip"
+
+    - id: phase_01b
+      action: find_wait_a_minute_hook
+      description: "Identify the improbable specific detail that makes you stop and ask questions"
+      critical: true
+      error_handling:
+        condition: "hook_has_no_legitimate_payoff"
+        action: "validate_hook_against_product_reality_discard_if_pure_tease"
+
+    - id: phase_01c
+      action: map_basic_drives
+      description: "Map 8 drives (greed, fear, sex, health, self-improvement, respect, pleasure, better deal) to product"
+      critical: false
+
+    - id: phase_02a
+      action: record_sales_pitch
+      description: "Create raw spine by recording/writing face-to-face sales pitch to one person"
+      critical: false
+
+    - id: phase_02b
+      action: build_feature_benefit_sensory
+      description: "List all features, convert to benefits via 'because', then to sensory pictures via action verbs"
+      critical: true
+      error_handling:
+        condition: "features_without_sensory_conversion"
+        action: "force_sensory_picture_with_action_verbs_for_every_benefit"
+
+    - id: phase_02c
+      action: create_objections_list
+      description: "Document every possible objection with honest response"
+      critical: false
+
+    - id: phase_03
+      action: create_ad_sequence
+      description: "Follow exact sequence: HEADLINE > OPENING > STORY > BULLETS(80/20) > TESTIMONIALS > OFFER > GUARANTEE > URGENCY > CLOSE"
+      critical: true
+      error_handling:
+        condition: "sequence_deviated_or_rearranged"
+        action: "reorder_to_exact_sws_sequence"
+
+    - id: phase_04a
+      action: cut_first_paragraph
+      description: "Remove first paragraph (throat-clearing) — real opening usually starts in paragraph 2-3"
+      critical: true
+      error_handling:
+        condition: "first_paragraph_retained"
+        action: "default_cut_unless_genuinely_essential"
+
+    - id: phase_04b
+      action: apply_so_what_test
+      description: "Challenge every sentence with 'So what?' — cut or rewrite sentences that don't pass"
+      critical: false
+
+    - id: phase_04c
+      action: apply_bar_test
+      description: "Read entire ad aloud as if telling friend at bar — rewrite anything unnatural or 'writerly'"
+      critical: true
+      error_handling:
+        condition: "sentences_sound_artificial"
+        action: "rewrite_in_conversational_language"
+
+    - id: phase_04d
+      action: assign_key_codes
+      description: "Key-code each ad version for tracking, scale winners aggressively"
+      critical: false
+
+  quality_gate:
+    min_criteria_met: 7
+    criteria:
+      - "sales_detective_work_completed_1_to_3_days"
+      - "hook_found_with_legitimate_payoff"
+      - "8_drives_mapped"
+      - "feature_benefit_sensory_pipeline_complete"
+      - "ad_follows_exact_sws_sequence"
+      - "bullets_80_20_blind_giveaway"
+      - "first_paragraph_cut"
+      - "so_what_test_passed"
+      - "bar_test_passed"
+      - "key_codes_assigned"

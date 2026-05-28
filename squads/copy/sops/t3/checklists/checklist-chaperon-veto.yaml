@@ -1,0 +1,55 @@
+sop:
+  id: checklist-chaperon-veto
+  version: "1.0"
+  title: "Chaperon Veto Conditions"
+  purpose: "Define blocking conditions for copy produced under Andre Chaperon's methodology — protecting narrative integrity and relationship-first philosophy"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: andre-chaperon
+    type: veto
+  steps:
+    - id: AC_V01
+      action: "Check narrative arc presence"
+      criteria: "Email sequence sem arco narrativo (apenas tips soltos)"
+      veto_action: REJEITAR
+      required: true
+    - id: AC_V02
+      action: "Check pitch transition naturalness"
+      criteria: "Transicao forcada para pitch ('BUT WAIT')"
+      veto_action: REJEITAR
+      required: true
+    - id: AC_V03
+      action: "Check cliffhanger presence"
+      criteria: "Email sem cliffhanger em sequencia multi-email"
+      veto_action: REJEITAR
+      required: true
+    - id: AC_V04
+      action: "Check scarcity authenticity"
+      criteria: "Escassez artificial sem base narrativa"
+      veto_action: REJEITAR
+      required: true
+    - id: AC_V05
+      action: "Check relationship-before-selling"
+      criteria: "Vender antes de construir relacionamento"
+      veto_action: "BLOQUEAR (adicionar 2-3 emails de world-building)"
+      required: true
+    - id: AC_V06
+      action: "Check segmentation depth"
+      criteria: "Segmentacao apenas demografica"
+      veto_action: "REJEITAR (adicionar layer comportamental)"
+      required: true
+    - id: AC_V07
+      action: "Check personalization method"
+      criteria: "Personalizar apenas por merge tag ([FIRSTNAME])"
+      veto_action: "REJEITAR (personalizar pela NARRATIVA)"
+      required: true
+  error_handling:
+    - condition: "any_veto_triggered"
+      action: "block_delivery"
+    - condition: "AC_V05_triggered"
+      action: "add_world_building_emails"
+  quality_gate:
+    mode: veto
+    any_trigger_blocks: true
+    requires_rescan_after_fix: true

@@ -1,0 +1,43 @@
+sop:
+  id: schwartz-sophistication-rule
+  version: "1.0"
+  title: "Sophistication Rule (ES_H02)"
+  purpose: "Determinar nivel de sofisticacao do mercado para calibrar headline. Virgem = promessa direta. Saturado = mecanismo. Exausto = identificacao."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: eugene-schwartz
+  steps:
+    - step: 1
+      action: "Avaliar nivel de sofisticacao do mercado"
+      decision_point:
+        condition: "Qual o estagio de sofisticacao?"
+        branches:
+          - if: "Mercado virgem (sem concorrentes comunicando)"
+            then: "Promessa direta e simples — ex: 'Emagreca!'"
+          - if: "Competicao inicial"
+            then: "Ampliar promessa, quantificar — ex: 'Perca 10kg em 30 dias!'"
+          - if: "Saturado de promessas"
+            then: "NOVO MECANISMO no headline — mudar o COMO, nao ampliar promessa"
+          - if: "Saturado de mecanismos"
+            then: "Elaborar mecanismo existente — mais rapido, facil, provado"
+          - if: "Mercado exausto (tudo ja foi dito)"
+            then: "IDENTIFICACAO — quem usa, nao o que faz — ex: 'Para pessoas serias sobre transformacao'"
+  error_handling:
+    - error: "Promessa direta em mercado saturado"
+      severity: critical
+      action: "Diagnosticar sofisticacao primeiro — mudar para mecanismo"
+    - error: "Identificacao em mercado virgem"
+      severity: warning
+      action: "Promessa direta funciona em mercado virgem — usar"
+    - error: "Confundir sofisticacao com consciencia"
+      severity: critical
+      action: "Tratar como dimensoes separadas"
+  quality_gate:
+    criteria:
+      - "Sofisticacao corretamente diagnosticada"
+      - "Abordagem condizente com estagio"
+      - "Promessa nao amplificada alem do credivel"
+      - "Mecanismo ou identificacao usados quando necessario"
+    pass_threshold: "Todos os criterios atendidos"

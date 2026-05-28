@@ -1,0 +1,110 @@
+sop:
+  id: jw-jv-launch
+  version: 1.0.0
+  title: JV Launch (Joint Venture)
+  purpose: Scale via partner lists. Recruit JV partners with proven EPC data, run coordinated multi-list launch
+  classification:
+    domain: copywriting
+    category: systematizer
+    source_agent: jeff-walker
+    artifact_type: task
+    tier: t2
+  status: ACTIVE
+  trigger:
+    type: manual
+    description: When Internal Launch data proves conversions and you're ready to scale via partners
+  context:
+    input:
+    - name: internal_launch_results
+      type: object
+      required: true
+      description: EPC, conversion rate, refund rate from Internal Launch
+    - name: jv_partner_list
+      type: list
+      required: true
+      description: Potential JV partners with relevant audiences
+    - name: affiliate_program
+      type: object
+      required: true
+      description: Commission structure, swipe files, promotional calendar
+  steps:
+  - id: S001
+    name: Step 1
+    action: execute_step_1
+    description: Build relationships with potential JV partners (other publishers in your niche) — create value for them FIRST
+    performer: copywriter
+    critical: true
+    on_success: S002
+    on_failure: retry
+  - id: S002
+    name: Step 2
+    action: execute_step_2
+    description: Complete an Internal Launch to prove your offer converts
+    performer: copywriter
+    critical: true
+    on_success: S003
+    on_failure: retry
+  - id: S003
+    name: Step 3
+    action: execute_step_3
+    description: Approach 3-5 high-quality partners (not hundreds) with your proven metrics (EPC, conversion rate)
+    performer: copywriter
+    critical: true
+    on_success: S004
+    on_failure: retry
+  - id: S004
+    name: Step 4
+    action: execute_step_4
+    description: Partners mail their lists to your squeeze page — leads must opt in to your list before seeing PLC
+    performer: copywriter
+    critical: false
+    on_success: S005
+    on_failure: retry
+  - id: S005
+    name: Step 5
+    action: execute_step_5
+    description: Run your proven Prelaunch Sequence (3 PLC + Open Cart) for the combined audience
+    performer: copywriter
+    critical: false
+    on_success: S006
+    on_failure: retry
+  - id: S006
+    name: Step 6
+    action: execute_step_6
+    description: Affiliate tracking software attributes each lead/sale to the referring partner
+    performer: copywriter
+    critical: false
+    on_success: S007
+    on_failure: retry
+  - id: S007
+    name: Step 7
+    action: execute_step_7
+    description: Pay commissions to partners after sales are made (typically 50% for digital products)
+    performer: copywriter
+    critical: false
+    on_success: S008
+    on_failure: retry
+  - id: S008
+    name: Step 8
+    action: execute_step_8
+    description: You keep the entire launch list for future promotions
+    performer: copywriter
+    critical: false
+    on_success: S009
+    on_failure: retry
+  - id: S009
+    name: Step 9
+    action: execute_step_9
+    description: Nurture JV relationships for long-term — treat like gold
+    performer: copywriter
+    critical: false
+    on_success: COMPLETE
+    on_failure: retry
+  quality_gate:
+    pass_threshold: 9
+    total_checks: 9
+    mandatory_passes:
+    - S001
+    - S002
+    - S003
+    verdict_on_fail: BLOCK

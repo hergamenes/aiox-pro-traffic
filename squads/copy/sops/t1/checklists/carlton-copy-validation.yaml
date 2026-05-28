@@ -1,0 +1,135 @@
+sop:
+  id: carlton-copy-validation
+  version: "1.0"
+  title: Carlton Copy Validation Checklist
+  purpose: >
+    Validate copy against John Carlton's standards for raw conversational tone,
+    zero corporate jargon, action-verb dominance, natural humor, and street-level
+    authenticity that sounds like advice from a brilliant friend at a bar.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: john-carlton
+    artifact_type: quality_gate
+    tier: t1
+
+  steps:
+    - action: validate_bar_test
+      description: Copy sounds natural read aloud at a bar
+      input: full_copy_text
+      test: read_aloud_casual_setting
+      fail_signals:
+        - sounds_like_script
+        - sounds_like_presentation
+        - sounds_like_marketing_copy
+      on_fail: rewrite_conversationally
+
+    - action: validate_no_corporate_jargon
+      description: Zero corporate jargon from never_use list
+      input: full_copy_text
+      never_use:
+        - leverage
+        - synergy
+        - optimize
+        - utilize
+        - implement
+        - facilitate
+        - strategize
+        - paradigm
+        - value proposition
+        - stakeholder
+        - actionable
+        - ecosystem
+        - bandwidth
+        - scalable
+      rule: corporate_jargon_count == 0
+      on_fail: replace_with_plain_language
+
+    - action: validate_carlton_opener
+      description: Opens with Carlton signature opener
+      input: first_sentence
+      valid_openers:
+        - "Dude"
+        - "Listen"
+        - "Here's the thing"
+        - "Look"
+        - "OK, here's the deal"
+        - direct_conversational_address
+      on_fail: rewrite_opening
+
+    - action: validate_transition_patterns
+      description: Uses Carlton-style conversational transitions
+      input: full_copy_text
+      preferred:
+        - "Here's what it's all about:"
+        - conversational_redirects
+        - natural_bridges
+      prohibited:
+        - "Furthermore"
+        - "Additionally"
+        - "Moreover"
+        - "In conclusion"
+      on_fail: replace_formal_transitions
+
+    - action: validate_paragraph_brevity
+      description: Short paragraphs, max 3-4 lines, ideally 1-2
+      input: full_copy_text
+      rule: max_paragraph_lines <= 4
+      ideal: 1-2
+      on_fail: break_long_paragraphs
+
+    - action: validate_humor_quality
+      description: Humor present when natural, never forced
+      input: full_copy_text
+      checks:
+        - humor_arises_from_subject
+        - would_make_reader_smile
+        - not_constructed_joke
+        - genuine_observation
+      on_fail: remove_if_forced
+
+    - action: validate_experiential_specificity
+      description: Specific numbers presented in experience-toned voice
+      input: full_copy_text
+      rule: vague_quantifier_count == 0
+      voice_requirement: numbers_sound_like_real_experience
+      on_fail: research_and_rephrase
+
+    - action: validate_action_verb_dominance
+      description: Action verbs outnumber adjectives in every section
+      input: full_copy_text
+      rule: action_verb_count > adjective_count
+      examples:
+        good: ["crushes", "grabs", "hammers", "drives", "slams"]
+        bad: ["amazing", "incredible", "game-changing", "revolutionary"]
+      on_fail: rewrite_verb_forward
+
+    - action: validate_no_emojis
+      description: Zero emoji characters in document
+      input: full_copy_text
+      rule: emoji_count == 0
+      on_fail: remove_all_emojis
+
+  error_handling:
+    - error: corporate_tone_detected
+      severity: critical
+      action: full_rewrite_in_conversational_voice
+    - error: jargon_found
+      severity: high
+      action: replace_each_with_plain_equivalent
+    - error: forced_humor
+      severity: medium
+      action: remove_forced_instances
+    - error: adjective_heavy_sections
+      severity: medium
+      action: rewrite_with_action_verbs
+
+  quality_gate:
+    pass_threshold: 9
+    total_checks: 9
+    mandatory_passes:
+      - validate_bar_test
+      - validate_no_corporate_jargon
+      - validate_carlton_opener
+      - validate_action_verb_dominance
+    verdict_on_fail: REJECT

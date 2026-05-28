@@ -1,0 +1,782 @@
+# =============================================================================
+# ALEX HORMOZI - COPY PATTERNS SWIPE FILE
+# =============================================================================
+# Ready-to-use templates, formulas, and patterns for immediate application
+# Source: $100M Offers, $100M Leads, Playbooks
+# =============================================================================
+
+metadata:
+  source: "alex_hormozi"
+  purpose: "Direct copy application - templates ready to fill"
+  categories: ["headlines", "bullets", "hooks", "ctas", "guarantees", "offers"]
+
+# =============================================================================
+# HEADLINES / TITLES
+# =============================================================================
+headlines:
+  magic_formula:
+    structure: "[Magnet] + [Avatar] + [Goal] + [Interval] + [Container]"
+    templates:
+      - "Free [Avatar] [Goal] [Interval] [Container]"
+      - "[% Off] [Avatar] [Goal] [Interval] [Container]"
+      - "The [Adjective] [Avatar] [Goal] [Container]"
+      - "How [Avatar] [Goal] in [Interval] Without [Sacrifice]"
+
+    examples:
+      - "Free Lakeway Moms Bikini Body 6-Week Challenge"
+      - "88% Off Brooklyn Executives Pain Free 42-Day Fast Track"
+      - "The Ultimate SaaS Founder 7-Figure Launch System"
+      - "How Busy Parents Lose 20lbs in 90 Days Without Dieting"
+
+  case_study_headlines:
+    structure: "Case Study: How [Avatar] [Achieved Result] in [Timeframe]"
+    examples:
+      - "Case Study: How We Added 213 Members and $112,000 in Revenue to a Small San Diego Gym"
+      - "Case Study: How a Complete Beginner Built a $47K/Month Business in 90 Days"
+      - "Case Study: How I Spent $1 and Made $123,000 in One Weekend"
+
+  curiosity_headlines:
+    templates:
+      - "The [Specific Number] [Thing] That [Authority] Don't Want You to Know"
+      - "Why [Common Belief] Is Completely Wrong (And What to Do Instead)"
+      - "The [Adjective] Secret Behind [Impressive Result]"
+      - "What [Number]% of [Avatar] Get Wrong About [Topic]"
+
+# =============================================================================
+# VALUE PROPOSITION ONE-LINERS
+# =============================================================================
+value_propositions:
+  formula: "I help [Avatar] get [Dream Outcome] in [Timeframe] without [Sacrifice] and [Proof Element]"
+
+  templates:
+    - "I help [avatar] get [result] in [time] without [pain] - guaranteed or [consequence]"
+    - "We [action] for [avatar] so they can [benefit] without [sacrifice]"
+    - "[Number] [avatars] have used our [method] to [achieve result] in [timeframe]"
+
+  examples:
+    - "I help gym owners add $100K in annual revenue in 90 days without spending a dime on ads - guaranteed or I work free until you do"
+    - "We build sales funnels for coaches so they can enroll high-ticket clients without cold calling"
+    - "847 SaaS founders have used our launch system to hit $50K MRR in under 6 months"
+
+# =============================================================================
+# BULLETS / FASCINATIONS
+# =============================================================================
+bullets:
+  bencivenga_formulas:
+    specific_benefit:
+      pattern: "How to [result] in [time] without [sacrifice]"
+      examples:
+        - "How to double your close rate in 30 days without sounding salesy"
+        - "How to write emails that sell in 15 minutes without writer's block"
+
+    contrarian:
+      pattern: "Why [common belief] is completely wrong"
+      examples:
+        - "Why 'following your passion' is the worst career advice (and what to do instead)"
+        - "Why more traffic is NOT the answer to your revenue problems"
+
+    curiosity_gap:
+      pattern: "The [interesting person]'s technique for [benefit]"
+      examples:
+        - "The Navy SEAL's morning ritual for unshakeable focus"
+        - "The billionaire's 3-word phrase that closes deals"
+
+    fear_based:
+      pattern: "The warning sign of [problem] that [%] ignore"
+      examples:
+        - "The warning sign of business failure that 93% of entrepreneurs ignore"
+        - "The hidden fee that's silently eating 20% of your profits"
+
+    proof_based:
+      pattern: "[Institution] study reveals [discovery]"
+      examples:
+        - "Harvard study reveals the #1 predictor of business success (it's not what you think)"
+        - "Stanford research shows why your 'best' employees are actually costing you money"
+
+  lampropoulos_amplification:
+    techniques:
+      - name: "Add specific numbers"
+        example: "The 3 warning signs that predict heart attack 6 months in advance"
+      - name: "Include page numbers"
+        example: "See page 47"
+      - name: "Name drop when relevant"
+        example: "What Harvard cardiologists do differently"
+      - name: "Parenthetical intrigue"
+        example: "(hint: it's not what you think)"
+      - name: "Forehead-slapper moments"
+        example: "The obvious mistake that's costing you $10K/month"
+
+# =============================================================================
+# VIDEO HOOKS (First 3 Seconds)
+# =============================================================================
+video_hooks:
+  contrarian_hooks:
+    - "Everything you know about [topic] is wrong"
+    - "Stop [common action] - it's destroying your [thing]"
+    - "[Authority figures] have been lying to you about [topic]"
+    - "I used to believe [common belief] until I discovered this"
+
+  curiosity_hooks:
+    - "What if I told you [surprising claim]?"
+    - "The [adjective] secret that [authority] doesn't want you to know"
+    - "There's something about [topic] that nobody talks about"
+    - "I'm about to show you something that will change how you think about [topic]"
+
+  result_hooks:
+    - "I went from [bad state] to [good state] in [timeframe]"
+    - "[Exact number] in [timeframe] using this [method]"
+    - "My client just [impressive result] and here's exactly how"
+    - "This one change added [specific result] to my business"
+
+  challenge_hooks:
+    - "I bet you can't [achievable challenge]"
+    - "Most people fail at this - can you?"
+    - "Try this for 7 days and watch what happens"
+
+  question_hooks:
+    - "What would you do with an extra [desirable thing]?"
+    - "Are you making this [costly mistake]?"
+    - "Want to know how [avatar] [achieve result] so fast?"
+
+# =============================================================================
+# CALL TO ACTION TEMPLATES
+# =============================================================================
+ctas:
+  basic_formulas:
+    - "[Action verb] now to [get benefit]"
+    - "[Action verb] before [scarcity/urgency element]"
+    - "[Action verb] and [immediate benefit]"
+
+  urgency_ctas:
+    - "Spots are filling fast - [action] now"
+    - "This offer expires at midnight - [action] before it's gone"
+    - "Only [number] spots left at this price"
+    - "Price increases [day/time] - lock in your rate now"
+
+  scarcity_ctas:
+    - "Only [number] spots available"
+    - "Limited to [number] students per month"
+    - "We only take [number] new clients at a time"
+    - "Once these are gone, they're gone"
+
+  reason_based_ctas:
+    scarcity: "[Action] now - only [number] spots left"
+    urgency: "[Action] before [deadline] to get [bonus]"
+    frat_party: "[Action] now because [any reason, even silly]"
+
+  examples:
+    - "Click below to claim your free strategy session (only 5 spots this week)"
+    - "Book your call now - price goes up $500 on Friday"
+    - "Grab your copy before we sell out again"
+    - "Sign up now because it's my birthday and I want to celebrate with you"
+
+# =============================================================================
+# GUARANTEE TEMPLATES
+# =============================================================================
+guarantee_templates:
+  unconditional:
+    basic: "[Time period] no questions asked money-back guarantee"
+    enhanced: "If you're not [specific satisfaction] within [time], I'll refund every penny plus [bonus]"
+    creative_names:
+      - "Shark-Infested Waters Guarantee"
+      - "Triple Your Money Back Guarantee"
+      - "Results or It's Free Guarantee"
+
+  conditional:
+    result_based: "Get [specific result] in [timeframe] or [consequence]"
+    action_based: "Complete [requirements] and if you don't get [result], [consequence]"
+
+    examples:
+      - "Get 20 clients in your first 30 days, or I'll refund your investment AND reimburse your ad spend"
+      - "Increase your sales by 30% in 90 days, or I'll pay you 2x your money back"
+      - "Follow the system for 90 days - if you don't add $10K/month, I'll cover your costs until you do"
+
+  work_until:
+    template: "If you don't get [result] in [time], I'll continue working with you for FREE until you do"
+    example: "If you don't add at least $10,000/month in recurring revenue in 90 days, I'll pay your monthly fees until you do. Plus, I'll keep working with you at no extra cost until it works."
+
+  anti_guarantee:
+    consumables: "All sales are final because [reason this makes sense for the buyer]"
+    revenue_share: "I charge $0 upfront. I only get paid when you get paid. My interests are 100% aligned with yours."
+
+  stacking:
+    example: "30-day unconditional 'no questions asked' PLUS 90-day conditional 'triple your money' guarantee"
+
+# =============================================================================
+# OFFER STACKING TEMPLATE
+# =============================================================================
+offer_stack:
+  structure:
+    main_offer:
+      name: "[Name of main product/service]"
+      description: "[What they get]"
+      value: "$[XXX]"
+
+    bonuses:
+      - bonus_number: 1
+        name: "[Benefit-driven name]"
+        description: "[What it is]"
+        relevance: "[How it helps their specific problem]"
+        value: "$[XXX]"
+
+      - bonus_number: 2
+        name: "[Benefit-driven name]"
+        description: "[What it is]"
+        relevance: "[How it helps their specific problem]"
+        value: "$[XXX]"
+
+    total_value: "$[Sum of all values]"
+    your_investment: "$[Price - should be <25% of total value]"
+    guarantee: "[Your guarantee statement]"
+
+  example:
+    main_offer:
+      name: "Gym Launch System"
+      description: "Complete done-with-you launch system including ads, scripts, and training"
+      value: "$5,000"
+
+    bonuses:
+      - name: "The $100K Ad Swipe File"
+        description: "47 proven ads that have generated $100M+ in gym revenue"
+        value: "$997"
+
+      - name: "Sales Script Mastery Course"
+        description: "Word-for-word scripts to close 80% of your consultations"
+        value: "$1,997"
+
+      - name: "Private Community Access"
+        description: "Connect with 500+ successful gym owners"
+        value: "$500"
+
+      - name: "Weekly Q&A Calls"
+        description: "12 months of live coaching calls"
+        value: "$2,400"
+
+    total_value: "$10,894"
+    your_investment: "$1,997"
+    guarantee: "Add 50 members in 90 days or I work free until you do"
+
+# =============================================================================
+# LEAD MAGNET TEMPLATES
+# =============================================================================
+lead_magnets:
+  naming_formulas:
+    - "Free [Avatar] [Result] [Container]"
+    - "The [Adjective] Guide to [Result]"
+    - "[Number] Ways to [Result] Without [Sacrifice]"
+    - "How to [Result] in [Timeframe] (Even If [Obstacle])"
+    - "The [Avatar]'s [Result] [Container]"
+
+  types_with_examples:
+    software:
+      examples:
+        - "ROI Calculator"
+        - "Pricing Strategy Spreadsheet"
+        - "Campaign Planning Template"
+
+    information:
+      examples:
+        - "5-Step Framework PDF"
+        - "Case Study Video"
+        - "Behind-the-Scenes Workshop Recording"
+
+    services:
+      examples:
+        - "Free Audit"
+        - "Free Strategy Session"
+        - "Free First Treatment"
+
+    physical:
+      examples:
+        - "Free Sample"
+        - "Free Book (just pay shipping)"
+        - "Free Starter Kit"
+
+  consumption_optimization:
+    - "Offer in multiple formats (video, audio, text)"
+    - "Make it accessible on all devices"
+    - "Keep it focused and actionable"
+    - "Include clear next steps"
+
+# =============================================================================
+# WARM OUTREACH SCRIPTS
+# =============================================================================
+warm_outreach:
+  aca_framework:
+    A_acknowledge: "Reformulate what they said to show listening"
+    C_compliment: "Tie to positive character trait"
+    A_ask: "Ask question moving toward your offer"
+
+    example:
+      acknowledge: "Two kids and a full-time accounting career..."
+      compliment: "...Wow! Supermom! So hardworking managing a career and two kids..."
+      ask: "...Do you have any time for yourself?"
+
+  initial_reach_script: |
+    Hey, do you know anyone who's [describe their struggle] and looking for [dream outcome] in [timeframe]?
+
+    I'm taking on five case studies for free because that's all I can handle. I just want to get some testimonials for my service.
+
+    I help people [dream outcome] without [effort/sacrifice]. It works. I even guarantee people get [result] or I work with them until they do.
+
+    I just had a girl named XXX work with me and she [result] even though she [same struggle as contact].
+
+    Anyone come to mind?
+
+    ...and if they say no... Haha, well... anyone you hate come to mind? (ha)
+
+  value_pitch_script: |
+    I help [ideal client] get [dream outcome] in [time period] without [effort/sacrifice].
+
+    We guarantee [specific result] or [risk reversal].
+
+    I just helped [similar person] achieve [specific result] even though [they had obstacle].
+
+  nine_word_reengagement:
+    template: "Are you still looking to [4-word desire]?"
+    examples:
+      - "Are you still looking to grow your gym?"
+      - "Are you still looking to lose weight fast?"
+      - "Are you still looking to scale your agency?"
+
+# =============================================================================
+# OBJECTION HANDLING PATTERNS
+# =============================================================================
+objection_handling:
+  bencivenga_method:
+    step_1: "LIST all possible objections"
+    step_2: "RANK by frequency and importance"
+    step_3: "ANTICIPATE in copy (before reader thinks it)"
+    step_4: "NEUTRALIZE with logic or proof"
+    step_5: "TRANSFORM objection into benefit"
+
+  price_objection:
+    example:
+      objection: "It's too expensive"
+      anticipation: "I know you might be thinking that $997 is a lot..."
+      neutralization: "But if this saves just 2 hours per week, that's 104 hours per year. At $100/hour, that's $10,400."
+      transformation: "Actually, the 'expensive' choice would be NOT having this..."
+
+  common_objections_addressed:
+    - objection: "I need to think about it"
+      response_pattern: "What specifically do you need to think about? [Then address that specific concern]"
+
+    - objection: "I need to talk to my spouse"
+      response_pattern: "Totally understand. What questions do you think they'll have that I could help answer now?"
+
+    - objection: "I can't afford it"
+      response_pattern: "I hear you. Can you afford NOT to solve this problem? What is this costing you every month?"
+
+    - objection: "I don't have time"
+      response_pattern: "That's exactly why you need this. It's designed to save you [X] hours per week."
+
+# =============================================================================
+# PRICING PSYCHOLOGY PATTERNS
+# =============================================================================
+pricing_patterns:
+  anchor_high:
+    description: "Present highest option first to make others seem reasonable"
+    example: "Our VIP is $25,000. Standard is $5,000. Basic is $1,500."
+
+  decoy_pricing:
+    description: "Add option that makes target option obvious choice"
+    example: |
+      Option A: Basic - $997
+      Option B: Premium - $1,497 (includes 2x more value)
+      Option C: Premium+ - $1,497 (same as B but less value) ← decoy
+
+  payment_plan_premium:
+    description: "Payment plans cost more than pay-in-full"
+    example: |
+      Pay in full: $1,997
+      Payment plan: 3 x $797 = $2,391
+
+  round_up:
+    before: "$97, $197, $997"
+    after: "$100, $200, $1,000"
+    increase: "1-3%"
+
+# =============================================================================
+# TESTIMONIAL REQUEST TEMPLATE
+# =============================================================================
+testimonials:
+  request_script: |
+    Hey [Name], I'm so happy with the results you've gotten!
+
+    Would you mind doing a quick 60-second video testimonial?
+
+    Just answer these 3 questions:
+    1. What was your situation before working with us?
+    2. What results have you gotten?
+    3. What would you say to someone on the fence?
+
+    I'd really appreciate it and it would help other people in your situation.
+
+  structure_guide:
+    before: "Where were they before? (pain state)"
+    journey: "What was the experience like?"
+    after: "What results did they get? (pleasure state)"
+    recommendation: "Would they recommend it? To whom?"
+
+  amplification_questions:
+    - "Can you be more specific about the numbers?"
+    - "How did that make you feel?"
+    - "What did your [spouse/team/friends] say?"
+    - "What would you say to someone who's skeptical?"
+
+# =============================================================================
+# WORKSHOP SCRIPTS
+# =============================================================================
+workshop_scripts:
+  opening_script:
+    timing: "Primeiros 60 segundos"
+    template: |
+      "Nos próximos [TEMPO], vou mostrar exatamente como [RESULTADO ESPECÍFICO]
+      sem [OBJEÇÃO 1], sem [OBJEÇÃO 2], mesmo que [LIMITAÇÃO COMUM].
+
+      E vou provar isso ao vivo, na sua frente, fazendo [DEMONSTRAÇÃO].
+
+      Se ao final você não tiver pelo menos [PEQUENO RESULTADO GARANTIDO],
+      eu [PENALIDADE PARA VOCÊ]."
+
+  transition_education_to_offer:
+    template: |
+      "Você viu como [RECAPITULAR INSIGHT PRINCIPAL].
+
+      Agora você tem duas opções:
+      Opção 1: Pegar tudo que mostrei e tentar implementar sozinho.
+      Vai funcionar? Talvez. Em quanto tempo? Não sei.
+
+      Opção 2: Deixar eu instalar isso para você, junto com
+      [BENEFÍCIO EXTRA NÃO MENCIONADO ANTES].
+
+      Deixe-me mostrar exatamente o que você recebe..."
+
+  price_reduction_script:
+    template: |
+      "O valor normal disso seria [ÂNCORA ALTA] porque [JUSTIFICATIVA].
+
+      Mas não vou cobrar [ÂNCORA].
+      Nem mesmo [50% DA ÂNCORA].
+      Nem [25% DA ÂNCORA].
+
+      Hoje, apenas para quem está ao vivo, o investimento é [PREÇO FINAL].
+
+      Mas tem um detalhe..."
+      [REVELAR CONDIÇÃO OU BÔNUS SURPRESA]
+
+  block_transitions:
+    "1_to_2": "Agora que você viu o que é possível, deixe-me mostrar o que está impedindo 99% das pessoas..."
+    "2_to_3": "Mas existe uma saída. E ela é mais simples do que você imagina..."
+    "3_to_4": "Conhecimento sem ação é apenas entretenimento. Veja como implementar..."
+    "4_to_5": "Você tem duas opções: fazer sozinho ou deixar que eu facilite o caminho..."
+    "5_to_6": "A decisão é sua, mas o tempo não espera..."
+
+# =============================================================================
+# PRICE RAISE LETTER TEMPLATE
+# =============================================================================
+price_raise_templates:
+  full_letter:
+    template: |
+      Assunto: Atualização importante sobre sua assinatura
+
+      Olá [NOME],
+
+      [R - REMEMBER: VALOR ENTREGUE]
+      Nos últimos [PERÍODO], você conquistou [RESULTADOS ESPECÍFICOS].
+      Isso representa [VALOR MONETÁRIO ou TEMPO ECONOMIZADO].
+
+      [A - ADDRESS: ANÚNCIO DA MUDANÇA]
+      Estamos ajustando nossos preços a partir de [DATA].
+      O novo valor será [NOVO PREÇO] (atualmente [PREÇO ATUAL]).
+
+      [I - INVEST: ONDE O DINHEIRO VAI]
+      Esse aumento nos permite investir em:
+      • [MELHORIA 1]
+      • [MELHORIA 2]
+      • [MELHORIA 3]
+
+      [S - SOFTEN: DESCONTO DE LEALDADE]
+      Como cliente desde [DATA DE ENTRADA], você mantém [X]% de desconto
+      pelos próximos [PERÍODO], pagando apenas [PREÇO COM DESCONTO].
+
+      [E - EXPLAIN: PRÓXIMOS PASSOS]
+      Seu próximo pagamento em [DATA] será de [VALOR].
+      Nenhuma ação é necessária da sua parte.
+
+      Qualquer dúvida, responda este email.
+
+      [ASSINATURA]
+
+      PS: [MENSAGEM ADICIONAL DE VALOR ou URGÊNCIA]
+
+# =============================================================================
+# FAST CASH SEQUENCE TEMPLATES
+# =============================================================================
+fast_cash_templates:
+  seven_day_sequence:
+    day_1_announcement:
+      subject: "Algo especial para você (apenas 48h)"
+      template: |
+        [NOME],
+
+        Tenho uma oportunidade MUITO limitada para você.
+
+        [DESCREVER OFERTA PREMIUM]
+
+        Apenas [X] vagas disponíveis.
+        Disponível apenas até [DATA/HORA].
+
+        [CTA DIRETO]
+
+    day_2_case_study:
+      subject: "Como [CLIENTE] conseguiu [RESULTADO] em [TEMPO]"
+      template: |
+        [NOME],
+
+        Ontem falei sobre [OFERTA].
+
+        Hoje quero mostrar o que [CLIENTE] conseguiu:
+        - Antes: [SITUAÇÃO ANTERIOR]
+        - Depois: [RESULTADO CONQUISTADO]
+        - Tempo: [PERÍODO]
+
+        [CITAÇÃO DO CLIENTE]
+
+        [X-1] vagas restantes.
+
+        [CTA]
+
+    day_3_faq:
+      subject: "As 5 perguntas mais comuns sobre [OFERTA]"
+      template: |
+        [NOME],
+
+        Recebi muitas perguntas sobre [OFERTA].
+
+        Vou responder as 5 mais frequentes:
+
+        1. [PERGUNTA] → [RESPOSTA]
+        2. [PERGUNTA] → [RESPOSTA]
+        3. [PERGUNTA] → [RESPOSTA]
+        4. [PERGUNTA] → [RESPOSTA]
+        5. [PERGUNTA] → [RESPOSTA]
+
+        [CTA]
+
+    day_5_last_chance:
+      subject: "Última chance: [OFERTA] fecha amanhã"
+      template: |
+        [NOME],
+
+        [OFERTA] fecha AMANHÃ às [HORA].
+
+        Depois disso:
+        - Não será mais oferecido
+        - O preço será [NOVO PREÇO]
+        - Os bônus expiram
+
+        [RECAP DOS BENEFÍCIOS]
+
+        [CTA URGENTE]
+
+    day_7_final:
+      subject: "Acabou (mas...)"
+      template: |
+        [NOME],
+
+        [OFERTA] oficialmente fechou.
+
+        [X] pessoas garantiram sua vaga.
+
+        Se você perdeu, não se preocupe.
+        [PRÓXIMA OPORTUNIDADE ou ALTERNATIVA]
+
+        [ASSINATURA]
+
+# =============================================================================
+# UPSELL PAGE COPY
+# =============================================================================
+upsell_copy:
+  congratulation_opener:
+    templates:
+      - "PARABÉNS! Sua compra foi confirmada. Mas espera..."
+      - "SIM! Você acabou de fazer a melhor decisão. Agora..."
+      - "INCRÍVEL! Seu acesso está garantido. Antes de continuar..."
+
+  gap_reveal:
+    template: |
+      Você acabou de adquirir [PRODUTO PRINCIPAL].
+
+      Isso vai te ajudar a [RESULTADO PRINCIPAL].
+
+      Mas existe UM elemento que pode [ACELERAR/MAXIMIZAR/GARANTIR] esse resultado:
+      [NOME DO UPSELL]
+
+  urgency_tied_to_purchase:
+    templates:
+      - "Esta oferta existe APENAS nesta página, neste momento."
+      - "Você tem [X minutos] para decidir. Depois, o preço volta para [PREÇO NORMAL]."
+      - "Por você ter acabado de se tornar cliente, liberamos [OFERTA] apenas agora."
+
+  one_click_cta:
+    templates:
+      - "SIM! Adicione [UPSELL] à minha compra →"
+      - "Quero isso também - adicionar com 1 clique →"
+      - "Incluir [UPSELL] por apenas [PREÇO] →"
+
+  decline_options:
+    templates:
+      - "Não, obrigado. Vou tentar sozinho por mais tempo."
+      - "Não preciso de resultados mais rápidos agora."
+      - "Prefiro não ter [BENEFÍCIO DO UPSELL]."
+
+# =============================================================================
+# LANDING PAGE COPY BLOCKS
+# =============================================================================
+landing_page_copy:
+  above_fold:
+    headline_templates:
+      - "Como [RESULTADO ESPECÍFICO] em [TIMEFRAME] Sem [DOR #1] ou [DOR #2]"
+      - "O [MÉTODO/SISTEMA] que [NÚMERO] [AVATARS] Usaram para [RESULTADO]"
+      - "[RESULTADO IMPRESSIONANTE] em [TIMEFRAME] (Mesmo Se Você [LIMITAÇÃO])"
+
+    subheadline_templates:
+      - "O [MECANISMO] usado por [NÚMERO] [AVATAR] para [RESULTADO COMPROVADO]"
+      - "Descubra como [TIPO DE PESSOA] conseguem [RESULTADO] sem [SACRIFÍCIO]"
+      - "A estratégia por trás de [RESULTADO GRANDE] revelada passo a passo"
+
+    cta_templates:
+      - "Quero [RESULTADO] em [TIMEFRAME] →"
+      - "Sim, Me Mostre Como →"
+      - "Acesse Agora - [BENEFÍCIO IMEDIATO] →"
+
+  para_quem_e:
+    template: |
+      Este [PRODUTO] é perfeito se você:
+      ☑️ [SITUAÇÃO 1]
+      ☑️ [SITUAÇÃO 2]
+      ☑️ [SITUAÇÃO 3]
+      ☑️ [SITUAÇÃO 4]
+
+  para_quem_nao_e:
+    template: |
+      ATENÇÃO: Isso NÃO é para você se:
+      ❌ [DESQUALIFICADOR 1]
+      ❌ [DESQUALIFICADOR 2]
+      ❌ [DESQUALIFICADOR 3]
+
+  stack_presentation:
+    template: |
+      O que você recebe:
+
+      ✓ [COMPONENTE 1] ........................ Valor R$ [X]
+        [DESCRIÇÃO BREVE + BENEFÍCIO]
+
+      ✓ [COMPONENTE 2] ........................ Valor R$ [X]
+        [DESCRIÇÃO BREVE + BENEFÍCIO]
+
+      ✓ BÔNUS: [NOME] ......................... Valor R$ [X]
+        [DESCRIÇÃO BREVE + BENEFÍCIO]
+
+      ─────────────────────────────────────────────────
+      VALOR TOTAL: R$ [SOMA]
+      SEU INVESTIMENTO HOJE: R$ [PREÇO]
+      ─────────────────────────────────────────────────
+
+      [GARANTIA]
+
+  faq_universal:
+    questions:
+      - question: "Funciona pra mim?"
+        answer_template: "Sim, se você [CONDIÇÃO]. Já ajudamos [NÚMERO] pessoas como você a [RESULTADO]."
+
+      - question: "Quanto tempo demora?"
+        answer_template: "Nossos clientes veem os primeiros resultados em [TEMPO]. O resultado completo vem em [TEMPO MAIOR]."
+
+      - question: "E se não funcionar?"
+        answer_template: "Você tem [GARANTIA]. Se não funcionar, [CONSEQUÊNCIA FAVORÁVEL]."
+
+      - question: "Preciso de [X] para funcionar?"
+        answer_template: "Não. O sistema foi criado para funcionar mesmo sem [X]. Inclusive, [CLIENTE] conseguiu [RESULTADO] sem ter [X]."
+
+      - question: "Como é o suporte?"
+        answer_template: "Você tem acesso a [CANAIS DE SUPORTE] com tempo de resposta de [TEMPO]. Além disso, [BENEFÍCIO EXTRA DE SUPORTE]."
+
+# =============================================================================
+# OFFER PRESENTATION SCRIPT (10-Minute Pitch)
+# =============================================================================
+offer_pitch_script:
+  structure:
+    problema_2min: |
+      Deixa eu te fazer uma pergunta...
+      [PERGUNTA QUE REVELA DOR]
+
+      Se você respondeu sim, você está no lugar certo.
+
+      Porque [AGITAÇÃO DO PROBLEMA]...
+      E isso custa [CUSTO DA INAÇÃO].
+
+    solucao_1min: |
+      Existe uma solução.
+      Chama-se [NOME DO PRODUTO/MÉTODO].
+
+      É [DESCRIÇÃO EM UMA FRASE].
+
+    resultado_30s: |
+      Com isso, você vai:
+      ✓ [RESULTADO 1]
+      ✓ [RESULTADO 2]
+      ✓ [RESULTADO 3]
+
+    metodo_2min: |
+      Como funciona?
+
+      Passo 1: [AÇÃO SIMPLES]
+      Passo 2: [AÇÃO SIMPLES]
+      Passo 3: [AÇÃO SIMPLES]
+
+      É só isso. [SIMPLIFICAÇÃO].
+
+    prova_1min: |
+      Não acredita em mim? Tudo bem.
+
+      [CLIENTE 1] conseguiu [RESULTADO].
+      [CLIENTE 2] conseguiu [RESULTADO].
+      [CLIENTE 3] conseguiu [RESULTADO].
+
+      [CITAÇÃO IMPACTANTE]
+
+    oferta_2min: |
+      Aqui está o que você recebe:
+
+      [COMPONENTE 1] - valor [X]
+      [COMPONENTE 2] - valor [X]
+      [BÔNUS] - valor [X]
+
+      Total: [SOMA]
+      Seu investimento: [PREÇO]
+
+    garantia_30s: |
+      E aqui está minha garantia:
+
+      [GARANTIA ESPECÍFICA]
+
+      O risco é 100% meu.
+
+    cta_30s: |
+      Então a pergunta é simples:
+
+      Você quer [RESULTADO] ou não?
+
+      Se sim, [AÇÃO ESPECÍFICA] agora.
+      [URGÊNCIA/ESCASSEZ]
+
+  power_phrases:
+    - "Você literalmente não pode perder"
+    - "O risco é 100% meu"
+    - "Funciona especialmente se você..."
+    - "Inclusive, se não funcionar..."
+    - "O pior que acontece é..."
+    - "Isso não é para todo mundo..."
+    - "Se você está sério sobre..."

@@ -1,0 +1,72 @@
+sop:
+  id: task-daily-email-flywheel
+  version: "1.0"
+  title: "Daily Email Flywheel"
+  purpose: "Establish self-reinforcing daily email system where writing generates market intelligence, informs product creation, and compounds revenue growth"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: ben-settle
+    tier: T3
+
+  inputs:
+    - name: email_list
+      type: object
+      required: true
+      description: "Active email list of any size"
+    - name: daily_commitment
+      type: boolean
+      required: true
+      description: "Commitment to daily 20-30 minute writing"
+
+  outputs:
+    - name: flywheel_system
+      type: object
+      description: "Self-reinforcing revenue + product development cycle"
+
+  steps:
+    - id: step_1
+      action: mail_daily
+      description: "Write one infotainment email every morning in 20-30 minutes using 6-step system"
+      critical: true
+      time_limit_minutes: 30
+
+    - id: step_2
+      action: learn_from_responses
+      description: "Read every reply, catalog insights by theme — topics, problems, language, desires"
+
+    - id: step_3
+      action: create_products
+      description: "Build products from response data when multiple subscribers express same desire"
+      error_handling:
+        condition: "Product idea based on assumptions not data"
+        action: "Validate against actual subscriber requests before building"
+
+    - id: step_4
+      action: sell_via_email
+      description: "Promote new product through infotainment emails — natural sell from feedback-sourced products"
+
+    - id: step_5
+      action: repeat_compound
+      description: "Each cycle strengthens the next — more emails > more responses > better products > more trust"
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "Daily email sent within 20-30 minute window"
+      - "Replies read and cataloged"
+      - "Response patterns tracked for product dev"
+      - "Products created from actual requests"
+      - "Flywheel metrics tracked"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies: []
+
+  related_sops:
+    - task-infotainment-email
+    - task-3x-personality-method
+    - task-ghost-story-technique
+    - task-subject-line-micro-riddle

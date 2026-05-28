@@ -1,0 +1,325 @@
+# VSL Script Template
+# CopywriterOS - Template para Video Sales Letters
+
+template:
+  id: vsl-template-v1
+  name: "VSL Script Template"
+  version: "1.0"
+  output:
+    format: markdown
+    filename: "vsl-{{product_slug}}-{{duration}}min.md"
+
+# Variáveis de Input
+variables:
+  required:
+    - product_name: "Nome do produto"
+    - target_duration: "Duração em minutos (5, 10, 15, 20, 30)"
+    - target_avatar: "Público-alvo"
+    - main_problem: "Problema principal"
+  optional:
+    - copywriter: "Estilo de copywriter (default: jon-benson)"
+    - tone: "Tom (emocional, racional, misto)"
+    - include_visual_notes: "Incluir notas de direção visual"
+
+# Timing por Duração
+timing_guides:
+  5min:
+    hook: "0:00-0:30"
+    problem: "0:30-1:30"
+    story: "1:30-2:30"
+    discovery: "2:30-3:15"
+    solution: "3:15-4:00"
+    proof: "4:00-4:30"
+    offer: "4:30-4:50"
+    cta: "4:50-5:00"
+
+  10min:
+    hook: "0:00-0:45"
+    problem: "0:45-2:30"
+    story: "2:30-4:30"
+    discovery: "4:30-6:00"
+    solution: "6:00-7:30"
+    proof: "7:30-8:30"
+    offer: "8:30-9:30"
+    cta: "9:30-10:00"
+
+  15min:
+    hook: "0:00-1:00"
+    problem: "1:00-4:00"
+    story: "4:00-7:00"
+    discovery: "7:00-9:00"
+    solution: "9:00-11:00"
+    proof: "11:00-13:00"
+    offer: "13:00-14:30"
+    cta: "14:30-15:00"
+
+  20min:
+    hook: "0:00-1:00"
+    problem: "1:00-5:00"
+    story: "5:00-9:00"
+    discovery: "9:00-12:00"
+    solution: "12:00-15:00"
+    proof: "15:00-17:00"
+    offer: "17:00-19:00"
+    cta: "19:00-20:00"
+
+  30min:
+    hook: "0:00-1:30"
+    problem: "1:30-7:00"
+    story: "7:00-13:00"
+    discovery: "13:00-18:00"
+    solution: "18:00-22:00"
+    proof: "22:00-26:00"
+    offer: "26:00-29:00"
+    cta: "29:00-30:00"
+
+# Estrutura de Seções
+sections:
+  - id: metadata
+    name: "Metadata"
+    template: |
+      # VSL Script: {{product_name}}
+
+      **Duração:** {{target_duration}} minutos
+      **Copywriter:** {{copywriter}}
+      **Tom:** {{tone}}
+      **Avatar:** {{target_avatar}}
+      **Gerado em:** {{date}}
+
+      ---
+
+  - id: hook
+    name: "Hook Section"
+    template: |
+      ## HOOK [{{timing.hook}}]
+
+      [VISUAL: {{hook_visual}}]
+      [TOM: {{hook_tone}}]
+
+      {{hook_opening}}
+
+      [PAUSA: 2s]
+
+      {{hook_question}}
+
+      {{hook_promise}}
+
+      ---TRANSIÇÃO---
+
+  - id: problem
+    name: "Problem Section"
+    template: |
+      ## PROBLEM [{{timing.problem}}]
+
+      [VISUAL: {{problem_visual}}]
+      [TOM: Empático, compreensivo]
+
+      {{problem_validation}}
+
+      {{problem_statistics}}
+
+      {{problem_consequences}}
+
+      {{problem_empathy}}
+
+      ---TRANSIÇÃO---
+
+  - id: origin_story
+    name: "Origin Story Section"
+    template: |
+      ## ORIGIN STORY [{{timing.story}}]
+
+      [VISUAL: {{story_visual}}]
+      [TOM: Pessoal, vulnerável]
+
+      ### Antes
+      {{story_before}}
+
+      ### A Crise
+      {{story_crisis}}
+
+      ### A Virada
+      {{story_turning_point}}
+
+      ### Depois
+      {{story_after}}
+
+      ---TRANSIÇÃO---
+
+  - id: discovery
+    name: "Discovery Section"
+    template: |
+      ## DISCOVERY [{{timing.discovery}}]
+
+      [VISUAL: {{discovery_visual}}]
+      [TOM: Revelador, excitado]
+
+      {{discovery_eureka}}
+
+      {{discovery_why_different}}
+
+      {{discovery_mechanism}}
+
+      [CURIOSITY LOOP: {{curiosity_tease}}]
+
+      ---TRANSIÇÃO---
+
+  - id: solution
+    name: "Solution Section"
+    template: |
+      ## SOLUTION [{{timing.solution}}]
+
+      [VISUAL: {{solution_visual}}]
+      [TOM: Inspirador, possível]
+
+      {{solution_intro}}
+
+      ### O que você vai conquistar:
+      {{#each benefits}}
+      - {{this}}
+      {{/each}}
+
+      ### Future Pacing
+      {{future_pacing}}
+
+      ---TRANSIÇÃO---
+
+  - id: proof
+    name: "Proof Section"
+    template: |
+      ## PROOF [{{timing.proof}}]
+
+      [VISUAL: {{proof_visual}}]
+      [TOM: Factual, confiante]
+
+      {{proof_transition}}
+
+      {{#each testimonials}}
+      ### {{name}}
+      > "{{quote}}"
+      > **Resultado:** {{result}}
+
+      {{/each}}
+
+      {{proof_summary}}
+
+      ---TRANSIÇÃO---
+
+  - id: offer
+    name: "Offer Section"
+    template: |
+      ## OFFER [{{timing.offer}}]
+
+      [VISUAL: Stack de valor com boxes]
+      [TOM: Generoso, justo]
+
+      {{offer_intro}}
+
+      ### O que está incluído:
+
+      | Item | Valor |
+      |------|-------|
+      {{#each offer_items}}
+      | {{name}} | R$ {{value}} |
+      {{/each}}
+      | **Valor Total** | **R$ {{total_value}}** |
+
+      {{#if bonuses}}
+      ### 🎁 Bônus:
+      {{#each bonuses}}
+      - **{{name}}** (R$ {{value}}): {{description}}
+      {{/each}}
+      {{/if}}
+
+      ### 🛡️ Garantia
+      {{guarantee}}
+
+      ### Investimento
+      {{price_reveal}}
+
+      ---TRANSIÇÃO---
+
+  - id: cta
+    name: "CTA Section"
+    template: |
+      ## CTA [{{timing.cta}}]
+
+      [VISUAL: Botão de compra destacado]
+      [TOM: Urgente mas confiante]
+
+      {{cta_summary}}
+
+      {{cta_urgency}}
+
+      {{cta_action}}
+
+      [PAUSA: 2s]
+
+      {{cta_guarantee_reminder}}
+
+      {{cta_final_word}}
+
+      ---
+
+      **[BOTÃO: {{cta_button_text}}]**
+
+# Direction Notes Templates
+direction_notes:
+  visual_styles:
+    hook: "Close no apresentador, fundo neutro ou relacionado"
+    problem: "B-roll de situações frustrantes, pessoa pensativa"
+    story: "Fotos pessoais, locais mencionados, antes/depois"
+    discovery: "Diagramas, animações simples, whiteboard"
+    solution: "Resultados, transformações, pessoas felizes"
+    proof: "Testemunhos em vídeo, screenshots, logos"
+    offer: "Stack visual com boxes, checklists, valores"
+    cta: "Botão de compra, countdown se aplicável"
+
+  tone_guides:
+    emocional: "Pausas longas, voz mais baixa em momentos íntimos, ênfase em palavras de sentimento"
+    racional: "Ritmo constante, foco em dados, tom confiante e direto"
+    misto: "Alternar entre conexão emocional e apresentação factual"
+
+# Script Formatting
+formatting:
+  timestamp: "[MM:SS]"
+  pause: "[PAUSA: Xs]"
+  emphasis: "[ÊNFASE: palavra]"
+  tone: "[TOM: descrição]"
+  visual: "[VISUAL: descrição]"
+  broll: "[B-ROLL: descrição]"
+  transition: "---TRANSIÇÃO---"
+
+# Quality Validation
+validation:
+  per_section:
+    hook:
+      - "Prende em <5 segundos?"
+      - "Curiosidade específica?"
+      - "Promessa concreta?"
+    problem:
+      - "Avatar se identifica?"
+      - "Emoção palpável?"
+      - "Não depressivo demais?"
+    story:
+      - "Vulnerabilidade real?"
+      - "Relatável?"
+      - "Arco claro?"
+    proof:
+      - "Provas verificáveis?"
+      - "Variedade de tipos?"
+      - "Específicas?"
+    offer:
+      - "Valor > preço?"
+      - "Garantia clara?"
+      - "Stack funciona?"
+    cta:
+      - "Ação cristalina?"
+      - "Urgência genuína?"
+      - "Garantia reforçada?"
+
+  overall:
+    - "Timing no target (+/- 10%)?"
+    - "Som bem lido em voz alta?"
+    - "Notas de direção úteis?"
+    - "Transições suaves?"

@@ -1,0 +1,46 @@
+sop:
+  id: hopkins-complete-story
+  version: "1.0"
+  title: "Complete Story Rule (CH_H07)"
+  purpose: "Contar a historia COMPLETA do produto. A questao nunca e extensao — e relevancia. Copy completa supera copy curta incompleta."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: claude-hopkins
+  steps:
+    - step: 1
+      action: "Avaliar completude da copy"
+      decision_point:
+        condition: "Copy responde todas as perguntas do prospect?"
+        branches:
+          - if: "Responde TODAS as perguntas"
+            then: "Extensao adequada — nao encurtar"
+          - if: "Deixa perguntas sem resposta"
+            then: "Adicionar informacao necessaria — copy de 5.000 palavras > 500 com duvidas"
+            next_decision:
+              condition: "Paragrafo adicionado e relevante?"
+              branches:
+                - if: "Relevante para decisao de compra"
+                  then: "Manter"
+                - if: "Filler/enchimento"
+                  then: "Remover — relevancia, nao extensao"
+          - if: "Extensa mas irrelevante"
+            then: "Cortar irrelevancia, nao a extensao em si"
+  error_handling:
+    - error: "Copy encurtada para ser breve"
+      severity: critical
+      action: "Restaurar informacoes essenciais — completude > brevidade"
+    - error: "Copy longa com enchimento"
+      severity: warning
+      action: "Remover enchimento mantendo informacoes relevantes"
+    - error: "Objecoes omitidas por medo de extensao"
+      severity: critical
+      action: "Incluir e responder todas as objecoes previsiveis"
+  quality_gate:
+    criteria:
+      - "Todas as perguntas previsiveis respondidas"
+      - "Cada paragrafo contribui para decisao de compra"
+      - "Nenhuma informacao essencial omitida"
+      - "Interesse mantido ao longo de toda extensao"
+    pass_threshold: "Todos os criterios atendidos"

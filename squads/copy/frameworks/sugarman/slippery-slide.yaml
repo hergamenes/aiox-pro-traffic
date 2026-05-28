@@ -1,0 +1,107 @@
+# The Slippery Slide (17 Axioms) - Joe Sugarman
+# Extracted from: squads/copy/agents/joe-sugarman.md
+# Category: copywriting_structure
+
+name: "The Slippery Slide (17 Axioms)"
+category: copywriting_structure
+origin: "Joe Sugarman - The Adweek Copywriting Handbook"
+command: "*slippery-slide"
+
+philosophy: |
+  "Your readers should be so compelled to read your copy that they
+  cannot stop reading until they read all of it as if sliding down
+  a slippery slide."
+
+concept: |
+  The Slippery Slide works like a playground slide - once you're at
+  the top and begin your descent, it's nearly impossible not to reach
+  the bottom. But instead of playground equipment, we're talking about
+  words and images on a page.
+
+axioms:
+  axiom_1:
+    content: "Copywriting is a mental process the successful execution of which reflects the sum total of all your experiences, your specific knowledge and your ability to mentally process that information and transfer it onto a sheet of paper for the purpose of selling a product or service."
+    application: "Draw on all your life experiences when writing"
+
+  axiom_2:
+    content: "All the elements in an advertisement are primarily designed to do one thing and one thing only: get you to read the first sentence of the copy."
+    application: "Every element (headline, photo, caption) has ONE job: get them to read the first line"
+
+  axiom_3:
+    content: "The sole purpose of the first sentence in an advertisement is to get you to read the second sentence."
+    application: "Keep first sentences short and intriguing"
+
+  axiom_4:
+    content: "Your ad layout and the first few paragraphs of your ad must create the buying environment most conducive to the sale of your product or service."
+    application: "Set the right tone and environment from the start"
+
+  axiom_5:
+    content: "Get the reader to say yes and harmonize with your accurate and truthful statements while reading your copy."
+    application: "Make statements the reader agrees with to build momentum"
+
+  axiom_6:
+    content: "Your readers should be so compelled to read your copy that they cannot stop reading until they read all of it as if sliding down a slippery slide."
+    application: "THE CORE PRINCIPLE - create irresistible momentum"
+
+  axiom_7:
+    content: "When trying to solve problems, don't assume constraints that aren't really there."
+    application: "Think creatively - most 'rules' aren't real constraints"
+
+  axiom_8:
+    content: "Keep the copy interesting and the reader interested through the power of curiosity."
+    application: "Use open loops, questions, and intrigue"
+
+  axiom_9:
+    content: "Never sell a product or service. Always sell a concept."
+    application: "Sell the idea, the benefit, the transformation - not the thing"
+
+  axiom_10:
+    content: "The incubation process is the power of your subconscious mind to use all your knowledge and experiences to solve a specific problem, and its efficiency is dictated by time, creative orientation, environment and ego."
+    application: "Give yourself time to think - solutions come when you step away"
+
+  axiom_11:
+    content: "Copy should be long enough to cause the reader to take the action you request."
+    application: "Copy length is determined by what's needed to make the sale - no more, no less"
+
+  axiom_12:
+    content: "Every communication should be a personal one, from the writer to the recipient, regardless of the medium used."
+    application: "Write to ONE person, not a crowd"
+
+  axiom_13:
+    content: "The ideas presented in your copy should flow in a logical fashion, anticipating your prospect's questions and answering them as if the questions were asked face-to-face."
+    application: "Answer objections as they arise in the reader's mind"
+
+  axiom_14:
+    content: "In the editing process, you refine your copy to express exactly what you want to express with the fewest words."
+    application: "Edit ruthlessly - every word must earn its place"
+
+  axiom_15:
+    content: "The more the mind must work to reach a conclusion successfully, the more positive, enjoyable or stimulating the conclusion."
+    application: "Let readers discover things - don't spell everything out"
+
+  axiom_16:
+    content: "Selling a cure is a lot easier than selling a preventative, unless the preventative is perceived as a cure or the curative aspects of the preventative are emphasized."
+    application: "Position preventatives as cures when possible"
+
+  axiom_17:
+    content: "Telling a story is a very powerful copywriting technique that holds the attention of your reader and creates an emotional bond between the reader and the story."
+    application: "Story is one of the most powerful tools in copy"
+
+greasing_techniques:
+  seeds_of_curiosity:
+    description: "Phrases that pull the reader forward"
+    examples:
+      - "But there's more."
+      - "So read on."
+      - "Let me explain."
+      - "Here's why."
+      - "Now, here's the best part."
+      - "And I haven't even mentioned..."
+
+  short_elements:
+    description: "Keep words, sentences, and paragraphs short"
+    rule: "Short words, short sentences, short paragraphs = easy to read"
+
+  open_loops:
+    description: "Pose questions and delay answers"
+    example: "What happened next changed everything..."

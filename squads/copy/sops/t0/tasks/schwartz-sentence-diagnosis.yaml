@@ -1,0 +1,76 @@
+sop:
+  id: schwartz-sentence-diagnosis
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Sentence-Level Clarity Diagnosis"
+  purpose: >
+    Diagnose sentence-level clarity using Schwartz's Two Words theory (Picture Words +
+    Connecting Words). Identifies images that are too long, images that interrupt each
+    other, and missing connectors.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: eugene-schwartz
+    artifact_type: task
+
+  steps:
+    - id: check_image_length
+      action: evaluate_image_word_count
+      description: "For each sentence, identify Picture Words; verify each image is completable in ~10 words. Break long images."
+      inputs:
+        - copy_text
+      critical: true
+      output: image_length_results
+
+    - id: check_interruptions
+      action: detect_image_interruptions
+      description: "Check if any image interrupts another; restructure so each image completes before next begins"
+      depends_on: check_image_length
+      output: interruption_results
+
+    - id: check_connectors
+      action: verify_connector_presence
+      description: "Verify each pair of consecutive images has a connector (because, therefore, which means). Add if missing."
+      depends_on: check_interruptions
+      output: connector_results
+
+    - id: compile_diagnosis
+      action: summarize_clarity_fixes
+      description: "For each problematic sentence: identify issue, provide restructured version, note improvement"
+      depends_on:
+        - check_image_length
+        - check_interruptions
+        - check_connectors
+      output: clarity_diagnosis
+
+  error_handling:
+    - error: over_splitting
+      symptom: "Images broken so small they lose meaning"
+      resolution: "Keep images ~10 words; split only when genuinely too long"
+    - error: style_removed
+      symptom: "Clarity fixes destroy rhythm, cadence, and voice"
+      resolution: "Clarity should enhance voice, not replace it"
+    - error: unnecessary_connectors
+      symptom: "Connectors inserted where images naturally flow"
+      resolution: "Only add connectors where reader would stumble without one"
+
+  quality_gate:
+    criteria:
+      - "Every sentence evaluated"
+      - "All images ~10 words or fewer"
+      - "No image interrupts another"
+      - "Consecutive images have connectors"
+      - "Restructured sentences preserve meaning and tone"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: clarity_diagnosis
+      format: sentence_report
+      description: "Sentence-by-sentence diagnosis with issues identified"
+    - name: restructured_copy
+      format: before_after
+      description: "Before/after comparisons showing clarity improvements"

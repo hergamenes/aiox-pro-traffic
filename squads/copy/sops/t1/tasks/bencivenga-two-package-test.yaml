@@ -1,0 +1,61 @@
+sop:
+  id: bencivenga-two-package-test
+  version: "1.0"
+  title: "Two-Package Test Insurance"
+  purpose: "Hedge creative risk by testing two fundamentally different packages simultaneously — Package A (proven techniques) and Package B (rule breaker) — with identical offer elements"
+  classification:
+    domain: copywriting
+    category: master
+    tier: T1
+    source_agent: gary-bencivenga
+
+  inputs:
+    - name: completed_research
+      type: document
+      required: true
+    - name: offer_details
+      type: document
+      required: true
+
+  outputs:
+    - name: two_test_packages
+      type: document
+      description: "Package A (high probability) and Package B (rule breaker) ready for simultaneous testing"
+    - name: hedged_testing_strategy
+      type: framework
+      description: "Test protocol with key codes, tracking, and interpretation framework"
+
+  steps:
+    - id: step_01
+      action: create_package_a
+      description: "Build high-probability package: benefit headline, subhead, curiosity bullets, strong credential — best execution of proven techniques"
+      critical: true
+      error_handling:
+        condition: "package_a_is_mediocre_safe_copy"
+        action: "elevate_execution_to_highest_level_of_proven_technique"
+
+    - id: step_02
+      action: create_package_b
+      description: "Build rule-breaker package: same bullets/offers/premiums, radically different headline, lead type, tone, and approach"
+      critical: true
+      error_handling:
+        condition: "package_b_is_minor_variation_of_a"
+        action: "ensure_different_lead_type_tone_and_presentation_angle"
+
+    - id: step_03
+      action: test_simultaneously
+      description: "Deploy both packages at same time, same list (split evenly), unique key codes, minimum 2500 per package"
+      critical: true
+      error_handling:
+        condition: "sequential_testing_or_different_lists"
+        action: "enforce_simultaneous_same_list_split_testing"
+
+  quality_gate:
+    min_criteria_met: 5
+    criteria:
+      - "package_a_uses_proven_techniques_at_highest_level"
+      - "package_b_genuinely_different_approach"
+      - "both_share_identical_offer_elements"
+      - "simultaneous_testing_same_list"
+      - "unique_tracking_key_codes"
+      - "statistically_meaningful_sample_sizes"

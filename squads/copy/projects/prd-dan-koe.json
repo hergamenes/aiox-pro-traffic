@@ -1,0 +1,542 @@
+{
+  "project": "CopywriterOS - Copywriter Agent Pipeline + Dan Koe",
+  "mode": "content",
+  "branchName": "ralph/copywriter-agent-pipeline",
+  "outputDir": "squads/copy",
+  "description": "Create reusable AIOX artifacts (tasks, checklists, templates) for copywriter agent creation, then apply to Dan Koe as first use case.",
+
+  "source": {
+    "mindSlug": "dan_koe",
+    "primarySourceDir": "outputs/minds/dan_koe/sources/MM Dan/",
+    "totalFiles": 45,
+    "psychometricProfile": "outputs/minds/dan_koe/sources/dan koe.json",
+    "referenceAgent": "squads/copy/agents/david-ogilvy.md",
+    "referenceAgentHormozi": "squads/copy/README.md"
+  },
+
+  "aioxArtifacts": {
+    "tasks": [
+      "tasks/create-copywriter-agent.md",
+      "tasks/extract-frameworks.md",
+      "tasks/extract-communication-dna.md",
+      "tasks/extract-signature-phrases.md",
+      "tasks/build-authority-arsenal.md",
+      "tasks/create-objection-algorithms.md"
+    ],
+    "checklists": [
+      "checklists/copywriter-agent-creation-checklist.md"
+    ],
+    "templates": [
+      "templates/copywriter-agent-tmpl.yaml",
+      "templates/frameworks-extraction-tmpl.yaml",
+      "templates/communication-dna-tmpl.yaml",
+      "templates/signature-phrases-tmpl.yaml",
+      "templates/authority-arsenal-tmpl.yaml",
+      "templates/objection-algorithms-tmpl.yaml"
+    ]
+  },
+
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Create Master Task: create-copywriter-agent.md",
+      "description": "Create the main orchestrating task that guides the full copywriter agent creation process",
+      "category": "aiox-artifacts",
+      "outputFile": "squads/copy/tasks/create-copywriter-agent.md",
+      "acceptanceCriteria": [
+        "Read existing tasks in tasks/ folder for format reference (avatar-research.md, copysearch.md)",
+        "Create task with proper YAML metadata (task_id, version, category, difficulty, dependencies, outputs)",
+        "Include 6 phases: 1-Setup, 2-Frameworks, 3-Communication DNA, 4-Signature Phrases, 5-Authority Arsenal, 6-Objection Algorithms, 7-Assembly",
+        "Each phase references its specific sub-task",
+        "Include elicit points for user input (copywriter name, source directory, etc)",
+        "Reference all checklists and templates created in other stories",
+        "Follow AIOX task format with Steps, checkpoints, and quality gates",
+        "All content in English"
+      ],
+      "priority": 1,
+      "passes": false,
+      "notes": "Master orchestrator task. References all sub-tasks. This is the entry point for creating any copywriter agent."
+    },
+    {
+      "id": "US-002",
+      "title": "Create Task: extract-frameworks.md",
+      "description": "Create task for extracting operational frameworks from source materials",
+      "category": "aiox-artifacts",
+      "outputFile": "squads/copy/tasks/extract-frameworks.md",
+      "acceptanceCriteria": [
+        "YAML metadata with dependencies on templates/frameworks-extraction-tmpl.yaml",
+        "Step-by-step process for: cataloging sources, identifying framework candidates, selecting top 10, documenting each",
+        "Define framework structure: name, category, origin, definition, principle, components, process, application, common_mistakes, examples",
+        "Include category enum: copywriting, offer_creation, marketing_strategy, sales, content, audience, product, mindset",
+        "Quality gates: exactly 10 frameworks, all fields complete, YAML valid",
+        "Reference david-ogilvy.md operational_frameworks as structure model",
+        "All content in English"
+      ],
+      "priority": 2,
+      "passes": false,
+      "dependencies": ["US-001"],
+      "notes": "Sub-task for Phase 2 of master task."
+    },
+    {
+      "id": "US-003",
+      "title": "Create Task: extract-communication-dna.md",
+      "description": "Create task for extracting communication DNA (vocabulary, rhetoric, formulas)",
+      "category": "aiox-artifacts",
+      "outputFile": "squads/copy/tasks/extract-communication-dna.md",
+      "acceptanceCriteria": [
+        "YAML metadata with dependencies on templates/communication-dna-tmpl.yaml",
+        "Process for: mandatory words (15+), forbidden words (10+), signature vocabulary (10+ with definitions)",
+        "Process for: trigrams (20+), rhetorical devices (5+), quick formulas (5+ for different copy types)",
+        "Include psychometric integration section (DISC, MBTI, Enneagram influence on communication)",
+        "Quality gates: all minimums met, terms have context/usage notes",
+        "All content in English"
+      ],
+      "priority": 3,
+      "passes": false,
+      "dependencies": ["US-001"],
+      "notes": "Sub-task for Phase 3 of master task."
+    },
+    {
+      "id": "US-004",
+      "title": "Create Task: extract-signature-phrases.md",
+      "description": "Create task for extracting 42+ signature phrases organized in tiers",
+      "category": "aiox-artifacts",
+      "outputFile": "squads/copy/tasks/extract-signature-phrases.md",
+      "acceptanceCriteria": [
+        "YAML metadata with dependencies on templates/signature-phrases-tmpl.yaml",
+        "Process for identifying quotable phrases (standalone, memorable, original)",
+        "7-tier classification system with frequency guidance",
+        "Tier structure: 1-Core Mantras, 2-Methodology, 3-5 Theme-specific, 6-Philosophy, 7-Tactical",
+        "Each phrase requires: phrase (english), portuguese, context, source",
+        "Quality gates: minimum 42 phrases, 7 tiers defined, no duplicates",
+        "All content in English"
+      ],
+      "priority": 4,
+      "passes": false,
+      "dependencies": ["US-001"],
+      "notes": "Sub-task for Phase 4 of master task."
+    },
+    {
+      "id": "US-005",
+      "title": "Create Task: build-authority-arsenal.md",
+      "description": "Create task for building authority proof arsenal (story, stats, templates)",
+      "category": "aiox-artifacts",
+      "outputFile": "squads/copy/tasks/build-authority-arsenal.md",
+      "acceptanceCriteria": [
+        "YAML metadata with dependencies on templates/authority-arsenal-tmpl.yaml",
+        "Process for crucible_story extraction (4 acts: origin, struggle, breakthrough, mastery)",
+        "Process for authority_statistics compilation (career, results, recognition, reach)",
+        "Process for notable_products and notable_clients listing",
+        "Process for creating 4+ proof_stack_templates (transformation, results, credibility, social)",
+        "Quality gates: 4 acts complete, 5+ statistics, 4+ templates",
+        "All content in English"
+      ],
+      "priority": 5,
+      "passes": false,
+      "dependencies": ["US-001"],
+      "notes": "Sub-task for Phase 5 of master task."
+    },
+    {
+      "id": "US-006",
+      "title": "Create Task: create-objection-algorithms.md",
+      "description": "Create task for creating objection handling algorithms",
+      "category": "aiox-artifacts",
+      "outputFile": "squads/copy/tasks/create-objection-algorithms.md",
+      "acceptanceCriteria": [
+        "YAML metadata with dependencies on templates/objection-algorithms-tmpl.yaml",
+        "Process for identifying common objections from source materials",
+        "Algorithm structure: trigger, 5-step algorithm, resolution, key_phrases, framework_reference",
+        "Guidance on using copywriter's vocabulary and frameworks in responses",
+        "Quality gates: exactly 5 algorithms, each with 5 steps, all use copywriter's voice",
+        "All content in English"
+      ],
+      "priority": 6,
+      "passes": false,
+      "dependencies": ["US-001"],
+      "notes": "Sub-task for Phase 6 of master task."
+    },
+    {
+      "id": "US-007",
+      "title": "Create Checklist: copywriter-agent-creation-checklist.md",
+      "description": "Create comprehensive validation checklist for copywriter agent creation",
+      "category": "aiox-artifacts",
+      "outputFile": "squads/copy/checklists/copywriter-agent-creation-checklist.md",
+      "acceptanceCriteria": [
+        "Read existing checklists for format reference (copywriter-quality-checklist.md)",
+        "Include Purpose and Scoring System sections",
+        "Section 1: Required Sections (activation-instructions, agent, persona, core_principles, commands, etc)",
+        "Section 2: Operational Frameworks (10 frameworks, complete structure, category diversity)",
+        "Section 3: Communication DNA (vocabulary counts, rhetoric devices, formulas)",
+        "Section 4: Signature Phrases (42+ phrases, 7 tiers, translations)",
+        "Section 5: Authority Arsenal (crucible story, statistics, templates)",
+        "Section 6: Objection Algorithms (5 algorithms, 5 steps each)",
+        "Section 7: Final Validation (YAML syntax, activation test, distinctiveness)",
+        "Scoring: 90-100% Excellent, 70-89% Good, <70% Needs revision",
+        "All content in English"
+      ],
+      "priority": 7,
+      "passes": false,
+      "dependencies": ["US-001"],
+      "notes": "Used to validate any copywriter agent before deployment."
+    },
+    {
+      "id": "US-008",
+      "title": "Create Template: copywriter-agent-tmpl.yaml",
+      "description": "Create the master template for copywriter agent file structure",
+      "category": "aiox-artifacts",
+      "outputFile": "squads/copy/templates/copywriter-agent-tmpl.yaml",
+      "acceptanceCriteria": [
+        "Read david-ogilvy.md and alex-hormozi.md for reference structure",
+        "Include all required sections with placeholder markers",
+        "Sections: IDE-FILE-RESOLUTION, REQUEST-RESOLUTION, activation-instructions, agent, persona, core_principles, commands",
+        "Sections: operational_frameworks (10 slots), communication_dna, signature_phrases (7 tiers)",
+        "Sections: authority_proof_arsenal, objection_algorithms (5 slots), {copywriter}_rules, security, dependencies, capabilities",
+        "Include MMOS Integration Note placeholder",
+        "Add comments explaining each section's purpose",
+        "All content in English"
+      ],
+      "priority": 8,
+      "passes": false,
+      "dependencies": ["US-001"],
+      "notes": "Master template used to generate any copywriter agent file."
+    },
+    {
+      "id": "US-009",
+      "title": "Create Template: frameworks-extraction-tmpl.yaml",
+      "description": "Create template for extracted frameworks output",
+      "category": "aiox-artifacts",
+      "outputFile": "squads/copy/templates/frameworks-extraction-tmpl.yaml",
+      "acceptanceCriteria": [
+        "Header: copywriter name, extraction date, total frameworks, source files count",
+        "Framework structure with all required fields",
+        "Category enum definition",
+        "Example framework filled in as reference",
+        "All content in English"
+      ],
+      "priority": 9,
+      "passes": false,
+      "dependencies": ["US-002"],
+      "notes": "Output template for extract-frameworks task."
+    },
+    {
+      "id": "US-010",
+      "title": "Create Template: communication-dna-tmpl.yaml",
+      "description": "Create template for communication DNA output",
+      "category": "aiox-artifacts",
+      "outputFile": "squads/copy/templates/communication-dna-tmpl.yaml",
+      "acceptanceCriteria": [
+        "Header: copywriter name, extraction date",
+        "Vocabulary section: mandatory_words, forbidden_words, signature_vocabulary",
+        "Trigrams section with frequency guidance",
+        "Rhetorical devices section with description/example/usage fields",
+        "Quick formulas section for different copy types",
+        "Psychometric influence section",
+        "All content in English"
+      ],
+      "priority": 10,
+      "passes": false,
+      "dependencies": ["US-003"],
+      "notes": "Output template for extract-communication-dna task."
+    },
+    {
+      "id": "US-011",
+      "title": "Create Template: signature-phrases-tmpl.yaml",
+      "description": "Create template for signature phrases output",
+      "category": "aiox-artifacts",
+      "outputFile": "squads/copy/templates/signature-phrases-tmpl.yaml",
+      "acceptanceCriteria": [
+        "Header: copywriter name, extraction date, total phrases, source files",
+        "7 tier sections with frequency guidance",
+        "Phrase structure: phrase, portuguese, context, source",
+        "Example phrases for each tier",
+        "All content in English"
+      ],
+      "priority": 11,
+      "passes": false,
+      "dependencies": ["US-004"],
+      "notes": "Output template for extract-signature-phrases task."
+    },
+    {
+      "id": "US-012",
+      "title": "Create Template: authority-arsenal-tmpl.yaml",
+      "description": "Create template for authority arsenal output",
+      "category": "aiox-artifacts",
+      "outputFile": "squads/copy/templates/authority-arsenal-tmpl.yaml",
+      "acceptanceCriteria": [
+        "Header: copywriter name, extraction date",
+        "Crucible story structure: 4 acts with year, context, challenges, lesson fields",
+        "Authority statistics sections: career, results, recognition, reach",
+        "Notable products and clients sections",
+        "Proof stack templates section",
+        "All content in English"
+      ],
+      "priority": 12,
+      "passes": false,
+      "dependencies": ["US-005"],
+      "notes": "Output template for build-authority-arsenal task."
+    },
+    {
+      "id": "US-013",
+      "title": "Create Template: objection-algorithms-tmpl.yaml",
+      "description": "Create template for objection algorithms output",
+      "category": "aiox-artifacts",
+      "outputFile": "squads/copy/templates/objection-algorithms-tmpl.yaml",
+      "acceptanceCriteria": [
+        "Header: copywriter name, extraction date, total algorithms",
+        "Algorithm structure: name, trigger, 5 steps, resolution, key_phrases, framework_reference",
+        "Example algorithm filled in",
+        "All content in English"
+      ],
+      "priority": 13,
+      "passes": false,
+      "dependencies": ["US-006"],
+      "notes": "Output template for create-objection-algorithms task."
+    },
+    {
+      "id": "US-014",
+      "title": "Execute Task: Extract Dan Koe Frameworks",
+      "description": "Apply extract-frameworks task to Dan Koe source materials",
+      "category": "dan-koe-execution",
+      "sourceFiles": "outputs/minds/dan_koe/sources/MM Dan/*.md",
+      "taskReference": "tasks/extract-frameworks.md",
+      "templateReference": "templates/frameworks-extraction-tmpl.yaml",
+      "outputFile": "outputs/minds/dan_koe/analysis/frameworks.yaml",
+      "acceptanceCriteria": [
+        "Read extract-frameworks.md task completely",
+        "Read frameworks-extraction-tmpl.yaml template",
+        "Process ALL 45 source files in MM Dan/ directory",
+        "Identify and extract 10 operational frameworks",
+        "Frameworks must include: PASTOR, Godfather Offer, Content Pyramid, Risk Reversal, Sales Page Framework, DM Seduction Method, etc",
+        "Each framework fully documented with all required fields",
+        "Output follows template structure",
+        "Save to outputs/minds/dan_koe/analysis/frameworks.yaml"
+      ],
+      "priority": 14,
+      "passes": false,
+      "dependencies": ["US-002", "US-009"],
+      "notes": "First execution using the new task/template system."
+    },
+    {
+      "id": "US-015",
+      "title": "Execute Task: Extract Dan Koe Communication DNA",
+      "description": "Apply extract-communication-dna task to Dan Koe source materials",
+      "category": "dan-koe-execution",
+      "sourceFiles": "outputs/minds/dan_koe/sources/MM Dan/*.md",
+      "taskReference": "tasks/extract-communication-dna.md",
+      "templateReference": "templates/communication-dna-tmpl.yaml",
+      "outputFile": "outputs/minds/dan_koe/analysis/communication-dna.yaml",
+      "acceptanceCriteria": [
+        "Read extract-communication-dna.md task completely",
+        "Read communication-dna-tmpl.yaml template",
+        "Read dan koe.json psychometric profile",
+        "Process ALL 45 source files for language patterns",
+        "Extract 15+ mandatory words, 10+ forbidden words, 10+ signature vocabulary",
+        "Extract 20+ trigrams, 5+ rhetorical devices, 5+ quick formulas",
+        "Include psychometric influence analysis",
+        "Save to outputs/minds/dan_koe/analysis/communication-dna.yaml"
+      ],
+      "priority": 15,
+      "passes": false,
+      "dependencies": ["US-003", "US-010"],
+      "notes": "Uses psychometric profile for deeper analysis."
+    },
+    {
+      "id": "US-016",
+      "title": "Execute Task: Extract Dan Koe Signature Phrases",
+      "description": "Apply extract-signature-phrases task to Dan Koe source materials",
+      "category": "dan-koe-execution",
+      "sourceFiles": "outputs/minds/dan_koe/sources/MM Dan/*.md",
+      "taskReference": "tasks/extract-signature-phrases.md",
+      "templateReference": "templates/signature-phrases-tmpl.yaml",
+      "outputFile": "outputs/minds/dan_koe/analysis/signature-phrases.yaml",
+      "acceptanceCriteria": [
+        "Read extract-signature-phrases.md task completely",
+        "Read signature-phrases-tmpl.yaml template",
+        "Process ALL 45 source files for quotable phrases",
+        "Extract minimum 42 signature phrases",
+        "Organize in 7 tiers with appropriate frequency guidance",
+        "Each phrase has english, portuguese, context, source",
+        "Save to outputs/minds/dan_koe/analysis/signature-phrases.yaml"
+      ],
+      "priority": 16,
+      "passes": false,
+      "dependencies": ["US-004", "US-011"],
+      "notes": "Focus on memorable, standalone, original phrases."
+    },
+    {
+      "id": "US-017",
+      "title": "Execute Task: Build Dan Koe Authority Arsenal",
+      "description": "Apply build-authority-arsenal task to Dan Koe source materials",
+      "category": "dan-koe-execution",
+      "sourceFiles": [
+        "outputs/minds/dan_koe/sources/dan koe.json",
+        "outputs/minds/dan_koe/sources/MM Dan/03 - A Breakdown Of My Previous Twitter Agency.md",
+        "outputs/minds/dan_koe/sources/MM Dan/36 - How I Made $3000 Per Month With 300 Followers.md"
+      ],
+      "taskReference": "tasks/build-authority-arsenal.md",
+      "templateReference": "templates/authority-arsenal-tmpl.yaml",
+      "outputFile": "outputs/minds/dan_koe/analysis/authority-arsenal.yaml",
+      "acceptanceCriteria": [
+        "Read build-authority-arsenal.md task completely",
+        "Read authority-arsenal-tmpl.yaml template",
+        "Read psychometric profile and autobiographical articles",
+        "Build crucible story with 4 acts (origin, struggle, breakthrough, mastery)",
+        "Compile verifiable statistics (revenue, followers, products)",
+        "Create 4+ proof stack templates",
+        "Save to outputs/minds/dan_koe/analysis/authority-arsenal.yaml"
+      ],
+      "priority": 17,
+      "passes": false,
+      "dependencies": ["US-005", "US-012"],
+      "notes": "Focus on his journey: 7 failures → $2.6M/year."
+    },
+    {
+      "id": "US-018",
+      "title": "Execute Task: Create Dan Koe Objection Algorithms",
+      "description": "Apply create-objection-algorithms task using Dan Koe's frameworks and phrases",
+      "category": "dan-koe-execution",
+      "sourceFiles": [
+        "outputs/minds/dan_koe/analysis/frameworks.yaml",
+        "outputs/minds/dan_koe/analysis/signature-phrases.yaml",
+        "outputs/minds/dan_koe/sources/MM Dan/*.md"
+      ],
+      "taskReference": "tasks/create-objection-algorithms.md",
+      "templateReference": "templates/objection-algorithms-tmpl.yaml",
+      "outputFile": "outputs/minds/dan_koe/analysis/objection-algorithms.yaml",
+      "acceptanceCriteria": [
+        "Read create-objection-algorithms.md task completely",
+        "Read objection-algorithms-tmpl.yaml template",
+        "Read previously extracted frameworks and phrases",
+        "Create 5 objection algorithms for common objections",
+        "Each algorithm uses Dan Koe's vocabulary and references his frameworks",
+        "Include key phrases and framework references",
+        "Save to outputs/minds/dan_koe/analysis/objection-algorithms.yaml"
+      ],
+      "priority": 18,
+      "passes": false,
+      "dependencies": ["US-006", "US-013", "US-014", "US-016"],
+      "notes": "Objections: no time, don't know what to write, niche saturated, not expert, need followers."
+    },
+    {
+      "id": "US-019",
+      "title": "Execute Task: Create Dan Koe Specific Rules",
+      "description": "Extract Dan Koe's specific rules for writing, content, business, mindset",
+      "category": "dan-koe-execution",
+      "sourceFiles": "outputs/minds/dan_koe/sources/MM Dan/*.md",
+      "outputFile": "outputs/minds/dan_koe/analysis/dan-koe-rules.yaml",
+      "acceptanceCriteria": [
+        "Process ALL 45 source files for explicit rules and advice",
+        "Extract 8+ writing rules",
+        "Extract 6+ content strategy rules",
+        "Extract 6+ business rules",
+        "Extract 6+ mindset rules",
+        "All rules directly from source materials (quote or close paraphrase)",
+        "Format as actionable imperatives",
+        "Save to outputs/minds/dan_koe/analysis/dan-koe-rules.yaml"
+      ],
+      "priority": 19,
+      "passes": false,
+      "dependencies": ["US-014"],
+      "notes": "Rules like: 'Content is 80% research', 'People buy systems that get results'."
+    },
+    {
+      "id": "US-020",
+      "title": "Assemble Dan Koe Agent File",
+      "description": "Combine all extracted components into final dan-koe.md agent file",
+      "category": "dan-koe-execution",
+      "sourceFiles": [
+        "squads/copy/templates/copywriter-agent-tmpl.yaml",
+        "squads/copy/agents/david-ogilvy.md",
+        "outputs/minds/dan_koe/analysis/frameworks.yaml",
+        "outputs/minds/dan_koe/analysis/communication-dna.yaml",
+        "outputs/minds/dan_koe/analysis/signature-phrases.yaml",
+        "outputs/minds/dan_koe/analysis/authority-arsenal.yaml",
+        "outputs/minds/dan_koe/analysis/objection-algorithms.yaml",
+        "outputs/minds/dan_koe/analysis/dan-koe-rules.yaml",
+        "outputs/minds/dan_koe/sources/dan koe.json"
+      ],
+      "templateReference": "templates/copywriter-agent-tmpl.yaml",
+      "outputFile": "squads/copy/agents/dan-koe.md",
+      "acceptanceCriteria": [
+        "Read copywriter-agent-tmpl.yaml template",
+        "Read david-ogilvy.md as structure reference",
+        "Read ALL analysis files from outputs/minds/dan_koe/analysis/",
+        "Fill template with all extracted content",
+        "Create proper activation-instructions, agent, persona sections",
+        "Include all 10 operational frameworks",
+        "Include complete communication_dna",
+        "Include all 42+ signature phrases in 7 tiers",
+        "Include authority_proof_arsenal",
+        "Include 5 objection_algorithms",
+        "Include dan_koe_rules section",
+        "Include security, dependencies, knowledge_areas, capabilities",
+        "Add MMOS Integration Note",
+        "Save to squads/copy/agents/dan-koe.md"
+      ],
+      "priority": 20,
+      "passes": false,
+      "dependencies": ["US-008", "US-014", "US-015", "US-016", "US-017", "US-018", "US-019"],
+      "notes": "Final assembly. Combines all extracted components."
+    },
+    {
+      "id": "US-021",
+      "title": "Validate Dan Koe Agent",
+      "description": "Validate completed agent against checklist and test activation",
+      "category": "dan-koe-execution",
+      "sourceFiles": [
+        "squads/copy/checklists/copywriter-agent-creation-checklist.md",
+        "squads/copy/agents/dan-koe.md",
+        "squads/copy/agents/david-ogilvy.md"
+      ],
+      "checklistReference": "checklists/copywriter-agent-creation-checklist.md",
+      "outputFile": "outputs/minds/dan_koe/analysis/validation-report.md",
+      "acceptanceCriteria": [
+        "Read copywriter-agent-creation-checklist.md completely",
+        "Run through ALL checklist sections on dan-koe.md",
+        "Verify 10 operational frameworks present and complete",
+        "Verify 42+ signature phrases in 7 tiers",
+        "Verify 5 objection algorithms with 5 steps each",
+        "Verify communication_dna completeness",
+        "Verify authority_proof_arsenal completeness",
+        "Validate YAML syntax",
+        "Compare structure against david-ogilvy.md",
+        "Calculate overall score (target: 90%+)",
+        "Document any issues found",
+        "Create validation report at outputs/minds/dan_koe/analysis/validation-report.md"
+      ],
+      "priority": 21,
+      "passes": false,
+      "dependencies": ["US-007", "US-020"],
+      "notes": "Final quality gate. Agent must score 90%+ on checklist."
+    }
+  ],
+
+  "validation": {
+    "requiredArtifacts": {
+      "tasks": 6,
+      "checklists": 1,
+      "templates": 6
+    },
+    "agentRequirements": {
+      "minimumFrameworks": 10,
+      "minimumPhrases": 42,
+      "minimumAlgorithms": 5,
+      "targetChecklistScore": "90%+"
+    }
+  },
+
+  "metadata": {
+    "created": "2026-01-22",
+    "author": "Ralph Autonomous Agent",
+    "version": "3.0",
+    "totalStories": 21,
+    "phases": {
+      "phase1_artifacts": "US-001 to US-013 (AIOX tasks, checklists, templates)",
+      "phase2_extraction": "US-014 to US-019 (Dan Koe data extraction)",
+      "phase3_assembly": "US-020 to US-021 (Assembly and validation)"
+    },
+    "isolatedContextPerStory": true,
+    "language": "english",
+    "reusableFor": "Any future copywriter agent creation"
+  }
+}

@@ -1,0 +1,73 @@
+# Seeds of Curiosity Framework - Joe Sugarman
+# Extracted from: squads/copy/agents/joe-sugarman.md
+# Category: copywriting_technique
+
+name: "Seeds of Curiosity Framework"
+category: copywriting_technique
+origin: "Joe Sugarman - The Adweek Copywriting Handbook"
+command: "*seeds"
+
+philosophy: |
+  "These are the small phrases throughout your copy that keep readers moving forward.
+  They're the grease on the slippery slide. Plant them at the end of paragraphs
+  to pull readers into the next section."
+
+axiom_8: |
+  "Keep the copy interesting and the reader interested through the power of curiosity."
+
+seed_categories:
+  continuation_seeds:
+    description: "Phrases that promise more information"
+    examples:
+      - "But there's more."
+      - "So read on."
+      - "Let me explain."
+      - "Here's why."
+      - "Now, here's the best part."
+      - "And I haven't even mentioned..."
+      - "But that's not all."
+      - "Keep reading."
+
+  revelation_seeds:
+    description: "Phrases that promise a reveal"
+    examples:
+      - "What happened next surprised everyone..."
+      - "Then I discovered something that changed everything..."
+      - "Here's where it gets interesting..."
+      - "But wait until you hear this..."
+      - "That's when I realized..."
+      - "And then something unexpected happened..."
+
+  challenge_seeds:
+    description: "Phrases that challenge the reader"
+    examples:
+      - "You might be thinking..."
+      - "I know what you're going to say..."
+      - "But here's the question..."
+      - "You probably don't believe me yet..."
+      - "Sound too good to be true?"
+
+  connection_seeds:
+    description: "Phrases that build relationship"
+    examples:
+      - "Let me be completely honest with you..."
+      - "I have to admit..."
+      - "Here's something I rarely share..."
+      - "Can I tell you something personal?"
+      - "Between you and me..."
+
+  transition_seeds:
+    description: "Phrases that shift topics smoothly"
+    examples:
+      - "Now here's where it gets really interesting..."
+      - "But that's just the beginning..."
+      - "Which brings me to my next point..."
+      - "And speaking of..."
+      - "That reminds me..."
+
+placement_rules:
+  - "Place at the end of paragraphs to pull into next section"
+  - "Use before major transitions or reveals"
+  - "Never overuse - 1-2 per page maximum"
+  - "Vary the types to keep fresh"
+  - "Match the tone of your overall copy"

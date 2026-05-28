@@ -1,0 +1,102 @@
+sop:
+  id: fw-6-conversion-blocks
+  version: "1.0"
+  title: "6 Conversion Building Blocks"
+  purpose: "Structure content that sells by building irresistible case from problem to frictionless next step"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: dan-koe
+    tier: t3
+  steps:
+    - id: apply_big_problem
+      name: "Big Problem"
+      description: "Introduce or imply the big problem with urgency and personal relevance"
+      inputs:
+        - audience_pain_points
+        - problem_context
+      outputs:
+        - problem_statement
+      validation:
+        - feels_personal: true
+        - feels_urgent: true
+    - id: apply_agitate
+      name: "Agitate & Dig Deeper"
+      description: "Amplify pain by exploring consequences, hidden costs, and root causes"
+      inputs:
+        - problem_statement
+        - downstream_effects
+      outputs:
+        - agitation_section
+      validation:
+        - explores_consequences: true
+        - goes_beyond_symptoms: true
+    - id: apply_relatability
+      name: "Relatability"
+      description: "Share specific, authentic stories demonstrating understanding of their situation"
+      inputs:
+        - personal_stories
+        - client_stories
+      outputs:
+        - relatability_section
+      validation:
+        - stories_specific: true
+        - stories_authentic: true
+        - demonstrates_understanding: true
+    - id: apply_benefits
+      name: "Benefits — Transformation"
+      description: "Paint life after the problem is solved with outcome-focused language"
+      inputs:
+        - transformation_outcomes
+        - before_after_contrast
+      outputs:
+        - benefits_section
+      validation:
+        - shows_transformation: true
+        - not_feature_list: true
+    - id: apply_perfect_solution
+      name: "Perfect Solution"
+      description: "Position offer as inevitable logical solution based on preceding argument"
+      inputs:
+        - offer_details
+        - argument_summary
+      outputs:
+        - solution_section
+      validation:
+        - feels_inevitable: true
+        - references_prior_blocks: true
+    - id: apply_clarity_next_steps
+      name: "Clarity on Next Steps"
+      description: "Single, frictionless CTA that feels like the natural next action"
+      inputs:
+        - cta_destination
+      outputs:
+        - cta_section
+        - complete_conversion_content
+      validation:
+        - single_action: true
+        - frictionless: true
+        - no_decision_fatigue: true
+  error_handling:
+    - error: solution_first
+      condition: "Content opens with the offer before building the case"
+      action: "Restructure: build Blocks 1-4 before positioning solution"
+    - error: shallow_agitation
+      condition: "Problem feels manageable; no urgency"
+      action: "Explore downstream effects and hidden costs"
+    - error: feature_list
+      condition: "Benefits section lists features, not transformations"
+      action: "Rewrite each feature as outcome: 'Which means you will...'"
+    - error: multiple_ctas
+      condition: "More than one action presented"
+      action: "Reduce to single CTA; one action, one link"
+  quality_gate:
+    min_sections: 6
+    required_elements:
+      - personal_problem
+      - deep_agitation
+      - authentic_stories
+      - transformation_benefits
+      - inevitable_solution
+      - frictionless_cta
+    pass_threshold: "all 6 blocks present in sequence with cohesive narrative flow"

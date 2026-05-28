@@ -1,0 +1,135 @@
+sop:
+  id: lampropoulos-veto-conditions
+  version: "1.0"
+  title: Lampropoulos Veto Conditions
+  purpose: >
+    Enforce Parris Lampropoulos's non-negotiable 80/20 research discipline,
+    awareness-level lead selection, unique angle requirement, mechanism explanation,
+    primary source proof, and WOW factor standards.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: parris-lampropoulos
+    artifact_type: veto
+    tier: t1
+
+  steps:
+    - action: validate_deep_research
+      id: PL_V01
+      description: Writing copy without deep research -> BLOCK. 80/20 is non-negotiable.
+      principle: "80% research, 20% writing"
+      rule: research_sources >= 10 AND research_time_ratio >= 0.8
+      required:
+        - scientific_papers
+        - customer_interviews
+        - competitive_analysis
+        - historical_product_data
+        - mechanism_studies
+      on_fail: BLOCK
+      remediation: complete_80_percent_research_phase
+
+    - action: validate_lead_by_awareness
+      id: PL_V02
+      description: Lead type selected by personal preference -> BLOCK
+      rule: lead_type_justified_by_awareness_level == true
+      awareness_matrix:
+        most_aware: direct_lead
+        product_aware: promise_lead
+        solution_aware: mechanism_lead
+        problem_aware: problem_solution_lead
+        unaware: story_or_secret_lead
+      on_fail: BLOCK
+      remediation: consult_awareness_matrix_and_realign
+
+    - action: validate_unique_angle
+      id: PL_V03
+      description: Same angle as current control -> REJECT
+      rule: new_angle_differs_from_control == true
+      checks:
+        - fundamentally_different_approach
+        - not_same_angle_better_written
+        - new_insight_from_deeper_research
+      on_fail: REJECT
+      remediation: return_to_research_for_new_angle
+
+    - action: validate_mechanism_explained
+      id: PL_V04
+      description: Copy without mechanism (health/finance) -> PAUSE
+      condition: copy_vertical in ["health", "financial", "supplement"]
+      rule: mechanism_explained_in_copy == true
+      checks:
+        - how_it_works_clear
+        - scientific_basis_stated
+        - reader_understands_why
+      on_fail: PAUSE
+      remediation: research_and_explain_mechanism
+
+    - action: validate_primary_sources
+      id: PL_V05
+      description: Claims without primary research proof -> BLOCK
+      rule: all_claims_cite_primary_sources == true
+      required_per_claim:
+        - study_name
+        - institution
+        - publication
+        - date
+      prohibited:
+        - '"studies show" without citation'
+        - secondary_source_claims
+        - competitor_ad_claims
+        - blog_post_references
+      on_fail: BLOCK
+      remediation: trace_each_claim_to_primary_source
+
+    - action: validate_wow_factor
+      id: PL_V06
+      description: Content useful but without WOW -> RETURN
+      rule: wow_element_present == true
+      wow_types:
+        - counter_intuitive_finding
+        - surprising_mechanism
+        - nobody_knows_revelation
+        - paradigm_shifting_data
+      on_fail: RETURN
+      remediation: inject_genuine_novelty_and_surprise
+
+    - action: validate_headline_timing
+      id: PL_V07
+      description: Headline decided BEFORE writing body -> WARN
+      rule: headline_written_after_body == true
+      principle: "Headline comes LAST -- captures strongest element that emerged"
+      on_fail: WARN
+      remediation: recommend_body_first_headline_last
+
+  error_handling:
+    - error: insufficient_research
+      severity: critical
+      action: block_until_80_percent_complete
+    - error: wrong_lead_type
+      severity: critical
+      action: block_and_realign_to_awareness
+    - error: same_angle_as_control
+      severity: high
+      action: reject_and_return_to_research
+    - error: no_mechanism
+      severity: high
+      action: pause_until_mechanism_found
+    - error: no_primary_sources
+      severity: critical
+      action: block_until_sources_verified
+    - error: no_wow_factor
+      severity: medium
+      action: return_for_novelty_injection
+
+  quality_gate:
+    pass_threshold: 6
+    total_checks: 7
+    mandatory_passes:
+      - PL_V01
+      - PL_V02
+      - PL_V05
+    advisory_checks:
+      - PL_V07
+    verdict_on_fail: BLOCK
+    special_verdicts:
+      PL_V07: WARN

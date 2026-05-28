@@ -1,0 +1,67 @@
+sop:
+  id: task-outcome-description-rewrite
+  version: "1.0"
+  title: "Outcome Description Rewrite"
+  purpose: "Transform product-centric feature descriptions into customer-centric outcome descriptions with vivid post-purchase scenes to justify premium pricing"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: ry-schwartz
+    tier: T3
+
+  inputs:
+    - name: product_copy
+      type: document
+      required: true
+      description: "Product copy with feature/benefit lists to rewrite"
+
+  outputs:
+    - name: outcome_copy
+      type: document
+      description: "Copy with all features converted to vivid outcome descriptions"
+
+  steps:
+    - id: step_1
+      action: read_features
+      description: "Go through copy line by line reading each feature/benefit statement"
+
+    - id: step_2
+      action: classify_statements
+      description: "For each statement ask: product description or outcome description?"
+      critical: true
+
+    - id: step_3
+      action: rewrite_as_outcomes
+      description: "Rewrite every product description as vivid scene of post-purchase customer experience"
+      error_handling:
+        condition: "Outcome is abstract benefit ('save time', 'feel better')"
+        action: "Add specific scene: what does this look like on a specific day or moment?"
+
+    - id: step_4
+      action: validate_differentiation
+      description: "For each outcome ask: would competitor's customer have same outcome? If yes, add specificity"
+      critical: true
+      error_handling:
+        condition: "Competitor could claim same outcome"
+        action: "Add mechanism-specific outcomes only achievable through this product"
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "Every feature rewritten as outcome"
+      - "Outcomes describe vivid post-purchase scenes"
+      - "Outcomes differentiate from competitors"
+      - "Language focuses on customer experience"
+      - "Copy justifies premium pricing"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies: []
+
+  related_sops:
+    - task-two-sweeps-audit
+    - task-big-idea-system
+    - task-testimonial-flip
+    - task-mht-exercise

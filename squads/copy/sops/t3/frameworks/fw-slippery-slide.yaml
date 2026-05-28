@@ -1,0 +1,96 @@
+sop:
+  id: fw-slippery-slide
+  version: "1.0"
+  title: "Slippery Slide System — 5 Evaluation Layers"
+  purpose: "Evaluate long-form copy to ensure every element pulls the reader forward — if the slide breaks, nothing downstream matters"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: joe-sugarman
+    tier: t4
+  steps:
+    - id: apply_gravitational_pull
+      name: "Layer 1: Gravitational Pull"
+      description: "Evaluate headline, subheadline, and caption for irresistible pull"
+      inputs:
+        - headline
+        - subheadline
+        - captions
+      outputs:
+        - gravitational_pull_score
+      validation:
+        - would_stop_scrolling: true
+        - compels_first_sentence: true
+    - id: apply_reducing_friction
+      name: "Layer 2: Reducing Friction"
+      description: "Evaluate first sentence, layout, and typography for effortless reading"
+      inputs:
+        - first_sentence
+        - page_layout
+        - typography
+      outputs:
+        - friction_score
+      validation:
+        - first_sentence_short: true
+        - layout_inviting: true
+        - generous_whitespace: true
+    - id: apply_building_agreement
+      name: "Layer 3: Building Agreement"
+      description: "Evaluate opening for true statements, personal tone, and emotion-first approach"
+      inputs:
+        - opening_paragraphs
+      outputs:
+        - agreement_score
+      validation:
+        - true_statements_present: true
+        - personal_tone: true
+        - emotion_before_logic: true
+    - id: apply_greasing_slide
+      name: "Layer 4: Greasing the Slide"
+      description: "Evaluate middle sections for curiosity seeds, rhythm, storytelling, and no dead zones"
+      inputs:
+        - body_sections
+      outputs:
+        - slide_grease_score
+      validation:
+        - curiosity_seeds: true
+        - rhythmic_variation: true
+        - storytelling_present: true
+        - no_dead_zones: true
+    - id: apply_landing
+      name: "Layer 5: The Landing"
+      description: "Evaluate closing for summary, satisfaction conviction, CTA, and urgency"
+      inputs:
+        - closing_section
+        - guarantee
+        - cta
+      outputs:
+        - landing_score
+        - complete_audit_report
+      validation:
+        - has_summary: true
+        - satisfaction_conviction: true
+        - clear_cta: true
+        - smooth_arrival: true
+  error_handling:
+    - error: broken_gravitational_pull
+      condition: "Headline would not stop scrolling"
+      action: "Rewrite headline until it creates irresistible pull"
+    - error: friction_wall
+      condition: "Wall of text or intimidating layout"
+      action: "Break into short paragraphs; add whitespace and subheads"
+    - error: dead_zones
+      condition: "Sections where reader attention would wander"
+      action: "Cut paragraphs that don't advance story, curiosity, or value"
+    - error: abrupt_landing
+      condition: "CTA appears without transition or satisfaction conviction"
+      action: "Add summary, guarantee, and transition before CTA"
+  quality_gate:
+    min_sections: 5
+    required_elements:
+      - gravitational_pull_present
+      - friction_minimized
+      - agreement_built
+      - no_dead_zones
+      - smooth_landing
+    pass_threshold: "all 5 layers score acceptable; no break points identified"

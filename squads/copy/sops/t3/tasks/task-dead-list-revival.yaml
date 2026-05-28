@@ -1,0 +1,84 @@
+sop:
+  id: task-dead-list-revival
+  version: "1.0"
+  title: "Dead List Revival Protocol"
+  purpose: "Recover 10-20% active subscribers from neglected list using Simple (opt-in proof + daily mail + purge) or Advanced (sub-list migration with bribe) method"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: ben-settle
+    tier: T3
+
+  inputs:
+    - name: neglected_list
+      type: object
+      required: true
+      description: "Neglected email list with subscriber data"
+    - name: bribe_offer
+      type: object
+      required: false
+      description: "Irresistible bribe/offer for re-engagement (Advanced method)"
+
+  outputs:
+    - name: recovery_result
+      type: object
+      description: "10-20% recovery of active subscribers with clean list"
+
+  methods:
+    simple:
+      steps:
+        - id: step_1
+          action: send_optin_proof
+          description: "Send email requiring click action to confirm continued interest with curiosity and urgency"
+
+        - id: step_2
+          action: mail_daily_revival
+          description: "Send daily infotainment emails for 5-7 days using best content"
+          critical: true
+          duration_days: "5-7"
+
+        - id: step_3
+          action: delete_non_openers
+          description: "Permanently delete everyone who did not open a single email during revival"
+
+    advanced:
+      steps:
+        - id: step_1
+          action: create_sub_list
+          description: "Create new separate email list or segment for active subscribers"
+
+        - id: step_2
+          action: offer_bribe
+          description: "Email dead list with irresistible bribe to migrate to new sub-list"
+          critical: true
+          error_handling:
+            condition: "Bribe is generic or low-value"
+            action: "Replace with genuinely exclusive, immediately valuable offer"
+
+        - id: step_3
+          action: migrate_active
+          description: "Move clickers to new sub-list, start on fresh welcome sequence"
+
+        - id: step_4
+          action: discard_mummies
+          description: "Delete everyone remaining on old list after 7-10 days"
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "Opt-in proof creates urgency and curiosity"
+      - "Revival emails use best content"
+      - "Non-responders permanently deleted"
+      - "Advanced bribe is genuinely valuable"
+      - "Welcome sequence ready for migrated subscribers"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies: []
+
+  related_sops:
+    - task-infotainment-email
+    - task-behavioral-segmentation
+    - task-email-engine-setup

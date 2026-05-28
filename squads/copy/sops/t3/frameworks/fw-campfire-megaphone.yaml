@@ -1,0 +1,55 @@
+sop:
+  id: fw-campfire-megaphone
+  version: "1.0"
+  title: "Campfire vs. Megaphone"
+  purpose: "Decision framework for choosing between attraction-based (Campfire) and broadcast-based (Megaphone) marketing"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: andre-chaperon
+    tier: t3
+  steps:
+    - id: apply_campfire
+      name: "Campfire — Build Something Warm"
+      description: "Create marketing assets that draw people in through genuine value and warmth"
+      inputs:
+        - brand_values
+        - content_assets
+        - community_design
+      outputs:
+        - campfire_asset_inventory
+      validation:
+        - genuinely_warm: true
+        - rewards_the_reader: true
+        - attracts_right_people: true
+    - id: apply_megaphone_audit
+      name: "Megaphone — Recognize and Reduce"
+      description: "Identify and evaluate current broadcast/interruption tactics"
+      inputs:
+        - current_marketing_channels
+        - tactic_inventory
+      outputs:
+        - megaphone_audit
+        - campfire_megaphone_ratio
+        - strategic_recommendations
+      validation:
+        - each_channel_labeled: true
+        - megaphone_justified: true
+        - default_is_campfire: true
+  error_handling:
+    - error: disguised_megaphone
+      condition: "Content pretends to give value but is primarily promotional"
+      action: "Audit for genuine value delivery; restructure to lead with value"
+    - error: campfire_only
+      condition: "No amplification strategy; growth unsustainably slow"
+      action: "Add strategic Megaphone for discovery, convert to Campfire relationship"
+    - error: megaphone_default
+      condition: "Megaphone used as default without Campfire justification"
+      action: "Set Campfire as default; require explicit justification for Megaphone"
+  quality_gate:
+    min_sections: 2
+    required_elements:
+      - campfire_assets_identified
+      - megaphone_audit_complete
+      - ratio_calculated
+    pass_threshold: "marketing mix is predominantly Campfire with justified Megaphone"

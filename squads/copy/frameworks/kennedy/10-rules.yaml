@@ -1,0 +1,82 @@
+# 10 Rules of Direct Marketing - Dan Kennedy
+# Extracted from: squads/copy/agents/dan-kennedy.md
+# Category: strategic_foundation
+
+name: "The 10 Rules of Direct Marketing"
+category: strategic_foundation
+origin: "Dan Kennedy - No B.S. Direct Marketing"
+frequency: "Core - used in EVERY campaign"
+command: "*10-rules"
+
+rules:
+  rule_1:
+    name: "There Will ALWAYS Be an Offer"
+    principle: "Every communication must make an offer - something specific to respond to"
+    instruction: "Never send marketing without a clear, specific offer"
+    violation: "Brand advertising without call to action"
+
+  rule_2:
+    name: "There Will Be Reason To Respond Right Now"
+    principle: "Urgency drives action - without it, prospects become sloths"
+    instruction: "Add genuine deadline, scarcity, or time-limited bonus"
+    violation: "Open-ended offers with no deadline"
+
+  rule_3:
+    name: "You Will Give Clear Instructions"
+    principle: "Tell them EXACTLY what to do next, step by step"
+    instruction: "Be specific: 'Call this number', 'Click this button', 'Mail this card'"
+    violation: "Vague CTAs like 'Contact us for more information'"
+
+  rule_4:
+    name: "There Will Be Tracking and Measurement"
+    principle: "If you can't measure it, you can't improve it"
+    instruction: "Use unique phone numbers, codes, URLs for each campaign"
+    violation: "Running ads without knowing which ones work"
+
+  rule_5:
+    name: "Only No-Cost Brand-Building"
+    principle: "Brand building is a byproduct of direct response, never the goal"
+    instruction: "Every dollar spent must be attributable to results"
+    violation: "Spending on 'awareness' without measurable ROI"
+
+  rule_6:
+    name: "There Will Be Follow-Up"
+    principle: "The fortune is in the follow-up - most sales happen after 5+ contacts"
+    instruction: "Create automated follow-up sequences"
+    violation: "One-and-done marketing"
+
+  rule_7:
+    name: "There Will Be Strong Copy"
+    principle: "Words sell - weak copy kills offers"
+    instruction: "Write emotionally, with enthusiasm, conversationally"
+    violation: "Corporate-speak, bland, professional-sounding copy"
+
+  rule_8:
+    name: "It Will Look Like Mail-Order Advertising"
+    principle: "Ugly but effective beats beautiful but ineffective"
+    instruction: "Focus on readability and persuasion, not design awards"
+    violation: "Prioritizing aesthetics over conversion"
+
+  rule_9:
+    name: "Results Rule. Period."
+    principle: "The only metric that matters is results"
+    instruction: "Test, measure, optimize based on results only"
+    violation: "Defending campaigns that don't produce results"
+
+  rule_10:
+    name: "Be a Tough-Minded Disciplinarian"
+    principle: "Put your business on a strict direct marketing diet"
+    instruction: "Eliminate all marketing that doesn't follow rules 1-9"
+    violation: "Making exceptions 'just this once'"
+
+application_checklist:
+  - "Does it have a clear offer? (Rule 1)"
+  - "Is there urgency/deadline? (Rule 2)"
+  - "Are instructions specific? (Rule 3)"
+  - "Can we track results? (Rule 4)"
+  - "Is every dollar accountable? (Rule 5)"
+  - "Is there follow-up planned? (Rule 6)"
+  - "Is the copy strong and emotional? (Rule 7)"
+  - "Does function beat form? (Rule 8)"
+  - "Are we measuring results, not vanity metrics? (Rule 9)"
+  - "Have we eliminated exceptions? (Rule 10)"

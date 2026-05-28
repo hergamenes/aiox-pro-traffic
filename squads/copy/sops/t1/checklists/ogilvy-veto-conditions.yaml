@@ -1,0 +1,135 @@
+sop:
+  id: ogilvy-veto-conditions
+  version: "1.0"
+  title: Ogilvy Veto Conditions
+  purpose: >
+    Enforce David Ogilvy's non-negotiable standards protecting research-first methodology,
+    headline benefit requirement, brand equity, and editorial-quality presentation.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: david-ogilvy
+    artifact_type: veto
+    tier: t1
+
+  steps:
+    - action: validate_research_conducted
+      id: DO_V01
+      description: Copy without prior research -> BLOCK
+      rule: research_completed == true
+      required_research:
+        - product_immersion
+        - consumer_data
+        - competitive_analysis
+      on_fail: BLOCK
+      remediation: conduct_research_before_writing
+
+    - action: validate_headline_has_benefit
+      id: DO_V02
+      description: Headline without benefit -> REJECT
+      rule: headline_has_specific_benefit == true
+      principle: "You wasted 80 cents of your dollar"
+      on_fail: REJECT
+      remediation: rewrite_headline_with_benefit
+
+    - action: validate_no_hyperbole
+      id: DO_V03
+      description: Hyperbole without fact -> SUBSTITUTE with specific data
+      prohibited_terms:
+        - revolutionary
+        - incredible
+        - insane
+        - amazing
+        - unbelievable
+        - game-changing
+        - groundbreaking
+      rule: hyperbole_count == 0
+      on_fail: SUBSTITUTE
+      remediation: replace_each_with_specific_verifiable_data
+
+    - action: validate_format_clean
+      id: DO_V04
+      description: Caps lock, triple exclamations, emojis -> REMOVE
+      prohibited:
+        - all_caps_emphasis
+        - multiple_exclamation_marks
+        - emoji_characters
+      rule: format_violation_count == 0
+      on_fail: REMOVE
+      remediation: strip_all_violations
+
+    - action: validate_brand_equity_protected
+      id: DO_V05
+      description: Copy that sacrifices brand for immediate result -> VETO
+      checks:
+        - no_off_brand_messaging
+        - no_quality_misrepresentation
+        - no_aggressive_tactics_harming_brand
+      rule: brand_equity_risk == 0
+      on_fail: VETO
+      remediation: rewrite_protecting_brand_personality
+
+    - action: validate_no_discount_dependency
+      id: DO_V06
+      description: Constant price promotion -> ALERT
+      principle: "Can anything always sold at discount be desirable?"
+      rule: primary_appeal != "price_reduction"
+      on_fail: ALERT
+      remediation: reframe_around_value_and_differentiation
+      severity: warning
+
+    - action: validate_editorial_format
+      id: DO_V07
+      description: Advertising layout -> REFORMAT to editorial
+      principle: "Editorial ads get 6x more readers"
+      checks:
+        - article_style_headline
+        - journalistic_body_copy
+        - informational_value_first
+      prohibited:
+        - heavy_branding_layout
+        - promotional_formatting
+        - obvious_commercial_framing
+      on_fail: REFORMAT
+      remediation: restructure_as_editorial_content
+
+    - action: validate_family_dinner
+      id: DO_V08
+      description: Copy that fails family dinner test -> REWRITE
+      checks:
+        - no_exaggerated_claims
+        - no_tasteless_appeals
+        - no_questionable_ethics
+        - no_cringe_language
+      rule: family_dinner_pass == true
+      on_fail: REWRITE
+      remediation: full_rewrite_for_taste_and_ethics
+
+  error_handling:
+    - error: no_research
+      severity: critical
+      action: block_until_research_complete
+    - error: headline_without_benefit
+      severity: critical
+      action: reject_and_rewrite
+    - error: hyperbole_detected
+      severity: high
+      action: substitute_with_data
+    - error: brand_equity_risk
+      severity: critical
+      action: veto_entire_piece
+    - error: discount_dependency
+      severity: medium
+      action: alert_and_recommend_reframe
+
+  quality_gate:
+    pass_threshold: 8
+    total_checks: 8
+    mandatory_passes:
+      - DO_V01
+      - DO_V02
+      - DO_V05
+      - DO_V08
+    verdict_on_fail: BLOCK
+    special_verdicts:
+      DO_V06: ALERT

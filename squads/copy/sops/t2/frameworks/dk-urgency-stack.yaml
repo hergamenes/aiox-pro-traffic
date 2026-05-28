@@ -1,0 +1,143 @@
+sop:
+  id: dk-urgency-stack
+  version: "1.0"
+  title: "Urgency Stack Kennedy (5 Types)"
+  purpose: >
+    Five distinct stackable urgency mechanisms that compel immediate action.
+    Each type operates on a different psychological lever. All must be genuine.
+    Urgency is never optional in direct response copy.
+  classification:
+    domain: copywriting
+    subdomain: persuasion-mechanics
+    tier: t2
+    source_agent: dan-kennedy
+    artifact_type: framework
+
+  steps:
+    - id: step_1_hard_deadline
+      action: apply_hard_deadline
+      label: "Hard Deadline"
+      description: >
+        Set a specific real date and time when the offer expires. State it
+        explicitly with date, time, and timezone. Enforce it without exception.
+        Use countdown timers in digital formats.
+      inputs:
+        - offer_details
+        - campaign_calendar
+      outputs:
+        - deadline_statement
+        - enforcement_mechanism
+      validation:
+        - field: deadline_statement
+          rule: contains_date_time_timezone
+        - field: enforcement_mechanism
+          rule: not_empty
+
+    - id: step_2_scarcity
+      action: apply_scarcity
+      label: "Scarcity (Real Quantity Limit)"
+      description: >
+        Define a real quantity limit based on actual capacity. State with
+        specificity (exact number, not vague). Update count publicly as units
+        sell. Never use fake scarcity counters.
+      inputs:
+        - capacity_data
+      outputs:
+        - scarcity_statement
+        - quantity_limit
+      validation:
+        - field: quantity_limit
+          rule: is_real_capacity
+        - field: scarcity_statement
+          rule: contains_specific_number
+
+    - id: step_3_penalty
+      action: apply_penalty_cost_of_inaction
+      label: "Penalty (Cost of Inaction)"
+      description: >
+        Calculate the specific dollar cost of NOT acting. State it concretely
+        with per-day, per-week, or per-month figures. Compare the product price
+        to the ongoing loss to reframe the purchase.
+      inputs:
+        - prospect_current_situation
+        - cost_analysis
+      outputs:
+        - penalty_calculation
+        - comparison_statement
+      validation:
+        - field: penalty_calculation
+          rule: contains_dollar_amount
+        - field: comparison_statement
+          rule: reframes_as_loss_elimination
+
+    - id: step_4_bonus_expiration
+      action: apply_bonus_expiration
+      label: "Bonus Expiration"
+      description: >
+        Create bonuses that are genuinely desirable on their own. Make them
+        available only for a specific window. Remove after deadline. The bonus
+        must be worth buying separately.
+      inputs:
+        - bonus_assets
+        - expiration_date
+      outputs:
+        - bonus_offer_statement
+        - bonus_value_justification
+      validation:
+        - field: bonus_assets
+          rule: each_independently_valuable
+        - field: expiration_date
+          rule: is_enforced
+
+    - id: step_5_rising_price
+      action: apply_rising_price
+      label: "Rising Price (Pre-Announced Price Ladder)"
+      description: >
+        Pre-announce a price ladder with specific dates and amounts. Provide a
+        legitimate reason-why for the increase. Execute increases on schedule.
+        Frame current price as a privilege to lock in.
+      inputs:
+        - pricing_strategy
+        - price_ladder_schedule
+      outputs:
+        - price_ladder_statement
+        - reason_why
+      validation:
+        - field: price_ladder_statement
+          rule: contains_dates_and_amounts
+        - field: reason_why
+          rule: is_legitimate
+
+  error_handling:
+    - error: fake_scarcity
+      symptom: "Audience ignores urgency claims, trust erodes"
+      resolution: "Only use scarcity based on real capacity constraints"
+    - error: deadline_not_enforced
+      symptom: "Future deadlines ignored by audience"
+      resolution: "Enforce every deadline without exception"
+    - error: generic_penalty
+      symptom: "Vague 'you'll miss out' creates no urgency"
+      resolution: "Calculate specific dollar cost of inaction"
+    - error: no_urgency_at_all
+      symptom: "Prospects defer indefinitely and never return"
+      resolution: "Add at least one genuine urgency type to every copy piece"
+
+  quality_gate:
+    min_score: 7
+    criteria:
+      - "At least one urgency type applied"
+      - "All urgency claims genuine and enforceable"
+      - "Deadlines include date, time, timezone"
+      - "Scarcity numbers reflect real capacity"
+      - "Penalty in specific dollar amounts"
+      - "Bonuses desirable enough to buy separately"
+      - "Enforcement systems confirmed"
+
+  outputs:
+    - type: urgency_stack_document
+      format: markdown
+    - type: copy_blocks
+      format: text
+      count: "1 per urgency type applied"
+    - type: enforcement_checklist
+      format: checklist

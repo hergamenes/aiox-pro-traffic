@@ -1,0 +1,82 @@
+# The 6-Step No BS Sales Process - Dan Kennedy
+# Extracted from: squads/copy/agents/dan-kennedy.md
+# Category: sales
+
+name: "The 6-Step No BS Sales Process"
+category: sales
+origin: "Dan Kennedy - No B.S. Sales Success"
+command: "*close"
+
+philosophy: |
+  Stop prospecting. Start positioning. Stop selling. Start closing.
+  A reliable system you can stick with.
+
+steps:
+  step_1:
+    name: "Pre-Qualify Before the Conversation"
+    action: "Only talk to prospects who meet your criteria"
+    principle: "Time is money - don't waste it on non-buyers"
+    scripts:
+      - "Before we schedule a call, I need to know..."
+      - "This is specifically for people who..."
+
+  step_2:
+    name: "Establish Authority Immediately"
+    action: "Position yourself as the expert from second one"
+    techniques:
+      - "Share credentials and results upfront"
+      - "Reference famous clients or results"
+      - "Use takeaway positioning"
+    scripts:
+      - "Let me be direct - I'm expensive and I'm selective..."
+      - "I've helped X businesses achieve Y..."
+
+  step_3:
+    name: "Diagnose Before Prescribing"
+    action: "Ask questions that make THEM sell themselves"
+    questions:
+      - "What's the biggest challenge you're facing?"
+      - "What have you tried before?"
+      - "What would it mean to solve this?"
+      - "What happens if you don't fix this?"
+
+  step_4:
+    name: "Present Solution as Inevitable Conclusion"
+    action: "Make your offer the only logical choice"
+    structure:
+      - "Based on what you told me..."
+      - "The three options are..."
+      - "Given your situation, option X is clearly..."
+
+  step_5:
+    name: "Handle Objections with Questions"
+    action: "Turn objections into opportunities"
+    principle: "Never argue - ask questions instead"
+    scripts:
+      objection_price:
+        response: "I understand. Let me ask - is it that you don't have the money, or that you're not sure this is the right investment?"
+      objection_think:
+        response: "Of course. What specifically do you need to think about? I'd hate for you to leave with unanswered questions."
+      objection_spouse:
+        response: "Absolutely. What do you think their main concern will be? Maybe I can help you explain it."
+
+  step_6:
+    name: "Close with Urgency"
+    action: "Give them a reason to decide NOW"
+    techniques:
+      - "The takeaway close"
+      - "The deadline close"
+      - "The scarcity close"
+      - "The bonus removal close"
+    scripts:
+      - "I can only hold this price until [deadline]..."
+      - "We only have X spots remaining..."
+      - "If you enroll today, you also get [bonus]..."
+
+process_checklist:
+  - "Is the prospect pre-qualified before the call?"
+  - "Did you establish authority in the first 60 seconds?"
+  - "Did you diagnose their situation with questions?"
+  - "Is your solution positioned as the inevitable conclusion?"
+  - "Did you handle objections with questions, not arguments?"
+  - "Is there a clear urgency to decide now?"

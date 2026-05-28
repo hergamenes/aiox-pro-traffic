@@ -1,0 +1,56 @@
+sop:
+  id: makepeace-belief-bridge
+  version: "1.0"
+  title: "Belief Bridge Framework"
+  purpose: >
+    Build logical and emotional agreement BEFORE revealing big promises.
+    The best benefits must WAIT until the prospect is prepared to accept
+    them. DRE creates rapport, then logical steps create agreement, then
+    benefits land as natural conclusion.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: clayton-makepeace
+    tier: t1
+
+  steps:
+    - id: apply_assess_gap
+      action: "Determine how prepared prospect is to believe biggest benefits (gap size determines bridge length)"
+      input: "prospect_awareness_level, market_skepticism"
+      output: "belief_gap_assessment"
+
+    - id: apply_dre_rapport
+      action: "Build emotional rapport using DRE — prospect nods because you describe their reality"
+      input: "dre_identified"
+      output: "emotional_foundation"
+
+    - id: apply_logical_agreement
+      action: "Introduce small, obvious truths the prospect agrees with, building logical momentum"
+      output: "agreement_sequence"
+      condition: "each_step_obviously_true == true"
+
+    - id: apply_bridge_to_benefits
+      action: "Transition from agreement to benefits so they feel like natural conclusion, not sales pitch"
+      output: "benefit_introduction"
+
+    - id: apply_delay_biggest
+      action: "Present smaller benefits first, escalate to biggest benefits after bridge is fully built"
+      output: "escalating_benefit_sequence"
+
+  error_handling:
+    - error: "leading_with_big_benefit"
+      severity: high
+      action: "Delay big benefit; build bridge with DRE + logical agreement first"
+    - error: "skipped_dre"
+      severity: high
+      action: "Add emotional rapport before logical bridge"
+    - error: "debatable_agreement_step"
+      severity: medium
+      action: "Replace with obviously true statement; bridge breaks at weak links"
+
+  quality_gate:
+    belief_gap_assessed: true
+    dre_rapport_built: true
+    agreement_steps_true: true
+    big_benefits_delayed: true
+    bridge_proportional_to_gap: true

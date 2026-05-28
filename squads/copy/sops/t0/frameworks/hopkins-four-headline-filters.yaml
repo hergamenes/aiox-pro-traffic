@@ -1,0 +1,45 @@
+sop:
+  id: hopkins-four-headline-filters
+  version: "1.0"
+  title: "4 Headline Filters"
+  purpose: "Four mandatory tests every headline must pass before publication — ensures reader benefit, novelty, curiosity, and conversational tone."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: claude-hopkins
+  steps:
+    - id: apply_filter_1_service
+      action: "Verify headline offers service/benefit to the reader"
+      input: "Draft headline, prospect profile"
+      output: "Pass/Fail with rationale"
+      validation: "Headline addresses reader's interest, not advertiser's pride"
+    - id: apply_filter_2_news
+      action: "Verify headline contains news or novelty element"
+      input: "Draft headline, market context"
+      output: "Pass/Fail with rationale"
+      validation: "Headline communicates something new — number, discovery, method, date"
+    - id: apply_filter_3_curiosity
+      action: "Verify headline arouses curiosity to read body copy"
+      input: "Draft headline, body copy outline"
+      output: "Pass/Fail with rationale"
+      validation: "Headline creates open loop that body copy must close"
+    - id: apply_filter_4_face_to_face
+      action: "Verify headline could be used by a salesperson in conversation"
+      input: "Draft headline"
+      output: "Pass/Fail with rationale"
+      validation: "Headline sounds natural spoken aloud; no jargon or corporate speak"
+  error_handling:
+    - error: "Headline fails Filter 1 (no reader benefit)"
+      resolution: "Rewrite leading with what the reader GETS, not what the product IS"
+    - error: "Headline fails Filter 3 (no curiosity)"
+      resolution: "Withhold mechanism or proof for body copy; create information gap"
+    - error: "All variations fail one or more filters"
+      resolution: "Return to research; identify strongest benefit and rewrite from scratch"
+  quality_gate:
+    criteria:
+      - "Headline passes all 4 filters"
+      - "Minimum 3 variations tested against filters"
+      - "Winning variation leads with reader benefit"
+      - "Headline is unique to this product (not usable by competitor)"
+    pass_threshold: "All 4 criteria met"

@@ -1,0 +1,465 @@
+# Workflow 10: Weekly Cold Webinar System
+# Framework: Jeremy Haynes Cold Webinar Best Practices
+# Purpose: Perpetual cold webinar system running weekly
+
+workflow:
+  id: wf-10-webinar-cold-weekly
+  name: "Weekly Cold Webinar System"
+  type: webinar-system
+  description: >-
+    Sistema de webinar cold perpétuo com cadência semanal, promoção evergreen,
+    apresentação estruturada e follow-up pós-evento.
+  operational_roles:
+    orchestrator: copy-chief
+    human_review_agent: launch-owner
+    delivery_agent: copy-ops-worker
+  state_machine:
+    states: [init, promotion, registration, presentation, follow-up, operations, complete, failed]
+    transitions:
+      - { trigger: start, source: init, dest: promotion }
+      - { trigger: promotion_complete, source: promotion, dest: registration }
+      - { trigger: registration_complete, source: registration, dest: presentation }
+      - { trigger: presentation_complete, source: presentation, dest: follow-up }
+      - { trigger: follow-up_complete, source: follow-up, dest: operations }
+      - { trigger: operations_complete, source: operations, dest: complete }
+      - { trigger: fail, source: "*", dest: failed }
+  quality_gate_refs: [QG-CP-1.1, QG-CP-2.1, QG-CP-3.1, QG-CP-5.1]
+  sequence:
+    - phase: promotion
+      id: promotion
+      agent: eugene-schwartz
+      task_ref: tasks/plf/plan-paid-traffic.md
+      action: "Planejar a promoção semanal e a promessa central do webinar"
+      creates: cold-webinar-promo
+      on_complete: { trigger: promotion_complete }
+    - phase: registration
+      id: registration
+      agent: john-carlton
+      task_ref: tasks/create-landing-page.md
+      requires: cold-webinar-promo
+      action: "Construir a jornada de registro e pré-webinar"
+      creates: cold-webinar-registration
+      on_complete: { trigger: registration_complete }
+    - phase: presentation
+      id: presentation
+      agent: jon-benson
+      task_ref: tasks/create-cold-webinar-script.md
+      requires: cold-webinar-registration
+      action: "Estruturar a apresentação cold webinar com pitch e transições"
+      creates: cold-webinar-presentation
+      on_complete: { trigger: presentation_complete }
+    - phase: follow-up
+      id: follow-up
+      agent: andre-chaperon
+      task_ref: tasks/create-email-sequence.md
+      requires: cold-webinar-presentation
+      action: "Montar follow-up e recuperação pós-webinar"
+      creates: cold-webinar-followup
+      on_complete: { trigger: follow-up_complete }
+    - phase: operations
+      id: operations
+      agent: copy-chief
+      task_ref: tasks/simple-writing-audit.md
+      requires: cold-webinar-followup
+      action: "Validar a operação semanal e consolidar o sistema evergreen"
+      creates: cold-webinar-system
+      on_complete: { trigger: operations_complete }
+
+  handoff_prompts:
+    default: "Entregue o artefato criado, decisões tomadas, riscos abertos e o critério exato para o próximo agente continuar sem reinterpretar o contexto."
+
+metadata:
+  name: "Weekly Cold Webinar System"
+  code: "wf-10-webinar-cold-weekly"
+  version: "1.0"
+  source: "Jeremy Haynes - Cold vs Warm Webinar Best Practices"
+  result_benchmark: "Sustainable cold audience conversion at scale"
+
+# =============================================================================
+# WORKFLOW OVERVIEW
+# =============================================================================
+overview:
+  description: |
+    Sistema de webinar cold perpétuo que roda semanalmente.
+    Permite escalar aquisição de clientes sem saturar warm audiences.
+
+  cadence: "Semanal (pode ser até 2x/semana se audiência suporta)"
+
+  stages:
+    - "Stage 1: Weekly Setup & Promotion"
+    - "Stage 2: Registration & Pre-Webinar"
+    - "Stage 3: The Cold Webinar (3-Pitch Structure)"
+    - "Stage 4: Post-Webinar Conversion"
+    - "Stage 5: Perpetual System Management"
+
+  key_principle: |
+    Cold webinars podem rodar com alta frequência porque
+    são pessoas NOVAS toda semana. Diferente de warm que
+    precisa ser mensal para evitar fadiga.
+
+# =============================================================================
+# STAGE 1: WEEKLY SETUP & PROMOTION
+# =============================================================================
+stage_1:
+  name: "Weekly Setup & Promotion"
+
+  timeline: "7 dias antes do webinar"
+
+  steps:
+    step_1_1:
+      name: "Schedule Next Webinar"
+      timing: "Imediatamente após webinar anterior"
+      action: |
+        Agendar próximo webinar para mesma hora/dia
+        - Consistência ajuda operação
+        - Leads sabem quando esperar
+
+    step_1_2:
+      name: "Update Registration Page"
+      timing: "Assim que webinar atual termina"
+      action: |
+        - Mesma URL sempre
+        - Atualizar apenas data/hora
+        - Manter copy evergreen
+      important: |
+        A URL não muda, só o conteúdo da página.
+        Isso permite ads evergreen.
+
+    step_1_3:
+      name: "Ads Management"
+      timing: "Contínuo"
+      action: |
+        Ads evergreen que não mencionam:
+        - Datas específicas
+        - "Webinar" (usar "training" ou "workshop")
+        - Urgência temporal
+
+        EXCLUSÕES OBRIGATÓRIAS:
+        - Website visitors (180 dias)
+        - Email list
+        - Customer list
+        - Social interaction (365 dias)
+        - Video viewers (25%+)
+        - Followers
+
+      budget: "Daily budget (não lifetime para weekly)"
+
+    step_1_4:
+      name: "Creative Refresh"
+      timing: "A cada 2-4 semanas"
+      action: |
+        Monitorar ad fatigue.
+        Refresh criativo quando CTR cai.
+        Manter messaging consistente.
+
+  output: "Webinar agendado, ads rodando, página atualizada"
+
+# =============================================================================
+# STAGE 2: REGISTRATION & PRE-WEBINAR
+# =============================================================================
+stage_2:
+  name: "Registration & Pre-Webinar"
+
+  steps:
+    step_2_1:
+      name: "Registration"
+      action: |
+        Lead registra para webinar.
+        - Capture: nome, email, telefone (opcional)
+        - Registre no Zoom (via integração)
+
+    step_2_2:
+      name: "Confirmation Page"
+      action: |
+        Página pós-registro com:
+        - Confirmação clara
+        - Add to calendar
+        - Video do apresentador (2-3 min)
+        - O que vão aprender
+        - Testimonials de webinars anteriores
+
+    step_2_3:
+      name: "Pre-Webinar Email Sequence"
+      timing: "Até 7 dias antes"
+      action: |
+        Sequência de emails focada em show rate:
+
+        Day of registration:
+        - Email 1: Confirmação + o que esperar
+        - Email 2: Por que isso é importante
+
+        Days before:
+        - Conteúdo de valor relacionado
+        - Testimonials/cases
+        - Reminder de adicionar ao calendário
+
+        Day before:
+        - Strong reminder
+        - O que vão aprender
+
+        Day of (lembretes):
+        - Manhã: "Hoje é o dia"
+        - 2h antes
+        - 1h antes
+        - 30 min antes
+        - "Estamos ao vivo"
+
+    step_2_4:
+      name: "Hammer Them Retargeting"
+      timing: "Entre registro e webinar"
+      action: |
+        Retargeting ads para registrados:
+        - Videos curtos sobre os tópicos
+        - Testimonials
+        - Lembretes visuais
+
+  show_rate_expectation:
+    cold_baseline: "15-20%"
+    with_optimization: "40-50%"
+    factors: |
+      - Tempo entre registro e webinar (menor = melhor)
+      - Qualidade da confirmation page
+      - Email sequence
+      - Retargeting
+
+# =============================================================================
+# STAGE 3: THE COLD WEBINAR (3-PITCH STRUCTURE)
+# =============================================================================
+stage_3:
+  name: "The Cold Webinar"
+
+  duration: "60 minutos (máx 90)"
+
+  structure:
+    section_1:
+      name: "First Third"
+      duration: "0-20 min"
+      components:
+        - intro: |
+            30 segundos MÁXIMO
+            ZERO small talk
+            Imediatamente: resultado + 3 tópicos
+        - content: |
+            Surface level - O QUÊ e POR QUÊ
+            1-2 exemplos rápidos
+        - pitch_1: |
+            2-5 minutos
+            Pedir PERMISSÃO
+            Produto, preço, componentes
+            Voltar ao conteúdo
+        - qa_1: |
+            2-5 minutos
+            Perguntas plantadas se necessário
+
+    section_2:
+      name: "Second Third"
+      duration: "20-40 min"
+      components:
+        - content: |
+            COMO funciona com EXEMPLOS
+            Case studies com números
+            Demonstrações
+        - pitch_2: |
+            2-5 minutos
+            FRAMING: comprar velocidade/suporte
+            NÃO repetir componentes
+        - qa_2: |
+            2-5 minutos
+            Perguntas sobre exemplos
+
+    section_3:
+      name: "Final Third"
+      duration: "40-60 min"
+      components:
+        - content: |
+            Mais profundo / exercício
+            Fazê-los COMEÇAR a agir
+            Revelar complexidades
+        - pitch_3: |
+            10-15 minutos
+            Objection handling completo
+            Full pitch com stack
+            Garantia
+            Urgência
+            CTA
+        - qa_final: |
+            Sem limite de tempo
+            Objection handling ao vivo
+            Celebrar quem comprou
+            Múltiplos re-pitches
+
+  template: "cold-webinar-script-tmpl.yaml"
+  task: "create-cold-webinar-script.md"
+
+# =============================================================================
+# STAGE 4: POST-WEBINAR CONVERSION
+# =============================================================================
+stage_4:
+  name: "Post-Webinar Conversion"
+
+  steps:
+    step_4_1:
+      name: "Immediate Post-Webinar"
+      timing: "Dentro de 1 hora"
+      action: |
+        Para quem ASSISTIU e NÃO comprou:
+        - Email: "Obrigado por participar"
+        - Recap do que foi coberto
+        - Link para comprar/agendar
+        - Deadline se houver
+
+        Para quem NÃO assistiu:
+        - Email: "Sentimos sua falta"
+        - Replay (se disponibilizar)
+        - Link para comprar/agendar
+
+    step_4_2:
+      name: "Day 1-3 Follow-up"
+      action: |
+        Sequência de emails:
+        - Day 1: Testimonial/case study
+        - Day 2: Objeção mais comum respondida
+        - Day 3: Última chance (se deadline)
+
+    step_4_3:
+      name: "Call Funnel Integration"
+      action: |
+        Para leads que não compraram direto:
+        - Oferecer call 1:1
+        - Rotear para call funnel
+        - Aplicar Hammer Them sequence
+
+    step_4_4:
+      name: "Próximo Webinar"
+      timing: "Se não converteu"
+      action: |
+        Convidar para próximo webinar:
+        - Mesmo webinar (podem precisar ver 2x)
+        - Estatística: 1/3 dos compradores assistem 2+ webinars
+
+  output: "Lead convertido OU em nurture para próximo webinar"
+
+# =============================================================================
+# STAGE 5: PERPETUAL SYSTEM MANAGEMENT
+# =============================================================================
+stage_5:
+  name: "Perpetual System Management"
+
+  weekly_operations:
+    monday:
+      - "Review métricas do webinar anterior"
+      - "Ajustar ads se necessário"
+      - "Verificar registros da semana"
+
+    tuesday_wednesday:
+      - "Monitorar registros"
+      - "Verificar email deliverability"
+      - "Refresh criativo se necessário"
+
+    thursday_friday:
+      - "Preparar para webinar"
+      - "Testar tech"
+      - "Review slides/script se mudanças"
+
+    saturday_sunday:
+      - "Webinar (dia escolhido)"
+      - "Post-webinar follow-up"
+      - "Setup próxima semana"
+
+  monthly_reviews:
+    - "Show rate trends"
+    - "Conversion rate trends"
+    - "Ad fatigue analysis"
+    - "Creative refresh planning"
+    - "Audience size sustainability"
+
+  scaling_considerations:
+    - "Se audiência suporta: aumentar para 2x/semana"
+    - "Se ads fatigando: refresh criativo"
+    - "Se show rate caindo: revisar pre-webinar sequence"
+    - "Se conversion caindo: revisar pitch/offer"
+
+# =============================================================================
+# WARM WEBINAR INTEGRATION (Monthly)
+# =============================================================================
+warm_integration:
+  recommendation: |
+    Além do cold webinar semanal,
+    fazer 1 warm webinar por mês para:
+    - Audiência que já conhece você
+    - Leads que viram cold mas não compraram
+    - Email list, followers, etc.
+
+  differentiation:
+    cold_weekly:
+      - "Exclusivamente cold audiences"
+      - "Zero character content"
+      - "3-pitch structure rígida"
+      - "Value density extrema"
+
+    warm_monthly:
+      - "Warm audiences incluídas"
+      - "Mais personalidade"
+      - "Pitch pode ser mais no final"
+      - "Storytelling mais pessoal"
+
+# =============================================================================
+# METRICS & BENCHMARKS
+# =============================================================================
+metrics:
+  registration_metrics:
+    - name: "Cost per Registration"
+      benchmark: "$5-25 (varia por nicho)"
+
+    - name: "Page Conversion Rate"
+      benchmark: "20-40%"
+
+  webinar_metrics:
+    - name: "Show Rate"
+      benchmark: "15-45% (cold)"
+
+    - name: "Attendance Duration"
+      benchmark: "30+ min média"
+
+    - name: "Chat Engagement"
+      benchmark: "10%+ dos attendees"
+
+  conversion_metrics:
+    - name: "Live Conversion Rate"
+      benchmark: "5-15% dos que assistem"
+
+    - name: "Post-Webinar Conversion"
+      benchmark: "3-8% adicional"
+
+    - name: "Total Conversion"
+      benchmark: "8-20% dos que assistem"
+
+  roi_metrics:
+    - name: "Cost per Acquisition"
+      formula: "Total Ad Spend / Buyers"
+
+    - name: "ROAS"
+      formula: "Revenue / Ad Spend"
+      benchmark: "3x+ para escalar"
+
+# =============================================================================
+# TEMPLATES & RESOURCES
+# =============================================================================
+resources:
+  tasks:
+    - "create-cold-webinar-script.md"
+    - "create-warm-webinar-script.md"
+
+  templates:
+    - "cold-webinar-script-tmpl.yaml"
+
+  checklists:
+    - "cold-vs-warm-webinar-checklist.md"
+
+# =============================================================================
+# VERSION HISTORY
+# =============================================================================
+version_history:
+  - version: "1.0"
+    date: "2025-01-24"
+    changes: "Initial workflow based on Jeremy Haynes cold webinar system"

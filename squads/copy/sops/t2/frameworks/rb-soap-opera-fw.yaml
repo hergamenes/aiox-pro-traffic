@@ -1,0 +1,126 @@
+sop:
+  id: rb-soap-opera-fw
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Soap Opera Sequence"
+  purpose: >
+    Create a 5-email onboarding sequence that reads like a soap opera with
+    cliffhangers. Replaces boring welcome sequences with narrative-driven
+    emails that build relationship, trust, and desire before the first offer.
+  classification:
+    domain: copywriting
+    subdomain: email-sequences
+    complexity: intermediate
+    source_agent: russell-brunson
+
+  steps:
+    - id: step_1
+      name: write_email_1
+      action: apply_stage_setting
+      description: >
+        Deliver lead magnet and set the stage. Tease the story that is coming.
+        Give brief preview of transformation without details. End with
+        cliffhanger. Do NOT sell anything.
+      inputs:
+        - lead_magnet_content
+        - story_preview
+      outputs:
+        - email_1_copy
+        - email_1_subject_line
+      validation: no_selling_in_email_1
+
+    - id: step_2
+      name: write_email_2
+      action: apply_high_drama
+      description: >
+        Deliver on yesterday's promise. Tell the most dramatic part: struggle,
+        failure, crisis. Use vivid details, dialogue, emotional language.
+        End with cliffhanger. Do NOT sell.
+      inputs:
+        - crisis_story_details
+      outputs:
+        - email_2_copy
+        - email_2_subject_line
+      validation: drama_includes_vivid_details_and_cliffhanger
+
+    - id: step_3
+      name: write_email_3
+      action: apply_epiphany_delivery
+      description: >
+        Describe the specific epiphany moment. Use Epiphany Bridge technique.
+        Connect to broader truth for reader's situation. Product becomes
+        inevitable. Tease application for tomorrow.
+      inputs:
+        - epiphany_moment
+        - reader_situation_connection
+      outputs:
+        - email_3_copy
+        - email_3_subject_line
+      validation: epiphany_felt_not_just_understood
+
+    - id: step_4
+      name: write_email_4
+      action: apply_hidden_benefits
+      description: >
+        Reveal unexpected secondary benefits: confidence, relationships,
+        time freedom, unexpected income. Each as mini-story. Deepens
+        desire beyond primary promise. Tease tomorrow's special offer.
+      inputs:
+        - secondary_benefits_list
+      outputs:
+        - email_4_copy
+        - email_4_subject_line
+      validation: benefits_are_unexpected_not_primary_restatement
+
+    - id: step_5
+      name: write_email_5
+      action: apply_urgency_close
+      description: >
+        Brief journey recap. Present product as systematized epiphany.
+        Stack value. Price as fraction of result. Add genuine urgency.
+        Single clear CTA. Only email where you sell.
+      inputs:
+        - offer_details
+        - value_stack
+        - urgency_element
+      outputs:
+        - email_5_copy
+        - email_5_subject_line
+      validation: genuine_urgency_and_single_cta
+
+  error_handling:
+    - error: selling_too_early
+      symptom: "High unsubscribe rate, low sequence completion"
+      resolution: "Remove ALL selling from emails 1-4. Trust the process."
+    - error: no_cliffhangers
+      symptom: "Open rates drop after email 1"
+      resolution: "Write each email ending as teaser for the next."
+    - error: generic_drama
+      symptom: "Reader disengaged, story feels fabricated"
+      resolution: "Use specific real details: names, dates, places, exact words."
+    - error: no_urgency_in_email_5
+      symptom: "Low conversion despite engaged readers"
+      resolution: "Add genuine deadline, limited spots, or bonus expiration."
+
+  quality_gate:
+    criteria:
+      - no_selling_in_emails_1_through_4
+      - each_email_has_cliffhanger
+      - email_3_delivers_genuine_epiphany
+      - email_5_has_urgency_and_single_cta
+      - sequence_reads_as_continuous_narrative
+    min_pass: 4
+
+  outputs:
+    - type: email_sequence
+      format: 5_email_automation
+      description: "Complete Soap Opera Sequence ready for email automation"
+    - type: subject_lines
+      format: list
+      description: "Optimized subject lines for each email"
+    - type: automation_config
+      format: settings
+      description: "Trigger and timing (1 email/day for 5 days)"

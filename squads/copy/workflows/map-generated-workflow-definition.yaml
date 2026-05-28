@@ -1,0 +1,136 @@
+# Managed by materialize-map.py
+# Source: outputs/sinkra-squad/copy/map/20260328-065841-gemini-gemini-3.1-pro-preview/workflow_definition.yaml
+# Category: workflow
+
+workflows:
+  - workflow_id: "wf_copy_lendaria_v2"
+    name: "Produção de Copy Lendária Automatizada"
+    organism: "org_briefing_repertorio, org_drafting_assistido, org_revisao_qg"
+    trigger: "manual_recebimento_briefing"
+    frequency: "Sob demanda (alta frequência)"
+
+    steps:
+      - step_id: "step_1_validar_briefing"
+        task_id: "atm_validar_briefing"
+        executor_type: "Agent"
+        action: "Validar se todos os campos obrigatórios do briefing estão preenchidos e coerentes"
+        inputs: ["Briefing Inicial"]
+        outputs: ["Briefing Validado", "Relatório de Inconsistências"]
+        guardrails:
+          pre_conditions:
+            - "briefing_inicial IS NOT NULL"
+          post_conditions:
+            - "is_valid == true OR inconsistencias.length > 0"
+          error_handling:
+            strategy: "retry"
+            max_retries: 2
+            fallback: "Escalar para Copywriter Sênior ou Estrategista"
+        conditionals:
+          - condition: "is_valid == false"
+            then: "Notificar Estrategista com Relatório de Inconsistências e pausar fluxo"
+            else: "Avançar para step_2_pesquisa_dores"
+
+      - step_id: "step_2_pesquisa_dores"
+        task_id: "atm_pesquisa_dores"
+        executor_type: "Agent"
+        action: "Pesquisar e compilar dores, desejos e objeções do avatar"
+        inputs: ["Briefing Validado"]
+        outputs: ["Dossiê de Repertório"]
+        guardrails:
+          pre_conditions:
+            - "briefing_validado EXISTS"
+            - "avatar_definido EXISTS"
+          post_conditions:
+            - "dossie_gerado IS NOT NULL"
+            - "dossie_size > 500_palavras"
+          error_handling:
+            strategy: "retry"
+            max_retries: 3
+            fallback: "Escalar para Copywriter Sênior (execução manual da pesquisa)"
+
+      - step_id: "step_3_gerar_draft"
+        task_id: "atm_gerar_draft"
+        executor_type: "Agent"
+        action: "Gerar o primeiro draft da copy seguindo o framework definido (ex: AIDA/PAS)"
+        inputs: ["Briefing Validado", "Dossiê de Repertório"]
+        outputs: ["Draft V1"]
+        guardrails:
+          pre_conditions:
+            - "dossie_gerado EXISTS"
+            - "framework_copy IS NOT NULL"
+          post_conditions:
+            - "draft_v1 IS NOT NULL"
+            - "draft_follows_framework == true"
+          error_handling:
+            strategy: "retry"
+            max_retries: 2
+            fallback: "Escalar para Copywriter Sênior (re-prompting)"
+
+      - step_id: "step_4_aplicar_tom"
+        task_id: "atm_aplicar_tom"
+        executor_type: "Clone"
+        action: "Refatorar o Draft V1 para emular a voz, vocabulário e estilo do especialista"
+        inputs: ["Draft V1", "Base de Conhecimento do Especialista"]
+        outputs: ["Draft com Tom de Voz"]
+        guardrails:
+          pre_conditions:
+            - "draft_v1 EXISTS"
+            - "clone_engine_active == true"
+          post_conditions:
+            - "draft_tom_aplicado IS NOT NULL"
+            - "style_match_score >= 0.8"
+          error_handling:
+            strategy: "retry"
+            max_retries: 2
+            fallback: "Avançar Draft V1 para revisão manual (Copywriter Sênior ajusta tom)"
+
+      - step_id: "step_5_revisar_checklist"
+        task_id: "atm_revisar_checklist"
+        executor_type: "Agent"
+        action: "Validar estruturalmente o draft com tom aplicado contra o checklist de gatilhos e coerência"
+        inputs: ["Draft com Tom de Voz", "Checklist de Copy"]
+        outputs: ["Draft Revisado", "Score de Checklist"]
+        guardrails:
+          pre_conditions:
+            - "draft_tom_aplicado EXISTS"
+          post_conditions:
+            - "checklist_score >= 0.9"
+          error_handling:
+            strategy: "retry"
+            max_retries: 1
+            fallback: "Avançar para aprovação com ressalvas"
+        conditionals:
+          - condition: "checklist_score < 0.9"
+            then: "Retornar para step_3_gerar_draft com feedback da revisão"
+            else: "Avançar para step_6_aprovacao_final"
+
+      - step_id: "step_6_aprovacao_final"
+        task_id: "atm_aprovacao_final"
+        executor_type: "Human"
+        action: "Revisar fluxo, intenção e validar a copy para aprovação final"
+        inputs: ["Draft Revisado", "Score de Checklist"]
+        outputs: ["Copy Final Aprovada"]
+        guardrails:
+          pre_conditions:
+            - "draft_revisado EXISTS"
+            - "checklist_score >= 0.9"
+          post_conditions:
+            - "copy_status == APROVADA OR copy_status == REJEITADA"
+          error_handling:
+            strategy: "fallback"
+            max_retries: 0
+            fallback: "Retornar para step_1_validar_briefing se rejeição for estrutural"
+
+    error_handling:
+      global_fallback: "Interrupção do Workflow: Alerta imediato no canal do squad com o Copywriter Sênior"
+      alert_channels: ["Slack/Discord #squad-copy"]
+
+checkpoint_self_eval:
+  checkpoint_id: "PV_PM_001"
+  scores:
+    guardrails_present: 1.0
+    frequencia: 1.0
+    padronizacao: 0.85
+  overall_score: 0.95
+  auto_verdict: "APPROVE"
+  notes: "Todas as tasks automatizadas via Agent ou Clone possuem pre-conditions e post-conditions claros. A presença de fallbacks para Human garante segurança e aprovação no veto de guardrails."

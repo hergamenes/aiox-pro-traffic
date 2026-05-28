@@ -1,0 +1,51 @@
+sop:
+  id: hopkins-forced-distribution
+  version: "1.0"
+  title: "Forced Distribution Mechanism"
+  purpose: "Achieve rapid retail distribution by creating consumer demand through coupons that force dealers to stock the product without salesmen."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: claude-hopkins
+  steps:
+    - id: apply_coupon_placement
+      action: "Run coupon ad in national/regional media offering free full-size product"
+      input: "Product details, media plan, coupon design"
+      output: "Published ad with redeemable coupon specifying product, size, and redemption terms"
+      validation: "Coupon is specific, trackable, and ad is compelling enough to drive action"
+    - id: apply_dealer_preseeding
+      action: "Send proof copies of ad and coupon to all target dealers before publication"
+      input: "Dealer list, ad proofs, publication date"
+      output: "Pre-seeding package mailed to all target dealers with cover letter"
+      validation: "Proofs arrive at dealers 1-2 weeks before ad publication date"
+    - id: apply_demand_recognition
+      action: "Dealer recognizes incoming customer traffic from coupon campaign"
+      input: "Pre-seeding materials received by dealer"
+      output: "Dealer awareness that customers will arrive seeking the product"
+      validation: "Dealer understands the business cost of NOT stocking"
+    - id: apply_stock_decision
+      action: "Dealer places order to have product on shelf before coupon redemption begins"
+      input: "Dealer purchase mechanism, inventory availability"
+      output: "Dealer stock order placed"
+      validation: "Product is on shelf before first coupon redemption date"
+    - id: apply_distribution_measurement
+      action: "Track distribution penetration and redemption rates"
+      input: "Coupon redemption data, dealer order records"
+      output: "Distribution report: stocking rate, redemption volume, cost per distribution point"
+      validation: "Distribution targets met within planned timeline"
+  error_handling:
+    - error: "Dealer proofs sent after ad publication"
+      resolution: "Expedite direct dealer contact; offer priority fulfillment to recover"
+    - error: "Redemption volume exceeds inventory"
+      resolution: "Issue rain checks; expedite production; communicate timeline to dealers"
+    - error: "Low dealer stocking rate"
+      resolution: "Follow up with non-stockers; provide additional proof of demand"
+  quality_gate:
+    criteria:
+      - "Coupon specifies exact product and redemption terms"
+      - "Dealer pre-seeding completed before publication"
+      - "Fulfillment can handle projected redemption volume"
+      - "Distribution penetration rate meets target"
+      - "Cost per distribution point is documented"
+    pass_threshold: "All 5 criteria met"

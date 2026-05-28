@@ -1,0 +1,101 @@
+sop:
+  id: hopkins-preemptive-claim-discovery
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Preemptive Claim Discovery"
+  purpose: >
+    Discover untold product/service stories that can be claimed first in the market.
+    A preemptive claim is a process or quality standard every competitor does but
+    nobody communicates. First to claim owns it in the prospect's mind.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: claude-hopkins
+    artifact_type: task
+
+  steps:
+    - id: investigate_processes
+      action: discover_unique_processes
+      description: "Identify manufacturing/production processes that are unique or seem unique when described in plain language"
+      inputs:
+        - product_description
+        - process_details
+      critical: true
+      output: process_candidates
+
+    - id: identify_uncommunicated
+      action: find_uncommunicated_elements
+      description: "Identify ingredients, components, or steps nobody in the category is communicating"
+      inputs:
+        - competitive_landscape
+      output: uncommunicated_elements
+
+    - id: uncover_quality_controls
+      action: discover_hidden_quality_checks
+      description: "Find tests, inspections, or quality controls performed but never publicized, with specific numbers"
+      output: quality_control_candidates
+
+    - id: name_unnamed_problem
+      action: identify_unnamed_consumer_problem
+      description: "Find consumer problem nobody is naming explicitly; naming creates ownership"
+      output: problem_naming_candidates
+
+    - id: find_technical_detail
+      action: discover_explainable_technical_detail
+      description: "Find technical detail that creates superiority perception when explained simply"
+      output: technical_detail_candidates
+
+    - id: compile_candidates
+      action: list_preemptive_claims
+      description: "Compile all candidates with claim, reason no competitor communicates it, and simple-language explanation"
+      depends_on:
+        - investigate_processes
+        - identify_uncommunicated
+        - uncover_quality_controls
+        - name_unnamed_problem
+        - find_technical_detail
+      output: candidate_list
+
+    - id: rank_by_impact
+      action: rank_claim_candidates
+      description: "Rank by first-to-communicate advantage: High (proprietary), Medium (hard to copy), Low (easily copied)"
+      depends_on: compile_candidates
+      critical: true
+      output: ranked_claims
+
+    - id: prescribe_communication
+      action: write_communication_prescription
+      description: "Write headline, body copy approach, and proof elements for top candidate(s)"
+      depends_on: rank_by_impact
+      output: communication_prescription
+
+  error_handling:
+    - error: no_differentiators_found
+      symptom: "Investigation yields no preemptive claims"
+      resolution: "Go deeper into manufacturing process; every product has untold stories"
+    - error: non_preemptive_claim
+      symptom: "Claimed element already communicated by competitors"
+      resolution: "Audit all competitor advertising first; only claim what nobody says"
+    - error: technical_jargon
+      symptom: "Consumer cannot understand the advantage"
+      resolution: "Translate to plain language understandable by a 12-year-old"
+
+  quality_gate:
+    criteria:
+      - "All 5 investigation questions explored with specific answers"
+      - "Competitive landscape reviewed for existing claims"
+      - "Candidates include specific details, not vague concepts"
+      - "Top candidate has complete communication prescription"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: ranked_claims
+      format: ranked_list
+      description: "Preemptive claim candidates ranked by first-to-communicate advantage"
+    - name: communication_prescription
+      format: prescription
+      description: "Headline, body copy approach, and proof elements for top candidates"

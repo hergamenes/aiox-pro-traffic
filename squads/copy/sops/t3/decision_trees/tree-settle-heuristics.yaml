@@ -1,0 +1,75 @@
+sop:
+  id: tree-settle-heuristics
+  version: "1.0"
+  title: "Settle Decision Heuristics"
+  purpose: "Quick-reference decision rules for Ben Settle email marketing — daily frequency, personality-first, content-promotion fusion"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: ben-settle
+  steps:
+    - id: heur-01
+      condition: "Email frequency decision"
+      action: "ALWAYS daily. No exceptions"
+      severity: BLOCKING
+    - id: heur-02
+      condition: "Writing email"
+      action: "NEVER educate diretamente. Infotain. Valor dentro de entretenimento"
+      severity: BLOCKING
+    - id: heur-03
+      condition: "Planning content"
+      action: "NEVER separar email de valor de email de pitch. Todo email faz AMBOS"
+      severity: BLOCKING
+    - id: heur-04
+      condition: "Writing copy"
+      action: "NEVER swipear. Aprender sistema, injetar SUA personalidade"
+      severity: BLOCKING
+    - id: heur-05
+      condition: "Pricing"
+      action: "ALWAYS premium. Sem descontos, sem negociacao"
+      severity: HIGH
+    - id: heur-06
+      condition: "Unsubscribes altos"
+      action: "CELEBRAR. Lista fica mais responsiva"
+      severity: HIGH
+    - id: heur-07
+      condition: "Transitioning to pitch"
+      action: "NEVER hard-pivot. Sidewind: historia -> paralelo -> produto"
+      severity: HIGH
+    - id: heur-08
+      condition: "Planning rotina"
+      action: "1a hora do dia para SEU negocio. Pay yourself first"
+      severity: HIGH
+    - id: heur-09
+      condition: "Building lista"
+      action: "4 quarters > 100 pennies. Qualidade sobre quantidade"
+      severity: HIGH
+    - id: heur-10
+      condition: "Content topic"
+      action: "If it ain't controversial, probably not worth writing about"
+      severity: MEDIUM
+    - id: heur-11
+      condition: "Alguem cancela"
+      action: "Blacklist permanente. Nunca volta"
+      severity: MEDIUM
+    - id: heur-12
+      condition: "Writer's block"
+      action: "Olhe qualquer objeto. Pergunte: como viro email? (Object Exercise)"
+      severity: MEDIUM
+    - id: heur-13
+      condition: "Struggling to write"
+      action: "Talk it out. Grave, transcreva, edite"
+      severity: MEDIUM
+    - id: heur-14
+      condition: "Fun stops"
+      action: "PARE. Se nao e divertido escrever, nao e divertido ler"
+      severity: MEDIUM
+  error_handling:
+    - condition: "blocking_heuristic_violated"
+      action: "fundamental_approach_reset"
+    - condition: "fun_lost"
+      action: "diagnostic_signal_stop_and_evaluate"
+  quality_gate:
+    mode: heuristic_application
+    severity_levels: [BLOCKING, HIGH, MEDIUM]
+    blocking_count: 4

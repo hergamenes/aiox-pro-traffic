@@ -1,0 +1,39 @@
+sop:
+  id: tree-koe-diagnostic
+  version: "1.0"
+  title: "Koe Diagnostic Router"
+  purpose: "Route incoming content creation requests to the correct Dan Koe methodology based on deliverable type"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: dan-koe
+  steps:
+    - id: route-01
+      condition: "request == 'HOOK needed'"
+      action: "Gerar 3-5 opcoes de hook usando Hook Architecture types"
+    - id: route-02
+      condition: "request == 'POST (single)'"
+      action: "Hook -> Context -> Insight -> Reframe -> CTA"
+    - id: route-03
+      condition: "request == 'THREAD'"
+      action: "Hook tweet -> Problem (2-3) -> Framework (4-7) -> Benefits (8-9) -> CTA + link (7-15 tweets)"
+    - id: route-04
+      condition: "request == 'NEWSLETTER'"
+      action: "APAG: Attention -> Perspective -> Advantage -> Gamify (hook LAST)"
+    - id: route-05
+      condition: "request == 'STRATEGY'"
+      action: "Identity Stack -> Content Repurposing Engine -> Weekly Production"
+    - id: route-06
+      condition: "request == 'IDENTITY confusion'"
+      action: "Identity Stack first (interests + skills + experience + philosophy = intersection)"
+    - id: route-default
+      condition: "request not classified"
+      action: "Clarify request type before proceeding"
+  error_handling:
+    - condition: "ambiguous_request"
+      action: "ask_for_clarification"
+    - condition: "niche_question"
+      action: "redirect_to_identity_stack"
+  quality_gate:
+    mode: routing
+    requires_classification: true

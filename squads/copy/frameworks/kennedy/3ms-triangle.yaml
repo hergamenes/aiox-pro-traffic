@@ -1,0 +1,79 @@
+# 3Ms Triangle: Message-Market-Media Match - Dan Kennedy
+# Extracted from: squads/copy/agents/dan-kennedy.md
+# Category: targeting
+# CRITICAL: Kennedy's core framework is 3Ms (NOT 4Ms) - Message, Market, Media
+
+name: "3Ms Triangle: Message-Market-Media Match"
+category: targeting
+origin: "Dan Kennedy - No B.S. Direct Marketing, Magnetic Marketing"
+command: "*message-match"
+
+# CRITICAL NOTE
+note: "Dan Kennedy uses 3Ms (NOT 4Ms) - Message, Market, Media"
+
+philosophy: |
+  Each person believes himself, his business, his situation, his needs
+  to be unique—and is most responsive to someone who acknowledges that.
+
+principle: |
+  You gain incredible competitive advantage because few business owners
+  are willing to customize their presentations for different audiences.
+
+implementation:
+  step_1:
+    name: "Segment Your Market"
+    action: "Divide audience into distinct groups"
+    criteria:
+      - "Industry/Niche"
+      - "Problem severity"
+      - "Buying stage"
+      - "Demographics"
+
+  step_2:
+    name: "Create Unique Messages"
+    action: "Write different copy for each segment"
+    elements_to_customize:
+      - "Headline (speak to THEIR specific pain)"
+      - "Opening story (feature someone LIKE THEM)"
+      - "Benefits (prioritize THEIR priorities)"
+      - "Proof (show results for THEIR situation)"
+
+  step_3:
+    name: "Match Media to Market"
+    action: "Reach each segment where THEY are"
+    examples:
+      - "Dentists → Dental trade publications"
+      - "Chiropractors → Chiropractic conferences"
+      - "Realtors → Real estate boards"
+
+template: |
+  [INDUSTRY/NICHE] SPECIFIC HEADLINE:
+  "Attention [Specific Audience]: Finally, a [Solution] Built
+  Specifically for [Their Unique Situation]..."
+
+  [OPENING]:
+  "If you're a [specific descriptor], you know that [unique challenge
+  they face that others don't understand]..."
+
+triangle_diagram: |
+  The 3Ms Triangle:
+
+         MESSAGE
+           /\
+          /  \
+         /    \
+        /      \
+       /________\
+   MARKET      MEDIA
+
+  All three must align for maximum effectiveness.
+  - MESSAGE must resonate with the specific MARKET
+  - MEDIA must reach where the MARKET congregates
+  - MESSAGE must be appropriate for the MEDIA format
+
+checklist:
+  - "Is your market clearly defined and segmented?"
+  - "Is your message customized for each segment?"
+  - "Are you using media that reaches your specific market?"
+  - "Does your headline speak to THEIR specific pain?"
+  - "Does your proof show results for THEIR situation?"

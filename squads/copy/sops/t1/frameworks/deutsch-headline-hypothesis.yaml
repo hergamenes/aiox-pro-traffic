@@ -1,0 +1,53 @@
+sop:
+  id: deutsch-headline-hypothesis
+  version: "1.0"
+  title: "Headline Hypothesis Diversification"
+  purpose: "Apply David Deutsch's Headline Hypothesis Diversification to ensure every headline in a generation session represents a genuinely different strategic direction, not a cosmetic variation of the same id"
+  classification:
+    domain: copywriting
+    category: master
+    tier: t1
+    source_agent: david-deutsch
+  steps:
+    - id: apply_define_multiple_hypotheses
+      action: "Each headline must test a DIFFERENT hypothesis about what the prospect really wants."
+      input: "Each headline = DIFFERENT hypothesis about what prospect really wants"
+      output: "Step 1 deliverable: Define Multiple Hypotheses completed with documented findings"
+      validation: "At least 5 genuinely different hypotheses documented before headline writing begins"
+    - id: apply_generate_headlines_per_hypothesis
+      action: "For each hypothesis, write 3-5 headlines that express that specific strategic direction."
+      input: "Anti-pattern: 'How to make more money' vs 'Make more money' = SAME THING"
+      output: "Step 2 deliverable: Generate Headlines Per Hypothesis completed with documented findings"
+      validation: "No two headlines from different hypothesis groups are interchangeable"
+    - id: apply_apply_the_non_interchangeable_test
+      action: "Compare headlines across hypotheses."
+      input: "Correct: Hypothesis A (money) / B (vindication) / C (experience) / D (status) / E (security)"
+      output: "Step 3 deliverable: Apply the Non-Interchangeable Test completed with documented findings"
+      validation: "Each hypothesis targets a different psychological driver (money, status, security, etc.)"
+    - id: apply_select_top_headlines_for_testing
+      action: "Choose the single strongest headline from each hypothesis for split testing."
+      input: "Generate 20-30 headlines. NONE interchangeable with another."
+      output: "Step 4 deliverable: Select Top Headlines for Testing completed with documented findings"
+      validation: "Headlines invite reading rather than attempting to make the sale"
+    - id: apply_remember_headline_is_not_a_sales_pitch
+      action: "A headline's job is to compel the prospect to read the copy beneath it -- not to make the sale."
+      input: "Headline is NOT sales pitch — it's 'read what's under me' pitch"
+      output: "Step 5 deliverable: Remember: Headline is Not a Sales Pitch completed with documented findings"
+      validation: "Top headline from each hypothesis selected for strategic split testing"
+  error_handling:
+    - error: "Writing 20 variations of the same hypothesis"
+      resolution: "Document hypotheses first; write headlines within each hypothesis second"
+    - error: "Confusing tone variation with hypothesis variation"
+      resolution: "Hypotheses must differ in WHAT they promise, not HOW they say it"
+    - error: "Using headlines as sales pitches"
+      resolution: "Headlines must create a reason to READ MORE, not a reason to BUY"
+    - error: "Testing only word-level variations"
+      resolution: "Test one headline per hypothesis to gain strategic insights"
+  quality_gate:
+    criteria:
+      - "At least 5 genuinely different hypotheses documented before headline writing begins"
+      - "No two headlines from different hypothesis groups are interchangeable"
+      - "Each hypothesis targets a different psychological driver (money, status, security, etc.)"
+      - "Headlines invite reading rather than attempting to make the sale"
+      - "Top headline from each hypothesis selected for strategic split testing"
+    pass_threshold: "All 5 criteria met"

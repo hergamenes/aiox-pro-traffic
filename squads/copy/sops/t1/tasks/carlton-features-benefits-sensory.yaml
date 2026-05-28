@@ -1,0 +1,57 @@
+sop:
+  id: carlton-features-benefits-sensory
+  version: "1.0"
+  title: "Features to Benefits to Sensory Pictures Pipeline"
+  purpose: "Transform product features through 3 levels: features (what it is) > benefits (what it does) > sensory pictures (what it feels like) using action verbs and present tense"
+  classification:
+    domain: copywriting
+    category: master
+    tier: T1
+    source_agent: john-carlton
+
+  inputs:
+    - name: product_feature_list
+      type: list
+      required: true
+
+  outputs:
+    - name: three_level_benefit_hierarchy
+      type: document
+      description: "Every feature mapped to benefit (via 'because') to sensory picture (via action verbs, 2nd person present)"
+
+  steps:
+    - id: level_01
+      action: list_all_features
+      description: "Document every feature: specs, components, ingredients, deliverables, format, support — exhaustively"
+      critical: true
+      error_handling:
+        condition: "features_incomplete"
+        action: "revisit_product_check_specs_interview_creators"
+
+    - id: level_02
+      action: convert_to_human_benefits
+      description: "Attach 'because [what this does for the human being]' to each feature at functional, emotional, identity levels"
+      critical: true
+      error_handling:
+        condition: "benefits_stop_at_functional_level"
+        action: "push_to_emotional_and_identity_levels"
+
+    - id: level_03
+      action: create_sensory_pictures
+      description: "Force-feed each benefit into 5 senses: action verbs not adjectives, specific details, present tense 2nd person"
+      critical: true
+      error_handling:
+        condition: "pictures_use_adjectives_or_generics"
+        action: "replace_adjectives_with_action_verbs_add_specific_details"
+
+  quality_gate:
+    min_criteria_met: 5
+    criteria:
+      - "every_feature_documented"
+      - "every_feature_has_benefit_with_because_bridge"
+      - "benefits_cover_functional_emotional_identity"
+      - "every_benefit_has_sensory_picture"
+      - "sensory_pictures_use_action_verbs"
+      - "pictures_are_specific_with_details"
+      - "pictures_in_present_tense_second_person"
+      - "multiple_senses_engaged"

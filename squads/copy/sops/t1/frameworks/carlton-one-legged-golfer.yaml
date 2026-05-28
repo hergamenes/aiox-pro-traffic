@@ -1,0 +1,53 @@
+sop:
+  id: carlton-one-legged-golfer
+  version: "1.0"
+  title: "One-Legged Golfer Methodology — Specificity as Proof"
+  purpose: "Apply John Carlton's One-Legged Golfer methodology to discover hooks that are so specific they serve as implicit proof. The principle: details that are too unusual to fabricate create instant credibil"
+  classification:
+    domain: copywriting
+    category: master
+    tier: t1
+    source_agent: john-carlton
+  steps:
+    - id: apply_find_the_most_improbable_detail
+      action: "Search through all investigation materials for the detail that makes people say 'wait, really?' This is not brainstor..."
+      input: "Find the most IMPROBABLE detail (via investigation, not brainstorm)"
+      output: "Step 1 deliverable: Find the Most Improbable Detail completed with documented findings"
+      validation: "Improbable detail is real, not invented or embellished"
+    - id: apply_combine_with_a_specific_result
+      action: "Pair the improbable detail with a measurable, time-bound result."
+      input: "Combine with SPECIFIC RESULT (numbers, timeline)"
+      output: "Step 2 deliverable: Combine with a Specific Result completed with documented findings"
+      validation: "Result is specific with exact numbers, timelines, and named references"
+    - id: apply_formulate_as_revelation_or_discovery
+      action: "Frame the hook as something hidden, discovered, or revealed -- not as a product pitch."
+      input: "Formulate as revelation or discovery"
+      output: "Step 3 deliverable: Formulate as Revelation or Discovery completed with documented findings"
+      validation: "Hook formatted as revelation or discovery, not as a product pitch"
+    - id: apply_validate_specificity
+      action: "Apply Carlton's test: would someone invent this? If the answer is 'yes, easily,' the hook is not specific enough."
+      input: "Validate: would someone invent this? If yes, not specific enough"
+      output: "Step 4 deliverable: Validate Specificity completed with documented findings"
+      validation: "Validation test passed: 'would someone invent this?' answer is NO"
+    - id: apply_amplify_with_ironic_twists
+      action: "The most powerful hooks contain ironic reversals: the weak dominating the strong, the loser winning, the old rejuvena..."
+      input: "Ironic twists are most powerful: weak dominates, loser wins, old rejuvenates"
+      output: "Step 5 deliverable: Amplify with Ironic Twists completed with documented findings"
+      validation: "Ironic twist identified and amplified where naturally present"
+  error_handling:
+    - error: "Inventing an improbable detail instead of discovering one"
+      resolution: "Dig deeper in investigation; interview more customers; the detail always exists"
+    - error: "Using vague results with the improbable detail"
+      resolution: "Require exact numbers, timelines, and named locations for every result"
+    - error: "Creating a product pitch instead of a revelation"
+      resolution: "Frame as discovery or secret; remove all product-pitch language"
+    - error: "Choosing an improbable detail that is irrelevant to the benefit"
+      resolution: "The improbable detail must logically link to the product mechanism or benefit"
+  quality_gate:
+    criteria:
+      - "Improbable detail is real, not invented or embellished"
+      - "Result is specific with exact numbers, timelines, and named references"
+      - "Hook formatted as revelation or discovery, not as a product pitch"
+      - "Validation test passed: 'would someone invent this?' answer is NO"
+      - "Ironic twist identified and amplified where naturally present"
+    pass_threshold: "All 5 criteria met"

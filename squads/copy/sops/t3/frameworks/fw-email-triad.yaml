@@ -1,0 +1,68 @@
+sop:
+  id: fw-email-triad
+  version: "1.0"
+  title: "The Email Triad"
+  purpose: "Every email must simultaneously entertain, educate, and advance toward purchase"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: andre-chaperon
+    tier: t3
+  steps:
+    - id: apply_entertain
+      name: "Entertain"
+      description: "Make the email engaging through storytelling, analogies, or provocative opinions"
+      inputs:
+        - story_elements
+        - subscriber_interests
+      outputs:
+        - entertainment_layer
+      validation:
+        - genuinely_engaging: true
+        - earns_next_open: true
+    - id: apply_educate
+      name: "Educate"
+      description: "Deliver substantive insight or framework the reader can apply"
+      inputs:
+        - expertise_topic
+        - subscriber_knowledge_level
+      outputs:
+        - education_layer
+      validation:
+        - teaches_something_new: true
+        - not_a_teaser: true
+        - substantive: true
+    - id: apply_advance
+      name: "Advance Toward Purchase"
+      description: "Move reader one step closer to purchase through belief shift, desire building, or CTA"
+      inputs:
+        - offer_details
+        - current_belief_state
+        - objections_to_address
+      outputs:
+        - advance_layer
+        - complete_email
+      validation:
+        - advances_naturally: true
+        - no_jarring_pivot: true
+        - integrated_with_other_layers: true
+  error_handling:
+    - error: separated_value_sell
+      condition: "Email is purely educational or purely promotional"
+      action: "Integrate all three elements into single email"
+    - error: entertainment_only
+      condition: "Email is engaging but builds no momentum toward purchase"
+      action: "Add education and advance elements"
+    - error: hard_pivot_cta
+      condition: "CTA feels disconnected from email content"
+      action: "Weave advance naturally into narrative"
+    - error: teaser_education
+      condition: "Real value withheld behind paywall"
+      action: "Deliver full value in email; let advance be desire-based"
+  quality_gate:
+    min_sections: 3
+    required_elements:
+      - entertainment_present
+      - education_substantive
+      - advance_integrated
+    pass_threshold: "all 3 elements present and organically woven"

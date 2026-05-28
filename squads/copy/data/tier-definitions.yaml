@@ -1,0 +1,255 @@
+# --- document metadata ---
+version: "1.1"
+date: "2026-03-08"
+updated: "2026-03-10"
+author:
+  agent: "squad-chief"
+  squad: "squad-creator-pro"
+aiox: true
+project: "copy"
+
+# Tier Definitions — CopywriterOS
+# Defines the 4-tier architecture + tool layer.
+
+tiers:
+
+  orchestrator:
+    name: "Copy Chief"
+    purpose: "Routing inteligente + QA coordination"
+    count: 1
+    agents: [copy-chief]
+    model: opus
+    writes_copy: false
+    workflow_phase: orchestration
+    function: |
+      Receives briefing from user. Runs Tier 0 diagnostic.
+      Selects 1-3 writers from Tier 1/2/3. Coordinates cross-review.
+      Triggers Sugarman QA gate. Delivers final copy to user.
+    decision_inputs:
+      - awareness_level (from Schwartz)
+      - sophistication_level (from Schwartz)
+      - measurability (from Hopkins)
+      - prospect_conversation (from Collier)
+      - copy_type (from briefing)
+      - channel (from briefing)
+      - stakes_level (from briefing)
+
+  tier_0:
+    name: "Diagnostic"
+    purpose: "Diagnose BEFORE writing"
+    count: 3
+    agents: [claude-hopkins, eugene-schwartz, robert-collier]
+    model: opus
+    writes_copy: false
+    workflow_phase: before
+    function: |
+      These 3 agents NEVER write copy. They DIAGNOSE the problem.
+      Hopkins: What's measurable? What can we test?
+      Schwartz: What awareness level? What market sophistication?
+      Collier: What conversation is already in the prospect's mind?
+    workflow: |
+      All 3 run in parallel on every briefing.
+      Each produces a diagnostic report.
+      Reports are merged into a single Diagnostic Report for Copy Chief.
+    output: "Diagnostic Report (awareness, sophistication, testability, mental conversation)"
+
+  tier_1:
+    name: "Masters"
+    purpose: "High-stakes copy ($500M+ track record each)"
+    count: 8
+    agents:
+      - gary-halbert
+      - gary-bencivenga
+      - david-ogilvy
+      - clayton-makepeace
+      - parris-lampropoulos
+      - john-carlton
+      - jim-rutz
+      - david-deutsch
+    model: opus
+    writes_copy: true
+    workflow_phase: during
+    function: |
+      The legends. Each has generated $500M+ in tracked sales.
+      Called for: launches, premium sales pages, big ideas, high-stakes copy.
+      These agents use Opus because the creative quality must be elite.
+    selection_criteria:
+      - "High-ticket products ($1K+)"
+      - "Competitive markets"
+      - "Brand-defining copy"
+      - "Control-beating situations"
+
+  tier_2:
+    name: "Systematizers"
+    purpose: "Framework-based copy systems"
+    count: 7
+    agents:
+      - dan-kennedy
+      - todd-brown
+      - alex-hormozi
+      - jeff-walker
+      - stefan-georgi
+      - russell-brunson
+      - frank-kern
+    model: sonnet
+    writes_copy: true
+    workflow_phase: before_and_during
+    strategic_agents: [todd-brown, alex-hormozi, dan-kennedy]
+    execution_agents: [jeff-walker, stefan-georgi, russell-brunson, frank-kern]
+    function: |
+      These are NOT just copywriters — they created SYSTEMS.
+      Each has a proprietary framework that can be taught and replicated.
+      Called for: applying proven systems to specific situations.
+      Uses Sonnet because the framework application is systematic, not purely creative.
+    selection_criteria:
+      - "System-applicable situations"
+      - "Launch sequences"
+      - "Funnel copy"
+      - "Mechanism discovery"
+      - "VSL creation"
+
+  tier_3:
+    name: "Specialists"
+    purpose: "Format/channel specialists"
+    count: 5
+    agents:
+      - jon-benson
+      - andre-chaperon
+      - ben-settle
+      - ry-schwartz
+      - dan-koe
+    model: sonnet
+    writes_copy: true
+    workflow_phase: during
+    function: |
+      Each specialist DOMINATES one specific format or channel.
+      Called for: when the channel/format matters more than the big idea.
+      Uses Sonnet for efficient execution within their domain.
+    selection_criteria:
+      - "VSLs → Benson"
+      - "Email sequences → Chaperon"
+      - "Daily emails → Settle"
+      - "Cohorts/workshops → Ry Schwartz"
+      - "Social/creator → Dan Koe"
+
+  tool:
+    name: "QA Gate"
+    purpose: "30 Psychological Triggers Checklist"
+    count: 1
+    agents: [joe-sugarman]
+    model: haiku
+    writes_copy: false
+    workflow_phase: after
+    function: |
+      NOT a conversational agent. A deterministic QA checklist.
+      Applied to EVERY copy output BEFORE final delivery.
+      Scores which of 30 psychological triggers are activated.
+      Recommends improvements for unactivated triggers.
+    mandatory: true
+    skip_condition: "NEVER — Sugarman QA is always applied"
+
+# Execution Flow
+execution_flow:
+  - step: 1
+    name: "Briefing"
+    agent: user
+    output: "ICP, produto, canal, objetivo, tom de voz"
+
+  - step: 2
+    name: "Diagnostic"
+    agent: tier_0
+    parallel: true
+    mandatory: true
+    output: "Diagnostic Report"
+
+  - step: 3
+    name: "Routing"
+    agent: copy-chief
+    input: "Diagnostic Report + Briefing"
+    output: "Selected 1-3 agents + rationale"
+
+  - step: 4
+    name: "Creation"
+    agent: "selected tier 1/2/3"
+    output: "Draft copy"
+
+  - step: 5
+    name: "Cross-Review"
+    agent: "another agent (optional)"
+    mandatory: false
+    condition: "High-stakes projects"
+    output: "Review notes + suggestions"
+
+  - step: 6
+    name: "QA Gate"
+    agent: joe-sugarman
+    mandatory: true
+    output: "Score (X/30) + recommendations"
+
+  - step: 7
+    name: "Delivery"
+    agent: copy-chief
+    output: "Final copy + diagnostic report + handoff notes"
+
+# Combination Rules (from Strategic Framework)
+combination_rules:
+  recommended:
+    - pair: [eugene-schwartz, "*"]
+      rule: "Schwartz ALWAYS comes first. Awareness diagnostic guides everything."
+    - pair: [todd-brown, alex-hormozi]
+      rule: "Mechanism + Offer = Complete differentiation. Use together in strategy phase."
+    - pair: [gary-halbert, clayton-makepeace]
+      rule: "Story + Emotion = Powerful sales letter. Halbert structures, Makepeace intensifies."
+    - pair: [andre-chaperon, ben-settle]
+      rule: "Automation + Broadcast = Complete email. Chaperon for new leads, Settle for engaged."
+    - pair: [gary-bencivenga, "*"]
+      rule: "Bullets improve any copy. Use as extra layer."
+    - pair: [stefan-georgi, "tier_0+tier_2_strategic"]
+      rule: "RMBC organizes output from all strategists."
+
+  prohibited:
+    - pair: [gary-halbert, john-carlton]
+      rule: "Conflicting styles (charm vs aggression). Choose one based on market."
+    - pair: [david-ogilvy, clayton-makepeace]
+      rule: "Sophisticated vs Visceral. Very different audiences."
+    - pair: [ben-settle, andre-chaperon]
+      rule: "Don't use both on same list simultaneously. Confuses frequency expectations."
+    - rule: "Never apply ALL 31 Sugarman triggers at once. Choose 5-10 relevant ones."
+
+  execution_order:
+    - step: 1
+      action: "ALWAYS START with Eugene Schwartz (awareness diagnostic)"
+    - step: 2
+      action: "Then remaining strategists (Kennedy, Todd Brown, Hormozi, Georgi)"
+    - step: 3
+      action: "Then appropriate executors for the output type"
+    - step: 4
+      action: "ADD Bencivenga bullets + Sugarman triggers"
+    - step: 5
+      action: "FINALIZE with Hopkins audit"
+
+# Awareness-Based Routing (Schwartz Levels)
+awareness_routing:
+  unaware:
+    primary: gary-halbert
+    tone: "Narrative, emotional, identification"
+    copy_length: long
+  problem_aware:
+    primary: clayton-makepeace
+    support: todd-brown
+    tone: "Empathetic, agitating, revealing"
+    copy_length: medium_long
+  solution_aware:
+    primary: todd-brown
+    support: gary-bencivenga
+    tone: "Educational, differentiating, logical"
+    copy_length: medium
+  product_aware:
+    primary: gary-bencivenga
+    support: alex-hormozi
+    tone: "Persuasive, social proof, urgency"
+    copy_length: medium_short
+  most_aware:
+    primary: john-carlton
+    tone: "Direct, offer-focused, strong CTA"
+    copy_length: short

@@ -1,0 +1,41 @@
+# The Two-Step Newsletter Selling Technique
+# Source: Bencivenga Bullets
+# Category: newsletter_marketing
+# Command: *two-step
+
+name: "The Two-Step Newsletter Selling Technique"
+category: "newsletter_marketing"
+origin: "Bencivenga Bullets"
+command: "*two-step"
+
+philosophy: |
+  Bencivenga calls it "dancing the two-step"—a powerful technique for
+  selling through newsletters and content without seeming salesy.
+
+structure:
+  step_1:
+    name: "Provide Value First"
+    action: "Deliver a genuinely useful tip or insight in your newsletter"
+    then: "Mention that you have a product that enhances this tip"
+    instruction: "To learn more, 'click here'"
+
+  step_2:
+    name: "Sell on the Landing Page"
+    action: "When readers click, they land on a dedicated sales page"
+    instruction: "Here you can sell as hard as you want"
+    separation: "The newsletter stays valuable; the sales page does the selling"
+
+benefits:
+  - "Newsletter remains pure value (builds trust)"
+  - "Sales happen on a separate page (no conflict)"
+  - "Readers self-select by clicking (better qualified)"
+  - "You can test different sales approaches"
+
+example: |
+  NEWSLETTER:
+  "Here's a simple technique I use to find undervalued stocks...
+  [provide real value]. If you'd like to see how I apply this
+  to find my top 10 picks for this quarter, click here."
+
+  LANDING PAGE:
+  [Full sales copy for the stock-picking service]

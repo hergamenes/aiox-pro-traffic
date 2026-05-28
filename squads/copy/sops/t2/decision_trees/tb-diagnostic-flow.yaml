@@ -1,0 +1,166 @@
+sop:
+  id: tb-diagnostic-flow
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+
+  title: "Todd Brown Diagnostic Flow"
+  purpose: "Structured diagnostic workflow for classifying and solving marketing requests using Todd Brown's E5 Method — sequential build for new campaigns, economic vs. performance diagnosis for existing, and mechanism development process."
+
+  classification:
+    domain: copywriting
+    subdomain: diagnostic-workflow
+    source_agent: todd-brown
+    artifact_type: decision_tree
+    tier: t2
+
+  steps:
+    - id: TB_DIAG_01
+      name: request_classification
+      decision_point: "New request received"
+      branches:
+        - condition: "Building campaign from scratch"
+          goto: TB_DIAG_02
+          label: NEW_CAMPAIGN
+        - condition: "Existing campaign with issues"
+          goto: TB_DIAG_03
+          label: EXISTING_CAMPAIGN
+        - condition: "Client wants to understand why something isn't working"
+          goto: TB_DIAG_03
+          label: DIAGNOSIS
+        - condition: "Request to develop or refine a unique mechanism"
+          goto: TB_DIAG_05
+          label: MECHANISM
+
+    - id: TB_DIAG_02
+      name: sequential_build
+      decision_point: "New campaign — follow sequential build path"
+      action: "Build in order: Offer > Mechanism > BMI > E5. Do NOT skip steps."
+      branches:
+        - condition: "Offer defined"
+          goto: TB_DIAG_05
+          action: "Proceed to mechanism development."
+        - condition: "Offer not yet defined"
+          goto: TB_DIAG_02_OFFER
+          action: "Define offer first: what is sold, to whom, at what price."
+
+    - id: TB_DIAG_02_OFFER
+      name: offer_definition
+      action: "Define the offer clearly: product, audience, price point, value proposition."
+      goto: TB_DIAG_05
+
+    - id: TB_DIAG_03
+      name: diagnose_issue_type
+      decision_point: "Existing campaign or diagnosis — classify issue type"
+      action: "Collect metrics: CPA, AOV, take rates for each funnel step."
+      branches:
+        - condition: "ECONOMIC issue — math doesn't work even with perfect conversion"
+          goto: TB_DIAG_03_ECONOMIC
+          action: "Fix pricing, offer structure, or funnel math. Do NOT rewrite copy."
+        - condition: "PERFORMANCE issue — math could work but conversion below thresholds"
+          goto: TB_DIAG_04
+          action: "Proceed to find earliest constraint."
+
+    - id: TB_DIAG_03_ECONOMIC
+      name: fix_economics
+      action: "Restructure pricing, offer architecture, or funnel economics. Copy cannot fix structural math problems."
+      goto: COMPLETE
+
+    - id: TB_DIAG_04
+      name: find_earliest_constraint
+      decision_point: "Performance issue — walk funnel top to bottom, find earliest drop"
+      branches:
+        - condition: "Constraint at ad/traffic level"
+          goto: TB_DIAG_04_FIX
+          action: "Fix targeting, creative, or hook. Not the sales page."
+        - condition: "Constraint at landing page"
+          goto: TB_DIAG_04_FIX
+          action: "Apply Three-Finger Rule and Mechanism Substitution Test."
+        - condition: "Constraint at checkout/close"
+          goto: TB_DIAG_04_FIX
+          action: "Fix offer stack, guarantee, or urgency elements."
+
+    - id: TB_DIAG_04_FIX
+      name: fix_earliest_constraint
+      action: "Fix ONLY the earliest constraint. Do not fix downstream issues until bottleneck is cleared."
+      goto: COMPLETE
+
+    - id: TB_DIAG_05
+      name: mechanism_development
+      decision_point: "Mechanism request or diagnosis reveals weak mechanism"
+      branches:
+        - condition: "Commodity audit: current approach is generic"
+          goto: TB_DIAG_05_DISCOVER
+          action: "Proceed to discovery phase."
+        - condition: "Commodity audit: approach is already differentiated"
+          goto: TB_DIAG_05_NAME
+          action: "Skip to naming phase."
+
+    - id: TB_DIAG_05_DISCOVER
+      name: mechanism_discovery
+      action: "Research for unique, defensible mechanism (different ingredient, process, system, framework)."
+      goto: TB_DIAG_05_NAME
+
+    - id: TB_DIAG_05_NAME
+      name: mechanism_naming
+      action: "Give the mechanism a proprietary name that creates ownership."
+      goto: TB_DIAG_05_TEST
+
+    - id: TB_DIAG_05_TEST
+      name: mechanism_strength_test
+      decision_point: "Test mechanism strength"
+      branches:
+        - condition: "Explainable in 30 seconds, shareable, has proof"
+          goto: TB_DIAG_06
+          action: "Mechanism passes. Proceed to BMI and E5."
+        - condition: "Cannot explain in 30 seconds or lacks proof"
+          goto: TB_DIAG_05_DISCOVER
+          action: "Return to discovery. Iterate mechanism."
+
+    - id: TB_DIAG_06
+      name: value_equation_lens
+      decision_point: "Applied throughout — Value Equation as first diagnostic lens"
+      action: "Value = (Dream Outcome x Perceived Likelihood) / (Time x Effort). Find weakest variable."
+      branches:
+        - condition: "Dream Outcome too small"
+          goto: COMPLETE
+          action: "Reframe the promise."
+        - condition: "Perceived Likelihood too low"
+          goto: COMPLETE
+          action: "Add proof and credibility."
+        - condition: "Time too long"
+          goto: COMPLETE
+          action: "Compress the timeline."
+        - condition: "Effort too high"
+          goto: COMPLETE
+          action: "Reduce friction."
+
+  error_handling:
+    - error: "rewriting_for_economic_problem"
+      symptom: "New copy doesn't produce profit; margins remain thin"
+      resolution: "Return to TB_DIAG_03. If economic, fix pricing/structure, not copy."
+
+    - error: "fixing_downstream_before_bottleneck"
+      symptom: "Later funnel steps optimized but no results change"
+      resolution: "Return to TB_DIAG_04. Find and fix earliest constraint."
+
+    - error: "skipping_mechanism"
+      symptom: "Offer is undifferentiated; copy relies on hype"
+      resolution: "Return to TB_DIAG_05. Complete mechanism audit, discovery, naming, test."
+
+    - error: "jumping_to_e5_before_foundation"
+      symptom: "Beautiful execution with no differentiation"
+      resolution: "Follow sequence: Offer > Mechanism > BMI > E5. No shortcuts."
+
+  quality_gate:
+    criteria:
+      - "Request classified into one category"
+      - "Economic vs. performance diagnosis completed before optimization"
+      - "Earliest funnel constraint identified"
+      - "Mechanism passes Substitution Test"
+      - "Mechanism has proprietary name"
+      - "Value Equation applied with weakest variable identified"
+      - "New campaigns followed Offer > Mechanism > BMI > E5 sequence"
+    pass_threshold: "7/7 criteria met"

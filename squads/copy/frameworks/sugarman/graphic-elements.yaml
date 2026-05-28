@@ -1,0 +1,59 @@
+# The 10 Graphic Elements of an Ad - Joe Sugarman
+# Extracted from: squads/copy/agents/joe-sugarman.md
+# Category: ad_structure
+
+name: "The 10 Graphic Elements of an Ad"
+category: ad_structure
+origin: "Joe Sugarman - The Adweek Copywriting Handbook"
+command: "*elements"
+
+elements:
+  element_1:
+    name: "Headline"
+    purpose: "Get attention and draw you to the sub-headline"
+    rule: "The ONLY job of the headline is to get them to read the first line"
+
+  element_2:
+    name: "Sub-headline"
+    purpose: "Give more information and further entice to read"
+    rule: "Bridge between headline and body copy"
+
+  element_3:
+    name: "Photo or Drawing"
+    purpose: "Capture attention and illustrate the product"
+    rule: "Must support the selling message"
+
+  element_4:
+    name: "Caption"
+    purpose: "Describe the photo and add selling message"
+    rule: "Captions are read more than body copy - use them"
+
+  element_5:
+    name: "Copy"
+    purpose: "Convey the main selling message"
+    rule: "Every word must earn its place"
+
+  element_6:
+    name: "Paragraph Headings"
+    purpose: "Break up copy and add entry points"
+    rule: "Allow scanners to get the gist"
+
+  element_7:
+    name: "Logo"
+    purpose: "Identify the company"
+    rule: "Don't let it dominate"
+
+  element_8:
+    name: "Price"
+    purpose: "Show the cost"
+    rule: "Position relative to value"
+
+  element_9:
+    name: "Response Device"
+    purpose: "Tell them how to order"
+    rule: "Make it obvious and easy"
+
+  element_10:
+    name: "Overall Layout"
+    purpose: "Create the buying environment"
+    rule: "Design should support, not distract from, the message"

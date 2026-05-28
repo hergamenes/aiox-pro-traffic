@@ -1,0 +1,103 @@
+sop:
+  id: bencivenga-master-research
+  version: "1.0"
+  title: "Bencivenga Master Research SOP"
+  purpose: "Execute exhaustive 7-area research allocating minimum 1/3 of project time, gathering 7x more info than usable (Caples Rule)"
+  classification:
+    domain: copywriting
+    category: master
+    tier: T1
+    source_agent: gary-bencivenga
+
+  inputs:
+    - name: product_brief
+      type: text
+      required: true
+    - name: previous_ads_and_market_data
+      type: collection
+      required: true
+
+  outputs:
+    - name: research_dossier
+      type: document
+      description: "Comprehensive dossier covering 7 areas: Product, Proof, Market, Previous Ads, Media, Offers, Back-End"
+    - name: dam_breaking_readiness
+      type: state
+      description: "Copywriter saturation point where writing flows naturally from deep knowledge"
+
+  steps:
+    - id: step_01
+      action: allocate_research_time
+      description: "Block minimum 1/3 of total project timeline for research phase"
+      critical: true
+      error_handling:
+        condition: "research_time_compressed"
+        action: "negotiate_timeline_or_reduce_scope_never_reduce_research"
+
+    - id: step_02
+      action: research_product
+      description: "Study product exhaustively: use it, disassemble it, interview creators"
+      critical: false
+
+    - id: step_03
+      action: research_proof
+      description: "Gather clinical studies, test results, certifications, patents, endorsements, case studies"
+      critical: true
+      error_handling:
+        condition: "insufficient_proof_elements"
+        action: "expand_search_to_academic_databases_and_expert_interviews"
+
+    - id: step_04
+      action: research_market
+      description: "Map market size, trends, players, regulation, sophistication level (Schwartz 1-5)"
+      critical: false
+
+    - id: step_05
+      action: research_previous_ads
+      description: "Collect all previous advertising, analyze controls, note winning angles and offers"
+      critical: false
+
+    - id: step_06
+      action: research_media
+      description: "Understand channel constraints, strengths, and response benchmarks"
+      critical: false
+
+    - id: step_07
+      action: research_offers
+      description: "Document tested offer configurations, pricing, guarantees, bonus stacks with results"
+      critical: false
+
+    - id: step_08
+      action: research_back_end
+      description: "Investigate LTV, upsells, refund rates, continuity programs, customer satisfaction"
+      critical: true
+      error_handling:
+        condition: "back_end_data_unavailable"
+        action: "request_from_client_or_estimate_from_industry_benchmarks"
+
+    - id: step_09
+      action: verify_caples_rule
+      description: "Confirm 7x more information gathered than will be used in copy"
+      critical: true
+      error_handling:
+        condition: "insufficient_research_volume"
+        action: "continue_researching_until_7x_threshold_met"
+
+    - id: step_10
+      action: confirm_redundancy_signal
+      description: "Stop only when new findings are redundant across sources"
+      critical: true
+      error_handling:
+        condition: "stopping_due_to_deadline_not_redundancy"
+        action: "flag_research_gap_and_document_areas_needing_further_investigation"
+
+  quality_gate:
+    min_criteria_met: 6
+    criteria:
+      - "minimum_one_third_time_allocated"
+      - "all_7_areas_covered_with_findings"
+      - "product_physically_examined_or_used"
+      - "proof_elements_specific_recent_credible"
+      - "market_sophistication_assessed"
+      - "caples_rule_7x_met"
+      - "redundancy_signal_confirmed"

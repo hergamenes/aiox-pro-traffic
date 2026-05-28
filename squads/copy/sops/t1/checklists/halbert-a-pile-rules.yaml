@@ -1,0 +1,108 @@
+sop:
+  id: halbert-a-pile-rules
+  version: "1.0"
+  title: A-Pile Classification Rules
+  purpose: >
+    Classify copy presentation against Halbert's A-Pile vs B-Pile mail sorting framework.
+    Ensures all direct response pieces are formatted to land in the A-Pile (personal, opened first)
+    rather than B-Pile (advertising, discarded).
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: gary-halbert
+    artifact_type: validation
+    tier: t1
+
+  steps:
+    - action: validate_live_stamp
+      type: MUST
+      description: Live stamp present (not bulk rate)
+      rule: postage_type == "first_class_individual"
+      digital_equivalent: personalized_sending
+      on_fail: replace_with_live_stamp
+
+    - action: validate_address_style
+      type: MUST
+      description: Address is handwritten or individually typed
+      rule: address_style in ["handwritten", "individually_typed"]
+      prohibited: ["database_label", "cheshire", "bulk_printed"]
+      on_fail: reformat_address
+
+    - action: validate_return_address
+      type: MUST
+      description: Return address shows personal name only, no commercial name
+      rule: return_address_has_company_name == false
+      on_fail: remove_company_name
+
+    - action: validate_single_insert
+      type: MUST
+      description: Only one letter inside, no brochures or multi-piece inserts
+      rule: insert_count == 1 AND insert_type == "letter"
+      on_fail: remove_additional_inserts
+
+    - action: validate_personal_tone
+      type: MUST
+      description: Personal conversational tone throughout
+      voice_markers:
+        - first_person
+        - direct_address
+        - warm_conversational
+        - individually_crafted_feel
+      on_fail: rewrite_in_personal_voice
+
+    - action: validate_no_teaser_copy
+      type: MUST_NOT
+      description: No teaser copy on envelope exterior
+      rule: teaser_copy_present == false
+      prohibited_examples:
+        - "Inside: Your FREE gift!"
+        - "Open immediately!"
+        - "Time-sensitive material"
+      on_fail: remove_all_teaser_copy
+
+    - action: validate_no_company_corner
+      type: MUST_NOT
+      description: No company name in corner card
+      rule: company_branding_on_exterior == false
+      on_fail: replace_with_personal_name
+
+    - action: validate_no_bulk_rate
+      type: MUST_NOT
+      description: No bulk rate postage indicators
+      prohibited_indicators:
+        - pre_printed_postage
+        - permit_numbers
+        - presorted_standard_text
+      rule: bulk_rate_indicators == 0
+      on_fail: replace_with_first_class
+
+    - action: validate_no_cheshire_label
+      type: MUST_NOT
+      description: No computer-printed Cheshire label
+      rule: cheshire_label_present == false
+      on_fail: print_address_directly
+
+    - action: validate_no_bre_visible
+      type: MUST_NOT
+      description: No Business Reply Envelope visible or detectable
+      rule: bre_visible == false
+      on_fail: remove_or_conceal_bre
+
+  error_handling:
+    - error: b_pile_classification
+      severity: critical
+      action: remediate_all_failing_checks
+    - error: multiple_must_failures
+      severity: critical
+      action: full_presentation_redesign
+    - error: teaser_copy_detected
+      severity: high
+      action: remove_and_reformat
+
+  quality_gate:
+    pass_threshold: 10
+    total_checks: 10
+    must_checks: 5
+    must_not_checks: 5
+    rule: all_must_present AND all_must_not_absent
+    verdict_on_fail: B_PILE_REFORMAT

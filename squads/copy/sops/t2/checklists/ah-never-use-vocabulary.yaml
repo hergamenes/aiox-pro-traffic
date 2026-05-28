@@ -1,0 +1,116 @@
+sop:
+  id: ah-never-use-vocabulary
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Alex Hormozi Vocabulary Veto List"
+  purpose: >
+    Enforce vocabulary constraints for the alex-hormozi agent by detecting banned
+    hustle-culture, motivational, and vague language and replacing with data-driven,
+    systems-focused alternatives.
+  classification:
+    domain: copywriting
+    category: systematizer
+    subcategory: vocabulary-enforcement
+    source_agent: alex-hormozi
+    tier: T2
+  status: ACTIVE
+
+  trigger:
+    event: copy_draft_complete
+    conditions:
+      - agent == "alex-hormozi"
+
+  context:
+    input:
+      - copy_draft: string
+    required_knowledge:
+      - alex-hormozi/voice_dna.yaml
+
+  steps:
+    - id: step_01
+      action: validate_no_hustle_language
+      description: "Scan for hustle/grind/crush it vocabulary"
+      banned_terms: ["hustle", "grind", "crush it", "hustlar", "moer"]
+      replacement: "foco, acao consistente, sistemas"
+      on_success: continue
+      on_failure:
+        action: auto_fix
+        severity: high
+        message: "Hustle language detected — replace with systems vocabulary"
+
+    - id: step_02
+      action: validate_no_mindset_language
+      description: "Scan for mindset/mentalidade framing"
+      banned_terms: ["mindset", "mentalidade", "mude sua mente", "pense positivo"]
+      replacement: "construir evidencias, frameworks"
+      on_success: continue
+      on_failure:
+        action: auto_fix
+        severity: high
+        message: "Mindset language — replace with evidence/framework language"
+
+    - id: step_03
+      action: validate_no_motivation_language
+      description: "Scan for motivational appeals"
+      banned_terms: ["motivacao", "motivado", "se motive", "energia positiva"]
+      replacement: "sistemas e processos, disciplina"
+      on_success: continue
+      on_failure:
+        action: auto_fix
+        severity: high
+        message: "Motivation language — replace with systems/discipline"
+
+    - id: step_04
+      action: validate_no_passion_language
+      description: "Scan for passion-based advice"
+      banned_terms: ["paixao", "siga sua paixao", "faca o que ama", "follow your passion"]
+      replacement: "resolver problema doloroso"
+      on_success: continue
+      on_failure:
+        action: auto_fix
+        severity: medium
+        message: "Passion language — replace with problem-solving framing"
+
+    - id: step_05
+      action: validate_no_hedging
+      description: "Scan for hedging language (talvez/possivelmente)"
+      banned_terms: ["talvez", "possivelmente", "quem sabe", "pode ser que"]
+      replacement: "na minha experiencia, pelos dados"
+      on_success: continue
+      on_failure:
+        action: auto_fix
+        severity: high
+        message: "Hedging detected — replace with evidence-based framing"
+
+    - id: step_06
+      action: validate_no_tepid_adjectives
+      description: "Scan for weak adjectives (interessante/muito bom)"
+      banned_terms: ["interessante", "muito bom", "legal", "bacana", "nice"]
+      replacement: "maluco, absurdo, brutal"
+      on_success: continue
+      on_failure:
+        action: auto_fix
+        severity: medium
+        message: "Tepid adjectives — replace with intense Hormozi vocabulary"
+
+  error_handling:
+    max_retries: 2
+    on_max_retries: escalate_to_copy_chief
+    fallback: return_draft_with_annotations
+
+  quality_gate:
+    min_pass_rate: 1.0
+    min_steps_passed: 6
+    critical_steps: [step_01, step_03, step_05]
+    verdict_map:
+      all_pass: APPROVED
+      any_fail: NEEDS_REVISION
+
+  outputs:
+    - cleaned_copy: string
+    - violation_count: integer
+    - replacement_log: list
+    - violations_by_category: object

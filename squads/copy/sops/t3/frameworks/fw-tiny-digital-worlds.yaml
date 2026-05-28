@@ -1,0 +1,98 @@
+sop:
+  id: fw-tiny-digital-worlds
+  version: "1.0"
+  title: "Tiny Digital Worlds (TDW)"
+  purpose: "Create digital sanctuaries shaped by care and service, prioritizing micro-audiences over mass reach"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: andre-chaperon
+    tier: t3
+  steps:
+    - id: apply_niche_at_scale
+      name: "Niche at Scale"
+      description: "Define world by worldview, not demographics; attract right people, repel wrong ones"
+      inputs:
+        - core_worldview
+        - values
+      outputs:
+        - worldview_niche_definition
+      validation:
+        - defined_by_worldview: true
+        - specific_enough_to_repel: true
+    - id: apply_quality_over_quantity
+      name: "Quality > Quantity"
+      description: "Evaluate every metric through quality lens; 10 aligned > 100 casual"
+      inputs:
+        - current_metrics
+        - growth_tactics
+      outputs:
+        - quality_first_metrics
+      validation:
+        - quality_prioritized: true
+        - vanity_metrics_rejected: true
+    - id: apply_tiny_is_mighty
+      name: "Tiny is Mighty"
+      description: "Embrace smallness as strategic advantage for depth and authenticity"
+      inputs:
+        - audience_size
+        - connection_depth
+      outputs:
+        - smallness_strategy
+      validation:
+        - smallness_leveraged: true
+        - no_apology_for_size: true
+    - id: apply_delight_the_weird
+      name: "Delight the Weird"
+      description: "Identify and celebrate specific quirks of your audience"
+      inputs:
+        - audience_characteristics
+        - unique_interests
+      outputs:
+        - weird_content_strategy
+      validation:
+        - speaks_to_specifics: true
+        - not_generic: true
+    - id: apply_trust_as_sacred
+      name: "Trust as Sacred"
+      description: "Every decision must pass the trust test: build or erode?"
+      inputs:
+        - decision_list
+        - trust_guardrails
+      outputs:
+        - trust_audit_results
+      validation:
+        - all_decisions_pass_trust_test: true
+        - no_trust_for_revenue_trades: true
+    - id: apply_antifragile
+      name: "Antifragile"
+      description: "Design to get stronger under stress; own audience, diversify revenue"
+      inputs:
+        - revenue_streams
+        - platform_dependencies
+      outputs:
+        - antifragility_plan
+      validation:
+        - email_owned: true
+        - no_single_platform_dependency: true
+        - assets_compound: true
+  error_handling:
+    - error: broad_niche
+      condition: "Niche defined by demographics only"
+      action: "Redefine by worldview; narrow until uncomfortably specific"
+    - error: vanity_metrics_focus
+      condition: "Optimizing for subscriber count over engagement"
+      action: "Purge disengaged; switch to resonance metrics"
+    - error: platform_dependency
+      condition: "Revenue depends on single platform algorithm"
+      action: "Migrate audience to owned email; treat social as amplification"
+  quality_gate:
+    min_sections: 6
+    required_elements:
+      - worldview_niche
+      - quality_metrics
+      - smallness_strategy
+      - weird_audience_profile
+      - trust_guardrails
+      - antifragility_measures
+    pass_threshold: "all 6 principles addressed"

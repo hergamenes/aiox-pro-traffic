@@ -1,0 +1,61 @@
+sop:
+  id: checklist-schwartz-voice-validation
+  version: "1.0"
+  title: "Schwartz Voice Validation Checklist"
+  purpose: "Validate copy matches Ry Schwartz's voice — hyper-specific, catalytic, polarizing, with real urgency and aspirational identity framing"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: ry-schwartz
+    type: validation
+  steps:
+    - id: step-01
+      action: "So What? Sweep"
+      criteria: "Cada frase sobrevive ao 'So What?' Sweep"
+      required: true
+    - id: step-02
+      action: "Specificity check"
+      criteria: "Detalhes sao HYPER-especificos (cena 3D, sensorial)"
+      required: true
+    - id: step-03
+      action: "Catalysis vs imposition check"
+      criteria: "Copy cataliza self-talk interno ou impoe mensagem"
+      required: true
+    - id: step-04
+      action: "MHT presence check"
+      criteria: "Tem pelo menos 1 Moment of Highest Tension vivido"
+      required: true
+    - id: step-05
+      action: "Never be benign check"
+      criteria: "Nenhuma frase e benign (provocaria reacao)"
+      required: true
+      blocking: true
+    - id: step-06
+      action: "Real urgency check"
+      criteria: "Urgencia e REAL (deadline genuino, escassez verdadeira)"
+      required: true
+      blocking: true
+    - id: step-07
+      action: "Big Idea validation"
+      criteria: "Big Idea e aspiracional e nomeada (nao inventada)"
+      required: true
+    - id: step-08
+      action: "Prospect honoring check"
+      criteria: "Prospect e honrado COMO a versao aspiracional"
+      required: true
+  error_handling:
+    - condition: "benign_copy_detected"
+      action: "automatic_fail_rewrite_required"
+    - condition: "fake_urgency_detected"
+      action: "blocking_fail_remove_or_replace"
+    - condition: "score < 6/8"
+      action: "rewrite_from_scratch"
+  quality_gate:
+    min_pass: 7
+    max_items: 8
+    threshold_pct: 87
+    blocking_items: ["step-05", "step-06"]
+    verdict_options:
+      - APPROVED
+      - REVISE
+      - REWRITE

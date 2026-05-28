@@ -1,0 +1,132 @@
+# Health & Financial Niche Specializations
+# Source: Clayton Makepeace's 40+ years in these niches
+# Commands: *health-copy, *financial-copy
+
+name: "Health & Financial Niche Specializations"
+category: "niche_strategy"
+origin: "Clayton Makepeace's 40+ years in these niches"
+
+health_niche:
+  command: "*health-copy"
+
+  dominant_emotions:
+    - "FEAR of disease, disability, death"
+    - "FRUSTRATION with failed treatments"
+    - "HOPE for breakthrough solutions"
+    - "ANGER at medical establishment"
+
+  key_strategies:
+    credibility:
+      - "Lead with doctor/researcher credentials"
+      - "Reference published studies (with citations)"
+      - "Include peer-reviewed journal mentions"
+      - "Use clinical language (then translate)"
+
+    fear_without_fearmongering:
+      - "Present real risks factually"
+      - "Cite statistics from reputable sources"
+      - "Show consequences without exaggeration"
+      - "Always offer solution/hope"
+
+    mechanism_focus:
+      - "Explain WHY the problem happens"
+      - "Reveal the hidden cause"
+      - "Show how the solution addresses root cause"
+      - "Make the science understandable"
+
+    compliance_awareness:
+      - "Use structure/function claims, not disease claims"
+      - "Include appropriate disclaimers"
+      - "Avoid absolute cure language"
+      - "Focus on 'support' and 'promote'"
+
+  proven_hooks:
+    - "The hidden cause doctors never check for"
+    - "What [health authority] knows but won't tell you"
+    - "Why [common treatment] might be making things WORSE"
+    - "The [geographic] secret that [famous person] uses"
+    - "What happened when researchers gave [ingredient] to [number] patients"
+
+  visceral_language_for_health:
+    pain_description:
+      - "Feel the inflammation burning in your joints..."
+      - "Notice the brain fog lifting like a curtain..."
+      - "Watch your energy levels surge..."
+
+    transformation_language:
+      - "Wake up without the grinding sensation..."
+      - "Climb stairs without gripping the railing..."
+      - "Remember names without that embarrassing pause..."
+
+financial_niche:
+  command: "*financial-copy"
+
+  dominant_emotions:
+    - "GREED for wealth and security"
+    - "FEAR of market crashes and loss"
+    - "ENVY of successful investors"
+    - "FRUSTRATION with poor returns"
+    - "ANGER at Wall Street manipulation"
+
+  key_strategies:
+    credibility:
+      - "Track record with specific numbers and dates"
+      - "Third-party verification when possible"
+      - "Regulatory compliance (disclaimers)"
+      - "Real testimonials with real names (when allowed)"
+
+    greed_activation:
+      - "Show specific dollar amounts achieved"
+      - "Paint lifestyle that wealth provides"
+      - "Use comparison to average investor"
+      - "Dimensionalize what money means"
+
+    fear_leverage:
+      - "Market crash scenarios"
+      - "What 'they' don't want you to know"
+      - "Missing out on the next big opportunity"
+      - "Being left behind while others profit"
+
+    mechanism_focus:
+      - "Why this strategy works when others fail"
+      - "The indicator/signal that predicts moves"
+      - "The inefficiency being exploited"
+      - "The 'edge' over regular investors"
+
+  proven_hooks:
+    - "How to profit from [market event] starting [date]"
+    - "The [number] stocks to buy before [catalyst]"
+    - "Why [famous investor] just made THIS move"
+    - "The indicator that predicted [past event] is flashing again"
+    - "How a [ordinary person] turned $[small] into $[large] using this"
+
+  visceral_language_for_financial:
+    greed_activation:
+      - "Imagine checking your account and seeing [GANHO_DIÁRIO_EXEMPLO] MORE than yesterday..."
+      - "Picture the look on your spouse's face when you show them the balance..."
+      - "Feel the relief of never worrying about bills again..."
+
+    fear_leverage:
+      - "While most investors watch their portfolios shrink..."
+      - "Before the next crash wipes out decades of savings..."
+      - "Don't be the last one holding the bag when..."
+
+compliance_notes:
+  health:
+    - "Always use structure/function claims"
+    - "Include FDA disclaimer"
+    - "Never claim to cure or treat disease"
+    - "Use 'may help', 'supports', 'promotes'"
+
+  financial:
+    - "Past performance disclaimer required"
+    - "No guaranteed returns language"
+    - "Include risk disclosure"
+    - "Hypothetical results must be labeled"
+
+cross_niche_principles:
+  - "Both niches respond strongly to FEAR and GREED"
+  - "Both require strong credibility/proof"
+  - "Both benefit from 'hidden enemy' positioning"
+  - "Both need mechanism-based differentiation"
+  - "Both convert better with visceral, sensory copy"

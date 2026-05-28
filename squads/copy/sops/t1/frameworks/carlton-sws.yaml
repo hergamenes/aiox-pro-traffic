@@ -1,0 +1,48 @@
+sop:
+  id: carlton-sws
+  version: "1.0"
+  title: "Simple Writing System (SWS)"
+  purpose: "Execute John Carlton's Simple Writing System (SWS), a complete 4-phase process for creating direct response copy that depends on systematic investigation and construction rather than creative inspirat"
+  classification:
+    domain: copywriting
+    category: master
+    tier: t1
+    source_agent: john-carlton
+  steps:
+    - id: apply_phase_1_sales_detective_work_1_3_days
+      action: "Investigate the product, market, and prospect before writing a single line."
+      input: "Phase 1: Sales Detective Work — investigate before writing (1-3 days)"
+      output: "Step 1 deliverable: Phase 1: Sales Detective Work (1-3 days) completed with documented findings"
+      validation: "Phase 1 dossier completed with product, prospect, competitor, and objection data"
+    - id: apply_phase_2_build_the_spine_1_day
+      action: "Construct the structural skeleton of the ad before writing copy."
+      input: "Phase 2: Build the Spine — pitch, features->benefits->sensory, objections (1 day)"
+      output: "Step 2 deliverable: Phase 2: Build the Spine (1 day) completed with documented findings"
+      validation: "Phase 2 spine has core pitch, 5+ sensory benefits, 3+ objection rebuttals, offer, and guarantee"
+    - id: apply_phase_3_create_the_ad_2_5_days
+      action: "Write the complete ad following the spine."
+      input: "Phase 3: Create the Ad — headline->opening->story->bullets->offer->guarantee->close (2-5 days)"
+      output: "Step 3 deliverable: Phase 3: Create the Ad (2-5 days) completed with documented findings"
+      validation: "Phase 3 draft follows spine structure completely -- no orphan sections"
+    - id: apply_phase_4_test_and_optimize
+      action: "Edit ruthlessly using Carlton's diagnostic tools."
+      input: "Phase 4: Test & Optimize — cut throat-clearing, So What test, Bar test, key-code, blitzkrieg winner"
+      output: "Step 4 deliverable: Phase 4: Test and Optimize completed with documented findings"
+      validation: "Phase 4 edits applied: throat-clearing cut, So What test passed, Bar test passed"
+  error_handling:
+    - error: "Starting to write copy before completing Phase 1 investigation"
+      resolution: "Block Phase 3 until Phase 1 dossier is reviewed and approved"
+    - error: "Skipping the spine and writing free-form"
+      resolution: "Phase 2 spine must be completed and reviewed before Phase 3 begins"
+    - error: "Writing a 'writerly' first draft instead of a messy fast one"
+      resolution: "Set a timer; write the entire first draft in one session without editing"
+    - error: "Leaving throat-clearing in the final draft"
+      resolution: "Delete the first 2-3 paragraphs of the first draft; the real opening is usually paragraph 3-4"
+  quality_gate:
+    criteria:
+      - "Phase 1 dossier completed with product, prospect, competitor, and objection data"
+      - "Phase 2 spine has core pitch, 5+ sensory benefits, 3+ objection rebuttals, offer, and guarantee"
+      - "Phase 3 draft follows spine structure completely -- no orphan sections"
+      - "Phase 4 edits applied: throat-clearing cut, So What test passed, Bar test passed"
+      - "Headline sourced from Phase 1 investigation, not invented during writing"
+    pass_threshold: "All 5 criteria met"

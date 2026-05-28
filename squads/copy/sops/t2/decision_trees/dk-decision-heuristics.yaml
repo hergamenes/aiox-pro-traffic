@@ -1,0 +1,155 @@
+sop:
+  id: dk-decision-heuristics
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+
+  title: "Dan Kennedy Decision Heuristics"
+  purpose: "Systematic decision checkpoints based on Dan Kennedy's No B.S. marketing philosophy to prevent strategic copywriting errors before, during, and after campaign creation."
+
+  classification:
+    domain: copywriting
+    subdomain: direct-response-strategy
+    source_agent: dan-kennedy
+    artifact_type: decision_tree
+    tier: t2
+
+  steps:
+    - id: DK_H01
+      name: market_validation
+      decision_point: "Before starting any strategy, campaign, or copy project"
+      branches:
+        - condition: "Market has demonstrable hunger/demand"
+          goto: DK_H02
+        - condition: "Market has no hunger/demand"
+          goto: HALT
+          action: "STOP. No message solves a market with no hunger. Validate demand before any copywriting."
+
+    - id: DK_H02
+      name: audience_exclusion_definition
+      decision_point: "Defining or refining target audience"
+      branches:
+        - condition: "Audience defined by exclusion (who NOT to sell to)"
+          goto: DK_H03
+        - condition: "Audience defined by inclusion only (no exclusion criteria)"
+          goto: DK_H02_FIX
+          action: "Refine audience with exclusion-first approach. Like refers like — cheapskates refer cheapskates."
+
+    - id: DK_H02_FIX
+      name: audience_refinement
+      action: "Define explicit exclusion criteria. Identify who should NOT be in the audience."
+      goto: DK_H02
+
+    - id: DK_H03
+      name: cross_industry_solution_search
+      decision_point: "Facing any marketing or copy problem"
+      branches:
+        - condition: "Solutions sourced from outside the industry"
+          goto: DK_H04
+        - condition: "Only looking at competitors within own industry"
+          goto: DK_H03_FIX
+          action: "Marketing Incest detected. Look OUTSIDE your industry. Model who already solved it elsewhere."
+
+    - id: DK_H03_FIX
+      name: external_research
+      action: "Research 3+ industries outside your own for proven solutions to the same problem."
+      goto: DK_H03
+
+    - id: DK_H04
+      name: roi_measurability_check
+      decision_point: "Evaluating any marketing tactic"
+      branches:
+        - condition: "Tactic generates measurable, trackable ROI"
+          goto: DK_H05
+        - condition: "Tactic cannot show measurable ROI"
+          goto: ELIMINATE
+          action: "Eliminate tactic. Engagement doesn't pay bills. Only measurable ROI justifies spend."
+
+    - id: DK_H05
+      name: urgency_audit
+      decision_point: "Reviewing any copy piece"
+      branches:
+        - condition: "Copy contains deadline, scarcity, or urgency element"
+          goto: DK_H06
+        - condition: "Copy has no urgency element"
+          goto: DK_H05_FIX
+          action: "Add urgency immediately. No urgency = no sale."
+
+    - id: DK_H05_FIX
+      name: add_urgency
+      action: "Add specific, genuine deadline or scarcity element to the copy."
+      goto: DK_H05
+
+    - id: DK_H06
+      name: systematization_check
+      decision_point: "A marketing or operational problem recurs"
+      branches:
+        - condition: "System exists to handle the recurring problem"
+          goto: DK_H07
+        - condition: "Problem solved ad-hoc each time"
+          goto: DK_H06_FIX
+          action: "Create a SYSTEM. Systems work when people fail. Systems scale when talent doesn't."
+
+    - id: DK_H06_FIX
+      name: build_system
+      action: "Design and document a repeatable system for the recurring problem."
+      goto: DK_H06
+
+    - id: DK_H07
+      name: marketing_vs_product_focus
+      decision_point: "Prospect or copy focuses too much on product features"
+      branches:
+        - condition: "Copy leads with market desires, not product features"
+          goto: DK_H08
+        - condition: "Copy leads with product features"
+          goto: DK_H07_FIX
+          action: "Redirect. You're in the MARKETING business, not the product business."
+
+    - id: DK_H07_FIX
+      name: market_first_rewrite
+      action: "Rewrite copy to lead with market desires and pain points, not product specifications."
+      goto: DK_H07
+
+    - id: DK_H08
+      name: ltv_roi_calculation
+      decision_point: "Calculating campaign return"
+      branches:
+        - condition: "LTV calculated; front-end ROI evaluated in context of lifetime value"
+          goto: COMPLETE
+        - condition: "Only front-end ROI considered"
+          goto: DK_H08_FIX
+          action: "1:1 ROI on first sale = FREE customer. Calculate LTV before judging campaign."
+
+    - id: DK_H08_FIX
+      name: calculate_ltv
+      action: "Calculate customer LTV. Re-evaluate campaign ROI with lifetime value context."
+      goto: COMPLETE
+
+  error_handling:
+    - error: "writing_copy_before_market_validation"
+      symptom: "High-quality copy generates zero sales"
+      resolution: "Return to DK_H01. Validate market hunger before any copywriting."
+
+    - error: "marketing_incest"
+      symptom: "Copy looks identical to competitor messaging"
+      resolution: "Return to DK_H03. Research solutions from 3+ unrelated industries."
+
+    - error: "no_urgency_in_copy"
+      symptom: "Prospects read but never buy; 'I'll think about it' responses"
+      resolution: "Return to DK_H05. Add genuine deadline or scarcity."
+
+    - error: "judging_on_first_sale_only"
+      symptom: "Killing campaigns that break even on front-end"
+      resolution: "Return to DK_H08. Calculate LTV before judging."
+
+  quality_gate:
+    criteria:
+      - "Every campaign element has measurable ROI metric"
+      - "Target audience defined by exclusion criteria"
+      - "All copy contains urgency/deadline element"
+      - "Solutions sourced from outside the industry"
+      - "Recurring problems have documented systems"
+      - "LTV calculation exists for campaign economics"
+    pass_threshold: "6/6 criteria met"

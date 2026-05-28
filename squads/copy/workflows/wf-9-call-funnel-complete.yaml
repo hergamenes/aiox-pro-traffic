@@ -1,0 +1,451 @@
+# Workflow 9: Complete Call Funnel
+# Framework: Jeremy Haynes High-Show-Rate Call Funnel
+# Purpose: End-to-end workflow for call funnels with 70-80% show rate
+
+workflow:
+  id: wf-9-call-funnel-complete
+  name: "Complete Call Funnel Workflow"
+  type: sales-funnel
+  description: >-
+    Workflow completo para call funnels com show rate alto, cobrindo opt-in,
+    pré-call, script de fechamento, follow-up e recuperação de leads ghosted.
+  operational_roles:
+    orchestrator: copy-chief
+    human_review_agent: launch-owner
+    delivery_agent: copy-ops-worker
+  state_machine:
+    states: [init, intake, pre-call, sales-call, follow-up, final-review, complete, failed]
+    transitions:
+      - { trigger: start, source: init, dest: intake }
+      - { trigger: intake_complete, source: intake, dest: pre-call }
+      - { trigger: pre-call_complete, source: pre-call, dest: sales-call }
+      - { trigger: sales-call_complete, source: sales-call, dest: follow-up }
+      - { trigger: follow-up_complete, source: follow-up, dest: final-review }
+      - { trigger: final-review_complete, source: final-review, dest: complete }
+      - { trigger: fail, source: "*", dest: failed }
+  quality_gate_refs: [QG-CP-1.1, QG-CP-2.1, QG-CP-3.1, QG-CP-4.1, QG-CP-5.1]
+  sequence:
+    - phase: intake
+      id: intake
+      agent: john-carlton
+      task_ref: tasks/create-landing-page.md
+      action: "Construir opt-in, qualificação e agendamento da call"
+      creates: call-funnel-intake
+      on_complete: { trigger: intake_complete }
+    - phase: pre-call
+      id: pre-call
+      agent: andre-chaperon
+      task_ref: tasks/create-pre-call-hammer-sequence.md
+      requires: call-funnel-intake
+      action: "Montar a sequência pré-call para maximizar show rate"
+      creates: call-show-rate-sequence
+      on_complete: { trigger: pre-call_complete }
+    - phase: sales-call
+      id: sales-call
+      agent: dan-kennedy
+      task_ref: tasks/create-call-script.md
+      requires: call-show-rate-sequence
+      action: "Estruturar o script de call e o mecanismo de fechamento"
+      creates: sales-call-framework
+      on_complete: { trigger: sales-call_complete }
+    - phase: follow-up
+      id: follow-up
+      agent: frank-kern
+      task_ref: tasks/create-ghosted-lead-recovery.md
+      requires: sales-call-framework
+      action: "Definir follow-up pós-call e recuperação de intenção"
+      creates: call-follow-up-system
+      on_complete: { trigger: follow-up_complete }
+    - phase: final-review
+      id: final-review
+      agent: copy-chief
+      task_ref: tasks/simple-writing-audit.md
+      requires: call-follow-up-system
+      action: "Validar o funnel completo de call antes da execução"
+      creates: complete-call-funnel
+      on_complete: { trigger: final-review_complete }
+
+  handoff_prompts:
+    default: "Entregue o artefato criado, decisões tomadas, riscos abertos e o critério exato para o próximo agente continuar sem reinterpretar o contexto."
+
+metadata:
+  name: "Complete Call Funnel Workflow"
+  code: "wf-9-call-funnel-complete"
+  version: "1.0"
+  source: "Jeremy Haynes - Hammer Them Strategy"
+  result_benchmark: "70-80% show rate, higher close rate"
+
+# =============================================================================
+# WORKFLOW OVERVIEW
+# =============================================================================
+overview:
+  description: |
+    Workflow completo para call funnels de alta conversão.
+    Inclui todas as etapas desde opt-in até close,
+    com foco em maximizar show rate através do Hammer Them System.
+
+  stages:
+    - "Stage 1: Opt-in & Qualification"
+    - "Stage 2: Pre-Call Sequence (Hammer Them)"
+    - "Stage 3: The Call"
+    - "Stage 4: Post-Call Follow-up"
+    - "Stage 5: Ghosted Recovery"
+
+  key_metrics:
+    opt_in_to_schedule: "30-50%"
+    schedule_to_show: "70-80%"
+    show_to_close: "20-40%"
+    overall_conversion: "8-16%"
+
+# =============================================================================
+# STAGE 1: OPT-IN & QUALIFICATION
+# =============================================================================
+stage_1:
+  name: "Opt-in & Qualification"
+
+  steps:
+    step_1_1:
+      name: "Landing Page Opt-in"
+      action: "Lead opta in para agendar call"
+      elements:
+        - "Headline focada em resultado"
+        - "Subheadline com transformação"
+        - "Bullets de benefícios"
+        - "CTA claro para agendar"
+        - "Prova social se tiver"
+
+    step_1_2:
+      name: "Application/Qualification"
+      action: "Lead preenche formulário de qualificação"
+      questions_recommended:
+        - "Nome completo"
+        - "Email"
+        - "Telefone"
+        - "O que você faz/seu negócio"
+        - "Maior desafio atual"
+        - "Receita atual (se B2B)"
+        - "Quanto está disposto a investir"
+      purpose: |
+        Qualificar leads ANTES da call.
+        Leads não qualificados podem ser direcionados
+        para outro funil (webinar, low ticket, etc.)
+
+    step_1_3:
+      name: "Scheduling"
+      action: "Lead escolhe horário da call"
+      best_practices:
+        - "Múltiplos horários disponíveis"
+        - "Incluir horários fora do comercial (18-21h)"
+        - "Incluir finais de semana se possível"
+        - "Slot mais próximo = maior show rate"
+
+    step_1_4:
+      name: "Confirmation Page"
+      action: "Página de confirmação pós-agendamento"
+      elements:
+        - "Confirmação clara (data, hora)"
+        - "Add to calendar prominente"
+        - "Video do owner (2-3 min) sobre o que esperar"
+        - "Reforço do valor da call"
+        - "Instruções de preparação"
+
+  output: "Lead qualificado com call agendada"
+
+# =============================================================================
+# STAGE 2: PRE-CALL SEQUENCE (HAMMER THEM)
+# =============================================================================
+stage_2:
+  name: "Pre-Call Sequence - Hammer Them"
+
+  trigger: "Call agendada"
+
+  steps:
+    step_2_1:
+      name: "Iniciar Hammer Email Sequence"
+      action: "Ativar sequência de 6 emails/dia"
+      template: "hammer-email-sequence-tmpl.yaml"
+      adaptation:
+        72h: "18 emails"
+        48h: "12 emails"
+        24h: "6 emails"
+
+    step_2_2:
+      name: "Hammer Them Retargeting"
+      action: "Ativar retargeting cross-channel"
+      channels:
+        - "Facebook/Instagram ads"
+        - "TikTok ads"
+        - "YouTube Shorts ads"
+        - "Google Display"
+      content: |
+        Os MESMOS tópicos dos emails viram:
+        - Short-form videos
+        - Retargeting ads
+        - Social posts
+
+    step_2_3:
+      name: "SMS Reminders (Opcional)"
+      action: "Enviar SMS estratégicos"
+      timing:
+        - "24h antes"
+        - "2h antes"
+        - "30min antes"
+      content: "Lembretes curtos com link"
+
+    step_2_4:
+      name: "Setter Call (Opcional)"
+      action: "Ligação de confirmação"
+      when: "Para leads de alto valor"
+      script: |
+        "Oi [Nome], aqui é [Setter] da [Empresa].
+        Estou ligando para confirmar sua call amanhã às [hora].
+        Está tudo certo para você?
+        Alguma pergunta antes da call?"
+
+  output: "Lead preparado e educado antes da call"
+
+# =============================================================================
+# STAGE 3: THE CALL
+# =============================================================================
+stage_3:
+  name: "The Call"
+
+  pre_call:
+    - "Closer revisa application/notas"
+    - "Closer prepara perguntas personalizadas"
+    - "Sistema de call funcionando"
+    - "Deck/apresentação pronta (se usar)"
+
+  call_structure:
+    phase_1_rapport:
+      duration: "2-3 min"
+      actions:
+        - "Saudação"
+        - "Confirmação de tempo disponível"
+        - "Transição para discovery"
+
+    phase_2_discovery:
+      duration: "10-15 min"
+      actions:
+        - "Perguntas sobre situação atual"
+        - "Perguntas sobre desafios"
+        - "Perguntas sobre goals"
+        - "Quantificar o problema"
+
+    phase_3_presentation:
+      duration: "10-15 min"
+      actions:
+        - "Apresentar solução"
+        - "Conectar com problemas descobertos"
+        - "Mostrar cases relevantes"
+        - "Explicar como funciona"
+
+    phase_4_offer:
+      duration: "5-10 min"
+      actions:
+        - "Apresentar oferta"
+        - "Preço e opções de pagamento"
+        - "Garantia"
+        - "Próximos passos"
+
+    phase_5_close:
+      duration: "5-15 min"
+      actions:
+        - "Pedir decisão"
+        - "Handle objections"
+        - "Close ou próximo passo"
+
+  post_call:
+    if_closed:
+      - "Onboarding imediato"
+      - "Welcome email"
+      - "Próximos passos claros"
+
+    if_not_closed:
+      - "Documentar razão"
+      - "Agendar follow-up se aplicável"
+      - "Mover para Stage 4"
+
+  output: "Cliente fechado OU lead para follow-up"
+
+# =============================================================================
+# STAGE 4: POST-CALL FOLLOW-UP
+# =============================================================================
+stage_4:
+  name: "Post-Call Follow-up"
+
+  trigger: "Call completada SEM close"
+
+  steps:
+    step_4_1:
+      name: "Immediate Follow-up"
+      timing: "1-2 horas após call"
+      action: |
+        Email personalizado:
+        - Recap da conversa
+        - Resposta a última objeção
+        - CTA para próximo passo
+
+    step_4_2:
+      name: "Day 1 Follow-up"
+      timing: "24 horas"
+      action: |
+        - Testimonial ou case study relevante
+        - Responder possível objeção não dita
+
+    step_4_3:
+      name: "Day 2-3 Follow-up"
+      timing: "48-72 horas"
+      action: |
+        - Conteúdo de valor adicional
+        - Convite para próxima ação
+
+    step_4_4:
+      name: "Weekly Check-in"
+      timing: "7 dias"
+      action: |
+        - "Where did we lose you?" email
+        - Oferecer call de follow-up
+
+    step_4_5:
+      name: "Owner Cleanup Call Invite"
+      timing: "10-14 dias"
+      action: |
+        Convidar para weekly owner cleanup call
+        (ver Stage 5)
+
+  output: "Lead convertido OU movido para recovery"
+
+# =============================================================================
+# STAGE 5: GHOSTED RECOVERY
+# =============================================================================
+stage_5:
+  name: "Ghosted Lead Recovery"
+
+  trigger: "Lead não respondeu por 14+ dias"
+
+  steps:
+    step_5_1:
+      name: "Move to Cleaner"
+      action: |
+        Transferir lead para cleaner role
+        com notas do closer original
+
+    step_5_2:
+      name: "Break-the-Glass Tactics"
+      action: |
+        Usar táticas de reativação:
+        - "Sent from iPhone" email
+        - "Where did we lose you?" email
+        - Multi-channel outreach
+
+    step_5_3:
+      name: "Weekly Owner Cleanup Call"
+      action: |
+        Convidar para owner cleanup call
+        Template: owner-cleanup-call-tmpl.yaml
+
+    step_5_4:
+      name: "Alternative Funnel"
+      action: |
+        Rotear para funil alternativo:
+        - Webinar se não fez
+        - Low ticket se preço foi issue
+        - Nurture se timing foi issue
+
+    step_5_5:
+      name: "Long-term Nurture"
+      action: |
+        Se nada funcionou:
+        - Newsletter
+        - Retargeting de longo prazo
+        - Convites futuros
+
+  output: "Lead reativado OU em nurture longo prazo"
+
+# =============================================================================
+# AUTOMATION REQUIREMENTS
+# =============================================================================
+automation:
+  triggers:
+    - "Opt-in → Start qualification"
+    - "Qualification complete → Show scheduling"
+    - "Call scheduled → Start Hammer sequence"
+    - "Call completed → Post-call sequence"
+    - "14 days no response → Ghosted recovery"
+
+  integrations_needed:
+    - "CRM (HubSpot, GoHighLevel, etc.)"
+    - "Email provider"
+    - "Scheduling tool (Calendly, etc.)"
+    - "SMS tool (opcional)"
+    - "Ad platforms (retargeting)"
+
+  key_automations:
+    - "Hammer email sequence (tempo-based)"
+    - "Reminder emails"
+    - "Lead scoring por engagement"
+    - "Automatic cleaner assignment"
+    - "Owner call invitations"
+
+# =============================================================================
+# METRICS & BENCHMARKS
+# =============================================================================
+metrics:
+  funnel_metrics:
+    - name: "Opt-in Rate"
+      formula: "Optins / Page Views"
+      benchmark: "20-40%"
+
+    - name: "Schedule Rate"
+      formula: "Scheduled / Optins"
+      benchmark: "30-50%"
+
+    - name: "Show Rate"
+      formula: "Showed / Scheduled"
+      benchmark: "70-80% (com Hammer)"
+
+    - name: "Close Rate"
+      formula: "Closed / Showed"
+      benchmark: "20-40%"
+
+    - name: "Overall Conversion"
+      formula: "Closed / Optins"
+      benchmark: "8-16%"
+
+  email_metrics:
+    - name: "Open Rate"
+      benchmark: "45%+"
+
+    - name: "Reply Rate"
+      benchmark: "5-10%"
+
+  recovery_metrics:
+    - name: "Reactivation Rate"
+      benchmark: "10-20% of ghosted"
+
+    - name: "Owner Call Conversion"
+      benchmark: "15-25%"
+
+# =============================================================================
+# TEMPLATES & RESOURCES
+# =============================================================================
+resources:
+  tasks:
+    - "create-pre-call-hammer-sequence.md"
+    - "create-ghosted-lead-recovery.md"
+
+  templates:
+    - "hammer-email-sequence-tmpl.yaml"
+    - "owner-cleanup-call-tmpl.yaml"
+
+  checklists:
+    - "pre-call-email-validation.md"
+
+# =============================================================================
+# VERSION HISTORY
+# =============================================================================
+version_history:
+  - version: "1.0"
+    date: "2025-01-24"
+    changes: "Initial workflow based on Jeremy Haynes system"

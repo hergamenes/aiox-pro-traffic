@@ -1,0 +1,98 @@
+sop:
+  id: collier-mental-conversation-mapping
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Mental Conversation Mapping (Full Protocol)"
+  purpose: >
+    Map the prospect's internal conversation to find the optimal entry point
+    for copy. The reader is already having a conversation in their head; copy
+    must enter THAT conversation, not start a new one.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: robert-collier
+    artifact_type: task
+
+  steps:
+    - id: listen
+      action: identify_current_conversation
+      description: "Identify what prospect thinks about RIGHT NOW — their life, not your product. What keeps them up at 3 AM?"
+      inputs:
+        - prospect_profile
+        - product_description
+        - known_pain_points
+      critical: true
+      output: internal_monologue
+
+    - id: map_emotions
+      action: chart_emotional_landscape
+      description: "Map fears, frustrations, hopes, and desires with intensity levels for each"
+      depends_on: listen
+      output: emotional_landscape
+
+    - id: prioritize
+      action: find_entry_point
+      description: "Rank by urgency, intensity, and universality. Strongest emotional state = entry point."
+      depends_on: map_emotions
+      critical: true
+      output: entry_point
+
+    - id: enter
+      action: craft_opening_paragraph
+      description: "Write opening that enters THEIR conversation: about them, in their language, describing their situation"
+      depends_on: prioritize
+      output: opening_text
+
+    - id: connect
+      action: demonstrate_understanding
+      description: "Show you know what they tried, why it failed, and the emotional cost. 'You have probably...' pattern."
+      depends_on: enter
+      output: connection_section
+
+    - id: bridge
+      action: connect_to_offer
+      description: "Build natural, inevitable, logical bridge from their desire to your offer"
+      depends_on: connect
+      output: bridge_section
+
+  error_handling:
+    - error: product_first_opening
+      symptom: "Opening talks about features, company, or offer"
+      resolution: "Rewrite to talk about THEIR life, not your product"
+    - error: surface_empathy
+      symptom: "'We understand your struggles' without specifics"
+      resolution: "Use verbatim customer language; describe exact situation"
+    - error: wrong_entry_point
+      symptom: "Most logical benefit chosen instead of strongest emotion"
+      resolution: "Rank by urgency and intensity, not by product relevance"
+    - error: abrupt_bridge
+      symptom: "Empathy then sudden 'BUY NOW'"
+      resolution: "Build gradual bridge; each sentence leads naturally to next"
+
+  quality_gate:
+    criteria:
+      - "Entry point based on prospect's conversation"
+      - "Emotional landscape mapped with specific examples"
+      - "Strongest desire/fear identified with ranking"
+      - "Opening uses prospect's language"
+      - "Bridge feels natural and inevitable"
+      - "4-level Desire Hierarchy mapped"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: conversation_map
+      format: structured_map
+      description: "Mental Conversation Map of prospect's current thoughts"
+    - name: desire_hierarchy
+      format: four_level_hierarchy
+      description: "Surface, Emotional, Identity, Core Fear levels"
+    - name: entry_point
+      format: recommendation
+      description: "Entry point with reasoning"
+    - name: opening_prescription
+      format: copy_text
+      description: "First paragraph text"

@@ -1,0 +1,170 @@
+# The 29 Marketing Bullets System
+# Source: Gary Bencivenga's Marketing Bullets Newsletter
+# Category: comprehensive_methodology
+# Command: *bullets-system
+
+name: "The 29 Marketing Bullets System"
+category: "comprehensive_methodology"
+origin: "Gary Bencivenga's Marketing Bullets Newsletter (free e-letter)"
+command: "*bullets-system"
+
+philosophy: |
+  Based on scientific, split-run tests, these 29 bullets share powerful insights
+  about copywriting, marketing, and personal growth. Each bullet is jam-packed
+  with timeless information tested against real response data.
+
+organized_by_category:
+  foundation_principles:
+    bullet_1:
+      name: "The Credo Technique"
+      core: "Express what you believe in; stand for something"
+      quote: "To be great, a company needs a religion"
+
+    bullet_19:
+      name: "The 9-Word Secret"
+      core: "A gifted product is mightier than a gifted pen"
+      application: "Investigate product thoroughly before writing"
+
+    bullet_20:
+      name: "Strategy Precedes Execution"
+      core: "What you say > how you say it"
+      quote: "A superior message is more important than delivery skill"
+
+  persuasion_psychology:
+    bullet_9:
+      name: "Reason-Why Copy"
+      core: "Superior reasons + believability reasons + urgency reasons"
+      framework: "Three-part reasoning structure"
+
+    bullet_10:
+      name: "The Secret Trigger Word"
+      core: "The word 'because' increases compliance dramatically"
+      case_study: "Xerox experiment: 94% vs 60% success with 'because'"
+
+    bullet_11:
+      name: "The Secret of Happiness"
+      core: "People care how much you know only after they know how much you care"
+      application: "Show genuine humanity; connect as real people"
+
+    bullet_25:
+      name: "The Golden Key of Persuasion"
+      core: "Metaphors make copy sticky and memorable"
+      example: "Float like a butterfly, sting like a bee"
+
+  research_and_preparation:
+    bullet_14:
+      name: "6 Little Words (5W1H)"
+      core: "Who, What, Why, How, Where, When"
+      application: "Ask 'why' daily; dig deep for fascinating facts"
+
+    bullet_27:
+      name: "3 Greatest Copywriting Lessons"
+      lessons:
+        - "Copywriting = salesmanship in print (not clever wordplay)"
+        - "Research before writing; gather 7x more info than needed"
+        - "Writing is thinking on paper; sleep on thoughts before drafting"
+
+  targeting_and_strategy:
+    bullet_2:
+      name: "The Pareto Principle"
+      core: "20% of factors drive 80% of success"
+      application: "Identify the vital few activities that generate results"
+
+    bullet_5:
+      name: "The Secret of Red Shirts"
+      core: "Intention facilitates perception"
+      application: "Concentrated attention reveals opportunities"
+
+    bullet_16:
+      name: "The Fuzzy Dice Secret"
+      core: "Go deep in niche markets, not broad"
+      application: "Vertical market specificity beats horizontal spread"
+
+  offers_and_conversion:
+    bullet_13:
+      name: "How to Be Lucky"
+      core: "Outrageously generous offers; persistence; clear visualization"
+      components: "Risk muscle, persistent effort, goal clarity"
+
+    bullet_15:
+      name: "The Monkey's Fist"
+      core: "Lower initial barriers to make first step irresistible"
+      application: "Free ebooks, free + shipping, lead magnets"
+
+    bullet_21:
+      name: "Which Offer Pulled Best?"
+      winner: "Buy One Get One Free beats discounts by 40%+"
+      hierarchy: "List > Offer > Copy (in importance order)"
+
+  headlines_and_curiosity:
+    bullet_7:
+      name: "Pick the Winning Headline"
+      core: "Never make claims bigger than proof"
+      winner: "When Doctors Have Headaches, What Do They Do?"
+
+    bullet_23:
+      name: "The One Word That Teaches Everything"
+      core: "Curiosity-driven headlines; predictable kills interest"
+      formula: "Interest = Benefit + Curiosity"
+
+    bullet_24:
+      name: "The Borden Formula"
+      stages: "Ho-hum! > Why bring that up? > For instance? > So what?"
+      application: "Avoid boring, establish relevance, give examples, drive action"
+
+  creativity_and_innovation:
+    bullet_6:
+      name: "SCAMPER"
+      components: "Substitute, Combine, Adapt, Modify, Put to other uses, Eliminate, Rearrange"
+      application: "Build swipe files; apply SCAMPER when stuck"
+
+    bullet_17:
+      name: "How to Name Your Product"
+      core: "Benefits embedded in names"
+      examples: "Blu Blockers, Easy Off, Way Cool"
+
+  selling_and_proof:
+    bullet_12:
+      name: "How to Get Anything You Want"
+      core: "Find what others want; show how your product delivers"
+      quote: "Help enough other people get what they want"
+
+    bullet_29:
+      name: "The Secret of How to Sell Anything"
+      core: "Build from strongest proof elements"
+      elements: "Case histories, endorsements, testimonials, outcomes"
+      principle: "Long copy outpulls short when addressing right audience"
+
+  digital_strategy:
+    bullet_18:
+      name: "7-Step Formula for Online Success"
+      steps:
+        - "Carve niche market"
+        - "Give valuable content free"
+        - "Promote lead magnet aggressively"
+        - "Capture email addresses"
+        - "Provide ongoing value"
+        - "Use two-step selling approach"
+        - "Collect physical addresses"
+
+  personal_development:
+    bullet_8:
+      name: "Turn Setbacks into Triumphs"
+      core: "Ask why you lost; remember the lesson; move forward"
+      quote: "Every adversity carries the seed of equal or greater benefit"
+
+    bullet_22:
+      name: "16 Rules for Success"
+      top_rules:
+        - "Exit comfort zones"
+        - "Never give up"
+        - "Quit-point often precedes breakthrough"
+        - "Decide quickly"
+        - "Measure everything significant"
+
+    bullet_28:
+      name: "3 Secrets for Multiplying Productivity"
+      secrets:
+        - "Apply Pareto principle to all activities"
+        - "Start day with hour of power (highest-priority work)"
+        - "Review problems before sleep; let subconscious work overnight"

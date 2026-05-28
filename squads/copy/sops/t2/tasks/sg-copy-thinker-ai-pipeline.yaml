@@ -1,0 +1,136 @@
+sop:
+  id: "sg-copy-thinker-ai-pipeline"
+  version: "1.0.0"
+  title: "Copy Thinker AI Pipeline (RMBC II)"
+  purpose: "Execute human-AI collaboration pipeline where human does R+M+B (thinking) and AI does C (writing), with human as Copy Chief approving all output"
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    risk_level: "medium"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "After completing RMBC Phases R, M, and B manually, when ready to leverage AI for copy generation with human oversight"
+  context:
+    input:
+      - name: "completed_brief_2_0"
+        type: "object"
+        required: true
+        description: "Completed Brief 2.0 written as narrative/copy chunks covering 25 points across 5 categories"
+      - name: "ai_tool"
+        type: "string"
+        required: true
+        description: "AI writing tool to use (e.g., Claude Projects) with project/memory capabilities"
+  steps:
+    - id: "S001"
+      name: "Verify R+M+B completion"
+      action: "validate_human_thinking_complete"
+      description: "Confirm that Research (Unified Research Document with 20+ quotes), Mechanism (scored UMP+UMS+Named Oddity, avg >7.5), and Brief (25-point narrative Brief 2.0) are all completed by the human. Do NOT proceed without all three."
+      performer: "copywriter"
+      critical: true
+      on_success: "S002"
+      on_failure: "HALT"
+    - id: "S002"
+      name: "Feed Brief 2.0 to AI"
+      action: "configure_ai_context"
+      description: "Upload Brief 2.0 as primary context, Unified Research Document for voice reference, and mechanism scorecard for accuracy. Instruct AI: 'Write based on this brief. Do not invent claims, statistics, or mechanisms not in the brief.'"
+      performer: "copywriter"
+      critical: true
+      on_success: "S003"
+      on_failure: "retry"
+    - id: "S003"
+      name: "Generate and approve outline"
+      action: "request_ai_outline"
+      description: "Request section-by-section outline from AI based on the brief. Review for logical flow, mechanism coverage, and proof element representation. Revise and approve explicitly before requesting full draft."
+      performer: "copywriter"
+      critical: true
+      on_success: "S004"
+      on_failure: "retry"
+    - id: "S004"
+      name: "Generate draft and copy chief"
+      action: "request_and_review_draft"
+      description: "Request full draft based on approved outline. Read entire draft in one sitting. Mark sections that are off-brief, off-voice, factually wrong, too generic, or missing mechanism. Provide specific revision notes."
+      performer: "copywriter"
+      critical: true
+      on_success: "S005"
+      on_failure: "retry"
+    - id: "S005"
+      name: "Revision round 1 - structure"
+      action: "revise_structural_issues"
+      description: "Address major structural and strategic issues: wrong flow, missing mechanism references, off-brief sections. Provide specific revision instructions to AI."
+      performer: "copywriter"
+      critical: false
+      on_success: "S006"
+      on_failure: "retry"
+    - id: "S006"
+      name: "Revision round 2 - voice"
+      action: "revise_voice_specificity"
+      description: "Address voice, tone, and specificity: too generic, not conversational, missing prospect language from research. Apply Bar Stool Test."
+      performer: "copywriter"
+      critical: false
+      on_success: "S007"
+      on_failure: "retry"
+    - id: "S007"
+      name: "Final approval"
+      action: "human_approves_final"
+      description: "Read final copy against Brief 2.0 point by point. Verify every claim has proof from research. Verify mechanism is correctly represented. Apply final Bar Stool Test. Sign off or request one more round."
+      performer: "copywriter"
+      critical: true
+      on_success: "S008"
+      on_failure: "S005"
+    - id: "S008"
+      name: "Generate micro-lead variants"
+      action: "ai_generate_lead_variants"
+      description: "Use AI to generate 3-5 micro-lead variants (150-300 words each) in different styles: emotional, curiosity, contrarian, story-based, big promise. Human reviews and approves each for brief-alignment."
+      performer: "copywriter"
+      critical: false
+      on_success: "S009"
+      on_failure: "retry"
+    - id: "S009"
+      name: "Set up A/B test"
+      action: "configure_split_test"
+      description: "Deploy approved body + multiple lead variants. Configure equal traffic split, track primary conversion metric, run until 95% confidence. Expected lift: 33-40%."
+      performer: "copywriter"
+      critical: false
+      on_success: "END"
+      on_failure: "retry"
+  error_handling:
+    global_timeout: "PT6H"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "rmb_completed_by_human"
+        type: "boolean"
+        target: true
+        weight: 0.25
+      - name: "outline_approved_before_draft"
+        type: "boolean"
+        target: true
+        weight: 0.15
+      - name: "human_copy_chiefed"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "claims_traceable_to_research"
+        type: "boolean"
+        target: true
+        weight: 0.15
+      - name: "mechanism_accurately_represented"
+        type: "boolean"
+        target: true
+        weight: 0.15
+      - name: "micro_leads_generated"
+        type: "boolean"
+        target: true
+        weight: 0.1
+    pass_threshold: 0.85
+  outputs:
+    artifacts:
+      - name: "production_ready_copy"
+        type: "file"
+        format: "md"
+        description: "Final copy approved by human Copy Chief with audit trail from Brief to final"
+      - name: "micro_lead_variants"
+        type: "file"
+        format: "md"
+        description: "3-5 micro-lead variants ready for A/B testing"

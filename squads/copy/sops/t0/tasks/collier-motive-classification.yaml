@@ -1,0 +1,108 @@
+sop:
+  id: collier-motive-classification
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Six Prime Motives Classification"
+  purpose: >
+    Classify which of Collier's 6 prime motives governs the prospect:
+    Love, Gain, Duty, Pride, Self-Indulgence, Self-Preservation.
+    Dominant motive determines the copy angle.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: robert-collier
+    artifact_type: task
+
+  steps:
+    - id: assess_love
+      action: evaluate_love_motive
+      description: "Does prospect act for someone they love? Insurance, education, health for family?"
+      inputs:
+        - prospect_profile
+      output: love_assessment
+
+    - id: assess_gain
+      action: evaluate_gain_motive
+      description: "Does prospect want more money, savings, or financial return? Business, investments?"
+      inputs:
+        - prospect_profile
+      output: gain_assessment
+
+    - id: assess_duty
+      action: evaluate_duty_motive
+      description: "Does prospect feel social/moral obligation? Donations, compliance, civic?"
+      inputs:
+        - prospect_profile
+      output: duty_assessment
+
+    - id: assess_pride
+      action: evaluate_pride_motive
+      description: "Does prospect want status, recognition, exclusivity? Luxury, premium, VIP?"
+      inputs:
+        - prospect_profile
+      output: pride_assessment
+
+    - id: assess_self_indulgence
+      action: evaluate_self_indulgence_motive
+      description: "Does prospect want pleasure, comfort, enjoyment? Travel, entertainment, leisure?"
+      inputs:
+        - prospect_profile
+      output: self_indulgence_assessment
+
+    - id: assess_self_preservation
+      action: evaluate_self_preservation_motive
+      description: "Does prospect act from fear, safety, survival? Health, security, job protection?"
+      inputs:
+        - prospect_profile
+      output: self_preservation_assessment
+
+    - id: identify_dominant
+      action: rank_and_select_dominant
+      description: "Rank all 6 by strength; identify dominant (governs angle), secondary (supports), and absent motives"
+      depends_on:
+        - assess_love
+        - assess_gain
+        - assess_duty
+        - assess_pride
+        - assess_self_indulgence
+        - assess_self_preservation
+      critical: true
+      output: motive_classification
+
+  error_handling:
+    - error: default_gain
+      symptom: "Every prospect classified as motivated by money"
+      resolution: "Assess all 6; many driven by Love, Pride, or Self-Preservation"
+    - error: forced_multiple
+      symptom: "Copy hits all 6 motives, diluting the message"
+      resolution: "One dominant, one secondary at most; rest absent"
+    - error: ignored_self_preservation
+      symptom: "Fear-driven prospects targeted with positive-only messaging"
+      resolution: "Self-Preservation (fear of loss) often outperforms Gain"
+
+  quality_gate:
+    criteria:
+      - "All 6 motives explicitly assessed"
+      - "Dominant motive identified with reasoning"
+      - "Secondary motive identified if applicable"
+      - "Absent motives noted"
+      - "Copy angle recommendation based on dominant"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: dominant_motive
+      format: classification
+      description: "Primary driver with reasoning"
+    - name: secondary_motive
+      format: classification
+      description: "Supporting driver if applicable"
+    - name: copy_angle
+      format: recommendation
+      description: "Copy angle based on dominant motive"
+    - name: motive_map
+      format: six_motive_assessment
+      description: "All 6 motives assessed with strength indication"

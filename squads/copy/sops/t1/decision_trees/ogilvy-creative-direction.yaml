@@ -1,0 +1,91 @@
+sop:
+  id: ogilvy-creative-direction
+  version: "1.0"
+  title: "Ogilvy Creative Direction Decision Tree"
+  purpose: >
+    Select optimal creative direction via priority cascade: News > Demonstration >
+    Differentiation > Emotion. Includes format decisions for copy length and editorial
+    styling.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: david-ogilvy
+    tier: T1
+
+  steps:
+    - step: 1
+      name: "Check for News Angle"
+      decision_point:
+        condition: "Does the product have genuine NEWS?"
+        branches:
+          - if: "Product has news"
+            action: "Lead with news in headline + demonstrate."
+            terminal: true
+          - if: "No news"
+            action: "Proceed to demonstration check."
+            next_step: 2
+
+    - step: 2
+      name: "Check for Demonstration"
+      decision_point:
+        condition: "Does the product have a convincing demonstration?"
+        branches:
+          - if: "Convincing demonstration available"
+            action: "Problem-solution approach (4x more effective)."
+            terminal: true
+          - if: "No demonstration"
+            action: "Proceed to differentiation check."
+            next_step: 3
+
+    - step: 3
+      name: "Check for Differentiation"
+      decision_point:
+        condition: "Does real differentiation exist?"
+        branches:
+          - if: "Real differentiation exists"
+            action: "Reason-why with specific facts."
+            terminal: true
+          - if: "No differentiation"
+            action: "Emotion/nostalgia + rational excuse."
+            terminal: true
+
+    - step: 4
+      name: "Format Decision"
+      decision_point:
+        condition: "What is the product price/complexity/novelty?"
+        branches:
+          - if: "High price OR complex product OR new product"
+            action: "Use long copy with subheads."
+            terminal: false
+          - if: "Copy layout looks like advertisement"
+            action: "Reformat to editorial style. 6x more readers."
+            terminal: false
+
+    - step: 5
+      name: "Campaign Change Request"
+      decision_point:
+        condition: "Client wants to change working campaign"
+        branches:
+          - if: "Campaign is still performing"
+            action: "Don't abandon. Audience doesn't see ads as often as client does."
+            terminal: true
+          - if: "Campaign data shows decline"
+            action: "Proceed with new creative direction from Step 1."
+            next_step: 1
+
+  error_handling:
+    - error: "Chose emotion when news angle existed"
+      recovery: "Re-evaluate using cascade. News always takes priority."
+    - error: "Short copy used for high-price product"
+      recovery: "Expand to long form with subheads and proof sections."
+    - error: "Ad layout used instead of editorial"
+      recovery: "Reformat to editorial style immediately."
+
+  quality_gate:
+    min_criteria: 4
+    checks:
+      - "Creative angle follows News > Demo > Diff > Emotion cascade"
+      - "Differentiation claims backed by specific facts"
+      - "Long copy used for high-price/complex/new products"
+      - "Layout formatted as editorial, not advertisement"
+      - "Working campaigns not changed without data justification"

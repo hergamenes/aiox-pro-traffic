@@ -1,0 +1,104 @@
+sop:
+  id: rutz-engagement-decisions
+  version: "1.0"
+  title: "Rutz Engagement Decision Rules"
+  purpose: >
+    Maintain reader engagement throughout long-form copy using anti-monotony rules.
+    Ensures unpredictable sentences, subverted cliches, format variety, page turn hooks,
+    standalone email completeness, and authentic eccentricity.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: jim-rutz
+    tier: T1
+
+  steps:
+    - step: 1
+      name: "Sentence Predictability Check"
+      decision_point:
+        condition: "Is the sentence predictable?"
+        branches:
+          - if: "Sentence is predictable"
+            action: "REWRITE with unexpected twist. Predictable = death by wastebasket."
+            next_step: 2
+          - if: "Sentence is unpredictable"
+            action: "Check for cliches."
+            next_step: 2
+
+    - step: 2
+      name: "Cliche Subversion Check"
+      decision_point:
+        condition: "Does the sentence use a cliche?"
+        branches:
+          - if: "Uses cliche as-is"
+            action: "SUBVERT the cliche. Don't avoid, don't use — subvert. Example: 'Get Rich Slowly'."
+            next_step: 3
+          - if: "No cliche or cliche already subverted"
+            action: "Proceed to format variety check."
+            next_step: 3
+
+    - step: 3
+      name: "Format Variety Check"
+      decision_point:
+        condition: "Are 2+ consecutive pages in the same format?"
+        branches:
+          - if: "2+ pages same format"
+            action: "INSERT sidebar, callout, bullet list, or story. Monotony = dropout."
+            next_step: 4
+          - if: "Format variety present"
+            action: "Proceed to page turn check."
+            next_step: 4
+
+    - step: 4
+      name: "Page Turn Hook Check"
+      decision_point:
+        condition: "Does the page end have a hook?"
+        branches:
+          - if: "No page turn hook"
+            action: "INSERT cliffhanger, interrupted story, or curiosity subhead."
+            next_step: 5
+          - if: "Hook present"
+            action: "Proceed to email check."
+            next_step: 5
+
+    - step: 5
+      name: "Email Standalone Check"
+      decision_point:
+        condition: "Does the email assume prospect reads entire sequence?"
+        branches:
+          - if: "Email depends on sequence"
+            action: "FIX. Each email must fascinate and convince ALONE. Armless and legless otherwise."
+            next_step: 6
+          - if: "Email stands alone"
+            action: "Proceed to authenticity check."
+            next_step: 6
+
+    - step: 6
+      name: "Authenticity Check"
+      decision_point:
+        condition: "Is the voice professional/conformist or authentically eccentric?"
+        branches:
+          - if: "Professional and conformist"
+            action: "Let my freak flag fly. Eccentricity is competitive advantage."
+            terminal: true
+          - if: "Authentic and distinct"
+            action: "Pass. Proceed with confidence."
+            terminal: true
+
+  error_handling:
+    - error: "Predictable sentences remain in final copy"
+      recovery: "Re-audit every sentence. Apply unexpected twist to each predictable one."
+    - error: "Cliches used without subversion"
+      recovery: "Identify all cliches. Subvert each one (flip, invert, or twist)."
+    - error: "Format monotony over 3+ pages"
+      recovery: "Insert format breaks (sidebar, callout, bullets, story) every 2 pages max."
+
+  quality_gate:
+    min_criteria: 5
+    checks:
+      - "No predictable sentences remain"
+      - "Cliches subverted, not used or avoided"
+      - "Format changes every 2 pages maximum"
+      - "Every page end has a page turn hook"
+      - "Each email in sequence stands alone"
+      - "Voice is authentic, not professional/conformist"

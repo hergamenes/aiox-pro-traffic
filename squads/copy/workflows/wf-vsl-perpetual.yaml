@@ -1,0 +1,735 @@
+workflow:
+  id: wf-vsl-perpetual
+  name: "VSL Perpetual Funnel — Full Production Pipeline"
+  duration: "5-7 days"
+  version: "1.0.0"
+  created: "2026-03-11"
+  description: |
+    Workflow completo para criacao de funil VSL perpetuo para publico frio.
+    Baseado no framework @thiagoroas (200M+ em trafego, 8 nichos escalados)
+    combinado com o sistema de tiers do Copy Squad.
+
+    Cobre todo o ciclo: diagnostico → script → funil completo → otimizacao.
+
+    3 SOPs de referencia obrigatoria:
+    - data/sops/vsl-funnel-architecture-sop.md (estrategico)
+    - data/sops/vsl-script-creation-sop.md (operacional copy)
+    - data/sops/vsl-diagnostic-optimization-sop.md (operacional otimizacao)
+
+    2 Knowledge Bases de referencia:
+    - data/references/thiagoroas-copy-analysis.yaml
+    - squads/aiox-traffic/data/references/thiagoroas-vsl-funnel-and-traffic-framework.yaml
+
+  target_output:
+    - VSL script completo (20-30 min para R$297)
+    - Upsell video script (formato diferente do front)
+    - Downsell video script
+    - Pagina pos-pitch (copy + estrutura)
+    - 5+ leads para teste A/B
+    - 10+ headlines de criativo (coerencia VSL)
+    - Plano de metricas e benchmarks
+
+  key_agents:
+    primary:
+      - copy-chief
+      - eugene-schwartz
+      - todd-brown
+      - jon-benson
+      - dan-kennedy
+    secondary:
+      - claude-hopkins
+      - gary-halbert
+      - ry-schwartz
+    tools:
+      - joe-sugarman
+
+  governance:
+    operating_model: >
+      SOP Load → Niche Qualification → Awareness Diagnosis → Mechanism Design →
+      VSL Script → Upsell/Downsell → Post-Pitch Page → Creative Coherence →
+      Quality Gates → Delivery
+    sop_reference:
+      architecture: data/sops/vsl-funnel-architecture-sop.md
+      script_creation: data/sops/vsl-script-creation-sop.md
+      diagnostic: data/sops/vsl-diagnostic-optimization-sop.md
+    planning_root: "workspace/businesses/{business}/L4-operational/campaigns/{campaign_slug}/"
+    delivery_root: "outputs/copy/{business}/"
+    review_gates:
+      required:
+        - checklists/hopkins-audit-checklist.md
+        - checklists/sugarman-30-triggers.md
+        - checklists/vsl-quality-checklist.md
+      rule: "FINAL promotion requires Hopkins audit 85+, Sugarman 80%+, VSL quality checklist PASS"
+
+  type: canonical-campaign-workflow
+  status: active_canonical
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # SEQUENCE (linear flow with checkpoints)
+  # ═══════════════════════════════════════════════════════════════════════════
+  sequence:
+    - step: phase-0
+      id: phase-0
+      phase: 0
+      phase_name: "Context & SOP Load"
+      agent: copy-chief
+      action: load-workspace-context-and-sop-references
+      next: phase-1
+
+    - step: phase-1
+      id: phase-1
+      phase: 1
+      phase_name: "Niche Qualification & Funnel Architecture"
+      agent: copy-chief
+      action: qualify-niche-and-define-funnel-structure
+      next: phase-2
+
+    - step: phase-2
+      id: phase-2
+      phase: 2
+      phase_name: "Awareness & Mechanism Diagnosis"
+      agent: eugene-schwartz
+      action: diagnose-awareness-sophistication-and-design-mechanism
+      next: phase-3
+
+    - step: phase-3
+      id: phase-3
+      phase: 3
+      phase_name: "VSL Script Creation"
+      agent: jon-benson
+      action: write-vsl-script-with-micro-videos-and-multiple-leads
+      next: phase-4
+
+    - step: phase-4
+      id: phase-4
+      phase: 4
+      phase_name: "Upsell, Downsell & Recovery Copy"
+      agent: dan-kennedy
+      action: create-upsell-downsell-and-recovery-scripts
+      next: phase-5
+
+    - step: phase-5
+      id: phase-5
+      phase: 5
+      phase_name: "Post-Pitch Page & Creative Coherence"
+      agent: jon-benson
+      action: design-post-pitch-page-and-creative-alignment
+      next: phase-6
+
+    - step: phase-6
+      id: phase-6
+      phase: 6
+      phase_name: "Quality Gates & Delivery"
+      agent: claude-hopkins
+      action: audit-validate-and-package-final-deliverables
+      next: complete
+
+    - workflow_end:
+        id: complete
+        action: workflow_complete
+
+  handoff_prompts:
+    copy-chief_to_eugene-schwartz: >
+      Handoff: Funnel architecture defined (niche qualified, pricing set, funnel layers mapped).
+      Pass: niche_type, ticket, funnel_structure, target_awareness_entry.
+      Eugene: diagnose awareness journey and market sophistication.
+
+    eugene-schwartz_to_jon-benson: >
+      Handoff: Awareness diagnosis complete + mechanism designed.
+      Pass: awareness_journey_map, sophistication_stage, unique_mechanism, lead_type, belief_map.
+      Jon: write VSL script with micro-video structure and multiple leads.
+
+    jon-benson_to_dan-kennedy: >
+      Handoff: VSL script complete with 5+ leads.
+      Pass: vsl_script, mechanism, offer_structure, awareness_exit_level.
+      Dan: create upsell/downsell/recovery scripts with urgency and commitment escalation.
+
+    dan-kennedy_to_jon-benson: >
+      Handoff: Upsell/downsell scripts complete.
+      Pass: upsell_script, downsell_script, recovery_strategy.
+      Jon: design post-pitch page structure and creative-VSL coherence plan.
+
+    jon-benson_to_claude-hopkins: >
+      Handoff: All scripts + page structure complete.
+      Pass: full_deliverable_package.
+      Hopkins: scientific audit + Sugarman 30 triggers + VSL quality checklist.
+
+# ═══════════════════════════════════════════════════════════════════════════
+# PHASES (detailed)
+# ═══════════════════════════════════════════════════════════════════════════
+phases:
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # PHASE 0: Context & SOP Load
+  # ─────────────────────────────────────────────────────────────────────────
+  - id: PHASE-0
+    name: "Context & SOP Load"
+    day: 1
+    tier: 0
+    description: |
+      Carregar contexto do workspace (ICP, brand, proof, offerbook) e
+      os 3 SOPs de referencia do framework VSL perpetuo.
+      SEM este passo, nenhum output pode ser FINAL.
+    tasks:
+      - task_file: load-workspace-context.md
+        agent: copy-chief
+        required: true
+        focus: "Load ICP, brand voice, proof stack, offerbook, positioning"
+        output: "Campaign context brief with brief status (DRAFT vs FINAL)"
+
+    sop_load:
+      required:
+        - path: data/sops/vsl-funnel-architecture-sop.md
+          focus: "Funnel structure, pricing, niche qualification, metrics framework"
+        - path: data/sops/vsl-script-creation-sop.md
+          focus: "Script creation process, awareness journey, mechanisms, formats"
+      conditional:
+        - path: data/sops/vsl-diagnostic-optimization-sop.md
+          when: "Optimization of existing VSL (not new creation)"
+
+    checkpoint:
+      criteria:
+        - "WORKSPACE CONTEXT loaded (ICP + brand + proof + offerbook)"
+        - "SOPs loaded and referenced"
+        - "Brief status determined (DRAFT or FINAL eligible)"
+      human_review: false
+      message: "Context loaded. SOPs referenced. Ready for niche qualification."
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # PHASE 1: Niche Qualification & Funnel Architecture
+  # ─────────────────────────────────────────────────────────────────────────
+  - id: PHASE-1
+    name: "Niche Qualification & Funnel Architecture"
+    day: 1
+    tier: 0
+    description: |
+      Definir se o nicho comporta funil VSL perpetuo e arquitetar
+      a estrutura completa do funil ANTES de escrever uma palavra.
+      Referencia: SOP vsl-funnel-architecture-sop.md (Phases 1-3)
+    tasks:
+      - task_id: T-1.1
+        name: "Qualify Niche"
+        agent: copy-chief
+        required: true
+        focus: |
+          Classificar nicho: Big (10M+ prospects) → VSL R$297
+          Medio → Low ticket ou lancamento pago
+          Profissional (micro) → High ticket + lancamento pago
+        output: "niche_classification, funnel_type_recommendation"
+        sop_ref: "vsl-funnel-architecture-sop.md > Phase 1"
+
+      - task_id: T-1.2
+        name: "Define Pricing Architecture"
+        agent: copy-chief
+        required: true
+        focus: |
+          Front: R$297 (golden ticket — abaixo barreira R$300, 70% cartao)
+          Upsell: R$597-697 (formato DIFERENTE do front)
+          Downsell: ~R$397 (mesmo produto, metade preco, 6 meses acesso)
+          Order bump: testar SEM primeiro, depois COM (max 3, benchmark 30%)
+          Ticket medio alvo: ~R$418 com funil completo
+        output: "pricing_architecture.yaml"
+        sop_ref: "vsl-funnel-architecture-sop.md > Phase 2"
+
+      - task_id: T-1.3
+        name: "Map Funnel Layers"
+        agent: copy-chief
+        required: true
+        focus: |
+          Mapear: Front (VSL) → Checkout (limpo) → Upsell 1 → Downsell →
+          Upsell 2 (opcional) → Recovery (webinar para quem recusou upsell)
+          Definir formato de cada upsell (Done-For-You preferido)
+          Definir se trial 7 dias aplica
+        output: "funnel_map.yaml"
+        sop_ref: "vsl-funnel-architecture-sop.md > Phase 3"
+
+    checkpoint:
+      criteria:
+        - "NICHE qualified (big/medio/profissional)"
+        - "PRICING architecture defined"
+        - "FUNNEL layers mapped"
+        - "UPSELL format defined (MUST differ from front)"
+      human_review: true
+      message: "Arquitetura do funil definida. Revisar antes de iniciar copy."
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # PHASE 2: Awareness & Mechanism Diagnosis
+  # ─────────────────────────────────────────────────────────────────────────
+  - id: PHASE-2
+    name: "Awareness & Mechanism Diagnosis"
+    day: 2
+    tier: 0
+    description: |
+      Diagnostico obrigatorio Tier 0 ANTES de escrever copy.
+      Mapear jornada de awareness DENTRO da VSL (minuto a minuto).
+      Identificar ou criar Unique Mechanism.
+      Referencia: SOP vsl-script-creation-sop.md (Phases 1-2)
+    tasks:
+      - task_file: diagnose-awareness-level.md
+        agent: eugene-schwartz
+        required: true
+        focus: |
+          1. Identificar awareness de ENTRADA (o que o criativo pre-filtra)
+          2. Mapear jornada dentro da VSL:
+             0-1min: Level 2 (validar dor)
+             1-4min: 2→3 (agitar + introduzir conceito)
+             4-10min: Level 3 (apresentar MECANISMO)
+             10-20min: 3→4 (prova social, credenciais)
+             20-30min: Level 4→5 (produto, oferta, CTA)
+          3. Definir tipo de lead por awareness:
+             Level 1-2: Lead de historia
+             Level 2: Lead de problema
+             Level 3: Lead de mecanismo
+             Level 4-5: Lead de oferta
+        output: "awareness_journey_map"
+        sop_ref: "vsl-script-creation-sop.md > Phase 1"
+
+      - task_file: diagnose-market-sophistication.md
+        agent: eugene-schwartz
+        required: true
+        focus: "Determinar estagio de sofisticacao (1-5) e ajustar posicionamento"
+        output: "sophistication_stage + positioning_adjustment"
+
+      - task_id: T-2.3
+        name: "Design Unique Mechanism"
+        agent: todd-brown
+        required: true
+        focus: |
+          Criar ou identificar mecanismo unico usando E5 Method.
+          Categorias: Process, Discovery, Positioning, Contrarian, Speed, Simplicity.
+          Arquitetura de posicionamento em 4 camadas:
+          1. Principios (autoridade)
+          2. Matematica (rigor)
+          3. Contrarian Insights (expertise)
+          4. Sistemas Proprietarios (produto)
+          Teste: "Concorrente copia facilmente?" Se sim, nao e unico.
+        output: "unique_mechanism + positioning_architecture"
+        sop_ref: "vsl-script-creation-sop.md > Phase 2"
+
+      - task_id: T-2.4
+        name: "Map Belief Operations"
+        agent: eugene-schwartz
+        required: true
+        focus: |
+          Mapear crencas que precisam ser CRIADAS e QUEBRADAS.
+          Criar crenca = mover de Level 1-2 para Level 3.
+          Quebrar crenca = remover objecao que bloqueia transicao.
+          Cada bloco do corpo da VSL = 1 operacao de crenca.
+        output: "belief_operations_map (criar/quebrar por bloco)"
+
+    checkpoint:
+      criteria:
+        - "AWARENESS journey mapped (minute by minute)"
+        - "SOPHISTICATION stage determined"
+        - "UNIQUE MECHANISM designed and named"
+        - "BELIEF operations mapped"
+        - "LEAD TYPE selected"
+      human_review: false
+      message: "Diagnostico completo. Mecanismo desenhado. Pronto para escrita."
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # PHASE 3: VSL Script Creation
+  # ─────────────────────────────────────────────────────────────────────────
+  - id: PHASE-3
+    name: "VSL Script Creation"
+    day: 2-4
+    tier: 1
+    description: |
+      Escrita do script da VSL usando estrutura de micro videos.
+      Agente primario: @jon-benson (inventor do formato VSL).
+      Referencia: SOP vsl-script-creation-sop.md (Phases 3-6)
+    tasks:
+      - task_file: vsl-script.md
+        agent: jon-benson
+        required: true
+        focus: |
+          ESTRUTURA MACRO:
+          - LEAD (1-4 min): Micro video independente, pode ser formato diferente
+          - CORPO (4-20 min): Blocos de criacao/quebra de crenca (1 operacao por bloco)
+          - OFERTA (20-25 min): Oferta irrecusavel (3 pilares: brilhe olhos, simples, rapida)
+          - ASCENSAO: Imediata, sem delay
+
+          PRODUCAO:
+          - Minimo 5 micro videos
+          - Minimo 5 leads para teste A/B
+          - Duracao total: 20-30 min (para ticket R$297)
+
+          REGRAS DE COPY:
+          - Escrever para a OFERTA, nao para o produto
+          - CTA so quando pensamento natural e "onde eu compro?"
+          - SEM depoimentos longos no meio (destroem retencao)
+          - Promessa no inicio (reter pela antecipacao)
+        output: "vsl_script_complete.md (com 5+ leads numeradas)"
+        sop_ref: "vsl-script-creation-sop.md > Phases 3-5"
+
+      - task_id: T-3.2
+        name: "Select Format Recommendations"
+        agent: jon-benson
+        required: true
+        focus: |
+          Recomendar formato baseado no nicho e avatar:
+          MORTO: Expert lendo teleprompter, olhando fixo para camera
+          VIVOS (2025): Casual cotidiano, Call center, Podcast, Talk show,
+          Palestra, Nicho-congruente
+          REGRA: Formato disfarce a mensagem de vendas e pareca CONTEUDO
+          CASE: Prisciane — mesma copy, formato diferente = 2X conversao
+        output: "format_recommendations.md"
+        sop_ref: "vsl-script-creation-sop.md > Phase 4"
+
+      - task_id: T-3.3
+        name: "Generate AI Production Brief (Manus workflow)"
+        agent: copy-chief
+        required: false
+        focus: |
+          Preparar inputs para producao via Manus AI:
+          1. VSLs proprias escaladas como referencia estrutural
+          2. Documento de persona (dores, desejos, objecoes)
+          3. Solicitar 2-3 variacoes modelando estrutura das referencias
+          4. Refinamento iterativo
+          5. Copywriter humano revisa
+          Cadencia alvo: 1 VSL nova/semana ate achar vencedora
+        output: "manus_production_brief.yaml"
+
+    checkpoint:
+      criteria:
+        - "VSL SCRIPT complete (20-30 min)"
+        - "5+ LEADS created for A/B testing"
+        - "FORMAT recommendations documented"
+        - "MICRO-VIDEO structure defined (minimum 5 segments)"
+        - "BELIEF operations reflected in script blocks"
+        - "CTA sequencing correct (not premature)"
+      human_review: true
+      message: "VSL script completo. Revisar antes de criar upsell/downsell."
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # PHASE 4: Upsell, Downsell & Recovery Copy
+  # ─────────────────────────────────────────────────────────────────────────
+  - id: PHASE-4
+    name: "Upsell, Downsell & Recovery Copy"
+    day: 4-5
+    tier: 2
+    description: |
+      Criar scripts de upsell, downsell e estrategia de recuperacao.
+      Referencia: SOP vsl-funnel-architecture-sop.md (Phase 3 — Upsell rules)
+    tasks:
+      - task_file: create-upsell-page.md
+        agent: dan-kennedy
+        required: true
+        focus: |
+          REGRAS CRITICAS:
+          - FORMATO do upsell DEVE ser diferente do front
+          - Best format: Done-For-You (entrega pronta do que o front ensinou)
+          - Headline NAO pode parecer venda ("Ainda falta um passo", NAO "Obrigado")
+          - Funcao da headline: fazer assistir o video, nao comprar
+          - Dois botoes VISIVEIS: "quero" e "nao quero" (nunca ocultar)
+          - Preco: R$597-697
+          - Upsell e momento de VENDA, nao de gratidao
+
+          OPCAO TRIAL: One-click 7 dias gratis, cobra automaticamente
+          Headline trial: "Voce ganhou 7 dias de acesso gratis ao [produto]"
+        output: "upsell_script.md"
+        sop_ref: "vsl-funnel-architecture-sop.md > Phase 3 — Upsell"
+
+      - task_file: create-downsell-page.md
+        agent: dan-kennedy
+        required: true
+        focus: |
+          Formula: mesmo produto do upsell + metade do preco + 6 meses de acesso
+          Preco: ~R$397
+          Script modelo:
+          "Vi que por algum motivo voce nao comprou [produto]. Mas sei do impacto
+          que ele pode ter. Por isso vou cortar metade do preco. 6 meses de acesso.
+          Voce nunca mais vai ver essa oferta fora daqui."
+          Botao "nao quero" VISIVEL (senao perde tudo)
+        output: "downsell_script.md"
+
+      - task_id: T-4.3
+        name: "Design Recovery Strategy"
+        agent: copy-chief
+        required: true
+        focus: |
+          Funil de recuperacao de upsell:
+          - Segmentar: quem comprou front + NAO comprou upsell
+          - Trigger: API detecta compra sem upsell
+          - Mecanismo: webinario mensal de recuperacao
+          - Quem comprou upsell → webinario de ascensao (proximo produto)
+          - 1-2x/mes ao vivo, depois automatizar
+          - Potencial: dobrar conversao de upsell (15% → 30%)
+          - Case: R$400K lucro/mes so com webinarios
+        output: "recovery_strategy.yaml"
+        sop_ref: "vsl-funnel-architecture-sop.md > Phase 3 — Recovery"
+
+    checkpoint:
+      criteria:
+        - "UPSELL script complete (formato diferente do front)"
+        - "DOWNSELL script complete (metade preco, 6 meses)"
+        - "RECOVERY strategy defined"
+        - "BUTTONS visveis em todas as paginas (quero + nao quero)"
+        - "HEADLINE de upsell NAO parece venda"
+      human_review: true
+      message: "Funil completo. Revisar antes de montar pagina pos-pitch."
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # PHASE 5: Post-Pitch Page & Creative Coherence
+  # ─────────────────────────────────────────────────────────────────────────
+  - id: PHASE-5
+    name: "Post-Pitch Page & Creative Coherence"
+    day: 5-6
+    tier: 2
+    description: |
+      Montar estrutura da pagina pos-pitch e garantir coerencia
+      entre criativos de anuncio e lead da VSL.
+    tasks:
+      - task_id: T-5.1
+        name: "Design Post-Pitch Page"
+        agent: jon-benson
+        required: true
+        focus: |
+          Quando preco e revelado na VSL: pagina ABRE COMPLETA
+          Estrutura minima:
+          - Depoimentos + prova social
+          - Botoes espalhados (botao mais proximo do video = mais conversao)
+          - Preco visivel
+          - Bonus (se houver)
+          - Garantia
+          Comecar simples. Adicionar elementos se conversao baixa.
+          CHECKOUT: limpo, sem banners, sem depoimentos. Layout padrao.
+        output: "post_pitch_page_structure.md"
+
+      - task_file: create-ad-copy.md
+        agent: copy-chief
+        required: true
+        focus: |
+          Criar 10+ headlines de criativos COERENTES com a VSL.
+          REGRAS de coerencia criativo-VSL:
+          - Video > Estatico para funil VSL (mesma energia)
+          - Lead da VSL deve parecer continuacao natural do criativo
+          - Criativo como filtro de awareness (psicografico, nao demografico)
+          - Criativo de conteudo → Level 2 | Mecanismo → Level 3 | Produto → Level 4
+          Cacar formatos FORA do nicho (regra 70/30: 70% novos, 30% modelagem)
+        output: "creative_headlines.md + creative_format_brief.md"
+        sop_ref: "vsl-funnel-architecture-sop.md > Phase 6"
+
+      - task_id: T-5.3
+        name: "Define Metrics & Benchmarks Plan"
+        agent: copy-chief
+        required: true
+        focus: |
+          Mapa de metricas saudaveis por micro-funil:
+          - Play rate: 60-70%+
+          - Retencao 1o minuto: 60%+
+          - Retencao no pitch: 30%+
+          - Custo de checkout: 10-20% do ticket (R$29-30 para R$297)
+          - ROAS: 2+ com minimo 10 vendas
+          - Checkout conversion: 20%+
+          - Upsell conversion: 15%+
+          - Downsell conversion: 5-10%
+          - Ticket medio funil alvo: ~R$418
+          Modelo 731: 7 dias (tendencia) / 3 dias (recente) / hoje (decisao)
+        output: "metrics_benchmarks_plan.yaml"
+        sop_ref: "vsl-funnel-architecture-sop.md > Phase 5"
+
+    checkpoint:
+      criteria:
+        - "POST-PITCH page structure defined"
+        - "CREATIVE headlines created (10+)"
+        - "CREATIVE-VSL coherence verified"
+        - "METRICS plan with benchmarks documented"
+        - "CHECKOUT rules applied (clean checkout)"
+      human_review: false
+      message: "Pagina e criativos alinhados. Pronto para quality gates."
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # PHASE 6: Quality Gates & Delivery
+  # ─────────────────────────────────────────────────────────────────────────
+  - id: PHASE-6
+    name: "Quality Gates & Delivery"
+    day: 6-7
+    tier: 3
+    description: |
+      Auditoria final com Hopkins + Sugarman 30 Triggers + VSL Quality Checklist.
+      Empacotamento final de todos os deliverables.
+    tasks:
+      - task_file: audit-copy-hopkins.md
+        agent: claude-hopkins
+        required: true
+        focus: |
+          Auditoria cientifica do script completo:
+          - Headline validation
+          - Lead validation
+          - Body copy validation
+          - Offer validation
+          - CTA validation (sequenciamento correto?)
+          - Testability validation
+          Minimo: 85/100 para aprovacao
+        output: "hopkins_audit_report.md"
+
+      - task_file: apply-sugarman-triggers.md
+        agent: copy-chief
+        required: true
+        focus: |
+          Verificar cobertura dos 30 Triggers (NAO 31).
+          Minimo: 80% cobertura (24/30).
+          Prioridade: Trigger 1 (Honesty), 15 (Specificity), 23 (Curiosity)
+          Sugarman e FERRAMENTA, nao copywriter.
+        output: "sugarman_trigger_report.md"
+
+      - task_id: T-6.3
+        name: "VSL Quality Checklist"
+        agent: copy-chief
+        required: true
+        focus: |
+          Checklist final VSL:
+          - [ ] Awareness journey completa (Level 2 → Level 5)
+          - [ ] Mecanismo unico claro e nomeado
+          - [ ] Minimo 5 micro videos definidos
+          - [ ] Minimo 5 leads para teste
+          - [ ] CTA NAO aparece antes do pitch
+          - [ ] Formato recomendado NAO e "expert lendo teleprompter"
+          - [ ] Upsell tem formato DIFERENTE do front
+          - [ ] Botao "nao quero" visivel em upsell e downsell
+          - [ ] Checkout limpo (sem banners/bumps no inicio)
+          - [ ] Metricas e benchmarks documentados
+          - [ ] Hopkins audit >= 85/100
+          - [ ] Sugarman coverage >= 80%
+          - [ ] Forbidden words checadas (brand voice)
+          - [ ] Depoimentos rastreaveais a proof/testimonials
+        output: "vsl_quality_checklist_result.md"
+
+      - task_id: T-6.4
+        name: "Package Final Deliverables"
+        agent: copy-chief
+        required: true
+        focus: |
+          Empacotar todos os outputs:
+          1. VSL script (com 5+ leads)
+          2. Format recommendations
+          3. Upsell script
+          4. Downsell script
+          5. Recovery strategy
+          6. Post-pitch page structure
+          7. Creative headlines (10+)
+          8. Metrics & benchmarks plan
+          9. Hopkins audit report
+          10. Sugarman trigger report
+          11. Quality checklist result
+        output: "outputs/copy/{business}/vsl/{campaign_slug}/"
+
+    checkpoint:
+      criteria:
+        - "HOPKINS audit >= 85/100"
+        - "SUGARMAN coverage >= 80%"
+        - "VSL QUALITY checklist PASS"
+        - "ALL deliverables packaged"
+      human_review: true
+      message: "Quality gates passed. Deliverables prontos para revisao final."
+
+# ═══════════════════════════════════════════════════════════════════════════
+# OUTPUTS
+# ═══════════════════════════════════════════════════════════════════════════
+outputs:
+  canonical_artifacts:
+    planning:
+      - campaign-brief.yaml
+      - pricing-architecture.yaml
+      - funnel-map.yaml
+      - awareness-journey-map.yaml
+      - unique-mechanism.yaml
+      - belief-operations-map.yaml
+      - metrics-benchmarks-plan.yaml
+    delivery:
+      - "outputs/copy/{business}/vsl/{campaign_slug}/vsl-script.md"
+      - "outputs/copy/{business}/vsl/{campaign_slug}/leads/"
+      - "outputs/copy/{business}/vsl/{campaign_slug}/upsell-script.md"
+      - "outputs/copy/{business}/vsl/{campaign_slug}/downsell-script.md"
+      - "outputs/copy/{business}/vsl/{campaign_slug}/post-pitch-page.md"
+      - "outputs/copy/{business}/vsl/{campaign_slug}/creative-headlines.md"
+      - "outputs/copy/{business}/vsl/{campaign_slug}/recovery-strategy.yaml"
+      - "outputs/copy/{business}/vsl/{campaign_slug}/reports/"
+
+# ═══════════════════════════════════════════════════════════════════════════
+# OPTIMIZATION MODE (quando VSL ja roda)
+# ═══════════════════════════════════════════════════════════════════════════
+optimization_mode:
+  description: |
+    Quando a VSL ja esta rodando e precisa de otimizacao, usar o
+    SOP de diagnostico (vsl-diagnostic-optimization-sop.md) em vez
+    de recriar do zero. O workflow se adapta:
+
+  entry_point: "Phase 0 (load context) → SOP Diagnostic → Fix/Scale"
+
+  diagnostic_matrix:
+    retencao_alta_conversao_alta: "ESCALAR (Phase 5: metricas + criativos)"
+    retencao_baixa_conversao_ok: "FORMATO ruim → mudar formato, manter copy (Phase 3: T-3.2)"
+    retencao_alta_conversao_baixa: "COPY ruim → reescrever copy, manter formato (Phase 3: T-3.1)"
+    retencao_baixa_conversao_baixa: "VSL nova → reiniciar Phase 2"
+
+  priority_order:
+    1: "Formato (maior ROI — case: 2X com mesma copy)"
+    2: "Lead (testar 3-5 novas leads)"
+    3: "Coerencia criativo-VSL"
+    4: "Upsell (formato + headline)"
+    5: "Checkout (limpar bumps)"
+    6: "Copy (so se formato validado)"
+    7: "Order bump (30 dias off, 30 dias on)"
+
+# ═══════════════════════════════════════════════════════════════════════════
+# AGENT ROLES
+# ═══════════════════════════════════════════════════════════════════════════
+agent_roles:
+  copy-chief:
+    specialty: "Orquestracao, niche qualification, funnel architecture, quality gates"
+    applies_to: [PHASE-0, PHASE-1, PHASE-5, PHASE-6]
+    key_framework: "Tier System + SOP Framework @thiagoroas"
+
+  eugene-schwartz:
+    specialty: "Awareness levels, market sophistication, belief mapping"
+    applies_to: [PHASE-2]
+    key_framework: "5 Levels of Awareness + 5 Stages of Sophistication"
+
+  todd-brown:
+    specialty: "Unique Mechanism, Big Idea, E5 Method"
+    applies_to: [PHASE-2]
+    key_framework: "E5 Method + Positioning Architecture 4 layers"
+
+  jon-benson:
+    specialty: "VSL structure, micro videos, leads, format, post-pitch page"
+    applies_to: [PHASE-3, PHASE-5]
+    key_framework: "3X Formula + Micro Video Architecture"
+
+  dan-kennedy:
+    specialty: "Urgency, commitment escalation, upsell/downsell, DR principles"
+    applies_to: [PHASE-4]
+    key_framework: "3Ms + PIX-aware copy + Cost Cap"
+
+  claude-hopkins:
+    specialty: "Scientific audit, testing, validation"
+    applies_to: [PHASE-6]
+    key_framework: "Scientific Advertising + Audit Checklist"
+
+  joe-sugarman:
+    type: "TOOL (not clone)"
+    specialty: "30 Psychological Triggers Checklist"
+    applies_to: [PHASE-6]
+    note: "30 triggers, NOT 31. Applied AFTER copy written, BEFORE delivery."
+
+# ═══════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════
+metadata:
+  version: "1.0.0"
+  framework: copy-framework-v2
+  created: "2026-03-11"
+  source: "@thiagoroas framework (200M+ em trafego, 8 nichos escalados)"
+  sop_dependencies:
+    - "squads/copy/data/sops/vsl-funnel-architecture-sop.md"
+    - "squads/copy/data/sops/vsl-script-creation-sop.md"
+    - "squads/copy/data/sops/vsl-diagnostic-optimization-sop.md"
+  knowledge_bases:
+    - "squads/copy/data/references/thiagoroas-copy-analysis.yaml"
+    - "squads/aiox-traffic/data/references/thiagoroas-vsl-funnel-and-traffic-framework.yaml"
+  primary_use_case: "Funil VSL perpetuo para publico frio (R$297 front)"
+  secondary_use_cases:
+    - "Low ticket funnel (adaptacao)"
+    - "Lancamento pago com ingresso low ticket"
+    - "Otimizacao de VSL existente (optimization_mode)"

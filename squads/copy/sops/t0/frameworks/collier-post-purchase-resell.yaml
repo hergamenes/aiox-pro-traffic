@@ -1,0 +1,74 @@
+sop:
+  id: collier-post-purchase-resell
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Post-Purchase Re-Sell"
+  purpose: >
+    Re-affirm purchase wisdom at every post-purchase touchpoint. Reduce returns,
+    eliminate buyer's remorse, build repeat behavior. Sale is not made until goods
+    are paid for. Re-sell the DECISION, not the product.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: robert-collier
+    artifact_type: framework
+
+  steps:
+    - id: apply_core_principle
+      action: apply_sale_not_made_principle
+      description: "Sale not made until goods paid for. Period between order and receipt is peak buyer's remorse. Every communication sells the decision."
+      critical: true
+      output: principle_acknowledged
+
+    - id: apply_confirmation_resell
+      action: apply_resell_via_confirmation
+      description: "Transform confirmation from receipt to reinforcement. Restate key benefit, set expectations, include social proof."
+      depends_on: apply_core_principle
+      output: confirmation_copy
+
+    - id: apply_enclosure_resell
+      action: apply_resell_via_enclosures
+      description: "Use invoices, package inserts, enclosures to reinforce value. Nothing purely transactional."
+      depends_on: apply_core_principle
+      output: enclosure_copy
+
+    - id: apply_every_contact_resell
+      action: apply_resell_at_all_touchpoints
+      description: "Every post-purchase contact reinforces 'You made a good decision.' Focus on DECISION wisdom, not product features."
+      depends_on: apply_core_principle
+      output: touchpoint_copy
+
+  error_handling:
+    - error: purely_transactional
+      symptom: "Confirmation says 'Order received' and nothing else"
+      resolution: "Add benefit reinforcement and positive expectation setting"
+    - error: premature_upsell
+      symptom: "Customer feels sold to before receiving current purchase"
+      resolution: "Re-sell CURRENT decision first; upsell later"
+    - error: ignored_remorse_window
+      symptom: "No communication between order and delivery"
+      resolution: "Send at least one reinforcement message during wait"
+    - error: generic_language
+      symptom: "'Thanks for your purchase!' without specifics"
+      resolution: "Reference specific benefit they'll experience"
+
+  quality_gate:
+    criteria:
+      - "Every post-purchase touchpoint reviewed"
+      - "Confirmation includes benefit reinforcement"
+      - "Re-sell focuses on DECISION wisdom, not features"
+      - "Social proof included in at least one touchpoint"
+      - "Tone is warm and affirming, not pushy"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: touchpoint_audit
+      format: contact_point_list
+      description: "All post-purchase contact points identified"
+    - name: resell_copy
+      format: copy_per_touchpoint
+      description: "Re-sell copy for confirmation, shipping, delivery, insert, invoice"

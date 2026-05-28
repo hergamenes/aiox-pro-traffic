@@ -1,0 +1,573 @@
+# Headlines & Subject Lines - Batch 1
+# Extracted from Tier 0-3 Copywriting Framework Documentation
+# Created: 2026-01-23
+# Category: headlines
+
+batch_info:
+  batch_number: 1
+  extraction_date: "2026-01-23"
+  source_type: "framework_documentation"
+  iteration: 1
+  total_entries: 25
+
+entries:
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # TIER 1 MASTERS - Legendary Headlines ($500M+ documented results)
+  # ═══════════════════════════════════════════════════════════════════════════════
+
+  - id: "hl_carlton_001"
+    text: "Amazing Secret Discovered by One-Legged Golfer Adds 50 Yards to Your Drives, Eliminates Hooks and Slices... And Can Slash Up to 10 Strokes From Your Game Almost Overnight!"
+    source:
+      author: "John Carlton"
+      work: "Golf advertisement"
+      year: ~1990
+      tier: 2
+    context: "Direct response ad for golf instruction product"
+    results: "Most copied headline in direct response history"
+    technique:
+      primary: "curiosity"
+      secondary: ["specificity", "benefit_stacking", "credibility_through_story"]
+    awareness_level: "solution_aware"
+    sophistication_stage: 3
+    score: 5
+    tags: ["direct_mail", "sports", "curiosity", "specificity", "legendary"]
+    analysis:
+      specificity: "50 yards, 10 strokes - exact numbers"
+      curiosity: "One-legged? How is that possible?"
+      clear_benefit: "Better golf game - drives, hooks, slices"
+      timeframe: "Almost overnight - urgency without false promise"
+      structure: "Secret + Unexpected Source + Multiple Benefits + Timeframe"
+
+  - id: "hl_lampropoulos_001"
+    text: "How Doctors Stay Well While Treating Sick Patients All Day"
+    source:
+      author: "Parris Lampropoulos"
+      work: "Bottom Line Health subscription control"
+      year: 2003
+      tier: 1
+    context: "Health newsletter subscription magalog"
+    results: "12 YEARS as control (2003-2015), 250% better than previous control, grew circulation from 35,000 to 300,000+"
+    technique:
+      primary: "curiosity"
+      secondary: ["authority_borrow", "insider_secret", "problem_agitation"]
+    awareness_level: "problem_aware"
+    sophistication_stage: 3
+    score: 5
+    tags: ["health", "newsletter", "magalog", "12_year_control", "legendary"]
+    analysis:
+      curiosity: "What secret do doctors know that we don't?"
+      authority: "Doctors = trusted source"
+      implied_benefit: "Stay well, don't get sick"
+      mechanism_hint: "They must know something different"
+      why_it_worked: "No one could beat this for over a decade"
+
+  - id: "hl_ogilvy_001"
+    text: "At 60 miles an hour, the loudest noise in the new Rolls-Royce comes from the electric clock."
+    source:
+      author: "David Ogilvy"
+      work: "Rolls-Royce advertisement"
+      year: 1958
+      tier: 3
+    context: "Print advertisement for Rolls-Royce automobiles"
+    results: "Considered one of the greatest headlines ever written, 3 weeks of research for this single headline"
+    technique:
+      primary: "specificity"
+      secondary: ["demonstration", "elegant_proof", "factual_claim"]
+    awareness_level: "product_aware"
+    sophistication_stage: 4
+    score: 5
+    tags: ["premium", "b2b", "luxury", "factual", "legendary", "brand"]
+    analysis:
+      specific: "60 mph - exact measurement"
+      factual: "Not opinion, demonstrable claim"
+      demonstrates_benefit: "Silence/quality engineering"
+      elegant: "No hyperbole needed"
+      memorable: "Clock detail - unexpected specificity"
+      research_note: "Ogilvy spent 3 WEEKS researching before writing"
+
+  - id: "hl_halbert_001"
+    text: "Does Your Family Have a Coat of Arms?"
+    source:
+      author: "Gary Halbert"
+      work: "Family Crest Letter"
+      year: ~1970s
+      tier: 1
+    context: "Direct mail selling family coat of arms prints"
+    results: "600 MILLION pieces mailed - most mailed piece in history"
+    technique:
+      primary: "curiosity"
+      secondary: ["personalization", "exclusivity", "identity_appeal"]
+    awareness_level: "unaware"
+    sophistication_stage: 1
+    score: 5
+    tags: ["direct_mail", "personalization", "family", "legendary", "massive_scale"]
+    analysis:
+      curiosity: "Do I have one? What does it look like?"
+      personalization: "YOUR family - makes it personal"
+      identity_appeal: "Heritage, belonging, roots"
+      implied_exclusivity: "Not everyone has one"
+      simplicity: "Simple question, powerful hook"
+
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # TIER 1 MASTERS - Fascination/Bullet Templates (Bencivenga/Lampropoulos style)
+  # ═══════════════════════════════════════════════════════════════════════════════
+
+  - id: "hl_bencivenga_001"
+    text: "The $47,000 mistake that 93% of investors make every month — and how to profit when they lose (page 34)"
+    source:
+      author: "Gary Bencivenga"
+      work: "Fascination system documentation"
+      year: ~1990s
+      tier: 1
+    context: "Financial newsletter fascination/bullet example"
+    results: "Template style used in promotions generating $50M+"
+    technique:
+      primary: "specificity"
+      secondary: ["fear", "curiosity_gap", "page_reference"]
+    awareness_level: "problem_aware"
+    sophistication_stage: 3
+    score: 4
+    tags: ["financial", "fascination", "bullet", "specificity", "fear"]
+    analysis:
+      specific_number: "$47,000 - exact loss amount"
+      percentage: "93% - creates urgency (am I in this group?)"
+      frequency: "every month - compounds the fear"
+      contrarian: "profit when they lose - unexpected twist"
+      page_reference: "page 34 - adds credibility and specificity"
+
+  - id: "hl_bencivenga_002"
+    text: "Why drinking 8 glasses of water per day may be DESTROYING your kidneys — and what to do instead"
+    source:
+      author: "Gary Bencivenga"
+      work: "Health fascination example"
+      year: ~1990s
+      tier: 1
+    context: "Health newsletter/magalog fascination"
+    results: "Template for contrarian health claims"
+    technique:
+      primary: "contrarian"
+      secondary: ["fear", "solution_tease", "common_belief_challenge"]
+    awareness_level: "unaware"
+    sophistication_stage: 3
+    score: 4
+    tags: ["health", "contrarian", "fascination", "fear", "belief_challenge"]
+    analysis:
+      contrarian_hook: "Challenges 'common knowledge'"
+      fear_activation: "DESTROYING - visceral word choice"
+      specificity: "8 glasses - exact number everyone knows"
+      solution_tease: "what to do instead - promises alternative"
+      pattern: "Why [common belief] is [negative outcome]"
+
+  - id: "hl_bencivenga_003"
+    text: "The warning sign of [problem] that [percentage]% ignore"
+    source:
+      author: "Gary Bencivenga"
+      work: "Fear-based fascination template"
+      year: ~1990s
+      tier: 1
+    context: "Universal fascination template for health/financial"
+    results: "Never lost a split-run test at Rodale"
+    technique:
+      primary: "fear"
+      secondary: ["curiosity", "self_preservation", "urgency"]
+    awareness_level: "problem_aware"
+    sophistication_stage: 2
+    score: 4
+    tags: ["template", "fear", "health", "financial", "fascination"]
+    analysis:
+      template_structure: "Warning sign + Problem + Percentage + Action"
+      fear_trigger: "What if I'm ignoring it?"
+      specificity: "Percentage makes it credible"
+      self_preservation: "Activates survival instinct"
+
+  - id: "hl_bencivenga_004"
+    text: "[Institution] study reveals [discovery]"
+    source:
+      author: "Gary Bencivenga"
+      work: "Proof-based fascination template"
+      year: ~1990s
+      tier: 1
+    context: "Authority-borrowing headline template"
+    results: "Standard template for credibility headlines"
+    technique:
+      primary: "authority"
+      secondary: ["news_hook", "credibility", "curiosity"]
+    awareness_level: "solution_aware"
+    sophistication_stage: 3
+    score: 3
+    tags: ["template", "authority", "proof", "news", "research"]
+    analysis:
+      authority_borrow: "Institution lends credibility"
+      news_hook: "reveals - implies new information"
+      curiosity: "What did they discover?"
+
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # TIER 2 SYSTEMATIZERS - Proven Templates
+  # ═══════════════════════════════════════════════════════════════════════════════
+
+  - id: "hl_carlton_template_001"
+    text: "How to [achieve result] in [timeframe] without [obstacle]"
+    source:
+      author: "John Carlton"
+      work: "Simple Writing System"
+      year: ~2000s
+      tier: 2
+    context: "Universal headline template"
+    results: "Most used direct response headline formula"
+    technique:
+      primary: "benefit"
+      secondary: ["timeframe", "objection_removal", "how_to"]
+    awareness_level: "solution_aware"
+    sophistication_stage: 2
+    score: 4
+    tags: ["template", "how_to", "universal", "benefit", "objection_removal"]
+    analysis:
+      how_to: "Promises instruction/method"
+      result: "Clear outcome stated"
+      timeframe: "Creates urgency and believability"
+      without_obstacle: "Removes key objection"
+
+  - id: "hl_carlton_template_002"
+    text: "The [adjective] way to [benefit] that [authorities] don't want you to know"
+    source:
+      author: "John Carlton"
+      work: "Simple Writing System"
+      year: ~2000s
+      tier: 2
+    context: "Conspiracy/insider headline template"
+    results: "High-performing template for alternative markets"
+    technique:
+      primary: "curiosity"
+      secondary: ["conspiracy", "insider_secret", "us_vs_them"]
+    awareness_level: "problem_aware"
+    sophistication_stage: 3
+    score: 3
+    tags: ["template", "conspiracy", "insider", "anti_authority"]
+    analysis:
+      insider_appeal: "Secret information"
+      us_vs_them: "Creates enemy (authorities)"
+      curiosity: "What are they hiding?"
+
+  - id: "hl_carlton_template_003"
+    text: "Warning: Don't even THINK about [action] until you read this"
+    source:
+      author: "John Carlton"
+      work: "Simple Writing System"
+      year: ~2000s
+      tier: 2
+    context: "Pattern interrupt warning headline"
+    results: "Effective for stopping scrollers"
+    technique:
+      primary: "pattern_interrupt"
+      secondary: ["warning", "urgency", "command"]
+    awareness_level: "solution_aware"
+    sophistication_stage: 3
+    score: 3
+    tags: ["template", "warning", "pattern_interrupt", "command"]
+    analysis:
+      warning: "Stops reader immediately"
+      command: "Don't even THINK - direct order"
+      urgency: "Must read first before action"
+
+  - id: "hl_carlton_template_004"
+    text: "[Number] reasons why [common approach] is keeping you from [goal]"
+    source:
+      author: "John Carlton"
+      work: "Simple Writing System"
+      year: ~2000s
+      tier: 2
+    context: "Listicle/contrarian headline template"
+    results: "Combines list appeal with contrarian hook"
+    technique:
+      primary: "listicle"
+      secondary: ["contrarian", "problem_agitation", "curiosity"]
+    awareness_level: "problem_aware"
+    sophistication_stage: 2
+    score: 3
+    tags: ["template", "listicle", "contrarian", "problem"]
+    analysis:
+      number: "Specific quantity promises value"
+      contrarian: "What they're doing is wrong"
+      curiosity: "Which reasons? Am I doing this?"
+
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # TIER 0 FOUNDATION - Classic Principles Demonstrated
+  # ═══════════════════════════════════════════════════════════════════════════════
+
+  - id: "hl_schwartz_001"
+    text: "You probably don't realize this, but 73% of people..."
+    source:
+      author: "Eugene Schwartz"
+      work: "Breakthrough Advertising - Unaware lead example"
+      year: 1966
+      tier: 0
+    context: "Example of Unaware (Level 1) headline approach"
+    results: "Template for reaching unaware audiences"
+    technique:
+      primary: "story_entry"
+      secondary: ["indirect", "identification", "statistic"]
+    awareness_level: "unaware"
+    sophistication_stage: 1
+    score: 4
+    tags: ["unaware", "indirect", "story", "identification", "template"]
+    analysis:
+      indirect_approach: "Doesn't mention product"
+      identification: "You probably - includes reader"
+      statistic: "73% - creates curiosity"
+      schwartz_principle: "Long copy needed for unaware audience"
+
+  - id: "hl_schwartz_002"
+    text: "Tired of waking up exhausted every single day?"
+    source:
+      author: "Eugene Schwartz"
+      work: "Breakthrough Advertising - Problem Aware lead example"
+      year: 1966
+      tier: 0
+    context: "Example of Problem Aware (Level 2) headline approach"
+    results: "Template for problem-aware audiences"
+    technique:
+      primary: "problem_agitation"
+      secondary: ["identification", "pain_amplification", "question"]
+    awareness_level: "problem_aware"
+    sophistication_stage: 2
+    score: 4
+    tags: ["problem_aware", "agitation", "question", "identification", "health"]
+    analysis:
+      question_format: "Engages reader directly"
+      pain_amplification: "every single day - intensifies"
+      identification: "Tired of - assumes shared experience"
+      schwartz_principle: "Agitate pain, show consequences"
+
+  - id: "hl_schwartz_003"
+    text: "There's a new method that works differently..."
+    source:
+      author: "Eugene Schwartz"
+      work: "Breakthrough Advertising - Solution Aware lead example"
+      year: 1966
+      tier: 0
+    context: "Example of Solution Aware (Level 3) headline approach"
+    results: "Template for mechanism differentiation"
+    technique:
+      primary: "mechanism"
+      secondary: ["differentiation", "news", "curiosity"]
+    awareness_level: "solution_aware"
+    sophistication_stage: 3
+    score: 3
+    tags: ["solution_aware", "mechanism", "differentiation", "news"]
+    analysis:
+      news_hook: "new method - promises novelty"
+      differentiation: "works differently - unique mechanism"
+      curiosity: "How is it different?"
+      schwartz_principle: "Stage 3 requires unique mechanism"
+
+  - id: "hl_schwartz_004"
+    text: "Here's what changed in version 2.0..."
+    source:
+      author: "Eugene Schwartz"
+      work: "Breakthrough Advertising - Product Aware lead example"
+      year: 1966
+      tier: 0
+    context: "Example of Product Aware (Level 4) headline approach"
+    results: "Template for existing customer upsells"
+    technique:
+      primary: "enhancement"
+      secondary: ["news", "improvement", "continuation"]
+    awareness_level: "product_aware"
+    sophistication_stage: 4
+    score: 3
+    tags: ["product_aware", "enhancement", "news", "upgrade"]
+    analysis:
+      assumes_familiarity: "version 2.0 - they know version 1"
+      news_hook: "what changed - promises improvements"
+      continuation: "Builds on existing relationship"
+      schwartz_principle: "Break objections, stack value, add proof"
+
+  - id: "hl_schwartz_005"
+    text: "50% off today only. Click here."
+    source:
+      author: "Eugene Schwartz"
+      work: "Breakthrough Advertising - Most Aware lead example"
+      year: 1966
+      tier: 0
+    context: "Example of Most Aware (Level 5) headline approach"
+    results: "Template for hot audience direct offers"
+    technique:
+      primary: "direct_offer"
+      secondary: ["urgency", "discount", "cta"]
+    awareness_level: "most_aware"
+    sophistication_stage: 5
+    score: 3
+    tags: ["most_aware", "direct", "offer", "urgency", "discount"]
+    analysis:
+      direct: "No story, no explanation needed"
+      urgency: "today only - deadline"
+      offer: "50% off - clear value"
+      short_copy: "Minimal words needed"
+      schwartz_principle: "Most aware needs only offer and push"
+
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # TIER 2 - Todd Brown Big Marketing Idea Examples
+  # ═══════════════════════════════════════════════════════════════════════════════
+
+  - id: "hl_toddbrown_001"
+    text: "The Shack Method: how to build a 7-figure business starting with $100 and an 'ugly' idea"
+    source:
+      author: "Todd Brown"
+      work: "Big Marketing Idea documentation"
+      year: ~2015
+      tier: 2
+    context: "Example of strong Big Marketing Idea headline"
+    results: "Teaching example for mechanism-based differentiation"
+    technique:
+      primary: "mechanism_naming"
+      secondary: ["specificity", "contrast", "accessibility"]
+    awareness_level: "solution_aware"
+    sophistication_stage: 3
+    score: 4
+    tags: ["mechanism", "big_idea", "contrast", "accessibility", "business"]
+    analysis:
+      named_mechanism: "Shack Method - ownable name"
+      contrast: "7-figure vs $100 - dramatic juxtaposition"
+      accessibility: "ugly idea - lowers barrier"
+      specificity: "$100, 7-figure - exact numbers"
+      todd_brown_criteria: "Intellectually interesting + Emotionally compelling + Specific + Exclusive"
+
+  - id: "hl_toddbrown_002"
+    text: "The reason [common approach] doesn't work is because [hidden cause]..."
+    source:
+      author: "Todd Brown"
+      work: "Problem Mechanism template"
+      year: ~2015
+      tier: 2
+    context: "Template for establishing problem mechanism"
+    results: "E5 Method standard framework"
+    technique:
+      primary: "problem_mechanism"
+      secondary: ["explanation", "revelation", "reframe"]
+    awareness_level: "problem_aware"
+    sophistication_stage: 3
+    score: 4
+    tags: ["template", "mechanism", "problem", "revelation", "reframe"]
+    analysis:
+      reframe: "Changes how they see the problem"
+      revelation: "Hidden cause - insider knowledge"
+      validation: "Makes past failures not their fault"
+      goal: "Make them think 'THAT'S why nothing worked!'"
+
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # TIER 3 SPECIALISTS - Format-Specific Headlines
+  # ═══════════════════════════════════════════════════════════════════════════════
+
+  - id: "hl_benson_001"
+    text: "In the next 12 minutes, I'll reveal..."
+    source:
+      author: "Jon Benson"
+      work: "VSL Formula - Snap Suggestion"
+      year: 2006
+      tier: 3
+    context: "VSL opening hook template"
+    results: "$12 BILLION in sales via VSL format he invented"
+    technique:
+      primary: "pattern_interrupt"
+      secondary: ["time_commitment", "promise", "revelation"]
+    awareness_level: "solution_aware"
+    sophistication_stage: 3
+    score: 4
+    tags: ["vsl", "video", "opening", "time_commitment", "hook"]
+    analysis:
+      time_commitment: "12 minutes - specific, manageable"
+      promise: "I'll reveal - teases value"
+      pattern_interrupt: "Stops viewer immediately"
+      format_specific: "Designed for video sales letter"
+
+  - id: "hl_settle_001"
+    text: "[Controversial opinion statement]"
+    source:
+      author: "Ben Settle"
+      work: "Email Players - Infotainment subject line style"
+      year: ~2010s
+      tier: 3
+    context: "Daily email subject line philosophy"
+    results: "$97/month newsletter with devoted following"
+    technique:
+      primary: "polarization"
+      secondary: ["curiosity", "personality", "opinion"]
+    awareness_level: "product_aware"
+    sophistication_stage: 4
+    score: 3
+    tags: ["email", "subject_line", "polarization", "personality", "daily"]
+    analysis:
+      polarization: "Attracts true fans, repels others"
+      personality: "3X personality amplification"
+      curiosity: "Strong opinion creates engagement"
+      settle_rule: "Those who don't like it unsubscribe - list becomes fans"
+
+  - id: "hl_chaperon_001"
+    text: "Tomorrow I'll tell you how..."
+    source:
+      author: "Andre Chaperon"
+      work: "Autoresponder Madness - Open Loop"
+      year: 2009
+      tier: 3
+    context: "Soap Opera Sequence email closer/hook"
+    results: "$10-50 per subscriber (vs $1 industry average)"
+    technique:
+      primary: "open_loop"
+      secondary: ["anticipation", "serialization", "commitment"]
+    awareness_level: "problem_aware"
+    sophistication_stage: 2
+    score: 4
+    tags: ["email", "sequence", "open_loop", "anticipation", "soap_opera"]
+    analysis:
+      open_loop: "Zeigarnik Effect - mind cannot forget incomplete"
+      serialization: "Creates TV series effect"
+      commitment: "They NEED to open next email"
+      chaperon_mechanism: "Each email opens loop, next closes and opens another"
+
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # LAMPROPOULOS - Advanced Bullet Techniques
+  # ═══════════════════════════════════════════════════════════════════════════════
+
+  - id: "hl_lampropoulos_002"
+    text: "The 3 warning signs that predict heart attack 6 months in advance"
+    source:
+      author: "Parris Lampropoulos"
+      work: "Bullet amplification example"
+      year: ~2000s
+      tier: 1
+    context: "Health bullet with specific numbers"
+    results: "Bullet style that contributed to 12-year control"
+    technique:
+      primary: "specificity"
+      secondary: ["fear", "prediction", "time_specificity"]
+    awareness_level: "problem_aware"
+    sophistication_stage: 3
+    score: 4
+    tags: ["health", "bullet", "specificity", "fear", "prediction"]
+    analysis:
+      specific_number: "3 warning signs - exact count"
+      time_specificity: "6 months in advance - precise window"
+      fear_activation: "heart attack - high stakes"
+      lampropoulos_technique: "Add specific numbers, include page numbers"
+
+  - id: "hl_lampropoulos_003"
+    text: "What Harvard cardiologists do differently (hint: it's not what you think)"
+    source:
+      author: "Parris Lampropoulos"
+      work: "Authority + intrigue bullet"
+      year: ~2000s
+      tier: 1
+    context: "Health bullet combining authority with curiosity"
+    results: "Bullet pattern from highest-performing controls"
+    technique:
+      primary: "authority_borrow"
+      secondary: ["curiosity", "parenthetical_intrigue", "contrarian_hint"]
+    awareness_level: "solution_aware"
+    sophistication_stage: 3
+    score: 4
+    tags: ["health", "bullet", "authority", "curiosity", "parenthetical"]
+    analysis:
+      authority: "Harvard cardiologists - borrowed credibility"
+      curiosity: "do differently - what is it?"
+      parenthetical: "(hint: it's not what you think) - intrigue amplifier"
+      lampropoulos_technique: "Name drop when relevant, parenthetical intrigue"

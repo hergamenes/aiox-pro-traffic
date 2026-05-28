@@ -1,0 +1,113 @@
+sop:
+  id: "fk-ibb-implementation"
+  version: "1.0.0"
+  title: "Intent-Based Branding (IBB) Implementation"
+  purpose: "Build an integrated content system combining daily organic posts, weekly content assets, and paid amplification to acquire customers at $0.88/consumer vs $13.33 traditional funnel cost."
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    risk_level: "low"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "When building a personal brand with direct response capabilities, or when traditional funnel CPA is too high and a value-first acquisition system is needed."
+  context:
+    input:
+      - name: "content_creation_capacity"
+        type: "string"
+        required: true
+        description: "Available daily time for content creation (minimum 30 minutes/day)."
+      - name: "social_media_presence"
+        type: "list"
+        required: true
+        description: "Active social media platforms with profiles and retargeting pixels installed."
+      - name: "expertise_area"
+        type: "string"
+        required: true
+        description: "Core area of expertise that can generate daily value-driven content."
+      - name: "daily_ad_budget"
+        type: "number"
+        required: false
+        description: "Daily budget for paid amplification (recommended: $200/day)."
+  steps:
+    - id: "S001"
+      name: "Configure Organic Posting System"
+      action: "setup_daily_organic_routine"
+      description: "Establish daily 30-minute content creation block. Every post must contain VALUE + GOODWILL + OFFER. Select from 4 offer structures: The Tutorial, The By The Way, The Before I Forget, The If You're Serious."
+      performer: "copywriter"
+      critical: true
+      on_success: "S002"
+      on_failure: "retry"
+    - id: "S002"
+      name: "Create Weekly Content Asset"
+      action: "produce_core_video"
+      description: "Create 1 core video (10-30 min) per week. This is the raw material for all derivative content."
+      performer: "copywriter"
+      critical: true
+      on_success: "S003"
+      on_failure: "retry"
+    - id: "S003"
+      name: "Compound Content Across Platforms"
+      action: "distribute_and_expand"
+      description: "Compound the core video into YouTube + podcast + clips + LinkedIn + X. Apply Content Expansion to top organic posts: quote graphics, audiograms, threads, newsletters. Target: 25-35 derivative pieces per video."
+      performer: "copywriter"
+      critical: true
+      on_success: "S004"
+      on_failure: "retry"
+    - id: "S004"
+      name: "Identify Organic Winners"
+      action: "analyze_top_20_percent"
+      description: "After 30 days of organic posting, identify top 20% performers by engagement (likes, comments, shares, saves). These become ad creative candidates."
+      performer: "copywriter"
+      critical: false
+      on_success: "S005"
+      on_failure: "retry"
+    - id: "S005"
+      name: "Launch Paid Amplification"
+      action: "boost_organic_winners"
+      description: "Boost top organic content with $200/day to lookalike and Dream 100 audiences. Never create separate ad content. Set up retargeting: value video -> case study -> direct offer sequence."
+      performer: "copywriter"
+      critical: true
+      on_success: "S006"
+      on_failure: "retry"
+    - id: "S006"
+      name: "Weekly Flywheel Review"
+      action: "review_ibb_metrics"
+      description: "Weekly review: which posts won, which assets drove list growth, which paid campaigns hit benchmark CPA ($0.88/consumer). Adjust organic topics, asset formats, and paid budgets accordingly."
+      performer: "copywriter"
+      critical: false
+      on_success: "DONE"
+      on_failure: "retry"
+  error_handling:
+    global_timeout: "PT6H"
+    retry_policy: "max 2 retries per step before escalation"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "all_posts_have_value_goodwill_offer"
+        type: "boolean"
+        target: true
+        weight: 1.0
+      - name: "weekly_video_produced"
+        type: "boolean"
+        target: true
+        weight: 0.9
+      - name: "25_plus_derivatives_per_video"
+        type: "boolean"
+        target: true
+        weight: 0.7
+      - name: "no_cold_traffic_ads_without_organic"
+        type: "boolean"
+        target: true
+        weight: 1.0
+      - name: "cpa_tracked_against_benchmark"
+        type: "boolean"
+        target: true
+        weight: 0.6
+    pass_threshold: 0.8
+  outputs:
+    artifacts:
+      - name: "ibb_system_documentation"
+        type: "file"
+        format: "md"
+        description: "Complete IBB system with organic posting templates, content compounding workflow, paid amplification setup, and weekly review checklist."

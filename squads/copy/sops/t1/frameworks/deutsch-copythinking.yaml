@@ -1,0 +1,48 @@
+sop:
+  id: deutsch-copythinking
+  version: "1.0"
+  title: "The Deutsch Copy Process (CopyThinking)"
+  purpose: "Execute David Deutsch's CopyThinking process, a 4-phase methodology that places thinking before writing. Deutsch argues that the only sustainable competitive advantage in copywriting -- especially aga"
+  classification:
+    domain: copywriting
+    category: master
+    tier: t1
+    source_agent: david-deutsch
+  steps:
+    - id: apply_phase_1_free_ideation_before_research
+      action: "Generate ideas without restriction and without research."
+      input: "Phase 1: Free Ideation (BEFORE research) — generate ideas without restriction"
+      output: "Step 1 deliverable: Phase 1: Free Ideation (BEFORE Research) completed with documented findings"
+      validation: "Phase 1 produced 30+ raw ideas BEFORE any research was conducted"
+    - id: apply_phase_2_directed_research
+      action: "Now research -- but with direction from Phase 1."
+      input: "Phase 2: Directed Research — explore Phase 1 angles with data, read 1-2 books, know 90% iceberg"
+      output: "Step 2 deliverable: Phase 2: Directed Research completed with documented findings"
+      validation: "Phase 2 research addressed Phase 1 hypotheses, not random exploration"
+    - id: apply_phase_3_rapid_writing
+      action: "Write 20-30 headlines, each representing a DIFFERENT hypothesis about what the prospect really wants."
+      input: "Phase 3: Rapid Writing — 20-30 headlines with DIFFERENT hypotheses, complete Draft 1"
+      output: "Step 3 deliverable: Phase 3: Rapid Writing completed with documented findings"
+      validation: "Phase 3 headlines represent genuinely different hypotheses, not variations"
+    - id: apply_phase_4_3_draft_revision
+      action: "Revise through exactly 3 drafts with distinct purposes."
+      input: "Phase 4: 3-Draft Revision — Draft 1 (everything on paper) -> Draft 2 (structural fixes) -> Draft 3 (refinement)"
+      output: "Step 4 deliverable: Phase 4: 3-Draft Revision completed with documented findings"
+      validation: "Draft 2 addressed structural issues before Draft 3 polished language"
+  error_handling:
+    - error: "Researching before ideating"
+      resolution: "Phase 1 MUST precede Phase 2; block research access during ideation"
+    - error: "Writing headline variations instead of different hypotheses"
+      resolution: "Each headline must test a genuinely different prospect desire or angle"
+    - error: "Skipping Draft 2 (structural) and jumping to polish"
+      resolution: "Draft 2 is structural ONLY -- no word-level editing allowed"
+    - error: "Compressing all 4 phases into one session"
+      resolution: "Separate phases by at least a few hours; ideally different days"
+  quality_gate:
+    criteria:
+      - "Phase 1 produced 30+ raw ideas BEFORE any research was conducted"
+      - "Phase 2 research addressed Phase 1 hypotheses, not random exploration"
+      - "Phase 3 headlines represent genuinely different hypotheses, not variations"
+      - "Draft 2 addressed structural issues before Draft 3 polished language"
+      - "All 4 phases completed in sequence -- no phase skipped or compressed"
+    pass_threshold: "All 5 criteria met"

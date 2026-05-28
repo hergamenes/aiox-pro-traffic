@@ -1,0 +1,51 @@
+sop:
+  id: hopkins-sampling-rule
+  version: "1.0"
+  title: "Intelligent Sampling Rule (CH_H06)"
+  purpose: "Oferecer amostras/trials apenas a interessados qualificados, eliminando risco e deixando o produto vender a si mesmo."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: claude-hopkins
+  steps:
+    - step: 1
+      action: "Avaliar se produto pode ser amostrado"
+      decision_point:
+        condition: "Produto pode ser amostrado ou testado?"
+        branches:
+          - if: "Sim, produto pode ser amostrado"
+            then: "Avaliar qualidade do produto"
+            next_decision:
+              condition: "Produto e bom o suficiente?"
+              branches:
+                - if: "Sim, produto e bom"
+                  then: "Oferecer amostra/trial — mas APENAS a interessados que demonstraram interesse"
+                  next_decision:
+                    condition: "Prospect demonstrou interesse?"
+                    branches:
+                      - if: "Sim (pediu, clicou, optou)"
+                        then: "Enviar amostra — interesse qualifica"
+                      - if: "Nao demonstrou interesse"
+                        then: "NAO enviar — distribuicao aleatoria desperdiça recursos"
+                - if: "Nao, produto insuficiente"
+                  then: "Melhorar produto antes de amostrar — amostra ruim acelera rejeicao"
+          - if: "Nao, produto nao pode ser amostrado"
+            then: "Oferecer garantia de devolucao, teste sem risco ou conteudo gratuito"
+  error_handling:
+    - error: "Distribuicao aleatoria de amostras"
+      severity: critical
+      action: "Implementar sistema de qualificacao de interesse"
+    - error: "Amostrar produto de baixa qualidade"
+      severity: critical
+      action: "Validar qualidade antes de qualquer sampling"
+    - error: "Sem follow-up apos amostra"
+      severity: warning
+      action: "Implementar sequencia de follow-up automatica"
+  quality_gate:
+    criteria:
+      - "Amostras apenas para interessados qualificados"
+      - "Produto de qualidade suficiente para vender a si mesmo"
+      - "Sistema de qualificacao implementado"
+      - "Nenhuma distribuicao aleatoria"
+    pass_threshold: "Todos os criterios atendidos"

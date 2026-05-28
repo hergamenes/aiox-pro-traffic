@@ -1,0 +1,107 @@
+sop:
+  id: fk-four-offer-structures
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Four IBB Offer Structures"
+  purpose: >
+    Four templates for including an offer in every content piece without
+    sounding salesy. Solves the problem of creators who never mention
+    offers (leaving money) or pitch too hard (destroying trust).
+  classification:
+    domain: copywriting
+    subdomain: content-offers
+    complexity: foundational
+    source_agent: frank-kern
+
+  steps:
+    - id: step_1
+      name: master_tutorial
+      action: apply_tutorial_structure
+      description: >
+        Teach something genuinely useful. At the end: 'If you want the
+        complete system for [result], check out [link].' Offer is the
+        'full version.' Tutorial must stand on its own.
+      inputs:
+        - teaching_topic
+        - related_offer
+      outputs:
+        - tutorial_content_with_offer
+      validation: tutorial_delivers_value_standalone
+
+    - id: step_2
+      name: master_by_the_way
+      action: apply_by_the_way_structure
+      description: >
+        Share valuable insight/opinion. Add casually: 'By the way, I have
+        a [product] that goes deep on this. Link if interested.' Must
+        feel genuinely off-hand, not rehearsed.
+      inputs:
+        - insight_content
+        - related_offer
+      outputs:
+        - btw_content_with_offer
+      validation: by_the_way_feels_genuinely_casual
+
+    - id: step_3
+      name: master_before_i_forget
+      action: apply_before_i_forget_structure
+      description: >
+        Deliver main content. End with: 'Before I forget, I am doing [event]
+        this week. If you want in: [link].' Creates urgency without pressure.
+        Must have genuine time-bound element.
+      inputs:
+        - main_content
+        - time_bound_offer
+      outputs:
+        - bif_content_with_offer
+      validation: real_time_bound_element_present
+
+    - id: step_4
+      name: master_if_youre_serious
+      action: apply_if_youre_serious_structure
+      description: >
+        Share advanced concept demonstrating deep expertise. Add: 'If you
+        are serious about [result], I put together [resource]: [link].'
+        Self-selects committed prospects. Best for mid-to-high ticket.
+      inputs:
+        - advanced_concept
+        - premium_offer
+      outputs:
+        - iys_content_with_offer
+      validation: self_selects_committed_prospects
+
+  error_handling:
+    - error: tutorial_gates_critical_info
+      symptom: "Audience feels content incomplete without buying"
+      resolution: "Ensure tutorial delivers complete result. Offer is for MORE, not completion."
+    - error: btw_feels_rehearsed
+      symptom: "Audience sees through it, feels manipulative"
+      resolution: "Practice casual language. Read aloud -- should sound like talking to friend."
+    - error: bif_without_real_deadline
+      symptom: "No urgency, offer ignored"
+      resolution: "Only use with real event, enrollment window, or deadline."
+    - error: iys_for_low_ticket
+      symptom: "Tone mismatch, alienates casual buyers"
+      resolution: "Reserve for $500+ offers. Low-ticket uses Tutorial or By The Way."
+
+  quality_gate:
+    criteria:
+      - content_delivers_value_before_offer
+      - offer_feels_natural_not_forced
+      - correct_structure_for_context
+      - tutorial_standalone_value
+    min_pass: 3
+
+  outputs:
+    - type: template_set
+      format: 4_templates
+      description: "One template per offer structure, customized to specific offer"
+    - type: example_posts
+      format: content_examples
+      description: "4-8 example posts demonstrating each structure"
+    - type: selection_guide
+      format: decision_matrix
+      description: "Which structure for which content type, platform, and price point"

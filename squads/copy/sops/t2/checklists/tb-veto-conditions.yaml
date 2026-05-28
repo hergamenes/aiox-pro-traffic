@@ -1,0 +1,108 @@
+sop:
+  id: tb-veto-conditions
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Todd Brown Veto Conditions"
+  purpose: >
+    Define hard-stop conditions for the todd-brown agent that prevent copy
+    without mechanism explanation, campaigns without education phases, and
+    misdiagnosed issue types from reaching production.
+  classification:
+    domain: copywriting
+    category: systematizer
+    subcategory: veto-conditions
+    source_agent: todd-brown
+    tier: T2
+  status: ACTIVE
+
+  trigger:
+    event: task_intake
+    conditions:
+      - agent == "todd-brown"
+      - task_type in ["copy-request", "campaign-brief", "big-idea-review", "mechanism-review"]
+
+  context:
+    input:
+      - task_brief: string
+      - copy_draft: string | null
+      - mechanism_statement: string | null
+      - big_idea: string | null
+      - is_campaign: boolean
+      - issue_classification: enum[economic, performance, unclassified] | null
+    required_knowledge:
+      - todd-brown/thinking_dna.yaml
+
+  steps:
+    - id: step_01
+      action: validate_mechanism_present
+      description: "TB_V01: Verify copy explains WHY solution works via mechanism"
+      check: "mechanism_explanation is present AND not just promise/claim"
+      on_success: continue
+      on_failure:
+        action: block
+        severity: critical
+        message: "BLOCK — Copy promises result without mechanism. Add WHY it works."
+
+    - id: step_02
+      action: validate_e5_phases
+      description: "TB_V02: If campaign, verify E1-E3 present (75% marketing = education)"
+      check: "if is_campaign then e1_e3_present == true"
+      on_success: continue
+      on_failure:
+        action: stop
+        severity: critical
+        message: "STOP — Campaign skips to sale without E1-E3. Restructure with education phases."
+      condition: "is_campaign == true"
+
+    - id: step_03
+      action: validate_issue_type_match
+      description: "TB_V03: If economic issue, refuse copy-level fix"
+      check: "issue_classification != economic OR task_type != copy_optimization"
+      on_success: continue
+      on_failure:
+        action: refuse
+        severity: critical
+        message: "REFUSE — Economic issue detected. Better copy won't fix market/pricing/positioning problem."
+
+    - id: step_04
+      action: validate_mechanism_exclusivity
+      description: "TB_V04: Verify mechanism is not commodity (competitor can't use identical claim)"
+      check: "mechanism is proprietary OR uniquely_framed"
+      on_success: continue
+      on_failure:
+        action: reject
+        severity: high
+        message: "REJECT — Commodity mechanism. Any competitor could use this claim. Make it proprietary."
+
+    - id: step_05
+      action: validate_big_idea_substance
+      description: "TB_V05: Verify Big Idea is intellectual proposition, not slogan"
+      check: "big_idea has intellectual_proposition AND creates_aha_moment"
+      on_success: continue
+      on_failure:
+        action: refine
+        severity: high
+        message: "REFINE — Big Idea is slogan, not proposition. Develop intellectual substance."
+
+  error_handling:
+    max_retries: 0
+    on_any_failure: block_task
+    fallback: return_veto_report_with_remediation
+
+  quality_gate:
+    min_pass_rate: 1.0
+    min_steps_passed: 5
+    critical_steps: [step_01, step_02, step_03]
+    verdict_map:
+      all_pass: PROCEED
+      refine_only: PROCEED_AFTER_REFINE
+      any_block_stop_refuse: BLOCKED
+
+  outputs:
+    - veto_verdict: enum[PROCEED, PROCEED_AFTER_REFINE, BLOCKED]
+    - triggered_vetos: list
+    - remediation_instructions: list
+    - issue_classification: enum[economic, performance]

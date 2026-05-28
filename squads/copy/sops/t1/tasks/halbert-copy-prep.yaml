@@ -1,0 +1,80 @@
+sop:
+  id: halbert-copy-prep
+  version: "1.0"
+  title: "Copy Prep System (Fact Sheet to Benefit to Deal)"
+  purpose: "Transform raw product information into structured copywriting ammunition through Fact Sheet, Benefit List, Deal Sheet, and handwriting practice"
+  classification:
+    domain: copywriting
+    category: master
+    tier: T1
+    source_agent: gary-halbert
+
+  inputs:
+    - name: product_information
+      type: text
+      required: true
+    - name: swipe_file
+      type: collection
+      required: true
+
+  outputs:
+    - name: fact_sheet
+      type: document
+      description: "15+ page confidential product intelligence file"
+    - name: benefit_list
+      type: document
+      description: "Every fact translated to customer-facing benefits"
+    - name: deal_sheet
+      type: document
+      description: "Strongest possible offer crystallized"
+    - name: handwritten_copy_practice
+      type: artifact
+      description: "2-3 proven swipe ads copied by hand"
+
+  steps:
+    - id: step_01
+      action: create_fact_sheet
+      description: "Compile every product fact into 15+ page confidential document covering ingredients, process, history, studies, specs"
+      critical: true
+      error_handling:
+        condition: "fact_sheet_under_15_pages"
+        action: "continue_research_until_minimum_met"
+
+    - id: step_02
+      action: translate_facts_to_benefits
+      description: "Convert each fact to customer benefit using 'which means that...' bridge format"
+      critical: true
+      error_handling:
+        condition: "facts_without_benefit_translation"
+        action: "force_which_means_that_conversion_for_every_fact"
+
+    - id: step_03
+      action: create_deal_sheet
+      description: "Construct strongest possible offer: deliverables, price justification, bonuses, guarantee, urgency"
+      critical: true
+      error_handling:
+        condition: "deal_sheet_not_exciting"
+        action: "strengthen_offer_before_writing_copy"
+
+    - id: step_04
+      action: select_swipe_references
+      description: "Pull 5-10 best-performing relevant ads from swipe file for reference during writing"
+      critical: false
+
+    - id: step_05
+      action: handwrite_and_incubate
+      description: "Handwrite top 2-3 swipe ads word-for-word, then incubate before writing"
+      critical: true
+      error_handling:
+        condition: "reading_instead_of_handwriting"
+        action: "physically_write_word_by_word_for_neurological_imprinting"
+
+  quality_gate:
+    min_criteria_met: 5
+    criteria:
+      - "fact_sheet_minimum_15_pages"
+      - "every_fact_has_benefit_translation"
+      - "benefit_list_uses_bridge_format"
+      - "deal_sheet_feels_irresistible"
+      - "minimum_2_swipe_ads_handwritten"
+      - "incubation_period_observed"

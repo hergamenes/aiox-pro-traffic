@@ -1,0 +1,79 @@
+sop:
+  id: fw-satisfaction-conviction
+  version: "1.0"
+  title: "Satisfaction Conviction System"
+  purpose: "Create guarantees so strong prospects think customers will exploit them — changing only this doubles response rate"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: joe-sugarman
+    tier: t4
+  steps:
+    - id: apply_beyond_standard
+      name: "Go Beyond Standard Guarantee"
+      description: "Audit current guarantee; standard money-back is minimum, not differentiator"
+      inputs:
+        - current_guarantee
+        - industry_standard
+      outputs:
+        - guarantee_audit
+      validation:
+        - exceeds_industry_standard: true
+        - not_boilerplate: true
+    - id: apply_strength_test
+      name: "Create Exploitable-Strong Guarantee"
+      description: "Design guarantee so generous the prospect questions if customers will abuse it"
+      inputs:
+        - offer_details
+        - primary_purchase_objection
+      outputs:
+        - strong_guarantee_draft
+      validation:
+        - prospect_thinks_exploitable: true
+        - memorable: true
+        - specific_not_vague: true
+    - id: apply_benchmark_standards
+      name: "Apply Benchmark Standards"
+      description: "Adapt proven guarantee formats: time-based, risk reversal, performance-based, delayed payment"
+      inputs:
+        - strong_guarantee_draft
+        - offer_type
+        - objection_type
+      outputs:
+        - formatted_guarantee
+      validation:
+        - format_matches_offer: true
+        - addresses_specific_objection: true
+    - id: apply_measure_impact
+      name: "Measure Impact"
+      description: "A/B test guarantee as standalone variable; benchmark 2x conversion lift"
+      inputs:
+        - formatted_guarantee
+        - conversion_baseline
+      outputs:
+        - satisfaction_conviction_statement
+        - ab_test_plan
+      validation:
+        - conversion_lift_modeled: true
+        - refund_cost_acceptable: true
+  error_handling:
+    - error: standard_guarantee
+      condition: "Guarantee is generic '30-day money-back'"
+      action: "Extend time, add compensation, or create performance-based terms"
+    - error: buried_guarantee
+      condition: "Guarantee in fine print or footnotes"
+      action: "Feature prominently as selling point in main copy"
+    - error: weak_product
+      condition: "Guarantee on product that cannot deliver"
+      action: "Fix product quality first; guarantee amplifies quality, cannot substitute"
+    - error: complex_conditions
+      condition: "Guarantee has multiple exceptions or fine print"
+      action: "Simplify to one clear, unconditional statement"
+  quality_gate:
+    min_sections: 4
+    required_elements:
+      - exceeds_standard
+      - passes_exploit_test
+      - format_matches_offer
+      - prominently_placed
+    pass_threshold: "guarantee would make prospect think 'this is too generous'"

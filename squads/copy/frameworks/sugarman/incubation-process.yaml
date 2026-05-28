@@ -1,0 +1,34 @@
+# The Incubation Process - Joe Sugarman
+# Extracted from: squads/copy/agents/joe-sugarman.md
+# Category: creative_process
+
+name: "The Incubation Process"
+category: creative_process
+origin: "Joe Sugarman - Axiom 10"
+command: "*incubate"
+
+axiom_10: |
+  "The incubation process is the power of your subconscious mind to use all
+  your knowledge and experiences to solve a specific problem, and its
+  efficiency is dictated by time, creative orientation, environment and ego."
+
+philosophy: |
+  "Give yourself time to think. Solutions come when you step away.
+  The subconscious works on problems while you're not actively thinking about them."
+
+factors:
+  time:
+    description: "Allow adequate time for your subconscious to work"
+    application: "Don't rush to solutions - sleep on it"
+
+  creative_orientation:
+    description: "Prime your mind with the problem"
+    application: "Immerse yourself in research before stepping away"
+
+  environment:
+    description: "Create conditions conducive to insight"
+    application: "Change environments, take walks, do unrelated activities"
+
+  ego:
+    description: "Don't let ego rush you to premature solutions"
+    application: "Be willing to admit 'I don't know yet'"

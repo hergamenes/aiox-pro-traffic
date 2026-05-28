@@ -1,0 +1,91 @@
+sop:
+  id: schwartz-veto-checklist
+  version: "1.0"
+  title: "Schwartz Veto Conditions (Blockers)"
+  purpose: >
+    Define 7 hard-stop conditions from Breakthrough Advertising that block copy
+    progression. Each represents a fundamental methodology violation — proceeding
+    without resolution guarantees campaign failure.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    subcategory: veto-blockers
+    tier: T0
+    source_agent: eugene-schwartz
+  steps:
+    - id: validate_diagnosis_exists
+      action: "Check copy has awareness + sophistication diagnosis (ES_V01)"
+      input: copy_package
+      validation:
+        rule: "documented awareness_level (1-5) and sophistication_stage exist"
+        fail_action: refuse_require_diagnosis
+        severity: block
+    - id: validate_no_desire_creation
+      action: "Check strategy does not attempt to create new desire (ES_V02)"
+      input: strategy_brief
+      validation:
+        rule: "strategy channels existing desire, does not invent new one"
+        fail_action: refuse_redirect_to_existing_desire
+        severity: block
+    - id: validate_research_depth
+      action: "Verify deep product/market research was conducted (ES_V03)"
+      input: research_documentation
+      validation:
+        rule: "documented research covering product, market, competition, prospect beliefs"
+        fail_action: refuse_require_research
+        severity: block
+    - id: validate_length_awareness_match
+      action: "Check copy length matches awareness level (ES_V04)"
+      input: copy_draft
+      validation:
+        rule: "length within range for diagnosed awareness level"
+        awareness_length_map:
+          most_aware: { min: 100, max: 500 }
+          product_aware: { min: 500, max: 1000 }
+          solution_aware: { min: 800, max: 1500 }
+          problem_aware: { min: 1500, max: 3000 }
+          unaware: { min: 2000, max: 4000 }
+        fail_action: block_adjust_length
+        severity: block
+    - id: validate_mechanism_for_saturated
+      action: "Check for mechanism in Stage 3+ sophistication markets (ES_V05)"
+      input: copy_draft
+      validation:
+        rule: "if sophistication_stage >= 3, unique mechanism must be present"
+        fail_action: block_require_mechanism
+        severity: block
+    - id: validate_promise_architecture
+      action: "Check 3+ promises have belief architecture (ES_V06)"
+      input: copy_draft
+      validation:
+        rule: "if promise_count >= 3, belief escalation structure must exist"
+        fail_action: block_require_belief_architecture
+        severity: block
+    - id: validate_unaware_headline
+      action: "Check Stage 5 headline does not mention product/price/desire/function (ES_V07)"
+      input: headline
+      validation:
+        rule: "if awareness == unaware, headline uses identification only"
+        banned_elements:
+          - product_name
+          - price
+          - desire_category
+          - product_function
+        fail_action: block_redesign_headline
+        severity: block
+  error_handling:
+    on_any_veto: block_deliverable
+    resolution_required: true
+    recheck_after_fix: true
+    escalation: route_to_copy_chief
+  quality_gate:
+    pass_criteria: "all 7 veto conditions clear"
+    partial_pass: false
+    on_pass: copy_direction_cleared
+    on_fail: deliverable_blocked_with_violations
+  metadata:
+    date: "2026-03-14"
+    author:
+      agent: sop-converter
+      squad: sop-factory
+    source_artifact: schwartz-veto-checklist

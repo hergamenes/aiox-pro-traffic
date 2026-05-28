@@ -1,0 +1,131 @@
+sop:
+  id: sg-research-quality-gate
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Stefan Georgi Research Quality Gate"
+  purpose: >
+    Validate that the Research phase (R of RMBC) meets Georgi's minimum quality
+    standard before proceeding to Mechanism development. Prevents shallow research
+    from producing weak copy.
+  classification:
+    domain: copywriting
+    category: systematizer
+    subcategory: quality-gate
+    source_agent: stefan-georgi
+    tier: T2
+  status: ACTIVE
+
+  trigger:
+    event: research_phase_complete
+    conditions:
+      - agent == "stefan-georgi"
+      - rmbc_phase == "R"
+      - transition_to == "M"
+
+  context:
+    input:
+      - research_document: string
+      - direct_quotes: list
+      - psychographic_map: object
+      - pain_points: list
+      - failed_solutions: list
+      - purchase_objections: list
+      - market_awareness_level: string | null
+      - competitor_research: object | null
+    required_knowledge:
+      - stefan-georgi/thinking_dna.yaml
+
+  steps:
+    - id: step_01
+      action: validate_direct_quotes
+      description: "Verify 20+ direct quotes from prospects in their exact language"
+      check: "direct_quotes.length >= 20 AND all_are_verbatim"
+      on_success: continue
+      on_failure:
+        action: flag
+        severity: critical
+        message: "Research too thin — need 20+ direct prospect quotes in exact language"
+
+    - id: step_02
+      action: validate_psychographics
+      description: "Verify all 4 dimensions mapped: fears, secret desires, shames, prides"
+      check: "psychographic_map has [fears, secret_desires, shames, prides] AND each has evidence"
+      on_success: continue
+      on_failure:
+        action: flag
+        severity: high
+        message: "Incomplete psychographics — map all 4 dimensions with evidence"
+
+    - id: step_03
+      action: validate_pain_point_sources
+      description: "Verify pain points validated against real data, not assumed"
+      check: "each pain_point has data_source AND source != 'assumption'"
+      on_success: continue
+      on_failure:
+        action: flag
+        severity: high
+        message: "Assumed pain points — validate with Amazon reviews, search volume, forums"
+
+    - id: step_04
+      action: validate_failed_solutions
+      description: "Verify failed solutions documented: what they tried and why it failed"
+      check: "failed_solutions.length >= 3 AND each has [solution, reason_failed]"
+      on_success: continue
+      on_failure:
+        action: flag
+        severity: high
+        message: "No failed solutions documented — critical for mechanism development"
+
+    - id: step_05
+      action: validate_purchase_objections
+      description: "Verify purchase objections listed with specific research evidence"
+      check: "purchase_objections.length >= 3 AND each has source_evidence"
+      on_success: continue
+      on_failure:
+        action: flag
+        severity: medium
+        message: "Purchase objections not documented — list with research source"
+
+    - id: step_06
+      action: validate_market_awareness
+      description: "Verify Product Market Awareness level classified on Schwartz scale"
+      check: "market_awareness_level in [unaware, problem_aware, solution_aware, product_aware, most_aware]"
+      on_success: continue
+      on_failure:
+        action: flag
+        severity: high
+        message: "Market awareness not classified — determine Schwartz awareness level"
+
+    - id: step_07
+      action: validate_competitor_research
+      description: "Verify competitor copy, offers, mechanisms, positioning documented"
+      check: "competitor_research is not null AND competitors_analyzed >= 3"
+      on_success: continue
+      on_failure:
+        action: flag
+        severity: medium
+        message: "Competitor research missing — document top 5 competitor offers and mechanisms"
+
+  error_handling:
+    max_retries: 0
+    on_any_failure: block_transition_to_M
+    fallback: return_research_gap_report
+
+  quality_gate:
+    min_pass_rate: 1.0
+    min_steps_passed: 7
+    critical_steps: [step_01, step_02, step_03]
+    verdict_map:
+      all_pass: PROCEED_TO_MECHANISM
+      above_5: NEEDS_SUPPLEMENTAL_RESEARCH
+      below_5: RESTART_RESEARCH
+
+  outputs:
+    - gate_verdict: enum[PROCEED_TO_MECHANISM, NEEDS_SUPPLEMENTAL_RESEARCH, RESTART_RESEARCH]
+    - completeness_score: float
+    - passed_criteria: list
+    - failed_criteria: list
+    - research_gaps: list

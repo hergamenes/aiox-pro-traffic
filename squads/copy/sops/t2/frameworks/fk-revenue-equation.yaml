@@ -1,0 +1,96 @@
+sop:
+  id: fk-revenue-equation
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Revenue = Offers x Goodwill (Magic Equation)"
+  purpose: >
+    Simplest diagnostic lens for any revenue problem. Revenue is a function
+    of offers made and goodwill built. If either is zero, revenue is zero.
+    Ensures copywriters balance generosity with commercial intent.
+  classification:
+    domain: copywriting
+    subdomain: revenue-diagnostics
+    complexity: foundational
+    source_agent: frank-kern
+
+  steps:
+    - id: step_1
+      name: diagnose_offers
+      action: apply_offer_audit
+      description: >
+        Count how many times per week the brand makes an offer. If zero or
+        near-zero, this is the problem. Add offer to every content piece.
+        Zero offers = zero revenue regardless of goodwill.
+      inputs:
+        - content_calendar
+        - current_offer_frequency
+      outputs:
+        - offer_frequency_audit
+        - revised_offer_schedule
+      validation: offer_present_in_every_content_piece
+
+    - id: step_2
+      name: diagnose_goodwill
+      action: apply_goodwill_audit
+      description: >
+        Audit content for genuine value delivery. If every communication
+        is a pitch, goodwill is zero and offers will not convert. Reverse
+        ratio: deliver genuine value in every piece. Goodwill compounds.
+      inputs:
+        - content_history
+        - engagement_metrics
+      outputs:
+        - goodwill_audit
+        - value_delivery_plan
+      validation: genuine_value_in_every_content_piece
+
+    - id: step_3
+      name: implement_dual_content
+      action: apply_value_offer_integration
+      description: >
+        Every post, email, video must contain BOTH offer and goodwill value.
+        Not alternating. Use IBB Offer Structures to integrate naturally.
+        Value is main dish; offer is natural next step.
+      inputs:
+        - ibb_offer_structures
+        - content_templates
+      outputs:
+        - integrated_content_templates
+        - content_plan
+      validation: every_piece_has_both_value_and_offer
+
+  error_handling:
+    - error: all_value_no_offers
+      symptom: "High engagement, zero revenue"
+      resolution: "Add offer to every piece. Start with 'By The Way' structure."
+    - error: all_offers_no_value
+      symptom: "Declining engagement, unsubscribes, ad fatigue"
+      resolution: "Lead with value. Offer should be 20% of content, not 80%."
+    - error: alternating_value_offer_days
+      symptom: "Audience trained to ignore 'offer days'"
+      resolution: "Combine both in every piece. Never separate them."
+    - error: fear_of_selling
+      symptom: "Business fails despite loyal audience"
+      resolution: "Selling is service. Withholding helpful product is selfish."
+
+  quality_gate:
+    criteria:
+      - every_piece_includes_offer
+      - every_piece_includes_value
+      - ratio_feels_generous
+      - offers_not_jarring
+    min_pass: 3
+
+  outputs:
+    - type: diagnostic_report
+      format: analysis
+      description: "Which variable (Offers or Goodwill) is the bottleneck"
+    - type: revised_content_plan
+      format: calendar
+      description: "Every piece contains both value and offer"
+    - type: template_set
+      format: templates
+      description: "IBB Offer Structures for natural offer integration"

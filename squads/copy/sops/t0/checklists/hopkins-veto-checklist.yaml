@@ -1,0 +1,80 @@
+sop:
+  id: hopkins-veto-checklist
+  version: "1.0"
+  title: "Hopkins Veto Conditions (Blockers)"
+  purpose: >
+    Define 7 hard-stop conditions that block copy from progressing through
+    the pipeline. Any triggered veto halts work and prescribes corrective
+    action before the deliverable can advance.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    subcategory: veto-blockers
+    tier: T0
+    source_agent: claude-hopkins
+  steps:
+    - id: validate_no_generalities
+      action: "Check copy for generalities without specifics (CH_V01)"
+      input: copy_draft
+      validation:
+        rule: "all claims must contain verifiable specifics"
+        fail_action: flag_and_list_vague_claims
+        severity: block
+    - id: validate_ab_test_structure
+      action: "Verify A/B test structure exists before launch (CH_V02)"
+      input: campaign_brief
+      validation:
+        rule: "at least one testable variable defined"
+        fail_action: block_launch_require_test_variable
+        severity: block
+    - id: validate_request_scope
+      action: "Confirm request is diagnostic, not copy writing (CH_V03)"
+      input: incoming_request
+      validation:
+        rule: "request type == diagnostic"
+        fail_action: refuse_and_route_to_writer
+        severity: block
+    - id: validate_response_mechanism
+      action: "Check for measurable response mechanism (CH_V04)"
+      input: copy_draft
+      validation:
+        rule: "trackable action present (coupon, UTM, landing page, phone)"
+        fail_action: flag_missing_tracking
+        severity: flag
+    - id: validate_reason_why
+      action: "Verify all claims have reason-why explanation (CH_V05)"
+      input: copy_draft
+      validation:
+        rule: "each claim has mechanism or evidence"
+        fail_action: flag_each_unsupported_claim
+        severity: flag
+    - id: validate_data_based_decisions
+      action: "Ensure decisions are data-based, not opinion (CH_V06)"
+      input: decision_rationale
+      validation:
+        rule: "no opinion-based or sentiment-based decisions"
+        fail_action: block_require_test_data
+        severity: block
+    - id: validate_no_competitor_mentions
+      action: "Check for competitor attacks or direct mentions (CH_V07)"
+      input: copy_draft
+      validation:
+        rule: "zero competitor references"
+        fail_action: veto_remove_competitor_refs
+        severity: veto
+  error_handling:
+    on_any_veto: block_deliverable
+    resolution_required: true
+    recheck_after_fix: true
+    escalation: route_to_copy_chief
+  quality_gate:
+    pass_criteria: "all 7 veto conditions clear"
+    partial_pass: false
+    on_pass: deliverable_cleared
+    on_fail: deliverable_blocked_with_corrective_actions
+  metadata:
+    date: "2026-03-14"
+    author:
+      agent: sop-converter
+      squad: sop-factory
+    source_artifact: hopkins-veto-checklist

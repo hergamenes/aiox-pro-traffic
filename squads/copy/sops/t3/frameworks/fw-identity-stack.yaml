@@ -1,0 +1,89 @@
+sop:
+  id: fw-identity-stack
+  version: "1.0"
+  title: "Identity Stack"
+  purpose: "Define unique niche through intersection of interests, skills, experience, and philosophy — you are the niche"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: dan-koe
+    tier: t3
+  steps:
+    - id: apply_interests
+      name: "Interests (3-5 Topics)"
+      description: "List genuine fascinations, not performative interests"
+      inputs:
+        - self_assessment
+      outputs:
+        - interest_list
+      validation:
+        - count: "3-5"
+        - genuine_not_aspirational: true
+    - id: apply_skills
+      name: "Skills (3-5 Capabilities)"
+      description: "List actual capabilities you can deliver on"
+      inputs:
+        - skill_inventory
+      outputs:
+        - skill_list
+      validation:
+        - count: "3-5"
+        - can_do_not_just_know: true
+    - id: apply_experience
+      name: "Experience (Unique Background)"
+      description: "Document unique lived experience including struggles and unconventional paths"
+      inputs:
+        - life_narrative
+      outputs:
+        - experience_narrative
+      validation:
+        - includes_unique_elements: true
+        - not_sanitized_resume: true
+    - id: apply_philosophy
+      name: "Philosophy (Contrarian Beliefs)"
+      description: "Articulate worldview and beliefs that set you apart from mainstream"
+      inputs:
+        - belief_system
+        - industry_conventions
+      outputs:
+        - philosophy_statements
+      validation:
+        - at_least_one_contrarian: true
+        - genuinely_held: true
+    - id: apply_intersection
+      name: "Intersection = YOUR Niche"
+      description: "Map the convergence of all four layers into unique, uncopyable positioning"
+      inputs:
+        - interest_list
+        - skill_list
+        - experience_narrative
+        - philosophy_statements
+      outputs:
+        - identity_stack_document
+        - brand_positioning
+      validation:
+        - all_four_layers_present: true
+        - intersection_is_unique: true
+        - cannot_be_copied: true
+  error_handling:
+    - error: performative_interests
+      condition: "Listed interests are aspirational, not genuine"
+      action: "Replace with topics of inexhaustible curiosity"
+    - error: knowledge_not_skills
+      condition: "Skills are knowledge areas, not deliverable capabilities"
+      action: "Replace with things you can DO"
+    - error: safe_philosophy
+      condition: "No genuinely contrarian beliefs stated"
+      action: "Push until at least one belief is uncomfortable to state"
+    - error: single_layer_niche
+      condition: "Using one layer instead of the intersection"
+      action: "Rebuild from the convergence of all four layers"
+  quality_gate:
+    min_sections: 5
+    required_elements:
+      - genuine_interests
+      - real_skills
+      - unique_experience
+      - contrarian_philosophy
+      - intersection_defined
+    pass_threshold: "all 5 layers present with intersection that cannot be replicated"

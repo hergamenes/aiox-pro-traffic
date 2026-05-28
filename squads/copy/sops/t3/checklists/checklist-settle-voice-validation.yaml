@@ -1,0 +1,63 @@
+sop:
+  id: checklist-settle-voice-validation
+  version: "1.0"
+  title: "Settle Voice Validation Checklist"
+  purpose: "Validate copy matches Ben Settle's distinctive voice — A-pile email energy, strong personality, zero hedging, infotainment-first approach"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: ben-settle
+    type: validation
+  steps:
+    - id: step-01
+      action: "A-pile test"
+      criteria: "Parece email de amigo (A-pile) ou newsletter corporativa (B-pile)"
+      required: true
+    - id: step-02
+      action: "Personality strength test"
+      criteria: "Tem personalidade FORTE ou e intercambiavel com qualquer outro marketer"
+      required: true
+    - id: step-03
+      action: "Word count check"
+      criteria: "300 palavras ou menos (a menos que historia exija mais)"
+      required: true
+    - id: step-04
+      action: "Paragraph contrast check"
+      criteria: "Paragraph Contrast aplicado (blocos variados)"
+      required: true
+    - id: step-05
+      action: "Zero hedging check"
+      criteria: "Zero hedging (sem 'eu acho', 'talvez', 'quem sabe')"
+      required: true
+      blocking: true
+    - id: step-06
+      action: "CTA presence check"
+      criteria: "CTA com link presente"
+      required: true
+    - id: step-07
+      action: "Sidewind transition check"
+      criteria: "Sidewind natural (nao hard-pivot para pitch)"
+      required: true
+    - id: step-08
+      action: "Entertainment value test"
+      criteria: "Divertido de LER"
+      required: true
+    - id: step-09
+      action: "Sonic authenticity test"
+      criteria: "Soaria como Settle falando — provocativo, sarcastico, direto"
+      required: true
+  error_handling:
+    - condition: "score < 7/9"
+      action: "rewrite_from_scratch"
+    - condition: "hedging_detected"
+      action: "replace_with_definitive_statements"
+    - condition: "b_pile_detected"
+      action: "rewrite_as_friend_email"
+  quality_gate:
+    min_pass: 8
+    max_items: 9
+    threshold_pct: 89
+    verdict_options:
+      - APPROVED
+      - REVISE
+      - REWRITE

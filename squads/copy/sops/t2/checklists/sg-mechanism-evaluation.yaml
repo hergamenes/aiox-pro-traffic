@@ -1,0 +1,156 @@
+sop:
+  id: sg-mechanism-evaluation
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Stefan Georgi Mechanism Evaluation Scorecard"
+  purpose: >
+    Score and evaluate a Unique Mechanism candidate using Georgi's multi-dimensional
+    scorecard with quantitative scoring, Wife Test, and Named Oddity verification
+    before mechanism progresses to copy production.
+  classification:
+    domain: copywriting
+    category: systematizer
+    subcategory: quality-gate
+    source_agent: stefan-georgi
+    tier: T2
+  status: ACTIVE
+
+  trigger:
+    event: mechanism_candidate_ready
+    conditions:
+      - agent == "stefan-georgi"
+      - rmbc_phase == "M"
+      - research_gate_passed == true
+
+  context:
+    input:
+      - mechanism_statement: string
+      - mechanism_evidence: list
+      - named_oddity: string | null
+      - target_market: object
+      - research_document_ref: string
+    required_knowledge:
+      - stefan-georgi/thinking_dna.yaml
+
+  steps:
+    - id: step_01
+      action: validate_believability
+      description: "Score mechanism believability (1-10) with evidence"
+      check: "believability_score >= 1 AND believability_score <= 10"
+      scoring:
+        dimension: believability
+        min: 1
+        max: 10
+      on_success: continue
+      on_failure:
+        action: flag
+        severity: high
+        message: "Score believability with specific supporting evidence"
+
+    - id: step_02
+      action: validate_testability
+      description: "Score mechanism testability (1-10)"
+      check: "testability_score >= 1 AND testability_score <= 10"
+      scoring:
+        dimension: testability
+        min: 1
+        max: 10
+      on_success: continue
+      on_failure:
+        action: flag
+        severity: high
+        message: "Score testability — can prospect verify claims?"
+
+    - id: step_03
+      action: validate_viral_potential
+      description: "Score viral potential — explainable to friend in 30 seconds?"
+      check: "viral_score >= 1 AND viral_score <= 10"
+      scoring:
+        dimension: viral_in_30sec
+        min: 1
+        max: 10
+      on_success: continue
+      on_failure:
+        action: flag
+        severity: medium
+        message: "Score viral potential — can it trigger interest in 30 seconds?"
+
+    - id: step_04
+      action: validate_novelty
+      description: "Score mechanism novelty (1-10) — genuinely new to market?"
+      check: "novelty_score >= 1 AND novelty_score <= 10"
+      scoring:
+        dimension: novelty
+        min: 1
+        max: 10
+      on_success: continue
+      on_failure:
+        action: flag
+        severity: high
+        message: "Score novelty — is this genuinely fresh to the market?"
+
+    - id: step_05
+      action: validate_composite_score
+      description: "Calculate composite and apply verdict thresholds"
+      check: "composite = avg(believability, testability, viral, novelty)"
+      verdict_thresholds:
+        go: "> 7.5"
+        refine: "5.0 - 7.5"
+        reject: "< 5.0"
+      on_success: continue
+      on_failure:
+        action: flag
+        severity: critical
+        message: "Composite score below threshold — mechanism needs work"
+
+    - id: step_06
+      action: validate_wife_test
+      description: "Non-expert says 'oh!' within 30 seconds of hearing mechanism"
+      check: "wife_test_result == 'pass'"
+      on_success: continue
+      on_failure:
+        action: flag
+        severity: high
+        message: "Wife Test failed — mechanism too complex or abstract for intuitive clarity"
+
+    - id: step_07
+      action: validate_named_oddity
+      description: "Verify proprietary name exists — not generic descriptor"
+      check: "named_oddity is not null AND is_proprietary AND is_memorable"
+      on_success: continue
+      on_failure:
+        action: flag
+        severity: high
+        message: "Named Oddity missing or generic — create proprietary memorable name"
+
+  error_handling:
+    max_retries: 3
+    on_max_retries: escalate_to_copy_chief
+    fallback: return_scorecard_with_rework_plan
+
+  quality_gate:
+    min_composite_score: 7.5
+    wife_test_required: true
+    named_oddity_required: true
+    verdict_map:
+      composite_above_7.5_and_wife_pass_and_named: GO
+      composite_5_to_7.5: REFINE
+      composite_below_5: REJECT
+      wife_test_fail: REFINE_CLARITY
+      no_named_oddity: REFINE_NAME
+
+  outputs:
+    - scorecard:
+        believability: float
+        testability: float
+        viral_potential: float
+        novelty: float
+        composite: float
+    - verdict: enum[GO, REFINE, REJECT]
+    - wife_test: enum[pass, fail]
+    - named_oddity_status: enum[PROPRIETARY, GENERIC, MISSING]
+    - weak_dimensions: list
+    - strengthening_instructions: list

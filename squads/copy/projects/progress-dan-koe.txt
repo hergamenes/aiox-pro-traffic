@@ -1,0 +1,92 @@
+# Progress: CopywriterOS - Dan Koe Agent Creation
+
+## Project Info
+- PRD: squads/copy/projects/prd-dan-koe.json
+- Started: 2026-01-22
+- Status: NOT STARTED
+- Total Stories: 20
+- Isolated Context Per Story: true
+
+## Source Data
+- Primary: outputs/minds/dan_koe/sources/MM Dan/ (45 files)
+- Psychometric: outputs/minds/dan_koe/sources/dan koe.json
+- Reference: squads/copy/agents/david-ogilvy.md
+
+## Story Overview
+
+### Phase 1: Framework Extraction (US-001 to US-007)
+| ID | Title | Source Files | Output |
+|----|-------|--------------|--------|
+| US-001 | Extract Copywriting Frameworks | 04, 05, 20 | frameworks-copywriting.yaml |
+| US-002 | Extract Offer Frameworks | 06, 09, 10, 19 | frameworks-offers.yaml |
+| US-003 | Extract Marketing Frameworks | 07, 11, 13, 14, 15 | frameworks-marketing.yaml |
+| US-004 | Extract Sales Frameworks | 22-27 | frameworks-sales.yaml |
+| US-005 | Extract Content Frameworks | 01, 32-40 | frameworks-content.yaml |
+| US-006 | Extract Audience Frameworks | 21, 31, 41, 42, 45 | frameworks-audience.yaml |
+| US-007 | Extract Business Frameworks | 02, 03, 08, 12, 16-18, 28-30, 36, 43, 44 | frameworks-business.yaml |
+
+### Phase 2: Framework Consolidation (US-008)
+| ID | Title | Source Files | Output |
+|----|-------|--------------|--------|
+| US-008 | Consolidate Top 10 Frameworks | All framework yamls | frameworks-final.yaml |
+
+### Phase 3: Communication DNA (US-009 to US-010)
+| ID | Title | Source Files | Output |
+|----|-------|--------------|--------|
+| US-009 | Extract Vocabulary | All 45 MD files | communication-vocabulary.yaml |
+| US-010 | Extract Rhetorical Devices | All 45 MD files | communication-rhetoric.yaml |
+
+### Phase 4: Signature Phrases (US-011 to US-012)
+| ID | Title | Source Files | Output |
+|----|-------|--------------|--------|
+| US-011 | Extract Phrases Tier 1-3 | All 45 MD files | phrases-tier1-3.yaml |
+| US-012 | Extract Phrases Tier 4-7 | All 45 MD files | phrases-tier4-7.yaml |
+
+### Phase 5: Authority Arsenal (US-013 to US-014)
+| ID | Title | Source Files | Output |
+|----|-------|--------------|--------|
+| US-013 | Build Crucible Story | dan koe.json, 03, 36 | authority-story.yaml |
+| US-014 | Build Stats & Templates | dan koe.json, all MD | authority-stats.yaml |
+
+### Phase 6: Algorithms & Rules (US-015 to US-016)
+| ID | Title | Source Files | Output |
+|----|-------|--------------|--------|
+| US-015 | Create Objection Algorithms | frameworks, phrases | objection-algorithms.yaml |
+| US-016 | Create Dan Koe Rules | All 45 MD files | dan-koe-rules.yaml |
+
+### Phase 7: Agent Assembly (US-017 to US-020)
+| ID | Title | Source Files | Output |
+|----|-------|--------------|--------|
+| US-017 | Assemble Part 1 (Header + Frameworks) | david-ogilvy, frameworks-final | dan-koe-part1.md |
+| US-018 | Assemble Part 2 (DNA + Phrases + Authority) | david-ogilvy, communication, phrases, authority | dan-koe-part2.md |
+| US-019 | Assemble Part 3 (Algorithms + Rules + Closing) | david-ogilvy, algorithms, rules | dan-koe-part3.md |
+| US-020 | Merge and Validate Final Agent | all parts | dan-koe.md |
+
+## Quality Gates
+- [ ] 10 operational_frameworks extracted and complete
+- [ ] 42+ signature_phrases in 7 tiers
+- [ ] 5 objection_algorithms with 5 steps each
+- [ ] communication_dna with vocabulary + rhetoric
+- [ ] authority_proof_arsenal with story + stats
+- [ ] Final agent matches david-ogilvy.md structure
+- [ ] YAML syntax valid throughout
+
+## Session Log
+(append each completed story below)
+
+---
+
+## Codebase Patterns
+- Each story runs in isolated context (fresh Claude session)
+- Stories 1-7: Extract frameworks by category from source files
+- Story 8: Consolidate and select top 10
+- Stories 9-16: Extract supporting content (DNA, phrases, authority, rules)
+- Stories 17-20: Assemble final agent in parts then merge
+- Reference david-ogilvy.md for exact structure
+
+---
+
+## File List
+- [created] squads/copy/projects/prd-dan-koe.json (v2.0 - 20 stories)
+- [created] squads/copy/projects/progress-dan-koe.txt
+- [created] outputs/minds/dan_koe/analysis/ (directory)

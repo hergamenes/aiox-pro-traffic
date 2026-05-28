@@ -1,0 +1,81 @@
+sop:
+  id: deutsch-drtv-decisions
+  version: "1.0"
+  title: "Deutsch DRTV/VSL Decision Rules"
+  purpose: >
+    Guide decision-making for DRTV and VSL projects. Ensures visual-first thinking,
+    Mute Test compliance, and emotional reframing of boring/technical subjects.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: david-deutsch
+    tier: T1
+
+  steps:
+    - step: 1
+      name: "Visual-First Script Approach"
+      decision_point:
+        condition: "Starting a video script"
+        branches:
+          - if: "Writing in paragraphs"
+            action: "STOP. Think in SCENES, not paragraphs. Visual first."
+            next_step: 2
+          - if: "Already thinking in scenes"
+            action: "Proceed to Mute Test."
+            next_step: 2
+
+    - step: 2
+      name: "Mute Test"
+      decision_point:
+        condition: "Does the video sell without audio?"
+        branches:
+          - if: "Video sells with audio muted"
+            action: "PASS. Visual communication is strong. Proceed to subject assessment."
+            next_step: 3
+          - if: "Video doesn't sell without audio"
+            action: "FAIL. Add more visual demonstrations for each key point."
+            next_step: 3
+
+    - step: 3
+      name: "Subject Assessment"
+      decision_point:
+        condition: "Is the subject boring or technical?"
+        branches:
+          - if: "Subject is boring"
+            action: "Accept it. Heavy weight training. After this, everything is light."
+            next_step: 4
+          - if: "Boring/technical info in brief"
+            action: "Ask: What EMOTIONAL CONSEQUENCE does the prospect fear? Reframe around that."
+            next_step: 4
+          - if: "Subject is naturally engaging"
+            action: "Proceed to research depth check."
+            next_step: 4
+
+    - step: 4
+      name: "Research Depth Check"
+      decision_point:
+        condition: "How deep is the research?"
+        branches:
+          - if: "Research limited to briefing only"
+            action: "INSUFFICIENT. Read 1-2 books on the subject. The 90% iceberg transforms the copy."
+            terminal: true
+          - if: "Deep research completed (1-2 books+)"
+            action: "Proceed with confidence. Depth will show in authenticity."
+            terminal: true
+
+  error_handling:
+    - error: "Script written as paragraphs, not scenes"
+      recovery: "Restructure into scene-based format with visual column."
+    - error: "Failed Mute Test"
+      recovery: "Add visual demonstration for every key claim. Re-test."
+    - error: "Technical jargon kept in script"
+      recovery: "Reframe every technical point via emotional consequence the prospect fears."
+
+  quality_gate:
+    min_criteria: 4
+    checks:
+      - "Script written as scenes, not paragraphs"
+      - "Mute Test passed"
+      - "Boring subjects reframed via emotional consequence"
+      - "Research goes beyond the brief (1-2 books minimum)"
+      - "Visual demonstrations planned for every key claim"

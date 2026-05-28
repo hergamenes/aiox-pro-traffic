@@ -1,0 +1,39 @@
+sop:
+  id: schwartz-mechanism-staging-tree
+  version: "1.0"
+  title: "Mechanism Presentation Decision Tree (3 Stages)"
+  purpose: "Determinar como apresentar mecanismo: NOMEAR (ja entende), DESCREVER (nao entende), DESTACAR (mercado sofisticado)."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: eugene-schwartz
+  steps:
+    - step: 1
+      action: "Avaliar nivel de compreensao do prospect sobre o mecanismo"
+      decision_point:
+        condition: "Prospect entende como o produto funciona?"
+        branches:
+          - if: "Prospect JA ENTENDE como funciona"
+            then: "NOMEAR — nomeie o mecanismo, compita em preco/features, nao explique o obvio"
+          - if: "Prospect NAO ENTENDE como funciona"
+            then: "DESCREVER — promessa + reason why (Hopkins classico), explicar em linguagem simples"
+          - if: "Mercado sofisticado, concorrentes com mesma promessa"
+            then: "DESTACAR — mecanismo NO headline, mecanismo E o claim, o COMO vira o QUE"
+  error_handling:
+    - error: "Descrever para prospect que ja entende"
+      severity: warning
+      action: "Diagnosticar compreensao antes — parece condescendente"
+    - error: "Nomear para prospect que nao entende"
+      severity: critical
+      action: "Pesquisar nivel de compreensao antes"
+    - error: "Destacar em mercado nao-sofisticado"
+      severity: warning
+      action: "Reservar DESTACAR para Stage 3+ apenas"
+  quality_gate:
+    criteria:
+      - "Compreensao do prospect corretamente diagnosticada"
+      - "Apresentacao adequada ao nivel"
+      - "DESTACAR: mecanismo no headline"
+      - "DESCREVER: linguagem acessivel"
+    pass_threshold: "Todos os criterios atendidos"

@@ -1,0 +1,80 @@
+sop:
+  id: fw-purpose-path-priority
+  version: "1.0"
+  title: "Purpose-Path-Priority (PPP)"
+  purpose: "Clarity framework — if resolving Priority advances Path toward Purpose, execute; if not, redefine"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: dan-koe
+    tier: t3
+  steps:
+    - id: apply_purpose
+      name: "Purpose — Beyond You"
+      description: "Define the future vision larger than any single goal"
+      inputs:
+        - long_term_vision
+        - core_values
+      outputs:
+        - purpose_statement
+      validation:
+        - one_sentence: true
+        - direction_not_destination: true
+        - no_deadline: true
+    - id: apply_path
+      name: "Path — The Plan"
+      description: "Clarify the system or strategy bridging current state to Purpose"
+      inputs:
+        - purpose_statement
+        - current_situation
+      outputs:
+        - path_description
+      validation:
+        - explainable_in_30_seconds: true
+        - clear_system: true
+    - id: apply_priority
+      name: "Priority — The Problem NOW"
+      description: "Identify the single most important problem to solve that advances Path"
+      inputs:
+        - path_description
+        - current_bottlenecks
+      outputs:
+        - current_priority
+      validation:
+        - singular: true
+        - important_not_just_urgent: true
+        - advances_path: true
+    - id: apply_alignment_check
+      name: "Decision Gate"
+      description: "Validate that Priority connects to Path connects to Purpose"
+      inputs:
+        - purpose_statement
+        - path_description
+        - current_priority
+      outputs:
+        - alignment_validation
+        - ppp_document
+      validation:
+        - chain_connected: true
+        - execute_or_redefine: true
+  error_handling:
+    - error: financial_purpose
+      condition: "Purpose is a number, not a vision"
+      action: "Redefine as future state being built, not a financial target"
+    - error: vague_path
+      condition: "Path cannot be explained in 30 seconds"
+      action: "Specify the system; make it concrete and articulable"
+    - error: multiple_priorities
+      condition: "More than one priority identified"
+      action: "Choose ONE; defer rest until it is resolved"
+    - error: urgent_not_important
+      condition: "Priority is reactive, not advancing Path"
+      action: "Apply alignment check; replace with Path-advancing priority"
+  quality_gate:
+    min_sections: 4
+    required_elements:
+      - one_sentence_purpose
+      - thirty_second_path
+      - singular_priority
+      - alignment_validated
+    pass_threshold: "all 3 layers defined with validated alignment chain"

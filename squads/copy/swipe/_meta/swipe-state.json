@@ -1,0 +1,53 @@
+{
+  "status": "initialized",
+  "created_at": "2026-01-23T04:07:02-03:00",
+  "updated_at": "2026-01-23T04:18:20-03:00",
+  "categories": {
+    "headlines": {
+      "count": 1,
+      "target": 200,
+      "validated": 0
+    },
+    "leads": {
+      "count": 0,
+      "target": 75,
+      "validated": 0
+    },
+    "bullets": {
+      "count": 0,
+      "target": 300,
+      "validated": 0
+    },
+    "emails": {
+      "count": 0,
+      "target": 75,
+      "validated": 0
+    },
+    "transitions": {
+      "count": 0,
+      "target": 50,
+      "validated": 0
+    },
+    "closes": {
+      "count": 0,
+      "target": 75,
+      "validated": 0
+    },
+    "full_pieces": {
+      "count": 0,
+      "target": 30,
+      "validated": 0
+    }
+  },
+  "quality_distribution": {
+    "5_star": 0,
+    "4_star": 0,
+    "3_star": 0,
+    "2_star": 0,
+    "1_star": 0
+  },
+  "sources_ingested": [],
+  "last_extraction": "2026-01-23T04:18:20-03:00",
+  "last_validation": null,
+  "last_audit": null
+}

@@ -1,0 +1,71 @@
+sop:
+  id: task-content-repurposing
+  version: "1.0"
+  title: "Content Repurposing Engine"
+  purpose: "Transform one long-form newsletter into YouTube, podcast, social threads, LinkedIn, and Instagram content through systematic extraction"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: dan-koe
+    tier: T3
+
+  inputs:
+    - name: newsletter
+      type: document
+      required: true
+      description: "One completed long-form newsletter"
+
+  outputs:
+    - name: youtube_script
+      type: document
+      description: "YouTube video script from newsletter"
+    - name: podcast_audio
+      type: file
+      description: "Podcast episode from YouTube audio"
+    - name: social_posts
+      type: list
+      description: "Tweets, threads, LinkedIn, Instagram posts"
+
+  steps:
+    - id: step_1
+      action: validate_source
+      description: "Confirm newsletter is complete and serves as single source of truth"
+      critical: true
+
+    - id: step_2
+      action: convert_to_youtube
+      description: "Convert newsletter to video script — add delivery notes, visual cues, emphasis markers"
+
+    - id: step_3
+      action: extract_podcast
+      description: "Extract audio from YouTube recording — no separate recording session"
+
+    - id: step_4
+      action: extract_social_teasers
+      description: "Pull key points, frameworks, contrarian takes — each outline point becomes standalone post"
+      critical: true
+
+    - id: step_5
+      action: distribute_remaining
+      description: "Adapt for LinkedIn (professional), Instagram (visual+caption) — same insight, different format"
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "All content traces to one newsletter source"
+      - "YouTube script uses newsletter structure"
+      - "Podcast from video audio"
+      - "Social posts extracted from specific insights"
+      - "Each platform format respected"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies:
+    - task-weekly-writing-production
+
+  related_sops:
+    - task-2-hour-writer
+    - task-hook-architecture
+    - task-apag-newsletter

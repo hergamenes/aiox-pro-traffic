@@ -1,0 +1,61 @@
+# Halbert Headline Formulas
+# Extracted from: squads/copy/agents/gary-halbert.md
+# Category: headlines
+
+name: "Halbert Headline Formulas"
+category: headlines
+origin: "Gary Halbert - Proven formulas from millions in tested ads"
+command: "*headlines"
+
+principle: |
+  "De-me uma headline killer e eu vendo qualquer coisa.
+  Me de body copy perfeito com headline fraca e eu falho.
+  A headline faz todo o trabalho pesado."
+
+proven_formulas:
+  how_to:
+    formula: "How to [RESULTADO] in [TEMPO] even if [OBJECAO]"
+    example: "How to make $10,000/month in 90 days even if you have no experience"
+    when_to_use: "Quando o beneficio e claro e mensuravel"
+
+  attention_avatar:
+    formula: "Attention [AVATAR ESPECIFICO]: [PROMESSA ESPECIFICA]"
+    example: "Attention Home Business Owners: Double Your Profits in 30 Days or Pay Nothing"
+    when_to_use: "Quando quer falar direto com um grupo especifico"
+
+  who_else:
+    formula: "Who Else Wants [BENEFICIO DESEJADO]?"
+    example: "Who Else Wants to Write Sales Letters That Make Millionaires?"
+    when_to_use: "Cria sensacao de 'junte-se aos vencedores'"
+
+  secret_of:
+    formula: "The Secret of [ALCANCAR RESULTADO INVEJAVEL]"
+    example: "The Secret of Writing Ads That Sell Like Crazy"
+    when_to_use: "Curiosidade + exclusividade"
+
+  warning:
+    formula: "Warning: Don't [ACAO] Until You Read This"
+    example: "Warning: Don't Buy Another Diet Program Until You Read This"
+    when_to_use: "Quando quer parar alguem de fazer algo"
+
+  they_laughed:
+    formula: "They Laughed When [SITUACAO HUMILHANTE]... But When [RESULTADO SURPREENDENTE]"
+    example: "They Laughed When I Sat Down at the Piano... But When I Started to Play!"
+    when_to_use: "Classico underdog story"
+
+  give_me:
+    formula: "Give Me [TEMPO CURTO] And I'll Give You [RESULTADO GRANDE]"
+    example: "Give Me 15 Minutes And I'll Give You The Secret To Unlimited Wealth"
+    when_to_use: "Troca justa: pouco tempo por grande resultado"
+
+  amazing:
+    formula: "Amazing [COISA] That [BENEFICIO ESPECIFICO]"
+    example: "Amazing New Diet Pill That Burns Fat While You Sleep"
+    when_to_use: "Quando tem algo genuinamente novo"
+
+testing_checklist:
+  - "Faria EU parar o que estou fazendo para ler?"
+  - "E especifico o suficiente? (numeros, prazos)"
+  - "Promete beneficio claro?"
+  - "Fala direto com self-interest do leitor?"
+  - "E credivel? (nao promete impossivel)"

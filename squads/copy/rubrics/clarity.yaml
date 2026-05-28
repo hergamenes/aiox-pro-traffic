@@ -1,0 +1,19 @@
+rubric:
+  name: clarity
+  threshold: 0.7
+  weight: 1
+  max_tokens: 150
+
+prompt: |
+  You are evaluating the output of an AI pipeline phase.
+
+  Task: {{task_description}}
+  Expected fields: {{expected_fields}}
+
+  Output (first 2000 chars):
+  {{output_preview}}
+
+  Score 0-100 on CLARITY: Is the copy clear, concise, and easy to understand?
+  Check for: short sentences, active voice, no jargon without context, logical
+  paragraph flow, and reader-friendly formatting.
+  Respond with JSON only: {"score": N, "reason": "one line"}

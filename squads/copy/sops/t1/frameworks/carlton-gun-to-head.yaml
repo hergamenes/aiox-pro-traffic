@@ -1,0 +1,69 @@
+sop:
+  id: carlton-gun-to-head
+  version: "1.0"
+  title: "Gun To The Head Mindset"
+  purpose: "Apply John Carlton's Gun To The Head mindset to every word of every ad. Born from real desperation -- one month's rent and a broken typewriter -- this framework demands that every sentence earns its p"
+  classification:
+    domain: copywriting
+    category: master
+    tier: t1
+    source_agent: john-carlton
+  steps:
+    - id: apply_every_word_must_earn_its_place
+      action: "Read every sentence of the draft and ask: if I removed this sentence, would the copy be weaker? If the answer is 'no'..."
+      input: "Every word must earn its place"
+      output: "Step 1 deliverable: Every Word Must Earn Its Place completed with documented findings"
+      validation: "Every sentence survives the 'So What?' test"
+    - id: apply_apply_the_so_what_test
+      action: "Read every sentence as a hostile, distracted prospect would."
+      input: "Every sentence passes 'So What?' test"
+      output: "Step 2 deliverable: Apply the 'So What?' Test completed with documented findings"
+      validation: "Copy uses prospect language, not industry jargon"
+    - id: apply_get_in_bed_with_your_customer
+      action: "Verify that the copy demonstrates intimate understanding of the prospect's daily life, fears, desires, and language."
+      input: "Get in bed with your customer — understand intimate desires"
+      output: "Step 3 deliverable: Get In Bed With Your Customer completed with documented findings"
+      validation: "All benefits framed in terms of prospect's selfish needs"
+    - id: apply_appeal_to_selfish_needs
+      action: "Check that every benefit is framed in terms of what the prospect personally gets."
+      input: "It's all about HER needs — appeal to selfish needs"
+      output: "Step 4 deliverable: Appeal to Selfish Needs completed with documented findings"
+      validation: "Skepticism points identified and addressed with proof or acknowledgment"
+    - id: apply_confront_skepticism_directly
+      action: "Identify every point in the copy where the prospect might think 'yeah right' or 'I do not believe that."
+      input: "Sympathy for natural skepticism — confront disbelief directly"
+      output: "Step 5 deliverable: Confront Skepticism Directly completed with documented findings"
+      validation: "Copy reads like conversation, not like writing (Bar test passed)"
+    - id: apply_find_a_parade_and_get_in_front_of_it
+      action: "Verify that the copy feeds an existing hunger rather than trying to create a new one."
+      input: "Find a parade and get in front of it — feed existing hunger"
+      output: "Step 6 deliverable: Find a Parade and Get In Front of It completed with documented findings"
+      validation: "No tangents or detours -- greased slide from headline to close"
+    - id: apply_steal_spy_and_swipe
+      action: "Confirm that competitor analysis has informed the copy."
+      input: "Steal, spy and swipe — study competition obsessively"
+      output: "Step 7 deliverable: Steal, Spy and Swipe completed with documented findings"
+      validation: "No tangents or detours -- greased slide from headline to close"
+    - id: apply_make_copy_a_greased_slide
+      action: "Read the copy from start to finish and check for any point where the reader might pause, get confused, or drift."
+      input: "Make copy a greased slide — no tangents, straight to close"
+      output: "Step 8 deliverable: Make Copy a Greased Slide completed with documented findings"
+      validation: "No tangents or detours -- greased slide from headline to close"
+  error_handling:
+    - error: "Keeping 'beautiful' sentences that do not serve the sale"
+      resolution: "Apply the Gun To The Head test: if your life depended on this sale, would you keep this sentence?"
+    - error: "Using industry jargon instead of prospect language"
+      resolution: "Replace every technical term with the word the prospect would use in conversation"
+    - error: "Talking about the company instead of the prospect"
+      resolution: "Every paragraph must answer 'what does this mean for ME?'"
+    - error: "Ignoring skepticism points"
+      resolution: "Map every 'yeah right' moment and insert proof or direct acknowledgment"
+  quality_gate:
+    criteria:
+      - "Every sentence survives the 'So What?' test"
+      - "Copy uses prospect language, not industry jargon"
+      - "All benefits framed in terms of prospect's selfish needs"
+      - "Skepticism points identified and addressed with proof or acknowledgment"
+      - "Copy reads like conversation, not like writing (Bar test passed)"
+      - "No tangents or detours -- greased slide from headline to close"
+    pass_threshold: "All 6 criteria met"

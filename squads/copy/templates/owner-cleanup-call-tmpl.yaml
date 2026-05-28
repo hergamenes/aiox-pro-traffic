@@ -1,0 +1,469 @@
+# Owner Cleanup Call Template
+# Framework: Jeremy Haynes "Weekly Owner Cleanup Call"
+# Purpose: Mini webinar to convert leads who didn't close
+
+metadata:
+  name: "Owner Cleanup Call Template"
+  version: "1.0"
+  source: "Jeremy Haynes - Killer Follow-Up System"
+  result_benchmark: "Low 6-figures/month additional revenue"
+
+# =============================================================================
+# CONCEPT
+# =============================================================================
+concept:
+  what_it_is: |
+    Mini webinar semanal (ou 2x/semana) onde o OWNER
+    apresenta diretamente para leads não convertidos.
+
+  why_it_works: |
+    - Leads veem o owner diretamente (autoridade máxima)
+    - Formato diferente do funil original
+    - Segunda chance de converter
+    - Owner pode fechar melhor que vendedores
+
+  frequency: "1-2x por semana"
+  duration: "30-45 minutos"
+  audience: "Leads não convertidos das últimas 2-4 semanas"
+
+  results_example: |
+    Brez & Pierre (Inner Circle members) adicionaram
+    low 6-figures/mês apenas com essa tática.
+
+# =============================================================================
+# INPUTS REQUIRED
+# =============================================================================
+inputs:
+  required:
+    owner_name: "[Nome do owner/fundador]"
+    company_name: "[Nome da empresa]"
+    product_name: "[Nome do produto principal]"
+    price: "[Preço]"
+    main_outcome: "[Resultado principal que entregam]"
+
+  from_sales_team:
+    common_objections: "[Top 3 objeções que leads têm]"
+    why_didnt_close: "[Razões comuns de não fechamento]"
+
+  optional:
+    alternative_offer: "[Oferta alternativa se tiver]"
+    urgency: "[Escassez/deadline se houver]"
+    bonus_for_call: "[Bônus especial para quem comprar na call]"
+
+# =============================================================================
+# STRUCTURE (30-45 minutes)
+# =============================================================================
+structure:
+  overview: |
+    ┌───────────────────────────────────────────────┐
+    │     OWNER CLEANUP CALL - 5 SECTIONS           │
+    ├───────────────────────────────────────────────┤
+    │                                               │
+    │  1. APRESENTAÇÃO (10-15 min)                  │
+    │     └── Versão condensada do pitch principal  │
+    │                                               │
+    │  2. PITCH (5 min)                             │
+    │     └── Oferta clara e direta                 │
+    │                                               │
+    │  3. Q&A #1 (5 min)                            │
+    │     └── Perguntas (algumas plantadas)         │
+    │                                               │
+    │  4. RE-PITCH (3 min)                          │
+    │     └── Urgência e última chamada             │
+    │                                               │
+    │  5. Q&A #2 (10+ min)                          │
+    │     └── Objection handling ao vivo            │
+    │                                               │
+    └───────────────────────────────────────────────┘
+
+  flow: "Apresentação → Pitch → Q&A → Re-pitch → Q&A"
+
+# =============================================================================
+# SECTION 1: APRESENTAÇÃO (10-15 minutes)
+# =============================================================================
+section_1_presentation:
+  name: "Apresentação"
+  duration: "10-15 minutos"
+  purpose: "Versão condensada do seu pitch principal"
+
+  slide_structure:
+    slide_01:
+      title: "Título"
+      content: "{{webinar_title}}"
+      notes: "Só o título, sem enrolação"
+
+    slide_02:
+      title: "Quem sou eu"
+      content: |
+        - {{owner_name}}
+        - Fundador da {{company_name}}
+        - [1 credencial relevante]
+        - [1 resultado que entrega]
+      notes: "Máximo 30 segundos aqui"
+
+    slide_03:
+      title: "Por que essa call"
+      content: |
+        "Você mostrou interesse em {{product_name}}.
+        Por algum motivo, não avançou.
+
+        Quero entender por quê e ver se posso ajudar."
+      notes: "Reconhecer a situação"
+
+    slide_04:
+      title: "O Problema"
+      content: |
+        "[Problema que seu avatar enfrenta]"
+      notes: "Agitar o problema"
+
+    slide_05:
+      title: "A Solução"
+      content: |
+        "[Sua abordagem para resolver]"
+      notes: "Introduzir sua solução"
+
+    slide_06:
+      title: "Como Funciona"
+      content: |
+        - Passo 1: [...]
+        - Passo 2: [...]
+        - Passo 3: [...]
+      notes: "High-level, não detalhado"
+
+    slide_07:
+      title: "Resultados Reais"
+      content: |
+        "[Case study com números]"
+      notes: "Prova social"
+
+    slide_08:
+      title: "Por Que Funciona"
+      content: |
+        - [Diferenciador 1]
+        - [Diferenciador 2]
+        - [Diferenciador 3]
+      notes: "Diferenciação"
+
+    slide_09:
+      title: "Para Quem É"
+      content: |
+        ✅ [Ideal client 1]
+        ✅ [Ideal client 2]
+        ❌ [Quem não é para]
+      notes: "Qualificação"
+
+    slide_10:
+      title: "A Pergunta"
+      content: |
+        "O que está te impedindo de começar?"
+      notes: "Transição para pitch"
+
+# =============================================================================
+# SECTION 2: PITCH (5 minutes)
+# =============================================================================
+section_2_pitch:
+  name: "Pitch"
+  duration: "5 minutos"
+
+  template: |
+    "Então aqui está o que eu tenho para você.
+
+    {{product_name}} inclui:
+
+    [COMPONENTE 1] - [benefício]
+    [COMPONENTE 2] - [benefício]
+    [COMPONENTE 3] - [benefício]
+
+    O investimento: {{price}}
+
+    [SE TIVER BÔNUS ESPECIAL PARA A CALL:]
+    Para quem está nessa call, tenho algo especial:
+    {{bonus_for_call}}
+
+    [SE TIVER URGÊNCIA:]
+    {{urgency}}
+
+    O link está no chat.
+
+    Agora, perguntas?"
+
+  key_elements:
+    - "Direto e claro"
+    - "Sem rodeios"
+    - "Mencionar bônus especial se tiver"
+    - "Link disponível"
+
+# =============================================================================
+# SECTION 3: Q&A #1 (5 minutes)
+# =============================================================================
+section_3_qa_1:
+  name: "Q&A #1"
+  duration: "5 minutos"
+
+  approach: |
+    "Quem tem perguntas?
+
+    [Responder 2-3 perguntas]
+    [Usar perguntas plantadas se necessário]"
+
+  planted_questions:
+    - "Qual o nível de suporte que recebemos?"
+    - "E se eu não tiver tempo?"
+    - "Funciona para [situação específica]?"
+
+  handling: |
+    Cada resposta deve terminar direcionando para a oferta.
+
+    "...e é exatamente por isso que {{product_name}} existe.
+    O link está no chat para quem está pronto."
+
+# =============================================================================
+# SECTION 4: RE-PITCH (3 minutes)
+# =============================================================================
+section_4_repitch:
+  name: "Re-pitch"
+  duration: "3 minutos"
+
+  template: |
+    "Olha, deixa eu ser direto.
+
+    Vocês já viram nosso material.
+    Vocês já tiveram contato com nossa equipe.
+
+    Por algum motivo, não avançaram.
+
+    E tudo bem - cada um tem seu momento.
+
+    Mas eu quero perguntar:
+
+    O que vai ser diferente amanhã?
+    Ou semana que vem?
+    Ou mês que vem?
+
+    O problema que você tem hoje vai continuar lá.
+    A solução também.
+
+    A única coisa que muda é o tempo que você perdeu.
+
+    [SE TIVER URGÊNCIA:]
+    {{urgency}}
+
+    [SE TIVER BÔNUS:]
+    {{bonus_for_call}} só vale para quem está aqui agora.
+
+    O link está no chat.
+
+    Quem mais tem perguntas?"
+
+# =============================================================================
+# SECTION 5: Q&A #2 (10+ minutes)
+# =============================================================================
+section_5_qa_2:
+  name: "Q&A Final - Objection Handling"
+  duration: "10+ minutos (quanto precisar)"
+
+  approach: |
+    Esta é a seção mais importante.
+
+    Aqui você faz objection handling AO VIVO.
+    É onde a maioria das vendas acontece.
+
+  objection_handling:
+    preço:
+      objection: "É muito caro"
+      response: |
+        "Entendo. {{price}} não é pouco.
+
+        Mas deixa eu perguntar: quanto está custando NÃO resolver isso?
+
+        [Quantificar o custo de não agir]
+
+        [Mencionar opções de pagamento se tiver]
+
+        O que faz mais sentido: continuar pagando esse preço
+        ou investir uma vez para resolver?"
+
+    tempo:
+      objection: "Não tenho tempo"
+      response: |
+        "Ninguém tem tempo sobrando. Eu também não.
+
+        A questão é: quanto tempo você está PERDENDO
+        tentando resolver isso sozinho?
+
+        {{product_name}} exige [TEMPO REAL] por semana.
+        É menos do que você gasta frustrado com [PROBLEMA]."
+
+    pensar:
+      objection: "Preciso pensar"
+      response: |
+        "Claro. Pensar é importante.
+
+        Mas me ajuda a entender: pensar sobre o quê especificamente?
+
+        [Identificar a objeção real por trás]
+
+        Se eu pudesse resolver [OBJEÇÃO REAL], você estaria pronto?"
+
+    momento:
+      objection: "Não é o momento"
+      response: |
+        "O que faria ser o momento certo?
+
+        [Ouvir a resposta]
+
+        [Reframar ou aceitar - nem todo lead é para agora]"
+
+  closing_tactics:
+    - "Quem aqui já clicou no link?"
+    - "Celebrar quem comprou (pedir para mandar no chat)"
+    - "Lembrar do bônus/urgência"
+    - "Última chamada antes de encerrar"
+
+  closing_template: |
+    "Pessoal, vou encerrar em 5 minutos.
+
+    Última chance de perguntas.
+
+    Para quem está pronto: o link está no chat.
+    {{bonus_for_call}} só vale agora.
+
+    Obrigado por estarem aqui.
+
+    [ENCERRAR]"
+
+# =============================================================================
+# INVITATION SEQUENCE
+# =============================================================================
+invitation:
+  who_to_invite:
+    - "Leads que agendaram call mas não apareceram (últimas 4 semanas)"
+    - "Leads que apareceram mas não compraram (últimas 4 semanas)"
+    - "Leads de webinar que não converteram (últimas 2 semanas)"
+    - "Leads em nurture há mais de 30 dias"
+
+  email_template:
+    subject: "call especial com {{owner_name}}"
+    body: |
+      Oi {{nome}},
+
+      Sou {{owner_name}}, fundador da {{company_name}}.
+
+      Vi que você mostrou interesse em {{product_name}}
+      mas por algum motivo não avançou.
+
+      Quero entender por quê.
+
+      Vou fazer uma call ao vivo {{data}} às {{hora}}
+      especificamente para pessoas como você.
+
+      Vou responder TODAS as perguntas diretamente.
+      Sem vendedores no meio. Só eu.
+
+      Se tiver alguma dúvida que impediu você de avançar,
+      essa é sua chance de perguntar direto.
+
+      Clica aqui para reservar seu lugar:
+      {{link_registro}}
+
+      Te vejo lá,
+      {{owner_name}}
+
+  sms_template: |
+    {{nome}}, {{owner_name}} da {{company_name}} aqui.
+
+    Vou fazer uma call ao vivo {{data}} às {{hora}}
+    para responder dúvidas sobre {{product_name}}.
+
+    Sem vendedores, só eu.
+
+    Quer participar? {{link_curto}}
+
+# =============================================================================
+# FREQUENCY & SCHEDULING
+# =============================================================================
+scheduling:
+  frequency:
+    recommended: "1x por semana"
+    alternative: "2x por semana em dias/horários diferentes"
+
+  best_days:
+    - "Terça ou Quarta (meio da semana)"
+    - "OU segunda opção: Domingo à noite"
+
+  timing:
+    - "Manhã cedo (7-8h) - para quem trabalha cedo"
+    - "OU fim do dia (18-19h) - para quem trabalha horário comercial"
+    - "OU noite (20-21h) - para quem tem família"
+
+  duration: "30-45 minutos máximo"
+
+# =============================================================================
+# TEMPLATES ALTERNATIVAS
+# =============================================================================
+alternative_formats:
+  mini_webinar_1_0:
+    description: "Formato mais genérico"
+    use_for: "Ofertas diversas"
+    slides: "20-25 slides"
+
+  mini_webinar_2_0:
+    description: "Formato make money"
+    use_for: "Ofertas de ganhar dinheiro"
+    slides: "20-25 slides"
+
+  dsl_format:
+    description: "Deck Sales Letter"
+    use_for: "Quando não quer fazer apresentação estruturada"
+    slides: "10-15 slides mais focado em story"
+
+# =============================================================================
+# POST-CALL FOLLOW-UP
+# =============================================================================
+follow_up:
+  for_buyers:
+    - "Email de boas-vindas imediato"
+    - "Onboarding sequence"
+
+  for_non_buyers:
+    - "Email de replay (se gravar)"
+    - "Follow-up do vendedor atribuído"
+    - "Convite para próxima call"
+
+  replay:
+    recommendation: |
+      Replays de owner calls geralmente NÃO funcionam tão bem
+      quanto ao vivo. O poder está na interação direta.
+
+      Se for gravar, use mais como asset de nurture
+      do que como mecanismo de conversão.
+
+# =============================================================================
+# QUALITY CHECKLIST
+# =============================================================================
+checklist:
+  preparation:
+    - "[ ] Lista de leads segmentada"
+    - "[ ] Convites enviados (email + SMS)"
+    - "[ ] Slides prontos e testados"
+    - "[ ] Link de registro funcionando"
+    - "[ ] Alguém para monitorar chat/perguntas"
+
+  presentation:
+    - "[ ] Máximo 15 min de apresentação"
+    - "[ ] Pitch claro e direto"
+    - "[ ] Perguntas plantadas preparadas"
+    - "[ ] Objection handling praticado"
+
+  mindset:
+    - "[ ] Lembrar: esses leads JÁ mostraram interesse"
+    - "[ ] Ser direto mas não agressivo"
+    - "[ ] Objetivo é converter OU entender por que não"
+
+# =============================================================================
+# VERSION HISTORY
+# =============================================================================
+version_history:
+  - version: "1.0"
+    date: "2025-01-24"
+    changes: "Initial template based on Jeremy Haynes system"

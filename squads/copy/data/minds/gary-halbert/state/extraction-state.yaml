@@ -1,0 +1,29 @@
+# Extraction State - Gary Halbert
+# Auto-generated: 2026-03-19
+
+extraction:
+  status: "completed"
+  started: "2026-01-26"
+  completed: "2026-01-26"
+
+sources:
+  total: 200
+  tier_1_estimated: 120
+  types_detected: ["books", "interviews", "articles", "newsletters"]
+
+voice_dna:
+  extracted: true
+  power_words: 19
+  signature_phrases: 13
+  anti_patterns: 7
+  quality_estimate: "high"
+
+thinking_dna:
+  extracted: true
+  frameworks: 12
+  heuristics: 12
+  quality_estimate: "high"
+
+overall:
+  fidelity_estimate: "95%"
+  needs_improvement: []

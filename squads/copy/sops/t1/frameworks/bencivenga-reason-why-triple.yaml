@@ -1,0 +1,51 @@
+sop:
+  id: bencivenga-reason-why-triple
+  version: "1.0"
+  title: "Reason-Why Triple"
+  purpose: >
+    Address three mandatory 'reason why' questions in every promotion: why
+    SUPERIOR, why TRUE, why NOW. The word 'because' alone triggers 94%
+    compliance vs 60% without it (Langer/Xerox experiment).
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: gary-bencivenga
+    tier: t1
+
+  steps:
+    - id: apply_r1_superiority
+      action: "Document why product is superior to ALL alternatives (competitors, DIY, doing nothing)"
+      input: "product_features, competitive_landscape"
+      output: "r1_superiority_reason"
+
+    - id: apply_r2_truth
+      action: "Provide evidence for every claim: data, testimonials, case studies, demonstrations"
+      input: "claims_list, proof_elements"
+      output: "r2_truth_evidence"
+
+    - id: apply_r3_urgency
+      action: "State genuine reason to act now (limited supply, price increase, opportunity cost)"
+      condition: "urgency_is_genuine == true"
+      output: "r3_urgency_reason"
+
+    - id: apply_integrate
+      action: "Place R1 in benefit section, R2 in proof section, R3 in close section with 'because' language"
+      input: "r1_superiority_reason, r2_truth_evidence, r3_urgency_reason"
+      output: "copy_with_triple_reasons"
+
+  error_handling:
+    - error: "missing_r1"
+      severity: high
+      action: "Define specific superiority dimension before publishing"
+    - error: "weak_r2"
+      severity: high
+      action: "Add multiple proof types per halbert-proof-hierarchy"
+    - error: "artificial_r3"
+      severity: high
+      action: "Replace fake scarcity with genuine urgency reason"
+
+  quality_gate:
+    all_three_reasons_present: true
+    reasons_are_specific: true
+    urgency_is_genuine: true
+    because_language_used: true

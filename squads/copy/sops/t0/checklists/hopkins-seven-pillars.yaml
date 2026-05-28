@@ -1,0 +1,84 @@
+sop:
+  id: hopkins-seven-pillars
+  version: "1.0"
+  title: "Hopkins Seven Pillars of Scientific Advertising"
+  purpose: >
+    Verify that every campaign adheres to the 7 foundational principles of
+    Scientific Advertising. These pillars are non-negotiable and represent
+    the core doctrine separating measurable advertising from guesswork.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    subcategory: campaign-quality-gate
+    tier: T0
+    source_agent: claude-hopkins
+  steps:
+    - id: validate_test_first
+      action: "Verify small-scale test exists before full rollout"
+      input: campaign_plan
+      validation:
+        rule: "documented test phase with subset audience/geography/budget"
+        parameters:
+          min_test_cities: 4
+          min_test_budget: 3000
+          max_test_budget: 5000
+        fail_action: block_require_test_phase
+    - id: validate_cost_per_customer
+      action: "Confirm primary KPI is cost-per-acquisition, not impressions"
+      input: campaign_kpis
+      validation:
+        rule: "primary KPI is CPA or conversion metric"
+        banned_primary_kpis:
+          - impressions
+          - reach
+          - engagement_rate
+        fail_action: redirect_kpis_to_cpa
+    - id: validate_keying_tracking
+      action: "Verify every ad variant has unique tracking mechanism"
+      input: ad_variants
+      validation:
+        rule: "each variant has attribution (coupon, UTM, unique URL, phone)"
+        fail_action: add_tracking_mechanisms
+    - id: validate_service_to_consumer
+      action: "Check ad leads with value, not just asks"
+      input: ad_creative
+      validation:
+        rule: "ad offers information, sample, demo, or useful content"
+        fail_action: redesign_with_value_first
+    - id: validate_specificity
+      action: "Apply specificity transform rules and measure ratio"
+      input: copy_text
+      validation:
+        rule: "specific_claims / total_claims >= 0.90"
+        fail_action: apply_specificity_transforms
+        reference_sop: hopkins-specificity-transforms
+    - id: validate_psychological_drivers
+      action: "Confirm copy connects to fundamental psychological drivers"
+      input: copy_text
+      validation:
+        rule: "at least one permanent driver identified (vanity, loss_aversion, curiosity)"
+        fail_action: identify_and_integrate_driver
+    - id: validate_preemptive_claim
+      action: "Check if product process is described before competitor"
+      input: copy_text
+      validation:
+        rule: "detailed process description present and not previously claimed by competitor"
+        fail_action: add_process_description
+  error_handling:
+    on_failure: generate_corrective_action_plan
+    min_pillars_to_proceed: 5
+    escalation: block_campaign_if_below_threshold
+  quality_gate:
+    pass_criteria: "minimum 5/7 pillars PRESENT"
+    scoring:
+      present: 1
+      partial: 0.5
+      absent: 0
+    on_pass: campaign_cleared_for_launch
+    on_fail: revise_or_block_based_on_score
+  metadata:
+    date: "2026-03-14"
+    author:
+      agent: sop-converter
+      squad: sop-factory
+    source_artifact: hopkins-seven-pillars

@@ -1,0 +1,97 @@
+sop:
+  id: collier-mental-conversation
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Mental Conversation Mapping (Enter the Conversation)"
+  purpose: >
+    Enter the conversation already happening in the prospect's mind before writing.
+    Map their fears, frustrations, hopes, desires, then craft an opening that enters
+    THEIR conversation, not yours.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: robert-collier
+    artifact_type: framework
+
+  steps:
+    - id: apply_listen
+      action: apply_prospect_life_research
+      description: "LISTEN: What is the prospect thinking about their LIFE? Read forums, reviews, social. Document raw language."
+      critical: true
+      inputs:
+        - audience_research
+        - forums_reviews_social
+      output: raw_prospect_language
+
+    - id: apply_map
+      action: apply_four_quadrant_mapping
+      description: "MAP: Create four-quadrant map — Fears, Frustrations, Hopes, Desires. Specific concrete examples in prospect's words."
+      depends_on: apply_listen
+      output: desire_fear_map
+
+    - id: apply_prioritize
+      action: apply_entry_point_selection
+      description: "PRIORITIZE: Identify single strongest desire and single most urgent fear. Their intersection = entry point."
+      depends_on: apply_map
+      critical: true
+      output: entry_point
+
+    - id: apply_enter
+      action: apply_conversation_entry
+      description: "ENTER: Craft opening that enters THEIR conversation. No product mention. Start with their world."
+      depends_on: apply_prioritize
+      output: opening_draft
+
+    - id: apply_connect
+      action: apply_deep_understanding
+      description: "CONNECT: Demonstrate specific understanding. Not generic empathy. Detailed recognition of their exact experience."
+      depends_on: apply_enter
+      output: connection_section
+
+    - id: apply_bridge
+      action: apply_desire_to_offer_bridge
+      description: "BRIDGE: Build natural, inevitable bridge from their desire to the offer. Product is logical conclusion, not interruption."
+      depends_on: apply_connect
+      output: bridge_to_offer
+
+  error_handling:
+    - error: starting_with_product
+      symptom: "Opening talks about 'our revolutionary solution'"
+      resolution: "Delete first two paragraphs; start with their world"
+    - error: generic_empathy
+      symptom: "'We understand your struggles' without specifics"
+      resolution: "Replace with concrete scenario from research using their words"
+    - error: assumed_desires
+      symptom: "Writing about what you THINK they want without research"
+      resolution: "Go to forums, reviews, social media; use THEIR words"
+    - error: forced_bridge
+      symptom: "Product introduction feels like jarring pivot"
+      resolution: "Desire must logically lead to product; if not, choose different desire"
+    - error: multiple_entry_points
+      symptom: "Trying to enter 3 conversations at once"
+      resolution: "One entry point per piece; prioritize ruthlessly"
+
+  quality_gate:
+    criteria:
+      - "Research in prospect's actual language"
+      - "Four-quadrant map with specific examples"
+      - "Strongest desire and most urgent fear identified"
+      - "Opening enters their conversation (no product in first paragraph)"
+      - "Connection demonstrates specific understanding"
+      - "Bridge to offer feels natural and inevitable"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: desire_fear_map
+      format: four_quadrant
+      description: "Fears, Frustrations, Hopes, Desires in prospect's language"
+    - name: entry_point
+      format: identified_angle
+      description: "Strongest desire or most urgent fear as entry"
+    - name: opening_draft
+      format: copy_draft
+      description: "Opening that enters prospect's mental conversation"

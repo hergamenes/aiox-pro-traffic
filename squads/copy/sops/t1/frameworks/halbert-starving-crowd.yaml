@@ -1,0 +1,80 @@
+sop:
+  id: halbert-starving-crowd
+  version: "1.0"
+  title: "Starving Crowd + List Quality Hierarchy (10 Levels)"
+  purpose: >
+    Evaluate and rank prospect lists on a 10-level quality hierarchy using RFU
+    metrics (Recency > Frequency > Unit of Sale) before committing marketing
+    resources. Enforces minimum Level 5 threshold for copy projects.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: gary-halbert
+    tier: t1
+
+  steps:
+    - id: apply_gather_lists
+      action: "Compile all candidate list sources (internal, rented, compiled, subscriber)"
+      input: "available_list_sources"
+      output: "candidate_list_inventory"
+
+    - id: apply_level_10
+      action: "Score lists with satisfied customer buyers as Level 10 (highest)"
+      condition: "list_source == 'own_satisfied_customers'"
+      output: "level_10_lists"
+
+    - id: apply_level_9
+      action: "Score Level 8 lists where broker confirms list works for other mailers"
+      condition: "broker_confirmed_performance == true"
+      output: "level_9_lists"
+
+    - id: apply_level_8
+      action: "Score Level 7 lists with very recent purchases (hotline 30-90 days)"
+      condition: "last_purchase_days <= 90"
+      output: "level_8_lists"
+
+    - id: apply_level_7
+      action: "Score Level 6 lists where buyers paid high prices"
+      condition: "unit_of_sale >= high_price_threshold"
+      output: "level_7_lists"
+
+    - id: apply_level_6
+      action: "Score Level 5 lists where buyers purchased multiple times"
+      condition: "purchase_frequency > 1"
+      output: "level_6_lists"
+
+    - id: apply_level_5
+      action: "Score mail-order buyers of similar product as Level 5 (minimum threshold)"
+      condition: "buyer_type == 'mail_order' AND product_category == 'similar'"
+      output: "level_5_lists"
+
+    - id: apply_level_4_to_1
+      action: "Score remaining lists: Level 4 (MO any), Level 3 (high-income pros), Level 2 (ZIP code), Level 1 (generic/trash)"
+      output: "lower_tier_lists"
+
+    - id: apply_rfu_filter
+      action: "Evaluate Recency > Frequency > Unit of Sale for all lists Level 4+"
+      input: "lists_level_4_plus"
+      output: "rfu_scored_lists"
+
+    - id: apply_go_no_go
+      action: "Block copy project if best available list is below Level 5"
+      condition: "max_list_level < 5"
+      output: "decision: NO_GO | GO"
+
+  error_handling:
+    - error: "copy_before_list_eval"
+      severity: critical
+      action: "BLOCK — run list evaluation before any copy work"
+    - error: "all_lists_equal"
+      severity: high
+      action: "Score each list individually; never treat buyer lists as homogeneous"
+    - error: "size_over_recency"
+      severity: medium
+      action: "Prioritize hotline segments (30-90 days) over large stale lists"
+
+  quality_gate:
+    min_list_level: 5
+    rfu_evaluated: true
+    decision_documented: true
+    scorecard_produced: true

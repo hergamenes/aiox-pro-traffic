@@ -1,0 +1,47 @@
+sop:
+  id: collier-universality
+  version: '1.0'
+  title: Universality of Basic Ideas (RC_H06)
+  purpose: Codify Robert Collier's decision logic for universality of basic ideas (rc_h06) into a machine-executable diagnostic
+    procedure for copywriting analysis and recommendation.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: robert-collier
+    artifact_type: decision_tree
+  metadata:
+    date: '2026-03-14'
+    author:
+      agent: sop-converter
+      squad: sop-factory
+  steps:
+  - step: 1
+    decision_point: true
+    condition: Adapting approaches
+    branches:
+    - match: true
+      action: The same basic selling idea works for ANY product. If it sold overcoats, it can be adapted to sell courses.
+    - match: false
+      action: Continue to next decision point
+  error_handling:
+  - error: no_condition_match
+    description: None of the defined conditions match the input context
+    action: Return to upstream diagnostic; re-classify the situation
+    severity: warning
+  - error: ambiguous_condition
+    description: Multiple conditions appear to match simultaneously
+    action: Select the most specific match; document ambiguity for review
+    severity: warning
+  - error: missing_context
+    description: Insufficient data to evaluate conditions
+    action: Request additional context before proceeding; do not guess
+    severity: error
+  quality_gate:
+    min_confidence: 0.85
+    requires_human_review: false
+    metrics:
+      condition_coverage: 1.0
+      branch_traceability: true
+      action_specificity: high
+      source_fidelity: verified

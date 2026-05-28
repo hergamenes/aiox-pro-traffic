@@ -1,0 +1,51 @@
+sop:
+  id: hopkins-scientific-advertising-diagnostic
+  version: "1.0"
+  title: "Scientific Advertising Diagnostic"
+  purpose: "Treat advertising as measurable science — every claim requires evidence, testing, measurement, and optimization before scale."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: claude-hopkins
+  steps:
+    - id: apply_claim
+      action: "Identify the core advertising claim"
+      input: "Product/service information, market research"
+      output: "Single declarative claim sentence"
+      validation: "Claim is specific, concrete, avoids generalities and superlatives"
+    - id: apply_evidence
+      action: "Gather supporting evidence for the claim"
+      input: "Claim statement, product data, testimonials, competitive research"
+      output: "Evidence package ranked by strength (demonstration > specific fact > testimonial > reason-why > authority)"
+      validation: "At least one verifiable evidence type supports the claim"
+    - id: apply_test
+      action: "Design a measurable test for the claim+evidence combination"
+      input: "Claim+evidence package, available test channels"
+      output: "Test plan with keyed ads, split variations, and tracking mechanism"
+      validation: "Test has measurable outcome (response rate, CPA, conversion rate)"
+    - id: apply_measure
+      action: "Collect and analyze test results quantitatively"
+      input: "Test responses, tracking data"
+      output: "Performance report with cost-per-response, cost-per-sale, ROI"
+      validation: "Minimum sample size reached; winner identified by data, not opinion"
+    - id: apply_optimize
+      action: "Refine the winning variation and prepare for scale"
+      input: "Winning test variation, performance baseline"
+      output: "Optimized control ad ready for scale deployment"
+      validation: "New variation beats current control by statistically significant margin"
+  error_handling:
+    - error: "Claim lacks evidence"
+      resolution: "Return to apply_evidence step; reject claim until proof is found"
+    - error: "Test has no tracking mechanism"
+      resolution: "Add keying/tracking before launch; never run untracked tests"
+    - error: "Results below minimum sample size"
+      resolution: "Extend test duration or increase test budget before declaring winner"
+  quality_gate:
+    criteria:
+      - "Claim is specific and falsifiable"
+      - "Evidence is verifiable and ranked"
+      - "Test is designed with measurable outcomes"
+      - "Results are documented with actual numbers"
+      - "Only proven variations are scaled"
+    pass_threshold: "All 5 criteria met"

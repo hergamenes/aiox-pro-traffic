@@ -1,0 +1,60 @@
+sop:
+  id: checklist-settle-veto
+  version: "1.0"
+  title: "Settle Veto Conditions"
+  purpose: "Define blocking conditions for copy under Ben Settle's methodology — protecting personality-first philosophy and infotainment integration"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: ben-settle
+    type: veto
+  steps:
+    - id: BS_V01
+      action: "Check personality presence"
+      criteria: "Email sem personalidade — parece newsletter corporativa"
+      veto_action: "REJECT (reescrever com 3X Personality)"
+      required: true
+    - id: BS_V02
+      action: "Check content-pitch integration"
+      criteria: "Email separa conteudo de pitch"
+      veto_action: "REJECT (fundir — Content IS promotion)"
+      required: true
+    - id: BS_V03
+      action: "Check entertainment wrapper"
+      criteria: "Email educa com dicas/how-to sem wrapper de entretenimento"
+      veto_action: "REJECT (embrulhar em historia)"
+      required: true
+    - id: BS_V04
+      action: "Check subject line quality"
+      criteria: "Subject line generico, safe, previsivel"
+      veto_action: "REJECT (reescrever como micro-riddle)"
+      required: true
+    - id: BS_V05
+      action: "Check positioning dignity"
+      criteria: "Email implora ou persegue o leitor"
+      veto_action: "REJECT (Be desireless. Be excellent. Be gone.)"
+      required: true
+    - id: BS_V06
+      action: "Check apology absence"
+      criteria: "Email se desculpa por vender ou por frequencia"
+      veto_action: REJECT
+      required: true
+    - id: BS_V07
+      action: "Check voice originality"
+      criteria: "Email usa swipe file copy — parece outra pessoa"
+      veto_action: "REJECT (encontre SUA voz)"
+      required: true
+    - id: BS_V08
+      action: "Check frequency commitment"
+      criteria: "Proposta de reduzir frequencia de envio"
+      veto_action: "REJECT (mais email = mais vendas)"
+      required: true
+  error_handling:
+    - condition: "any_veto_triggered"
+      action: "block_delivery"
+    - condition: "BS_V01_triggered"
+      action: "fundamental_rewrite_required"
+  quality_gate:
+    mode: veto
+    any_trigger_blocks: true
+    requires_rescan_after_fix: true

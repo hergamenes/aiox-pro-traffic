@@ -1,0 +1,109 @@
+sop:
+  id: "rb-soap-opera-sequence"
+  version: "1.0.0"
+  title: "Soap Opera Email Sequence"
+  purpose: "Build a 5-email story-driven onboarding sequence that converts cold subscribers into emotionally invested buyers through open loops and escalating narrative tension."
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    risk_level: "low"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "When a new lead magnet or funnel requires an automated welcome/nurture email sequence to onboard subscribers and bridge to a paid offer."
+  context:
+    input:
+      - name: "epiphany_bridge_story"
+        type: "document"
+        required: true
+        description: "Completed Epiphany Bridge story providing the narrative backbone for the sequence."
+      - name: "product_offer"
+        type: "object"
+        required: true
+        description: "The product or offer to bridge into by email 5, including price, guarantee, and transformation promise."
+      - name: "prospect_emotional_state"
+        type: "string"
+        required: false
+        description: "The dominant emotion or pain point driving the subscriber to opt in."
+  steps:
+    - id: "S001"
+      name: "Set the Stage"
+      action: "write_email_1_introduction"
+      description: "Write email 1 introducing yourself as a character with a vulnerable, relatable backstory. Create intrigue and end with an explicit cliffhanger. Zero selling language."
+      performer: "copywriter"
+      critical: true
+      on_success: "S002"
+      on_failure: "retry"
+    - id: "S002"
+      name: "High Drama"
+      action: "write_email_2_conflict"
+      description: "Write email 2 resolving the email 1 cliffhanger then escalating to peak conflict. Show the stakes of failure and create a new open loop at the end."
+      performer: "copywriter"
+      critical: false
+      on_success: "S003"
+      on_failure: "retry"
+    - id: "S003"
+      name: "Epiphany Reveal"
+      action: "write_email_3_epiphany"
+      description: "Write email 3 delivering the AHA moment with specificity and emotional resonance. Connect the epiphany to the mechanism behind the product without hard-selling."
+      performer: "copywriter"
+      critical: true
+      on_success: "S004"
+      on_failure: "retry"
+    - id: "S004"
+      name: "Hidden Benefits"
+      action: "write_email_4_secondary_benefits"
+      description: "Write email 4 revealing 2-3 unexpected secondary benefits using mini case studies. Build excitement without urgency."
+      performer: "copywriter"
+      critical: false
+      on_success: "S005"
+      on_failure: "retry"
+    - id: "S005"
+      name: "Urgency and Close"
+      action: "write_email_5_cta"
+      description: "Write email 5 with a brief journey recap, genuine deadline or scarcity, clear offer presentation, guarantee restatement, and direct call to action."
+      performer: "copywriter"
+      critical: true
+      on_success: "S006"
+      on_failure: "retry"
+    - id: "S006"
+      name: "Sequence Continuity Review"
+      action: "validate_open_loops"
+      description: "Review all 5 emails as a single narrative. Verify each cliffhanger resolves in the next email, emotional temperature escalates, and the story arc feels complete."
+      performer: "copywriter"
+      critical: true
+      on_success: "DONE"
+      on_failure: "S001"
+  error_handling:
+    global_timeout: "PT4H"
+    retry_policy: "max 2 retries per step before escalation"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "open_loops_connected"
+        type: "boolean"
+        target: true
+        weight: 1.0
+      - name: "no_selling_in_emails_1_to_3"
+        type: "boolean"
+        target: true
+        weight: 1.0
+      - name: "specific_epiphany"
+        type: "boolean"
+        target: true
+        weight: 0.8
+      - name: "genuine_urgency_in_email_5"
+        type: "boolean"
+        target: true
+        weight: 0.7
+      - name: "conversational_tone"
+        type: "boolean"
+        target: true
+        weight: 0.5
+    pass_threshold: 0.8
+  outputs:
+    artifacts:
+      - name: "soap_opera_email_sequence"
+        type: "file"
+        format: "md"
+        description: "5-email onboarding sequence with open loops, story-driven narrative, and final CTA."

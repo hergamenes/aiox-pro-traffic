@@ -1,0 +1,29 @@
+# Extraction State - Frank Kern
+# Auto-generated: 2026-03-19
+
+extraction:
+  status: "completed"
+  started: "2026-01-26"
+  completed: "2026-01-26"
+
+sources:
+  total: 19
+  tier_1_estimated: 11
+  types_detected: ["books", "interviews", "articles", "newsletters"]
+
+voice_dna:
+  extracted: true
+  power_words: 14
+  signature_phrases: 12
+  anti_patterns: 6
+  quality_estimate: "high"
+
+thinking_dna:
+  extracted: true
+  frameworks: 7
+  heuristics: 7
+  quality_estimate: "medium"
+
+overall:
+  fidelity_estimate: "90%"
+  needs_improvement: []

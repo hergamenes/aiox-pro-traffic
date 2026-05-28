@@ -1,0 +1,217 @@
+sop:
+  id: rb-decision-heuristics
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+
+  title: "Russell Brunson Decision Heuristics"
+  purpose: "Systematic decision checkpoints based on Russell Brunson's DotCom Secrets, Expert Secrets, and Traffic Secrets methodology — enforcing funnel-first copywriting, story-before-sell, 3-second hooks, 10x value stacking, epiphany-driven content, and people-first traffic strategy."
+
+  classification:
+    domain: copywriting
+    subdomain: funnel-strategy
+    source_agent: russell-brunson
+    artifact_type: decision_tree
+    tier: t2
+
+  steps:
+    - id: RB_H01
+      name: funnel_first
+      decision_point: "Starting any copy project"
+      branches:
+        - condition: "Funnel position and Value Ladder step clearly defined"
+          goto: RB_H02
+        - condition: "Copy's funnel position unclear"
+          goto: RB_H01_FIX
+          action: "STOP. Map the funnel first. Copy without funnel context is disconnected."
+
+    - id: RB_H01_FIX
+      name: map_funnel
+      action: "Define exactly WHERE this copy lives in the funnel and which Value Ladder step it serves."
+      goto: RB_H01
+
+    - id: RB_H02
+      name: story_before_sell
+      decision_point: "Writing any copy piece"
+      branches:
+        - condition: "Copy opens with a story"
+          goto: RB_H03
+        - condition: "Copy leads with features, specs, or data"
+          goto: RB_H02_FIX
+          action: "Facts tell, stories sell. Restructure: story first, then facts as evidence."
+
+    - id: RB_H02_FIX
+      name: add_story_opening
+      action: "Open with story that creates emotional connection. Present facts as supporting evidence after."
+      goto: RB_H02
+
+    - id: RB_H03
+      name: hook_test
+      decision_point: "Evaluating any copy — does hook capture in 3 seconds?"
+      branches:
+        - condition: "Hook captures attention within 3 seconds"
+          goto: RB_H04
+        - condition: "Hook does NOT capture in 3 seconds"
+          goto: RB_H03_FIX
+          action: "Rest of copy is IRRELEVANT. Nobody will read it. Rewrite hook."
+        - condition: "Hook captures but is misleading"
+          goto: RB_H03_FIX
+          action: "Rewrite. Hook must be attention-grabbing AND relevant to offer."
+
+    - id: RB_H03_FIX
+      name: rewrite_hook
+      action: "Rewrite hook to capture attention in 3 seconds while staying relevant to the offer."
+      goto: RB_H03
+
+    - id: RB_H04
+      name: value_stack
+      decision_point: "Presenting any offer"
+      branches:
+        - condition: "Value stack built with perceived value >= 10x price"
+          goto: RB_H05
+        - condition: "Price presented without value stack"
+          goto: RB_H04_FIX_ORDER
+          action: "Stack FIRST, price LAST. Restructure presentation."
+        - condition: "Value stack below 10x ratio"
+          goto: RB_H04_FIX_VALUE
+          action: "Add bonuses, guarantees, or support until 10x ratio is met."
+
+    - id: RB_H04_FIX_ORDER
+      name: restructure_presentation
+      action: "Present complete value stack BEFORE revealing price."
+      goto: RB_H04
+
+    - id: RB_H04_FIX_VALUE
+      name: increase_perceived_value
+      action: "Add bonuses, guarantees, community, support elements until perceived value >= 10x price."
+      goto: RB_H04
+
+    - id: RB_H05
+      name: epiphany_over_education
+      decision_point: "Creating sales content (webinars, VSLs, emails)"
+      branches:
+        - condition: "Content creates epiphanies (belief shifts)"
+          goto: RB_H06
+        - condition: "Content teaches (how-to, steps, techniques)"
+          goto: RB_H05_FIX
+          action: "STOP teaching. Education creates know-it-alls. Restructure for epiphanies that create BUYERS."
+
+    - id: RB_H05_FIX
+      name: restructure_for_epiphany
+      action: "Transform educational content into belief-shifting epiphanies. Change what they BELIEVE, not what they KNOW."
+      goto: RB_H05
+
+    - id: RB_H06
+      name: fill_your_funnel_first
+      decision_point: "Choosing traffic tactics"
+      branches:
+        - condition: "Following 6-step Fill Your Funnel framework on ONE platform"
+          goto: RB_H07
+        - condition: "Chasing scattered tactics across multiple platforms"
+          goto: RB_H06_FIX
+          action: "STOP chasing tactics. Apply framework on ONE platform. Depth beats breadth."
+
+    - id: RB_H06_FIX
+      name: focus_one_platform
+      action: "Pick one platform. Apply 6-step Fill Your Funnel: Dream 100, dig well, work in, buy in, fill funnel, follow up."
+      goto: RB_H06
+
+    - id: RB_H07
+      name: breakeven_is_winning
+      decision_point: "Evaluating ad profitability"
+      branches:
+        - condition: "Break-even on front-end understood as victory"
+          goto: RB_H08
+        - condition: "Expecting front-end profit on first purchase"
+          goto: RB_H07_FIX
+          action: "Break-even = FREE customers acquired. Profit comes from back-end via funnel stacking."
+
+    - id: RB_H07_FIX
+      name: ltv_education
+      action: "Calculate LTV. Understand back-end profit model. Front-end ROI is a bonus, not a requirement."
+      goto: RB_H08
+
+    - id: RB_H08
+      name: framework_over_tactic
+      decision_point: "Platform changes algorithm or new platform emerges"
+      branches:
+        - condition: "Applying Fill Your Funnel framework to new situation"
+          goto: RB_H09
+        - condition: "Chasing platform-specific hack"
+          goto: RB_H08_FIX
+          action: "Tactics expire. Frameworks are permanent. Execute hack through framework."
+
+    - id: RB_H08_FIX
+      name: apply_framework
+      action: "Learn the tactic but execute through the Fill Your Funnel framework. Hack is tactic, framework is strategy."
+      goto: RB_H09
+
+    - id: RB_H09
+      name: traffic_is_people
+      decision_point: "Planning traffic campaign"
+      branches:
+        - condition: "Defined WHO customers are and WHERE they congregate"
+          goto: RB_H10
+        - condition: "Optimizing for clicks without knowing who they are"
+          goto: RB_H09_FIX
+          action: "STOP. Traffic is PEOPLE, not clicks. Define people first, find where they gather."
+
+    - id: RB_H09_FIX
+      name: people_first_targeting
+      action: "Define target people specifically. Then find where they already congregate. Then create messages for them."
+      goto: RB_H09
+
+    - id: RB_H10
+      name: producer_not_consumer
+      decision_point: "Using social media"
+      branches:
+        - condition: "Producing content or researching patterns"
+          goto: COMPLETE
+        - condition: "Scrolling and consuming without intent"
+          goto: RB_H10_FIX
+          action: "STOP consuming. Every scroll should be research. Study what's working."
+
+    - id: RB_H10_FIX
+      name: switch_to_producer
+      action: "Be PRODUCER of social media. Study hooks, engagement patterns, content types that work."
+      goto: COMPLETE
+
+  error_handling:
+    - error: "copy_without_funnel_context"
+      symptom: "Disconnected messaging; copy doesn't lead anywhere"
+      resolution: "Return to RB_H01. Define funnel position and Value Ladder step."
+
+    - error: "leading_with_features"
+      symptom: "Low engagement; prospects don't connect emotionally"
+      resolution: "Return to RB_H02. Restructure to open with story."
+
+    - error: "weak_hook"
+      symptom: "High bounce rate; nobody reads past first line"
+      resolution: "Return to RB_H03. Rewrite hook for 3-second capture."
+
+    - error: "price_shock"
+      symptom: "Prospects say 'too expensive' without seeing value"
+      resolution: "Return to RB_H04. Build full value stack (10x) before revealing price."
+
+    - error: "teaching_instead_of_epiphany"
+      symptom: "Prospects say 'I already know this' or try to DIY"
+      resolution: "Return to RB_H05. Restructure for belief-shifting epiphanies."
+
+    - error: "expecting_frontend_profit"
+      symptom: "Killing profitable campaigns because front-end doesn't show ROI"
+      resolution: "Return to RB_H07. Calculate LTV, understand back-end profit model."
+
+  quality_gate:
+    criteria:
+      - "Copy's funnel position and Value Ladder step defined"
+      - "Every copy piece opens with story"
+      - "Hook captures in 3 seconds"
+      - "Value stack perceived value >= 10x price"
+      - "Sales content creates epiphanies, not education"
+      - "Traffic strategy follows Fill Your Funnel framework"
+      - "Break-even understood as success"
+      - "Strategy is framework-based, not tactic-dependent"
+      - "Traffic defined as people with known locations"
+    pass_threshold: "9/9 criteria met"

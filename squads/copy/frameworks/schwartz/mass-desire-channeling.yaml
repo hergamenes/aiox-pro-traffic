@@ -1,0 +1,64 @@
+# Framework: Mass Desire Channeling
+# Author: Eugene Schwartz
+# Source: Breakthrough Advertising (1966), Chapter 1
+# Command: *desire-map
+
+name: "Mass Desire Channeling"
+category: "desire_analysis"
+origin: "Eugene Schwartz - Breakthrough Advertising (1966)"
+frequency: "Core - fundamento de toda copy"
+command: "*desire-map"
+
+principle: |
+  "Esta e a tarefa do copywriter: nao criar desejo de massa -
+  mas canaliza-lo e direciona-lo. O poder, a forca, o impulso
+  avassalador de possuir que faz a publicidade funcionar,
+  vem do proprio mercado, e nao do copy."
+
+permanent_desires:
+  category: "Forcas que NUNCA desaparecem"
+  list:
+    - desire: "Atracao Sexual"
+      manifestations: ["Beleza", "Virilidade", "Magnetismo", "Desejabilidade"]
+    - desire: "Status Social"
+      manifestations: ["Admiracao", "Respeito", "Inveja dos outros", "Pertencimento a elite"]
+    - desire: "Seguranca Financeira"
+      manifestations: ["Riqueza", "Independencia", "Liberdade", "Protecao contra incerteza"]
+    - desire: "Saude e Vitalidade"
+      manifestations: ["Longevidade", "Energia", "Juventude", "Ausencia de dor"]
+    - desire: "Protecao da Familia"
+      manifestations: ["Seguranca dos filhos", "Legado", "Prover", "Proteger"]
+    - desire: "Realizacao Pessoal"
+      manifestations: ["Sucesso", "Conquista", "Reconhecimento", "Significado"]
+
+changing_desires:
+  category: "Forcas contexto-dependentes"
+  list:
+    - "Tendencias tecnologicas"
+    - "Mudancas culturais"
+    - "Pressoes economicas"
+    - "Movimentos sociais"
+
+channeling_process:
+  step_1: "IDENTIFICAR o desejo dominante pre-existente"
+  step_2: "INTENSIFICAR atraves de especificidade e vivacidade"
+  step_3: "DIRECIONAR para caracteristicas do produto"
+  step_4: "MATERIALIZAR em acao de compra especifica"
+
+desire_power_formula: |
+  Poder do Desejo = Intensidade x Frequencia x Universalidade
+  - Intensidade: Quao forte e a dor/prazer? (1-10)
+  - Frequencia: Quantas vezes por dia pensam nisso?
+  - Universalidade: Que % do mercado compartilha?
+
+application: |
+  MAPEAMENTO DE DESEJO DE MASSA:
+
+  1. "Voce nao CRIA desejo. Voce identifica o que JA EXISTE."
+  2. "Use a formula: Poder = Intensidade x Frequencia x Universalidade"
+     - "Quao FORTE e a dor/prazer? (1-10)"
+     - "Quantas vezes por DIA pensam nisso?"
+     - "Que % do mercado compartilha?"
+  3. "Identifique se e desejo PERMANENTE (saude, status, dinheiro) ou TRANSITORIO."
+  4. "Conecte seu produto a um desejo permanente que esta em alta intensidade AGORA."
+  5. "Canalize, nao crie. O poder vem do mercado, nao das palavras."

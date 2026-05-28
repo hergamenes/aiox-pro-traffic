@@ -1,0 +1,117 @@
+sop:
+  id: "fk-formula-5-optimization"
+  version: "1.0.0"
+  title: "Formula 5 - 5 Profit Vectors Optimization"
+  purpose: "Double business revenue through compounding 15% improvements across 5 profit vectors: new acquisition, upsell, resell, cross-sell, and conversion rate (1.15^5 = 2.01x)."
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    risk_level: "medium"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "When optimizing an existing business with revenue data, during quarterly strategy reviews, or when revenue has plateaued and a systematic growth framework is needed."
+  context:
+    input:
+      - name: "current_revenue_metrics"
+        type: "object"
+        required: true
+        description: "Current metrics per vector: new customer acquisition cost, upsell revenue, repeat purchase rate, cross-sell revenue, and conversion rates at each funnel stage."
+      - name: "product_ecosystem"
+        type: "list"
+        required: true
+        description: "All products/services available for upsell and cross-sell, with pricing and complementarity mapping."
+      - name: "customer_journey_data"
+        type: "object"
+        required: false
+        description: "Current customer journey from first touch to repeat purchase, including time between purchases and average LTV."
+  steps:
+    - id: "S001"
+      name: "Audit All 5 Vectors"
+      action: "document_baseline_metrics"
+      description: "Measure and document current performance for all 5 vectors: new customer acquisition rate/cost, upsell revenue per transaction, repeat purchase rate, cross-sell revenue per customer, and conversion rates at each funnel stage."
+      performer: "copywriter"
+      critical: true
+      on_success: "S002"
+      on_failure: "retry"
+    - id: "S002"
+      name: "Optimize New Customer Acquisition"
+      action: "reduce_cpa_15_percent"
+      description: "Test 2-3 new acquisition strategies to reduce CPA by 15%. Focus on cheaper acquisition from the same budget, not increased spend. Implement tracking for month-over-month comparison."
+      performer: "copywriter"
+      critical: false
+      on_success: "S003"
+      on_failure: "retry"
+    - id: "S003"
+      name: "Implement Systematic Upsell"
+      action: "automate_upsell_at_purchase"
+      description: "Design and implement systematic upsell that triggers automatically at point of purchase. Price at 30-50% of original. Use order bumps, one-click upsells, or immediate follow-up emails. Target: 15% increase in average transaction revenue."
+      performer: "copywriter"
+      critical: true
+      on_success: "S004"
+      on_failure: "retry"
+    - id: "S004"
+      name: "Implement Programmatic Resell"
+      action: "automate_repeat_purchase"
+      description: "Build automated resell sequences: reorder reminders, renewal sequences, upgrade paths, reactivation campaigns. Must be programmatic (system-driven), not manual. Target: 15% increase in repeat purchase rate."
+      performer: "copywriter"
+      critical: true
+      on_success: "S005"
+      on_failure: "retry"
+    - id: "S005"
+      name: "Implement Cross-Sell"
+      action: "map_and_recommend_complementary"
+      description: "Map product ecosystem for complementary recommendations. Implement cross-sell via post-purchase emails, thank-you page, and periodic product spotlight emails. Target: 15% increase in revenue per customer."
+      performer: "copywriter"
+      critical: false
+      on_success: "S006"
+      on_failure: "retry"
+    - id: "S006"
+      name: "Optimize Conversion Rate"
+      action: "ab_test_weakest_link"
+      description: "Identify lowest-converting funnel stage. Apply optimization tactics and A/B test ONE variable at a time. Run tests for minimum 2 weeks or 100 conversions. Target: 15% improvement at weakest conversion point."
+      performer: "copywriter"
+      critical: true
+      on_success: "S007"
+      on_failure: "retry"
+    - id: "S007"
+      name: "Calculate Compound Effect"
+      action: "measure_total_improvement"
+      description: "After all vectors are optimized, calculate compound revenue effect. Formula: Revenue x 1.15^5 = ~2x. Document actual improvement per vector and total compound result."
+      performer: "copywriter"
+      critical: false
+      on_success: "DONE"
+      on_failure: "retry"
+  error_handling:
+    global_timeout: "PT8H"
+    retry_policy: "max 2 retries per step before escalation"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "all_5_vectors_baselined"
+        type: "boolean"
+        target: true
+        weight: 1.0
+      - name: "upsell_is_automatic"
+        type: "boolean"
+        target: true
+        weight: 0.9
+      - name: "resell_is_programmatic"
+        type: "boolean"
+        target: true
+        weight: 0.9
+      - name: "ab_tests_single_variable"
+        type: "boolean"
+        target: true
+        weight: 0.7
+      - name: "tracking_per_vector"
+        type: "boolean"
+        target: true
+        weight: 0.8
+    pass_threshold: 0.8
+  outputs:
+    artifacts:
+      - name: "formula_5_optimization_plan"
+        type: "file"
+        format: "md"
+        description: "Complete optimization plan with baseline metrics, 15% targets per vector, specific tactics, implementation timeline, and projected compound revenue increase."

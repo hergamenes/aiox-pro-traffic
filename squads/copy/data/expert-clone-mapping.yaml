@@ -1,0 +1,217 @@
+# Expert-Clone Mapping
+# Maps expert names, products, and keywords to MMOS clone slugs
+# Used by wf-voice-clone-copy.yaml for auto-detection
+
+version: "1.0.0"
+updated: "2026-02-02"
+
+# ════════════════════════════════════════════════════════════════════════════════
+# EXPERT MAPPINGS
+# ════════════════════════════════════════════════════════════════════════════════
+
+experts:
+  # ──────────────────────────────────────────────────────────────────────────────
+  # José Carlos Amorim
+  # ──────────────────────────────────────────────────────────────────────────────
+  jose_carlos_amorim:
+    slug: jose_carlos_amorim
+    clone_path: outputs/minds/jose_carlos_amorim/
+    display_name: "José Carlos Amorim"
+    nicknames:
+      - "José Amorim"
+      - "Amorim"
+      - "José Carlos"
+
+    domains:
+      - "cohort-based courses"
+      - "AI para empresários"
+      - "Nexialismo"
+      - "TDAH"
+      - "produtividade"
+      - "comunicação"
+
+    products:
+      - "Cohort Fundamentals"
+      - "IAPE"
+      - "Código Amazônia"
+      - "Nexialismo: A Última Inteligência"
+
+    keywords:
+      high_confidence:
+        - "cohort"
+        - "cohort-based"
+        - "Lendário"
+        - "IAPE"
+        - "nexialismo"
+        - "nexialista"
+        - "José Amorim"
+        - "Amorim"
+
+      medium_confidence:
+        - "comunidade"
+        - "IA para"
+        - "curso ao vivo"
+        - "Manaus"
+        - "Amazônia"
+
+    voice_profile:
+      archetype: "O Tradutor Apaixonado"
+      primary_framework: "Espiral Expansiva"
+      personas:
+        - "Professor Socrático"
+        - "Visionário Inquieto"
+        - "Conselheiro Empático"
+        - "Estrategista Direto"
+
+    artifacts:
+      required:
+        - "artifacts/voice_guide.md"
+        - "artifacts/writing_style.yaml"
+      recommended:
+        - "artifacts/communication_templates.md"
+        - "artifacts/frameworks_synthesized.md"
+      stories:
+        - "sources/mental_archeology.yaml"
+        - "sources/interviews/entrevista.md"
+        - "sources/geral.md"
+      deep:
+        - "system_prompts/system-prompt-generalista.md"
+
+  # ──────────────────────────────────────────────────────────────────────────────
+  # Alan Nicolas
+  # ──────────────────────────────────────────────────────────────────────────────
+  alan_nicolas:
+    slug: alan_nicolas
+    clone_path: outputs/minds/alan_nicolas/
+    display_name: "Alan Nicolas"
+    nicknames:
+      - "Alan"
+
+    domains:
+      - "AI development"
+      - "automation"
+      - "Claude Code"
+      - "AIOX"
+      - "software engineering"
+
+    products:
+      - "AIOX Framework"
+      - "Synkra"
+
+    keywords:
+      high_confidence:
+        - "Alan Nicolas"
+        - "AIOX"
+        - "Claude Code"
+        - "Synkra"
+
+      medium_confidence:
+        - "automação"
+        - "desenvolvimento"
+        - "agentes IA"
+
+    voice_profile:
+      archetype: "O Desenvolvedor Prático"
+      primary_framework: "Code-First"
+
+# ════════════════════════════════════════════════════════════════════════════════
+# COPYWRITER CLONES (from MMOS database)
+# ════════════════════════════════════════════════════════════════════════════════
+
+copywriters:
+  # These have full MMOS clones available
+  available:
+    - gary_halbert
+    - dan_kennedy
+    - david_ogilvy
+    - eugene_schwartz
+    - joe_sugarman
+    - ben_settle
+    - andre_chaperon
+    - stefan_georgi
+    - john_carlton
+    - robert_collier
+    - parris_lampropoulos
+    - claude_hopkins
+    - todd_brown
+    - gary_bencivenga
+    - david_deutsch
+
+  # Mapping copywriter → use cases
+  specialties:
+    gary_halbert:
+      best_for: ["sales letters", "personal stories", "direct mail"]
+      voice: "Raw, street-smart, conversational"
+
+    dan_kennedy:
+      best_for: ["urgency", "direct response", "P.S. strategy"]
+      voice: "No-BS, direct, results-focused"
+
+    eugene_schwartz:
+      best_for: ["awareness diagnosis", "sophistication levels", "headlines"]
+      voice: "Analytical, strategic"
+
+    joe_sugarman:
+      best_for: ["psychological triggers", "storytelling in ads", "cart abandonment"]
+      voice: "Trigger-focused, consumer psychology"
+
+    ben_settle:
+      best_for: ["daily emails", "infotainment", "personality copy"]
+      voice: "Irreverent, polarizing, anti-guru"
+
+    andre_chaperon:
+      best_for: ["soap opera sequences", "automated funnels", "story-driven"]
+      voice: "Sophisticated, serialized, psychological"
+
+# ════════════════════════════════════════════════════════════════════════════════
+# DETECTION RULES
+# ════════════════════════════════════════════════════════════════════════════════
+
+detection:
+  process:
+    1: "Scan briefing for exact name matches"
+    2: "Check product name matches"
+    3: "Look for high-confidence keywords"
+    4: "If no match → check medium-confidence keywords"
+    5: "If still no match → ask user"
+
+  confidence_thresholds:
+    auto_load: "high (exact name or product match)"
+    suggest: "medium (keyword match)"
+    ask: "low (no clear match)"
+
+  fallback_prompt: |
+    Não consegui identificar automaticamente qual expert deve ser o autor.
+
+    Clones disponíveis:
+    - José Carlos Amorim (cohort-based, AI, Nexialismo)
+    - Alan Nicolas (AI development, automation)
+    - [Copywriters: Gary Halbert, Dan Kennedy, etc.]
+
+    Qual clone devo carregar para esta copy?
+
+# ════════════════════════════════════════════════════════════════════════════════
+# USAGE EXAMPLES
+# ════════════════════════════════════════════════════════════════════════════════
+
+examples:
+  auto_detected:
+    - briefing: "Criar emails para o Cohort Fundamentals do José Amorim"
+      detected: jose_carlos_amorim
+      confidence: high
+      reason: "Nome + produto match"
+
+    - briefing: "Sequência de lançamento para curso de IA para empresários"
+      detected: jose_carlos_amorim
+      confidence: medium
+      reason: "Keyword 'IA para' match"
+
+    - briefing: "Email sequence using Soap Opera methodology"
+      detected: andre_chaperon
+      confidence: high
+      reason: "Specialty match"
+
+  manual_selection:
+    - briefing: "Criar copy para novo curso online"
+      detected: null
+      action: "Ask user which voice to use"

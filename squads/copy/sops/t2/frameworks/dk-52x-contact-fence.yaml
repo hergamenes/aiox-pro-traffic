@@ -1,0 +1,162 @@
+sop:
+  id: dk-52x-contact-fence
+  version: "1.0"
+  title: "52X Contact Program (The Fence)"
+  purpose: >
+    Build a systematic fence around existing customers through 24-250+ touches
+    per year across multiple channels. Ensures retention, repeat purchases,
+    and referrals at $25-30 per client per year.
+  classification:
+    domain: copywriting
+    subdomain: customer-retention
+    tier: t2
+    source_agent: dan-kennedy
+    artifact_type: framework
+
+  steps:
+    - id: step_1_newsletter
+      action: apply_monthly_newsletter
+      label: "Monthly Newsletter (Mandatory)"
+      description: >
+        Create a monthly newsletter mixing valuable content with personality.
+        Include customer success story, educational piece, personal element, and
+        one offer. Ship on the same date each month. Non-negotiable backbone.
+      inputs:
+        - customer_list
+        - content_calendar
+      outputs:
+        - newsletter_template
+        - publishing_schedule
+      validation:
+        - field: publishing_schedule
+          rule: 12_per_year_minimum
+        - field: newsletter_template
+          rule: contains_4_content_types
+
+    - id: step_2_seasonal_cards
+      action: apply_seasonal_cards
+      label: "Seasonal Cards"
+      description: >
+        Send cards on at least 4 seasonal occasions. Handwrite personal notes
+        when possible. These are relationship touches, not sales pieces.
+      inputs:
+        - customer_list
+        - seasonal_calendar
+      outputs:
+        - card_schedule
+        - card_designs
+      validation:
+        - field: card_schedule
+          rule: minimum_4_per_year
+        - field: card_designs
+          rule: no_sales_pitch
+
+    - id: step_3_voice_broadcasts
+      action: apply_voice_broadcasts
+      label: "Voice Broadcasts"
+      description: >
+        Send periodic voice messages with timely updates, event invitations,
+        or personal thank-yous. Keep under 90 seconds. Use monthly or for
+        special occasions only.
+      inputs:
+        - customer_phone_list
+        - broadcast_calendar
+      outputs:
+        - voice_scripts
+        - broadcast_schedule
+      validation:
+        - field: voice_scripts
+          rule: max_90_seconds_each
+        - field: broadcast_schedule
+          rule: max_monthly_frequency
+
+    - id: step_4_email_cadence
+      action: apply_email_cadence
+      label: "Email Cadence"
+      description: >
+        Send at least one email per week beyond the newsletter. Mix 80% value
+        with 20% offers. Segment by purchase recency and engagement.
+      inputs:
+        - customer_email_list
+        - content_assets
+      outputs:
+        - email_sequence
+        - segmentation_rules
+      validation:
+        - field: email_sequence
+          rule: minimum_weekly
+        - field: email_sequence
+          rule: value_offer_ratio_80_20
+
+    - id: step_5_events
+      action: apply_customer_events
+      label: "Events"
+      description: >
+        Organize at least 2 customer events per year — educational, social, or
+        promotional. Creates reciprocity and deepens relationships beyond
+        transactional.
+      inputs:
+        - customer_segments
+        - event_budget
+      outputs:
+        - event_calendar
+        - event_plans
+      validation:
+        - field: event_calendar
+          rule: minimum_2_per_year
+
+    - id: step_6_gifts
+      action: apply_gift_program
+      label: "Gifts"
+      description: >
+        Send unexpected gifts to top customers. Target top 20% by revenue for
+        physical gifts. Broader list gets digital gifts (exclusive content,
+        early access). Must be thoughtful and relevant.
+      inputs:
+        - customer_revenue_ranking
+        - gift_budget
+      outputs:
+        - gift_program_criteria
+        - gift_inventory
+      validation:
+        - field: gift_program_criteria
+          rule: targets_top_20_percent
+        - field: gift_inventory
+          rule: no_generic_swag
+
+  error_handling:
+    - error: no_newsletter
+      symptom: "Customers forget you exist between purchases"
+      resolution: "Start the monthly newsletter immediately — non-negotiable"
+    - error: all_touches_are_sales
+      symptom: "Unsubscribes spike, engagement drops"
+      resolution: "Mix 80% value / 20% offers across all channels"
+    - error: inconsistent_schedule
+      symptom: "Customers stop expecting communication"
+      resolution: "Set fixed calendar dates and automate where possible"
+    - error: digital_only
+      symptom: "Touches easily ignored in crowded inbox"
+      resolution: "Add physical newsletter and seasonal cards"
+
+  quality_gate:
+    min_score: 7
+    criteria:
+      - "Monthly newsletter shipping on schedule"
+      - "Seasonal cards sent 4+ times per year"
+      - "Voice broadcasts at least quarterly"
+      - "Email cadence minimum 1x/week"
+      - "Minimum 2 customer events per year"
+      - "Top 20% customers receiving physical gifts"
+      - "Total annual touches per customer: 52+"
+      - "Cost per customer <= $30/year"
+
+  outputs:
+    - type: contact_calendar
+      format: calendar
+      scope: "12 months"
+    - type: newsletter_template
+      format: markdown
+    - type: email_sequences
+      format: sequence_map
+    - type: gift_program
+      format: criteria_document

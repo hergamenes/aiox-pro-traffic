@@ -1,0 +1,112 @@
+sop:
+  id: "rb-perfect-webinar-script"
+  version: "1.0.0"
+  title: "Perfect Webinar Script"
+  purpose: "Produce a complete 90-minute webinar script that breaks 3 categories of limiting beliefs using Epiphany Bridge stories, then closes with a structured value stack"
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    risk_level: "medium"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "When selling middle-tier or backend offers ($497+) that require belief-breaking education before purchase, via live or evergreen webinar"
+  context:
+    input:
+      - name: "product_for_middle_backend"
+        type: "object"
+        required: true
+        description: "Product or service for the middle/backend tier including features, value stack, pricing, and guarantee"
+      - name: "three_limiting_beliefs"
+        type: "list"
+        required: true
+        description: "3 documented limiting beliefs of the target market: vehicle belief (wrong solution), internal belief (I can't), external belief (my situation is different)"
+  steps:
+    - id: "S001"
+      name: "Write INTRO"
+      action: "script_intro_section"
+      description: "Write 5-minute intro that hooks with specific promised result, establishes credibility in 30 seconds, teases 3 secrets, and sets the commitment frame. Do NOT sell in the intro."
+      performer: "copywriter"
+      critical: true
+      on_success: "S002"
+      on_failure: "retry"
+    - id: "S002"
+      name: "Write Secret 1 - Vehicle belief"
+      action: "script_vehicle_belief_break"
+      description: "Write 15-minute section breaking the vehicle belief: state the limiting belief, tell Epiphany Bridge story that broke this belief, reveal new truth, connect to product/mechanism. Prospect should question their current approach."
+      performer: "copywriter"
+      critical: true
+      on_success: "S003"
+      on_failure: "retry"
+    - id: "S003"
+      name: "Write Secret 2 - Internal belief"
+      action: "script_internal_belief_break"
+      description: "Write 15-minute section breaking the internal belief ('I can't do it'): tell Epiphany Bridge story of someone with same self-doubt who succeeded. Emphasize the system removes need for individual talent."
+      performer: "copywriter"
+      critical: true
+      on_success: "S004"
+      on_failure: "retry"
+    - id: "S004"
+      name: "Write Secret 3 - External belief"
+      action: "script_external_belief_break"
+      description: "Write 15-minute section breaking the external belief ('my situation is different'): tell Epiphany Bridge story of someone in 'impossible' situation who succeeded. Reframe the obstacle as irrelevant or advantageous."
+      performer: "copywriter"
+      critical: true
+      on_success: "S005"
+      on_failure: "retry"
+    - id: "S005"
+      name: "Write TRANSITION"
+      action: "script_teaching_to_selling_bridge"
+      description: "Write 5-minute transition using the 2-option fork: Option 1 (figure it out alone) vs Option 2 (let me help you implement faster). Must feel natural, not like a bait-and-switch. Summarize 3 secrets briefly."
+      performer: "copywriter"
+      critical: true
+      on_success: "S006"
+      on_failure: "retry"
+    - id: "S006"
+      name: "Write STACK AND CLOSE"
+      action: "script_value_stack_close"
+      description: "Write 20-minute close: introduce each component with individual value, add bonuses, show running total, reveal price as fraction of total value, present guarantee, add genuine urgency, give clear specific CTA repeated at least twice."
+      performer: "copywriter"
+      critical: true
+      on_success: "END"
+      on_failure: "retry"
+  error_handling:
+    global_timeout: "PT6H"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "intro_hooks_without_selling"
+        type: "boolean"
+        target: true
+        weight: 0.1
+      - name: "three_beliefs_mapped_correctly"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "each_secret_uses_epiphany_bridge"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "transition_feels_natural"
+        type: "boolean"
+        target: true
+        weight: 0.1
+      - name: "stack_has_individual_values"
+        type: "boolean"
+        target: true
+        weight: 0.15
+      - name: "urgency_is_genuine"
+        type: "boolean"
+        target: true
+        weight: 0.1
+      - name: "cta_is_specific_and_repeated"
+        type: "boolean"
+        target: true
+        weight: 0.15
+    pass_threshold: 0.85
+  outputs:
+    artifacts:
+      - name: "webinar_script"
+        type: "file"
+        format: "md"
+        description: "Complete 90-minute webinar script with 6 sections: Intro, Secret 1 (Vehicle), Secret 2 (Internal), Secret 3 (External), Transition, Stack and Close"

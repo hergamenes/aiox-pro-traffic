@@ -1,0 +1,429 @@
+# WF-4: Organic Content Workflow
+# Framework: Copy Expansion Pack v2.0
+# Focus: Blog posts, newsletters, articles, social content
+# Duration: 5-8 days
+# Target: Building audience trust through valuable content
+
+workflow:
+  id: wf-4-organic-content
+  name: "Organic Content Creation Pipeline"
+  type: content-engine
+  duration: "5-8 days"
+  description: |
+    Content-first workflow for building audience through valuable organic content.
+    Designed for thought leadership, newsletter growth, and SEO-driven traffic.
+    Uses Robert Collier's letter writing, Gary Halbert's storytelling, and
+    David Ogilvy's editorial excellence for high-engagement content.
+  operational_roles:
+    orchestrator: copy-chief
+    human_review_agent: launch-owner
+    delivery_agent: copy-ops-worker
+  state_machine:
+    states: [init, research, architecture, long-form, distribution, final-review, complete, failed]
+    transitions:
+      - { trigger: start, source: init, dest: research }
+      - { trigger: research_complete, source: research, dest: architecture }
+      - { trigger: architecture_complete, source: architecture, dest: long-form }
+      - { trigger: long-form_complete, source: long-form, dest: distribution }
+      - { trigger: distribution_complete, source: distribution, dest: final-review }
+      - { trigger: final-review_complete, source: final-review, dest: complete }
+      - { trigger: fail, source: "*", dest: failed }
+  quality_gate_refs: [QG-CP-1.1, QG-CP-2.1, QG-CP-3.1, QG-CP-5.1]
+
+  target_output:
+    - "Blog posts (SEO-optimized)"
+    - "Newsletter series"
+    - "Social media content"
+    - "LinkedIn articles"
+    - "Email sequences (value-first)"
+
+  key_agents:
+    primary:
+      - robert-collier    # Letter writing, entering conversation
+      - gary-halbert      # Storytelling, A-pile letters
+      - david-ogilvy      # Editorial excellence, long-form
+    secondary:
+      - joe-sugarman      # Slippery slide copy
+      - ben-settle        # Value-first email approach (replaces ramit-sethi [ARCHIVED])
+
+  sequence:
+    - phase: research
+      id: research
+      agent: david-ogilvy
+      task_ref: tasks/copysearch.md
+      action: "Pesquisar audiência, lacunas editoriais e direção de conteúdo"
+      creates: content-research
+      on_complete: { trigger: research_complete }
+    - phase: architecture
+      id: architecture
+      agent: robert-collier
+      task_ref: tasks/analyze-mental-conversation.md
+      requires: content-research
+      action: "Arquitetar pilares, ângulos e conversa mental do conteúdo"
+      creates: content-architecture
+      on_complete: { trigger: architecture_complete }
+    - phase: long-form
+      id: long-form
+      agent: gary-halbert
+      task_ref: tasks/write-visceral-copy.md
+      requires: content-architecture
+      action: "Produzir a peça principal long-form com storytelling e ritmo"
+      creates: longform-draft
+      on_complete: { trigger: long-form_complete }
+    - phase: distribution
+      id: distribution
+      agent: ben-settle
+      task_ref: tasks/create-newsletter.md
+      requires: longform-draft
+      action: "Adaptar a peça para e-mail e distribuição orgânica recorrente"
+      creates: distribution-assets
+      on_complete: { trigger: distribution_complete }
+    - phase: final-review
+      id: final-review
+      agent: copy-chief
+      task_ref: tasks/simple-writing-audit.md
+      requires: distribution-assets
+      action: "Revisar o pacote orgânico final antes da publicação"
+      creates: organic-content-package
+      on_complete: { trigger: final-review_complete }
+
+  handoff_prompts:
+    default: "Entregue o artefato criado, decisões tomadas, riscos abertos e o critério exato para o próximo agente continuar sem reinterpretar o contexto."
+
+# ==============================================================================
+# PHASE 1: CONTENT STRATEGY & RESEARCH
+# ==============================================================================
+
+phases:
+  - id: PHASE-1
+    name: "Content Strategy & Research"
+    day: 1
+    tier: 0
+    description: |
+      Define content pillars, understand audience conversation,
+      and create editorial calendar foundation.
+
+    tasks:
+      - task_file: copysearch.md
+        agent: david-ogilvy
+        required: true
+        focus: "Research audience, content gaps, competitor content"
+        output: "Content research brief"
+
+      - task_file: create-avatar.md
+        agent: copy-chief
+        required: true
+        focus: "Reader avatar for content consumption"
+        output: "Content reader profile"
+
+    checkpoint:
+      criteria:
+        - "AUDIENCE research complete"
+        - "CONTENT GAPS identified"
+        - "READER AVATAR defined"
+      human_review: false
+      message: "Research complete. Proceeding to content architecture."
+
+# ==============================================================================
+# PHASE 2: CONTENT ARCHITECTURE
+# ==============================================================================
+
+  - id: PHASE-2
+    name: "Content Architecture"
+    day: 2
+    tier: 1
+    description: |
+      Create content pillars, topic clusters, and editorial calendar.
+      Apply Robert Collier's "entering the conversation" principle.
+
+    tasks:
+      - task_file: create-content-pillars.md
+        agent: robert-collier
+        required: true
+        focus: "Define 3-5 content pillars based on audience conversation"
+        output: "Content pillars document"
+
+      - task_file: create-content-calendar.md
+        agent: copy-chief
+        required: true
+        focus: "30-day content calendar"
+        output: "Editorial calendar"
+
+    checkpoint:
+      criteria:
+        - "CONTENT PILLARS defined (3-5)"
+        - "TOPIC CLUSTERS mapped"
+        - "EDITORIAL CALENDAR created"
+      human_review: true
+      message: "Review content strategy before production begins."
+
+# ==============================================================================
+# PHASE 3: LONG-FORM CONTENT CREATION
+# ==============================================================================
+
+  - id: PHASE-3
+    name: "Long-Form Content Creation"
+    day: 3-4
+    tier: 2
+    description: |
+      Create flagship content: blog posts, articles, guides.
+      Apply David Ogilvy's "the more you tell, the more you sell" and
+      Gary Halbert's storytelling for engagement.
+
+    tasks:
+      - task_file: create-blog-post.md
+        agent: david-ogilvy
+        required: true
+        focus: "Research-based, editorial long-form content"
+        output: "2-3 flagship blog posts"
+
+      - task_file: create-newsletter.md
+        agent: gary-halbert
+        required: true
+        focus: "Story-driven newsletter series"
+        output: "4-week newsletter series"
+
+      - task_file: create-article.md
+        agent: robert-collier
+        required: false
+        focus: "LinkedIn articles, industry publications"
+        output: "2 LinkedIn articles"
+
+    checkpoint:
+      criteria:
+        - "BLOG POSTS written (2-3)"
+        - "NEWSLETTER SERIES complete (4 editions)"
+        - "ARTICLES drafted"
+      human_review: true
+      message: "Review long-form content before social adaptation."
+
+# ==============================================================================
+# PHASE 4: SOCIAL CONTENT ADAPTATION
+# ==============================================================================
+
+  - id: PHASE-4
+    name: "Social Content Adaptation"
+    day: 5
+    tier: 3
+    description: |
+      Repurpose long-form content into social formats.
+      Apply Joe Sugarman's slippery slide for scroll-stopping hooks.
+
+    tasks:
+      - task_file: create-social-content.md
+        agent: joe-sugarman
+        required: true
+        focus: "Hook-driven social posts from long-form content"
+        output: "Social content batch"
+
+      - task_file: create-carousel.md
+        agent: gary-halbert
+        required: false
+        focus: "Story-based carousels for LinkedIn/Instagram"
+        output: "4 carousels"
+
+      - task_file: create-threads.md
+        agent: robert-collier
+        required: false
+        focus: "Twitter/X threads from blog posts"
+        output: "4 threads"
+
+    checkpoint:
+      criteria:
+        - "SOCIAL POSTS created"
+        - "CAROUSELS designed (if applicable)"
+        - "THREADS written (if applicable)"
+      human_review: false
+      message: "Social content ready. Proceeding to email integration."
+
+# ==============================================================================
+# PHASE 5: EMAIL INTEGRATION
+# ==============================================================================
+
+  - id: PHASE-5
+    name: "Email Integration"
+    day: 6
+    tier: 4
+    description: |
+      Create value-first email sequences that support content distribution.
+      Apply Ramit Sethi's email philosophy.
+
+    tasks:
+      - task_file: create-welcome-sequence.md
+        agent: ben-settle  # Replaces ramit-sethi [ARCHIVED]
+        required: true
+        focus: "Value-first welcome sequence for new subscribers"
+        output: "5-email welcome sequence"
+
+      - task_file: create-email-sequence.md
+        agent: gary-halbert
+        required: true
+        focus: "Content nurture sequence"
+        output: "7-email nurture sequence"
+
+    checkpoint:
+      criteria:
+        - "WELCOME SEQUENCE complete"
+        - "NURTURE SEQUENCE complete"
+        - "SEQUENCES aligned with content pillars"
+      human_review: true
+      message: "Review email sequences before final QA."
+
+# ==============================================================================
+# PHASE 6: QUALITY ASSURANCE & POLISH
+# ==============================================================================
+
+  - id: PHASE-6
+    name: "Quality Assurance & Polish"
+    day: 7-8
+    tier: 5
+    description: |
+      Final review, SEO optimization, and content polish.
+      Apply David Ogilvy's editorial standards.
+
+    tasks:
+      - task_file: review-content.md
+        agent: david-ogilvy
+        required: true
+        focus: "Editorial review for clarity and quality"
+        output: "Review notes and edits"
+
+      - task_file: optimize-seo.md
+        agent: copy-chief
+        required: true
+        focus: "SEO optimization for all content"
+        output: "SEO-optimized content"
+
+      - task_file: create-content-brief.md
+        agent: copy-chief
+        required: true
+        focus: "Distribution and promotion brief"
+        output: "Content launch brief"
+
+    checkpoint:
+      criteria:
+        - "ALL content reviewed"
+        - "SEO optimization complete"
+        - "CONTENT LAUNCH BRIEF ready"
+      human_review: true
+      message: "Final review before content launch."
+
+# ==============================================================================
+# WORKFLOW OUTPUTS
+# ==============================================================================
+
+outputs:
+  flagship_content:
+    - "2-3 SEO-optimized blog posts"
+    - "2 LinkedIn articles"
+    - "4-week newsletter series"
+
+  social_content:
+    - "Social post batch (20+ posts)"
+    - "4 carousels"
+    - "4 threads"
+
+  email_sequences:
+    - "5-email welcome sequence"
+    - "7-email nurture sequence"
+
+  documentation:
+    - "Content pillars document"
+    - "30-day editorial calendar"
+    - "Content launch brief"
+
+# ==============================================================================
+# SIGNALS & AUTOMATION
+# ==============================================================================
+
+completion_signal: "<promise>COMPLETE</promise>"
+checkpoint_signal: "<promise>CHECKPOINT:PHASE-X</promise>"
+blocked_signal: "<promise>BLOCKED:T-X.Y</promise>"
+
+automation:
+  state_file: "copy-state.json"
+  progress_file: "progress.txt"
+  handoff_file: "handoff.md"
+
+# ==============================================================================
+# AGENT SPECIALIZATIONS
+# ==============================================================================
+
+agent_roles:
+  robert-collier:
+    specialty: "Entering the reader's conversation"
+    applies_to:
+      - "Content pillars (audience conversation)"
+      - "LinkedIn articles"
+      - "Twitter threads"
+    key_framework: "Six Essentials of Letter Writing"
+
+  gary-halbert:
+    specialty: "Story-driven content that builds relationship"
+    applies_to:
+      - "Newsletter series"
+      - "Carousels"
+      - "Nurture sequences"
+    key_framework: "A-Pile Letter Method"
+
+  david-ogilvy:
+    specialty: "Research-based, editorial excellence"
+    applies_to:
+      - "Blog posts"
+      - "Content research"
+      - "Editorial review"
+    key_framework: "38 Principles + Long Copy Doctrine"
+
+  joe-sugarman:
+    specialty: "Hooks and slippery slide engagement"
+    applies_to:
+      - "Social content hooks"
+      - "First lines"
+      - "Scroll-stopping content"
+    key_framework: "Slippery Slide + Psychological Triggers"
+
+  ben-settle:  # Replaces ramit-sethi [ARCHIVED]
+    specialty: "Value-first email philosophy, daily email mastery"
+    applies_to:
+      - "Welcome sequence"
+      - "Email strategy"
+      - "Daily emails"
+    key_framework: "Email Players Method"
+
+# ==============================================================================
+# QUALITY GATES
+# ==============================================================================
+
+quality_gates:
+  content_standards:
+    - "All content passes editorial review"
+    - "SEO optimization complete"
+    - "Brand voice consistency across all pieces"
+    - "CTAs aligned with content goals"
+
+  engagement_markers:
+    - "Hooks optimized for attention"
+    - "Stories integrated for connection"
+    - "Value delivery before any ask"
+
+  technical_requirements:
+    - "All links functional"
+    - "Meta descriptions complete"
+    - "Images/graphics specified"
+    - "Mobile-friendly formatting"
+
+# ==============================================================================
+# METADATA
+# ==============================================================================
+
+metadata:
+  version: "1.0"
+  framework: "copy-framework-v2"
+  created: "2026-01-23"
+  story_id: "US-006"
+  primary_use_case: "Thought leadership and audience building"
+  secondary_use_cases:
+    - "Newsletter growth"
+    - "SEO traffic generation"
+    - "LinkedIn presence building"
+    - "Email list nurturing"

@@ -1,0 +1,18 @@
+# Transitions & Segues
+# Target: 30-50 entries
+# Section connectors
+
+category: transitions
+target_count: "30-50"
+description: "Section connectors"
+created: 2026-01-23T04:07:02-03:00
+entries: []
+tags: []
+
+# Quality distribution (target)
+quality_distribution:
+  5_star: "10%"
+  4_star: "30%"
+  3_star: "40%"
+  2_star: "15%"
+  1_star: "5%"

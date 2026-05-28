@@ -1,0 +1,33 @@
+# Managed by materialize-map.py
+# Source: outputs/sinkra-squad/copy/map/20260328-065841-gemini-gemini-3.1-pro-preview/phase-handoff.yaml
+# Category: formalization
+
+handoff:
+  from_phase: 8
+  from_agent: "sinkra-qa"
+  to_phase: 9
+  timestamp: "2026-03-28T06:58:41Z"
+
+  artifacts_produced:
+    - file: "sinkra_compliance_report.md"
+      description: "Relatório completo em Markdown sobre a aderência da arquitetura à SINKRA v1.2"
+    - file: "score_card.yaml"
+      description: "Score detalhado por dimensão, incluindo as novas adições da v1.2 (Artifacts, BU, Journey Log)"
+
+  decisions:
+    - "Apliquei o modelo de checagem SINKRA v1.2 que possui regras mais rígidas, ocasionando penalidades por artefatos não-formatados como templates."
+    - "Ativei o Auto-Fail/VETO devido à violação do TOK-05 (Tasks autônomas sem Accountability Token) e ART-01 (Ausência de templates em arquivos persistentes)."
+    - "Avaliadas as dimensões BU, Entity, Inheritance e Journey Log como N/A, redistribuindo pesos proporcionalmente, dado que este é um processo Single-BU de copy."
+
+  warnings:
+    - "O Pipeline atual apresenta excelente infraestrutura lógica (META_AXIOMAS 8.8), mas a adequação v1.2 exige Accountability em toda automação para evitar 'Orphan Tasks'."
+    - "Score 50/100 demanda loop de remediação estrutural."
+
+  checkpoint:
+    id: "SINKRA_QA_GATE"
+    verdict: "VETO"
+    score: 50
+
+  next_agent_focus:
+    - "Iniciar a remediação inserindo os Tokens de Accountability exigidos."
+    - "Formalizar os Artifact Templates para os 'Dossiês de Repertório' e 'Drafts'."

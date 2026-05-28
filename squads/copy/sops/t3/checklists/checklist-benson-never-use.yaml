@@ -1,0 +1,50 @@
+sop:
+  id: checklist-benson-never-use
+  version: "1.0"
+  title: "Benson Vocabulary Veto List"
+  purpose: "Enforce vocabulary constraints for Jon Benson copy — prohibited phrases with approved replacements"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: jon-benson
+    type: validation
+  steps:
+    - id: step-01
+      action: "Scan for 'Making money is easy'"
+      criteria: "Must not appear"
+      replacement: "Building business e desafiador — eis como simplificar"
+      required: true
+    - id: step-02
+      action: "Scan for 'Obviously/Clearly'"
+      criteria: "Must not appear"
+      replacement: "Here's what most people don't realize..."
+      required: true
+    - id: step-03
+      action: "Scan for 'I'm an expert'"
+      criteria: "Must not appear"
+      replacement: "I was terrible at this — then I found..."
+      required: true
+    - id: step-04
+      action: "Scan for 'Trust me'"
+      criteria: "Must not appear"
+      replacement: "Let me show you / Here's the data..."
+      required: true
+    - id: step-05
+      action: "Scan for 'Buy now (sem stack)'"
+      criteria: "Must not appear without value stack"
+      replacement: "After you click the order button..."
+      required: true
+    - id: step-06
+      action: "Scan for eloquent/literary language"
+      criteria: "Must not use polished literary register"
+      replacement: "Fragmentos. Direto. Ritmico."
+      required: true
+  error_handling:
+    - condition: "prohibited_phrase_found"
+      action: "replace_with_approved_alternative"
+    - condition: "semantic_equivalent_found"
+      action: "replace_with_approved_alternative"
+  quality_gate:
+    mode: vocabulary_scan
+    zero_tolerance: true
+    requires_full_text_search: true

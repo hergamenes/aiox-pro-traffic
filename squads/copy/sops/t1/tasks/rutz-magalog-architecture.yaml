@@ -1,0 +1,95 @@
+sop:
+  id: rutz-magalog-architecture
+  version: "1.0"
+  title: "Magalog Architecture (32-Page Engine)"
+  purpose: "Construct 32-page magazine-format direct mail piece seamlessly integrating editorial (40%+) with selling, applying Unpredictability Protocol and Page Turn Test"
+  classification:
+    domain: copywriting
+    category: master
+    tier: T1
+    source_agent: jim-rutz
+
+  inputs:
+    - name: product_subscription_details
+      type: document
+      required: true
+    - name: editorial_content
+      type: document
+      required: true
+      description: "Minimum 40% genuine editorial value"
+    - name: proof_elements
+      type: collection
+      required: true
+    - name: competitive_swipe_file
+      type: collection
+      required: true
+
+  outputs:
+    - name: complete_magalog
+      type: document
+      description: "32-page magalog with editorial-selling integration, proof section, and offer"
+
+  steps:
+    - id: step_01
+      action: design_cover
+      description: "Create editorial storefront: massive benefit headline, 3-5 teaser bullets with page numbers, editorial visual, masthead"
+      critical: true
+      error_handling:
+        condition: "cover_looks_like_advertising"
+        action: "redesign_using_real_publication_visual_cues"
+
+    - id: step_02
+      action: write_editorial_opening
+      description: "Pages 2-4: genuine editorial article with standalone value, author credentials, natural bridge to selling"
+      critical: true
+      error_handling:
+        condition: "opening_is_stealth_selling"
+        action: "rewrite_as_genuinely_valuable_standalone_content"
+
+    - id: step_03
+      action: build_core_selling
+      description: "Pages 5-20: 3-5 articles from different angles, sidebars (1-2/spread), callouts (1/page), subheads (every 3-4 para), stories with real names"
+      critical: true
+      error_handling:
+        condition: "all_articles_same_angle"
+        action: "differentiate_angles_before_writing"
+
+    - id: step_04
+      action: construct_proof_section
+      description: "Pages 21-26: case studies (1 page each), expert endorsements with photos, data tables and comparisons"
+      critical: false
+
+    - id: step_05
+      action: create_offer_close
+      description: "Pages 27-32: clear offer, price anchoring, guarantee, bonus stack, order form, PS with final argument"
+      critical: false
+
+    - id: step_06
+      action: apply_unpredictability_protocol
+      description: "Review every sentence — if reader can predict next sentence, rewrite for surprise"
+      critical: true
+      error_handling:
+        condition: "predictable_sentences_remain"
+        action: "rewrite_until_every_sentence_surprises_informs_or_provokes"
+
+    - id: step_07
+      action: apply_page_turn_test
+      description: "Verify every page ending compels reader to turn: open loops, cliffhangers, teasers"
+      critical: true
+      error_handling:
+        condition: "page_ending_allows_stopping"
+        action: "add_cliffhanger_open_loop_or_teaser_at_page_bottom"
+
+  quality_gate:
+    min_criteria_met: 7
+    criteria:
+      - "cover_looks_editorial_not_advertising"
+      - "teaser_bullets_with_page_numbers"
+      - "editorial_opening_has_standalone_value"
+      - "3_to_5_articles_from_different_angles"
+      - "proof_sidebars_1_to_2_per_spread"
+      - "subheads_every_3_to_4_paragraphs"
+      - "real_names_with_specific_results"
+      - "unpredictability_protocol_applied"
+      - "page_turn_test_passed_every_page"
+      - "minimum_40_percent_editorial_content"

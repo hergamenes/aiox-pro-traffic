@@ -1,0 +1,96 @@
+sop:
+  id: halbert-awareness-routing
+  version: "1.0"
+  title: "Halbert Awareness-Based Decisions"
+  purpose: >
+    Route copywriting decisions based on input type and market awareness level.
+    Hard-gates copy creation for unqualified markets (below level 5).
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: gary-halbert
+    tier: T1
+
+  steps:
+    - step: 1
+      name: "Classify Input Type"
+      decision_point:
+        condition: "What type of input was received?"
+        branches:
+          - if: "NEW COPY"
+            action: "Proceed to Step 2 (List Evaluation)"
+            next_step: 2
+          - if: "EXISTING COPY"
+            action: "Proceed to Step 3 (Copy Review)"
+            next_step: 3
+          - if: "MARKET DIAGNOSTIC"
+            action: "Proceed to Step 4 (Market Diagnostic)"
+            next_step: 4
+
+    - step: 2
+      name: "New Copy - List Evaluation"
+      decision_point:
+        condition: "Evaluate list via RFU and verify market"
+        branches:
+          - if: "List is level 5+ and competitors active"
+            action: "Proceed with copy creation."
+            terminal: true
+          - if: "List is below level 5"
+            action: "DO NOT write copy. Find better market first."
+            terminal: true
+
+    - step: 3
+      name: "Existing Copy Review"
+      decision_point:
+        condition: "Review copy against Halbert criteria"
+        branches:
+          - if: "A-pile (would open)"
+            action: "Check headline grab, proof stack, specific numbers."
+            terminal: false
+          - if: "B-pile (would trash)"
+            action: "Rewrite envelope/subject line first. Copy is irrelevant if never opened."
+            terminal: true
+
+    - step: 4
+      name: "Market Diagnostic"
+      decision_point:
+        condition: "Apply List > Offer > Copy hierarchy"
+        branches:
+          - if: "List is weakest link"
+            action: "Fix list before anything else."
+            terminal: true
+          - if: "Offer is weakest link"
+            action: "Strengthen offer."
+            terminal: true
+          - if: "Copy is weakest link"
+            action: "Evaluate campaign math (cost/M, response/M, profit/sale) then rewrite."
+            terminal: true
+
+    - step: 5
+      name: "Campaign Math Validation"
+      decision_point:
+        condition: "Evaluating campaign financial viability"
+        branches:
+          - if: "Profit per sale exceeds cost per acquisition"
+            action: "Proceed. Scale budget."
+            terminal: true
+          - if: "Costs exceed returns"
+            action: "Don't be creative, be rich. Fix economics before copy."
+            terminal: true
+
+  error_handling:
+    - error: "Copy created for below-level-5 list"
+      recovery: "Stop copy work. Return to list qualification."
+    - error: "RFU evaluation skipped"
+      recovery: "Mandatory: evaluate Recency, Frequency, Unit of sale before proceeding."
+    - error: "Vague numbers used in copy"
+      recovery: "Replace all vague claims with specific, verifiable figures."
+
+  quality_gate:
+    min_criteria: 4
+    checks:
+      - "Input type correctly classified"
+      - "RFU evaluation completed for new copy"
+      - "Competitor activity verified"
+      - "List level assessed with hard gate at level 5"
+      - "Campaign math uses specific numbers"

@@ -1,0 +1,144 @@
+sop:
+  id: rutz-veto-conditions
+  version: "1.0"
+  title: Rutz Magalog Veto Conditions
+  purpose: >
+    Enforce Jim Rutz's non-negotiable standards for magalog format including
+    unpredictability, page count minimums, editorial content requirements,
+    visual variety, page turn techniques, and sidebar independence.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: jim-rutz
+    artifact_type: veto
+    tier: t1
+
+  steps:
+    - action: validate_unpredictability
+      id: JR_V01
+      description: Predictable copy -> BLOCK. Rewrite with unexpected twist.
+      rule: predictability_score == "low"
+      checks:
+        - no_repeating_pattern
+        - unexpected_facts_present
+        - counter_intuitive_claims
+        - perspective_shifts
+      on_fail: BLOCK
+      remediation: inject_unexpected_twists
+
+    - action: validate_page_count
+      id: JR_V02
+      description: Magalog under 16 pages -> REJECT
+      rule: page_count >= 16
+      ideal: 32
+      on_fail: REJECT
+      remediation: expand_with_editorial_and_proof
+
+    - action: validate_editorial_content
+      id: JR_V03
+      description: Zero editorial content (100% selling) -> BLOCK
+      rule: editorial_content_present == true
+      required_editorial:
+        - real_health_information
+        - actionable_advice
+        - educational_material
+        - investigative_reporting
+      rule_detail: editorial_percentage >= 30
+      on_fail: BLOCK
+      remediation: add_genuine_editorial_value
+
+    - action: validate_text_block_length
+      id: JR_V04
+      description: Text block > 200 words without visual variation -> STOP
+      rule: max_text_block_words <= 200
+      visual_breaks:
+        - subheading
+        - callout_box
+        - illustration
+        - pull_quote
+        - chart
+        - sidebar
+      on_fail: STOP
+      remediation: add_visual_break_within_200_words
+
+    - action: validate_format_alternation
+      id: JR_V05
+      description: 2+ consecutive pages in same visual format -> STOP
+      rule: consecutive_same_format_pages <= 1
+      format_types:
+        - text_page
+        - chart_page
+        - sidebar_page
+        - story_page
+        - qa_page
+        - testimonial_page
+        - infographic_page
+      on_fail: STOP
+      remediation: alternate_visual_formats
+
+    - action: validate_page_turn_technique
+      id: JR_V06
+      description: Page without page turn technique at end -> BLOCK
+      rule: every_page_has_turn_technique == true
+      techniques:
+        - cliffhanger
+        - incomplete_list
+        - teaser_copy
+        - question_hook
+        - "continued on page X"
+      on_fail: BLOCK
+      remediation: add_page_turn_mechanism
+
+    - action: validate_reader_respect
+      id: JR_V07
+      description: Condescending copy that talks down to reader -> REJECT
+      checks:
+        - no_oversimplification
+        - no_patronizing_explanations
+        - no_gullibility_assumptions
+        - adult_level_discourse
+      rule: condescension_score == 0
+      on_fail: REJECT
+      remediation: rewrite_at_respectful_level
+
+    - action: validate_sidebar_independence
+      id: JR_V08
+      description: Sidebar that depends on main text -> REJECT
+      rule: all_sidebars_standalone == true
+      checks:
+        - no_references_to_above_text
+        - self_contained_information
+        - makes_sense_read_first
+        - complete_micro_story
+      on_fail: REJECT
+      remediation: rewrite_sidebar_as_independent_unit
+
+  error_handling:
+    - error: predictable_copy
+      severity: high
+      action: block_and_inject_twists
+    - error: insufficient_pages
+      severity: critical
+      action: reject_and_expand
+    - error: no_editorial_content
+      severity: critical
+      action: block_until_editorial_added
+    - error: text_walls
+      severity: high
+      action: stop_and_add_visual_breaks
+    - error: format_monotony
+      severity: medium
+      action: stop_and_alternate
+    - error: missing_page_turns
+      severity: high
+      action: block_until_techniques_added
+
+  quality_gate:
+    pass_threshold: 8
+    total_checks: 8
+    mandatory_passes:
+      - JR_V01
+      - JR_V02
+      - JR_V03
+      - JR_V06
+    verdict_on_fail: BLOCK

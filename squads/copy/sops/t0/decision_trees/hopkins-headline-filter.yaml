@@ -1,0 +1,43 @@
+sop:
+  id: hopkins-headline-filter
+  version: "1.0"
+  title: "Headline as Filter Rule (CH_H03)"
+  purpose: "Garantir que todo headline funcione como filtro seletivo, atraindo exclusivamente o prospect correto."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: claude-hopkins
+  steps:
+    - step: 1
+      action: "Aplicar teste de filtragem ao headline"
+      decision_point:
+        condition: "Headline rodando sozinho (sem body copy) — quem pararia para ler?"
+        branches:
+          - if: "Pessoa CERTA pararia para ler"
+            then: "Headline aprovado como filtro eficaz"
+          - if: "Qualquer pessoa pararia (atrai todos)"
+            then: "Headline generico demais — reescrever com especificidade do ICP"
+          - if: "Ninguem pararia"
+            then: "Headline fraco — reescrever com beneficio relevante para o prospect"
+          - if: "Pessoa ERRADA pararia"
+            then: "Headline atrai publico incorreto — reformular angulo"
+          - if: "Headline nao pode ser avaliado isoladamente"
+            then: "Reescrever para ser auto-contido"
+  error_handling:
+    - error: "Headline generico atrai todos"
+      severity: critical
+      action: "Incluir qualificador especifico do ICP"
+    - error: "Headline criativo sem filtragem"
+      severity: warning
+      action: "Priorizar filtragem sobre criatividade"
+    - error: "Headline depende do body copy"
+      severity: critical
+      action: "Tornar headline auto-suficiente"
+  quality_gate:
+    criteria:
+      - "Headline funciona isoladamente"
+      - "Atrai especificamente o prospect ideal"
+      - "Nao atrai publico incorreto"
+      - "Faz UMA coisa: selecionar o leitor certo"
+    pass_threshold: "Todos os criterios atendidos"

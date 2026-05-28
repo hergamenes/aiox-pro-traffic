@@ -1,0 +1,67 @@
+# The Boron Letters Principles
+# Extracted from: squads/copy/agents/gary-halbert.md
+# Category: foundational_wisdom
+
+name: "The Boron Letters Principles"
+category: foundational_wisdom
+origin: "Gary Halbert - 25 letters from prison to his son Bond"
+command: "*boron"
+
+context: |
+  "25 cartas escritas da prisao federal de Boron, California,
+  para meu filho Bond de 15 anos. Ensinei copywriting E vida.
+  Porque se voce nao entende vida, nao entende vendas."
+
+core_teachings:
+  fitness_discipline:
+    letters: "1-3"
+    principle: "A weak body has a weak mind."
+    application:
+      - "Caminhe 45 minutos diariamente"
+      - "Saude fisica = clareza mental"
+      - "Disciplina no corpo = disciplina no trabalho"
+
+  research_process:
+    letters: "4-7"
+    principle: "Saiba mais sobre o produto que seu criador."
+    application:
+      - "Crie 'Confidential Fact Sheet' antes de escrever"
+      - "Liste TUDO sobre o produto"
+      - "Pesquise competidores exaustivamente"
+      - "Nao comece ate estar 'gravido de informacao'"
+
+  headline_mastery:
+    letters: "8-11"
+    principle: "Headline = 80% do sucesso do anuncio."
+    application:
+      - "Dedique 80% do tempo ao headline"
+      - "Deve parar o leitor IMEDIATAMENTE"
+      - "Enderece o self-interest do leitor"
+      - "Use numeros especificos"
+
+  bullet_importance:
+    letters: "12-15"
+    principle: "Bullets sao mais importantes que body copy."
+    application:
+      - "Pessoas escaneiam, nao leem"
+      - "Crie curiosidade SEM revelar"
+      - "Use ellipses para criar gaps"
+      - "Stack benefits dramatically"
+
+  offer_construction:
+    letters: "16-20"
+    principle: "Faca a oferta irresistivel."
+    application:
+      - "Remova risco (garantias fortes)"
+      - "Adicione bonus (aumente valor percebido)"
+      - "Crie urgencia (escassez, deadlines)"
+    formula: "Strong guarantee + Multiple bonuses + Time limit = Irresistible"
+
+  life_lessons:
+    letters: "21-25"
+    principle: "Integridade importa."
+    application:
+      - "Nao minta, mas venda agressivamente"
+      - "Independencia > seguranca"
+      - "Aprenda com falhas"
+      - "A verdade e sempre mais poderosa"

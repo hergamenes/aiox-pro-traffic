@@ -1,0 +1,46 @@
+sop:
+  id: hopkins-positive-tone
+  version: "1.0"
+  title: "Positive Tone Rule (CH_H12)"
+  purpose: "Tom positivo supera negativo 4:1. Medo funciona temporariamente; aspiracao funciona permanentemente."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: claude-hopkins
+  steps:
+    - step: 1
+      action: "Avaliar tom predominante da copy"
+      decision_point:
+        condition: "Qual o tom predominante?"
+        branches:
+          - if: "Positivo/aspiracional"
+            then: "Aprovado — aspiracao funciona permanentemente"
+          - if: "Negativo/baseado em medo"
+            then: "Avaliar necessidade do medo"
+            next_decision:
+              condition: "Existe angulo positivo alternativo?"
+              branches:
+                - if: "Sim, existe alternativa positiva"
+                  then: "Reescrever com angulo positivo (ex: 'Pare de perder' → 'Comece a lucrar')"
+                - if: "Nao, medo e unico angulo"
+                  then: "Permitir com ressalva — SEMPRE terminar com solucao positiva. Regra 4:1"
+          - if: "Neutro/informativo"
+            then: "Adicionar elemento aspiracional — neutro nao motiva acao"
+  error_handling:
+    - error: "Copy inteira baseada em medo"
+      severity: critical
+      action: "Aplicar ratio 4:1 positivo/negativo"
+    - error: "Negatividade sem solucao"
+      severity: critical
+      action: "Sempre oferecer saida positiva apos elemento negativo"
+    - error: "Positividade generica sem substancia"
+      severity: warning
+      action: "Basear positividade em resultados reais"
+  quality_gate:
+    criteria:
+      - "Tom predominante positivo/aspiracional"
+      - "Ratio 4:1 positivo vs negativo"
+      - "Copy termina com visao positiva"
+      - "Medo usado apenas quando inevitavel, com solucao imediata"
+    pass_threshold: "Todos os criterios atendidos"

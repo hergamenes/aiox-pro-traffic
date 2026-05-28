@@ -1,0 +1,169 @@
+sop:
+  id: dk-persuasion-equation
+  version: "1.0"
+  title: "Kennedy Persuasion Equation"
+  purpose: >
+    Mathematical audit formula for any copy piece:
+    INTEREST + DESIRE x BELIEF - SKEPTICISM + URGENCY = ACTION.
+    Each variable must be present and strong. If any is zero or negative,
+    the equation breaks and the prospect does not act.
+  classification:
+    domain: copywriting
+    subdomain: copy-audit
+    tier: t2
+    source_agent: dan-kennedy
+    artifact_type: framework
+
+  steps:
+    - id: step_1_interest
+      action: apply_interest_evaluation
+      label: "Evaluate INTEREST (Headline)"
+      description: >
+        Assess whether the headline stops the right prospect. Must call out the
+        specific prospect and promise a specific benefit. If INTEREST = 0,
+        nothing else matters.
+      inputs:
+        - headline_text
+        - target_prospect_profile
+      outputs:
+        - interest_score
+        - headline_diagnosis
+      validation:
+        - field: interest_score
+          rule: range_1_to_10
+        - field: interest_score
+          rule: minimum_7_recommended
+
+    - id: step_2_desire
+      action: apply_desire_evaluation
+      label: "Evaluate DESIRE (Benefits)"
+      description: >
+        List every benefit. Score vividness, specificity, and emotional resonance.
+        Benefits must be outcomes not features. Check for before/after contrast.
+      inputs:
+        - copy_body
+        - benefit_list
+      outputs:
+        - desire_score
+        - benefit_specificity_report
+      validation:
+        - field: desire_score
+          rule: range_1_to_10
+        - field: benefit_list
+          rule: no_generic_benefits
+
+    - id: step_3_belief
+      action: apply_belief_evaluation
+      label: "Evaluate BELIEF (Proof) — Multiplier"
+      description: >
+        List all proof elements. This is a MULTIPLIER so weak proof divides the
+        effect of everything else. Require minimum 3 different proof types.
+        Check specificity of numbers and claims.
+      inputs:
+        - proof_elements
+        - testimonials
+        - data_points
+      outputs:
+        - belief_score
+        - proof_variety_count
+      validation:
+        - field: belief_score
+          rule: range_1_to_10
+        - field: proof_variety_count
+          rule: minimum_3
+
+    - id: step_4_skepticism
+      action: apply_skepticism_evaluation
+      label: "Evaluate SKEPTICISM (Risk Reversal) — Subtractor"
+      description: >
+        List guarantees, risk reversal elements, and trust builders. Goal is to
+        drive skepticism toward 0. Check for specific bold guarantee and damaging
+        admission. Higher score = more skepticism remains (bad).
+      inputs:
+        - guarantee_text
+        - risk_reversal_elements
+        - damaging_admissions
+      outputs:
+        - skepticism_score
+        - trust_gap_analysis
+      validation:
+        - field: skepticism_score
+          rule: range_1_to_10
+        - field: guarantee_text
+          rule: is_specific_not_vague
+
+    - id: step_5_urgency
+      action: apply_urgency_evaluation
+      label: "Evaluate URGENCY (Deadline)"
+      description: >
+        Identify all urgency elements. If urgency = 0, prospect decides later
+        which means never. Must be real and enforceable. Fake urgency scores
+        negative by increasing skepticism.
+      inputs:
+        - urgency_elements
+        - enforcement_mechanisms
+      outputs:
+        - urgency_score
+        - urgency_authenticity_check
+      validation:
+        - field: urgency_score
+          rule: range_1_to_10
+        - field: urgency_elements
+          rule: all_genuine_and_enforceable
+
+    - id: step_6_calculate
+      action: apply_equation_calculation
+      label: "Calculate the Equation"
+      description: >
+        Combine all scores. Identify the weakest variable and fix it first.
+        Improving a strong variable while a weak one remains produces marginal
+        results. Rewrite and re-score.
+      inputs:
+        - interest_score
+        - desire_score
+        - belief_score
+        - skepticism_score
+        - urgency_score
+      outputs:
+        - equation_scorecard
+        - weakest_variable
+        - fix_plan
+      validation:
+        - field: weakest_variable
+          rule: not_empty
+        - field: fix_plan
+          rule: targets_weakest_variable
+
+  error_handling:
+    - error: strong_desire_zero_proof
+      symptom: "Prospects excited but don't buy"
+      resolution: "Add 3+ proof types: testimonials, data, case studies"
+    - error: great_headline_no_urgency
+      symptom: "High open rates but low conversions"
+      resolution: "Add real deadline or scarcity element"
+    - error: high_skepticism_remaining
+      symptom: "Too good to be true feedback, objections in replies"
+      resolution: "Add damaging admission + specific guarantee"
+    - error: fake_urgency_backfire
+      symptom: "Skepticism increases instead of decreasing"
+      resolution: "Replace with genuine enforceable urgency"
+
+  quality_gate:
+    min_score: 7
+    criteria:
+      - "All five variables scored independently"
+      - "Headline scores 7+ on INTEREST"
+      - "Benefits are specific and emotionally vivid"
+      - "Minimum 3 proof types present"
+      - "Guarantee is specific and bold"
+      - "At least one real urgency element"
+      - "Weakest variable identified with fix plan"
+
+  outputs:
+    - type: equation_scorecard
+      format: table
+      fields: [interest, desire, belief, skepticism, urgency, action_potential]
+    - type: weakest_variable_report
+      format: text
+    - type: rewritten_sections
+      format: markdown

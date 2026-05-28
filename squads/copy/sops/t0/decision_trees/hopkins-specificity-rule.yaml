@@ -1,0 +1,46 @@
+sop:
+  id: hopkins-specificity-rule
+  version: "1.0"
+  title: "Specificity Rule (CH_H01)"
+  purpose: "Substituir toda generalizacao em copy por dado especifico verificavel. Claims sem suporte devem ser removidos."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: claude-hopkins
+  steps:
+    - step: 1
+      action: "Identificar afirmacoes em copy"
+      decision_point:
+        condition: "Afirmacao contem generalizacao?"
+        branches:
+          - if: "Generalizacao encontrada"
+            then: "Buscar dado especifico verificavel"
+            next_decision:
+              condition: "Dado especifico disponivel?"
+              branches:
+                - if: "Sim, dado disponivel e verificavel"
+                  then: "Substituir generalizacao pelo dado especifico (ex: 'Muitos clientes' → '14.847 clientes desde marco')"
+                - if: "Dado existe mas nao e verificavel"
+                  then: "Buscar fonte primaria ou reformular com qualificador"
+                - if: "Nao existe dado para suportar claim"
+                  then: "Remover a claim — afirmacao sem suporte nao deve existir"
+          - if: "Nenhuma generalizacao encontrada"
+            then: "Claim aprovado — prosseguir para proximo"
+  error_handling:
+    - error: "Numero inventado sem fonte"
+      severity: critical
+      action: "Reverter para claim original e buscar dado real"
+    - error: "Especificidade excessiva prejudicando legibilidade"
+      severity: warning
+      action: "Equilibrar precisao com fluidez da leitura"
+    - error: "Arredondamento de numeros"
+      severity: minor
+      action: "Usar numero exato em vez de arredondado"
+  quality_gate:
+    criteria:
+      - "Toda claim contem numero, data, porcentagem ou dado mensuravel"
+      - "Nenhuma generalizacao vaga permanece"
+      - "Dados sao verificaveis e rastreiaveis"
+      - "Clareza da mensagem mantida"
+    pass_threshold: "Todos os criterios atendidos"

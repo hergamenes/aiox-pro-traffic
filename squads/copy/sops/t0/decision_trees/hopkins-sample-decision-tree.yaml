@@ -1,0 +1,66 @@
+sop:
+  id: hopkins-sample-decision-tree
+  version: "1.0"
+  title: "Sample Distribution Decision Tree"
+  purpose: "Arvore de decisao completa para estrategia de distribuicao de amostras: cenarios, canais e anti-patterns."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: claude-hopkins
+  steps:
+    - step: 1
+      action: "Determinar amostrabilidade do produto"
+      decision_point:
+        condition: "Produto pode ser amostrado?"
+        branches:
+          - if: "Sim, pode ser amostrado"
+            then: "Selecionar metodo de amostra"
+            next_decision:
+              condition: "Qual metodo de distribuicao?"
+              branches:
+                - if: "Amostra gratis por cupom"
+                  then: "MELHOR taxa — prospect pede cupom, recebe amostra, experimenta"
+                - if: "Pacote completo gratis"
+                  then: "Aceitar — superior a 'Compre 1 ganhe 1' (INFERIOR)"
+          - if: "Nao, produto nao pode ser amostrado"
+            then: "Oferecer alternativas: teste sem risco, garantia de devolucao, informacao gratuita"
+    - step: 2
+      action: "Selecionar canal de entrega"
+      decision_point:
+        condition: "Qual canal disponivel?"
+        branches:
+          - if: "Loja local disponivel"
+            then: "Usar loja local — 4x mais respostas que correio"
+          - if: "Apenas correio"
+            then: "Usar correio — taxa base"
+          - if: "Telefone"
+            then: "Usar telefone — 70% taxa de resposta"
+    - step: 3
+      action: "Validar contra anti-patterns"
+      decision_point:
+        condition: "Algum anti-pattern presente?"
+        branches:
+          - if: "Cobrar pela amostra"
+            then: "BLOQUEAR — elimina proposito"
+          - if: "Distribuicao aleatoria"
+            then: "BLOQUEAR — exigir qualificacao"
+          - if: "Dar a dealers sem controle"
+            then: "BLOQUEAR — controlar distribuicao"
+  error_handling:
+    - error: "Cobranca pela amostra"
+      severity: critical
+      action: "Amostra sempre gratuita"
+    - error: "Distribuicao aleatoria sem qualificacao"
+      severity: critical
+      action: "Exigir demonstracao de interesse antes de enviar"
+    - error: "Hierarquia de canais ignorada"
+      severity: warning
+      action: "Priorizar loja > correio > telefone"
+  quality_gate:
+    criteria:
+      - "Canal de maior taxa priorizado"
+      - "Amostra gratuita"
+      - "Distribuicao controlada e qualificada"
+      - "Tracking de respostas implementado"
+    pass_threshold: "Todos os criterios atendidos"

@@ -1,0 +1,17 @@
+# Ralph-7D Progress — jon-benson (Tier: T3)
+Started: 2026-03-11 10:06:11
+Token budget: 2500 | Max lines: 400
+
+---
+
+## Patterns Discovered
+
+> Claude reads this FIRST each iteration. Add learnings here.
+
+- (will be populated as pipeline runs)
+
+---
+
+## Phase Log
+
+---

@@ -1,0 +1,57 @@
+sop:
+  id: schwartz-belief-architecture
+  version: "1.0"
+  title: "Gradualizacao de Crenca (Belief Architecture)"
+  purpose: "Build prospect belief layer by layer using 6 devices — no giant leaps, only incremental agreements that compound into conviction."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: eugene-schwartz
+  steps:
+    - id: apply_inclusion_question
+      action: "Open with a question 95%+ of audience answers Yes"
+      input: "Prospect profile, universal frustrations/desires"
+      output: "Opening question that creates immediate agreement"
+      validation: "Question tested with sample audience; 95%+ agreement rate confirmed"
+    - id: apply_detailed_identification
+      action: "Catalog 5-7 specific symptoms or scenarios the prospect recognizes"
+      input: "Customer interviews, support logs, forum language"
+      output: "Vivid symptom/scenario list proving deep understanding"
+      validation: "Each item is specific enough to trigger 'that's me' recognition"
+    - id: apply_false_belief_contradiction
+      action: "Name and destroy the false belief that blocks the new belief"
+      input: "Common misconceptions, competitor-induced false beliefs"
+      output: "Named false belief + evidence or story that disproves it"
+      validation: "False belief is named directly and contradicted with concrete evidence"
+    - id: apply_logic_language
+      action: "Use connective words that signal logical reasoning"
+      input: "Copy transitions between sections"
+      output: "Connectors inserted: 'therefore', 'as a result', 'which means', 'proven by'"
+      validation: "Key transitions use at least one logic connector"
+    - id: apply_syllogistic_thinking
+      action: "Build A→B→C argument chain where conclusion feels inevitable"
+      input: "Accepted premise (from Device 1), demonstrated cause (from Device 2), product claim"
+      output: "Logical chain: accepted truth → demonstrated cause → inevitable product conclusion"
+      validation: "Each step in chain is logically sound; no gap that skeptic could exploit"
+    - id: apply_promise_belief_alternation
+      action: "Alternate each promise with its proof — never stack unproven promises"
+      input: "Promise list, proof inventory"
+      output: "Copy with strict Promise→Proof→Promise→Proof pattern"
+      validation: "No promise appears without immediately following proof"
+  error_handling:
+    - error: "Opening question splits audience (below 95% agreement)"
+      resolution: "Replace with more universal question; test again before proceeding"
+    - error: "Identification is too vague"
+      resolution: "Replace generic statements with specific daily scenarios from customer data"
+    - error: "Promises stacked without proof"
+      resolution: "Insert proof after each promise; maintain strict alternation pattern"
+  quality_gate:
+    criteria:
+      - "Opening question achieves 95%+ agreement"
+      - "Identification lists 5+ specific symptoms"
+      - "At least one false belief contradicted with evidence"
+      - "Logic connectors present in key transitions"
+      - "Syllogistic chain is logically sound"
+      - "Promise-proof alternation maintained throughout"
+    pass_threshold: "All 6 criteria met"

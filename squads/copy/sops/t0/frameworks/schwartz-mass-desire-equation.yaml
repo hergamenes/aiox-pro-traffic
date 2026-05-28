@@ -1,0 +1,56 @@
+sop:
+  id: schwartz-mass-desire-equation
+  version: "1.0"
+  title: "Mass Desire Equation"
+  purpose: "Evaluate market viability before copy work — Mass Desire = (Urgency) x (Market Size) x (Product Acceptability). Copywriter optimizes variable 3 only."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: eugene-schwartz
+  steps:
+    - id: apply_urgency_evaluation
+      action: "Assess how badly the market wants relief or the outcome"
+      input: "Market research, search behavior data, customer interviews"
+      output: "Urgency score with evidence of active seeking vs. passive awareness"
+      validation: "Urgency rated by active search behavior, not intellectual agreement"
+    - id: apply_market_size_evaluation
+      action: "Determine number of people sharing this desire"
+      input: "Market data, channel reach estimates"
+      output: "Reachable market size estimate with supporting data"
+      validation: "Estimate is reachable market, not total addressable market"
+    - id: apply_product_acceptability
+      action: "Assess product's credibility as channel for the identified desire"
+      input: "Product specs, mechanism, competitive positioning"
+      output: "Acceptability assessment with honest strengths and weaknesses"
+      validation: "Product can credibly deliver on the desire; mechanism connects product to outcome"
+    - id: apply_equation_calculation
+      action: "Calculate Mass Desire = (Urgency) x (Market Size) x (Product Acceptability)"
+      input: "Urgency score, market size, acceptability assessment"
+      output: "Equation result — all three variables must be non-zero"
+      validation: "No variable is zero; equation yields viable opportunity score"
+    - id: apply_scope_definition
+      action: "Limit copywriter scope to variable 3 (product acceptability) only"
+      input: "Equation result, project brief"
+      output: "Scoped copywriter brief focused on channel optimization"
+      validation: "Brief does not ask copywriter to create desire or expand market"
+    - id: apply_desire_validation
+      action: "Confirm desire exists independently of the product"
+      input: "Market evidence, desire source analysis"
+      output: "Go/no-go decision with rationale"
+      validation: "Desire is pre-existing; if it must be created from scratch, project fails"
+  error_handling:
+    - error: "Attempting to create new desire"
+      resolution: "Find pre-existing desire and reposition product as its channel"
+    - error: "Urgency confused with importance"
+      resolution: "Test for active search behavior, not intellectual agreement about the problem"
+    - error: "Product acceptability overestimated"
+      resolution: "Honest reassessment; reposition or decline if product cannot deliver"
+  quality_gate:
+    criteria:
+      - "Urgency rated with evidence"
+      - "Market size estimated with data"
+      - "Product acceptability assessed honestly"
+      - "All three variables are non-zero"
+      - "Copywriter scope limited to variable 3"
+    pass_threshold: "All 5 criteria met"

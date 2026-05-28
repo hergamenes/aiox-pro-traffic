@@ -1,0 +1,17 @@
+# Ralph-7D Progress — jeff-walker (Tier: T2)
+Started: 2026-03-11 07:44:25
+Token budget: 3000 | Max lines: 500
+
+---
+
+## Patterns Discovered
+
+> Claude reads this FIRST each iteration. Add learnings here.
+
+- (will be populated as pipeline runs)
+
+---
+
+## Phase Log
+
+---

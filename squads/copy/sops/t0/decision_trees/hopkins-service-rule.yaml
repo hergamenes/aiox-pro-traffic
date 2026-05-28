@@ -1,0 +1,39 @@
+sop:
+  id: hopkins-service-rule
+  version: "1.0"
+  title: "Service Rule (CH_H08)"
+  purpose: "Todo anuncio deve oferecer SERVICO tangivel ao leitor. Se o leitor nao ganha nada ao ler, o anuncio falha."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: claude-hopkins
+  steps:
+    - step: 1
+      action: "Perguntar: O que o leitor GANHA ao ler este anuncio?"
+      decision_point:
+        condition: "Leitor recebe algo tangivel?"
+        branches:
+          - if: "Sim, algo tangivel (informacao, insight, ferramenta, desconto)"
+            then: "Anuncio passa no teste de servico — verificar se servico esta claro nos primeiros paragrafos"
+          - if: "Nada tangivel / apenas pitch de venda"
+            then: "Anuncio falha — adicionar elemento de servico e reposicionar de 'pedindo' para 'oferecendo'"
+          - if: "Resposta ambigua"
+            then: "Clarificar o servico — se nao consegue articular, o servico nao existe"
+  error_handling:
+    - error: "Anuncio que so pede sem oferecer"
+      severity: critical
+      action: "Oferecer valor antes de qualquer pedido"
+    - error: "Servico superficial ou falso"
+      severity: warning
+      action: "Oferecer valor genuinamente util"
+    - error: "Servico escondido no final da copy"
+      severity: warning
+      action: "Mover servico para os primeiros paragrafos"
+  quality_gate:
+    criteria:
+      - "Leitor recebe algo tangivel ao ler"
+      - "Servico genuinamente util"
+      - "Valor entregue ANTES de qualquer pedido"
+      - "Servico claro nos primeiros paragrafos"
+    pass_threshold: "Todos os criterios atendidos"

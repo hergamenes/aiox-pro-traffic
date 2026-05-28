@@ -1,0 +1,57 @@
+# Framework: Copy Assembly Method
+# Author: Eugene Schwartz
+# Source: Breakthrough Advertising
+# Command: *research
+
+name: "Copy Assembly Method"
+category: "copy_creation"
+origin: "Eugene Schwartz"
+frequency: "Every project - processo de criacao"
+
+principle: |
+  "Copy nao e escrito. Copy e montado. Voce nao esta criando
+  do nada - voce esta organizando blocos de construcao que
+  vem da pesquisa. Pesquisa e 80% do trabalho."
+
+phases:
+  research_phase:
+    duration: "Semanas 1-2"
+    percentage: "80% do trabalho total"
+    protocol:
+      - "Leitura linear completa (cada pagina, sem pular)"
+      - "Marcacao sistematica de TODA reivindicacao significativa"
+      - "Sem julgamento - coletar tudo primeiro"
+      - "Meta: conhecer o produto melhor que seu criador"
+    example: "Li 1.103 paginas sobre um produto. Conhecia tao bem que corrigi o proprio autor sobre conteudo na pagina 164."
+
+  compilation_phase:
+    duration: "Semana 3"
+    protocol:
+      - "Digitar todas as marcacoes (50-60 paginas)"
+      - "Organizacao por IMPACTO EMOCIONAL, nao logico"
+      - "Separacao: 'O que me move mais' no topo"
+      - "Criacao de 'banco de beneficios' categorizados"
+
+  synthesis_phase:
+    duration: "Semana 4"
+    protocol:
+      - "Identificar desejo dominante do mercado"
+      - "Conectar performances do produto aos desejos"
+      - "Encontrar angulo unico nao explorado"
+      - "Construir hierarquia de argumentos"
+
+  assembly_phase:
+    duration: "Apos pesquisa"
+    protocol:
+      - "Organizar evidencia logicamente"
+      - "Construir argumento inevitavel"
+      - "Layer proof sistematicamente"
+      - "Criar momentum em direcao a venda"
+
+application: |
+  METODO DE MONTAGEM:
+
+  1. PESQUISA (80%): Conheca o produto melhor que seu criador
+  2. COMPILACAO: Organize por impacto emocional
+  3. SINTESE: Identifique desejo dominante + angulo unico
+  4. MONTAGEM: Construa argumento inevitavel

@@ -1,0 +1,108 @@
+sop:
+  id: "rb-value-ladder-design"
+  version: "1.0.0"
+  title: "Value Ladder + Funnel Architecture Design"
+  purpose: "Design a complete 4-tier Value Ladder (Bait to Backend) with matched funnel types and Hook-Story-Offer copy framework for each page"
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    risk_level: "medium"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "When designing a new business architecture, restructuring an offer suite, or creating a multi-tier ascension path to maximize customer lifetime value"
+  context:
+    input:
+      - name: "business_product"
+        type: "object"
+        required: true
+        description: "Business details including products, services, and transformations delivered"
+      - name: "target_dream_customers"
+        type: "object"
+        required: true
+        description: "Target customer profile including demographics, psychographics, desires, pain points, and willingness to pay"
+  steps:
+    - id: "S001"
+      name: "Define BAIT tier"
+      action: "design_bait_tier"
+      description: "Define free-to-$47 tier using squeeze page or tripwire funnel. Create lead magnet or low-cost entry that attracts dream customers into ecosystem. Not designed for profit — designed for list building and relationship establishment."
+      performer: "copywriter"
+      critical: true
+      on_success: "S002"
+      on_failure: "retry"
+    - id: "S002"
+      name: "Define FRONTEND tier"
+      action: "design_frontend_tier"
+      description: "Define $47-$497 tier using sales page + OTO funnel. Create course, program, or toolkit that solves ONE specific problem completely. Include 1-2 OTOs for immediate transaction value maximization."
+      performer: "copywriter"
+      critical: true
+      on_success: "S003"
+      on_failure: "retry"
+    - id: "S003"
+      name: "Define MIDDLE tier"
+      action: "design_middle_tier"
+      description: "Define $497-$4,997 tier using webinar or application funnel. Create group coaching, mastermind, or intensive program that deepens the transformation from frontend. Consider qualification via application."
+      performer: "copywriter"
+      critical: true
+      on_success: "S004"
+      on_failure: "retry"
+    - id: "S004"
+      name: "Define BACKEND tier"
+      action: "design_backend_tier"
+      description: "Define $5K-$100K+ tier using application funnel + high-touch sales. Create 1-on-1 coaching, done-for-you service, or VIP experience that delivers COMPLETE transformation. Must feel exclusive with application required."
+      performer: "copywriter"
+      critical: true
+      on_success: "S005"
+      on_failure: "retry"
+    - id: "S005"
+      name: "Select funnel types per tier"
+      action: "map_funnel_architecture"
+      description: "Assign optimal funnel type to each tier: Bait (squeeze/book), Frontend (sales page + OTO), Middle (webinar/challenge), Backend (application/event). Define all pages needed for each funnel."
+      performer: "copywriter"
+      critical: false
+      on_success: "S006"
+      on_failure: "retry"
+    - id: "S006"
+      name: "Design Hook-Story-Offer per page"
+      action: "write_hso_briefs"
+      description: "For each page in each funnel, define the Hook (attention capture), Story (connection via Epiphany Bridge, case study, or origin), and Offer (specific action: opt-in, buy, apply, register)."
+      performer: "copywriter"
+      critical: false
+      on_success: "END"
+      on_failure: "retry"
+  error_handling:
+    global_timeout: "PT6H"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "all_four_tiers_defined"
+        type: "boolean"
+        target: true
+        weight: 0.25
+      - name: "ascension_logic_exists"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "funnel_types_assigned"
+        type: "boolean"
+        target: true
+        weight: 0.15
+      - name: "hso_defined_per_page"
+        type: "boolean"
+        target: true
+        weight: 0.15
+      - name: "pricing_justified"
+        type: "boolean"
+        target: true
+        weight: 0.15
+      - name: "otos_defined_frontend"
+        type: "boolean"
+        target: true
+        weight: 0.1
+    pass_threshold: 0.85
+  outputs:
+    artifacts:
+      - name: "value_ladder"
+        type: "file"
+        format: "md"
+        description: "Complete 4-tier Value Ladder with funnel assignments, page lists, HSO briefs, pricing, and ascension logic"

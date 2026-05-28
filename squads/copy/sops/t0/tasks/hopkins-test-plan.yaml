@@ -1,0 +1,102 @@
+sop:
+  id: hopkins-test-plan
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "A/B Test Plan Structuring"
+  purpose: >
+    Structure scientifically rigorous A/B test plans for advertising elements.
+    Every change must be tested and measured, never guessed.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: claude-hopkins
+    artifact_type: task
+
+  steps:
+    - id: identify_variable
+      action: isolate_test_variable
+      description: "Isolate ONE variable to test (headline, offer, price, image, copy length)"
+      inputs:
+        - element_to_test
+      critical: true
+      output: isolated_variable
+
+    - id: define_control
+      action: document_control_version
+      description: "Document current/baseline version exactly as it runs (Version A)"
+      inputs:
+        - current_version
+      depends_on: identify_variable
+      output: control_version
+
+    - id: define_variant
+      action: document_variant_version
+      description: "Document proposed alternative with only the isolated variable changed (Version B)"
+      inputs:
+        - proposed_alternative
+      depends_on: identify_variable
+      output: variant_version
+
+    - id: specify_tracking
+      action: assign_tracking_mechanism
+      description: "Assign unique tracking per variant: coupon codes, URLs, UTMs, or phone numbers"
+      depends_on:
+        - define_control
+        - define_variant
+      critical: true
+      output: tracking_setup
+
+    - id: calculate_sample_size
+      action: calculate_minimum_sample
+      description: "Calculate minimum responses/visitors for statistical significance per variant"
+      depends_on: identify_variable
+      output: sample_size_requirements
+
+    - id: define_success_metric
+      action: select_primary_metric
+      description: "Choose ONE primary metric: conversion rate, CPA, revenue per visitor, or response rate"
+      depends_on: identify_variable
+      output: success_metric
+
+    - id: set_duration
+      action: define_test_parameters
+      description: "Set test duration, 95% confidence threshold, and decision rules"
+      depends_on:
+        - calculate_sample_size
+        - define_success_metric
+      output: test_parameters
+
+  error_handling:
+    - error: multiple_variables
+      symptom: "Cannot determine which change caused the result"
+      resolution: "Isolate ONE variable; test others in subsequent rounds"
+    - error: no_tracking
+      symptom: "Results cannot be attributed to specific variant"
+      resolution: "Assign unique coupon, URL, or UTM per variant before launch"
+    - error: premature_winner
+      symptom: "Winner declared with insufficient sample"
+      resolution: "Wait for minimum sample size and 95% confidence"
+
+  quality_gate:
+    criteria:
+      - "Only ONE variable isolated"
+      - "Tracking mechanism unique per variant"
+      - "Minimum sample size calculated"
+      - "Single primary success metric defined"
+      - "Duration and significance threshold set"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: test_plan
+      format: structured_plan
+      description: "Complete test plan with variable, control, variant, tracking"
+    - name: tracking_requirements
+      format: setup_checklist
+      description: "Tracking codes, URLs, and UTM specifications"
+    - name: sample_size
+      format: calculation
+      description: "Minimum viable sample size per variant"

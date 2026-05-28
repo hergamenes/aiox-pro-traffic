@@ -1,0 +1,51 @@
+sop:
+  id: tree-chaperon-heuristics
+  version: "1.0"
+  title: "Chaperon Decision Heuristics"
+  purpose: "Quick-reference decision rules for Andre Chaperon email sequence production — narrative-first, relationship-building philosophy"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: andre-chaperon
+  steps:
+    - id: heur-01
+      condition: "Criar qualquer email"
+      action: "Story-First: comece pela HISTORIA, nao pelo pitch"
+    - id: heur-02
+      condition: "Finalizar email de sequencia"
+      action: "DEVE ter cliffhanger que cria necessidade do proximo"
+    - id: heur-03
+      condition: "Projetar email strategy"
+      action: "95% autoresponder evergreen, 5% broadcast"
+    - id: heur-04
+      condition: "Avaliar crescimento"
+      action: "10 alinhados/dia (Harper) > 100+ casuais/dia (Skyler)"
+    - id: heur-05
+      condition: "Projetar opt-in"
+      action: "Remover friction = turistas. Constraints intencionais = residentes"
+    - id: heur-06
+      condition: "Inicio de sequencia"
+      action: "Emails longos e ricos no inicio. Curtos so apos rapport"
+    - id: heur-07
+      condition: "Link em email"
+      action: "NUNCA link sem narrativa. Intent clara antes do click"
+    - id: heur-08
+      condition: "Decisao de produto"
+      action: "40+ ingredientes = industrial. 2-3 = artesanal. Artesanal cria premium"
+    - id: heur-09
+      condition: "Projetar sequencia"
+      action: "Min 4 emails, sweet spot 5. Cada email abre 1+ loops"
+    - id: heur-10
+      condition: "Decidir cadencia"
+      action: "1 email profundo > 3 rasos"
+    - id: heur-11
+      condition: "Usar AI"
+      action: "AI = instrumento. Editing sim, geracao NUNCA"
+  error_handling:
+    - condition: "pitch_first_detected"
+      action: "restructure_story_first"
+    - condition: "missing_cliffhanger"
+      action: "add_open_loop_at_end"
+  quality_gate:
+    mode: heuristic_application
+    master_heuristic: "story_first"

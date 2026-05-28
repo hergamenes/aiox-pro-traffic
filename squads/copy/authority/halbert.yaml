@@ -1,0 +1,137 @@
+# Authority Proof Arsenal - Gary Halbert
+# Extracted from: squads/copy/agents/gary-halbert.md
+# Source: Documented career achievements, Boron Letters, Famous Ads
+
+crucible_story:
+  title: "From Boron Prison to The Prince of Print"
+  narrative: |
+    Gary Halbert started as a young man in Ohio with nothing but ambition
+    and street smarts. No fancy education, no connections, no money.
+
+    He discovered direct mail copywriting and became obsessed. He tested,
+    failed, tested again, and eventually created the "Coat of Arms" letter -
+    one of the most successful direct mail pieces in history, mailing
+    over 600 million copies and generating hundreds of millions in revenue.
+
+    Then came the fall. He was convicted of mail fraud and sent to
+    Boron Federal Prison Camp in California. Most people would have been
+    destroyed. Gary used the time to teach his 15-year-old son Bond
+    everything he knew about copywriting AND life. Those 25 letters became
+    "The Boron Letters" - now considered sacred text in copywriting circles.
+
+    When he got out, he didn't hide. He owned his past and returned stronger,
+    publishing The Gary Halbert Letter newsletter for over 100 editions,
+    mentoring dozens of successful copywriters, and cementing his legacy
+    as "The Prince of Print" - the greatest direct mail copywriter who ever lived.
+
+  key_moments:
+    - "Ohio kid with nothing but ambition"
+    - "Coat of Arms letter - 600M+ pieces mailed"
+    - "Hundreds of millions in documented sales"
+    - "Prison - turned into teaching opportunity"
+    - "Boron Letters - 25 letters that changed copywriting"
+    - "100+ editions of Gary Halbert Letter"
+    - "Mentored legends like John Carlton"
+
+  transformation: "From nobody to The Prince of Print through testing, failure, and relentless improvement"
+
+authority_statistics:
+  achievement_metrics:
+    - metric: "600+ Million Pieces Mailed"
+      context: "Coat of Arms letter alone"
+      meaning: "Most successful direct mail piece ever"
+    - metric: "Hundreds of Millions in Sales"
+      context: "Documented campaign results"
+      meaning: "Proven ability to generate massive revenue"
+    - metric: "100+ Newsletter Editions"
+      context: "The Gary Halbert Letter"
+      meaning: "Decades of consistent teaching"
+    - metric: "25 Boron Letters"
+      context: "Written from prison to his son"
+      meaning: "Foundational copywriting text"
+    - metric: "40+ Year Career"
+      context: "1960s-2007"
+      meaning: "Lifetime of proven results"
+
+  famous_ads:
+    - name: "Coat of Arms Letter"
+      result: "600M+ pieces, hundreds of millions in sales"
+      key_insight: "Personalization at scale before anyone else"
+    - name: "Dollar Bill Letter"
+      result: "One of most mailed letters in history"
+      key_insight: "Grabber technique - attach real dollar"
+    - name: "Tova Beverly Hills"
+      result: "Built multi-million dollar cosmetics brand"
+      key_insight: "Celebrity + direct response"
+
+  notable_students:
+    - "John Carlton (legend in his own right)"
+    - "Bond Halbert (continued the legacy)"
+    - "Thousands via Gary Halbert Letter"
+
+  legacy:
+    - "The Boron Letters - copywriting bible"
+    - "Starving Crowd concept - universal framework"
+    - "A-Pile vs B-Pile - changed direct mail"
+    - "Swipe file methodology - standard practice"
+
+proof_stack_templates:
+  template_starving_crowd_authority:
+    elements:
+      - "Halbert's Starving Crowd principle (1970s)"
+      - "Used by every direct response marketer"
+      - "600M+ mailed pieces prove the concept"
+      - "Foundational to all market selection"
+
+  template_direct_mail_proof:
+    elements:
+      - "The Prince of Print - industry title"
+      - "Coat of Arms - most successful DM piece ever"
+      - "40+ years of tested, proven results"
+      - "Taught via Boron Letters from prison"
+
+# Swipe file analysis - Headlines from original Gary Halbert ads
+swipe_file_headlines:
+  money_business:
+    - headline: "$2,855 Bribe Letter"
+      source: "$2,855 Bribe Letter.pdf"
+    - headline: "320 Secret Way To Get Back Tax Dollars"
+      source: "320 Secret Way To Get Back Tax Dollars Ad.pdf"
+    - headline: "Amazing Money Making Secrets"
+      source: "Amazing Money Making Secrets Ad.pdf"
+    - headline: "Don't Read This Unless You're Rich"
+      source: "Don't Read This Unless You're Rich Ad.pdf"
+    - headline: "Double The Size of Your Business"
+      source: "Double The Size of Your Business Letter.pdf"
+
+  health_weight_loss:
+    - headline: "57 Year-Old Swimsuit Model"
+      source: "57 Year-Old Swimsuit Model Ad.pdf"
+    - headline: "Amazing Diet Secrets"
+      source: "Amazing Diet Secrets Ad.pdf"
+    - headline: "How To Live To Be 110"
+      source: "How To Live To Be 110 Ad.pdf"
+    - headline: "Lose Up To 20 Pounds"
+      source: "Lose Up To 20 Pounds Ad.pdf"
+
+  beauty_anti_aging:
+    - headline: "Beverly Hills Formula"
+      source: "Beverly Hills Formula Ad.pdf"
+    - headline: "Face-Lift-In-A-Jar"
+      source: "Face-Lift-In-A-Jar Ad.pdf"
+    - headline: "Million Dollar Smile"
+      source: "Million Dollar Smile Ad.pdf"
+
+  relationships:
+    - headline: "Desperate Housewife Scared of Losing Her Husband"
+      source: "Desperate Housewife Scared of Losing Her Husband Ad.pdf"
+    - headline: "Brink of Suicide"
+      source: "Brink of Suicide Letter.pdf"
+
+  direct_response_classics:
+    - headline: "Famous Dollar Letter"
+      source: "Famous Dollar Letter.pdf"
+    - headline: "Coat of Arms"
+      source: "Coat of Arms Letter.pdf"
+    - headline: "World's Greatest Copywriter"
+      source: "World's Greatest Copywriter Letter.pdf"

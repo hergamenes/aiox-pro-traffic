@@ -1,0 +1,43 @@
+sop:
+  id: lampropoulos-lizard-gatekeeper
+  version: "1.0"
+  title: "Lizard and the Gatekeeper (Dual Brain System)"
+  purpose: "Apply Parris Lampropoulos's Lizard and Gatekeeper dual-brain model to sequence persuasive copy correctly. The lizard brain (emotional, instinctive, fast) must be activated FIRST with fear, desire, or "
+  classification:
+    domain: copywriting
+    category: master
+    tier: t1
+    source_agent: parris-lampropoulos
+  steps:
+    - id: apply_activate_the_lizard_brain_first
+      action: "Open with emotional triggers that bypass rational analysis."
+      input: "Lizard Brain: emotional, instinctive, fast. Responds to: fear, desire, curiosity. ACTIVATE FIRST."
+      output: "Step 1 deliverable: Activate the Lizard Brain FIRST completed with documented findings"
+      validation: "Opening targets lizard brain with fear, desire, or curiosity -- not logic"
+    - id: apply_satisfy_the_gatekeeper_after
+      action: "Once the lizard brain is engaged, the gatekeeper wakes up and demands justification."
+      input: "Gatekeeper: rational, skeptical, slow. Demands: proof, logic, credibility. SATISFY AFTER."
+      output: "Step 2 deliverable: Satisfy the Gatekeeper AFTER completed with documented findings"
+      validation: "First proof element appears only AFTER emotional engagement is established"
+    - id: apply_sequence_emotion_first_logic_to_justify
+      action: "Structure the entire copy piece in this sequence: emotional hook (lizard), emotional expansion (lizard), first proof ..."
+      input: "Only logic = boring. Only emotion = untrustworthy. Emotion FIRST -> logic to JUSTIFY."
+      output: "Step 3 deliverable: Sequence: Emotion FIRST, Logic to JUSTIFY completed with documented findings"
+      validation: "Copy alternates between lizard and gatekeeper throughout, not front-loaded with either"
+  error_handling:
+    - error: "Leading with logic and data"
+      resolution: "Move all opening data/proof AFTER the emotional hook; emotion must come first"
+    - error: "Using only emotion with no proof"
+      resolution: "After every emotional section, follow with at least one proof element"
+    - error: "Clustering all proof in one section"
+      resolution: "Alternate emotion and proof throughout; never more than 2 paragraphs of pure logic"
+    - error: "Ignoring the gatekeeper in the close"
+      resolution: "Final CTA must include a logical reason-why alongside the emotional urgency"
+  quality_gate:
+    criteria:
+      - "Opening targets lizard brain with fear, desire, or curiosity -- not logic"
+      - "First proof element appears only AFTER emotional engagement is established"
+      - "Copy alternates between lizard and gatekeeper throughout, not front-loaded with either"
+      - "Emotional content comprises 60-70% of copy; logical proof 30-40%"
+      - "Close includes both emotional urgency (lizard) and logical justification (gatekeeper)"
+    pass_threshold: "All 5 criteria met"

@@ -1,0 +1,103 @@
+sop:
+  id: fw-30-triggers-5-layers
+  version: "1.0"
+  title: "30 Triggers — 5 Functional Layers"
+  purpose: "Evaluate copy quality using 30 psychological triggers organized in hierarchical layers — each depends on the previous"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: joe-sugarman
+    tier: t4
+  steps:
+    - id: apply_foundation
+      name: "Layer 1: FOUNDATION"
+      description: "Evaluate Honesty (#30), Integrity (#7), Credibility (#14) — prerequisites for all"
+      inputs:
+        - copy_claims
+        - proof_elements
+        - track_record
+      outputs:
+        - foundation_score
+      validation:
+        - claims_truthful: true
+        - promises_aligned_with_delivery: true
+        - credibility_verifiable: true
+      triggers: ["honesty_30", "integrity_7", "credibility_14"]
+    - id: apply_knowledge
+      name: "Layer 2: KNOWLEDGE"
+      description: "Evaluate Product Nature (#2) and Prospect Nature (#3)"
+      inputs:
+        - product_understanding
+        - prospect_psychographics
+      outputs:
+        - knowledge_score
+      validation:
+        - deep_product_knowledge: true
+        - deep_prospect_knowledge: true
+      triggers: ["product_nature_2", "prospect_nature_3"]
+    - id: apply_engagement
+      name: "Layer 3: ENGAGEMENT"
+      description: "Evaluate Storytelling, Curiosity, Involvement, Mental Engagement, Emotion"
+      inputs:
+        - narrative_elements
+        - curiosity_hooks
+        - involvement_devices
+      outputs:
+        - engagement_score
+      validation:
+        - min_active_triggers: 3
+        - storytelling_present: true
+        - curiosity_seeded: true
+      triggers: ["storytelling_8", "curiosity_27", "involvement_6", "mental_engagement_29", "emotion_11"]
+    - id: apply_persuasion
+      name: "Layer 4: PERSUASION"
+      description: "Evaluate 12 persuasion triggers — select most relevant for the offer"
+      inputs:
+        - persuasion_elements
+        - offer_type
+      outputs:
+        - persuasion_score
+      validation:
+        - min_active_triggers: 5
+        - authority_present: true
+        - proof_present: true
+      triggers: ["consistency", "authority", "proof", "linking", "belonging", "familiarity", "patterning", "harmonize", "hope", "greed", "exclusivity", "collect"]
+    - id: apply_closing
+      name: "Layer 5: CLOSING"
+      description: "Evaluate objection handling, logic, satisfaction conviction, simplicity, urgency"
+      inputs:
+        - closing_section
+        - guarantee
+        - objections
+      outputs:
+        - closing_score
+        - complete_trigger_report
+      validation:
+        - objections_raised_and_resolved: true
+        - logic_justifies_emotion: true
+        - satisfaction_conviction_strong: true
+        - simplicity_achieved: true
+        - urgency_present: true
+      triggers: ["objection_raising_4", "resolution_5", "logic_12", "satisfaction_conviction_15", "simplicity_21", "reciprocity_22", "specificity_23", "urgency_19"]
+  error_handling:
+    - error: broken_foundation
+      condition: "Layer 1 triggers missing or weak"
+      action: "STOP. Fix Foundation (honesty, integrity, credibility) before evaluating other layers"
+    - error: knowledge_gap
+      condition: "Copy lacks deep product or prospect understanding"
+      action: "Research before writing; do not proceed to Layer 3"
+    - error: weak_engagement
+      condition: "Less than 3 engagement triggers active"
+      action: "Add storytelling, curiosity seeds, and involvement devices"
+    - error: missing_satisfaction_conviction
+      condition: "No strong guarantee in closing"
+      action: "Add guarantee strong enough to remove all perceived risk"
+  quality_gate:
+    min_sections: 5
+    required_elements:
+      - foundation_solid
+      - knowledge_demonstrated
+      - engagement_active
+      - persuasion_layered
+      - closing_complete
+    pass_threshold: "all 5 layers evaluated; no layer below minimum threshold"

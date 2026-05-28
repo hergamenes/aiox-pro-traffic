@@ -1,0 +1,61 @@
+sop:
+  id: ogilvy-big-idea-test
+  version: "1.0"
+  title: "Ogilvy Big Idea Test (5 Questions)"
+  purpose: >
+    Evaluate creative concepts against five rigorous criteria before committing
+    resources. All 5 must score YES. Separates genuine Big Ideas from mediocre
+    concepts that consume the same budget but produce no results.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: david-ogilvy
+    tier: t1
+
+  steps:
+    - id: apply_gasp_test
+      action: "Does the concept produce a visceral gasp reaction on first viewing?"
+      input: "creative_concept"
+      output: "q1_gasp: YES | NO"
+
+    - id: apply_envy_test
+      action: "Do you wish you had thought of it yourself? Genuine professional envy?"
+      input: "creative_concept"
+      output: "q2_envy: YES | NO"
+
+    - id: apply_uniqueness_test
+      action: "Has anything like this been done before? Could it be mistaken for another brand?"
+      input: "creative_concept, competitive_landscape"
+      output: "q3_unique: YES | NO"
+
+    - id: apply_strategy_fit
+      action: "Does it advance brand positioning, address audience needs, support business objective?"
+      input: "creative_concept, brand_strategy"
+      output: "q4_strategy: YES | NO"
+
+    - id: apply_longevity_test
+      action: "Could this idea evolve and remain fresh for 30 years across different media?"
+      input: "creative_concept"
+      output: "q5_longevity: YES | NO"
+
+    - id: apply_decision
+      action: "All 5 must be YES. Any NO = rework or replace concept"
+      condition: "q1 == YES AND q2 == YES AND q3 == YES AND q4 == YES AND q5 == YES"
+      output: "big_idea_validated: true | false"
+
+  error_handling:
+    - error: "generous_scoring"
+      severity: high
+      action: "Require strict YES/NO only — no 'maybe' or 'close enough'"
+    - error: "creator_bias"
+      severity: high
+      action: "Include evaluators who did not create the concept"
+    - error: "settled_too_early"
+      severity: medium
+      action: "Test minimum 3-5 concepts before committing"
+
+  quality_gate:
+    all_five_yes: true
+    multiple_evaluators: true
+    min_concepts_tested: 3
+    strategy_fit_confirmed: true

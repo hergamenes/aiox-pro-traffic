@@ -1,0 +1,126 @@
+sop:
+  id: rb-immune-system
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Russell Brunson Auto-Reject List"
+  purpose: >
+    Automatic immune system for the russell-brunson agent. Any copy, strategy, or
+    funnel matching these 7 patterns is immediately rejected. Represents fundamental
+    violations of story-driven, funnel-first marketing.
+  classification:
+    domain: copywriting
+    category: systematizer
+    subcategory: auto-reject
+    source_agent: russell-brunson
+    tier: T2
+  status: ACTIVE
+
+  trigger:
+    event: copy_draft_complete
+    conditions:
+      - agent == "russell-brunson"
+    priority: high
+    run_before: ["rb-voice-validation", "rb-veto-conditions"]
+
+  context:
+    input:
+      - copy_draft: string
+      - output_type: string
+      - offer_structure: object | null
+      - funnel_stages: list | null
+      - attractive_character: object | null
+    required_knowledge:
+      - russell-brunson/thinking_dna.yaml
+
+  steps:
+    - id: step_01
+      action: validate_story_present
+      description: "Copy without story — facts tell, stories SELL"
+      check: "has_narrative_story_arc == true"
+      on_success: continue
+      on_failure:
+        action: auto_reject
+        severity: critical
+        message: "AUTO-REJECT — No story. Add Epiphany Bridge or Hook-Story-Offer."
+
+    - id: step_02
+      action: validate_value_stack_present
+      description: "Offer without Value Stack — stack before revealing price"
+      check: "offer has value_stack_buildup before price_reveal"
+      on_success: continue
+      on_failure:
+        action: auto_reject
+        severity: critical
+        message: "AUTO-REJECT — No value stack. Build perceived value before price."
+
+    - id: step_03
+      action: validate_funnel_not_single_page
+      description: "Single-page funnel — one page is bullet, funnel is army"
+      check: "funnel_stages.length >= 3 OR is_not_funnel_context"
+      on_success: continue
+      on_failure:
+        action: auto_reject
+        severity: high
+        message: "AUTO-REJECT — Single page is not a funnel. Build 3+ stage sequence."
+
+    - id: step_04
+      action: validate_webinar_belief_breaking
+      description: "Webinar without 3 Secrets (belief breaking)"
+      check: "if is_webinar then has_3_secrets_structure"
+      on_success: continue
+      on_failure:
+        action: auto_reject
+        severity: high
+        message: "AUTO-REJECT — Webinar without 3 Secrets belief-breaking architecture."
+
+    - id: step_05
+      action: validate_attractive_character
+      description: "Marketing without defined Attractive Character"
+      check: "attractive_character is defined with [backstory, identity, mission]"
+      on_success: continue
+      on_failure:
+        action: auto_reject
+        severity: high
+        message: "AUTO-REJECT — No Attractive Character. Define persona with origin story."
+
+    - id: step_06
+      action: validate_epiphany_not_education
+      description: "Copy that educates instead of creating epiphany"
+      check: "copy creates aha_moment NOT just information_delivery"
+      on_success: continue
+      on_failure:
+        action: auto_reject
+        severity: high
+        message: "AUTO-REJECT — Education without epiphany. Create 'aha' moment."
+
+    - id: step_07
+      action: validate_strong_hook
+      description: "Weak hook that doesn't capture in 3 seconds"
+      check: "hook captures attention within 3_second_test"
+      on_success: continue
+      on_failure:
+        action: auto_reject
+        severity: high
+        message: "AUTO-REJECT — Weak hook. Must stop the scroll in 3 seconds."
+
+  error_handling:
+    max_retries: 0
+    on_any_failure: immediate_reject
+    fallback: return_rejection_report
+
+  quality_gate:
+    min_pass_rate: 1.0
+    min_steps_passed: 7
+    critical_steps: [step_01, step_02]
+    verdict_map:
+      all_pass: PASS
+      any_fail: AUTO_REJECT
+
+  outputs:
+    - immune_verdict: enum[PASS, AUTO_REJECT]
+    - triggered_patterns: list
+    - pattern_count: integer
+    - rejection_citations: list

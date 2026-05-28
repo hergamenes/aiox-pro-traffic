@@ -1,0 +1,47 @@
+sop:
+  id: lampropoulos-wow
+  version: "1.0"
+  title: "WOW Framework (Novelty + Surprise)"
+  purpose: "Apply Parris Lampropoulos's WOW Framework to ensure every piece of content delivers genuine novelty and surprise. Useful content is not enough -- 'useful is boring.' The WOW standard requires that eve"
+  classification:
+    domain: copywriting
+    category: master
+    tier: t1
+    source_agent: parris-lampropoulos
+  steps:
+    - id: apply_test_for_novelty_something_new
+      action: "Read each section of the content and ask: does this section contain something the reader has never encountered before..."
+      input: "WOW = Novelty (something NEW) + Surprise (something UNEXPECTED)"
+      output: "Step 1 deliverable: Test for Novelty (Something NEW) completed with documented findings"
+      validation: "Every section tested for novelty -- at least one new element per section"
+    - id: apply_test_for_surprise_something_unexpected
+      action: "Read each section again and ask: is there anything here that would make the reader pause, raise an eyebrow, or say 'I..."
+      input: "Test each piece: has something NEW? Has something UNEXPECTED?"
+      output: "Step 2 deliverable: Test for Surprise (Something UNEXPECTED) completed with documented findings"
+      validation: "Every section tested for surprise -- at least one unexpected element per section"
+    - id: apply_identify_and_rewrite_anti_pattern_sections
+      action: "Flag every section that is useful-but-predictable."
+      input: "If not, rewrite"
+      output: "Step 3 deliverable: Identify and Rewrite Anti-Pattern Sections completed with documented findings"
+      validation: "All useful-but-predictable sections identified and rewritten or removed"
+    - id: apply_validate_the_wow_is_relevant
+      action: "Ensure that every WOW element serves the overall message."
+      input: "Anti-pattern: useful but predictable content = forgettable"
+      output: "Step 4 deliverable: Validate the WOW is Relevant completed with documented findings"
+      validation: "All WOW elements are relevant to the main message, not gratuitous"
+  error_handling:
+    - error: "Confusing novelty with surprise -- new but predictable content"
+      resolution: "Test novelty and surprise separately; require BOTH for every section"
+    - error: "Adding gratuitous shock value for WOW effect"
+      resolution: "Every WOW element must logically connect to the main argument"
+    - error: "Believing 'useful' is sufficient"
+      resolution: "Useful is the floor, not the ceiling; WOW is the differentiator"
+    - error: "Applying WOW only to the opening, not throughout"
+      resolution: "Test every section independently; WOW must be sustained throughout"
+  quality_gate:
+    criteria:
+      - "Every section tested for novelty -- at least one new element per section"
+      - "Every section tested for surprise -- at least one unexpected element per section"
+      - "All useful-but-predictable sections identified and rewritten or removed"
+      - "All WOW elements are relevant to the main message, not gratuitous"
+    pass_threshold: "All 4 criteria met"

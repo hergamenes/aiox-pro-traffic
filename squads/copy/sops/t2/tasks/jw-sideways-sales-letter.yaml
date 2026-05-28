@@ -1,0 +1,40 @@
+sop:
+  id: jw-sideways-sales-letter
+  version: 1.0.0
+  title: Sideways Sales Letter
+  purpose: Transform a traditional sales letter into a PLC sequence. Each PLC delivers value while advancing the sale
+  classification:
+    domain: copywriting
+    category: systematizer
+    source_agent: jeff-walker
+    artifact_type: task
+    tier: t2
+  status: ACTIVE
+  trigger:
+    type: manual
+    description: When adapting direct response copy for the launch model, or creating educational-selling hybrid content
+  context:
+    input:
+    - name: sales_letter_or_outline
+      type: string
+      required: true
+      description: Existing sales letter or detailed product pitch outline
+    - name: market_awareness_level
+      type: string
+      required: true
+      description: Schwartz awareness level of the audience
+  steps:
+  - id: S001
+    name: Execute framework
+    action: execute_framework
+    description: Transform a traditional sales letter into a PLC sequence. Each PLC delivers value while advancing the sale
+    performer: copywriter
+    critical: true
+    on_success: COMPLETE
+    on_failure: retry
+  quality_gate:
+    pass_threshold: 1
+    total_checks: 1
+    mandatory_passes:
+    - S001
+    verdict_on_fail: BLOCK

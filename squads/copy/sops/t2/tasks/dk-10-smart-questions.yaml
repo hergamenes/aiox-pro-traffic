@@ -1,0 +1,136 @@
+sop:
+  id: "dk-10-smart-questions"
+  version: "1.0.0"
+  title: "10 Smart Questions Avatar Discovery"
+  purpose: "Build a three-dimensional prospect avatar using Dan Kennedy's 10 psychographic questions to know the prospect better than they know themselves"
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    sub_category: "avatar-research"
+    risk_level: "low"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "Before writing any sales copy, when entering a new market, or quarterly refresh of existing avatar"
+  context:
+    input:
+      - name: "target_market"
+        type: "string"
+        required: true
+        description: "Clearly defined market, niche, or audience segment to build the avatar for"
+  steps:
+    - id: "S001"
+      name: "Sleepless Nights"
+      action: "identify_2am_anxiety"
+      description: "What keeps them awake at night, eyes open, staring at the ceiling? Write the specific scenario and internal dialogue, not surface-level worries."
+      performer: "copywriter"
+      critical: true
+      on_success: "S002"
+      on_failure: "retry"
+    - id: "S002"
+      name: "Deep Fears"
+      action: "identify_fears"
+      description: "What are they afraid of? Separate rational from irrational fears. Include identity, status, security, and loss fears. Rank by intensity."
+      performer: "copywriter"
+      critical: false
+      on_success: "S003"
+      on_failure: "retry"
+    - id: "S003"
+      name: "Anger Targets"
+      action: "identify_anger"
+      description: "What are they angry about? Who are they angry at? Capture exact venting language from forums, reviews, social media."
+      performer: "copywriter"
+      critical: false
+      on_success: "S004"
+      on_failure: "retry"
+    - id: "S004"
+      name: "Daily Frustrations"
+      action: "identify_frustrations"
+      description: "What are their 3 biggest daily frustrations? Write as vivid scenarios, not abstract concepts. Focus on problem-related frustrations."
+      performer: "copywriter"
+      critical: false
+      on_success: "S005"
+      on_failure: "retry"
+    - id: "S005"
+      name: "Market Trends"
+      action: "identify_trends"
+      description: "What trends are happening in their life/business? Economic, technology, regulatory, demographic shifts making status quo untenable."
+      performer: "copywriter"
+      critical: false
+      on_success: "S006"
+      on_failure: "retry"
+    - id: "S006"
+      name: "Secret Desires"
+      action: "identify_desires"
+      description: "What do they secretly and ardently desire most? Separate stated desires from actual desires. Write in first person: 'I want to...'"
+      performer: "copywriter"
+      critical: false
+      on_success: "S007"
+      on_failure: "retry"
+    - id: "S007"
+      name: "Decision Bias"
+      action: "identify_biases"
+      description: "Is there a built-in bias in how they make decisions? Risk-averse vs risk-seeking, data vs gut, authority-following vs independent."
+      performer: "copywriter"
+      critical: false
+      on_success: "S008"
+      on_failure: "retry"
+    - id: "S008"
+      name: "Market Language"
+      action: "capture_jargon"
+      description: "Do they have their own language or jargon? List terms, phrases, acronyms, slang, inside jokes. Using their language signals 'I am one of you.'"
+      performer: "copywriter"
+      critical: true
+      on_success: "S009"
+      on_failure: "retry"
+    - id: "S009"
+      name: "Competitive Landscape"
+      action: "map_competitors"
+      description: "Who else is selling something similar to them? Map from prospect's perspective: direct competitors, indirect alternatives, 'do nothing' option."
+      performer: "copywriter"
+      critical: false
+      on_success: "S010"
+      on_failure: "retry"
+    - id: "S010"
+      name: "Failed Selling Attempts"
+      action: "identify_broken_promises"
+      description: "Who else has tried to sell and how did they fail? Reveals built-in skepticism and objections. Identifies red flags the market watches for."
+      performer: "copywriter"
+      critical: true
+      on_success: "END"
+      on_failure: "retry"
+  error_handling:
+    global_timeout: "PT4H"
+    retry_policy:
+      max_retries: 1
+      backoff: "linear"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "all_10_questions_answered"
+        type: "boolean"
+        target: true
+        weight: 0.3
+      - name: "answers_use_specific_language"
+        type: "boolean"
+        target: true
+        weight: 0.25
+      - name: "includes_direct_quotes"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "competitive_landscape_mapped"
+        type: "boolean"
+        target: true
+        weight: 0.15
+      - name: "feels_like_real_person"
+        type: "boolean"
+        target: true
+        weight: 0.1
+    pass_threshold: 0.85
+  outputs:
+    artifacts:
+      - name: "3d_avatar_document"
+        type: "file"
+        format: "md"
+        description: "Complete avatar with all 10 questions answered using specific, emotionally rich detail and direct prospect language"

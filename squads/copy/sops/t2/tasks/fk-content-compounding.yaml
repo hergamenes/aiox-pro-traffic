@@ -1,0 +1,141 @@
+sop:
+  id: "fk-content-compounding"
+  version: "1.0.0"
+  title: "Content Compounding + Expansion Pipeline"
+  purpose: "Transform a single core video into 25-35 derivative content pieces across multiple platforms through systematic compounding and format expansion."
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    risk_level: "low"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "Every week when a new core video is produced and needs cross-platform distribution, or when scaling content output without proportionally increasing creation time."
+  context:
+    input:
+      - name: "core_video"
+        type: "file"
+        required: true
+        description: "Single core video (10-60 minutes) serving as raw material for all derivative content."
+      - name: "target_platforms"
+        type: "list"
+        required: true
+        description: "Active platforms for distribution: YouTube, Instagram, LinkedIn, X, TikTok, podcast platforms, newsletter."
+      - name: "brand_templates"
+        type: "object"
+        required: false
+        description: "Branded templates for quote graphics, carousels, and audiograms."
+  steps:
+    - id: "S001"
+      name: "Publish Full Video"
+      action: "upload_to_youtube"
+      description: "Upload full video to YouTube with optimized title, description, thumbnail, and tags. This is the long-form anchor for all derivative content."
+      performer: "copywriter"
+      critical: true
+      on_success: "S002"
+      on_failure: "retry"
+    - id: "S002"
+      name: "Extract and Publish Audio"
+      action: "create_podcast_episode"
+      description: "Extract audio from video, add podcast intro/outro, publish to Apple Podcasts, Spotify, and other podcast platforms."
+      performer: "copywriter"
+      critical: false
+      on_success: "S003"
+      on_failure: "retry"
+    - id: "S003"
+      name: "Cut Short-Form Clips"
+      action: "create_3_to_5_clips"
+      description: "Select 3-5 key moments (60-90 sec each): most impactful insight, most emotional story, most practical tip, most contrarian statement, best hook. Format for each platform: vertical for Reels/Shorts/TikTok, square for LinkedIn. Add subtitles."
+      performer: "copywriter"
+      critical: true
+      on_success: "S004"
+      on_failure: "retry"
+    - id: "S004"
+      name: "Write LinkedIn Article"
+      action: "summarize_for_linkedin"
+      description: "Write a long-form LinkedIn post or article summarizing core insights from the video. Adapt tone for professional context."
+      performer: "copywriter"
+      critical: false
+      on_success: "S005"
+      on_failure: "retry"
+    - id: "S005"
+      name: "Extract Pull Quotes and Create Graphics"
+      action: "create_quote_cards"
+      description: "Extract 3-5 standalone pull quotes. Create branded quote graphics for Instagram (1:1), X, and LinkedIn."
+      performer: "copywriter"
+      critical: false
+      on_success: "S006"
+      on_failure: "retry"
+    - id: "S006"
+      name: "Write Text Posts"
+      action: "create_platform_native_text"
+      description: "Write the video's thesis as native text for each platform: X thread, LinkedIn post, Instagram carousel. Do NOT use raw transcription — rewrite for each platform's format."
+      performer: "copywriter"
+      critical: true
+      on_success: "S007"
+      on_failure: "retry"
+    - id: "S007"
+      name: "Create Audiogram"
+      action: "produce_60_second_audiogram"
+      description: "Select best 60-second audio clip, add waveform animation and subtitles, format as video. Post to Instagram, X, and LinkedIn."
+      performer: "copywriter"
+      critical: false
+      on_success: "S008"
+      on_failure: "retry"
+    - id: "S008"
+      name: "Write Newsletter Section"
+      action: "adapt_for_newsletter"
+      description: "Write a newsletter section based on the video's insights. Can be core content or featured section of a broader newsletter."
+      performer: "copywriter"
+      critical: false
+      on_success: "S009"
+      on_failure: "retry"
+    - id: "S009"
+      name: "Schedule Distribution"
+      action: "spread_over_5_to_7_days"
+      description: "Schedule all derivative pieces for publication over 5-7 days to maximize algorithm favor. Do not publish everything at once."
+      performer: "copywriter"
+      critical: true
+      on_success: "S010"
+      on_failure: "retry"
+    - id: "S010"
+      name: "Track and Identify Winners"
+      action: "measure_derivative_performance"
+      description: "Track engagement metrics for each derivative piece. Identify top performers for paid amplification (IBB Pillar 3). Feed data back into next week's video planning."
+      performer: "copywriter"
+      critical: false
+      on_success: "DONE"
+      on_failure: "retry"
+  error_handling:
+    global_timeout: "PT6H"
+    retry_policy: "max 2 retries per step before escalation"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "25_plus_derivatives_produced"
+        type: "boolean"
+        target: true
+        weight: 1.0
+      - name: "all_clips_have_subtitles"
+        type: "boolean"
+        target: true
+        weight: 0.8
+      - name: "text_posts_are_native_not_transcription"
+        type: "boolean"
+        target: true
+        weight: 0.7
+      - name: "distribution_spread_5_to_7_days"
+        type: "boolean"
+        target: true
+        weight: 0.9
+      - name: "performance_tracking_active"
+        type: "boolean"
+        target: true
+        weight: 0.6
+    pass_threshold: 0.8
+  outputs:
+    artifacts:
+      - name: "content_derivative_package"
+        type: "file"
+        format: "md"
+        description: "25-35 derivative content assets across YouTube, podcast, Reels/Shorts/TikTok, LinkedIn, X, Instagram, newsletter, and audiograms, with performance tracking data."

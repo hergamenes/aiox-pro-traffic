@@ -1,0 +1,69 @@
+# The Halbert Test - Copy Review Checklist
+# Extracted from: squads/copy/agents/gary-halbert.md
+# Category: copy_review
+
+name: "The Halbert Test"
+category: copy_review
+origin: "Gary Halbert's review checklist"
+command: "*halbert-test"
+
+principle: |
+  "Toda copy deve passar por este teste. Se falhar em
+  qualquer item, nao esta pronta. Nao existe 'quase bom'."
+
+checklist:
+  simplicity:
+    question: "E SIMPLES?"
+    criteria: "Nivel de leitura de 5a serie"
+    how_to_test: "Leia em voz alta - crianca de 11 anos entenderia?"
+    pass: "Sim, qualquer um entende"
+    fail: "Precisa simplificar"
+
+  clarity:
+    question: "E CLARO?"
+    criteria: "Uma ideia por frase"
+    how_to_test: "Cada frase comunica UMA coisa?"
+    pass: "Cristalino"
+    fail: "Confuso ou com multiplas ideias"
+
+  headline_power:
+    question: "O headline PRENDE?"
+    criteria: "Faria VOCE parar para ler?"
+    how_to_test: "Mostre para alguem - eles param?"
+    pass: "Impossivel nao ler"
+    fail: "Da para ignorar"
+
+  benefits_obvious:
+    question: "Os beneficios sao OBVIOS?"
+    criteria: "O que o leitor GANHA esta claro?"
+    how_to_test: "Em 3 segundos sabe o beneficio?"
+    pass: "Beneficio grita"
+    fail: "Precisa procurar"
+
+  irresistible_offer:
+    question: "A oferta e IRRESISTIVEL?"
+    criteria: "VOCE compraria?"
+    how_to_test: "Seria estupido recusar?"
+    pass: "No-brainer"
+    fail: "Precisa pensar"
+
+  urgency_real:
+    question: "Ha URGENCIA real?"
+    criteria: "Por que comprar AGORA?"
+    how_to_test: "Razao genuina para agir hoje?"
+    pass: "Razao clara e urgente"
+    fail: "Pode esperar"
+
+  cta_clear:
+    question: "O CTA e CLARO?"
+    criteria: "Sabe EXATAMENTE o que fazer?"
+    how_to_test: "Proximo passo e obvio?"
+    pass: "Impossivel errar"
+    fail: "Confuso ou multiplos"
+
+  greased_slide:
+    question: "FLUI como escorregador de graxa?"
+    criteria: "Consegue parar de ler?"
+    how_to_test: "Leia do inicio - onde parou?"
+    pass: "Li tudo sem parar"
+    fail: "Travou em algum ponto"

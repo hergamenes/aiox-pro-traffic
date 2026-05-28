@@ -1,0 +1,97 @@
+sop:
+  id: fw-email-marketing-villain
+  version: "1.0"
+  title: "Email Marketing Villain Framework"
+  purpose: "Personality-driven email marketing with villain archetype positioning — mission drives persuasion"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: ben-settle
+    tier: t3
+  steps:
+    - id: apply_mission_driven
+      name: "Mission-Driven Leadership"
+      description: "Anchor every email to mission; persuasion flows from conviction"
+      inputs:
+        - mission_statement
+        - email_topic
+      outputs:
+        - mission_anchored_email
+      validation:
+        - connects_to_mission: true
+        - not_just_promotion: true
+    - id: apply_pedestal_principle
+      name: "Pedestal Principle"
+      description: "Only mission on pedestal; reference others through your lens, not as authorities"
+      inputs:
+        - content_references
+        - authority_claims
+      outputs:
+        - pedestal_free_copy
+      validation:
+        - no_guru_worship: true
+        - mission_is_anchor: true
+    - id: apply_joker_principle
+      name: "The Joker Principle"
+      description: "Every email must have IMPACT — memorable, unique, impossible to ignore"
+      inputs:
+        - email_draft
+      outputs:
+        - high_impact_email
+      validation:
+        - unique_angle: true
+        - memorable: true
+        - could_only_be_yours: true
+    - id: apply_kind_not_nice
+      name: "Nice vs. Kind"
+      description: "Write honest, direct emails; purge people-pleasing language"
+      inputs:
+        - email_draft
+      outputs:
+        - kind_voice_email
+      validation:
+        - honest_and_direct: true
+        - no_people_pleasing: true
+    - id: apply_pay_time_first
+      name: "Pay Yourself First (Time)"
+      description: "Write emails during protected first-hour creative time"
+      inputs:
+        - daily_schedule
+      outputs:
+        - creative_time_block
+      validation:
+        - first_hour_protected: true
+    - id: apply_blacklist_cancelers
+      name: "Blacklist Cancelers"
+      description: "Enforce permanent departure policy; no win-back, no discounts"
+      inputs:
+        - cancellation_policy
+      outputs:
+        - blacklist_policy
+        - complete_email_system
+      validation:
+        - policy_documented: true
+        - no_chase_tactics: true
+  error_handling:
+    - error: disconnected_from_mission
+      condition: "Email has no connection to stated mission"
+      action: "Start draft by asking 'How does this serve the mission?'"
+    - error: guru_worship
+      condition: "Email elevates another person above the mission"
+      action: "Reference ideas through your lens; frame as mission support"
+    - error: safe_forgettable
+      condition: "Email could be written by anyone in the industry"
+      action: "Rewrite until uniquely yours; apply Joker IMPACT test"
+    - error: chasing_cancelers
+      condition: "Win-back sequences or discount offers to canceled subscribers"
+      action: "Enforce blacklist; redirect energy to retained subscribers"
+  quality_gate:
+    min_sections: 6
+    required_elements:
+      - mission_anchored
+      - pedestal_free
+      - high_impact
+      - kind_not_nice
+      - creative_time_protected
+      - blacklist_enforced
+    pass_threshold: "all 6 principles implemented in email system"

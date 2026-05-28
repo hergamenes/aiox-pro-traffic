@@ -1,0 +1,81 @@
+sop:
+  id: task-voc-first-email
+  version: "1.0"
+  title: "VOC-First Email Architecture"
+  purpose: "Build email copy opening with literal Voice of Customer quotes, escalating through empathy, parallelism, and MHT before pivoting to transformation"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: ry-schwartz
+    tier: T3
+
+  inputs:
+    - name: voc_data
+      type: dataset
+      required: true
+      description: "Real customer quotes from surveys, interviews, support tickets"
+    - name: mht_scene
+      type: document
+      required: true
+      description: "Prepared MHT scene with sensory detail"
+    - name: product_offer
+      type: object
+      required: true
+      description: "Product/offer to promote"
+
+  outputs:
+    - name: email_copy
+      type: document
+      description: "Email with VOC opening, empathy, parallelism, MHT, pivot, and CTA"
+
+  steps:
+    - id: step_1
+      action: open_with_voc
+      description: "Start with REAL verbatim quote from research — exact words, not paraphrased"
+      critical: true
+      error_handling:
+        condition: "Quote is invented or paraphrased"
+        action: "Replace with exact verbatim quote from research data"
+
+    - id: step_2
+      action: respond_empathy
+      description: "Acknowledge quote with genuine understanding referencing specific audience type and circumstances"
+
+    - id: step_3
+      action: build_parallelism
+      description: "Create parallel phrases mirroring reader's thought patterns with escalating emotional intensity"
+      critical: true
+
+    - id: step_4
+      action: escalate_to_mht
+      description: "Pivot from parallelism to full MHT scene — 3D moment of peak pain with sensory detail"
+
+    - id: step_5
+      action: pivot_to_transformation
+      description: "'What if you could confidently [outcome]?' — outcome descriptions not product descriptions"
+
+    - id: step_6
+      action: write_cta
+      description: "CTA with genuine urgency connecting to MHT emotional arc"
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "Opening quote is real from actual research"
+      - "Empathy references specific audience type"
+      - "Parallelism escalates emotional intensity"
+      - "MHT includes full sensory detail"
+      - "Pivot uses outcome not product language"
+      - "CTA connects to emotional arc"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies:
+    - task-mht-exercise
+
+  related_sops:
+    - task-big-idea-system
+    - task-outcome-description-rewrite
+    - task-frank-matt-archetype

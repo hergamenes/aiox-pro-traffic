@@ -1,0 +1,104 @@
+sop:
+  id: schwartz-awareness-headline-matrix
+  version: "1.0"
+  title: "Awareness Level to Headline Type Matrix"
+  purpose: >
+    Definitive mapping from market awareness level to headline approach and
+    copy length. Every headline decision starts here. Mismatching awareness
+    to headline type is the most common and costly error in direct response copy.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    subcategory: awareness-headline-mapping
+    tier: T0
+    source_agent: eugene-schwartz
+  steps:
+    - id: validate_level_1_most_aware
+      action: "Verify Level 1 (Most Aware) uses OFERTA headline"
+      input: awareness_diagnosis
+      validation:
+        rule: "if awareness == 1, headline_type == OFERTA"
+        headline_type: OFERTA
+        headline_elements:
+          - product_name
+          - price
+          - discount
+          - deadline
+        copy_length:
+          min: 100
+          max: 500
+        fail_action: redesign_headline_to_oferta
+    - id: validate_level_2_product_aware
+      action: "Verify Level 2 (Product Aware) uses PRODUTO headline"
+      input: awareness_diagnosis
+      validation:
+        rule: "if awareness == 2, headline_type == PRODUTO"
+        headline_type: PRODUTO
+        headline_elements:
+          - strongest_claim
+          - differentiation
+        copy_length:
+          min: 500
+          max: 1000
+        fail_action: redesign_headline_to_produto
+    - id: validate_level_3_solution_aware
+      action: "Verify Level 3 (Solution Aware) uses DESEJO headline with mechanism"
+      input: awareness_diagnosis
+      validation:
+        rule: "if awareness == 3, headline_type == DESEJO + mechanism if sophistication >= 3"
+        headline_type: DESEJO
+        headline_elements:
+          - desire_crystallization
+          - unique_mechanism
+        copy_length:
+          min: 800
+          max: 1500
+        sophistication_overlay: "mechanism required at Stage 3+"
+        fail_action: redesign_headline_to_desejo
+    - id: validate_level_4_problem_aware
+      action: "Verify Level 4 (Problem Aware) uses NECESSIDADE headline"
+      input: awareness_diagnosis
+      validation:
+        rule: "if awareness == 4, headline_type == NECESSIDADE"
+        headline_type: NECESSIDADE
+        headline_elements:
+          - dramatized_pain
+          - resolution_hint
+        copy_length:
+          min: 1500
+          max: 3000
+        fail_action: redesign_headline_to_necessidade
+    - id: validate_level_5_unaware
+      action: "Verify Level 5 (Unaware) uses IDENTIFICACAO headline — no product/price/desire/function"
+      input: awareness_diagnosis
+      validation:
+        rule: "if awareness == 5, headline_type == IDENTIFICACAO"
+        headline_type: IDENTIFICACAO
+        headline_elements:
+          - emotion
+          - attitude
+          - belonging
+        banned_elements:
+          - product_name
+          - price
+          - desire_category
+          - product_function
+        copy_length:
+          min: 2000
+          max: 4000
+        fail_action: redesign_headline_to_identificacao
+  error_handling:
+    on_mismatch: block_and_prescribe_correct_type
+    on_length_violation: flag_with_target_range
+    escalation: route_to_copy_chief
+  quality_gate:
+    pass_criteria: "headline type matches awareness level; copy length within range"
+    sophistication_check: "if sophistication >= 3, mechanism must be present"
+    on_pass: headline_direction_approved
+    on_fail: redesign_to_match_awareness_level
+  metadata:
+    date: "2026-03-14"
+    author:
+      agent: sop-converter
+      squad: sop-factory
+    source_artifact: schwartz-awareness-headline-matrix

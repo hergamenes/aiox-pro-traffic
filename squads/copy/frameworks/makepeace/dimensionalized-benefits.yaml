@@ -1,0 +1,111 @@
+# Dimensionalized Benefits Technique
+# Source: Clayton Makepeace / Tom Phillips - Phillips Publishing
+# Command: *dimensionalize
+
+name: "Dimensionalized Benefits Technique"
+category: "copywriting"
+origin: "Clayton Makepeace / Tom Phillips - Phillips Publishing"
+command: "*dimensionalize"
+
+philosophy: |
+  A benefit stated is a benefit forgotten. A benefit DIMENSIONALIZED is a
+  benefit that burns into the reader's imagination and refuses to let go.
+  Don't tell them they'll have more energy - show them what more energy
+  LOOKS LIKE, FEELS LIKE, and MEANS for their life.
+
+what_is_dimensionalization: |
+  Dimensionalization is adding DEPTH, TEXTURE, and VIVIDNESS to benefits.
+  It transforms flat, abstract claims into rich, 3D experiences the reader
+  can see, feel, taste, and inhabit.
+
+the_three_dimensions:
+  dimension_1:
+    name: "Sensory Dimension"
+    instruction: "Make them SEE, HEAR, FEEL, TASTE, SMELL the benefit"
+    example_before: "You'll have more energy."
+    example_after: |
+      "Feel the surge of clean, natural energy flooding your body at 6am...
+      before your first cup of coffee. Notice how the brain fog lifts.
+      How colors seem brighter. How you actually WANT to get out of bed."
+
+  dimension_2:
+    name: "Social Dimension"
+    instruction: "Show the IMPACT on relationships, status, how others see them"
+    example_before: "You'll lose weight."
+    example_after: |
+      "Watch your husband's jaw drop when you walk into the bedroom.
+      See the envy in your sister's eyes at the family reunion.
+      Feel the pride when your doctor says 'Whatever you're doing, keep it up.'"
+
+  dimension_3:
+    name: "Temporal Dimension"
+    instruction: "Contrast BEFORE and AFTER across time"
+    example_before: "You'll make more money."
+    example_after: |
+      "Remember last month, staring at that stack of bills, wondering how
+      you'd make it to payday? Now imagine opening your bank app and seeing
+      an extra $4,387 that WASN'T there 30 days ago. What would you do first?"
+
+dimensionalization_formula:
+  step_1: "State the raw benefit (the WHAT)"
+  step_2: "Add sensory detail (what they SEE, FEEL, HEAR)"
+  step_3: "Add social impact (what OTHERS notice)"
+  step_4: "Add temporal contrast (BEFORE vs AFTER)"
+  step_5: "Add personal meaning (what it MEANS for their life)"
+
+examples:
+  example_1:
+    benefit_flat: "Improves memory"
+    benefit_dimensionalized: |
+      "Imagine your grandson's face lighting up when you remember not just his
+      birthday, but the exact present he asked for six months ago. Feel the
+      pride swell in your chest as your wife squeezes your hand under the table,
+      knowing you're BACK - sharp as a tack, the way you used to be. No more
+      pretending you remembered. No more nodding along when you've lost the
+      thread of conversation. You're YOU again."
+
+  example_2:
+    benefit_flat: "You'll sleep better"
+    benefit_dimensionalized: |
+      "Picture this: You close your eyes at 10pm and drift into deep, restorative
+      sleep within minutes. No tossing. No turning. No staring at the ceiling
+      wondering why your brain won't shut off. You sleep through the night -
+      completely - and wake up before your alarm feeling like you've been recharged.
+      Your spouse notices. Your coworkers notice. YOU notice. That foggy, dragging
+      feeling that's become your normal? Gone. This is what sleep is supposed to feel like."
+
+  example_3:
+    benefit_flat: "Saves time"
+    benefit_dimensionalized: |
+      "Imagine finishing your work at 3pm instead of 7pm. Feel the relief as you
+      close your laptop knowing everything's done. Watch your kids' faces light up
+      when you walk through the door in time for dinner - again. Notice how your
+      spouse looks at you differently when you're actually PRESENT. That constant
+      stress humming in the background? Silenced. This is what your evenings could
+      look like. Starting this week."
+
+transformation_audit:
+  questions:
+    - "Can the reader SEE it happening?"
+    - "Can they FEEL it in their body?"
+    - "Can they HEAR the reaction of others?"
+    - "Does it contrast BEFORE and AFTER?"
+    - "Does it show personal MEANING beyond the feature?"
+
+  if_no_to_any: "The benefit needs more dimensionalization."
+
+common_mistakes:
+  mistake_1:
+    wrong: "Stating features disguised as benefits"
+    example: "Contains 500mg of Vitamin C"
+    fix: "Dimensionalize the result: 'Feel your immune system kick into overdrive...'"
+
+  mistake_2:
+    wrong: "Abstract benefits without specificity"
+    example: "You'll feel better"
+    fix: "Be specific: 'Wake up at 6am feeling like you slept 12 hours...'"
+
+  mistake_3:
+    wrong: "Missing the social dimension"
+    example: "Your skin will look younger"
+    fix: "Add social proof: 'Watch their faces when they ask what surgeon you used...'"

@@ -1,0 +1,71 @@
+sop:
+  id: task-subject-line-micro-riddle
+  version: "1.0"
+  title: "Subject Line Micro-Riddle Creation"
+  purpose: "Create email subject lines as micro-riddles adapted from direct response bullet techniques that create irresistible curiosity itch"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: ben-settle
+    tier: T3
+
+  inputs:
+    - name: email_topic
+      type: string
+      required: true
+      description: "Topic of the email"
+    - name: product_offer
+      type: object
+      required: true
+      description: "Product/offer being promoted for relevance anchor"
+
+  outputs:
+    - name: subject_line
+      type: string
+      description: "Micro-riddle subject line (5-10 words)"
+
+  steps:
+    - id: step_1
+      action: adapt_bullet_techniques
+      description: "Compress direct response bullet formats into 5-10 word subject line — hint without revealing"
+      critical: true
+
+    - id: step_2
+      action: create_curiosity_itch
+      description: "Create curiosity gap that demands to be scratched — mild psychological discomfort from not knowing"
+
+    - id: step_3
+      action: check_differentiation
+      description: "Verify subject line could not have been written by any other marketer — if generic, rewrite"
+      critical: true
+      error_handling:
+        condition: "Subject line looks generic or competitor-like"
+        action: "Rewrite with unique voice and distinctive angle"
+
+    - id: step_4
+      action: combine_curiosity_relevance
+      description: "Ensure both curiosity gap and reader relevance are present — intersection creates opens"
+
+    - id: step_5
+      action: layer_specificity
+      description: "Add controversial angle or hyper-specific detail for credibility and irresistibility"
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "Creates genuine curiosity gap"
+      - "5-10 words concise"
+      - "Does not look like competitor emails"
+      - "Both curiosity and relevance present"
+      - "Email delivers on implicit promise"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies: []
+
+  related_sops:
+    - task-infotainment-email
+    - task-3x-personality-method
+    - task-ghost-story-technique

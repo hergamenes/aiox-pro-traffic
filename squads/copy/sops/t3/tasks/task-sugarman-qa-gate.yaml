@@ -1,0 +1,103 @@
+sop:
+  id: task-sugarman-qa-gate
+  version: "1.0"
+  title: "30 Psychological Triggers QA Gate (Full Analysis)"
+  purpose: "Evaluate any copy against 30 Psychological Triggers, Slippery Slide, Seeds of Curiosity, and Axioms with scored assessment and prioritized recommendations"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: joe-sugarman
+    tier: T4
+
+  inputs:
+    - name: copy_draft
+      type: document
+      required: true
+      description: "Any copy draft (sales page, email, VSL, social, landing page)"
+
+  outputs:
+    - name: score
+      type: object
+      description: "Score X/30 (Y%) with grade"
+    - name: trigger_analysis
+      type: list
+      description: "30-row analysis table with status and evidence per trigger"
+    - name: slippery_slide
+      type: object
+      description: "5-layer Slippery Slide assessment"
+    - name: recommendations
+      type: list
+      description: "Top 5 prioritized recommendations"
+
+  steps:
+    - id: step_1
+      action: classify_copy_type
+      description: "Classify as sales page, email, VSL, social, or landing page — determines trigger weighting"
+      types: ["sales_page", "email", "vsl", "social", "landing_page"]
+
+    - id: step_2
+      action: apply_context_weighting
+      description: "Determine which triggers are critical vs optional for this specific copy type"
+      critical: true
+
+    - id: step_3
+      action: evaluate_slippery_slide
+      description: "Assess 5 layers: Gravitational Pull, Reducing Friction, Building Agreement, Greasing, Landing"
+      layers:
+        - gravitational_pull
+        - reducing_friction
+        - building_agreement
+        - greasing_the_slide
+        - the_landing
+
+    - id: step_4
+      action: scan_30_triggers
+      description: "Evaluate each trigger as ACTIVATED/PARTIAL/NOT ACTIVATED with evidence from copy"
+      critical: true
+      trigger_count: 30
+
+    - id: step_5
+      action: verify_seeds_of_curiosity
+      description: "Check deployment of micro-hooks maintaining forward momentum throughout copy"
+
+    - id: step_6
+      action: check_axioms
+      description: "Evaluate relevant subset of 17 Axioms, flag violations"
+
+    - id: step_7
+      action: calculate_score
+      description: "Score X/30 with percentage and grade"
+
+    - id: step_8
+      action: identify_critical_gaps
+      description: "Cross-reference low scores with context weighting — critical trigger gaps flagged high priority"
+
+    - id: step_9
+      action: generate_recommendations
+      description: "TOP 5 specific actionable recommendations ordered by expected conversion impact"
+      critical: true
+      count: 5
+      error_handling:
+        condition: "Recommendations are generic"
+        action: "Rewrite with exact change and location in copy"
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "Copy type correctly classified"
+      - "Context weighting applied"
+      - "All 30 triggers evaluated with evidence"
+      - "Slippery Slide assessed at all 5 layers"
+      - "Seeds of Curiosity verified"
+      - "Top 5 recommendations are specific and actionable"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies: []
+
+  related_sops:
+    - task-slippery-slide-evaluation
+    - task-objection-raising-protocol
+    - task-two-sweeps-audit

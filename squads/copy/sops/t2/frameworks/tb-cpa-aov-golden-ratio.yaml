@@ -1,0 +1,116 @@
+sop:
+  id: tb-cpa-aov-golden-ratio
+  version: "1.0"
+  title: "CPA-to-AOV Golden Ratio + PAI"
+  purpose: >
+    Determine marketing campaign financial viability using the Golden Ratio
+    (AOV >= CPA) and Permissible Acquisition Investment. Focus on the only
+    metric that matters: acquiring customers profitably on the front end.
+  classification:
+    domain: copywriting
+    subdomain: campaign-economics
+    tier: t2
+    source_agent: todd-brown
+    artifact_type: framework
+
+  steps:
+    - id: step_1_golden_ratio
+      action: apply_golden_ratio_calculation
+      label: "Calculate the Golden Ratio"
+      description: >
+        Determine AOV (total front-end revenue / customers) and CPA (total ad
+        spend / customers). Test: AOV >= CPA means viable. If not, calculate
+        PAI to assess the investment.
+      inputs:
+        - total_frontend_revenue
+        - total_ad_spend
+        - customer_count
+      outputs:
+        - aov
+        - cpa
+        - golden_ratio_verdict
+      validation:
+        - field: aov
+          rule: calculated_from_real_data
+        - field: cpa
+          rule: campaign_level_not_adset
+        - field: golden_ratio_verdict
+          rule: one_of_viable_investment_unviable
+
+    - id: step_2_pai_calculation
+      action: apply_pai_calculation
+      label: "Calculate PAI (Permissible Acquisition Investment)"
+      description: >
+        PAI = CPA - AOV. Determine acceptable PAI based on cash reserves, LTV
+        data, and time-to-LTV. Fix the PAI then let CPA float. Do not try to
+        control CPA directly.
+      inputs:
+        - cpa
+        - aov
+        - ltv_data
+        - cash_reserves
+      outputs:
+        - pai_amount
+        - pai_acceptable_range
+        - investment_verdict
+      validation:
+        - field: pai_amount
+          rule: calculated_not_estimated
+        - field: pai_acceptable_range
+          rule: backed_by_ltv_data
+
+    - id: step_3_aov_contribution
+      action: apply_aov_contribution_optimization
+      label: "Optimize AOV Contribution"
+      description: >
+        AOV Contribution = Price x Take Rate. Map contribution per product tier
+        (core + upsells). Test price/take-rate combinations. Focus optimization
+        on highest-leverage element.
+      inputs:
+        - product_tiers
+        - pricing_data
+        - take_rate_data
+      outputs:
+        - aov_contribution_table
+        - optimization_recommendations
+        - highest_leverage_variable
+      validation:
+        - field: aov_contribution_table
+          rule: includes_all_tiers
+        - field: optimization_recommendations
+          rule: targets_highest_leverage
+
+  error_handling:
+    - error: optimizing_conversion_not_aov
+      symptom: "High conversion rate but unprofitable campaign"
+      resolution: "Focus on AOV — higher price with lower conversion often wins"
+    - error: ignoring_upsells
+      symptom: "AOV appears too low to cover CPA"
+      resolution: "Add or optimize upsells to raise total front-end AOV"
+    - error: controlling_cpa_directly
+      symptom: "Constant bid adjustments, unstable results"
+      resolution: "Fix AOV and offer structure, let CPA stabilize naturally"
+    - error: no_pai_tolerance
+      symptom: "Killing viable campaigns too early"
+      resolution: "Calculate LTV and set acceptable PAI before judging"
+
+  quality_gate:
+    min_score: 7
+    criteria:
+      - "Golden Ratio calculated with real data"
+      - "PAI defined with acceptable range"
+      - "AOV includes all front-end revenue"
+      - "CPA at campaign level"
+      - "AOV Contribution mapped per tier"
+      - "Scale/Fix/Kill decision documented"
+
+  outputs:
+    - type: golden_ratio_report
+      format: table
+      fields: [aov, cpa, ratio, verdict]
+    - type: pai_analysis
+      format: text
+    - type: aov_contribution_breakdown
+      format: table
+    - type: optimization_plan
+      format: markdown

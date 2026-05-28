@@ -1,0 +1,71 @@
+sop:
+  id: ogilvy-7-pillars
+  version: "1.0"
+  title: "The 7 Pillars of Ogilvy"
+  purpose: >
+    Apply seven foundational advertising principles: research-driven,
+    brand-consistent, fact-based, headline-focused, idea-powered,
+    sales-oriented, and disciplined creative work.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: david-ogilvy
+    tier: t1
+
+  steps:
+    - id: apply_pillar1_research
+      action: "Inform every creative decision with market, competition, customer, and product data"
+      input: "market_research, competitive_analysis"
+      output: "research_foundation"
+      condition: "research_completed == true"
+
+    - id: apply_pillar2_brand_image
+      action: "Verify each ad contributes to long-term brand image; never sacrifice brand for promotion"
+      input: "ad_creative, brand_guidelines"
+      output: "brand_consistency_check"
+
+    - id: apply_pillar3_facts
+      action: "Replace vague superlatives with specific, verifiable facts"
+      condition: "no_puffery_present"
+      output: "fact_based_claims"
+
+    - id: apply_pillar4_headline
+      action: "Invest proportional time on headline (80% of ad value); include brand name and key benefit"
+      output: "headline_evaluation"
+      condition: "headline_contains_brand_and_benefit"
+
+    - id: apply_pillar5_big_idea
+      action: "Validate campaign is built around a Big Idea using ogilvy-big-idea-test"
+      output: "big_idea_validation"
+
+    - id: apply_pillar6_sell
+      action: "Remove any element that entertains but doesn't serve the sales objective"
+      condition: "all_elements_serve_sales"
+      output: "sales_focused_creative"
+
+    - id: apply_pillar7_discipline
+      action: "Follow disciplined process of research, testing, and proven principles"
+      output: "disciplined_creative_process"
+
+  error_handling:
+    - error: "skipped_research"
+      severity: critical
+      action: "BLOCK — complete research phase before any creative work"
+    - error: "brand_sacrifice"
+      severity: high
+      action: "Revise creative to strengthen brand image, not undermine it"
+    - error: "puffery_in_claims"
+      severity: medium
+      action: "Replace each adjective with a specific, verifiable fact"
+    - error: "weak_headline"
+      severity: high
+      action: "Reinvest time on headline; it represents 80% of the ad's value"
+
+  quality_gate:
+    research_backed: true
+    brand_consistent: true
+    facts_over_puffery: true
+    headline_strong: true
+    big_idea_validated: true
+    sales_focused: true
+    disciplined_process: true

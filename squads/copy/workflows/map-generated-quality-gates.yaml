@@ -1,0 +1,54 @@
+# Managed by materialize-map.py
+# Source: outputs/sinkra-squad/copy/map/20260328-065841-gemini-gemini-3.1-pro-preview/quality_gates.yaml
+# Category: governance
+
+quality_gates:
+  - gate_id: QG-1.1
+    name: "Completude de Briefing"
+    position: "entre atm_validar_briefing e atm_pesquisa_dores"
+    type: "transição"
+    executor: "Agent"
+    threshold: 1.0  # (Ex: is_valid == true avaliado numericamente como 1.0)
+    criteria:
+      - "Todos os campos obrigatórios preenchidos"
+      - "is_valid == true"
+    escalation_path: "Estrategista ou Gestor"
+    veto_power: true
+    mandamentos_enforced: [2, 5]
+
+  - gate_id: QG-3.1
+    name: "Validação Estrutural do Draft"
+    position: "após atm_gerar_draft"
+    type: "reativo"
+    executor: "Agent"
+    threshold: 0.8  # nível de aderência ao framework
+    criteria:
+      - "draft_follows_framework == true"
+    escalation_path: "Copywriter Sênior"
+    veto_power: true
+    mandamentos_enforced: [2, 4, 5]
+
+  - gate_id: QG-4.1
+    name: "Qualidade de Emulação do Clone"
+    position: "após atm_aplicar_tom"
+    type: "reativo"
+    executor: "Agent"
+    threshold: 0.8
+    criteria:
+      - "style_match_score >= 0.8"
+    escalation_path: "Copywriter Sênior para fallback manual de reescrita"
+    veto_power: true
+    mandamentos_enforced: [1, 5]
+
+  - gate_id: QG-5.1
+    name: "Aprovação Final da Copy"
+    position: "antes da publicação (atm_aprovacao_final)"
+    type: "saída"
+    executor: "Human"
+    threshold: 0.9
+    criteria:
+      - "checklist_score >= 0.9"
+      - "Julgamento qualitativo humano aprovado"
+    escalation_path: "Retornar para atm_gerar_draft com feedback estrutural"
+    veto_power: true
+    mandamentos_enforced: [1, 5]

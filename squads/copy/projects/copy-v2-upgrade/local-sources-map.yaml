@@ -1,0 +1,276 @@
+# Local Sources Map for Copy Framework v2.0 Upgrade
+# Workers MUST check these paths FIRST before web research
+
+# =============================================================================
+# ALEX HORMOZI - MASSIVE SOURCE LIBRARY (Use for offer/funnel/ads tasks)
+# Note: Hormozi is archived as agent but his sources are GOLD for many tasks
+# =============================================================================
+
+alex_hormozi:
+  mind_path: "outputs/minds/alex_hormozi/"
+  note: "Archived as agent but sources are CRITICAL for offer/funnel/ad tasks"
+  sources:
+    books:
+      path: "outputs/minds/alex_hormozi/sources/01 Livros/"
+      folders:
+        - "Livro 100M Ofertas/"     # CRITICAL for US-023 (create-offer)
+        - "Livro 100M Leads/"       # CRITICAL for US-019 (lead-magnet)
+        - "Livro 100m Modelos/"     # Upsells, downsells, funnels
+        - "Livro 100m Money Models/"
+    playbooks:
+      path: "outputs/minds/alex_hormozi/sources/02 Playbooks/"
+      critical_playbooks:
+        - "Ads/$100M Goated Ads Playbook.pdf"           # US-033 (ad-copy)
+        - "Hooks/$100M Hooks Playbook.pdf"              # US-026 (video-hook)
+        - "Pricing/$100M Pricing Playbook.pdf"          # US-023 (create-offer)
+        - "Ofertas/"                                     # US-023 (create-offer)
+        - "Upsell/"                                      # US-020 (upsell-page)
+        - "Copy/"                                        # General copy tasks
+        - "Fechamento/$100M Closing Playbook.pdf"       # US-037 (close-script)
+        - "Lead Nurture/$100M Lead Nurture Playbook.pdf" # US-016 (email-sequence)
+        - "Retention/$100M Retention Playbook.pdf"      # US-031 (abandoned-cart)
+        - "Fast Cash/$100M Fast Cash Playbook.pdf"      # Quick wins
+        - "Branding/$100M Branding Playbook.pdf"
+        - "Lifetime Value/$100M Lifetime Value Playbook.pdf"
+        - "Price Raise/$100M Price Raise Playbook.pdf"
+        - "Prova/$100M Proof Checklist Playbook.pdf"    # US-043 (authority-arsenal)
+        - "Marketing Machine/$100M Marketing Machine.pdf"
+    programs:
+      path: "outputs/minds/alex_hormozi/sources/03 Programas/"
+      folders:
+        - "100M Models/"                    # 30 lessons on offer models
+        - "(Blueprint) $100M Money Models/" # Scripts, VSLs, landing pages
+  relevant_for_stories:
+    # Offer/Pricing
+    - "US-023"  # create-offer (100M Offers + Pricing Playbook)
+    - "US-032"  # evaluate-offer
+    # Funnel Elements
+    - "US-020"  # create-upsell-page (Upsell playbook + 100M Models)
+    - "US-027"  # create-downsell-page (100M Models downsell lessons)
+    - "US-028"  # create-order-bump
+    - "US-029"  # create-thank-you-page
+    # Lead Gen
+    - "US-019"  # create-lead-magnet (100M Leads)
+    # Ads/Hooks
+    - "US-033"  # create-ad-copy (Ads Playbook)
+    - "US-026"  # create-video-hook (Hooks Playbook)
+    - "US-034"  # create-ad-script
+    # Email/Retention
+    - "US-016"  # create-email-sequence (Lead Nurture)
+    - "US-031"  # create-abandoned-cart (Retention)
+    # Sales
+    - "US-037"  # create-close-script (Fechamento)
+    # Authority
+    - "US-043"  # build-authority-arsenal (Proof Playbook)
+
+# =============================================================================
+# COPYWRITERS WITH LOCAL SOURCES
+# =============================================================================
+
+copywriters_with_local_sources:
+
+  dan_kennedy:
+    mind_path: "outputs/minds/dan_kennedy/"
+    sources:
+      books:
+        path: "outputs/minds/dan_kennedy/sources/books/"
+        files:
+          - "Dan Kennedys Chinese Menu Copywriting.pdf"
+          - "My Unfinished Business - Second Edition.pdf"
+          - "No B.S. Marketing to the Affluent.pdf"
+          - "No B.S. Price Strategy The Ultimate.pdf"
+          - "No B.S. Sales Success The Ultimate.pdf"
+          - "No B.S. Time Management for Entrepreneurs.pdf"
+          - "No B.S. Wealth Attraction in the New.pdf"
+          - "Power Points Vol. 1 Advertising, Marketing.pdf"
+          - "Power Points Vol. 2 Personal Achievement.pdf"
+          - "The Direct Mail Solution A Business.pdf"
+          - "The Phenomenon - Achieve More In the.pdf"
+          - "The Ultimate Marketing Plan Find Your.pdf"
+          - "The Ultimate Success Secret.pdf"
+      pdfs:
+        path: "outputs/minds/dan_kennedy/sources/pdfs/"
+        files:
+          - "ultimate_sales_letter_preview.pdf"
+    relevant_for_stories:
+      - "US-003"  # Dan Kennedy verification
+      - "US-015"  # create-sales-page (Kennedy methodology)
+      - "US-023"  # create-offer (Kennedy value stacking)
+      - "US-020"  # create-upsell-page (Kennedy)
+
+  eugene_schwartz:
+    mind_path: "outputs/minds/eugene_schwartz/"
+    sources:
+      books:
+        path: "outputs/minds/eugene_schwartz/sources/books/"
+        files:
+          - "Breakthrough Advertising How to Write.pdf"  # CRITICAL - primary source
+          - "How to double your power to learn.pdf"
+          - "The Brilliance Breakthrough How to Ta.pdf"
+          - "The Renewal of Education Lectures Del.pdf"
+    relevant_for_stories:
+      - "US-004"  # Eugene Schwartz update
+      - "US-015"  # create-sales-page (awareness levels)
+      - "US-017"  # create-headlines (awareness-based)
+      - "US-018"  # create-landing-page (awareness levels)
+
+  gary_halbert:
+    mind_path: "outputs/minds/gary_halbert/"
+    sources:
+      books:
+        path: "outputs/minds/gary_halbert/sources/books/"
+        files:
+          - "How to Make Maximum Money in Minimum.pdf"
+          - "The Boron Letters (Gary Halbert).pdf"  # CRITICAL - primary source
+      swipe:
+        path: "outputs/minds/gary_halbert/sources/swipe/PDF/"
+        description: "90+ sales letters analyzed - GOLD MINE for examples"
+        key_files:
+          - "Coat of Arms Letter by Gary Halbert.pdf"  # Famous letter
+          - "Famous Dollar Letter by Gary Halbert.pdf"
+          - "Brink of Suicide Letter by Gary Halbert.pdf"
+    relevant_for_stories:
+      - "US-015"  # create-sales-page (Halbert structure)
+      - "US-017"  # create-headlines (Halbert examples)
+      - "US-012"  # John Carlton (Halbert partner context)
+
+  claude_hopkins:
+    mind_path: "outputs/minds/claude_hopkins/"
+    sources:
+      obsidian:
+        path: "outputs/minds/claude_hopkins/sources/obsidian/"
+        files:
+          - "00 - Claude Hopkins (Overview).md"
+          - "M1 - Historia de Vida e Formacao.md"
+          - "M2 - Sistemas de Pensamento.md"
+          - "M3 - Dominio e Expertise.md"
+          - "M4 - Comunicacao e Expressao.md"
+          - "M5 - Valores e Principios.md"
+          - "M6 - Contexto e Perspectiva.md"
+    relevant_for_stories:
+      - "US-002"  # Claude Hopkins update
+      - "US-036"  # audit-landing-page (Hopkins audit)
+      - "US-033"  # create-ad-copy (Hopkins testing)
+
+  jon_benson:
+    mind_path: "outputs/minds/jon_benson/"
+    sources:
+      config:
+        path: "outputs/minds/jon_benson/sources/"
+        files:
+          - "sources_master.yaml"
+    relevant_for_stories:
+      - "US-022"  # vsl-script (Jon Benson inventor)
+
+  david_deutsch:
+    mind_path: "outputs/minds/david_deutsch/"
+    sources:
+      obsidian:
+        path: "outputs/minds/david_deutsch/sources/obsidian/"
+    relevant_for_stories:
+      - "US-010"  # David Deutsch creation
+
+# Copywriters WITHOUT local sources (need full web research)
+copywriters_without_local_sources:
+  - robert_collier      # US-006
+  - gary_bencivenga     # Existing agent, no local
+  - david_ogilvy        # Existing agent, no local
+  - todd_brown          # Existing agent, no local
+  - clayton_makepeace   # US-007
+  - jim_rutz            # US-008
+  - parris_lampropoulos # US-009
+  - stefan_georgi       # US-011
+  - john_carlton        # US-012
+  - ben_settle          # US-013
+  - andre_chaperon      # US-014
+  - joe_sugarman        # US-005 (tool conversion)
+
+# Research Priority Order
+research_priority:
+  1_local_sources: "Always check outputs/minds/{slug}/sources/ FIRST"
+  2_existing_research: "Check docs/research/{slug}-*.md for previous research"
+  3_analysis_files: "Check outputs/minds/{slug}/analysis/ for extracted frameworks"
+  4_web_research: "Only then do WebSearch + WebFetch for gaps"
+
+# Task Stories - Source Mapping
+task_stories_source_mapping:
+
+  # Sales Page - use Halbert, Schwartz, Hopkins
+  US-015_create-sales-page:
+    primary_local:
+      - "outputs/minds/gary_halbert/sources/books/The Boron Letters (Gary Halbert).pdf"
+      - "outputs/minds/gary_halbert/sources/swipe/PDF/"  # All swipe files
+      - "outputs/minds/eugene_schwartz/sources/books/Breakthrough Advertising How to Write.pdf"
+    supplementary_local:
+      - "outputs/minds/dan_kennedy/sources/books/"
+    web_research_focus:
+      - "Sales page structure modern examples"
+      - "Digital adaptation of direct mail"
+
+  # Email Sequence - Settle, Kennedy
+  US-016_create-email-sequence:
+    primary_local:
+      - "outputs/minds/dan_kennedy/sources/books/The Direct Mail Solution A Business.pdf"
+    web_research_focus:
+      - "Chaperon Soap Opera Sequence methodology"
+      - "Ben Settle daily email system"
+      - "Andre Chaperon Autoresponder Madness"
+
+  # Headlines - Schwartz, Halbert, Ogilvy
+  US-017_create-headlines:
+    primary_local:
+      - "outputs/minds/eugene_schwartz/sources/books/Breakthrough Advertising How to Write.pdf"
+      - "outputs/minds/gary_halbert/sources/swipe/PDF/"  # Headline examples
+    web_research_focus:
+      - "Ogilvy headline rules"
+      - "Bencivenga headline formulas"
+
+  # Landing Page - Schwartz, Hopkins
+  US-018_create-landing-page:
+    primary_local:
+      - "outputs/minds/eugene_schwartz/sources/books/Breakthrough Advertising How to Write.pdf"
+      - "outputs/minds/claude_hopkins/sources/obsidian/"
+    web_research_focus:
+      - "Modern landing page conversion optimization"
+
+  # VSL - Jon Benson
+  US-022_vsl-script:
+    primary_local:
+      - "outputs/minds/jon_benson/sources/"
+    web_research_focus:
+      - "Jon Benson VSL inventor methodology"
+      - "Video sales letter structure"
+
+  # Offer - Kennedy
+  US-023_create-offer:
+    primary_local:
+      - "outputs/minds/dan_kennedy/sources/books/No B.S. Price Strategy The Ultimate.pdf"
+      - "outputs/minds/dan_kennedy/sources/books/No B.S. Sales Success The Ultimate.pdf"
+    web_research_focus:
+      - "Value stacking methodology"
+      - "Irresistible offer frameworks"
+
+  # Bullets - Lampropoulos, Bencivenga
+  US-024_create-bullets:
+    primary_local: []  # No local sources for these copywriters
+    web_research_focus:
+      - "Parris Lampropoulos bullet structure"
+      - "Gary Bencivenga fascination formulas"
+      - "Bullet/fascination copywriting techniques"
+
+  # Ad Copy - Hopkins
+  US-033_create-ad-copy:
+    primary_local:
+      - "outputs/minds/claude_hopkins/sources/obsidian/"
+    web_research_focus:
+      - "Hopkins Scientific Advertising principles"
+      - "Split testing methodology"
+      - "Platform-specific ad copy"
+
+  # Audit Landing Page - Hopkins
+  US-036_audit-landing-page:
+    primary_local:
+      - "outputs/minds/claude_hopkins/sources/obsidian/"
+    web_research_focus:
+      - "Landing page audit frameworks"
+      - "Conversion optimization checklist"

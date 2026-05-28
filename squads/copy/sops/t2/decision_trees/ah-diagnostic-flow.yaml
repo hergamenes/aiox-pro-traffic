@@ -1,0 +1,143 @@
+sop:
+  id: ah-diagnostic-flow
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+
+  title: "Alex Hormozi Diagnostic Flow"
+  purpose: "Structured diagnostic workflow for classifying and solving offer or marketing requests using Hormozi's $100M Offers methodology — MVN collection, Value Equation diagnosis with denominator bias, divergent solution generation, and No Brainer Test validation."
+
+  classification:
+    domain: copywriting
+    subdomain: diagnostic-workflow
+    source_agent: alex-hormozi
+    artifact_type: decision_tree
+    tier: t2
+
+  steps:
+    - id: AH_DIAG_01
+      name: request_classification
+      decision_point: "New request received"
+      branches:
+        - condition: "Building offer from scratch"
+          goto: AH_DIAG_02
+          label: NEW_OFFER
+        - condition: "Existing offer needs improvement"
+          goto: AH_DIAG_02
+          label: EXISTING_OFFER
+        - condition: "Client wants to understand why results are underwhelming"
+          goto: AH_DIAG_02
+          label: DIAGNOSTIC
+        - condition: "Request unclear"
+          goto: AH_DIAG_02
+          label: DIAGNOSTIC
+          action: "Default to DIAGNOSTIC. Understand before building."
+
+    - id: AH_DIAG_02
+      name: collect_mvn
+      decision_point: "Collect Minimum Viable Numbers before analysis"
+      action: "Collect: ticket price, CAC, conversion rate, avatar specifics, market size/growth."
+      branches:
+        - condition: "All 5 MVN data points collected"
+          goto: AH_DIAG_03
+        - condition: "Any MVN data point missing"
+          goto: AH_DIAG_02
+          action: "Do NOT proceed. Get the data first. Guessing leads to wrong diagnosis."
+
+    - id: AH_DIAG_03
+      name: apply_value_equation
+      decision_point: "Apply Value Equation with denominator bias"
+      action: "Value = (Dream Outcome x Perceived Likelihood) / (Time Delay x Effort & Sacrifice)"
+      branches:
+        - condition: "Time Delay is weakest variable"
+          goto: AH_DIAG_04
+          action: "Customer waits too long for results. Compress timeline."
+        - condition: "Effort & Sacrifice is weakest variable"
+          goto: AH_DIAG_04
+          action: "Customer has to do too much work. Reduce friction."
+        - condition: "Dream Outcome is weakest variable"
+          goto: AH_DIAG_04
+          action: "Promise isn't compelling enough. Reframe or amplify."
+        - condition: "Perceived Likelihood is weakest variable"
+          goto: AH_DIAG_04
+          action: "Prospect doesn't believe it will work. Add proof, testimonials, guarantees."
+
+    - id: AH_DIAG_04
+      name: generate_solutions_divergent
+      decision_point: "Generate 3-5 solutions for weakest variable"
+      action: "Divergent thinking first. Do NOT filter or judge at this stage."
+      branches:
+        - condition: "3-5 solutions generated"
+          goto: AH_DIAG_05
+        - condition: "Fewer than 3 solutions"
+          goto: AH_DIAG_04
+          action: "Filtering too early. Push for more creative options."
+
+    - id: AH_DIAG_05
+      name: converge_with_value_equation
+      decision_point: "Filter solutions through Value Equation"
+      action: "Evaluate each solution: Does it improve weakest variable? Does it weaken another? Is it feasible?"
+      branches:
+        - condition: "Clear winner identified"
+          goto: AH_DIAG_06
+        - condition: "No clear winner"
+          goto: AH_DIAG_06
+          action: "Combine elements of top 2 solutions."
+
+    - id: AH_DIAG_06
+      name: build_optimize_stack
+      decision_point: "Build or modify offer stack"
+      action: "Stack: core offer + bonuses + guarantee + scarcity/urgency. Perceived value >= 10x price."
+      branches:
+        - condition: "New offer: perceived value >= 10x price"
+          goto: AH_DIAG_07
+        - condition: "Existing offer: modifications address weakest variable"
+          goto: AH_DIAG_07
+        - condition: "Perceived value < 10x price"
+          goto: AH_DIAG_06
+          action: "Add elements until 10x ratio is met."
+
+    - id: AH_DIAG_07
+      name: no_brainer_test_validation
+      decision_point: "Validate via No Brainer Test"
+      branches:
+        - condition: "Ideal prospect would feel stupid saying no (immediate yes)"
+          goto: COMPLETE
+          action: "Offer passes. Proceed to copy and creative execution."
+        - condition: "Answer requires thinking, qualifiers, or explanation"
+          goto: AH_DIAG_03
+          action: "Offer NOT ready. Return to Value Equation and re-diagnose."
+
+  error_handling:
+    - error: "proceeding_without_mvn"
+      symptom: "Solutions based on assumptions, not data"
+      resolution: "Return to AH_DIAG_02. Do not analyze without all 5 data points."
+
+    - error: "optimizing_numerator_first"
+      symptom: "Adding bigger promises when problem is time/effort"
+      resolution: "Return to AH_DIAG_03. Apply denominator bias."
+
+    - error: "filtering_solutions_too_early"
+      symptom: "Only 1-2 ideas generated, missing creative options"
+      resolution: "Return to AH_DIAG_04. Enforce minimum 3 solutions, divergent first."
+
+    - error: "weakening_another_variable"
+      symptom: "Solution improves one variable but hurts another"
+      resolution: "Return to AH_DIAG_05. Check all variables during convergence."
+
+    - error: "skipping_no_brainer_test"
+      symptom: "Launching offers that sound good on paper but don't convert"
+      resolution: "Always complete AH_DIAG_07 before proceeding."
+
+  quality_gate:
+    criteria:
+      - "Request classified into one category"
+      - "All 5 MVN data points collected"
+      - "Value Equation applied with denominator bias"
+      - "At least 3 divergent solutions generated"
+      - "Selected solution filtered through Value Equation"
+      - "Offer stack has core, bonuses, guarantee, urgency"
+      - "No Brainer Test passed"
+    pass_threshold: "7/7 criteria met"

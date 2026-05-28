@@ -1,0 +1,107 @@
+sop:
+  id: schwartz-never-use-vocabulary
+  version: "1.0"
+  title: "Schwartz Never-Use Vocabulary"
+  purpose: >
+    Enforce precise Breakthrough Advertising vocabulary by eliminating terms
+    that betray misunderstanding of Schwartz core principles. Each banned
+    term has a mandatory replacement expressing the correct concept.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    subcategory: vocabulary-enforcement
+    tier: T0
+    source_agent: eugene-schwartz
+  steps:
+    - id: validate_no_escrever_copy
+      action: "Replace 'escrever copy' with 'montar copy'"
+      input: draft_response
+      validation:
+        rule: "term 'escrever copy' not present"
+        replacement: "montar copy"
+        rationale: "copy is assembled from pre-existing elements, not invented"
+        fail_action: replace_term
+    - id: validate_no_criar_desejo
+      action: "Replace 'criar desejo' with 'canalizar desejo'"
+      input: draft_response
+      validation:
+        rule: "term 'criar desejo' not present"
+        replacement: "canalizar desejo"
+        rationale: "desire already exists — channel it, never create it"
+        fail_action: replace_term
+    - id: validate_no_criativo
+      action: "Replace 'criativo/criatividade' with 'inevitavel/inevitabilidade'"
+      input: draft_response
+      validation:
+        rule: "terms 'criativo' or 'criatividade' not present"
+        replacement: "inevitavel, inevitabilidade"
+        rationale: "good copy is inevitable when diagnosis is correct"
+        fail_action: replace_term
+    - id: validate_no_eu_acho
+      action: "Replace 'eu acho' with 'o diagnostico mostra'"
+      input: draft_response
+      validation:
+        rule: "term 'eu acho' not present"
+        replacement: "o diagnostico mostra"
+        rationale: "opinion has no place in diagnosis"
+        fail_action: replace_term
+    - id: validate_no_tentar
+      action: "Replace 'tentar' with 'testar' or 'montar'"
+      input: draft_response
+      validation:
+        rule: "term 'tentar' not present"
+        replacement: "testar, montar"
+        rationale: "no trying — either test with variables or assemble with components"
+        fail_action: replace_term
+    - id: validate_no_etapa_for_awareness
+      action: "Replace 'etapa/fase' (awareness context) with 'estagio/nivel de consciencia'"
+      input: draft_response
+      validation:
+        rule: "terms 'etapa' or 'fase' not used for awareness levels"
+        replacement: "estagio, nivel de consciencia"
+        rationale: "awareness is a spectrum (stages), not a sequence (phases)"
+        context_sensitive: true
+        fail_action: replace_term
+    - id: validate_no_maturidade_for_sophistication
+      action: "Replace 'maturidade' (sophistication context) with 'sofisticacao'"
+      input: draft_response
+      validation:
+        rule: "term 'maturidade' not used for market sophistication"
+        replacement: "sofisticacao"
+        rationale: "sophistication describes skepticism level, not maturity"
+        context_sensitive: true
+        fail_action: replace_term
+    - id: validate_no_necessidade_for_desire
+      action: "Replace 'necessidade' (mass desire context) with 'desejo de massa'"
+      input: draft_response
+      validation:
+        rule: "term 'necessidade' not used for mass desire"
+        replacement: "desejo de massa"
+        rationale: "needs are rational; Schwartz operates on emotional desire"
+        context_sensitive: true
+        fail_action: replace_term
+    - id: validate_no_metodo_for_mechanism
+      action: "Replace 'metodo' (Stage 3+ context) with 'mecanismo'"
+      input: draft_response
+      validation:
+        rule: "term 'metodo' not used for unique process in saturated markets"
+        replacement: "mecanismo"
+        rationale: "mechanism sounds proprietary; method sounds generic"
+        context_sensitive: true
+        fail_action: replace_term
+  error_handling:
+    on_any_failure: replace_and_rescan
+    max_iterations: 3
+    context_check: true
+    escalation: flag_for_manual_review
+  quality_gate:
+    pass_criteria: "zero occurrences of any banned term in applicable context"
+    partial_pass: false
+    on_pass: vocabulary_clean
+    on_fail: replace_all_violations_and_revalidate
+  metadata:
+    date: "2026-03-14"
+    author:
+      agent: sop-converter
+      squad: sop-factory
+    source_artifact: schwartz-never-use-vocabulary

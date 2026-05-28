@@ -1,0 +1,367 @@
+# Debate Template
+# CopywriterOS - Template para Copy Debate (Debate entre Copywriters)
+
+template:
+  id: debate-template-v1
+  name: "Copy Debate Template"
+  version: "1.0"
+  output:
+    format: markdown
+    filename: "debate-{{debate_id}}-{{date}}.md"
+
+# Variáveis de Input
+variables:
+  required:
+    - briefing: "Briefing completo do projeto"
+    - copywriters: "Lista de 2-4 copywriters para participar"
+    - question: "Pergunta central ou tópico do debate"
+  optional:
+    - copy_type: "Tipo de peça em discussão (sales_page, email, vsl, headline)"
+    - debate_focus: "Foco específico (approach, structure, tone, hook, all)"
+    - constraints: "Restrições ou requisitos obrigatórios"
+    - winning_criteria: "Critérios para determinar abordagem vencedora"
+
+# Estrutura do Template de Output
+sections:
+  - id: debate_header
+    name: "Header Section"
+    template: |
+      # Copy Debate: {{question}}
+
+      **Data:** {{date}}
+      **Copywriters:** {{copywriters_list}}
+      **Tipo de Copy:** {{copy_type}}
+      **Foco:** {{debate_focus}}
+
+      ---
+
+      ## 📋 Briefing
+
+      {{briefing_summary}}
+
+      ---
+
+  - id: round_1_opening
+    name: "Round 1 - Opening Statements"
+    template: |
+      ## 🎤 ROUND 1: OPENING STATEMENTS
+
+      > Cada copywriter apresenta sua abordagem proposta para o briefing.
+
+      {{#each copywriters}}
+      ### **[{{name}}]:**
+
+      #### Análise do Briefing
+      {{briefing_analysis}}
+
+      #### Abordagem Proposta
+      {{proposed_approach}}
+
+      #### Técnicas que Usaria
+      {{techniques}}
+
+      #### Preview de Execução
+      ```
+      {{execution_preview}}
+      ```
+
+      ---
+      {{/each}}
+
+  - id: round_2_critiques
+    name: "Round 2 - Cross-Examination"
+    template: |
+      ## 🔍 ROUND 2: CROSS-EXAMINATION
+
+      > Cada copywriter aponta pontos fracos nas outras abordagens.
+
+      {{#each critiques}}
+      **[{{critic}} critica {{target}}]:**
+      - **Ponto Fraco:** {{weakness}}
+      - **Risco:** {{risk}}
+      - **Evidência:** {{evidence}}
+
+      {{/each}}
+
+      ---
+
+  - id: round_3_rebuttals
+    name: "Round 3 - Rebuttals"
+    template: |
+      ## 🛡️ ROUND 3: REBUTTALS
+
+      > Cada copywriter defende sua abordagem das críticas recebidas.
+
+      {{#each rebuttals}}
+      ### **[{{copywriter}} responde às críticas]:**
+
+      {{#each responses}}
+      **Re: {{critic}}**
+      - **Reconheço:** {{acknowledge}}
+      - **Porém:** {{counter_argument}}
+      - **Mitigação:** {{mitigation}}
+
+      {{/each}}
+
+      {{#if adjusted_proposal}}
+      #### Proposta Ajustada
+      {{adjusted_proposal}}
+      {{/if}}
+
+      ---
+      {{/each}}
+
+  - id: round_4_synthesis
+    name: "Round 4 - Synthesis"
+    template: |
+      ## ⚖️ ROUND 4: SYNTHESIS (Copy Chief)
+
+      > Análise imparcial e decisão final do Copy Chief.
+
+      ### Análise Comparativa
+
+      | Copywriter | Pontos Fortes | Pontos Fracos | Fit com Briefing |
+      |------------|---------------|---------------|------------------|
+      {{#each analysis}}
+      | {{name}} | {{strengths}} | {{weaknesses}} | {{fit_score}}/10 |
+      {{/each}}
+
+      ### Decisão
+
+      **Abordagem Vencedora:** {{winning_approach}}
+
+      **Rationale:**
+      {{decision_rationale}}
+
+      ### Elementos Incorporados de Cada Copywriter
+
+      {{#each incorporated_elements}}
+      - **{{copywriter}}:** {{elements}}
+      {{/each}}
+
+      ### Elementos Deliberadamente Evitados
+
+      {{avoided_elements}}
+
+      ---
+
+  - id: final_copy
+    name: "Final Copy Section"
+    template: |
+      ## 📝 COPY FINAL
+
+      > Implementação da abordagem vencedora, incorporando os melhores insights do debate.
+
+      ---
+
+      {{final_copy_content}}
+
+      ---
+
+  - id: debate_insights
+    name: "Debate Insights Section"
+    template: |
+      ## 💡 INSIGHTS DO DEBATE
+
+      ### Principais Aprendizados
+
+      {{#each insights}}
+      1. **{{title}}:** {{description}}
+      {{/each}}
+
+      ### Aplicabilidade Futura
+
+      {{future_applicability}}
+
+      ### Notas para Projetos Similares
+
+      {{similar_project_notes}}
+
+  - id: quality_report
+    name: "Quality Report Section"
+    template: |
+      ---
+
+      ## ✅ Relatório de Qualidade
+
+      ### Checklist de Debate
+      - [{{voices_distinctive}}] Vozes distintivas de cada copywriter
+      - [{{critiques_substantive}}] Críticas substantivas e técnicas
+      - [{{rebuttals_addressed}}] Rebuttals endereçaram críticas
+      - [{{synthesis_impartial}}] Síntese imparcial
+      - [{{copy_cohesive}}] Copy final coeso
+      - [{{insights_actionable}}] Insights acionáveis
+
+      ### Métricas do Debate
+      - **Copywriters participantes:** {{copywriter_count}}
+      - **Rounds completados:** {{rounds_completed}}/4
+      - **Críticas trocadas:** {{critique_count}}
+      - **Elementos incorporados:** {{elements_incorporated}}
+
+      ### Notas de Qualidade
+      {{quality_notes}}
+
+# Patterns de Debate por Tema
+debate_patterns:
+  hook_debate:
+    name: "Debate de Hook/Abertura"
+    recommended_copywriters:
+      - gary-halbert
+      - jon-benson
+      - frank-kern
+    focus: "Primeira impressão, captura de atenção"
+    duration: "Medium"
+
+  structure_debate:
+    name: "Debate de Estrutura"
+    recommended_copywriters:
+      - jon-benson
+      - eugene-schwartz
+      - dan-kennedy
+    focus: "Organização, flow, sequência"
+    duration: "Long"
+
+  emotional_vs_rational:
+    name: "Debate Emoção vs Razão"
+    recommended_copywriters:
+      - gary-halbert
+      - claude-hopkins
+      - david-ogilvy
+    focus: "Abordagem persuasiva"
+    duration: "Medium"
+
+  offer_structure:
+    name: "Debate de Estrutura de Oferta"
+    recommended_copywriters:
+      - alex-hormozi
+      - dan-kennedy
+      - eugene-schwartz
+    focus: "Value stack, pricing, urgência"
+    duration: "Long"
+
+  email_approach:
+    name: "Debate de Abordagem de Email"
+    recommended_copywriters:
+      - ramit-sethi
+      - gary-halbert
+      - joe-sugarman
+    focus: "Estilo, comprimento, tom"
+    duration: "Medium"
+
+# Round Configuration
+rounds:
+  round_1:
+    name: "Opening Statements"
+    purpose: "Apresentar abordagem proposta"
+    word_limit_per_copywriter: 300
+    required_elements:
+      - briefing_analysis
+      - proposed_approach
+      - techniques
+      - execution_preview
+
+  round_2:
+    name: "Cross-Examination"
+    purpose: "Identificar pontos fracos"
+    critique_structure:
+      - weakness
+      - risk
+      - evidence
+    tone: "professional_constructive"
+
+  round_3:
+    name: "Rebuttals"
+    purpose: "Defender e adaptar"
+    rebuttal_structure:
+      - acknowledge
+      - counter_argument
+      - mitigation
+    allow_adjustment: true
+
+  round_4:
+    name: "Synthesis"
+    purpose: "Decidir e implementar"
+    deliverables:
+      - comparative_analysis
+      - winning_approach
+      - final_copy
+      - rationale
+
+# Quality Validation
+validation:
+  required_sections:
+    - debate_header
+    - round_1_opening
+    - round_2_critiques
+    - round_3_rebuttals
+    - round_4_synthesis
+    - final_copy
+  recommended_sections:
+    - debate_insights
+    - quality_report
+  quality_thresholds:
+    min_copywriters: 2
+    max_copywriters: 4
+    min_critiques_per_copywriter: 1
+    voices_must_be_distinctive: true
+  checklist:
+    - "Cada copywriter tem voz distintiva?"
+    - "Abordagens são genuinamente diferentes?"
+    - "Críticas são técnicas e não pessoais?"
+    - "Rebuttals endereçaram as críticas?"
+    - "Copy Chief decidiu com rationale claro?"
+    - "Copy final é coeso e não Frankenstein?"
+
+# Anti-Patterns a Evitar
+anti_patterns:
+  - name: "Debate Superficial"
+    description: "Copywriters concordando demais, sem tensão real"
+    solution: "Escolher copywriters de filosofias opostas"
+
+  - name: "Críticas Pessoais"
+    description: "Atacar o copywriter em vez da abordagem"
+    solution: "Manter foco em princípios e técnicas"
+
+  - name: "Síntese Fraca"
+    description: "Copy Chief não tomando decisão clara"
+    solution: "Exigir declaração explícita de vencedor + rationale"
+
+  - name: "Frankenstein Copy"
+    description: "Mistura incoesa de partes de cada copywriter"
+    solution: "Escolher abordagem base e adicionar elementos seletivamente"
+
+  - name: "Vozes Indistinguíveis"
+    description: "Todos os copywriters soando iguais"
+    solution: "Revisar e reescrever mantendo características únicas"
+
+# Copywriter Voice Guidelines (para manter distintividade)
+voice_guidelines:
+  gary-halbert:
+    tone: "Direct, provocative, storytelling"
+    phrases: ["Caro amigo", "Deixa eu te contar", "Presta atenção"]
+    style: "Personal letters, raw emotion"
+
+  david-ogilvy:
+    tone: "Sophisticated, researched, elegant"
+    phrases: ["Os dados mostram", "Pesquisas indicam", "É fato que"]
+    style: "Long headlines, factual claims"
+
+  dan-kennedy:
+    tone: "Aggressive, urgent, no-nonsense"
+    phrases: ["Não vou enrolar", "Aqui está a verdade", "AGORA"]
+    style: "Deadlines, scarcity, direct CTA"
+
+  jon-benson:
+    tone: "Conversational, emotional, curiosity-driven"
+    phrases: ["O que vou te mostrar", "Pode parecer impossível", "Nos próximos X minutos"]
+    style: "VSL structure, loops"
+
+  eugene-schwartz:
+    tone: "Analytical, awareness-focused, big idea"
+    phrases: ["O mercado está", "O desejo já existe", "Canalizar"]
+    style: "Levels of awareness, channeling desire"
+
+  alex-hormozi:
+    tone: "Mathematical, value-focused, confident"
+    phrases: ["A matemática é simples", "O valor é", "Sem risco"]
+    style: "Value equations, guarantee stacks"

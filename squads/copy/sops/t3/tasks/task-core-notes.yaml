@@ -1,0 +1,79 @@
+sop:
+  id: task-core-notes
+  version: "1.0"
+  title: "Core Notes System (Ideas as Legos)"
+  purpose: "Structure raw ideas into modular 7-component Core Notes where each component is standalone content that can be combined like Legos"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: dan-koe
+    tier: T3
+
+  inputs:
+    - name: raw_idea
+      type: string
+      required: true
+      description: "Raw idea or observation to structure"
+
+  outputs:
+    - name: core_note
+      type: object
+      description: "Structured Core Note with 7 modular components"
+
+  steps:
+    - id: step_1
+      action: capture_big_idea
+      description: "Capture core insight and NAME it (2-5 words) — named idea is 10x more useful"
+      critical: true
+
+    - id: step_2
+      action: define_problem
+      description: "Frame problem using negativity bias — hook-worthy, standalone content piece"
+
+    - id: step_3
+      action: define_goal
+      description: "State transformation or desired outcome — standalone content piece"
+
+    - id: step_4
+      action: add_example
+      description: "Concrete visual scenario that anchors abstract idea — standalone content piece"
+      critical: true
+      error_handling:
+        condition: "Example is abstract or theoretical"
+        action: "Make specific enough to visualize — reader should see it happening"
+
+    - id: step_5
+      action: clarify_benefit
+      description: "Answer 'why should anyone care?' — bridge interesting to actionable"
+
+    - id: step_6
+      action: define_process
+      description: "Step-by-step method with proprietary NAME — highest-value content piece"
+      critical: true
+
+    - id: step_7
+      action: abstract_concept
+      description: "Extract underlying mental model or principle applicable beyond specific context"
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "Big idea has memorable name"
+      - "Problem uses negativity bias"
+      - "Goal states clear transformation"
+      - "Example is concrete and visual"
+      - "Benefit answers why should I care"
+      - "Process is named with clear steps"
+      - "Each component stands alone as content"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies: []
+
+  related_sops:
+    - task-2-hour-writer
+    - task-weekly-writing-production
+    - task-epistemic-method
+    - task-hook-architecture

@@ -1,0 +1,118 @@
+sop:
+  id: rb-veto-conditions
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Russell Brunson Veto Conditions"
+  purpose: >
+    Define hard-stop conditions for the russell-brunson agent that enforce story-driven,
+    funnel-first marketing. Prevents copy without stories, offers without value stacks,
+    single-page strategies, and webinars without belief-breaking architecture.
+  classification:
+    domain: copywriting
+    category: systematizer
+    subcategory: veto-conditions
+    source_agent: russell-brunson
+    tier: T2
+  status: ACTIVE
+
+  trigger:
+    event: task_intake
+    conditions:
+      - agent == "russell-brunson"
+      - task_type in ["funnel-design", "webinar-script", "offer-presentation", "campaign-strategy"]
+
+  context:
+    input:
+      - task_brief: string
+      - copy_draft: string | null
+      - offer_structure: object | null
+      - funnel_stages: list | null
+      - webinar_structure: object | null
+      - traffic_sources: list | null
+    required_knowledge:
+      - russell-brunson/thinking_dna.yaml
+
+  steps:
+    - id: step_01
+      action: validate_story_present
+      description: "RB_V01: Verify copy has story (Epiphany Bridge or Hook-Story-Offer)"
+      check: "has_story_framework in [epiphany_bridge, hook_story_offer]"
+      on_success: continue
+      on_failure:
+        action: refuse
+        severity: critical
+        message: "REFUSE — No story. Add Epiphany Bridge or Hook-Story-Offer before offer."
+
+    - id: step_02
+      action: validate_value_stack
+      description: "RB_V02: Verify offer uses value stacking, not single-item pricing"
+      check: "offer has value_stack with [components, total_value, actual_price]"
+      on_success: continue
+      on_failure:
+        action: refuse
+        severity: critical
+        message: "REFUSE — No value stack. Stack: product + bonuses → total value → price."
+
+    - id: step_03
+      action: validate_funnel_sequence
+      description: "RB_V03: Verify funnel has sequence, not single page"
+      check: "funnel_stages.length >= 3"
+      on_success: continue
+      on_failure:
+        action: refuse
+        severity: high
+        message: "REFUSE — Single page is bullet, funnel is army. Build 3+ stage sequence."
+
+    - id: step_04
+      action: validate_webinar_3secrets
+      description: "RB_V04: If webinar, verify 3 Secrets belief-breaking structure"
+      check: "if is_webinar then has_3_secrets_framework"
+      on_success: continue
+      on_failure:
+        action: refuse
+        severity: high
+        message: "REFUSE — Webinar without 3 Secrets. Add belief-breaking architecture."
+      condition: "webinar_structure is not null"
+
+    - id: step_05
+      action: validate_traffic_diversification
+      description: "RB_V05: Check not 100% dependent on single traffic platform"
+      check: "traffic_sources.length >= 2"
+      on_success: continue
+      on_failure:
+        action: alert
+        severity: medium
+        message: "ALERT — Single platform dependency. Apply Dream 100 on 2+ platforms."
+
+    - id: step_06
+      action: validate_framework_before_tactics
+      description: "RB_V06: Verify framework understanding before tactical execution"
+      check: "framework_context is established before tactic_application"
+      on_success: continue
+      on_failure:
+        action: pause
+        severity: medium
+        message: "PAUSE — Tactic without framework. Master Fill Your Funnel first."
+
+  error_handling:
+    max_retries: 0
+    on_any_failure: block_task
+    fallback: return_veto_report_with_framework_reference
+
+  quality_gate:
+    min_pass_rate: 1.0
+    min_steps_passed: 6
+    critical_steps: [step_01, step_02]
+    verdict_map:
+      all_pass: PROCEED
+      alert_only: PROCEED_WITH_WARNING
+      any_refuse: BLOCKED
+
+  outputs:
+    - veto_verdict: enum[PROCEED, PROCEED_WITH_WARNING, BLOCKED]
+    - triggered_vetos: list
+    - remediation_instructions: list
+    - missing_frameworks: list

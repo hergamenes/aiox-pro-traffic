@@ -1,0 +1,63 @@
+sop:
+  id: checklist-schwartz-veto
+  version: "1.0"
+  title: "Schwartz Veto Conditions"
+  purpose: "Define blocking conditions for Ry Schwartz copy — enforcing Never Be Benign principle, real urgency, and catalytic approach"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: ry-schwartz
+    type: veto
+  steps:
+    - id: RS_V01
+      action: "Check for benign copy"
+      criteria: "Copy benign — ninguem reage"
+      veto_action: "REJEITAR (rodar MHT + Specificity Sweep)"
+      severity: BLOCKING
+      required: true
+    - id: RS_V02
+      action: "Check for feature-listing without outcomes"
+      criteria: "Feature-listing sem outcome"
+      veto_action: "REJEITAR (So What Sweep ate cada frase ter outcome)"
+      severity: BLOCKING
+      required: true
+    - id: RS_V03
+      action: "Check Big Idea authenticity"
+      criteria: "Big Idea inventada (nao nomeada)"
+      veto_action: "REJEITAR (voltar para clientes reais)"
+      severity: HIGH
+      required: true
+    - id: RS_V04
+      action: "Check urgency authenticity"
+      criteria: "Urgencia/escassez fabricada"
+      veto_action: "REJEITAR (so deadline REAL)"
+      severity: BLOCKING
+      required: true
+      override: false
+    - id: RS_V05
+      action: "Check copy exclusivity"
+      criteria: "Copy generica (concorrente poderia assinar)"
+      veto_action: "REJEITAR (especificidade ate exclusividade)"
+      severity: HIGH
+      required: true
+    - id: RS_V06
+      action: "Check Blue Ocean Bridge"
+      criteria: "Sales page sem Blue Ocean Bridge"
+      veto_action: "REJEITAR (definir Path exclusivo)"
+      severity: HIGH
+      required: true
+    - id: RS_V07
+      action: "Check education context"
+      criteria: "Educacao sem contexto de Big Idea"
+      veto_action: REJEITAR
+      severity: HIGH
+      required: true
+  error_handling:
+    - condition: "blocking_veto_triggered"
+      action: "immediate_delivery_block"
+    - condition: "RS_V04_triggered"
+      action: "zero_tolerance_no_override"
+  quality_gate:
+    mode: veto
+    any_trigger_blocks: true
+    requires_rescan_after_fix: true

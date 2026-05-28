@@ -1,0 +1,141 @@
+sop:
+  id: carlton-veto-conditions
+  version: "1.0"
+  title: Carlton Veto Conditions
+  purpose: >
+    Enforce John Carlton's non-negotiable pre-conditions ensuring Sales Detective
+    research, zero corporate jargon, hook-payoff integrity, spoken voice,
+    explicit close, and prospect-first structure.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: john-carlton
+    artifact_type: veto
+    tier: t1
+
+  steps:
+    - action: validate_sales_detective_complete
+      id: JC_V01
+      description: Writing copy without Sales Detective work -> BLOCK
+      required_research:
+        - deep_product_immersion
+        - customer_interviews
+        - competitive_landscape_analysis
+        - market_understanding
+      rule: sales_detective_complete == true
+      on_fail: BLOCK
+      remediation: complete_sales_detective_process
+
+    - action: validate_no_corporate_jargon
+      id: JC_V02
+      description: Copy with corporate jargon -> REJECT
+      never_use:
+        - leverage
+        - optimize
+        - utilize
+        - synergize
+        - scalable
+        - ecosystem
+        - bandwidth
+        - value-add
+        - stakeholder
+        - paradigm
+        - actionable
+      rule: jargon_count == 0
+      on_fail: REJECT
+      remediation: translate_to_bar_language
+
+    - action: validate_hook_payoff_integrity
+      id: JC_V03
+      description: Hook without legitimate payoff -> BLOCK
+      rule: every_hook_has_payoff == true
+      checks:
+        - headline_payoff_in_body
+        - subject_line_promise_delivered
+        - opening_claim_substantiated
+      on_fail: BLOCK
+      remediation: add_legitimate_payoff_or_change_hook
+
+    - action: validate_spoken_not_written
+      id: JC_V04
+      description: Copy that sounds "written" instead of "spoken" -> REWRITE
+      written_indicators:
+        - formal_sentence_structures
+        - no_contractions
+        - academic_phrasing
+        - passive_voice_dominant
+      spoken_indicators:
+        - natural_cadence
+        - contractions_used
+        - conversational_energy
+        - direct_address
+      on_fail: REWRITE
+      remediation: rewrite_as_spoken_word
+
+    - action: validate_explicit_close
+      id: JC_V05
+      description: Ad without explicit close -> ADD
+      principle: "Devastating error to neglect asking for order"
+      rule: explicit_cta_present == true
+      required:
+        - clear_action_instruction
+        - specific_next_step
+        - direct_ask_for_order
+      on_fail: ADD
+      remediation: add_direct_unmistakable_cta
+
+    - action: validate_feeds_existing_hunger
+      id: JC_V06
+      description: Trying to create demand instead of feeding existing hunger -> PIVOT
+      rule: copy_feeds_existing_desire == true
+      checks:
+        - identifies_real_problem
+        - connects_to_existing_want
+        - does_not_fabricate_need
+      on_fail: PIVOT
+      remediation: find_existing_hunger_and_connect
+
+    - action: validate_prospect_first
+      id: JC_V07
+      description: Copy about product before prospect -> INVERT
+      rule: prospect_mentioned_before_product == true
+      prohibited_openings:
+        - product_features_first
+        - company_history_first
+        - manufacturing_details_first
+      required_opening:
+        - prospect_problem
+        - prospect_desire
+        - prospect_frustration
+      on_fail: INVERT
+      remediation: restructure_prospect_before_product
+
+  error_handling:
+    - error: no_sales_detective
+      severity: critical
+      action: block_until_research_complete
+    - error: jargon_detected
+      severity: high
+      action: reject_and_translate
+    - error: broken_hook_payoff
+      severity: critical
+      action: block_until_payoff_delivered
+    - error: written_not_spoken
+      severity: high
+      action: full_voice_rewrite
+    - error: missing_close
+      severity: critical
+      action: add_explicit_close
+    - error: fabricated_demand
+      severity: high
+      action: pivot_to_existing_hunger
+
+  quality_gate:
+    pass_threshold: 7
+    total_checks: 7
+    mandatory_passes:
+      - JC_V01
+      - JC_V03
+      - JC_V05
+      - JC_V07
+    verdict_on_fail: BLOCK

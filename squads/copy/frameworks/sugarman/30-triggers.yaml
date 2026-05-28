@@ -1,0 +1,237 @@
+# The 30 Psychological Triggers - Joe Sugarman
+# Extracted from: squads/copy/agents/joe-sugarman.md
+# Category: persuasion_psychology
+
+name: "The 30 Psychological Triggers"
+category: persuasion_psychology
+origin: "Joe Sugarman - Triggers (30 Sales Tools) and The Adweek Copywriting Handbook"
+command: "*triggers"
+
+philosophy: |
+  "If I had to pick the single most powerful force in advertising and selling-
+  the most important psychological trigger-I would pick honesty. When you're
+  the first to point out a product's flaws, people trust you about its strengths."
+
+sugarman_insight: |
+  These triggers are not manipulation-they're understanding human nature.
+  People buy on emotion and justify with logic. These triggers help you
+  connect with what your prospect already wants.
+
+triggers:
+  # TRUST TRIGGERS (Foundation)
+  trigger_1:
+    name: "Honesty"
+    description: "Be the first to point out negative aspects"
+    application: "Acknowledge flaws openly - builds massive trust"
+    sugarman_insight: "When I ran my mail order catalog, people trusted my opinions because I would be the first to point out the negative aspects of a product."
+    formula: "Honesty + Integrity = Credibility"
+    power: "THE MOST IMPORTANT TRIGGER"
+
+  trigger_2:
+    name: "Integrity"
+    description: "Do what you say you'll do, consistently"
+    application: "Back up every claim with action"
+    insight: "Aligning words with actions for trustworthiness"
+
+  trigger_3:
+    name: "Credibility"
+    description: "Being believable"
+    application: "Resolve all objections - don't appear to be hiding anything"
+    warning: "Not resolving objections makes people think you're hiding something"
+
+  trigger_4:
+    name: "Authority"
+    description: "Position yourself as the expert"
+    application: "Share credentials, experience, results"
+    insight: "Knowledge is a strong way to express authority. Authority can also be expressed by dress."
+
+  # INVOLVEMENT TRIGGERS
+  trigger_5:
+    name: "Feeling of Involvement or Ownership"
+    description: "Make prospects imagine they're holding or using the product"
+    application: "Use 'you' and 'your', paint vivid usage scenarios"
+    example: "Imagine slipping these sunglasses on and looking at the world..."
+    insight: "The clearer that image, the easier to convince them to make it reality"
+
+  trigger_6:
+    name: "Storytelling"
+    description: "Use narratives to create human connection"
+    application: "Tell relevant stories about the product, discovery, or customer experience"
+    insight: "A good story captures attention, relates to the product, and helps you bond with the prospect"
+    power: "One of the most powerful copywriting techniques"
+
+  trigger_7:
+    name: "Human Relationships"
+    description: "Build a relationship with the reader"
+    application: "Be personable, share stories, show humanity"
+    insight: "Every communication should be personal, from writer to recipient"
+
+  # VALUE TRIGGERS
+  trigger_8:
+    name: "Value and Proof of Value"
+    description: "Show your product offers great value"
+    application: "Compare to alternatives, show what they'd pay elsewhere"
+    example: "You could pay a lawyer $500/hour for this advice..."
+    insight: "Always convey through examples or comparison that what they're buying is a good value"
+
+  trigger_9:
+    name: "Justify the Purchase"
+    description: "Give logical reasons to support emotional decision"
+    application: "Provide ammunition for them to justify to themselves or others"
+    insight: "People buy emotionally, then justify logically - give them the logic"
+
+  trigger_10:
+    name: "Greed"
+    description: "Provide more value than they feel entitled to"
+    application: "Flash sales, bonuses, unexpected value"
+    example: "And if you order now, I'll also include..."
+    insight: "The psychological trigger you use when you provide more value than they feel entitled to"
+
+  trigger_11:
+    name: "Satisfaction Conviction"
+    description: "Convey with certainty that they'll be satisfied"
+    application: "Strong guarantees, confident language"
+    example: "I'm so convinced you'll love this, I'll give you a full 30-day money-back guarantee..."
+
+  # PRODUCT TRIGGERS
+  trigger_12:
+    name: "Nature of Product"
+    description: "Understand and communicate the essence of what you're selling"
+    application: "Find the unique story within the product itself"
+    insight: "Every product has a unique personality and it is your job to find it"
+
+  trigger_13:
+    name: "Prospect Nature"
+    description: "Understanding who you're selling to"
+    application: "Identify emotional and logical reasons buyers purchase"
+    insight: "Know your prospect better than they know themselves"
+
+  trigger_14:
+    name: "Linking"
+    description: "Connect new products to familiar concepts"
+    application: "Relate the unfamiliar to the familiar"
+    example: "It's like having a personal assistant in your pocket..."
+
+  trigger_15:
+    name: "Specificity"
+    description: "Specific details create believability"
+    application: "Use exact numbers, dates, names"
+    example: "'$47.37' is more believable than 'around $50'"
+    insight: "Precision = Credibility"
+
+  # URGENCY TRIGGERS
+  trigger_16:
+    name: "Sense of Urgency"
+    description: "Create time pressure"
+    application: "Deadlines, limited availability, expiring offers"
+    insight: "Involves two emotional aspects in the selling process"
+
+  trigger_17:
+    name: "Instant Gratification"
+    description: "Promise quick results or delivery"
+    application: "Fast shipping, immediate downloads, quick wins"
+    insight: "We live in an instant gratification society"
+
+  trigger_18:
+    name: "Current Fads"
+    description: "Tap into what's popular now"
+    application: "Reference trends, news, cultural moments"
+
+  trigger_19:
+    name: "Timing"
+    description: "Right message at the right time"
+    application: "Consider seasonality, news cycles, life events"
+
+  # EXCLUSIVITY TRIGGERS
+  trigger_20:
+    name: "Exclusivity, Rarity or Uniqueness"
+    description: "Make it special and limited"
+    application: "Limited editions, exclusive access, unique features"
+    insight: "Positioning products as available to few"
+
+  trigger_21:
+    name: "Desire to Belong"
+    description: "People want to be part of a group"
+    application: "Create community around your product"
+    example: "Join the thousands of satisfied customers who..."
+    insight: "One of the strongest psychological triggers for purchase"
+
+  trigger_22:
+    name: "Desire to Collect"
+    description: "Natural instinct to collect things"
+    application: "Create series, sets, collections"
+    insight: "A large segment has emotional need to collect similar products"
+    tactic: "Send free device to hold the collection with first shipment"
+
+  # PSYCHOLOGICAL TRIGGERS
+  trigger_23:
+    name: "Curiosity"
+    description: "One of the most powerful psychological phenomena"
+    application: "Create intrigue, open loops, tease reveals"
+    insight: "In eCommerce/mail order where they can't touch the product, curiosity is extremely strong"
+    power: "PROBABLY THE MOST POWERFUL PHENOMENON"
+
+  trigger_24:
+    name: "Hope"
+    description: "Sell the better future"
+    application: "Paint the picture of their improved life"
+    insight: "Implying positive outcomes connected to products"
+
+  trigger_25:
+    name: "Guilt"
+    description: "Subtle guilt can motivate action"
+    application: "Remind them of what they owe themselves or others"
+    warning: "Use ethically and sparingly - reciprocity feelings"
+
+  trigger_26:
+    name: "Familiarity"
+    description: "People trust what they know"
+    application: "Reference familiar things, build on existing knowledge"
+    insight: "Building recognition through repeated exposure"
+
+  # PROCESS TRIGGERS
+  trigger_27:
+    name: "Simplicity"
+    description: "Make it easy to understand and buy"
+    application: "Clear explanations, simple ordering process"
+    insight: "Keep offers straightforward and clear"
+
+  trigger_28:
+    name: "Consistency/Commitment"
+    description: "Buyers continue purchasing after initial commitment"
+    application: "Make first purchase easy, regardless of size"
+    insight: "The most important thing is making it incredibly easy to commit, regardless of how small"
+
+  trigger_29:
+    name: "Harmonize"
+    description: "Get prospect agreement through true statements"
+    application: "Make statements the reader agrees with to build momentum"
+    axiom: "Get the reader to say yes and harmonize with your accurate and truthful statements"
+
+  trigger_30:
+    name: "Mental Engagement"
+    description: "Challenge thinking without oversimplification"
+    application: "Let readers discover conclusions themselves"
+    axiom: "The more the mind must work to reach a conclusion successfully, the more positive the experience"
+
+# Additional Triggers from Adweek Handbook (Objection-Related)
+objection_triggers:
+  objection_raising:
+    name: "Objection Raising"
+    description: "Present flaws upfront in sales approach"
+    application: "Anticipate and address concerns before the reader thinks of them"
+
+  objection_resolution:
+    name: "Objection Resolution"
+    description: "Address raised concerns to reinforce purchase rationale"
+    application: "Resolve all objections - the ideas should flow anticipating prospect questions"
+
+trigger_quick_reference:
+  trust: ["Honesty", "Integrity", "Credibility", "Authority"]
+  involvement: ["Involvement/Ownership", "Storytelling", "Human Relationships"]
+  value: ["Proof of Value", "Justify Purchase", "Greed", "Satisfaction Conviction"]
+  product: ["Nature of Product", "Prospect Nature", "Linking", "Specificity"]
+  urgency: ["Sense of Urgency", "Instant Gratification", "Current Fads", "Timing"]
+  exclusivity: ["Exclusivity/Rarity", "Desire to Belong", "Desire to Collect"]
+  psychological: ["Curiosity", "Hope", "Guilt", "Familiarity"]
+  process: ["Simplicity", "Consistency/Commitment", "Harmonize", "Mental Engagement"]

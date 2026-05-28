@@ -1,0 +1,131 @@
+sop:
+  id: ogilvy-copy-validation
+  version: "1.0"
+  title: Ogilvy Copy Validation Checklist
+  purpose: >
+    Validate copy against David Ogilvy's standards for research-backed claims,
+    consumer intelligence respect, brand consistency, PEAR pattern structure,
+    and editorial-quality writing.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: david-ogilvy
+    artifact_type: quality_gate
+    tier: t1
+
+  steps:
+    - action: validate_data_backed_claims
+      description: Every claim backed by data, number, or research reference
+      input: full_copy_text
+      rule: unsupported_claims == 0
+      required_per_claim:
+        - statistic
+        - study_reference
+        - verifiable_number
+      on_fail: research_and_cite_or_remove
+
+    - action: validate_format_discipline
+      description: Zero emojis, zero caps lock, zero multiple exclamations
+      input: full_copy_text
+      prohibited:
+        - emojis
+        - all_caps_for_emphasis
+        - multiple_exclamation_marks
+      rule: format_violation_count == 0
+      on_fail: remove_all_violations
+
+    - action: validate_consumer_respect
+      description: Tone respects consumer intelligence
+      input: full_copy_text
+      principle: "The consumer is not a moron; she is your wife"
+      negative_indicators:
+        - patronizing_explanations
+        - oversimplified_logic
+        - gullibility_assumptions
+        - condescending_tone
+      on_fail: rewrite_as_equal_conversation
+
+    - action: validate_pear_pattern
+      description: Follows Principle -> Evidence -> Application -> Rule structure
+      input: full_copy_text
+      pattern:
+        - principle: overarching_truth
+        - evidence: data_research_proof
+        - application: practical_demonstration
+        - rule: actionable_takeaway
+      rule: pear_structure_identifiable == true
+      on_fail: restructure_to_pear
+
+    - action: validate_headline_benefit
+      description: Headline contains clear, specific benefit
+      input: headline
+      rule: headline_has_specific_benefit == true
+      exemplar: "At 60 miles an hour the loudest noise in this new Rolls-Royce comes from the electric clock"
+      on_fail: rewrite_headline_with_benefit
+
+    - action: validate_brand_consistency
+      description: Brand personality matches briefing document
+      input: full_copy_text
+      checks:
+        - voice_alignment
+        - values_alignment
+        - positioning_alignment
+        - visual_language_alignment
+      reference: brand_personality_briefing
+      on_fail: realign_to_brand_personality
+
+    - action: validate_copy_length
+      description: Long copy for complex/expensive products, short for simple/low-price
+      input: full_copy_text
+      rules:
+        - if: product_complexity == "high" OR price_point == "high"
+          then: copy_length >= "long"
+        - if: product_complexity == "low" AND price_point == "low"
+          then: copy_length == "concise"
+      on_fail: adjust_length_to_product
+
+    - action: validate_family_dinner_test
+      description: Copy comfortable to read aloud at family dinner
+      input: full_copy_text
+      flags:
+        - exaggerated_claims
+        - tasteless_appeals
+        - manipulative_tactics
+        - embarrassing_language
+      rule: family_dinner_flags == 0
+      on_fail: revise_flagged_sections
+
+    - action: validate_voice_authenticity
+      description: Sounds like Ogilvy dictating to his secretary in 1968
+      input: full_copy_text
+      voice_markers:
+        - authoritative
+        - cultured
+        - precise
+        - opinionated_about_quality
+        - senior_executive_tone
+      on_fail: rewrite_in_ogilvy_voice
+
+  error_handling:
+    - error: unsupported_claims
+      severity: critical
+      action: block_until_research_cited
+    - error: format_violations
+      severity: high
+      action: auto_remove_violations
+    - error: consumer_disrespect
+      severity: critical
+      action: full_tone_rewrite
+    - error: no_headline_benefit
+      severity: critical
+      action: rewrite_headline
+
+  quality_gate:
+    pass_threshold: 9
+    total_checks: 9
+    mandatory_passes:
+      - validate_data_backed_claims
+      - validate_consumer_respect
+      - validate_headline_benefit
+      - validate_family_dinner_test
+    verdict_on_fail: REJECT

@@ -1,0 +1,56 @@
+sop:
+  id: schwartz-shift-points
+  version: "1.0"
+  title: "Shift Points (Copy Architecture)"
+  purpose: "Detect and manage reader demand transitions in body copy — 6 blocks fulfilling sequential reader demands from promise through close."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: eugene-schwartz
+  steps:
+    - id: apply_block_a_promise
+      action: "Open with expanded promise fulfilling headline's implied contract"
+      input: "Headline promise, product benefits, specific outcomes"
+      output: "Opening block with specific quantities, timeframes, and outcomes"
+      validation: "Block immediately answers 'What's in it for me?' — no credentials or background"
+    - id: apply_block_b_definition
+      action: "Define what the product/method/system IS in concrete terms"
+      input: "Product specs, category, form factor"
+      output: "Clear definition giving the offer a name, category, and tangible form"
+      validation: "Reader can understand what they are being offered in simple terms"
+    - id: apply_block_c_documentation
+      action: "Provide proof: testimonials, case studies, statistics, certifications"
+      input: "Proof inventory, testimonials, data"
+      output: "Heaviest proof block with stacked documentation"
+      validation: "Minimum 3 proof points; block contains more evidence than any other"
+    - id: apply_block_d_detailed_promise
+      action: "Return to promise with full detail — every benefit, use case, outcome"
+      input: "Complete benefit list, use cases, life-after scenarios"
+      output: "Expanded vision block painting complete picture of post-purchase life"
+      validation: "Re-ignites desire after analytical documentation block"
+    - id: apply_block_e_mechanism
+      action: "Explain HOW it works — process, technology, ingredient, method"
+      input: "Product mechanism, process documentation"
+      output: "Mechanism explanation creating 'aha' moment of logical conviction"
+      validation: "Explained in benefit language, not engineering jargon"
+    - id: apply_block_f_close
+      action: "Present offer, guarantee, and deadline — remove risk barrier"
+      input: "Offer terms, guarantee policy, deadline/scarcity"
+      output: "Close with risk reversal, specific action, and urgency"
+      validation: "Includes both offer terms and risk reversal; action is simple and immediate"
+  error_handling:
+    - error: "Copy opens with credentials instead of promise"
+      resolution: "Move credentials to Block C or E; open with what the reader GETS"
+    - error: "Documentation block is too thin"
+      resolution: "Add proof points until Block C is the heaviest block"
+    - error: "Blocks are mixed (multiple demands in one section)"
+      resolution: "Split into separate blocks; each block addresses exactly one reader demand"
+  quality_gate:
+    criteria:
+      - "All 6 blocks present in correct sequence"
+      - "Each block fulfills its specific reader demand"
+      - "Shift points between blocks are clean transitions"
+      - "Block C contains the most proof weight"
+      - "Block F includes offer + risk reversal"
+    pass_threshold: "All 5 criteria met"

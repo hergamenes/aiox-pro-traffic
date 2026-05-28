@@ -1,0 +1,88 @@
+sop:
+  id: "ah-guarantee-engineering"
+  version: "1.0.0"
+  title: "Guarantee Engineering"
+  purpose: "Engineer a specific guarantee that directly neutralizes the prospect's biggest purchase fear by identifying the fear and selecting the optimal guarantee type"
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    risk_level: "low"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "When designing any offer that involves a purchase decision and needs risk reversal to increase conversion"
+  context:
+    input:
+      - name: "prospect_biggest_fear"
+        type: "string"
+        required: true
+        description: "The single biggest specific fear preventing the prospect from purchasing, stated in their own words"
+      - name: "product_capabilities"
+        type: "object"
+        required: true
+        description: "What results the product can reliably deliver, including timeframes and conditions"
+  steps:
+    - id: "S001"
+      name: "Identify biggest specific fear"
+      action: "diagnose_purchase_fear"
+      description: "Review customer surveys, support tickets, sales call objections, and abandoned cart data. Identify the ONE specific fear that prevents purchase. Document it as a quotable statement from the prospect's perspective. Rank by frequency AND intensity."
+      performer: "copywriter"
+      critical: true
+      on_success: "S002"
+      on_failure: "retry"
+    - id: "S002"
+      name: "Select guarantee type"
+      action: "match_fear_to_guarantee_type"
+      description: "Match the identified fear to the optimal guarantee type: Unconditional (medium power, trust deficit), Result-based (high power, efficacy doubt), Reverse Penalty (maximum power, deep skepticism), or Anti-Guarantee (specialized, ultra-premium positioning)."
+      performer: "copywriter"
+      critical: false
+      on_success: "S003"
+      on_failure: "retry"
+    - id: "S003"
+      name: "Construct guarantee language"
+      action: "write_guarantee_copy"
+      description: "Write the guarantee using the prospect's own language from S001. Must be specific and concrete — never generic. Frame as product confidence, not safety net. Include the specific result being guaranteed and the timeframe."
+      performer: "copywriter"
+      critical: true
+      on_success: "S004"
+      on_failure: "retry"
+    - id: "S004"
+      name: "Specify result, deadline, condition"
+      action: "formalize_guarantee_terms"
+      description: "Define three components: Result (measurable outcome guaranteed), Deadline (specific number of days/weeks/months), Condition (what prospect must do to qualify, if applicable). Validate against product capabilities."
+      performer: "copywriter"
+      critical: true
+      on_success: "END"
+      on_failure: "retry"
+  error_handling:
+    global_timeout: "PT2H"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "specific_fear_identified"
+        type: "boolean"
+        target: true
+        weight: 0.25
+      - name: "guarantee_type_selected"
+        type: "boolean"
+        target: true
+        weight: 0.15
+      - name: "guarantee_is_specific_not_generic"
+        type: "boolean"
+        target: true
+        weight: 0.25
+      - name: "result_deadline_condition_defined"
+        type: "boolean"
+        target: true
+        weight: 0.25
+      - name: "economically_sustainable"
+        type: "boolean"
+        target: true
+        weight: 0.1
+    pass_threshold: 0.85
+  outputs:
+    artifacts:
+      - name: "engineered_guarantee"
+        type: "file"
+        format: "md"
+        description: "Specific guarantee statement with type classification, result, deadline, and condition ready for deployment"

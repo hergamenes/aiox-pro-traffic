@@ -1,0 +1,68 @@
+sop:
+  id: fw-resonance-fidelity
+  version: "1.0"
+  title: "Resonance Fidelity — 3 Dimensions"
+  purpose: "Evaluate subscriber quality using worldview alignment, depth, and long-term potential — 10 aligned > 100 casual"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: andre-chaperon
+    tier: t3
+  steps:
+    - id: apply_worldview_alignment
+      name: "Worldview Alignment"
+      description: "Assess how closely subscriber beliefs and values align with yours"
+      inputs:
+        - reply_content
+        - survey_responses
+        - engagement_patterns
+        - opt_in_source
+      outputs:
+        - worldview_alignment_score
+      validation:
+        - assessed_through_behavior: true
+        - not_assumed: true
+    - id: apply_depth
+      name: "Depth"
+      description: "Measure depth of engagement beyond surface metrics"
+      inputs:
+        - time_on_email
+        - click_patterns
+        - reply_frequency
+        - content_consumption_depth
+      outputs:
+        - depth_score
+      validation:
+        - measures_quality_not_quantity: true
+        - includes_read_time: true
+    - id: apply_long_term_potential
+      name: "Long-Term Potential"
+      description: "Project subscriber lifetime trajectory and sequential value"
+      inputs:
+        - purchase_history
+        - content_progression
+        - lifecycle_stage
+        - referral_behavior
+      outputs:
+        - long_term_potential_score
+        - composite_resonance_scorecard
+      validation:
+        - considers_trajectory: true
+        - tracks_90_day_trends: true
+  error_handling:
+    - error: surface_metrics_only
+      condition: "Evaluation relies only on opens and clicks"
+      action: "Add depth metrics: read time, reply rate, content progression"
+    - error: assumed_alignment
+      condition: "Worldview alignment inferred from opt-in source without behavioral validation"
+      action: "Require 30+ days of engagement data before scoring alignment"
+    - error: reporting_only
+      condition: "Resonance data used for reporting but not action"
+      action: "Feed scores into acquisition and content strategy decisions"
+  quality_gate:
+    min_sections: 3
+    required_elements:
+      - worldview_alignment_score
+      - depth_score
+      - long_term_potential_score
+    pass_threshold: "all 3 dimensions evaluated with behavioral data"

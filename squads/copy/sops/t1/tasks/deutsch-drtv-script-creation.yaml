@@ -1,0 +1,96 @@
+sop:
+  id: deutsch-drtv-script-creation
+  version: "1.0"
+  title: "DRTV/VSL Script Creation"
+  purpose: "Create video sales scripts structured as scenes with [VISUAL:], VO:, and [DIRECTION:] tags, minimum 3 demonstrations, 3 CTAs, passing the Mute Test"
+  classification:
+    domain: copywriting
+    category: master
+    tier: T1
+    source_agent: david-deutsch
+
+  inputs:
+    - name: demonstrable_product
+      type: resource
+      required: true
+    - name: copythinking_output
+      type: document
+      required: true
+
+  outputs:
+    - name: drtv_vsl_script
+      type: document
+      description: "Complete script with visual directions, demonstrations, and Mute Test pass"
+
+  steps:
+    - id: step_01
+      action: outline_scene_sequence
+      description: "Structure as SCENES not paragraphs: each scene has visual purpose, emotional purpose, selling purpose"
+      critical: true
+      error_handling:
+        condition: "structured_as_print_copy"
+        action: "restructure_around_visual_scenes"
+
+    - id: step_02
+      action: open_with_visual_demonstration
+      description: "Begin with compelling visual demo or problem visualization that stops viewer in 3 seconds"
+      critical: true
+      error_handling:
+        condition: "opens_with_talking_head_or_logo"
+        action: "replace_with_product_demonstration_or_problem_visual"
+
+    - id: step_03
+      action: add_visual_directions
+      description: "Include [VISUAL:] tag for every scene describing exactly what viewer sees"
+      critical: true
+      error_handling:
+        condition: "scenes_missing_visual_directions"
+        action: "add_visual_direction_to_every_scene"
+
+    - id: step_04
+      action: sync_voiceover
+      description: "Add VO: narration that complements (not describes) the visual action"
+      critical: false
+      error_handling:
+        condition: "vo_describes_what_viewer_sees"
+        action: "rewrite_vo_to_complement_and_add_to_visual"
+
+    - id: step_05
+      action: add_production_directions
+      description: "Include [DIRECTION:] for camera angles, timing, reaction shots"
+      critical: false
+
+    - id: step_06
+      action: script_demonstrations
+      description: "Include minimum 3 distinct demonstrations: standard, extreme, comparison, before/after"
+      critical: true
+      error_handling:
+        condition: "fewer_than_3_demonstrations"
+        action: "add_demonstrations_until_minimum_3_reached"
+
+    - id: step_07
+      action: place_ctas
+      description: "Insert CTA minimum 3 times: after first demo, after proof section, at final close"
+      critical: true
+      error_handling:
+        condition: "only_1_cta_at_end"
+        action: "add_cta_after_first_demo_and_after_proof"
+
+    - id: step_08
+      action: apply_mute_test
+      description: "Verify script sells with sound off — every key selling point must be visually self-evident"
+      critical: true
+      error_handling:
+        condition: "fails_mute_test"
+        action: "strengthen_visual_elements_until_video_sells_without_audio"
+
+  quality_gate:
+    min_criteria_met: 6
+    criteria:
+      - "structured_as_scenes"
+      - "opens_with_visual_demo"
+      - "every_scene_has_visual_direction"
+      - "vo_complements_not_describes"
+      - "minimum_3_demonstrations"
+      - "cta_minimum_3_times"
+      - "passes_mute_test"

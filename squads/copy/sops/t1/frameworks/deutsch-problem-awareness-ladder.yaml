@@ -1,0 +1,48 @@
+sop:
+  id: deutsch-problem-awareness-ladder
+  version: "1.0"
+  title: "Problem Awareness Ladder (Pain Agitation Scale)"
+  purpose: "Apply David Deutsch's Problem Awareness Ladder to calibrate the intensity of pain agitation in copy based on how visible and immediate the prospect's problem is. Most copywriters get this wrong: they "
+  classification:
+    domain: copywriting
+    category: master
+    tier: t1
+    source_agent: david-deutsch
+  steps:
+    - id: apply_level_4____knife_at_throat_acute_pain_0pct_a
+      action: "The prospect is in acute, immediate pain."
+      input: "Level 4 — Knife at Throat (acute): 0% agitation — go directly to solution"
+      output: "Step 1 deliverable: Level 4 -- Knife at Throat (Acute Pain): 0% Agitation completed with documented findings"
+      validation: "Problem awareness level correctly classified (Level 1-4)"
+    - id: apply_level_3____arthritis_chronic_pain_20pct_agit
+      action: "The prospect has ongoing discomfort but has learned to live with it."
+      input: "Level 3 — Arthritis (chronic): 20% agitation — 'step on corns a little'"
+      output: "Step 2 deliverable: Level 3 -- Arthritis (Chronic Pain): 20% Agitation completed with documented findings"
+      validation: "Agitation intensity inversely proportional to pain visibility"
+    - id: apply_level_2____high_blood_pressure_silent_killer
+      action: "The prospect has a serious problem they do not feel."
+      input: "Level 2 — High Blood Pressure (silent killer): 50% agitation — reframe as urgent"
+      output: "Step 3 deliverable: Level 2 -- High Blood Pressure (Silent Killer): 50% Agitation completed with documented findings"
+      validation: "Level 4 copy has ZERO agitation -- goes directly to solution"
+    - id: apply_level_1____scrivener_unknown_problem_70pct_a
+      action: "The prospect does not know they have a problem at all."
+      input: "Level 1 — Scrivener (unknown problem): 70% agitation — create awareness first"
+      output: "Step 4 deliverable: Level 1 -- Scrivener (Unknown Problem): 70% Agitation completed with documented findings"
+      validation: "Level 1 copy has substantial agitation with education and evidence"
+  error_handling:
+    - error: "Over-agitating acute problems (Level 4)"
+      resolution: "If the prospect is in acute pain, skip agitation entirely and lead with the fix"
+    - error: "Under-agitating unknown problems (Level 1)"
+      resolution: "Level 1 requires the most agitation because you are creating awareness from zero"
+    - error: "Applying the same agitation intensity regardless of awareness level"
+      resolution: "Classify awareness level FIRST, then set agitation percentage accordingly"
+    - error: "Confusing agitation with fear-mongering"
+      resolution: "Agitation is evidence-based problem awareness, not emotional manipulation"
+  quality_gate:
+    criteria:
+      - "Problem awareness level correctly classified (Level 1-4)"
+      - "Agitation intensity inversely proportional to pain visibility"
+      - "Level 4 copy has ZERO agitation -- goes directly to solution"
+      - "Level 1 copy has substantial agitation with education and evidence"
+      - "Agitation is calibrated, not manipulative -- based on genuine problem severity"
+    pass_threshold: "All 5 criteria met"

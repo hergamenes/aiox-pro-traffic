@@ -1,0 +1,145 @@
+sop:
+  id: dk-diagnostic-flow
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+
+  title: "Dan Kennedy Diagnostic Flow"
+  purpose: "Structured diagnostic workflow for classifying and solving any copywriting or marketing request using Dan Kennedy's No B.S. methodology — Results Triangle, 10 Smart Questions, 10 No BS Rules, and system prescription."
+
+  classification:
+    domain: copywriting
+    subdomain: diagnostic-workflow
+    source_agent: dan-kennedy
+    artifact_type: decision_tree
+    tier: t2
+
+  steps:
+    - id: DK_DIAG_01
+      name: request_classification
+      decision_point: "New request received"
+      branches:
+        - condition: "Request is for direct response copy"
+          goto: DK_DIAG_02
+          label: SALES_LETTER
+        - condition: "Request is for lead generation system"
+          goto: DK_DIAG_02
+          label: LEAD_GEN
+        - condition: "Request is for marketing review"
+          goto: DK_DIAG_02
+          label: AUDIT
+        - condition: "Request is for problem identification"
+          goto: DK_DIAG_02
+          label: DIAGNOSTIC
+        - condition: "Request doesn't fit any category"
+          goto: DK_DIAG_02
+          label: DIAGNOSTIC
+          action: "Default to DIAGNOSTIC. Understand before prescribing."
+
+    - id: DK_DIAG_02
+      name: results_triangle_check
+      decision_point: "Request classified — evaluate Results Triangle"
+      branches:
+        - condition: "Message is weak"
+          goto: DK_DIAG_03
+          action: "Copy/offer needs work. Proceed to avatar development."
+        - condition: "Market is wrong"
+          goto: HALT
+          action: "STOP copy work. Fix targeting first."
+        - condition: "Media is mismatched"
+          goto: HALT
+          action: "Redirect to appropriate channel before writing."
+        - condition: "All three unclear"
+          goto: DK_DIAG_03
+          action: "Proceed to full avatar development."
+
+    - id: DK_DIAG_03
+      name: avatar_development
+      decision_point: "Avatar status — do 10 Smart Questions exist?"
+      action: "Run Kennedy's 10 Smart Questions to build complete avatar."
+      branches:
+        - condition: "7+ of 10 questions answered with specifics"
+          goto: DK_DIAG_04
+        - condition: "Less than 7 questions answered"
+          goto: RESEARCH_REQUIRED
+          action: "Research insufficient. Do not proceed to copy. Gather more prospect data."
+
+    - id: DK_DIAG_04
+      name: no_bs_rules_audit
+      decision_point: "Avatar complete — audit against 10 No BS Rules"
+      branches:
+        - condition: "0-2 rules violated"
+          goto: DK_DIAG_05
+          action: "Minor issues. Proceed to failure identification."
+        - condition: "3+ rules violated"
+          goto: DK_DIAG_05
+          action: "Systemic issue flagged. Not cosmetic — structural marketing problem."
+
+    - id: DK_DIAG_05
+      name: failure_identification
+      decision_point: "Audit complete — identify primary failure"
+      branches:
+        - condition: "Failure is lack of urgency"
+          goto: DK_DIAG_06
+          action: "Prescribe urgency stack (deadlines, scarcity, consequences of inaction)."
+        - condition: "Failure is lack of tracking"
+          goto: DK_DIAG_06
+          action: "Prescribe measurement system before any new copy."
+        - condition: "Other failure identified"
+          goto: DK_DIAG_06
+          action: "Document specific failure and prescribe targeted system."
+
+    - id: DK_DIAG_06
+      name: system_prescription
+      decision_point: "Failure identified — select Kennedy system"
+      branches:
+        - condition: "Sales letter / direct response needed"
+          goto: DK_DIAG_07
+          action: "Prescribe 28-Step Sales Letter System."
+        - condition: "Lead generation / attraction needed"
+          goto: DK_DIAG_07
+          action: "Prescribe Magnetic Marketing System."
+        - condition: "Urgency / deadline elements needed"
+          goto: DK_DIAG_07
+          action: "Prescribe Urgency Stack."
+
+    - id: DK_DIAG_07
+      name: deadline_assignment
+      decision_point: "System prescribed — set implementation deadline"
+      branches:
+        - condition: "Client accepts deadline"
+          goto: COMPLETE
+          action: "Lock deadline and proceed to implementation."
+        - condition: "Client resists deadline"
+          goto: COMPLETE
+          action: "No deadline = no execution. Set one anyway. Kennedy doesn't accept 'whenever'."
+
+  error_handling:
+    - error: "skipping_classification"
+      symptom: "Jumping into writing without understanding request type"
+      resolution: "Return to DK_DIAG_01. Classification determines the entire downstream path."
+
+    - error: "incomplete_avatar"
+      symptom: "Generic copy that doesn't resonate with the target"
+      resolution: "Return to DK_DIAG_03. Enforce 7/10 Smart Questions threshold."
+
+    - error: "prescribing_before_diagnosing"
+      symptom: "Wrong system applied to wrong problem"
+      resolution: "Complete DK_DIAG_01 through DK_DIAG_05 before reaching DK_DIAG_06."
+
+    - error: "no_deadline_set"
+      symptom: "Project stalls indefinitely"
+      resolution: "Always apply DK_DIAG_07. No exceptions."
+
+  quality_gate:
+    criteria:
+      - "Request classified into exactly one category"
+      - "Results Triangle evaluated (Message x Market x Media)"
+      - "Avatar passes 7/10 Smart Questions threshold"
+      - "Audit against 10 No BS Rules completed"
+      - "Primary failure point identified and documented"
+      - "Appropriate system prescribed"
+      - "Hard deadline set for implementation"
+    pass_threshold: "7/7 criteria met"

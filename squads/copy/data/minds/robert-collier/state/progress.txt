@@ -1,0 +1,17 @@
+# Ralph-7D Progress — robert-collier (Tier: T0)
+Started: 2026-03-10 18:08:21
+Token budget: 5000 | Max lines: 800
+
+---
+
+## Patterns Discovered
+
+> Claude reads this FIRST each iteration. Add learnings here.
+
+- (will be populated as pipeline runs)
+
+---
+
+## Phase Log
+
+---

@@ -1,0 +1,90 @@
+sop:
+  id: ogilvy-research-first-campaign
+  version: "1.0"
+  title: "Research-First Campaign Development"
+  purpose: "Develop advertising campaign on exhaustive research foundation: product mastery, consumer depth, competitive mapping, positioning, and fact-supported promise"
+  classification:
+    domain: copywriting
+    category: master
+    tier: T1
+    source_agent: david-ogilvy
+
+  inputs:
+    - name: product_access
+      type: resource
+      required: true
+    - name: consumer_research_data
+      type: dataset
+      required: true
+    - name: competitive_landscape
+      type: document
+      required: true
+
+  outputs:
+    - name: product_fact_list
+      type: document
+      description: "Comprehensive product knowledge exceeding manufacturer's brief"
+    - name: consumer_insight_statement
+      type: text
+      description: "Psychographic depth with authentic consumer language"
+    - name: positioning_map
+      type: document
+      description: "Competitive landscape with gap analysis"
+    - name: positioning_statement
+      type: text
+      description: "For/Is/Because format positioning declaration"
+    - name: big_promise
+      type: text
+      description: "Central promise sustained by documented facts"
+
+  steps:
+    - id: step_01
+      action: study_product_exhaustively
+      description: "Use product, understand manufacturing, quality processes, and hidden differentiators until knowledge exceeds manufacturer"
+      critical: true
+      error_handling:
+        condition: "relying_on_client_brief_only"
+        action: "use_product_personally_interview_creators"
+
+    - id: step_02
+      action: research_consumer_psychographics
+      description: "Understand what consumer thinks, feels, fears, desires — language, metaphors, real conversations"
+      critical: true
+      error_handling:
+        condition: "only_demographic_data"
+        action: "conduct_qualitative_research_with_real_conversations"
+
+    - id: step_03
+      action: map_competitive_landscape
+      description: "Document each competitor's positioning, claims, tone, visual identity, and identify unoccupied territory"
+      critical: true
+      error_handling:
+        condition: "gaps_not_identified"
+        action: "create_positioning_map_showing_each_player_and_white_space"
+
+    - id: step_04
+      action: define_positioning
+      description: "Choose unoccupied, meaningful, sustainable, truthful position. Write For/Is/Because statement"
+      critical: true
+      error_handling:
+        condition: "position_already_occupied_by_competitor"
+        action: "identify_alternative_unoccupied_territory"
+
+    - id: step_05
+      action: identify_big_promise
+      description: "Select single most compelling truth about product, validate with fact-based proof"
+      critical: true
+      error_handling:
+        condition: "promise_without_proof"
+        action: "add_fact_based_reason_to_believe_or_select_provable_promise"
+
+  quality_gate:
+    min_criteria_met: 6
+    criteria:
+      - "product_knowledge_exceeds_manufacturer_brief"
+      - "consumer_research_includes_psychographic_depth"
+      - "all_competitors_mapped_with_claims"
+      - "competitive_gaps_identified"
+      - "positioning_statement_written_and_validated"
+      - "position_unoccupied_meaningful_sustainable_truthful"
+      - "big_promise_has_fact_based_support"

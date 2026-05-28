@@ -1,0 +1,133 @@
+sop:
+  id: hopkins-scientific-diagnostic
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Scientific Advertising Diagnostic (Full Protocol)"
+  purpose: >
+    Execute comprehensive diagnostic audit of copy, campaigns, or claims
+    using Hopkins' scientific advertising method. Evaluates every claim for
+    proof level, specificity, and testability, then prescribes improvements.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: claude-hopkins
+    artifact_type: task
+
+  steps:
+    - id: receive_materials
+      action: receive_copy_materials
+      description: "Collect and catalog all copy, claims, and campaign materials for audit"
+      inputs:
+        - copy_text
+        - campaign_materials
+        - product_claims
+      output: cataloged_materials
+
+    - id: enumerate_claims
+      action: list_all_claims
+      description: "Identify and number every discrete claim in the copy using CLAIM [N] format"
+      depends_on: receive_materials
+      critical: true
+      output: numbered_claim_list
+
+    - id: classify_proof_hierarchy
+      action: classify_claim_proof_level
+      description: "Assign each claim to Hopkins' 6-level Proof Hierarchy (Demonstracao > Fato Especifico > Testemunho Verificavel > Explicacao Reason-Why > Citacao de Autoridade > Claim sem Prova)"
+      depends_on: enumerate_claims
+      critical: true
+      output: classified_claims
+
+    - id: apply_specificity_check
+      action: check_claim_specificity
+      description: "Replace every generality with specific numbers, facts, or measurements"
+      depends_on: classify_proof_hierarchy
+      output: specificity_verdicts
+
+    - id: apply_reason_why
+      action: analyze_reason_why
+      description: "Demand WHY/HOW mechanism for every claim lacking causal explanation"
+      depends_on: classify_proof_hierarchy
+      output: reason_why_analysis
+
+    - id: run_salesman_test
+      action: test_salesman_voice
+      description: "Verify each claim sounds like face-to-face salesman conversation, not ad language"
+      depends_on: apply_specificity_check
+      output: salesman_test_results
+
+    - id: audit_headline
+      action: audit_headline_filters
+      description: "Evaluate headline against 4 filters: service, novelty, curiosity, salesman"
+      depends_on: receive_materials
+      output: headline_verdict
+
+    - id: discover_preemptive_claims
+      action: discover_preemptive_claims
+      description: "Investigate untold processes, ingredients, or quality controls no competitor communicates"
+      depends_on: receive_materials
+      output: preemptive_claim_candidates
+
+    - id: structure_test_plan
+      action: create_test_plan
+      description: "Build A/B test plan with variables, controls, tracking, metrics, and sample size"
+      depends_on:
+        - apply_specificity_check
+        - apply_reason_why
+        - audit_headline
+      critical: true
+      output: test_plan
+
+    - id: emit_diagnostic
+      action: compile_diagnostic_report
+      description: "Compile final diagnostic with verdicts, prescriptions, preemptive claims, and test plan"
+      depends_on:
+        - classify_proof_hierarchy
+        - apply_specificity_check
+        - apply_reason_why
+        - run_salesman_test
+        - audit_headline
+        - discover_preemptive_claims
+        - structure_test_plan
+      output: diagnostic_report
+
+  error_handling:
+    - error: missing_claims
+      symptom: "Audit misses implicit or buried claims"
+      resolution: "Re-read line by line; flag every assertion including implied ones"
+    - error: weak_proof_accepted
+      symptom: "Vague testimonials classified as strong proof"
+      resolution: "Require name, location, specific result, and verifiability for any testimonial"
+    - error: generic_prescriptions
+      symptom: "Prescriptions say 'make it more specific' without replacement text"
+      resolution: "Always write exact replacement copy with real numbers"
+    - error: untestable_plan
+      symptom: "Test plan lacks tracking mechanism"
+      resolution: "Every test must have unique tracking ID (coupon, URL, UTM)"
+
+  quality_gate:
+    criteria:
+      - "All claims enumerated and numbered"
+      - "Each claim classified on Proof Hierarchy"
+      - "No unresolved Claim sem Prova without prescription"
+      - "Headline evaluated against all 4 filters"
+      - "Test plan includes variables, controls, tracking, metrics"
+      - "At least one preemptive claim candidate identified"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: claim_audit_report
+      format: structured_report
+      description: "Claim-by-claim audit with verdicts (VAGO/ESPECIFICO/FRACO)"
+    - name: prescriptions
+      format: actionable_list
+      description: "Specific prescriptions with replacement text per flagged claim"
+    - name: preemptive_claims
+      format: ranked_list
+      description: "Preemptive claim opportunities ranked by impact"
+    - name: test_plan
+      format: structured_plan
+      description: "A/B test plan with variables, controls, tracking, and metrics"

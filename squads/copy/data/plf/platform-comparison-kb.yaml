@@ -1,0 +1,411 @@
+# Platform Comparison Knowledge Base - Product Launch Formula
+# Source: Launch (Jeff Walker) + Industry Best Practices
+# Version: 1.0
+
+metadata:
+  source: "Launch by Jeff Walker (Updated Edition 2021) + Market Research"
+  validated: true
+  created: "2026-01-27"
+
+overview:
+  description: |
+    Comparacao de plataformas e ferramentas para executar lancamentos PLF,
+    desde opcoes gratuitas ate solucoes enterprise.
+  jeff_philosophy: |
+    "The tools don't make the launch. Your strategy and content do.
+    Start with what you have and upgrade as you grow."
+
+email_platforms:
+  for_launches:
+    budget_friendly:
+      - name: "MailerLite"
+        price: "Free up to 1K subs, then $10+/mo"
+        pros:
+          - "Interface simples"
+          - "Automacoes incluidas no free"
+          - "Landing pages incluidas"
+        cons:
+          - "Menos sofisticado para launches complexos"
+        best_for: "Seed Launch, iniciantes"
+
+      - name: "Brevo (ex-Sendinblue)"
+        price: "Free 300 emails/day, then $25+/mo"
+        pros:
+          - "Generoso tier gratuito"
+          - "SMS incluido"
+          - "CRM basico"
+        cons:
+          - "Limite diario no free"
+        best_for: "Comecando, lista pequena"
+
+    standard:
+      - name: "ConvertKit"
+        price: "$29+/mo (free up to 1K subs limited)"
+        pros:
+          - "Feito para creators"
+          - "Visual automations"
+          - "Tagging poderoso"
+          - "Landing pages"
+        cons:
+          - "Pode ficar caro com lista grande"
+        best_for: "Criadores de conteudo, Internal Launches"
+        plf_rating: "Excelente"
+
+      - name: "ActiveCampaign"
+        price: "$29+/mo"
+        pros:
+          - "Automacoes avancadas"
+          - "CRM integrado"
+          - "Deliverability forte"
+        cons:
+          - "Curva de aprendizado"
+          - "Preco escala rapido"
+        best_for: "Launches sofisticados, B2B"
+        plf_rating: "Excelente"
+
+      - name: "Mailchimp"
+        price: "Free up to 500, then $13+/mo"
+        pros:
+          - "Conhecido, facil comecar"
+          - "Muitas integracoes"
+        cons:
+          - "Caro para lista grande"
+          - "Automacoes limitadas no free"
+        best_for: "Ja esta usando, nao quer migrar"
+
+    advanced:
+      - name: "Drip"
+        price: "$39+/mo"
+        pros:
+          - "E-commerce focused"
+          - "Automacoes avancadas"
+          - "Tracking de comportamento"
+        cons:
+          - "Preco premium"
+        best_for: "E-commerce, digital products"
+
+      - name: "Keap (ex-Infusionsoft)"
+        price: "$169+/mo"
+        pros:
+          - "All-in-one (CRM + email + automation)"
+          - "Muito poderoso"
+        cons:
+          - "Caro"
+          - "Complexo"
+        best_for: "Negocios estabelecidos, JV Launches"
+
+      - name: "Ontraport"
+        price: "$79+/mo"
+        pros:
+          - "CRM + email + landing pages + membership"
+          - "Bom para lancadores seriais"
+        cons:
+          - "Preco medio-alto"
+        best_for: "Operacoes de lancamento continuas"
+
+landing_page_builders:
+  options:
+    - name: "Carrd"
+      price: "Free (limited), $19/year Pro"
+      pros:
+        - "Ultra simples"
+        - "Muito barato"
+        - "Pages bonitas"
+      cons:
+        - "Funcionalidades limitadas"
+      best_for: "Seed Launch, opt-in pages simples"
+
+    - name: "Leadpages"
+      price: "$49+/mo"
+      pros:
+        - "Templates otimizados"
+        - "Facil de usar"
+        - "Bom para conversao"
+      cons:
+        - "Preco mensal"
+      best_for: "Landing pages de lancamento"
+
+    - name: "ClickFunnels"
+      price: "$147+/mo"
+      pros:
+        - "Full funnel builder"
+        - "Muito usado em launches"
+        - "Comunidade grande"
+      cons:
+        - "Caro"
+        - "Lock-in"
+      best_for: "Funnels completos, JV Launches"
+
+    - name: "Kajabi"
+      price: "$149+/mo"
+      pros:
+        - "All-in-one (courses + pages + email)"
+        - "Profissional"
+      cons:
+        - "Caro"
+      best_for: "Criadores de cursos"
+
+    - name: "Systeme.io"
+      price: "Free up to 2K contacts, then $27+/mo"
+      pros:
+        - "All-in-one acessivel"
+        - "Funnels + email + courses"
+        - "Affiliate management"
+      cons:
+        - "Menos templates"
+      best_for: "Budget conscious, starter"
+
+video_hosting:
+  options:
+    - name: "YouTube (Unlisted)"
+      price: "Free"
+      pros:
+        - "Gratuito"
+        - "Qualidade boa"
+        - "Facil embed"
+      cons:
+        - "Ads podem aparecer"
+        - "Recomendacoes de competidores"
+        - "Menos controle"
+      best_for: "Seed Launch, budget zero"
+
+    - name: "Vimeo"
+      price: "Free (limited), $12+/mo"
+      pros:
+        - "Sem ads"
+        - "Player limpo"
+        - "Privacidade"
+      cons:
+        - "Limite de storage no free"
+      best_for: "PLCs profissionais"
+
+    - name: "Wistia"
+      price: "Free (3 videos), $19+/mo"
+      pros:
+        - "Analytics detalhado"
+        - "CTAs no video"
+        - "Profissional"
+      cons:
+        - "Caro para muitos videos"
+      best_for: "Tracking de engajamento"
+
+    - name: "Loom"
+      price: "Free (limited), $15+/mo"
+      pros:
+        - "Facil gravar"
+        - "Sharing simples"
+      cons:
+        - "Menos features"
+      best_for: "PLCs rapidos, comunicacao"
+
+payment_processing:
+  options:
+    - name: "Stripe"
+      price: "2.9% + $0.30 per transaction"
+      pros:
+        - "Facil setup"
+        - "Confiavel"
+        - "Subscriptions"
+      cons:
+        - "Precisa de integracao"
+      best_for: "Qualquer lancamento"
+
+    - name: "PayPal"
+      price: "2.9% + fixed fee"
+      pros:
+        - "Muito conhecido"
+        - "Confianca do consumidor"
+      cons:
+        - "Disputes mais comuns"
+      best_for: "Adicional ao Stripe"
+
+    - name: "Hotmart"
+      price: "9.9%+ (varies)"
+      pros:
+        - "All-in-one (hosting + pagamento)"
+        - "Affiliate built-in"
+        - "Forte no Brasil"
+      cons:
+        - "Fee alto"
+      best_for: "Brasil, produtos digitais"
+
+    - name: "Gumroad"
+      price: "10% flat (free plan)"
+      pros:
+        - "Ultra simples"
+        - "Rapido para comecar"
+      cons:
+        - "Fee alto"
+        - "Menos controle"
+      best_for: "Seed Launch, MVP rapido"
+
+    - name: "ThriveCart"
+      price: "$495-$690 lifetime"
+      pros:
+        - "One-time payment"
+        - "Bump orders, upsells"
+        - "Affiliate management"
+      cons:
+        - "Investimento upfront"
+      best_for: "Lancadores seriais"
+
+webinar_platforms:
+  options:
+    - name: "Zoom Webinar"
+      price: "$79+/mo (add-on to Zoom)"
+      pros:
+        - "Estavel"
+        - "Conhecido"
+        - "Bom para Q&A"
+      cons:
+        - "Interface basica"
+      best_for: "Lives simples, Q&A"
+
+    - name: "StreamYard"
+      price: "Free (limited), $25+/mo"
+      pros:
+        - "Multistreaming"
+        - "Graphics overlay"
+        - "Facil de usar"
+      cons:
+        - "Limite no free"
+      best_for: "Live Launches, visual polish"
+
+    - name: "WebinarJam"
+      price: "$499+/year"
+      pros:
+        - "Feito para marketing"
+        - "Offers built-in"
+        - "Replays automaticos"
+      cons:
+        - "Preco anual"
+      best_for: "Webinar launches"
+
+    - name: "EverWebinar"
+      price: "$499+/year"
+      pros:
+        - "Automated webinars"
+        - "Simula ao vivo"
+      cons:
+        - "Pode parecer enganoso"
+      best_for: "Evergreen webinars"
+
+    - name: "Demio"
+      price: "$59+/mo"
+      pros:
+        - "Interface moderna"
+        - "Engajamento built-in"
+      cons:
+        - "Preco mensal"
+      best_for: "Webinars de qualidade"
+
+affiliate_tracking:
+  options:
+    - name: "ThriveCart"
+      affiliate_features: "Built-in affiliate management"
+      best_for: "Se ja usa para checkout"
+
+    - name: "FirstPromoter"
+      price: "$49+/mo"
+      pros:
+        - "Facil setup"
+        - "Dashboard para affiliates"
+      cons:
+        - "Funcionalidades basicas"
+      best_for: "JV Launches simples"
+
+    - name: "PartnerStack"
+      price: "Custom pricing"
+      pros:
+        - "Enterprise grade"
+        - "Marketplace"
+      cons:
+        - "Caro"
+      best_for: "JV Launches grandes"
+
+    - name: "Refersion"
+      price: "$99+/mo"
+      pros:
+        - "Completo"
+        - "E-commerce focused"
+      best_for: "E-commerce affiliates"
+
+deadline_automation:
+  for_evergreen:
+    - name: "Deadline Funnel"
+      price: "$49+/mo"
+      pros:
+        - "Industry standard"
+        - "Real deadlines per person"
+        - "Integracoes multiplas"
+      cons:
+        - "Preco"
+      best_for: "Evergreen launches serios"
+
+    - name: "MotionMail"
+      price: "$99+/year"
+      pros:
+        - "Timers em email"
+        - "Mais barato"
+      cons:
+        - "Menos features"
+      best_for: "Timer visual em emails"
+
+stack_recommendations:
+  seed_launch_stack:
+    budget: "$0-$50/mo"
+    components:
+      email: "MailerLite (free) ou Brevo (free)"
+      landing_page: "Carrd ($19/year)"
+      video: "YouTube Unlisted (free)"
+      payment: "Stripe + Gumroad"
+      total: "~$20/mo or less"
+
+  internal_launch_stack:
+    budget: "$100-$300/mo"
+    components:
+      email: "ConvertKit ou ActiveCampaign"
+      landing_page: "Systeme.io ou Leadpages"
+      video: "Vimeo"
+      payment: "Stripe + PayPal"
+      webinar: "Zoom ou StreamYard"
+      total: "~$150-$250/mo"
+
+  jv_launch_stack:
+    budget: "$300-$1000/mo"
+    components:
+      email: "ActiveCampaign ou Keap"
+      landing_page: "ClickFunnels ou Kajabi"
+      video: "Wistia"
+      payment: "ThriveCart (one-time)"
+      webinar: "WebinarJam"
+      affiliate: "Built-in ou FirstPromoter"
+      total: "~$500-$800/mo"
+
+  evergreen_stack:
+    budget: "$200-$500/mo"
+    components:
+      email: "ActiveCampaign"
+      landing_page: "ClickFunnels ou Kajabi"
+      video: "Wistia"
+      deadline: "Deadline Funnel"
+      payment: "ThriveCart"
+      total: "~$300-$400/mo"
+
+migration_considerations:
+  when_to_upgrade:
+    - "Lista passando de 5K subs"
+    - "Fazendo mais de 2 launches/ano"
+    - "Revenue justifica investimento"
+    - "Limitacoes tecnicas atrapalhando"
+
+  migration_risks:
+    - "Perda de deliverability temporaria"
+    - "Automacoes precisam ser recriadas"
+    - "Learning curve nova plataforma"
+
+  migration_best_practices:
+    - "Nao migre durante lancamento"
+    - "Teste antes de migrar lista toda"
+    - "Mantenha backup da lista original"
+    - "Avise subs sobre mudanca se necessario"

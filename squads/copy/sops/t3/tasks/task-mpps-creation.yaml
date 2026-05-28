@@ -1,0 +1,77 @@
+sop:
+  id: task-mpps-creation
+  version: "1.0"
+  title: "Multi-Page Presell Site (MPPS) Creation"
+  purpose: "Create exploration-based presell site with 20+ minutes of non-linear navigation building relationship before any opt-in"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: andre-chaperon
+    tier: T3
+
+  inputs:
+    - name: brand_story
+      type: document
+      required: true
+      description: "Brand story and Tiny Digital World elements"
+    - name: core_content
+      type: document
+      required: true
+      description: "Core content/philosophy with multiple explorable dimensions"
+
+  outputs:
+    - name: mpps_site
+      type: object
+      description: "Multi-page presell site with exploration-based experience"
+
+  steps:
+    - id: step_1
+      action: create_level_zero
+      description: "Build multi-page experience for 20+ minutes exploration with easter eggs and hidden content"
+      critical: true
+      min_exploration_minutes: 20
+
+    - id: step_2
+      action: interconnect_pages
+      description: "Link pages non-linearly — each page connects to at least 2 others, multiple navigation paths"
+      min_links_per_page: 2
+
+    - id: step_3
+      action: build_relationship_first
+      description: "No opt-in until significant content consumed — relationship through value and resonance"
+      critical: true
+      error_handling:
+        condition: "Opt-in appears before sufficient exploration"
+        action: "Move opt-in deeper into the site, after minimum 3 page views"
+
+    - id: step_4
+      action: deepen_page_dimensions
+      description: "Each page explores one brand dimension: philosophy, methodology, results, origin, beliefs, community"
+
+    - id: step_5
+      action: design_natural_optin
+      description: "Opt-in as invitation after exploration — not popup, not gate"
+      error_handling:
+        condition: "Opt-in feels like a demand or popup"
+        action: "Redesign as contextual invitation within content flow"
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "Site supports 20+ minutes exploration"
+      - "Easter eggs and hidden content present"
+      - "Navigation is non-linear with multiple paths"
+      - "No opt-in before significant content consumption"
+      - "Opt-in feels like natural invitation"
+      - "Each page explores distinct brand dimension"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies: []
+
+  related_sops:
+    - task-frank-matt-archetype
+    - task-email-engine-setup
+    - task-soap-opera-sequence

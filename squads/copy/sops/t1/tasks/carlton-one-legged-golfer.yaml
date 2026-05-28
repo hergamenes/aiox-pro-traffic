@@ -1,0 +1,76 @@
+sop:
+  id: carlton-one-legged-golfer
+  version: "1.0"
+  title: "One-Legged Golfer Hook Discovery Method"
+  purpose: "Discover improbable, specific hooks through Sales Detective research — combining impossible detail with measurable result for irresistible curiosity with legitimate payoff"
+  classification:
+    domain: copywriting
+    category: master
+    tier: T1
+    source_agent: john-carlton
+
+  inputs:
+    - name: sales_detective_research
+      type: document
+      required: true
+
+  outputs:
+    - name: validated_hook
+      type: text
+      description: "Specific improbable hook with legitimate payoff, formatted as revelation/discovery"
+
+  steps:
+    - id: step_01
+      action: find_improbable_detail
+      description: "Search research for 'Wait — REALLY?' detail about WHO, HOW, WHAT, WHERE — not invented, found"
+      critical: true
+      error_handling:
+        condition: "brainstorming_at_desk"
+        action: "return_to_sales_detective_work_until_hook_finds_you"
+
+    - id: step_02
+      action: attach_specific_result
+      description: "Combine detail with measurable result: exact numbers, timeline, avoid round numbers"
+      critical: true
+      error_handling:
+        condition: "round_numbers_used"
+        action: "use_exact_figures_47342_not_50000"
+
+    - id: step_03
+      action: frame_as_revelation
+      description: "Formulate as discovery/revelation using 'how', 'what', 'discovered', 'stumbled onto'"
+      critical: false
+      error_handling:
+        condition: "framed_as_claim"
+        action: "rewrite_as_reporter_sharing_news_not_salesman_claiming"
+
+    - id: step_04
+      action: validate_specificity
+      description: "Apply invention test: would someone make up this detail? If yes, not specific enough"
+      critical: true
+      error_handling:
+        condition: "detail_could_be_fabricated"
+        action: "find_more_specific_detail_in_research"
+
+    - id: step_05
+      action: test_for_ironic_twist
+      description: "Check for reversals: weak dominates, loser wins, old rejuvenates, simple beats complex"
+      critical: false
+
+    - id: step_06
+      action: verify_legitimate_payoff
+      description: "Confirm product delivers what hook implies — deceived readers never return"
+      critical: true
+      error_handling:
+        condition: "hook_overpromises"
+        action: "find_different_hook_or_adjust_product_to_deliver"
+
+  quality_gate:
+    min_criteria_met: 5
+    criteria:
+      - "hook_found_in_research_not_invented"
+      - "detail_improbable_enough_to_stop_reader"
+      - "specific_result_with_numbers_and_timeline"
+      - "framed_as_revelation_not_claim"
+      - "passes_invention_test"
+      - "legitimate_payoff_verified"

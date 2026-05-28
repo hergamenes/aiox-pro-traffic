@@ -1,0 +1,92 @@
+sop:
+  id: "tb-unique-mechanism-discovery"
+  version: "1.0.0"
+  title: "Unique Mechanism Discovery System"
+  purpose: "Discover, name, and validate a Unique Mechanism that differentiates a product by explaining why prospects failed before and why this solution works now"
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    sub_category: "positioning"
+    risk_level: "low"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "Before building any E5 campaign, when product competes on price, or when entering a crowded market"
+  context:
+    input:
+      - name: "product_details"
+        type: "object"
+        required: true
+        description: "Deep understanding of the product's ingredients, process, system, sequence, or methodology"
+      - name: "market_landscape"
+        type: "object"
+        required: true
+        description: "Competitor claims, positioning, and mechanisms referenced in the market"
+  steps:
+    - id: "S001"
+      name: "Audit Commodity Mechanisms"
+      action: "map_competitor_mechanisms"
+      description: "Map ALL commodity mechanisms in the market. What does every competitor already say? Identify generic language and the 'sea of sameness.'"
+      performer: "copywriter"
+      critical: false
+      on_success: "S002"
+      on_failure: "retry"
+    - id: "S002"
+      name: "Discover Unique Difference"
+      action: "identify_differentiation"
+      description: "Interrogate the product across 5 dimensions: ingredient, process, system, sequence, combination. Find what is genuinely DIFFERENT."
+      performer: "copywriter"
+      critical: true
+      on_success: "S003"
+      on_failure: "retry"
+    - id: "S003"
+      name: "Create Proprietary Name"
+      action: "name_mechanism"
+      description: "Give the mechanism a proprietary name that is sexy, cryptic, and investable. Frame: 'This is what I call [The _____ Method/Protocol].'"
+      performer: "copywriter"
+      critical: true
+      on_success: "S004"
+      on_failure: "retry"
+    - id: "S004"
+      name: "Run Strength Test"
+      action: "validate_mechanism_strength"
+      description: "Score 1-10 on 5 dimensions: Substitution (copy breaks without product?), Specificity (has own name?), Novelty (market heard it?), Clarity (12yo understands?), Connection (UMS solves UMP directly?). Average >= 7.5 = GO."
+      performer: "copywriter"
+      critical: true
+      on_success: "END"
+      on_failure: "retry"
+  error_handling:
+    global_timeout: "PT4H"
+    retry_policy:
+      max_retries: 2
+      backoff: "linear"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "commodity_mechanisms_mapped"
+        type: "boolean"
+        target: true
+        weight: 0.15
+      - name: "unique_difference_identified"
+        type: "boolean"
+        target: true
+        weight: 0.25
+      - name: "problem_mechanism_defined"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "solution_mechanism_defined"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "strength_test_score_gte_7_5"
+        type: "boolean"
+        target: true
+        weight: 0.2
+    pass_threshold: 0.85
+  outputs:
+    artifacts:
+      - name: "unique_mechanism"
+        type: "file"
+        format: "md"
+        description: "Named Unique Mechanism with Problem Mechanism + Solution Mechanism + 5-Point Strength Test scorecard"

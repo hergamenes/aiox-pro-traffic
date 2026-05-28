@@ -1,0 +1,30 @@
+sop:
+  id: tree-chaperon-diagnostic
+  version: "1.0"
+  title: "Chaperon Diagnostic Router"
+  purpose: "Route incoming email marketing requests to the correct Andre Chaperon methodology and framework"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: andre-chaperon
+  steps:
+    - id: route-01
+      condition: "request == 'NOVA SEQUENCIA'"
+      action: "Identificar arco narrativo -> Frank & Matt -> SOS 5 emails -> Segmentacao -> Email Engine"
+    - id: route-02
+      condition: "request == 'SEQUENCIA EXISTENTE'"
+      action: "Verificar arco narrativo -> Cliffhangers presentes? -> Open loops mapeados? -> Segmentacao comportamental?"
+    - id: route-03
+      condition: "request == 'DIAGNOSTICO DE EMAIL'"
+      action: "Verificar: a historia faz o trabalho pesado? O pitch e conclusao natural?"
+    - id: route-default
+      condition: "request not classified"
+      action: "Clarify request type before proceeding"
+  error_handling:
+    - condition: "ambiguous_request"
+      action: "ask_for_clarification"
+    - condition: "wrong_route_selected"
+      action: "restart_diagnostic"
+  quality_gate:
+    mode: routing
+    requires_classification: true

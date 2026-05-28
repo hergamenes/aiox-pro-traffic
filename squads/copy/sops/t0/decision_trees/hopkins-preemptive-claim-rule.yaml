@@ -1,0 +1,48 @@
+sop:
+  id: hopkins-preemptive-claim-rule
+  version: "1.0"
+  title: "Preemptive Claim Rule (CH_H09)"
+  purpose: "Conquistar diferenciacao sendo o PRIMEIRO a descrever processos comuns em detalhe. Primeiro a comunicar OWNS a vantagem."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: claude-hopkins
+  steps:
+    - step: 1
+      action: "Visitar operacao e listar todos os processos internos"
+    - step: 2
+      action: "Identificar processos nao comunicados pelos concorrentes"
+      decision_point:
+        condition: "Concorrentes ja comunicam este processo?"
+        branches:
+          - if: "Nao, ninguem comunica"
+            then: "Descrever em DETALHE na copy — primeiro a descrever OWNS a vantagem"
+          - if: "Sim, concorrente ja comunica"
+            then: "Buscar outro processo nao comunicado"
+            next_decision:
+              condition: "Existe outro processo nao comunicado?"
+              branches:
+                - if: "Sim"
+                  then: "Descrever esse processo em detalhe"
+                - if: "Nao"
+                  then: "Detalhar MAIS que o concorrente no mesmo processo"
+    - step: 3
+      action: "Priorizar processos que mais impressionam o prospect"
+  error_handling:
+    - error: "Operacao nao visitada/pesquisada"
+      severity: critical
+      action: "Visitar ou entrevistar antes de escrever"
+    - error: "Descricao superficial do processo"
+      severity: warning
+      action: "Detalhar: etapas, temperaturas, tempos, numeros"
+    - error: "Processo inventado"
+      severity: critical
+      action: "Apenas processos reais e verificaveis"
+  quality_gate:
+    criteria:
+      - "Pelo menos um processo nao comunicado identificado"
+      - "Descricao detalhada o suficiente para impressionar"
+      - "Claim verdadeiro — processo existe de fato"
+      - "Concorrentes nao possuem essa comunicacao"
+    pass_threshold: "Todos os criterios atendidos"

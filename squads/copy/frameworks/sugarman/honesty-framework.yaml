@@ -1,0 +1,49 @@
+# The Honesty Framework - Joe Sugarman
+# Extracted from: squads/copy/agents/joe-sugarman.md
+# Category: trust_building
+
+name: "The Honesty Framework"
+category: trust_building
+origin: "Joe Sugarman - core philosophy"
+command: "*honesty"
+
+philosophy: |
+  "Honesty is the most important trigger. When Sugarman ran his mail order
+  catalog, the reason people trusted his opinions is because he would be
+  the first to point out the negative aspects of a product."
+
+formula: "Honesty + Integrity = Credibility"
+
+application:
+  step_1:
+    name: "Identify Real Flaws"
+    instruction: "Find the genuine weaknesses of the product"
+
+  step_2:
+    name: "Address Them First"
+    instruction: "Bring them up before the customer thinks of them"
+
+  step_3:
+    name: "Put Them in Context"
+    instruction: "Explain why the flaws don't matter (or how they're actually features)"
+
+  step_4:
+    name: "Build Trust"
+    instruction: "Now your positive claims become 10x more believable"
+
+examples:
+  example_1:
+    product: "BluBlocker sunglasses"
+    flaw: "They look unusual"
+    handling: |
+      "I'll be honest - they look a little different than regular sunglasses.
+      But once you see how the world looks through them, you won't care what
+      they look like on the outside."
+
+  example_2:
+    product: "Electronics"
+    flaw: "Price is higher than competitors"
+    handling: |
+      "Yes, you can find cheaper calculators. But here's what you won't find:
+      our lifetime customer service guarantee and the peace of mind that
+      comes with it."

@@ -1,0 +1,36 @@
+sop:
+  id: jw-mental-triggers
+  version: 1.0.0
+  title: 9 Mental Triggers Diagnostic & Mapping
+  purpose: Audit and map the 9 PLF mental triggers across a launch sequence. Score coverage and fill gaps
+  classification:
+    domain: copywriting
+    category: systematizer
+    source_agent: jeff-walker
+    artifact_type: task
+    tier: t2
+  status: ACTIVE
+  trigger:
+    type: manual
+    description: Before any launch to ensure all psychological triggers are activated, or to diagnose why a launch underperformed
+  context:
+    input:
+    - name: launch_materials
+      type: object
+      required: true
+      description: All PLC scripts, emails, sales page — the complete launch sequence
+  steps:
+  - id: S001
+    name: Execute framework
+    action: execute_framework
+    description: Audit and map the 9 PLF mental triggers across a launch sequence. Score coverage and fill gaps
+    performer: copywriter
+    critical: true
+    on_success: COMPLETE
+    on_failure: retry
+  quality_gate:
+    pass_threshold: 1
+    total_checks: 1
+    mandatory_passes:
+    - S001
+    verdict_on_fail: BLOCK

@@ -1,0 +1,50 @@
+# Framework: The 33:33 Method
+# Author: Eugene Schwartz
+# Source: Personal Work System (inspired by Zen Buddhism)
+# Command: *exercise-timer
+
+name: "The 33:33 Method"
+category: "productivity"
+origin: "Eugene Schwartz - Personal Work System (inspired by Zen Buddhism)"
+frequency: "Daily - metodo de trabalho pessoal"
+command: "*exercise-timer"
+
+principle: |
+  "Eu trabalho 3 horas por dia, 33:33 minutos por vez.
+  Nesse tempo, produzo mais que outros em 12 horas.
+  E sobre intensidade, nao duracao."
+
+setup:
+  time: "9:00 AM precisamente"
+  days: "Segunda a Sexta"
+  duration: "3 horas totais (6 sessoes)"
+  tool: "Timer de cozinha simples"
+  environment: "Mesma cadeira, mesma mesa, mesmo local"
+
+inviolable_rules:
+  rule_1: "NUNCA levantar da cadeira durante os 33:33"
+  rule_2: "Apenas DUAS opcoes: trabalhar no copy OU fazer nada"
+  rule_3: "PERMITIDO: beber cafe, olhar janela, rabiscar, reclamar"
+  rule_4: "PROIBIDO: qualquer outra atividade"
+  rule_5: "Quando tocar: parar INSTANTANEAMENTE (mesmo no meio da palavra)"
+
+science: |
+  - 33 minutos: Tempo suficiente para vencer resistencia e entrar em flow
+  - Origem: Monges budistas e tecnica de meditacao focada
+  - Mecanismo: Tedio forcado eventualmente leva ao engajamento natural
+
+boredom_protocol: |
+  "Finalmente, apos olhar bastante ao redor... fico entediado.
+  Entao o que faco? Comeco a ler o copy! Enquanto leio, uma
+  frase diz 'Oh, ei, nao sou linda?' E comeco a trabalhar."
+
+application: |
+  EXERCICIO DO TIMER 33:33:
+
+  1. Configure um timer para 33 minutos e 33 segundos
+  2. Sente na mesma cadeira, mesa, local
+  3. Regras inviolaveis:
+     - NUNCA levante da cadeira
+     - Duas opcoes: trabalhar OU fazer nada
+     - Quando tocar: pare INSTANTANEAMENTE
+  4. Repita 6x para 3 horas de trabalho intenso

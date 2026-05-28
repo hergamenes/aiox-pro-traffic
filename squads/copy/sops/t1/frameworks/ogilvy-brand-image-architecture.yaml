@@ -1,0 +1,52 @@
+sop:
+  id: ogilvy-brand-image-architecture
+  version: "1.0"
+  title: "Brand Image Architecture"
+  purpose: >
+    Define and maintain four pillars of brand image: Tone, Values, Archetype,
+    and Consistency. Consistency is the MOST important element. Never sacrifice
+    brand personality for short-term promotional needs.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: david-ogilvy
+    tier: t1
+
+  steps:
+    - id: apply_define_tone
+      action: "Document the attitude projected in every communication with positive and negative examples"
+      input: "brand_context, audience_expectations"
+      output: "tone_definition"
+
+    - id: apply_define_values
+      action: "Establish non-negotiable principles; test each with 'would brand sacrifice revenue for this?'"
+      condition: "values_pass_revenue_test == true"
+      output: "values_definition"
+
+    - id: apply_define_archetype
+      action: "Identify character brand plays in consumer's mind with behavioral guidelines"
+      input: "brand_personality, archetype_framework"
+      output: "archetype_definition"
+
+    - id: apply_enforce_consistency
+      action: "Verify same personality at every touchpoint; same spokesperson/symbol over time"
+      condition: "consistency_across_all_touchpoints == true"
+      output: "consistency_validation"
+
+  error_handling:
+    - error: "inconsistent_tone"
+      severity: high
+      action: "Create tone guide with channel-specific applications"
+    - error: "aspirational_values"
+      severity: medium
+      action: "Apply revenue sacrifice test; remove values that fail"
+    - error: "promotional_personality_change"
+      severity: high
+      action: "Brand consistency always trumps promotional impact"
+
+  quality_gate:
+    tone_documented: true
+    values_genuine: true
+    archetype_defined: true
+    consistency_enforced: true
+    quarterly_audit_scheduled: true

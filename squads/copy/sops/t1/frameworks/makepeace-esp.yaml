@@ -1,0 +1,57 @@
+sop:
+  id: makepeace-esp
+  version: "1.0"
+  title: "Emotional Selling Proposition (ESP)"
+  purpose: >
+    Evolve beyond USP (what product does differently) to ESP (what product
+    makes prospect FEEL). Score on 4-level scale. ESP < 7/10 = BLOCK copy
+    writing. Emotional connection must precede execution.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: clayton-makepeace
+    tier: t1
+
+  steps:
+    - id: apply_clarify_usp
+      action: "Document what product does DIFFERENTLY from all alternatives (rational baseline)"
+      input: "product_features, competitive_analysis"
+      output: "usp_statement"
+
+    - id: apply_core_emotion
+      action: "Identify specific emotional state product creates (not generic 'good' — specific 'vindicated')"
+      input: "dre_research, product_experience"
+      output: "core_emotion"
+      condition: "emotion_specificity >= high"
+
+    - id: apply_benefit_emotion_bridge
+      action: "Connect functional benefit to emotional outcome naturally"
+      input: "usp_statement, core_emotion"
+      output: "esp_statement"
+
+    - id: apply_score_intensity
+      action: "Score ESP: weak(1-3)='interesting', medium(4-6)='need to see more', strong(7-8)='need NOW', devastating(9-10)='fears not having'"
+      output: "esp_score"
+
+    - id: apply_blocking_gate
+      action: "If ESP score < 7, BLOCK copy writing. Return to research."
+      condition: "esp_score >= 7"
+      output: "go_no_go_decision"
+
+  error_handling:
+    - error: "usp_confused_with_esp"
+      severity: high
+      action: "Separate: USP = functional difference; ESP = emotional outcome"
+    - error: "generic_emotion"
+      severity: high
+      action: "Replace with specific emotional state including context"
+    - error: "esp_below_7"
+      severity: critical
+      action: "BLOCK — return to research and emotion identification"
+
+  quality_gate:
+    usp_defined: true
+    emotion_specific: true
+    bridge_natural: true
+    esp_score_min: 7
+    distinct_from_competitors: true

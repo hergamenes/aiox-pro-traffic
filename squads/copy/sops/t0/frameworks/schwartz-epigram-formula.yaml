@@ -1,0 +1,61 @@
+sop:
+  id: schwartz-epigram-formula
+  version: "1.0"
+  title: "Formula do Epigrama"
+  purpose: "Create memorable quotable statements using Contrast + Implication formula — 3 contrast types, with 2-3 elaboration limit."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: eugene-schwartz
+  steps:
+    - id: apply_formula
+      action: "Apply core formula: Epigram = Contrast + Implication"
+      input: "Idea or message to make memorable"
+      output: "Draft epigram with both contrast and implication elements"
+      validation: "Both elements present — contrast creates surprise, implication creates engagement"
+    - id: apply_search_contrast
+      action: "Scan for natural oppositions — 'Where can I use CONTRAST here?'"
+      input: "Copy draft, argument structure"
+      output: "List of natural opposition points in the argument"
+      validation: "Oppositions are genuine, not forced"
+    - id: apply_search_implication
+      action: "Express one step removed — 'How do I let the audience complete this?'"
+      input: "Contrast found in previous step"
+      output: "Rewritten line with final image removed for audience completion"
+      validation: "Audience can reach the conclusion without it being stated"
+    - id: apply_contrast_type_a
+      action: "Use two opposite words in the same statement"
+      input: "Natural opposition, word pairs"
+      output: "Epigram using opposite words (e.g., everybody/nobody)"
+      validation: "Collision of opposites is surprising and creates memorability"
+    - id: apply_contrast_type_b
+      action: "Use same word with two different meanings"
+      input: "Word with multiple meanings in context"
+      output: "Epigram using same word twice with meaning shift"
+      validation: "Each usage carries genuinely distinct meaning"
+    - id: apply_contrast_type_c
+      action: "Subvert conventional meaning with new opposite meaning"
+      input: "Conventional word/concept, subversive reframe"
+      output: "Epigram that violates reader expectation of the word's meaning"
+      validation: "Subversion is credible and creates a genuine insight"
+    - id: apply_elaboration_limit
+      action: "Enforce maximum 2-3 elaborations per epigram"
+      input: "Draft epigram with elaborations"
+      output: "Trimmed epigram within 2-3 beat limit"
+      validation: "No explanation follows the epigram; it lands and the copy moves on"
+  error_handling:
+    - error: "Contrast without implication"
+      resolution: "Remove final clause; let audience complete the thought"
+    - error: "Implication without contrast"
+      resolution: "Add opposition, collision, or reversal element"
+    - error: "Epigram exceeds 3 elaborations"
+      resolution: "Cut to strongest 2-3 beats; move excess to body copy"
+  quality_gate:
+    criteria:
+      - "Line contains both Contrast and Implication"
+      - "At least one contrast type (A, B, or C) is employed"
+      - "Audience can complete implied meaning unassisted"
+      - "Line is 15 words or fewer"
+      - "Maximum 2-3 elaborations"
+    pass_threshold: "All 5 criteria met"

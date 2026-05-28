@@ -1,0 +1,104 @@
+sop:
+  id: "tb-re-lead-strategy"
+  version: "1.0.0"
+  title: "Re-Leading Strategy for Dying Campaigns"
+  purpose: "Revive underperforming campaigns by rewriting only the first 350-600 words while keeping 80% of the campaign intact, achieving 80% of a full rewrite's impact for 20% effort"
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    sub_category: "campaign-revival"
+    risk_level: "low"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "When a previously successful campaign has stopped converting, before deciding to scrap and rebuild entirely"
+  context:
+    input:
+      - name: "existing_campaign"
+        type: "object"
+        required: true
+        description: "The campaign that stopped converting — must have previously worked (verified with data)"
+      - name: "updated_psychographics"
+        type: "object"
+        required: true
+        description: "Current market fears, desires, and motivations (what is DRIVING the market RIGHT NOW)"
+  steps:
+    - id: "S001"
+      name: "Confirm Previous Performance"
+      action: "verify_historical_success"
+      description: "Verify with data that the campaign had a period of strong performance. If it never converted, re-leading will not fix it."
+      performer: "copywriter"
+      critical: false
+      on_success: "S002"
+      on_failure: "abort"
+    - id: "S002"
+      name: "Identify Current Market Drivers"
+      action: "research_current_emotions"
+      description: "Ask: 'What is DRIVING my market RIGHT NOW?' Review current news, social conversations, competitor messaging. Identify dominant emotion TODAY vs. when campaign was built."
+      performer: "copywriter"
+      critical: true
+      on_success: "S003"
+      on_failure: "retry"
+    - id: "S003"
+      name: "Rewrite the Lead"
+      action: "rewrite_first_350_600_words"
+      description: "Keep 80% of campaign intact. Rewrite ONLY first 350-600 words based on current market state. Ensure seamless transition to existing body copy."
+      performer: "copywriter"
+      critical: true
+      on_success: "S004"
+      on_failure: "retry"
+    - id: "S004"
+      name: "Test New Lead"
+      action: "ab_test_lead"
+      description: "Deploy new lead with same body. Compare to last 2-4 weeks and peak performance. Minimum 500 impressions before declaring result."
+      performer: "copywriter"
+      critical: false
+      on_success: "S005"
+      on_failure: "retry"
+    - id: "S005"
+      name: "Iterate or Escalate"
+      action: "test_variants_or_escalate"
+      description: "If first re-lead fails, write 2-3 additional variants targeting different emotional angles. If none restore performance after 3 variants, escalate to full campaign diagnosis."
+      performer: "copywriter"
+      critical: false
+      on_success: "END"
+      on_failure: "escalate"
+  error_handling:
+    global_timeout: "PT3H"
+    retry_policy:
+      max_retries: 3
+      backoff: "linear"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "previous_success_verified"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "current_market_drivers_identified"
+        type: "boolean"
+        target: true
+        weight: 0.25
+      - name: "only_lead_changed"
+        type: "boolean"
+        target: true
+        weight: 0.25
+      - name: "seamless_transition"
+        type: "boolean"
+        target: true
+        weight: 0.15
+      - name: "ab_test_setup"
+        type: "boolean"
+        target: true
+        weight: 0.15
+    pass_threshold: 0.85
+  outputs:
+    artifacts:
+      - name: "revived_campaign"
+        type: "file"
+        format: "md"
+        description: "Campaign with new lead (350-600 words) + original body, offer, and close intact"
+      - name: "performance_comparison"
+        type: "file"
+        format: "md"
+        description: "A/B test results comparing old lead vs new lead performance"

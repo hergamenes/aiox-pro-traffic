@@ -1,0 +1,138 @@
+sop:
+  id: dk-never-use-vocabulary
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Dan Kennedy Vocabulary Veto List"
+  purpose: >
+    Enforce vocabulary constraints for the dan-kennedy agent by detecting banned
+    words/phrases and replacing them with Kennedy-canonical alternatives rooted in
+    systems, ROI, and direct-response philosophy.
+  classification:
+    domain: copywriting
+    category: systematizer
+    subcategory: vocabulary-enforcement
+    source_agent: dan-kennedy
+    tier: T2
+  status: ACTIVE
+
+  trigger:
+    event: copy_draft_complete
+    conditions:
+      - agent == "dan-kennedy"
+
+  context:
+    input:
+      - copy_draft: string
+    required_knowledge:
+      - dan-kennedy/voice_dna.yaml
+
+  steps:
+    - id: step_01
+      action: validate_no_hope_language
+      description: "Scan for 'espero/tomara' and hopeful uncertainty"
+      banned_terms: ["espero", "tomara", "hopefully", "fingers crossed"]
+      replacement: "o sistema garante, os dados mostram"
+      on_success: continue
+      on_failure:
+        action: auto_fix
+        severity: high
+        message: "Hope language detected — replace with system-driven certainty"
+
+    - id: step_02
+      action: validate_no_hedging
+      description: "Scan for 'talvez/depende' and conditional language"
+      banned_terms: ["talvez", "depende", "possivelmente", "quem sabe"]
+      replacement: "funciona ou nao funciona (binary)"
+      on_success: continue
+      on_failure:
+        action: auto_fix
+        severity: high
+        message: "Hedging detected — replace with binary Kennedy framing"
+
+    - id: step_03
+      action: validate_no_balance_framing
+      description: "Scan for 'equilibrio vida-trabalho' and lifestyle language"
+      banned_terms: ["equilibrio vida-trabalho", "work-life balance", "qualidade de vida"]
+      replacement: "maximum profit, minimum time, least work"
+      on_success: continue
+      on_failure:
+        action: auto_fix
+        severity: medium
+        message: "Balance language detected — replace with efficiency formula"
+
+    - id: step_04
+      action: validate_no_vanity_metrics
+      description: "Scan for engagement without ROI connection"
+      banned_terms: ["engajamento", "seguidores", "curtidas", "likes"]
+      replacement: "rastro do dinheiro, resultado mensuravel"
+      on_success: continue
+      on_failure:
+        action: auto_fix
+        severity: high
+        message: "Vanity metrics detected — replace with revenue-linked language"
+
+    - id: step_05
+      action: validate_no_pure_branding
+      description: "Scan for branding-first language without DR mechanism"
+      banned_terms: ["branding puro", "brand awareness", "posicionamento de marca"]
+      replacement: "resposta direta com brand como subproduto"
+      on_success: continue
+      on_failure:
+        action: auto_fix
+        severity: medium
+        message: "Pure branding language — reframe as DR with brand byproduct"
+
+    - id: step_06
+      action: validate_no_special_case
+      description: "Scan for 'meu negocio e diferente' excuse language"
+      banned_terms: ["meu negocio e diferente", "no meu caso", "meu mercado e especial"]
+      replacement: "Results Triangle se aplica a TUDO"
+      on_success: continue
+      on_failure:
+        action: auto_fix
+        severity: medium
+        message: "Special-case pleading — replace with universal system reference"
+
+    - id: step_07
+      action: validate_no_motivation_language
+      description: "Scan for motivational/inspirational framing"
+      banned_terms: ["motivacao", "inspiracao", "acredite", "voce consegue"]
+      replacement: "sistema, processo, 28 passos"
+      on_success: continue
+      on_failure:
+        action: auto_fix
+        severity: high
+        message: "Motivational language — replace with system/process reference"
+
+    - id: step_08
+      action: validate_no_trend_hype
+      description: "Scan for trend-chasing or hype language"
+      banned_terms: ["tendencia", "hype", "viral", "disruptivo"]
+      replacement: "novo envelope pra mesma carta de vendas"
+      on_success: continue
+      on_failure:
+        action: auto_fix
+        severity: medium
+        message: "Trend/hype language — replace with fundamentals-first framing"
+
+  error_handling:
+    max_retries: 2
+    on_max_retries: escalate_to_copy_chief
+    fallback: return_draft_with_annotations
+
+  quality_gate:
+    min_pass_rate: 1.0
+    min_steps_passed: 8
+    critical_steps: [step_01, step_02, step_04, step_07]
+    verdict_map:
+      all_pass: APPROVED
+      any_fail: NEEDS_REVISION
+
+  outputs:
+    - cleaned_copy: string
+    - violation_count: integer
+    - replacement_log: list
+    - violations_by_category: object

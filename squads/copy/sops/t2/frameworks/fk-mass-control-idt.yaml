@@ -1,0 +1,110 @@
+sop:
+  id: fk-mass-control-idt
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Mass Control / Implicit Decision Triggers"
+  purpose: >
+    Structure launch sequences around implicit decision triggers where
+    prospects decide on their own they want the product. Self-made
+    decisions are stronger than persuaded ones, yielding higher
+    conversion and lower refund rates.
+  classification:
+    domain: copywriting
+    subdomain: launch-strategy
+    complexity: advanced
+    source_agent: frank-kern
+
+  steps:
+    - id: step_1
+      name: give_genuine_value
+      action: apply_value_delivery
+      description: >
+        Create content that produces real, tangible results for audience.
+        Not a teaser -- genuinely useful standalone. Demonstrates expertise
+        without holding back. Write as if never going to sell anything.
+      inputs:
+        - expertise_area
+        - audience_pain_points
+      outputs:
+        - standalone_value_content
+      validation: content_valuable_as_standalone_product
+
+    - id: step_2
+      name: facilitate_implicit_decision
+      action: apply_gap_awareness
+      description: >
+        Let prospect naturally think 'if free is this good, what is paid?'
+        Show gap between result they got and full transformation available.
+        Do NOT push. Let content do the work. Gap should be felt, not stated.
+      inputs:
+        - free_result_achieved
+        - full_transformation_scope
+      outputs:
+        - gap_awareness_content
+      validation: no_pushy_language_gap_is_felt_naturally
+
+    - id: step_3
+      name: prospect_asks
+      action: apply_interest_mechanism
+      description: >
+        Create mechanism for prospect to indicate interest: reply, apply,
+        request. Power dynamic shifts -- they are asking you. Frame as
+        qualification, not sales pitch.
+      inputs:
+        - interest_mechanism_type
+        - qualification_criteria
+      outputs:
+        - application_form_copy
+        - interest_trigger_copy
+      validation: prospect_initiates_contact
+
+    - id: step_4
+      name: agree_to_sell
+      action: apply_agreement_framing
+      description: >
+        Present offer as agreement to help, not sales pitch. 'Based on
+        what you told me, this would be a good fit.' Enumerate inclusions,
+        present price, let them proceed. Helpful, not persuasive.
+      inputs:
+        - offer_details
+        - prospect_application_data
+      outputs:
+        - offer_presentation_copy
+      validation: offer_framed_as_agreement_not_pitch
+
+  error_handling:
+    - error: teaser_instead_of_value
+      symptom: "Audience feels baited, trust decreases"
+      resolution: "Give content that works on its own. Must be worth paying for."
+    - error: pushing_before_decision
+      symptom: "Prospect feels sold to, resistance increases"
+      resolution: "Remove pushy language. Let content create desire organically."
+    - error: skipping_ask_step
+      symptom: "Pitching without prospect requesting"
+      resolution: "Create application/reply mechanism. Let them come to you."
+    - error: aggressive_step_4
+      symptom: "Offer feels like hard sell despite buildup"
+      resolution: "Rewrite as 'what is included and how it works.' No pressure."
+
+  quality_gate:
+    criteria:
+      - step_1_content_is_standalone_valuable
+      - gap_felt_naturally_without_push
+      - prospect_initiates_interest
+      - offer_presented_as_agreement
+      - sequence_feels_generous
+    min_pass: 4
+
+  outputs:
+    - type: launch_sequence
+      format: 4_step_campaign
+      description: "Content, trigger, application, and offer presentation"
+    - type: value_content
+      format: standalone_content
+      description: "Step 1 content delivering real results"
+    - type: offer_copy
+      format: agreement_frame
+      description: "Step 4 offer framed as helpful agreement"

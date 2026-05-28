@@ -1,0 +1,115 @@
+sop:
+  id: sg-funnel-as-funnel
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Funnel-as-Funnel Optimization"
+  purpose: >
+    Systematic top-down funnel optimization framework that prioritizes
+    high-leverage copy improvements. Ensures copywriters optimize in the
+    correct order and allocate effort where ROI is highest.
+  classification:
+    domain: copywriting
+    subdomain: funnel-optimization
+    complexity: intermediate
+    source_agent: stefan-georgi
+
+  steps:
+    - id: step_1
+      name: optimize_top_of_funnel
+      action: apply_top_optimization
+      description: >
+        Focus on getting more people into the funnel before optimizing downstream.
+        Rewrite ads, headlines, lead magnets, or opt-in pages. A 20% improvement
+        at the top compounds through every subsequent step.
+      inputs:
+        - funnel_analytics
+        - current_front_end_copy
+      outputs:
+        - revised_top_of_funnel_copy
+      validation: front_end_conversion_rate_benchmarked
+
+    - id: step_2
+      name: optimize_lead_before_body
+      action: apply_sequential_copy_optimization
+      description: >
+        Within any single copy piece, optimize in order: lead/hook first,
+        then body/argument, then close/CTA. Rewrite the first 350 words
+        and test new opening hooks before refining body or close.
+      inputs:
+        - current_copy_piece
+        - bounce_rate_data
+      outputs:
+        - revised_lead_copy
+        - lead_variant_tests
+      validation: lead_tested_with_minimum_2_variants
+
+    - id: step_3
+      name: optimize_upsell_1
+      action: apply_upsell_1_optimization
+      description: >
+        Upsell 1 is the highest-leverage downstream element. Target 20-50%
+        take rate. Write with front-end intensity. Ensure natural complement,
+        price at 40-60% of front-end, use one-time offer urgency.
+      inputs:
+        - upsell_1_current_copy
+        - upsell_1_take_rate
+      outputs:
+        - revised_upsell_1_copy
+      validation: upsell_1_take_rate_above_20_percent
+
+    - id: step_4
+      name: optimize_upsell_2
+      action: apply_upsell_2_optimization
+      description: >
+        Only after Upsell 1 performs at 20%+. Offer different value dimension.
+        Keep copy concise. Test price at 30-50% of Upsell 1. Target 10-15% take rate.
+      inputs:
+        - upsell_2_current_copy
+        - upsell_1_confirmed_performance
+      outputs:
+        - revised_upsell_2_copy
+      validation: upsell_2_take_rate_above_10_percent
+      depends_on: step_3
+
+    - id: step_5
+      name: deprioritize_upsell_3
+      action: apply_deprioritization
+      description: >
+        Upsell 3 contributes ~5% take rate. Do not allocate significant copywriting
+        time. Keep simple if it exists. ROI of optimizing Upsell 1 by 10% exceeds
+        adding Upsell 3 entirely.
+      inputs:
+        - upsell_3_exists
+      outputs:
+        - deprioritization_decision
+      validation: effort_allocation_confirmed
+
+  error_handling:
+    - error: optimizing_bottom_up
+      symptom: "Writing downstream upsells while front-end converts below 2%"
+      resolution: "Stop downstream work. Rewrite front-end lead first."
+    - error: neglecting_upsell_1
+      symptom: "Upsell 1 take rate below 15%"
+      resolution: "Rewrite Upsell 1 with front-end intensity and proper offer structure."
+    - error: adding_instead_of_optimizing
+      symptom: "Multiple upsells, none above 10% take rate"
+      resolution: "Remove low-performing upsells. Focus all effort on Upsell 1."
+
+  quality_gate:
+    criteria:
+      - front_end_benchmarked_before_downstream
+      - lead_tested_with_variants
+      - upsell_1_at_target_take_rate
+      - optimization_order_is_top_down
+    min_pass: 3
+
+  outputs:
+    - type: optimization_plan
+      format: prioritized_list
+      description: "Funnel steps ranked by ROI impact with specific copy actions"
+    - type: revised_copy
+      format: document
+      description: "Rewritten copy for highest-leverage funnel element"

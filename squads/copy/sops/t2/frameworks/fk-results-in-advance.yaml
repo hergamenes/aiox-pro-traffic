@@ -1,0 +1,95 @@
+sop:
+  id: fk-results-in-advance
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Results in Advance"
+  purpose: >
+    Deliver a real, tangible result to the prospect BEFORE asking for money.
+    Most powerful selling form -- replaces promises with proof through action.
+    Prospect experiences transformation, making paid offer obvious.
+  classification:
+    domain: copywriting
+    subdomain: lead-generation
+    complexity: intermediate
+    source_agent: frank-kern
+
+  steps:
+    - id: step_1
+      name: identify_quick_win
+      action: apply_quick_win_selection
+      description: >
+        Find single, specific result achievable in 24-48 hours using free
+        content. Must be real, tangible, measurable -- not theoretical.
+        Quick win should be microcosm of full transformation.
+      inputs:
+        - full_transformation_scope
+        - prospect_skill_level
+      outputs:
+        - quick_win_definition
+        - quick_win_timeline
+      validation: result_achievable_in_24_to_48_hours
+
+    - id: step_2
+      name: deliver_generously
+      action: apply_no_rug_pull_delivery
+      description: >
+        Create content enabling the quick win. Give everything: steps,
+        templates, tools, examples. Do NOT hold back critical steps.
+        Content must work completely on its own. No gating.
+      inputs:
+        - quick_win_steps
+        - templates_and_tools
+      outputs:
+        - quick_win_content
+      validation: content_works_standalone_without_purchase
+
+    - id: step_3
+      name: build_natural_bridge
+      action: apply_offer_bridge
+      description: >
+        After prospect achieves quick win, bridge naturally: 'You got [result].
+        Imagine applying this to [bigger scope].' Paid offer is complete,
+        systematized, scaled-up version. Bridge is extension, not pivot.
+      inputs:
+        - quick_win_result
+        - paid_offer_details
+      outputs:
+        - bridge_copy
+        - follow_up_sequence
+      validation: bridge_feels_like_natural_extension
+
+  error_handling:
+    - error: quick_win_takes_too_long
+      symptom: "Prospect drops off before achieving result"
+      resolution: "Simplify. Find result achievable in hours, not days."
+    - error: rug_pull
+      symptom: "Prospect feels manipulated, trust destroyed"
+      resolution: "Give everything. Result must work without paid product."
+    - error: unrelated_quick_win
+      symptom: "Prospect achieves result but does not want the product"
+      resolution: "Choose quick win that is microcosm of full transformation."
+    - error: theoretical_not_tangible
+      symptom: "Prospect learns but does not DO anything"
+      resolution: "Rewrite as specific actions with measurable outcomes."
+
+  quality_gate:
+    criteria:
+      - quick_win_in_24_to_48_hours
+      - tangible_measurable_result
+      - no_gated_critical_steps
+      - bridge_feels_natural
+    min_pass: 3
+
+  outputs:
+    - type: quick_win_content
+      format: guide_or_tutorial
+      description: "Content delivering specific result in 24-48 hours"
+    - type: bridge_copy
+      format: transition_narrative
+      description: "Copy connecting quick win to paid offer"
+    - type: follow_up_sequence
+      format: email_sequence
+      description: "Post-quick-win nurture and offer sequence"

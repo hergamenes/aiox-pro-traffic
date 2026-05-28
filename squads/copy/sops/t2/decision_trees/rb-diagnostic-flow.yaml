@@ -1,0 +1,194 @@
+sop:
+  id: rb-diagnostic-flow
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+
+  title: "Russell Brunson Diagnostic Flow"
+  purpose: "Structured diagnostic workflow for classifying and solving copy or marketing requests using Brunson's DotCom/Expert Secrets methodology — Value Ladder positioning, funnel type selection, Epiphany Bridge storytelling, Hook-Story-Offer structure, and 10x value stack validation."
+
+  classification:
+    domain: copywriting
+    subdomain: diagnostic-workflow
+    source_agent: russell-brunson
+    artifact_type: decision_tree
+    tier: t2
+
+  steps:
+    - id: RB_DIAG_01
+      name: request_classification
+      decision_point: "New request received"
+      branches:
+        - condition: "Writing copy for a specific funnel page or asset"
+          goto: RB_DIAG_02
+          label: NEW_COPY
+        - condition: "Designing or restructuring a complete funnel"
+          goto: RB_DIAG_02
+          label: FUNNEL_DESIGN
+        - condition: "Planning traffic acquisition"
+          goto: RB_DIAG_02
+          label: TRAFFIC_STRATEGY
+        - condition: "Understanding why something isn't working"
+          goto: RB_DIAG_02
+          label: DIAGNOSTIC
+        - condition: "Spans multiple categories"
+          goto: RB_DIAG_02
+          label: DIAGNOSTIC
+          action: "Start with DIAGNOSTIC to understand full picture."
+
+    - id: RB_DIAG_02
+      name: value_ladder_positioning
+      decision_point: "Identify position on Value Ladder"
+      branches:
+        - condition: "Bait tier — free or very low-cost lead magnet"
+          goto: RB_DIAG_03
+          label: BAIT
+        - condition: "Frontend tier — $7-$97 entry offer"
+          goto: RB_DIAG_03
+          label: FRONTEND
+        - condition: "Middle tier — $97-$2,000 engaged buyer offer"
+          goto: RB_DIAG_03
+          label: MIDDLE
+        - condition: "Backend tier — $2,000+ committed customer offer"
+          goto: RB_DIAG_03
+          label: BACKEND
+        - condition: "Position unclear"
+          goto: RB_DIAG_02_MAP
+          action: "Map entire Value Ladder first."
+
+    - id: RB_DIAG_02_MAP
+      name: map_value_ladder
+      action: "Map the complete Value Ladder: what comes before and after this offer at each tier."
+      goto: RB_DIAG_02
+
+    - id: RB_DIAG_03
+      name: funnel_type_selection
+      decision_point: "Select funnel type matching Value Ladder tier"
+      branches:
+        - condition: "Bait tier"
+          goto: RB_DIAG_04
+          action: "Select: Lead squeeze or free + shipping funnel."
+        - condition: "Frontend tier"
+          goto: RB_DIAG_04
+          action: "Select: Tripwire or self-liquidating offer funnel."
+        - condition: "Middle tier"
+          goto: RB_DIAG_04
+          action: "Select: Webinar or product launch funnel."
+        - condition: "Backend tier"
+          goto: RB_DIAG_04
+          action: "Select: Application or high-ticket phone funnel."
+        - condition: "No funnel exists"
+          goto: RB_DIAG_03_BUILD
+          action: "Design funnel architecture before writing copy."
+        - condition: "Funnel type doesn't match tier"
+          goto: RB_DIAG_03_BUILD
+          action: "Flag mismatch. Realign funnel type to tier."
+
+    - id: RB_DIAG_03_BUILD
+      name: design_funnel
+      action: "Design funnel architecture matching Value Ladder tier. Include all pages and flow."
+      goto: RB_DIAG_04
+
+    - id: RB_DIAG_04
+      name: epiphany_bridge_definition
+      decision_point: "Define Epiphany Bridge for main copy"
+      action: "Complete 5 elements: Backstory, Wall, Epiphany, Plan, Transformation."
+      branches:
+        - condition: "Clear epiphany articulated with all 5 elements"
+          goto: RB_DIAG_05
+        - condition: "Cannot articulate clear epiphany"
+          goto: RB_DIAG_04_FIX
+          action: "Story not strong enough. Find or develop genuine transformation story."
+
+    - id: RB_DIAG_04_FIX
+      name: develop_epiphany_story
+      action: "Interview for or develop transformation story with clear backstory, wall, epiphany moment, plan, and result."
+      goto: RB_DIAG_04
+
+    - id: RB_DIAG_05
+      name: hook_story_offer_structure
+      decision_point: "Structure each copy piece with Hook-Story-Offer"
+      branches:
+        - condition: "All three elements present and strong"
+          goto: RB_DIAG_06
+        - condition: "Hook missing or weak"
+          goto: RB_DIAG_05_FIX
+          action: "Strengthen hook. Must capture in 3 seconds."
+        - condition: "Story missing or weak"
+          goto: RB_DIAG_05_FIX
+          action: "Strengthen story. Deliver Epiphany Bridge narrative."
+        - condition: "Offer missing or weak"
+          goto: RB_DIAG_05_FIX
+          action: "Strengthen offer. Present value stack with 10x ratio."
+
+    - id: RB_DIAG_05_FIX
+      name: strengthen_hso
+      action: "Strengthen the weakest element of Hook-Story-Offer. Each piece needs all three."
+      goto: RB_DIAG_05
+
+    - id: RB_DIAG_06
+      name: value_stack_construction
+      decision_point: "Build complete value stack"
+      action: "Stack: core offer + bonus 1 (accelerator) + bonus 2 (tools) + bonus 3 (access) + guarantee + urgency."
+      branches:
+        - condition: "Perceived value >= 10x asking price"
+          goto: RB_DIAG_07
+        - condition: "Perceived value < 10x asking price"
+          goto: RB_DIAG_06_FIX
+          action: "Add elements until 10x ratio is achieved."
+
+    - id: RB_DIAG_06_FIX
+      name: increase_stack_value
+      action: "Add bonuses, guarantees, community, or support elements to reach 10x perceived value."
+      goto: RB_DIAG_06
+
+    - id: RB_DIAG_07
+      name: final_validation
+      decision_point: "Validate complete package"
+      branches:
+        - condition: "Story present AND hook in 3s AND stack > 10x price"
+          goto: COMPLETE
+          action: "Copy and funnel ready for traffic."
+        - condition: "Story missing"
+          goto: RB_DIAG_04
+          action: "Return to Epiphany Bridge definition."
+        - condition: "Hook doesn't capture in 3s"
+          goto: RB_DIAG_05
+          action: "Return to Hook-Story-Offer structure."
+        - condition: "Stack below 10x"
+          goto: RB_DIAG_06
+          action: "Return to value stack construction."
+
+  error_handling:
+    - error: "copy_without_funnel_context"
+      symptom: "Disconnected messaging; copy doesn't lead to next step"
+      resolution: "Return to RB_DIAG_02 and RB_DIAG_03 before writing copy."
+
+    - error: "funnel_tier_mismatch"
+      symptom: "High-ticket funnel for low-ticket product or vice versa"
+      resolution: "Return to RB_DIAG_03. Align funnel type with Value Ladder tier."
+
+    - error: "no_epiphany_bridge"
+      symptom: "Copy is informational but doesn't change beliefs"
+      resolution: "Return to RB_DIAG_04. Find genuine transformation story."
+
+    - error: "missing_hso_element"
+      symptom: "Hook exists but no story; story exists but no offer"
+      resolution: "Return to RB_DIAG_05. All three elements required."
+
+    - error: "value_stack_below_10x"
+      symptom: "Prospects perceive price as too high"
+      resolution: "Return to RB_DIAG_06. Add elements until 10x ratio met."
+
+  quality_gate:
+    criteria:
+      - "Request classified into one category"
+      - "Value Ladder position identified"
+      - "Funnel type matches Value Ladder tier"
+      - "Epiphany Bridge fully defined (5 elements)"
+      - "Every copy piece follows Hook-Story-Offer"
+      - "Value stack >= 10x perceived value"
+      - "Final validation passed (story + hook + stack)"
+    pass_threshold: "7/7 criteria met"

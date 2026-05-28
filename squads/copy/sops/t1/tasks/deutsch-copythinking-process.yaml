@@ -1,0 +1,110 @@
+sop:
+  id: deutsch-copythinking-process
+  version: "1.0"
+  title: "The Deutsch Copy Process (CopyThinking)"
+  purpose: "Execute 4-phase inverted creative process: free ideation BEFORE research, directed research, rapid writing with 20-30 headline hypotheses, 3-draft revision"
+  classification:
+    domain: copywriting
+    category: master
+    tier: T1
+    source_agent: david-deutsch
+
+  inputs:
+    - name: product_service_brief
+      type: text
+      required: true
+    - name: market_context
+      type: document
+      required: true
+
+  outputs:
+    - name: complete_copy
+      type: document
+      description: "Copy with validated Big Idea through 3-draft revision process"
+    - name: headline_hypotheses
+      type: list
+      description: "20-30 diverse headline hypotheses (different assumptions, not variations)"
+
+  steps:
+    - id: phase_01
+      action: execute_free_ideation
+      description: "30-60 min BEFORE research: ask 'what would make ME want this?', apply IDEA POWER toolkit, use AI as thought partner"
+      critical: true
+      error_handling:
+        condition: "researching_before_ideating"
+        action: "block_research_complete_ideation_first"
+
+    - id: phase_01_checkpoint
+      action: verify_3_directions
+      description: "Confirm minimum 3 radically different creative directions exist"
+      critical: true
+      error_handling:
+        condition: "fewer_than_3_directions"
+        action: "continue_ideating_until_3_minimum"
+
+    - id: phase_02
+      action: conduct_directed_research
+      description: "2-4 hours: explore Phase 1 directions with real data, read 1-2 books, know prospect deeply"
+      critical: true
+      error_handling:
+        condition: "general_research_not_directed_by_hypotheses"
+        action: "refocus_research_on_phase_1_creative_directions"
+
+    - id: phase_02_checkpoint
+      action: verify_expert_depth
+      description: "Confirm can speak as expert not superficial copywriter"
+      critical: true
+      error_handling:
+        condition: "still_feels_like_outsider"
+        action: "continue_researching_especially_books"
+
+    - id: phase_03a
+      action: generate_headline_hypotheses
+      description: "Write 20-30 headlines testing different assumptions (not variations of same idea)"
+      critical: true
+      error_handling:
+        condition: "headlines_are_variations_not_hypotheses"
+        action: "ensure_each_tests_fundamentally_different_assumption"
+
+    - id: phase_03b
+      action: write_draft_1_complete
+      description: "Choose strongest direction, write complete first draft — imperfect but finished"
+      critical: false
+      error_handling:
+        condition: "polishing_during_draft_1"
+        action: "write_fast_ugly_complete_no_perfectionism"
+
+    - id: phase_04a
+      action: revise_draft_2_structural
+      description: "Identify structural gaps, write NEW approaches for weak sections (not tweaks)"
+      critical: true
+      error_handling:
+        condition: "editing_instead_of_replacing"
+        action: "write_entirely_new_approaches_for_weak_sections"
+
+    - id: phase_04b
+      action: refine_draft_3
+      description: "Polish language, tighten sentences, strengthen transitions — only draft where wordsmithing matters"
+      critical: false
+
+    - id: phase_04_checkpoint
+      action: verify_big_idea_quality
+      description: "Confirm Big Idea makes wow, sustains entire promotion, has genuine emotion"
+      critical: true
+      error_handling:
+        condition: "any_answer_is_no"
+        action: "return_to_weak_point_and_rework"
+
+  quality_gate:
+    min_criteria_met: 7
+    criteria:
+      - "ideation_completed_before_research"
+      - "idea_power_toolkit_applied"
+      - "minimum_3_radically_different_directions"
+      - "research_directed_by_hypotheses"
+      - "1_to_2_books_read"
+      - "20_to_30_headline_hypotheses_not_variations"
+      - "draft_1_complete_rough_but_finished"
+      - "draft_2_addresses_structural_gaps"
+      - "draft_3_refines_language"
+      - "big_idea_makes_wow_and_sustains_promotion"

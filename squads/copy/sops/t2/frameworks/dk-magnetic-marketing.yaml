@@ -1,0 +1,116 @@
+sop:
+  id: dk-magnetic-marketing
+  version: "1.0"
+  title: "Magnetic Marketing 3-Step System"
+  purpose: >
+    Replace outbound chasing with inbound attraction through a lead magnet that
+    demonstrates expertise, a multi-touch conversion sequence with escalating
+    urgency, and a customer maximization engine for upsells, cross-sells,
+    recurring revenue, and referrals.
+  classification:
+    domain: copywriting
+    subdomain: lead-generation
+    tier: t2
+    source_agent: dan-kennedy
+    artifact_type: framework
+
+  steps:
+    - id: step_1_lead_magnet
+      action: apply_lead_magnet_creation
+      label: "Create the Lead Magnet"
+      description: >
+        Identify the prospect's #1 pain point and create content that demonstrates
+        expertise by partially solving it. The magnet must educate AND sell
+        simultaneously. Title formula: How to [Result] Without [Objection].
+        Include a natural bridge to the paid offer.
+      inputs:
+        - ideal_customer_profile
+        - core_expertise
+        - product_ladder
+      outputs:
+        - lead_magnet_asset
+        - magnet_title
+        - bridge_to_offer
+      validation:
+        - field: lead_magnet_asset
+          rule: demonstrates_not_teases
+        - field: magnet_title
+          rule: passes_7_of_10_test
+
+    - id: step_2_conversion_sequence
+      action: apply_conversion_sequence
+      label: "Build the Conversion Sequence"
+      description: >
+        Design 7-21 touchpoints across email, direct mail, retargeting, and
+        phone/text. Each touchpoint delivers value while building the case.
+        Urgency escalates progressively. Track response at each step.
+      inputs:
+        - lead_magnet_asset
+        - offer_details
+        - proof_elements
+      outputs:
+        - touchpoint_sequence
+        - urgency_escalation_map
+        - tracking_plan
+      validation:
+        - field: touchpoint_sequence
+          rule: min_count_7_max_21
+        - field: touchpoint_sequence
+          rule: no_just_checking_in
+        - field: urgency_escalation_map
+          rule: progressive_not_flat
+
+    - id: step_3_customer_maximization
+      action: apply_customer_maximization
+      label: "Maximize Customer Value"
+      description: >
+        Map all upsell paths, cross-sell opportunities, recurring revenue models,
+        and referral systems. Calculate LTV and ensure it is at least 3x the
+        acquisition cost.
+      inputs:
+        - product_service_catalog
+        - current_ltv
+        - acquisition_cost
+      outputs:
+        - maximization_map
+        - ltv_calculation
+        - referral_system_design
+      validation:
+        - field: ltv_calculation
+          rule: gte_3x_acquisition_cost
+
+  error_handling:
+    - error: teaser_not_magnet
+      symptom: "Low perceived value, opt-ins don't convert downstream"
+      resolution: "Deliver a genuine partial solution the prospect can use immediately"
+    - error: too_few_touchpoints
+      symptom: "Low conversion rate despite good quality leads"
+      resolution: "Expand sequence to minimum 7 touches across multiple channels"
+    - error: no_urgency_escalation
+      symptom: "Leads go cold with I'll think about it responses"
+      resolution: "Add real deadlines, cohort dates, or limited bonuses in final touches"
+    - error: sequence_ends_in_silence
+      symptom: "Unconverted leads lost permanently"
+      resolution: "Move to long-term nurture sequence, never a dead list"
+
+  quality_gate:
+    min_score: 7
+    criteria:
+      - "Lead magnet demonstrates expertise genuinely"
+      - "Conversion sequence has 7-21 touchpoints"
+      - "Each touchpoint delivers value"
+      - "Urgency escalates progressively"
+      - "Minimum 3 proof types across sequence"
+      - "Upsell, cross-sell, recurring, referral paths defined"
+      - "LTV >= 3x acquisition cost"
+
+  outputs:
+    - type: lead_magnet
+      format: asset
+    - type: conversion_sequence
+      format: sequence_map
+      touchpoints: "7-21"
+    - type: maximization_map
+      format: diagram
+    - type: ltv_analysis
+      format: table

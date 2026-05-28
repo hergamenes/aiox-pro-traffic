@@ -1,0 +1,286 @@
+# Avatar Framework Knowledge Base - Product Launch Formula
+# Source: Launch (Jeff Walker) - Pre-Prelaunch Research
+# Version: 1.0
+
+metadata:
+  source: "Launch by Jeff Walker (Original + Updated Edition 2021)"
+  context: "Pre-Prelaunch Research and List Building"
+  validated: true
+  created: "2026-01-27"
+
+overview:
+  description: |
+    O framework de avatar no PLF e focado em entender profundamente
+    o prospect ANTES do lancamento para criar conteudo que ressoa.
+    A pesquisa de avatar alimenta diretamente o Pre-Launch Content.
+  jeff_quote: |
+    "If you understand what keeps your prospect up at night, what they
+    dream about, what frustrates them, and what they secretly desire...
+    you can create content that speaks directly to their soul."
+
+core_framework:
+  name: "PLF Avatar Research Framework"
+  purpose: "Entender o prospect para criar PLCs irresistiveis"
+
+  dimensions:
+    hopes_and_dreams:
+      name: "Hopes and Dreams (Esperancas e Sonhos)"
+      description: "O que o prospect deseja alcancar"
+      questions:
+        - "O que voce gostaria de conseguir nos proximos 12 meses?"
+        - "Se voce pudesse acordar amanha com qualquer habilidade, qual seria?"
+        - "O que voce inveja nas pessoas que admira?"
+        - "Qual seria sua vida ideal daqui 5 anos?"
+        - "O que voce tentaria se soubesse que nao ia falhar?"
+      plf_application: |
+        Use em PLC1 para pintar a OPORTUNIDADE.
+        Mostre que o sonho deles e possivel.
+
+    fears_and_frustrations:
+      name: "Fears and Frustrations (Medos e Frustracoes)"
+      description: "O que impede o prospect de agir"
+      questions:
+        - "O que te deixa acordado a noite preocupado?"
+        - "Qual sua maior frustracao com [area]?"
+        - "O que voce ja tentou que nao funcionou?"
+        - "O que te impede de alcancar [desejo]?"
+        - "O que voce tem medo que aconteca se nao mudar?"
+      plf_application: |
+        Use em PLC1 e PLC2 para mostrar que voce ENTENDE.
+        Valide as frustracoes antes de apresentar a solucao.
+
+    obstacles_and_objections:
+      name: "Obstacles and Objections (Obstaculos e Objecoes)"
+      description: "Barreiras percebidas para a transformacao"
+      questions:
+        - "O que te impede de resolver esse problema hoje?"
+        - "Por que voce ainda nao conseguiu [resultado desejado]?"
+        - "O que precisaria mudar para voce agir?"
+        - "Quais duvidas voce tem sobre [solucao]?"
+        - "O que faria voce desistir no meio do caminho?"
+      plf_application: |
+        Use em PLC2 e PLC3 para quebrar objecoes.
+        Antecipe e responda ANTES de abrir o carrinho.
+
+    current_situation:
+      name: "Current Situation (Situacao Atual)"
+      description: "Onde o prospect esta agora"
+      questions:
+        - "Como voce descreveria sua situacao atual com [area]?"
+        - "Ha quanto tempo voce enfrenta esse desafio?"
+        - "O que voce ja tentou para resolver?"
+        - "Como isso afeta outras areas da sua vida?"
+        - "Em uma escala de 1-10, quao urgente e resolver isso?"
+      plf_application: |
+        Use no PLC1 para criar identificacao imediata.
+        "Voce esta aqui... vamos para la."
+
+    desired_transformation:
+      name: "Desired Transformation (Transformacao Desejada)"
+      description: "O estado futuro que o prospect quer"
+      questions:
+        - "Como seria sua vida se esse problema estivesse resolvido?"
+        - "O que mudaria no seu dia a dia?"
+        - "Como outras pessoas perceberiam a mudanca?"
+        - "O que voce poderia fazer que nao pode hoje?"
+        - "Como voce se sentiria?"
+      plf_application: |
+        Use em PLC3 para criar OWNERSHIP.
+        Faca o prospect visualizar o futuro transformado.
+
+research_methods:
+  pre_prelaunch_survey:
+    name: "Pre-Prelaunch Survey (Shot Across the Bow)"
+    description: |
+      Campanha de pesquisa enviada para a lista existente antes do lancamento.
+      Serve para aquecer a audiencia E coletar dados do avatar.
+    jeff_approach: |
+      "Ask your list their top questions about your topic.
+      This does two things: gives you invaluable research data,
+      and starts the conversation about your upcoming launch."
+
+    classic_questions:
+      - "Qual sua pergunta #1 sobre [TOPICO]?"
+      - "O que te impede de conseguir [RESULTADO DESEJADO]?"
+      - "Se voce pudesse acenar uma varinha magica, o que mudaria sobre [PROBLEMA]?"
+      - "O que voce ja tentou para resolver [PROBLEMA]?"
+      - "Qual seria o resultado ideal para voce?"
+
+    implementation:
+      format: "Email simples com 1-3 perguntas abertas"
+      timing: "1-4 semanas antes do Prelaunch"
+      response_handling: |
+        - Leia TODAS as respostas manualmente
+        - Identifique padroes de linguagem
+        - Anote objecoes recorrentes
+        - Use as PALAVRAS EXATAS nas PLCs
+
+  social_media_research:
+    name: "Social Media Listening"
+    description: "Pesquisa passiva em redes sociais"
+    sources:
+      - "Grupos de Facebook do nicho"
+      - "Comentarios em posts de concorrentes"
+      - "Reddit (subreddits relevantes)"
+      - "Quora (perguntas populares)"
+      - "Reviews de produtos similares (Amazon)"
+    what_to_look_for:
+      - "Perguntas frequentes"
+      - "Frustracoes expressas"
+      - "Linguagem especifica usada"
+      - "Objecoes a solucoes existentes"
+      - "Resultados desejados"
+
+  competitor_analysis:
+    name: "Competitor Launch Analysis"
+    description: "Analise de lancamentos de concorrentes"
+    what_to_observe:
+      - "Que promessas estao fazendo?"
+      - "Quais objecoes estao respondendo?"
+      - "Que tipo de prova social usam?"
+      - "Qual a transformacao prometida?"
+      - "O que os comentarios dizem?"
+    purpose: |
+      Nao para copiar, mas para entender o que o mercado
+      ja esta acostumado a ouvir e onde ha gaps.
+
+  one_on_one_interviews:
+    name: "Customer Interviews"
+    description: "Conversas diretas com clientes ideais"
+    when_to_use: "Especialmente para Seed Launch"
+    questions:
+      - "Conte-me sobre a ultima vez que voce tentou [resolver problema]"
+      - "O que voce estava esperando que acontecesse?"
+      - "O que deu errado?"
+      - "O que voce desejaria que existisse?"
+      - "Se existisse uma solucao perfeita, como seria?"
+    gold_nuggets:
+      - "Frases exatas que usam"
+      - "Emocoes que expressam"
+      - "Objecoes especificas"
+      - "Momentos de frustracao"
+
+avatar_document_structure:
+  sections:
+    demographics:
+      name: "Demografia"
+      fields:
+        - "Idade"
+        - "Genero"
+        - "Localizacao"
+        - "Profissao"
+        - "Renda aproximada"
+        - "Situacao familiar"
+      importance: "Media - util mas nao essencial"
+
+    psychographics:
+      name: "Psicografia (MAIS IMPORTANTE)"
+      fields:
+        - "Valores"
+        - "Crencas sobre [topico]"
+        - "Medos principais"
+        - "Desejos profundos"
+        - "Frustracoess diarias"
+        - "Influencias (quem seguem)"
+      importance: "Critica - e o que direciona o copy"
+
+    language_patterns:
+      name: "Padroes de Linguagem"
+      fields:
+        - "Palavras que usam para descrever o problema"
+        - "Palavras que usam para descrever o desejo"
+        - "Expressoes comuns"
+        - "Perguntas frequentes (exatas)"
+        - "Objecoes (exatas)"
+      importance: "Critica - use as palavras DELES no copy"
+
+    journey_stage:
+      name: "Estagio na Jornada"
+      fields:
+        - "Nivel de awareness (Schwartz)"
+        - "O que ja tentaram"
+        - "O que ja compraram"
+        - "Nivel de sofisticacao do mercado"
+        - "Urgencia atual"
+      importance: "Alta - determina tom do PLC"
+
+    day_in_the_life:
+      name: "Um Dia na Vida"
+      description: |
+        Descreva um dia tipico do avatar, incluindo
+        quando e onde ele sente o problema.
+      fields:
+        - "Momento de frustracao"
+        - "Trigger emocional"
+        - "Quando pensa na solucao"
+        - "O que faz atualmente"
+        - "O que gostaria de fazer"
+      importance: "Alta - cria conexao no PLC1"
+
+plc_avatar_mapping:
+  plc1:
+    name: "PLC1 - The Opportunity"
+    avatar_elements_to_use:
+      - "Situacao atual (create identification)"
+      - "Frustracoess (show you understand)"
+      - "Desejos (paint the opportunity)"
+      - "Linguagem exata (mirror their words)"
+    example: |
+      "Voce ja sentiu que nao importa quanto se esforce,
+      [frustracao especifica]? Voce nao esta sozinho.
+      E se eu te dissesse que existe uma forma de [desejo]
+      sem [obstaculo comum]?"
+
+  plc2:
+    name: "PLC2 - The Transformation"
+    avatar_elements_to_use:
+      - "Objecoes principais (address them)"
+      - "Prova social com avatares similares"
+      - "Transformacao desejada (show it's real)"
+    example: |
+      "[Nome], que assim como voce [situacao similar],
+      conseguiu [resultado especifico] em [tempo].
+      A objecao que ela tinha era [objecao comum].
+      Veja o que aconteceu..."
+
+  plc3:
+    name: "PLC3 - The Ownership"
+    avatar_elements_to_use:
+      - "Visao do futuro transformado"
+      - "Day in the life (apos transformacao)"
+      - "Valores (connect to bigger purpose)"
+    example: |
+      "Imagina acordar sabendo que [resultado].
+      Em vez de [frustracao atual], voce [nova realidade].
+      [Nome do avatar] me disse que a maior mudanca foi..."
+
+validation_questions:
+  before_launch:
+    - "Consigo descrever o dia a dia do meu avatar em detalhes?"
+    - "Sei exatamente quais palavras ele usa para descrever o problema?"
+    - "Conheco as 3 principais objecoes que ele tem?"
+    - "Sei o que ele ja tentou e nao funcionou?"
+    - "Consigo pintar a transformacao de forma que ele visualize?"
+
+  after_research:
+    - "Tenho pelo menos 10-20 respostas da survey?"
+    - "Identifiquei padroes repetidos?"
+    - "Anotei frases exatas?"
+    - "Mapeei objecoes recorrentes?"
+    - "Entendo a urgencia atual?"
+
+common_mistakes:
+  - mistake: "Criar avatar baseado em achismo"
+    fix: "SEMPRE basear em pesquisa real"
+
+  - mistake: "Focar demais em demografia"
+    fix: "Psicografia e muito mais importante"
+
+  - mistake: "Usar suas proprias palavras"
+    fix: "Use as PALAVRAS do avatar no copy"
+
+  - mistake: "Criar avatar unico para todos"
+    fix: "Pode ter sub-avatares para diferentes PLCs"
+
+  - mistake: "Nao atualizar o avatar"
+    fix: "Refine com feedback de cada lancamento"

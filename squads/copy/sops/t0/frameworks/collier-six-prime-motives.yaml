@@ -1,0 +1,99 @@
+sop:
+  id: collier-six-prime-motives
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "The Six Prime Motives"
+  purpose: >
+    Classify prospect's dominant purchase motive from six fundamental human drivers.
+    Wrong motive classification means speaking a language the prospect does not
+    respond to. Determines copy angle, proof strategy, and emotional tone.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: robert-collier
+    artifact_type: framework
+
+  steps:
+    - id: apply_love_assessment
+      action: apply_motive_love
+      description: "Assess Love: Acts for someone they love. Insurance, education, family security. Angle: 'Do this for those who depend on you.'"
+      inputs:
+        - audience_research
+        - product_benefits
+      output: love_score
+
+    - id: apply_gain_assessment
+      action: apply_motive_gain
+      description: "Assess Gain: Wants more money, better deal, financial advantage. Angle: 'Make/save more money.'"
+      output: gain_score
+
+    - id: apply_duty_assessment
+      action: apply_motive_duty
+      description: "Assess Duty: Feels social/moral/civic obligation. Angle: 'You have a responsibility.'"
+      output: duty_score
+
+    - id: apply_pride_assessment
+      action: apply_motive_pride
+      description: "Assess Pride: Wants status, recognition, distinction. Angle: 'This sets you apart.'"
+      output: pride_score
+
+    - id: apply_self_indulgence_assessment
+      action: apply_motive_self_indulgence
+      description: "Assess Self-Indulgence: Wants pleasure, comfort, enjoyment. Angle: 'You deserve this.'"
+      output: self_indulgence_score
+
+    - id: apply_self_preservation_assessment
+      action: apply_motive_self_preservation
+      description: "Assess Self-Preservation: Acts from fear, safety, survival. Angle: 'Protect yourself before it is too late.'"
+      output: self_preservation_score
+
+    - id: apply_dominant_selection
+      action: apply_select_dominant_motive
+      description: "Select single strongest motive. Validate: 'If one argument only, which motive moves this prospect most?'"
+      depends_on:
+        - apply_love_assessment
+        - apply_gain_assessment
+        - apply_duty_assessment
+        - apply_pride_assessment
+        - apply_self_indulgence_assessment
+        - apply_self_preservation_assessment
+      critical: true
+      output: dominant_motive
+
+  error_handling:
+    - error: multiple_dominant
+      symptom: "Copy appeals to everything; diluted message"
+      resolution: "Force-rank: ONE dominant, ONE secondary maximum"
+    - error: projected_motive
+      symptom: "Copy angle reflects writer's preference, not audience's"
+      resolution: "Use research data, not personal preference"
+    - error: motive_mismatch
+      symptom: "Copy angle does not match what drives the audience"
+      resolution: "Re-research: reviews, forums, customer interviews"
+    - error: love_duty_confusion
+      symptom: "'For your family' when motive is obligation, not love"
+      resolution: "Love is emotional (heart); Duty is rational (should)"
+
+  quality_gate:
+    criteria:
+      - "All 6 motives evaluated against specific audience"
+      - "One dominant motive selected"
+      - "Secondary motive identified"
+      - "Copy angle derived from dominant motive"
+      - "Selection validated against market research"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: motive_classification
+      format: ranked_motives
+      description: "Dominant and secondary motive with scores"
+    - name: copy_angle
+      format: angle_statement
+      description: "Copy angle derived from dominant motive"
+    - name: tone_strategy
+      format: recommendation
+      description: "Tone and proof strategy aligned to motive"

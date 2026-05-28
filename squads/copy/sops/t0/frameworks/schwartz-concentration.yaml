@@ -1,0 +1,41 @@
+sop:
+  id: schwartz-concentration
+  version: "1.0"
+  title: "Concentracao (Competitor Destruction)"
+  purpose: "Destroy prospect confidence in competing approaches using point-by-point contrast, temporal sequence, and disadvantage compression."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: eugene-schwartz
+  steps:
+    - id: apply_point_by_point_contrast
+      action: "Alternate between competitor weakness and your strength in Bad/Good pattern"
+      input: "Competitor weaknesses, your product strengths on matching dimensions"
+      output: "Contrast sequence: Bad(competitor) → Good(yours) → Bad → Good"
+      validation: "Strict alternation maintained; each pair creates sharp contrast"
+    - id: apply_temporal_sequence
+      action: "Paint two scenes: life NOW with old approach vs. life AFTER switching"
+      input: "Prospect's current frustrations, post-switch improvements"
+      output: "Two vivid scenes: current pain → future relief"
+      validation: "Both scenes are specific and vivid, not vague generalizations"
+    - id: apply_compression_hack
+      action: "Pack 6+ disadvantage images of competitor approach into single sentence"
+      input: "Competitor weakness inventory"
+      output: "Dense sentence with 6+ negative images in rapid succession"
+      validation: "Sentence is factual, dense, and creates overwhelming negative association"
+  error_handling:
+    - error: "Competitor named directly"
+      resolution: "Replace brand name with approach/method description; never name directly"
+    - error: "Competitor weaknesses are exaggerated"
+      resolution: "Verify each weakness is real and verifiable; remove anything unfair"
+    - error: "Concentration section exceeds 20% of body copy"
+      resolution: "Trim to 15-20%; transition smoothly to product mechanism"
+  quality_gate:
+    criteria:
+      - "No competitor named directly"
+      - "Point-by-point uses strict Bad/Good alternation"
+      - "Temporal sequence paints vivid specific scenes"
+      - "Compression hack achieves 6+ images per key sentence"
+      - "Concentration limited to 15-20% of body copy"
+    pass_threshold: "All 5 criteria met"

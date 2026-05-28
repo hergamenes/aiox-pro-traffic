@@ -1,0 +1,87 @@
+sop:
+  id: collier-damaged-set-protocol
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Damaged-Set Protocol"
+  purpose: >
+    Sell odd lots, imperfect inventory, or discontinued items. Provide real specific
+    reason for low price, frame flaw as minor. Collier generated 10,000 orders from
+    3,000 damaged sets. Key: specific reason removes suspicion, triggers bargain instinct.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: robert-collier
+    artifact_type: framework
+
+  steps:
+    - id: apply_real_reason
+      action: apply_specific_discount_reason
+      description: "Give REAL specific reason for low price. Not 'on sale' — actual reason. Specific triggers bargain instinct."
+      critical: true
+      inputs:
+        - product_condition
+        - discount_reason
+      output: reason_copy
+
+    - id: apply_exact_count
+      action: apply_precise_inventory
+      description: "State EXACT number remaining. 'Exactly 347' not 'about 350'. Exact numbers create urgency and credibility."
+      depends_on: apply_real_reason
+      critical: true
+      output: inventory_statement
+
+    - id: apply_minor_flaw
+      action: apply_minimize_flaw
+      description: "Make flaw sound minor. Describe honestly but frame as negligible. Spotlight it then minimize practical impact."
+      depends_on: apply_real_reason
+      output: flaw_description
+
+    - id: apply_same_guarantee
+      action: apply_matching_guarantee
+      description: "Offer same guarantee as perfect product. Credibility anchor proving seller confidence that flaw does not matter."
+      depends_on: apply_minor_flaw
+      output: guarantee_copy
+
+  error_handling:
+    - error: vague_discount_reason
+      symptom: "'Special sale!' — prospect suspects hidden defect"
+      resolution: "State real specific reason: warehouse issue, return, overstock"
+    - error: round_number_inventory
+      symptom: "'About 500' — lacks credibility"
+      resolution: "State exact count: 'We have exactly 483'"
+    - error: hidden_flaw
+      symptom: "No mention; prospect discovers and feels deceived"
+      resolution: "Disclose flaw upfront and frame as minor"
+    - error: exaggerated_flaw
+      symptom: "Thorough damage description makes prospect imagine worse"
+      resolution: "Keep flaw description brief; emphasize minor practical impact"
+    - error: no_guarantee
+      symptom: "Prospect assumes flaw is serious"
+      resolution: "Offer same guarantee as full-price product"
+
+  quality_gate:
+    criteria:
+      - "Reason for discount is genuine, specific, verifiable"
+      - "Exact inventory count stated (not rounded)"
+      - "Flaw described honestly but framed as minor"
+      - "Same guarantee as perfect product offered"
+      - "Price comparison to full-price included"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: discount_rationale
+      format: copy_block
+      description: "Specific, genuine reason for the low price"
+    - name: inventory_count
+      format: exact_number
+      description: "Precise units available"
+    - name: flaw_framing
+      format: copy_block
+      description: "Honest disclosure with minimization"
+    - name: guarantee_match
+      format: guarantee_terms
+      description: "Same terms as full-price product"

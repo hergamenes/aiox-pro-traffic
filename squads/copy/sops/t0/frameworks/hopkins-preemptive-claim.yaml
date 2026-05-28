@@ -1,0 +1,51 @@
+sop:
+  id: hopkins-preemptive-claim
+  version: "1.0"
+  title: "Preemptive Claim Framework"
+  purpose: "Discover and communicate undisclosed processes to create competitive advantage — first to describe owns the perception."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: claude-hopkins
+  steps:
+    - id: apply_process_discovery
+      action: "Identify manufacturing/delivery processes nobody communicates"
+      input: "Factory tour notes, supply chain docs, operations interviews"
+      output: "List of undisclosed process steps with specific details"
+      validation: "Each process is real, verifiable, and currently uncommunicated by competitors"
+    - id: apply_quality_control_discovery
+      action: "Identify tests and quality controls done but not disclosed"
+      input: "QC documentation, inspection logs, testing standards"
+      output: "List of undisclosed quality checks with frequency, standards, and rejection criteria"
+      validation: "Each quality control is actually performed and documented"
+    - id: apply_problem_naming
+      action: "Identify consumer problems nobody in the category is naming"
+      input: "Customer complaints, forum discussions, support tickets, category reviews"
+      output: "List of unnamed problems with frequency and emotional weight"
+      validation: "Problem is real, experienced by prospects, and not named by competitors"
+    - id: apply_technical_detail_extraction
+      action: "Identify technical details that create perception of superiority"
+      input: "Product specs, ingredient lists, process timelines"
+      output: "Specific numbers, timelines, and methods that sound impressive when explained"
+      validation: "Details are factual and include specific numbers, not vague qualifiers"
+    - id: apply_first_claim
+      action: "Write and publish the preemptive claim before competitors"
+      input: "Discovered processes, quality controls, problem names, technical details"
+      output: "Copy positioning undisclosed processes as competitive advantages"
+      validation: "Competitor audit confirms no one else currently claims these"
+  error_handling:
+    - error: "Process is fabricated or not actually performed"
+      resolution: "Block claim; verify with operations before any publication"
+    - error: "Competitor already communicates this process"
+      resolution: "Remove from preemptive list; find alternative undisclosed process"
+    - error: "Technical detail is too complex for audience"
+      resolution: "Translate into benefit language while preserving specificity"
+  quality_gate:
+    criteria:
+      - "Minimum 3 undisclosed processes identified"
+      - "All claims verified as actually performed"
+      - "Competitor audit confirms no prior claims"
+      - "Technical details include specific numbers"
+      - "Copy reads as educational, not boastful"
+    pass_threshold: "All 5 criteria met"

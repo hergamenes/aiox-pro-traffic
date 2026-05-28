@@ -1,0 +1,416 @@
+# Contingency Framework Knowledge Base - Product Launch Formula
+# Source: Launch (Jeff Walker) + Launch Operation Best Practices
+# Version: 1.0
+
+metadata:
+  source: "Launch by Jeff Walker + PLF Community Learnings"
+  validated: true
+  created: "2026-01-27"
+
+overview:
+  description: |
+    Framework de contingencia para lancamentos PLF,
+    cobrindo cenarios de problemas tecnicos, baixo engajamento,
+    crises e situacoes inesperadas.
+  jeff_principle: |
+    "Things will go wrong. They always do. The question isn't IF
+    something will break - it's whether you're prepared to handle it."
+
+tech_failures:
+  email_issues:
+    problem: "Emails nao estao sendo entregues"
+    symptoms:
+      - "Open rate muito baixo (< 10%)"
+      - "Bounces aumentando"
+      - "Subscribers reclamando que nao receberam"
+    immediate_actions:
+      - "Verificar status do provedor de email"
+      - "Checar se emails cairam em spam"
+      - "Enviar teste para contas pessoais"
+      - "Verificar DNS records (SPF, DKIM, DMARC)"
+    contingency:
+      - "Ter backup de lista em CSV"
+      - "Conta secundaria de email configurada"
+      - "Template pronto para envio manual se necessario"
+      - "Post em social media como backup"
+    prevention:
+      - "Aquecer IP novo antes do lancamento"
+      - "Limpar lista de inativos antes"
+      - "Testar deliverability 1 semana antes"
+
+  payment_processor_down:
+    problem: "Checkout nao esta funcionando"
+    symptoms:
+      - "Clientes reportando erro no pagamento"
+      - "Zero vendas apesar de cliques"
+      - "Erros de processamento"
+    immediate_actions:
+      - "Verificar status do Stripe/PayPal"
+      - "Testar compra voce mesmo"
+      - "Verificar integracao com landing page"
+      - "Checar certificado SSL"
+    contingency:
+      - "Ter segundo processador configurado (PayPal se Stripe e principal)"
+      - "Pagina de backup com link alternativo"
+      - "Processo manual para emergencias"
+    communication:
+      template: |
+        "Ei [Nome],
+
+        Estamos com um problema tecnico temporario no checkout.
+        Minha equipe esta resolvendo agora.
+
+        Se voce tentou comprar e nao conseguiu:
+        1. Tente novamente em [X] minutos
+        2. OU use este link alternativo: [backup link]
+        3. OU responda este email que te ajudamos manualmente
+
+        Desculpa pelo inconveniente. Ja estamos resolvendo.
+
+        [Assinatura]"
+
+  sales_page_down:
+    problem: "Pagina de vendas fora do ar"
+    immediate_actions:
+      - "Verificar status do hosting"
+      - "Checar se dominio expirou"
+      - "Verificar CDN/cloudflare"
+      - "Limpar cache"
+    contingency:
+      - "Backup da pagina em servidor diferente"
+      - "Versao simplificada pronta (ate Google Doc)"
+      - "Landing page alternativa configurada"
+    prevention:
+      - "Testar sob carga antes do lancamento"
+      - "Hosting com boa reputacao"
+      - "Monitoramento de uptime configurado"
+
+  video_platform_issues:
+    problem: "Videos dos PLCs nao carregam"
+    immediate_actions:
+      - "Verificar status do Vimeo/YouTube/host"
+      - "Testar em diferentes navegadores"
+      - "Checar se e problema de embedding"
+    contingency:
+      - "Videos hospedados em 2 plataformas"
+      - "Versao em texto/transcript pronta"
+      - "Audio como alternativa"
+    communication:
+      template: |
+        "[Nome],
+
+        O video de hoje esta temporariamente indisponivel.
+        Enquanto resolvemos, aqui esta a versao em texto/audio: [link]
+
+        O video volta em breve. Voce sera notificado.
+
+        [Assinatura]"
+
+low_engagement:
+  low_open_rates:
+    problem: "Open rates abaixo de 20%"
+    diagnosis:
+      - "Subject lines nao estao funcionando"
+      - "Lista esta fria"
+      - "Horario de envio ruim"
+      - "Problema de deliverability"
+    immediate_actions:
+      - "Testar novos subject lines"
+      - "Reenviar para nao-abridores com subject diferente"
+      - "Ajustar horario de envio"
+      - "Verificar pasta de spam"
+    recovery:
+      - "Email de 'voce viu isso?' mais pessoal"
+      - "Social media para complementar"
+      - "SMS se tiver lista (cuidado com frequencia)"
+
+  low_plc_consumption:
+    problem: "Pessoas nao estao assistindo os PLCs"
+    diagnosis:
+      - "PLCs muito longos"
+      - "Conteudo nao esta ressonando"
+      - "Tech barrier (video nao carrega)"
+      - "Timing ruim"
+    immediate_actions:
+      - "Criar versao resumida"
+      - "Oferecer transcript/audio"
+      - "Destacar os pontos principais em email"
+      - "Criar urgencia para consumir"
+    recovery:
+      email_template: |
+        "[Nome],
+
+        Percebi que voce ainda nao assistiu [PLC X].
+
+        Eu sei que [X] minutos pode parecer muito, mas deixa eu te dar o resumo:
+
+        Ponto 1: [...]
+        Ponto 2: [...]
+        Ponto 3: [...]
+
+        Se voce so tiver 5 minutos, assista a partir do minuto [X].
+        E a parte mais importante.
+
+        [Link]
+
+        [Assinatura]"
+
+  low_engagement_comments:
+    problem: "Nenhum comentario ou interacao nos PLCs"
+    diagnosis:
+      - "CTA de comentario nao esta claro"
+      - "Pergunta muito generica"
+      - "Audiencia muito passiva"
+    immediate_actions:
+      - "Fazer pergunta mais especifica"
+      - "Comentar voce mesmo para iniciar"
+      - "Responder os primeiros comentarios pessoalmente"
+    recovery:
+      - "Email pedindo feedback direto"
+      - "Enquete simples (A ou B)"
+      - "Oferecer bonus para quem comentar"
+
+low_sales:
+  day_1_below_expectations:
+    problem: "Vendas no dia 1 muito abaixo do esperado"
+    diagnosis_questions:
+      - "A landing page esta funcionando?"
+      - "O checkout esta processando?"
+      - "Os emails foram entregues?"
+      - "O preco esta muito alto?"
+      - "A oferta esta confusa?"
+    immediate_actions:
+      - "Verificar tech (tudo funcionando?)"
+      - "Enviar email extra no fim do dia"
+      - "Postar em social media"
+      - "Checar se objecoes nao foram respondidas"
+    recovery:
+      - "Email de 'primeiras vagas preenchidas' se houver vendas"
+      - "Adicionar urgency element se nao tinha"
+      - "FAQ addressing objecoes"
+      - "Live Q&A improvisado"
+
+  mid_launch_stall:
+    problem: "Vendas pararam no meio do lancamento"
+    normal_context: |
+      "Isso e NORMAL. 25% no dia 1, 25% nos dias do meio,
+      50% no ultimo dia. O 'valley' no meio e esperado."
+    when_to_worry:
+      - "Zero vendas por 2+ dias seguidos"
+      - "Unsubscribes muito altos"
+      - "Feedback negativo significativo"
+    actions:
+      - "Manter a cadencia de emails"
+      - "Adicionar case study extra"
+      - "Fazer live Q&A"
+      - "Teaser do que vem no ultimo dia"
+
+  last_day_disappointing:
+    problem: "Ultimo dia nao trouxe o esperado 50%"
+    diagnosis:
+      - "Escassez nao foi percebida como real"
+      - "Objecoes finais nao foram respondidas"
+      - "Preco e barreira intransponivel"
+      - "Audiencia nao estava pronta"
+    immediate_actions:
+      - "Mais emails (se nao enviou os 3-4 planejados)"
+      - "Estender deadline em algumas horas (one-time, com justificativa)"
+      - "Oferta de payment plan de ultima hora"
+    post_mortem:
+      - "Documentar aprendizados"
+      - "Survey para quem nao comprou"
+      - "Ajustar para proximo lancamento"
+
+  total_launch_failure:
+    problem: "Lancamento foi um fracasso completo"
+    definition: "Menos de 50% do minimo esperado"
+    immediate:
+      - "Nao entre em panico publicamente"
+      - "Complete o lancamento com dignidade"
+      - "Agradecer quem comprou"
+    analysis:
+      questions_to_ask:
+        - "A lista estava aquecida?"
+        - "O produto resolve um problema real?"
+        - "A oferta era clara e atraente?"
+        - "O preco estava certo para o mercado?"
+        - "Os PLCs entregaram valor?"
+        - "As objecoes foram respondidas?"
+    recovery_options:
+      - "Survey para entender o gap"
+      - "Pivotar a oferta"
+      - "Seed Launch para validar"
+      - "Refazer PLCs com feedback"
+    jeff_perspective: |
+      "A failed launch is expensive tuition, but it's tuition nonetheless.
+      The lessons you learn will make your next launch better."
+
+crisis_management:
+  negative_feedback:
+    problem: "Criticas publicas ou reclamacoes"
+    types:
+      legitimate_complaint:
+        response: |
+          "Obrigado pelo feedback, [Nome].
+          Voce tem razao sobre [ponto valido].
+          Ja estamos [acao corretiva].
+          Posso te ajudar pessoalmente com [solucao]?"
+        private_follow_up: true
+
+      troll_attack:
+        response: "Ignorar ou responder uma vez educadamente, depois ignorar"
+        do_not: "Entrar em discussao publica"
+
+      competitor_sabotage:
+        response: "Documentar, ignorar publicamente, agir legalmente se necessario"
+
+    general_rules:
+      - "Responder rapido (dentro de horas)"
+      - "Nao ser defensivo"
+      - "Levar para privado quando possivel"
+      - "Corrigir erros genuinos publicamente"
+
+  refund_requests:
+    during_launch:
+      policy: "Processar rapidamente, sem atrito"
+      response_template: |
+        "[Nome],
+
+        Pedido de reembolso processado.
+        O valor sera estornado em [X] dias uteis.
+
+        Se quiser compartilhar o que nao funcionou para voce,
+        agradeco o feedback - ajuda a melhorar para os proximos.
+
+        Sem ressentimentos. Desejo sucesso.
+
+        [Assinatura]"
+
+    high_refund_rate:
+      threshold: "> 10%"
+      diagnosis:
+        - "Expectativas nao alinhadas?"
+        - "Produto nao entregou promessa?"
+        - "Onboarding confuso?"
+      action: "Pausar e investigar antes de continuar"
+
+  external_events:
+    problem: "Evento externo afeta o lancamento (crise, noticia, desastre)"
+    options:
+      pause_launch:
+        when: "Evento maior incompativel com vender"
+        how: "Comunicar com empatia, pausar, retomar depois"
+      continue_adjusted:
+        when: "Evento menor, ajustar tom"
+        how: "Reconhecer momento, adaptar messaging"
+      continue_normal:
+        when: "Evento nao relacionado ao seu mercado"
+        how: "Seguir normalmente mas estar atento"
+
+communication_templates:
+  tech_issue_announcement:
+    template: |
+      "Ola [Nome],
+
+      Estamos enfrentando um problema tecnico com [sistema].
+      Minha equipe esta trabalhando para resolver o mais rapido possivel.
+
+      O que voce precisa saber:
+      - [Status atual]
+      - [Estimativa de resolucao]
+      - [O que fazer enquanto isso]
+
+      Vou te atualizar assim que estiver resolvido.
+
+      Desculpa pelo inconveniente.
+
+      [Assinatura]"
+
+  deadline_extension:
+    template: |
+      "Ola [Nome],
+
+      Por causa de [razao legitima - problema tecnico/pedidos],
+      decidi estender o prazo do [Produto] por mais [X] horas.
+
+      O novo deadline e [data/hora].
+
+      Se voce estava tentando entrar e nao conseguiu,
+      agora tem mais uma chance.
+
+      Depois de [novo deadline], a porta fecha de verdade.
+
+      [Link]
+
+      [Assinatura]"
+    warning: |
+      "Use com MUITA parcimonia. Extensoes frequentes
+      destroem credibilidade da escassez."
+
+  launch_cancellation:
+    template: |
+      "Ola [Nome],
+
+      Preciso te contar algo dificil.
+
+      Decidi adiar/cancelar o lancamento do [Produto].
+
+      O motivo: [razao honesta - nao esta pronto / feedback indicou necessidade de ajustes / situacao pessoal].
+
+      Se voce estava animado para participar, eu entendo a frustracao.
+      Quero fazer isso direito, nao so fazer rapido.
+
+      [Proximo passo - quando volta / reembolsos se aplicavel]
+
+      Obrigado pela paciencia e confianca.
+
+      [Assinatura]"
+
+pre_launch_checklist:
+  tech_readiness:
+    - item: "Email platform testada e aquecida"
+      backup: "Conta secundaria configurada"
+    - item: "Landing page funcionando"
+      backup: "Pagina backup pronta"
+    - item: "Checkout processando"
+      backup: "Processador alternativo configurado"
+    - item: "Videos hospedados e carregando"
+      backup: "Plataforma secundaria"
+    - item: "Automacoes testadas end-to-end"
+      backup: "Processo manual documentado"
+
+  content_readiness:
+    - item: "Todos os PLCs gravados/finalizados"
+    - item: "Todos os emails escritos"
+    - item: "Sales page completa"
+    - item: "FAQ preparado"
+    - item: "Testimonials coletados"
+
+  support_readiness:
+    - item: "Time de suporte briefado"
+    - item: "Templates de resposta prontos"
+    - item: "Escalonamento definido"
+    - item: "Horarios de cobertura definidos"
+
+monitoring_during_launch:
+  metrics_to_watch:
+    hourly:
+      - "Vendas"
+      - "Erros de checkout"
+      - "Email bounces"
+    daily:
+      - "Open rates"
+      - "Click rates"
+      - "Conversion rate"
+      - "Unsubscribes"
+      - "Refund requests"
+
+  alert_thresholds:
+    critical:
+      - "Zero vendas por 6+ horas (em horario comercial)"
+      - "Bounce rate > 5%"
+      - "Checkout errors > 2%"
+    warning:
+      - "Open rate < 20%"
+      - "Click rate < 3%"
+      - "Refund rate > 5%"

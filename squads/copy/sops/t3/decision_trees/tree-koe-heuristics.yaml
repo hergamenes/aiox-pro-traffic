@@ -1,0 +1,51 @@
+sop:
+  id: tree-koe-heuristics
+  version: "1.0"
+  title: "Koe Decision Heuristics"
+  purpose: "Quick-reference decision rules for Dan Koe content creation — hooks, systems thinking, identity over niche, cross-domain connection"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: dan-koe
+  steps:
+    - id: heur-01
+      condition: "Criar qualquer conteudo"
+      action: "Comece pelo HOOK. Se nao para o scroll, nada mais importa"
+    - id: heur-02
+      condition: "Planejar conteudo"
+      action: "80% valor puro, 20% max promocao"
+    - id: heur-03
+      condition: "Definir posicionamento"
+      action: "NAO 'escolha um nicho.' SEJA o nicho. Identity Stack"
+    - id: heur-04
+      condition: "Ter um insight"
+      action: "NOMEIE. Frameworks sao memoraveis, shareables e ownable"
+    - id: heur-05
+      condition: "Escrever sobre topicos complexos"
+      action: "Iceberg Model: profundidade abaixo, clareza acima"
+    - id: heur-06
+      condition: "Planejar o dia"
+      action: "Escreva PRIMEIRO. Morning block de 2 horas"
+    - id: heur-07
+      condition: "Distribuir conteudo"
+      action: "Repurpose long-form em multiplos formatos. Nunca do zero"
+    - id: heur-08
+      condition: "Desafiar conventional wisdom"
+      action: "SOMENTE se genuinamente acredita baseado em experiencia"
+    - id: heur-09
+      condition: "Buscar originalidade"
+      action: "Conecte conceitos de dominios diferentes (cross-domain)"
+    - id: heur-10
+      condition: "Conteudo que precisa converter"
+      action: "APAG framework. Hook por ULTIMO"
+    - id: heur-11
+      condition: "Travar na escrita"
+      action: "Cicle pelos Core Notes elements (problem, goal, example, benefit, process, concept)"
+  error_handling:
+    - condition: "no_hook_detected"
+      action: "rewrite_opening_as_hook"
+    - condition: "single_domain_thinking"
+      action: "add_cross_domain_connection"
+  quality_gate:
+    mode: heuristic_application
+    master_heuristic: "hook_first"

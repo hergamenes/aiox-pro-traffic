@@ -1,0 +1,144 @@
+sop:
+  id: "ah-grand-slam-offer-build"
+  version: "1.0.0"
+  title: "Grand Slam Offer Algorithm"
+  purpose: "Create an offer so compelling that saying no feels stupid through systematic market validation, value engineering, risk reversal, premium pricing, and MAGIC naming"
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    sub_category: "offer-architecture"
+    risk_level: "medium"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "When creating a new offer, repositioning from commodity pricing, or building a premium offer that needs overwhelming value justification"
+  context:
+    input:
+      - name: "product_service"
+        type: "object"
+        required: true
+        description: "What you sell and the transformation it delivers"
+      - name: "target_avatar"
+        type: "object"
+        required: true
+        description: "Specific definition of who this offer is for — demographics, psychographics, situation"
+      - name: "market_data"
+        type: "object"
+        required: true
+        description: "Competitor pricing, positioning, and prospect's current alternatives"
+  steps:
+    - id: "S001"
+      name: "Validate Market"
+      action: "validate_4_criteria"
+      description: "Confirm market has massive pain, buying power, reachability, and growth. If ANY fails, pivot market before proceeding."
+      performer: "copywriter"
+      critical: true
+      on_success: "S002"
+      on_failure: "abort"
+    - id: "S002"
+      name: "Nichify the Offer"
+      action: "narrow_target"
+      description: "Complete with extreme specificity: 'I solve [PROBLEM] for [AVATAR] through [MECHANISM].' The narrower the niche, the more premium the pricing."
+      performer: "copywriter"
+      critical: true
+      on_success: "S003"
+      on_failure: "retry"
+    - id: "S003"
+      name: "Articulate Dream Outcome"
+      action: "define_transformation"
+      description: "Write ONE clear sentence describing the ideal end-state. This is the transformation (status-based), not deliverables."
+      performer: "copywriter"
+      critical: true
+      on_success: "S004"
+      on_failure: "retry"
+    - id: "S004"
+      name: "Map Problems and Obstacles"
+      action: "enumerate_problems_before_during_after"
+      description: "List every problem, fear, and obstacle across three stages: before attempting, during the attempt, after initial result. Be exhaustive."
+      performer: "copywriter"
+      critical: true
+      on_success: "S005"
+      on_failure: "retry"
+    - id: "S005"
+      name: "Generate Named Solutions"
+      action: "create_solution_per_problem"
+      description: "Create a specific, named solution for each problem. Each solution is a deliverable with a benefit-driven name."
+      performer: "copywriter"
+      critical: false
+      on_success: "S006"
+      on_failure: "retry"
+    - id: "S006"
+      name: "Optimize Value Stack"
+      action: "prioritize_value_cost_matrix"
+      description: "Plot solutions on value vs. cost matrix. Keep high-value/low-cost, cut low-value/high-cost, evaluate the rest."
+      performer: "copywriter"
+      critical: false
+      on_success: "S007"
+      on_failure: "retry"
+    - id: "S007"
+      name: "Build Risk Reversal Guarantee"
+      action: "design_guarantee"
+      description: "Select guarantee type (unconditional, result-based, reverse penalty, or anti-guarantee) that eliminates the prospect's biggest purchase fear."
+      performer: "copywriter"
+      critical: true
+      on_success: "S008"
+      on_failure: "retry"
+    - id: "S008"
+      name: "Set Premium Price"
+      action: "price_on_value"
+      description: "Price at 10-20% of the transformation value. Ignore market average and competitor pricing. Higher price = higher perceived value."
+      performer: "copywriter"
+      critical: true
+      on_success: "S009"
+      on_failure: "retry"
+    - id: "S009"
+      name: "Add Genuine Scarcity/Urgency"
+      action: "create_real_constraints"
+      description: "Add real scarcity (limited spots, inventory) and urgency (deadline, expiring bonus). MUST be genuine — fake scarcity destroys trust."
+      performer: "copywriter"
+      critical: false
+      on_success: "S010"
+      on_failure: "retry"
+    - id: "S010"
+      name: "Apply MAGIC Naming Formula"
+      action: "name_offer_and_components"
+      description: "Name using MAGIC: Magnetic reason why + Avatar announced + Goal stated + Interval indicated + Container word. Example: 'The Chiropractor Revenue Accelerator: $30K/Month in 90 Days.'"
+      performer: "copywriter"
+      critical: false
+      on_success: "END"
+      on_failure: "retry"
+  error_handling:
+    global_timeout: "PT6H"
+    retry_policy:
+      max_retries: 2
+      backoff: "linear"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "market_validated_4_criteria"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "niche_specific_enough"
+        type: "boolean"
+        target: true
+        weight: 0.15
+      - name: "problems_mapped_3_stages"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "guarantee_addresses_biggest_fear"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "saying_no_feels_stupid"
+        type: "boolean"
+        target: true
+        weight: 0.25
+    pass_threshold: 0.85
+  outputs:
+    artifacts:
+      - name: "grand_slam_offer"
+        type: "file"
+        format: "md"
+        description: "Complete offer with niche statement, dream outcome, problem-solution map, value stack, guarantee, premium pricing, and MAGIC-named components"

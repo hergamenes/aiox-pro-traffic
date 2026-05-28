@@ -1,0 +1,83 @@
+sop:
+  id: lampropoulos-info-product-copy
+  version: "1.0"
+  title: "Info Product Copy Method"
+  purpose: "Write info product copy by consuming product entirely, giving away select secrets (Gift Exchange), writing fascinations for the rest, and finding headline in completed copy"
+  classification:
+    domain: copywriting
+    category: master
+    tier: T1
+    source_agent: parris-lampropoulos
+
+  inputs:
+    - name: complete_info_product
+      type: resource
+      required: true
+    - name: market_research
+      type: document
+      required: true
+
+  outputs:
+    - name: info_product_copy
+      type: document
+      description: "Copy with Gift Exchange fascinations, given-away secrets, and derived headline"
+
+  steps:
+    - id: step_01
+      action: consume_product_entirely
+      description: "Go through every chapter, module, video, worksheet — take genuine reaction notes, not summaries"
+      critical: true
+      error_handling:
+        condition: "skimming_or_using_summaries"
+        action: "consume_firsthand_no_shortcuts"
+
+    - id: step_02
+      action: rank_surprising_valuable_elements
+      description: "Rank insights by surprise factor x value density — find intersection of high surprise and high value"
+      critical: true
+      error_handling:
+        condition: "no_surprising_elements_found"
+        action: "deepen_product_consumption_or_research_prospect_knowledge_gaps"
+
+    - id: step_03
+      action: select_gift_exchange_secrets
+      description: "Choose 2-3 most valuable insights to reveal in full as proof of product value"
+      critical: true
+      error_handling:
+        condition: "selected_secrets_are_weak"
+        action: "upgrade_to_genuinely_valuable_actionable_insights"
+
+    - id: step_04
+      action: write_fascinations
+      description: "Create curiosity-building fascinations for all remaining insights — specific enough for curiosity, vague enough to require purchase"
+      critical: true
+      error_handling:
+        condition: "fascinations_too_vague"
+        action: "add_specifics_page_numbers_timeframes_results"
+
+    - id: step_05
+      action: lead_with_greatest_aha
+      description: "Build opening around single most surprising and emotionally impactful insight from product"
+      critical: true
+      error_handling:
+        condition: "leading_with_most_important_not_most_surprising"
+        action: "select_for_surprise_and_emotion_over_importance"
+
+    - id: step_06
+      action: find_headline_in_copy
+      description: "After copy complete, find headline already present in the text — do not invent separately"
+      critical: true
+      error_handling:
+        condition: "headline_invented_before_copy"
+        action: "rewrite_headline_from_strongest_phrase_in_completed_copy"
+
+  quality_gate:
+    min_criteria_met: 5
+    criteria:
+      - "entire_product_consumed_not_skimmed"
+      - "surprising_valuable_elements_ranked"
+      - "2_3_genuine_secrets_given_away"
+      - "given_secrets_are_genuinely_actionable"
+      - "fascinations_specific_yet_vague_enough"
+      - "lead_built_on_greatest_aha_moment"
+      - "headline_found_in_copy"

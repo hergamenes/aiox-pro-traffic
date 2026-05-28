@@ -1,0 +1,41 @@
+sop:
+  id: hopkins-image-rule
+  version: "1.0"
+  title: "Image Selling Rule (CH_H10)"
+  purpose: "Imagem so se justifica se vende mais que texto no mesmo espaco. Criterio de ROI do espaco para decisoes visuais."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: claude-hopkins
+  steps:
+    - step: 1
+      action: "Aplicar teste de ROI do espaco para cada imagem"
+      decision_point:
+        condition: "Imagem vende mais que texto no mesmo espaco?"
+        branches:
+          - if: "Vende MAIS que texto"
+            then: "Incluir imagem — justificada (demonstracao visual, antes/depois, diagrama)"
+          - if: "Vende IGUAL ao texto"
+            then: "Preferir texto — mais barato e controlavel"
+          - if: "Vende MENOS que texto"
+            then: "Remover imagem — ocupa espaco valioso sem retorno"
+          - if: "Incerto sobre performance"
+            then: "Testar versao com imagem vs. versao com texto — medir conversao, nao estetica"
+  error_handling:
+    - error: "Imagem incluida por estetica"
+      severity: warning
+      action: "Testar imagem vs. texto para validar ROI"
+    - error: "Stock photos genericas"
+      severity: warning
+      action: "Usar imagens especificas do produto"
+    - error: "Imagem sem legenda/contexto"
+      severity: minor
+      action: "Legendar com copy de venda"
+  quality_gate:
+    criteria:
+      - "Toda imagem tem justificativa de venda"
+      - "Nenhuma imagem decorativa ocupa espaco de venda"
+      - "Imagens demonstram produto em uso ou resultados"
+      - "ROI do espaco foi considerado"
+    pass_threshold: "Todos os criterios atendidos"

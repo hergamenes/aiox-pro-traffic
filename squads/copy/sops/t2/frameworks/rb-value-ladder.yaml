@@ -1,0 +1,113 @@
+sop:
+  id: rb-value-ladder
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Value Ladder + Funnel Architecture"
+  purpose: >
+    Structure any business offering as an ascending value ladder where each
+    tier has its own funnel architecture, copy style, and conversion mechanism.
+    Ensures copywriters position offers correctly and build ascension paths.
+  classification:
+    domain: copywriting
+    subdomain: offer-architecture
+    complexity: advanced
+    source_agent: russell-brunson
+
+  steps:
+    - id: step_1
+      name: design_bait_tier
+      action: apply_bait_tier_design
+      description: >
+        Create entry point (Free-$47). Write squeeze page with single pain point
+        headline. Thank-you page with OTO at $7-$47. Short, benefit-dense copy.
+        Goal is list building, not profit.
+      inputs:
+        - target_market_pain_points
+        - lead_magnet_content
+      outputs:
+        - squeeze_page_copy
+        - oto_page_copy
+      validation: squeeze_page_has_single_clear_promise
+
+    - id: step_2
+      name: build_frontend_tier
+      action: apply_frontend_tier_build
+      description: >
+        Write main sales page ($47-$497). Full direct response: long-form or VSL
+        with proof, objections, risk reversal, urgency. Order page with bump,
+        OTO, downsell. Maximize average order value.
+      inputs:
+        - product_details
+        - proof_elements
+        - objection_list
+      outputs:
+        - sales_page_copy
+        - order_page_with_bump
+        - oto_copy
+        - downsell_copy
+      validation: all_persuasion_elements_present
+
+    - id: step_3
+      name: construct_middle_tier
+      action: apply_middle_tier_construction
+      description: >
+        Write webinar or application funnel ($497-$4,997). Webinar script breaks
+        three belief patterns. Application page qualifies and creates exclusivity.
+        Copy is consultative, not hard-sell.
+      inputs:
+        - three_false_beliefs
+        - qualification_criteria
+      outputs:
+        - webinar_script
+        - application_page_copy
+        - sales_call_framework
+      validation: three_beliefs_addressed
+
+    - id: step_4
+      name: architect_backend_tier
+      action: apply_backend_tier_architecture
+      description: >
+        Write application and high-touch copy ($5K-$100K+). Minimal but precise
+        copy. Application questions pre-qualify and create commitment. Focus on
+        transformation, exclusivity, and results.
+      inputs:
+        - premium_offer_details
+        - qualification_questions
+      outputs:
+        - application_copy
+        - proposal_template
+        - close_framework
+      validation: exclusivity_and_transformation_communicated
+
+  error_handling:
+    - error: selling_backend_to_cold_traffic
+      symptom: "High-ticket offer with zero conversions from ads"
+      resolution: "Add bait and frontend tiers to warm the audience first."
+    - error: same_copy_style_across_tiers
+      symptom: "Long-form VSL for a $7 tripwire"
+      resolution: "Match copy length and style to price point and awareness level."
+    - error: no_ascension_path
+      symptom: "Customers buy once and never return"
+      resolution: "Add explicit next-step messaging in delivery and follow-up copy."
+
+  quality_gate:
+    criteria:
+      - each_tier_has_distinct_offer
+      - copy_intensity_matches_tier
+      - ascension_path_clear_in_copy
+      - funnel_architecture_matches_tier
+    min_pass: 3
+
+  outputs:
+    - type: value_ladder_map
+      format: structured_document
+      description: "Four tiers with price ranges, offers, and funnel types"
+    - type: copy_briefs
+      format: per_tier_brief
+      description: "Format, length, tone, and persuasion elements per tier"
+    - type: ascension_copy
+      format: email_sequences
+      description: "Copy connecting each tier to the next"

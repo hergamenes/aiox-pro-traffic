@@ -1,0 +1,97 @@
+sop:
+  id: "rb-hook-story-offer"
+  version: "1.0.0"
+  title: "Hook-Story-Offer Construction"
+  purpose: "Construct any copy piece using the universal 3-part framework: capture attention with a Hook, build emotional connection with a Story, and present the solution with an Offer."
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    risk_level: "low"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "When writing any copy piece (ad, email, post, page, video script) or diagnosing why an existing piece isn't converting."
+  context:
+    input:
+      - name: "copy_piece"
+        type: "string"
+        required: true
+        description: "The type of copy being created (ad, email, social post, landing page, video script, webinar intro)."
+      - name: "avatar_dominant_emotion"
+        type: "string"
+        required: true
+        description: "The target avatar's primary emotional driver: pain, desire, fear, or aspiration."
+      - name: "story_material"
+        type: "string"
+        required: false
+        description: "Available story material: personal experience, case study, parable, or origin story."
+      - name: "offer_details"
+        type: "object"
+        required: true
+        description: "The offer being presented, including what the reader gets and the desired action."
+  steps:
+    - id: "S001"
+      name: "Select Hook Type"
+      action: "choose_hook_variant"
+      description: "Select one of four hook types (Question, Statement, Story, Number) based on platform and context. Write a 1-2 sentence hook that stops the scroll in 3 seconds."
+      performer: "copywriter"
+      critical: true
+      on_success: "S002"
+      on_failure: "retry"
+    - id: "S002"
+      name: "Build Story"
+      action: "construct_narrative"
+      description: "Select story type (Epiphany Bridge, Case Study, Parable, Origin) and structure in 3 beats: situation, struggle, solution. Include specific sensory details. Ensure story builds empathy before any selling."
+      performer: "copywriter"
+      critical: true
+      on_success: "S003"
+      on_failure: "retry"
+    - id: "S003"
+      name: "Present Offer"
+      action: "write_cta"
+      description: "Select CTA type based on funnel position (Direct, Content, Lead, Engagement). State offer in one clear sentence. Add value justification and micro-urgency if appropriate. Minimize friction to one action."
+      performer: "copywriter"
+      critical: true
+      on_success: "S004"
+      on_failure: "retry"
+    - id: "S004"
+      name: "Validate Transitions"
+      action: "check_flow"
+      description: "Read the complete piece aloud. Verify the hook-to-story transition feels natural, and the story-to-offer transition feels inevitable rather than forced."
+      performer: "copywriter"
+      critical: false
+      on_success: "DONE"
+      on_failure: "S002"
+  error_handling:
+    global_timeout: "PT2H"
+    retry_policy: "max 2 retries per step before escalation"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "hook_stops_scroll"
+        type: "boolean"
+        target: true
+        weight: 1.0
+      - name: "story_builds_empathy"
+        type: "boolean"
+        target: true
+        weight: 1.0
+      - name: "offer_is_clear_one_sentence"
+        type: "boolean"
+        target: true
+        weight: 0.8
+      - name: "natural_transitions"
+        type: "boolean"
+        target: true
+        weight: 0.7
+      - name: "cta_matches_funnel_position"
+        type: "boolean"
+        target: true
+        weight: 0.6
+    pass_threshold: 0.8
+  outputs:
+    artifacts:
+      - name: "hook_story_offer_unit"
+        type: "file"
+        format: "md"
+        description: "Complete Hook-Story-Offer copy unit ready for deployment on the target platform."

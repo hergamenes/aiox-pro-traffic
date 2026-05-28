@@ -1,0 +1,76 @@
+sop:
+  id: fw-never-be-benign
+  version: "1.0"
+  title: "Never Be Benign (Polarization Principle)"
+  purpose: "Quality-check copy against polarization standard — if it doesn't polarize, it doesn't exist"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: ry-schwartz
+    tier: t3
+  steps:
+    - id: apply_provoke_reaction
+      name: "Write Copy That Provokes"
+      description: "Take a stand with enough conviction to force a reaction"
+      inputs:
+        - copy_draft
+        - target_audience
+      outputs:
+        - provocative_copy
+      validation:
+        - takes_clear_stand: true
+        - forces_reaction: true
+    - id: apply_invisibility_test
+      name: "Test for Invisibility"
+      description: "Verify copy produces reactions beyond indifference"
+      inputs:
+        - provocative_copy
+        - test_reader_feedback
+      outputs:
+        - visibility_assessment
+      validation:
+        - not_indifferent: true
+        - produces_strong_reactions: true
+    - id: apply_fear_signal
+      name: "Fear of Publishing as Quality Signal"
+      description: "Confirm discomfort with publishing as positive indicator"
+      inputs:
+        - author_comfort_level
+      outputs:
+        - quality_signal
+      validation:
+        - nervous_about_publishing: true
+        - not_comfortable: true
+    - id: apply_polarization_metric
+      name: "Calibrate the Metric"
+      description: "Target half-love, half-irritated ratio for 4x response rate"
+      inputs:
+        - response_data
+      outputs:
+        - polarization_audit
+      validation:
+        - mixed_reactions: true
+        - not_universal_agreement: true
+        - not_universal_rejection: true
+        - response_rate_multiplier: "~4x"
+  error_handling:
+    - error: softened_after_draft
+      condition: "Copy was edited to remove uncomfortable elements"
+      action: "Restore original version; soften only factual errors"
+    - error: irrelevant_polarization
+      condition: "Polarizing on topics outside core market"
+      action: "Redirect polarization to market-relevant topics"
+    - error: shock_without_substance
+      condition: "Provocative for attention without persuasive purpose"
+      action: "Ensure polarization advances a specific point"
+    - error: universal_agreement
+      condition: "All feedback is positive without strong reactions"
+      action: "Add contrarian angle or stronger claim"
+  quality_gate:
+    min_sections: 4
+    required_elements:
+      - clear_stand_taken
+      - produces_reactions
+      - author_discomfort_confirmed
+      - polarization_ratio_acceptable
+    pass_threshold: "copy rated POLARIZING, not BENIGN or OFFENSIVE"

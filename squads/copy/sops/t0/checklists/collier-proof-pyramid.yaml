@@ -1,0 +1,102 @@
+sop:
+  id: collier-proof-pyramid
+  version: "1.0"
+  title: "Collier Proof Pyramid (Strength Ranking)"
+  purpose: >
+    Rank proof elements from strongest to weakest for diagnostic prescriptions.
+    Prioritize the most persuasive evidence when auditing copy or advising
+    writer agents on proof-gathering efforts.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    subcategory: proof-evaluation
+    tier: T0
+    source_agent: robert-collier
+  steps:
+    - id: validate_testimonials
+      action: "Check for testimonials with real names and addresses (Rank 1 — STRONGEST)"
+      input: proof_inventory
+      validation:
+        rule: "named testimonials with specific results present"
+        rank: 1
+        strength: strongest
+        criteria:
+          - real_name: true
+          - real_location: true
+          - specific_result: true
+          - verifiable: true
+        fail_action: gather_attributed_testimonials
+    - id: validate_statistics
+      action: "Check for specific statistics (Rank 2)"
+      input: proof_inventory
+      validation:
+        rule: "specific numbers with sources present"
+        rank: 2
+        strength: high
+        criteria:
+          - exact_numbers: true
+          - sourced: true
+          - relevant_to_claim: true
+        fail_action: extract_specific_numbers
+    - id: validate_local_proof
+      action: "Check for local/proximate proof (Rank 3)"
+      input: proof_inventory
+      validation:
+        rule: "proof from reader's geography or demographic"
+        rank: 3
+        strength: strong
+        criteria:
+          - same_geography_or_segment: true
+        fail_action: segment_testimonials_by_proximity
+    - id: validate_authority
+      action: "Check for relevant authority endorsement (Rank 4)"
+      input: proof_inventory
+      validation:
+        rule: "authority endorsement from audience-respected expert"
+        rank: 4
+        strength: moderate_to_strong
+        criteria:
+          - authority_relevant: true
+          - audience_respects: true
+          - endorsement_specific: true
+        fail_action: identify_relevant_authorities
+    - id: validate_guarantee
+      action: "Check for money-back guarantee (Rank 5)"
+      input: proof_inventory
+      validation:
+        rule: "specific, unconditional, prominent guarantee present"
+        rank: 5
+        strength: moderate
+        criteria:
+          - specific_timeframe: true
+          - unconditional: true
+          - prominently_displayed: true
+        fail_action: add_prominent_guarantee
+    - id: validate_free_trial
+      action: "Check for free trial or sample (Rank 6)"
+      input: proof_inventory
+      validation:
+        rule: "trial feasible and frictionless"
+        rank: 6
+        strength: variable
+        criteria:
+          - demonstrates_core_value: true
+          - frictionless_start: true
+        fail_action: evaluate_trial_feasibility
+  error_handling:
+    min_proof_types: 2
+    on_single_type: flag_for_depth
+    on_zero_proof: block_add_proof_elements
+    escalation: route_to_research_for_proof_gathering
+  quality_gate:
+    pass_criteria: "at least 2 proof types from different ranks present"
+    recommended_stack: "testimonial + statistic + guarantee"
+    verifiability: "all proof elements must withstand scrutiny"
+    on_pass: proof_section_approved
+    on_fail: prescribe_highest_impact_proof_additions
+  metadata:
+    date: "2026-03-14"
+    author:
+      agent: sop-converter
+      squad: sop-factory
+    source_artifact: collier-proof-pyramid

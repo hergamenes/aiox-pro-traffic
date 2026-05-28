@@ -1,0 +1,33 @@
+# The Three Questions Test
+# Source: Maxim #7
+# Category: copy_validation
+# Command: *three-questions
+
+name: "The Three Questions Test"
+category: "copy_validation"
+origin: "Maxim #7"
+command: "*three-questions"
+
+philosophy: |
+  Before you begin writing, you must be able to clearly and convincingly
+  answer three questions from the prospect's perspective.
+
+questions:
+  question_1:
+    question: "Why is this product superior to everything else?"
+    purpose: "Establishes unique value proposition"
+    test: "Can you articulate a clear, specific answer?"
+
+  question_2:
+    question: "Why should I believe you?"
+    purpose: "Establishes credibility and proof"
+    test: "Do you have overwhelming evidence?"
+
+  question_3:
+    question: "Why should I act now?"
+    purpose: "Establishes urgency"
+    test: "Is there a compelling reason to respond immediately?"
+
+instruction: |
+  Don't begin writing until you can answer all three convincingly.
+  If you can't, go back to research or work on the offer.

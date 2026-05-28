@@ -1,0 +1,74 @@
+sop:
+  id: task-objection-raising-protocol
+  version: "1.0"
+  title: "Objection Raising -> Resolution Protocol"
+  purpose: "Systematically identify all objections, raise each in copy BEFORE prospect thinks it, resolve creatively turning weaknesses into strengths"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: joe-sugarman
+    tier: T4
+
+  inputs:
+    - name: copy_draft
+      type: document
+      required: true
+      description: "Copy draft with product/offer information"
+    - name: product_limitations
+      type: list
+      required: true
+      description: "Product limitations and known issues"
+
+  outputs:
+    - name: resolved_copy
+      type: document
+      description: "Copy with all objections raised and resolved in correct sequence"
+
+  steps:
+    - id: step_1
+      action: list_all_objections
+      description: "Brainstorm all objections across 6 categories: price, trust, timing, fit, effort, risk + product-specific"
+      critical: true
+      categories: ["price", "trust", "timing", "fit", "effort", "risk"]
+
+    - id: step_2
+      action: raise_in_copy
+      description: "Explicitly state each objection in copy BEFORE prospect forms the thought"
+      critical: true
+
+    - id: step_3
+      action: resolve_creatively
+      description: "Turn each objection from weakness to strength — reframe, do not dismiss"
+      error_handling:
+        condition: "Resolution dismisses instead of reframing"
+        action: "Acknowledge objection legitimacy first, then reframe as advantage"
+
+    - id: step_4
+      action: verify_sequence
+      description: "Check every resolution is preceded by raise — resolution without raise is WASTED"
+      critical: true
+      error_handling:
+        condition: "Resolution appears without preceding raise"
+        action: "Add explicit objection raise before the resolution"
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "All 6 objection categories covered"
+      - "Product-specific objections included"
+      - "Each objection raised before resolution"
+      - "Resolutions reframe as strengths"
+      - "Sequence is correct (raise then resolve)"
+      - "No orphaned resolutions"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies: []
+
+  related_sops:
+    - task-sugarman-qa-gate
+    - task-slippery-slide-evaluation
+    - task-vsl-5-step
+    - task-copyslacker-5-step

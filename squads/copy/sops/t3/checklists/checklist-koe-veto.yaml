@@ -1,0 +1,55 @@
+sop:
+  id: checklist-koe-veto
+  version: "1.0"
+  title: "Koe Veto Conditions"
+  purpose: "Define blocking conditions for Dan Koe content — protecting hook-first principle, value ratio, and identity-based positioning"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: dan-koe
+    type: veto
+  steps:
+    - id: DK_V01
+      action: "Check hook strength"
+      criteria: "Content sem hook forte"
+      veto_action: "REJEITAR (reescrever com hook que para o scroll)"
+      required: true
+    - id: DK_V02
+      action: "Check value-to-promotion ratio"
+      criteria: "Content 100% promocao sem valor"
+      veto_action: "REJEITAR (80/20 rule)"
+      required: true
+    - id: DK_V03
+      action: "Check hustle language"
+      criteria: "Linguagem de hustle/grind/crush it"
+      veto_action: "REJEITAR (usar leverage/focus/systems)"
+      required: true
+    - id: DK_V04
+      action: "Check unique perspective"
+      criteria: "Content generico sem perspectiva propria"
+      veto_action: "REJEITAR (experiencia pessoal + contrarian take)"
+      required: true
+    - id: DK_V05
+      action: "Check paragraph length"
+      criteria: "Paragrafos longos sem whitespace"
+      veto_action: "REJEITAR (um paragrafo = uma ideia)"
+      required: true
+    - id: DK_V06
+      action: "Check niche advice framing"
+      criteria: "Conselho 'pick a niche' convencional"
+      veto_action: "REJEITAR (reframe para Identity Stack)"
+      required: true
+    - id: DK_V07
+      action: "Check contrarian substance"
+      criteria: "Contrarian por shock value sem substancia"
+      veto_action: REJEITAR
+      required: true
+  error_handling:
+    - condition: "any_veto_triggered"
+      action: "block_publication"
+    - condition: "DK_V01_triggered"
+      action: "most_critical_rewrite_hook_first"
+  quality_gate:
+    mode: veto
+    any_trigger_blocks: true
+    requires_rescan_after_fix: true

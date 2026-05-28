@@ -1,0 +1,55 @@
+sop:
+  id: tree-sugarman-trigger-layers
+  version: "1.0"
+  title: "Sugarman 30 Triggers -- 5 Functional Layers"
+  purpose: "Organize 30 Psychological Triggers into 5 sequential functional layers — lower layers must pass before upper layers are valid"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: joe-sugarman
+  steps:
+    - id: layer-1
+      name: "FOUNDATION"
+      condition: "Start evaluation"
+      action: "Check Honesty (#30) -> Integrity (#7) -> Credibility (#14). SEM esta cadeia, NENHUM trigger funciona"
+      triggers: [30, 7, 14]
+      required: true
+      blocking: true
+    - id: layer-2
+      name: "KNOWLEDGE"
+      condition: "Foundation OK"
+      action: "Check Product Nature (#2) + Prospect Nature (#3)"
+      triggers: [2, 3]
+      depends_on: layer-1
+    - id: layer-3
+      name: "ENGAGEMENT"
+      condition: "Knowledge OK"
+      action: "Check Storytelling (#8) -> Curiosity (#27) -> Involvement (#6) -> Mental Engagement (#29) -> Emotion (#11)"
+      triggers: [8, 27, 6, 29, 11]
+      depends_on: layer-2
+    - id: layer-4
+      name: "PERSUASION"
+      condition: "Engagement OK"
+      action: "Check Consistency (#1), Authority (#9), Proof of Value (#10), Linking (#16), Desire to Belong (#17), Familiarity (#24), Patterning (#25), Harmonize (#28), Hope (#26), Greed (#13), Exclusivity (#20), Desire to Collect (#18)"
+      triggers: [1, 9, 10, 16, 17, 24, 25, 28, 26, 13, 20, 18]
+      depends_on: layer-3
+    - id: layer-5
+      name: "CLOSING"
+      condition: "Persuasion OK"
+      action: "Check Objection Raising (#4) -> Resolution (#5) -> Justify Logic (#12) -> Satisfaction Conviction (#15) -> Simplicity (#21) -> Guilt/Reciprocity (#22) -> Specificity (#23) -> Urgency (#19)"
+      triggers: [4, 5, 12, 15, 21, 22, 23, 19]
+      closing_trio: [15, 19, 21]
+      depends_on: layer-4
+  error_handling:
+    - condition: "foundation_fails"
+      action: "stop_evaluation_fix_foundation"
+    - condition: "any_layer_fails"
+      action: "stop_at_layer_fix_before_proceeding"
+    - condition: "closing_trio_incomplete"
+      action: "activate_all_three_before_delivery"
+  quality_gate:
+    mode: layered_sequential
+    total_layers: 5
+    foundation_non_negotiable: true
+    closing_trio_required: true
+    layer_sequence_strict: true

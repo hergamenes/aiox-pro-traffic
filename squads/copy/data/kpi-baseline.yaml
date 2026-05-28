@@ -1,0 +1,78 @@
+# KPI Baseline — Copy Squad
+# Materialização RC-2: baseline operacional pós-mapeamento SINKRA
+# Referência: outputs/sinkra-squad/copy/compliance_score.yaml (Mandamento 6: PARTIAL)
+
+version: "1.0.0"
+created_at: "2026-03-28"
+process_slug: copy
+description: >
+  Baseline de performance e qualidade do sistema de produção de copy.
+  Métricas estimadas no greenfield — serão calibradas com dados reais
+  nos primeiros 30 dias de operação do overlay SINKRA.
+
+baseline:
+  throughput:
+    unit: "peças/semana"
+    as_is_estimate: "5-10 (single workflow), 15-30 (batch briefing)"
+    target_to_be: "10-20 (single), 30-50 (batch)"
+    measurement_source: "workflow completion logs"
+
+  cost_per_piece:
+    unit: "USD/peça"
+    as_is_estimate:
+      sales_page: "~$3.00-8.00 (4-6 agents em sequência)"
+      email_sequence: "~$1.50-3.00 (2-3 agents)"
+      ad_copy: "~$0.50-1.50 (1-2 agents)"
+      high_ticket_proposal: "~$5.00-12.00 (5-8 agents)"
+    target_to_be: "< 50% do AS-IS via model tiering e cache"
+    measurement_source: "cost-report.yaml por workflow"
+
+  first_pass_approval_rate:
+    unit: "%"
+    as_is_estimate: "~55-65%"
+    target_to_be: ">= 75%"
+    note: "Aprovação humana sem pedido de revisão. Clone fidelity impacta diretamente."
+
+  avg_time_per_piece:
+    unit: "minutos"
+    as_is_estimate:
+      sales_page: "45-90"
+      email_sequence: "20-40"
+      ad_copy: "10-20"
+    target_to_be: "< 70% do AS-IS"
+    measurement_source: "workflow duration tracking"
+
+  rework_rate:
+    unit: "%"
+    as_is_estimate: "~35-45%"
+    target_to_be: "<= 25%"
+    note: "Rework = humano pede revisão após quality gate. Alto atualmente por clone drift."
+
+  clone_fidelity_avg:
+    unit: "0-100"
+    as_is_estimate: "~70-80%"
+    target_to_be: ">= 85%"
+    measurement_source: "Fidelity score via /clone-mind validation"
+    note: "Principal driver de first_pass_approval_rate."
+
+  workflow_coverage:
+    unit: "workflows com quality gates"
+    as_is_estimate: "14/14 (100%)"
+    target_to_be: "14/14 (100%)"
+
+  quality_gate_pass_rate:
+    unit: "%"
+    as_is_estimate: "~80-85%"
+    target_to_be: ">= 90%"
+    measurement_source: "Gate results por workflow execution"
+
+  briefing_completeness:
+    unit: "%"
+    as_is_estimate: "~60-70%"
+    target_to_be: ">= 90%"
+    note: "Briefings incompletos são o principal driver de rework."
+
+calibration:
+  plan: "Coletar métricas reais nos primeiros 30 dias de operação."
+  review_date: "2026-04-28"
+  responsible: "Content Lead"

@@ -1,0 +1,94 @@
+sop:
+  id: collier-veto-checklist
+  version: "1.0"
+  title: "Collier Veto Conditions (Blockers)"
+  purpose: >
+    Define 7 hard-stop conditions from Robert Collier's letter-writing
+    methodology that block copy progression. Each represents a fundamental
+    violation of the prospect-first, empathy-driven approach.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    subcategory: veto-blockers
+    tier: T0
+    source_agent: robert-collier
+  steps:
+    - id: validate_prospect_first_opening
+      action: "Check copy opens with prospect's conversation, not product (RC_V01)"
+      input: copy_opening
+      validation:
+        rule: "opening enters prospect's existing mental conversation"
+        fail_action: block_rewrite_opening
+        severity: block
+    - id: validate_six_essentials
+      action: "Check sales letter has at least 5 of 6 Essentials (RC_V02)"
+      input: sales_letter
+      validation:
+        rule: "missing_essentials < 2"
+        essentials:
+          - opening
+          - description
+          - motive
+          - proof
+          - snapper
+          - close
+        fail_action: flag_critical_gaps
+        severity: flag
+    - id: validate_diagnostic_scope
+      action: "Confirm request is diagnostic, not copy writing (RC_V03)"
+      input: incoming_request
+      validation:
+        rule: "request type == diagnostic"
+        fail_action: refuse_route_to_writer
+        severity: block
+    - id: validate_empathy_depth
+      action: "Check empathy goes beyond surface level (RC_V04)"
+      input: copy_draft
+      validation:
+        rule: "empathy mapping covers multiple levels"
+        empathy_levels:
+          - surface
+          - emotional
+          - identity
+          - core_fear
+        min_levels: 2
+        fail_action: flag_deepen_empathy
+        severity: flag
+    - id: validate_tone_sincerity
+      action: "Apply friend test — would you say this to a friend? (RC_V05)"
+      input: copy_draft
+      validation:
+        rule: "tone passes sincerity/friend test"
+        fail_action: flag_rewrite_with_sincerity
+        severity: flag
+    - id: validate_price_justification
+      action: "Check every price has reason-why (RC_V06)"
+      input: copy_draft
+      validation:
+        rule: "no price presented without justification"
+        fail_action: block_add_reason_why
+        severity: block
+    - id: validate_sequence_strategy
+      action: "Check complex sale has multi-letter sequence (RC_V07)"
+      input: campaign_plan
+      validation:
+        rule: "if sale_complexity == high, sequence_length >= 5"
+        fail_action: flag_plan_letter_sequence
+        severity: flag
+  error_handling:
+    on_block: halt_deliverable
+    on_flag: require_documented_fix
+    resolution_required: true
+    recheck_after_fix: true
+    escalation: route_to_copy_chief
+  quality_gate:
+    pass_criteria: "all 7 conditions clear (no blocks, all flags resolved)"
+    partial_pass: false
+    on_pass: copy_cleared
+    on_fail: blocked_or_flagged_with_actions
+  metadata:
+    date: "2026-03-14"
+    author:
+      agent: sop-converter
+      squad: sop-factory
+    source_artifact: collier-veto-checklist

@@ -1,0 +1,108 @@
+sop:
+  id: "ah-value-equation-diagnosis"
+  version: "1.0.0"
+  title: "Value Equation Diagnostic"
+  purpose: "Diagnose why an offer underperforms by scoring the 4 Value Equation variables (Dream Outcome, Perceived Likelihood, Time Delay, Effort) and prescribing a fix for the weakest"
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    sub_category: "offer-diagnosis"
+    risk_level: "low"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "When an offer is not converting, when prospects say 'not worth the price,' or as quarterly offer optimization review"
+  context:
+    input:
+      - name: "offer_details"
+        type: "object"
+        required: true
+        description: "Complete description of the offer, delivery method, and promised results"
+      - name: "financial_metrics"
+        type: "object"
+        required: true
+        description: "Ticket price, CAC, and conversion rate"
+  steps:
+    - id: "S001"
+      name: "Articulate Dream Outcome"
+      action: "define_status_transformation"
+      description: "What status-based transformation does the customer achieve? Not features but life/business change and status conferred. Score 1-10."
+      performer: "copywriter"
+      critical: false
+      on_success: "S002"
+      on_failure: "retry"
+    - id: "S002"
+      name: "Audit Probability Mechanisms"
+      action: "evaluate_proof_and_guarantees"
+      description: "What evidence exists customer will achieve the outcome? Evaluate guarantees, social proof, demonstrations, track record, credentials. Score 1-10."
+      performer: "copywriter"
+      critical: false
+      on_success: "S003"
+      on_failure: "retry"
+    - id: "S003"
+      name: "Map Time Journey"
+      action: "measure_time_to_first_win"
+      description: "When does the customer feel their FIRST WIN? Not final result but earliest positive signal. Score 1-10 inverted (shorter = higher)."
+      performer: "copywriter"
+      critical: false
+      on_success: "S004"
+      on_failure: "retry"
+    - id: "S004"
+      name: "List Effort Cost"
+      action: "enumerate_effort_and_sacrifice"
+      description: "What must they DO, LEARN, GIVE UP, or SACRIFICE? Physical, mental, time, social costs. Score 1-10 inverted (less effort = higher)."
+      performer: "copywriter"
+      critical: false
+      on_success: "S005"
+      on_failure: "retry"
+    - id: "S005"
+      name: "Identify Main Lever"
+      action: "find_weakest_variable_denominator_first"
+      description: "Review all 4 scores. Search denominator first (Time Delay, Effort). The variable with the LOWEST score is the main lever for improvement."
+      performer: "copywriter"
+      critical: true
+      on_success: "S006"
+      on_failure: "retry"
+    - id: "S006"
+      name: "Prescribe Fix"
+      action: "generate_divergent_solutions"
+      description: "Generate 3-5 DIVERGENT solutions for the weakest variable (different approaches, not variations). Select highest impact-to-effort ratio. Document implementation plan."
+      performer: "copywriter"
+      critical: true
+      on_success: "END"
+      on_failure: "retry"
+  error_handling:
+    global_timeout: "PT3H"
+    retry_policy:
+      max_retries: 1
+      backoff: "linear"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "all_4_variables_scored"
+        type: "boolean"
+        target: true
+        weight: 0.25
+      - name: "denominator_checked_first"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "weakest_variable_identified"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "divergent_solutions_proposed"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "implementation_plan_documented"
+        type: "boolean"
+        target: true
+        weight: 0.15
+    pass_threshold: 0.85
+  outputs:
+    artifacts:
+      - name: "value_equation_diagnostic"
+        type: "file"
+        format: "md"
+        description: "Scores for all 4 variables, weakest variable identified, 3-5 divergent solutions, and implementation plan"

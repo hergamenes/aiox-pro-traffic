@@ -1,0 +1,29 @@
+# Extraction State - Jim Rutz
+# Auto-generated: 2026-03-19
+
+extraction:
+  status: "completed"
+  started: "2026-01-26"
+  completed: "2026-01-26"
+
+sources:
+  total: 6
+  tier_1_estimated: 4
+  types_detected: ["books", "interviews", "articles"]
+
+voice_dna:
+  extracted: true
+  power_words: 16
+  signature_phrases: 12
+  anti_patterns: 5
+  quality_estimate: "high"
+
+thinking_dna:
+  extracted: true
+  frameworks: 9
+  heuristics: 0
+  quality_estimate: "medium"
+
+overall:
+  fidelity_estimate: "85%"
+  needs_improvement: ["heuristics count low"]

@@ -1,0 +1,267 @@
+# Sales Page Template
+# CopywriterOS - Template para Páginas de Vendas
+
+template:
+  id: sales-page-template-v1
+  name: "Sales Page Template"
+  version: "1.0"
+  output:
+    format: markdown
+    filename: "sales-page-{{product_slug}}.md"
+
+# Variáveis de Input
+variables:
+  required:
+    - product_name: "Nome do produto"
+    - product_description: "Descrição do produto"
+    - target_avatar: "Cliente ideal"
+    - main_problem: "Problema principal"
+    - main_benefit: "Benefício principal"
+    - price: "Preço"
+  optional:
+    - guarantee: "Garantia oferecida"
+    - bonuses: "Lista de bônus"
+    - testimonials: "Depoimentos"
+    - urgency: "Elementos de urgência"
+    - faq: "Perguntas frequentes"
+
+# Estrutura do Template
+sections:
+  - id: hero
+    name: "Hero Section"
+    template: |
+      # {{headline}}
+
+      ## {{subheadline}}
+
+      {{lead_paragraph}}
+
+      [CTA BUTTON: {{cta_primary}}]
+
+  - id: problem
+    name: "Problem Section"
+    template: |
+      ---
+
+      ## Você Conhece Essa Situação?
+
+      {{problem_description}}
+
+      {{problem_agitation}}
+
+      **Mas não precisa ser assim...**
+
+  - id: solution
+    name: "Solution Section"
+    template: |
+      ---
+
+      ## Apresentando: {{product_name}}
+
+      {{solution_intro}}
+
+      {{mechanism_explanation}}
+
+  - id: benefits
+    name: "Benefits Section"
+    template: |
+      ---
+
+      ## O Que Você Vai Conquistar
+
+      {{#each benefits}}
+      - ✅ **{{title}}:** {{description}}
+      {{/each}}
+
+  - id: features
+    name: "Features/Modules Section"
+    template: |
+      ---
+
+      ## O Que Está Incluído
+
+      {{#each modules}}
+      ### {{icon}} {{name}}
+      {{description}}
+
+      - {{feature_1}}
+      - {{feature_2}}
+      - {{feature_3}}
+
+      {{/each}}
+
+  - id: proof
+    name: "Social Proof Section"
+    template: |
+      ---
+
+      ## O Que Nossos Clientes Dizem
+
+      {{#each testimonials}}
+      > "{{quote}}"
+      >
+      > — **{{name}}**, {{title}}
+      {{/each}}
+
+      {{results_summary}}
+
+  - id: offer
+    name: "Offer Stack Section"
+    template: |
+      ---
+
+      ## Sua Oferta Completa
+
+      | O Que Você Recebe | Valor |
+      |-------------------|-------|
+      {{#each offer_items}}
+      | {{name}} | R$ {{value}} |
+      {{/each}}
+      | **Valor Total** | **R$ {{total_value}}** |
+
+      ### 🎁 Bônus Exclusivos
+
+      {{#each bonuses}}
+      **Bônus {{@index}}: {{name}}** (Valor: R$ {{value}})
+      {{description}}
+
+      {{/each}}
+
+      ---
+
+      **Valor Total: R$ {{total_value}}**
+
+      **Seu Investimento Hoje: R$ {{price}}**
+
+      **Você Economiza: {{savings_percent}}%**
+
+  - id: guarantee
+    name: "Guarantee Section"
+    template: |
+      ---
+
+      ## 🛡️ Garantia {{guarantee_type}}
+
+      {{guarantee_description}}
+
+      {{guarantee_terms}}
+
+      **Ou seja: o risco é TODO nosso.**
+
+  - id: urgency
+    name: "Urgency Section"
+    condition: "{{#if urgency}}"
+    template: |
+      ---
+
+      ## ⏰ Por Que Agir Agora?
+
+      {{urgency_reason}}
+
+      {{#if deadline}}
+      **Esta oferta expira em: {{deadline}}**
+      {{/if}}
+
+      {{#if limited_spots}}
+      **Vagas restantes: {{spots_remaining}}**
+      {{/if}}
+
+  - id: cta_main
+    name: "Main CTA Section"
+    template: |
+      ---
+
+      ## Pronto Para {{transformation}}?
+
+      [BOTÃO: {{cta_primary}}]
+
+      {{micro_commitment}}
+
+  - id: faq
+    name: "FAQ Section"
+    template: |
+      ---
+
+      ## Perguntas Frequentes
+
+      {{#each faq_items}}
+      <details>
+      <summary><strong>{{question}}</strong></summary>
+
+      {{answer}}
+
+      </details>
+
+      {{/each}}
+
+  - id: final_cta
+    name: "Final CTA Section"
+    template: |
+      ---
+
+      ## Última Chamada
+
+      {{final_pitch}}
+
+      [BOTÃO: {{cta_final}}]
+
+      {{risk_reversal_reminder}}
+
+  - id: footer
+    name: "Footer Section"
+    template: |
+      ---
+
+      *{{product_name}} - {{tagline}}*
+
+      {{legal_disclaimer}}
+
+# Placeholder Patterns por Estilo de Copywriter
+copywriter_patterns:
+  gary_halbert:
+    headline: "Atenção {{avatar}}: {{main_benefit}} - Mesmo Se {{objection}}"
+    lead: "Caro amigo, se você está lendo isso..."
+    cta: "Quero {{result}} Agora"
+
+  david_ogilvy:
+    headline: "{{number}} Maneiras de {{benefit}} - E Como Fazer Cada Uma"
+    lead: "Pesquisamos {{research_claim}} para criar..."
+    cta: "Solicitar Mais Informações"
+
+  dan_kennedy:
+    headline: "AVISO: Não {{action}} Até Ler Isso"
+    lead: "Se você está sério sobre {{result}}..."
+    cta: "SIM! Quero {{result}} AGORA"
+
+  eugene_schwartz:
+    headline: "Finalmente: {{solution}} Para {{avatar}} Que Quer {{result}}"
+    lead: "Se você já tentou {{attempts}} sem sucesso..."
+    cta: "Começar Minha Transformação"
+
+  frank_kern:
+    headline: "Como Consegui {{result}} (E Você Também Pode)"
+    lead: "E aí! Deixa eu te contar uma história rápida..."
+    cta: "Bora! Quero Isso"
+
+# Quality Validation
+validation:
+  required_sections:
+    - hero
+    - problem
+    - solution
+    - offer
+    - cta_main
+  recommended_sections:
+    - proof
+    - guarantee
+    - faq
+  word_count:
+    min: 1500
+    max: 5000
+  checklist:
+    - "Headline tem benefício específico?"
+    - "Problema está bem articulado?"
+    - "Solução é clara?"
+    - "Prova social presente?"
+    - "Garantia remove risco?"
+    - "CTA é impossível de perder?"

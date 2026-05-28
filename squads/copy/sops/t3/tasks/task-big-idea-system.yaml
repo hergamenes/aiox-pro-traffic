@@ -1,0 +1,91 @@
+sop:
+  id: task-big-idea-system
+  version: "1.0"
+  title: "Big Idea System (5-Phase)"
+  purpose: "Develop named ownable Big Idea through naming, unpacking, path definition, Blue Ocean validation, and honor-before-purchase to create strategic campaign foundation"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: ry-schwartz
+    tier: T3
+
+  inputs:
+    - name: success_stories
+      type: list
+      required: true
+      description: "Real customer success stories with documented transformations"
+    - name: product_details
+      type: object
+      required: true
+      description: "Product/service details and mechanism"
+    - name: competitor_landscape
+      type: document
+      required: true
+      description: "Competitor analysis with positioning and offerings"
+
+  outputs:
+    - name: big_idea
+      type: string
+      description: "Named Big Idea (2-4 words)"
+    - name: dimensions
+      type: document
+      description: "Unpacked dimensions with sensory exploration"
+    - name: key_shifts
+      type: list
+      description: "3-5 Key Shifts each with reframe, action, MHT, MHP"
+    - name: blue_ocean_validation
+      type: document
+      description: "Blue Ocean Bridge validation document"
+
+  steps:
+    - id: step_1
+      action: name_big_idea
+      description: "Name (NOT invent) the transformation from success stories — test: simple, aspirational, true north, investible"
+      critical: true
+      error_handling:
+        condition: "Big Idea invented rather than extracted from data"
+        action: "Return to success stories, extract transformation name from actual outcomes"
+
+    - id: step_2
+      action: unpack_dimensions
+      description: "Explore what it looks, feels, gains like to live the Big Idea — contrast with current reality"
+
+    - id: step_3
+      action: define_key_shifts
+      description: "Define 3-5 shifts each with reframe (internal), action (external), MHT (without), MHP (with)"
+      critical: true
+      count: "3-5"
+
+    - id: step_4
+      action: validate_blue_ocean
+      description: "Verify no competitor satisfies all Key Shifts — refine until combination is unique"
+      error_handling:
+        condition: "Competitor covers all shifts"
+        action: "Refine or add shifts until Blue Ocean Bridge is clear"
+
+    - id: step_5
+      action: design_first_move
+      description: "Treat prospect as if already achieving Big Idea before purchase — elevation not rescue"
+      critical: true
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "Big Idea name is simple, aspirational, true north, investible"
+      - "Named from success stories not invented"
+      - "Dimensions include sensory details"
+      - "3-5 Key Shifts each have reframe, action, MHT, MHP"
+      - "Blue Ocean Bridge validated"
+      - "First Move honors prospect before purchase"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies: []
+
+  related_sops:
+    - task-mht-exercise
+    - task-sales-video-big-four
+    - task-negative-positive-hook-system
+    - task-voc-first-email

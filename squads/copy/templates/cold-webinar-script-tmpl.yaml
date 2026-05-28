@@ -1,0 +1,563 @@
+# Cold Webinar Script Template
+# Framework: Jeremy Haynes "3-Pitch Cold Webinar" System
+# Purpose: High-conversion webinar structure for cold audiences
+
+metadata:
+  name: "Cold Webinar Script Template"
+  version: "1.0"
+  source: "Jeremy Haynes - Cold vs Warm Webinar Best Practices"
+  key_principle: "Cold audiences são cruéis. Value density desde o primeiro segundo."
+
+# =============================================================================
+# INPUTS REQUIRED
+# =============================================================================
+inputs:
+  required:
+    webinar_title: "[Título focado em RESULTADO]"
+    product_name: "[Nome do produto/programa]"
+    price: "[Preço principal]"
+    payment_options: "[Opções de pagamento]"
+    target_avatar: "[Descrição específica do público]"
+    main_outcome: "[O resultado #1 que você entrega]"
+
+    three_topics:
+      topic_1: "[Primeiro tópico de valor]"
+      topic_2: "[Segundo tópico de valor]"
+      topic_3: "[Terceiro tópico de valor]"
+
+    case_studies:
+      case_1:
+        name: "[Nome]"
+        before: "[Situação antes]"
+        after: "[Resultado com números]"
+        time: "[Quanto tempo levou]"
+      case_2:
+        name: "[Nome]"
+        before: "[Situação antes]"
+        after: "[Resultado com números]"
+        time: "[Quanto tempo levou]"
+      case_3:
+        name: "[Nome]"
+        before: "[Situação antes]"
+        after: "[Resultado com números]"
+        time: "[Quanto tempo levou]"
+
+  optional:
+    audience_type: "affluent | general_public"
+    cta_type: "call | checkout"
+    duration: "60 | 90"
+    planted_questions: "[Lista de perguntas para plantar]"
+    bonus_1: "[Bônus 1 se tiver]"
+    bonus_2: "[Bônus 2 se tiver]"
+    guarantee: "[Detalhes da garantia]"
+    urgency: "[Escassez real se houver]"
+
+# =============================================================================
+# STRUCTURAL OVERVIEW
+# =============================================================================
+structure:
+  overview: |
+    ┌─────────────────────────────────────────────────────────────┐
+    │            COLD WEBINAR - 3 PITCH STRUCTURE                 │
+    ├─────────────────────────────────────────────────────────────┤
+    │                                                             │
+    │  SECTION 1 (0-20 min)                                       │
+    │  └── Intro IMEDIATO → Content Surface → PITCH #1 → Q&A     │
+    │                                                             │
+    │  SECTION 2 (20-40 min)                                      │
+    │  └── Content + Exemplos → PITCH #2 (Framing) → Q&A         │
+    │                                                             │
+    │  SECTION 3 (40-60 min)                                      │
+    │  └── Content Profundo → PITCH #3 (Full + Objections) → Q&A │
+    │                                                             │
+    └─────────────────────────────────────────────────────────────┘
+
+  time_allocation:
+    section_1: "20 minutos"
+    section_2: "20 minutos"
+    section_3: "20+ minutos"
+    total: "60 minutos (máx 90)"
+
+# =============================================================================
+# SECTION 1: FIRST THIRD (0-20 minutes)
+# =============================================================================
+section_1:
+  name: "First Third - Surface Level"
+  duration: "20 minutos"
+
+  # -------------------------------------------------------------------------
+  # 1.1 THE COLD INTRO (30 segundos MÁXIMO)
+  # -------------------------------------------------------------------------
+  intro:
+    duration: "30 segundos"
+
+    wrong_example: |
+      ❌ NÃO FAÇA ISSO:
+      "E aí pessoal, tudo bem? Meu nome é [Nome], é muito bom ter vocês aqui.
+      De onde vocês estão assistindo? Manda aí no chat!
+      Quem aqui quer [resultado]? Manda um 1 no chat!
+      Deixa eu me apresentar um pouco..."
+
+    right_template: |
+      ✅ FAÇA ASSIM:
+      "E aí, {{seu_nome}} aqui.
+
+      Nos próximos {{duracao}} minutos, vou te mostrar como
+      {{main_outcome}} - mesmo que você {{objecao_comum}}.
+
+      Vou passar por {{topic_1}}, {{topic_2}}, e {{topic_3}}.
+
+      Vou mostrar exemplos reais de pessoas que {{resultado_case}}.
+
+      Sem enrolação. Direto ao ponto.
+
+      Vamos começar."
+
+    key_elements:
+      - "ZERO 'de onde vocês são'"
+      - "ZERO 'manda 1 no chat'"
+      - "Imediatamente dizer o que vão aprender"
+      - "Mencionar que vai ter exemplos reais"
+      - "Transição rápida para conteúdo"
+
+  # -------------------------------------------------------------------------
+  # 1.2 SURFACE LEVEL CONTENT
+  # -------------------------------------------------------------------------
+  content:
+    duration: "12-15 minutos"
+    approach: "Visão de alto nível - O QUÊ e POR QUÊ"
+
+    template: |
+      "[Explicar o framework/método em alto nível]
+
+      Por que isso funciona:
+      - [Razão 1]
+      - [Razão 2]
+      - [Razão 3]
+
+      O resultado que é possível: {{main_outcome}}
+
+      Deixa eu mostrar um exemplo rápido..."
+
+      [MOSTRAR 1-2 EXEMPLOS RÁPIDOS]
+
+      "Isso é o que vamos aprofundar hoje."
+
+    for_affluent:
+      - "Manter em nível de ESTRATÉGIA"
+      - "Falar sobre outcomes, não processos"
+      - "Respeitar que são ocupados"
+
+    for_general_public:
+      - "Pode pepperar algumas táticas"
+      - "Mais detalhes aceitos"
+      - "Mas ainda majoritariamente high-level"
+
+  # -------------------------------------------------------------------------
+  # 1.3 PITCH #1: INTRODUÇÃO DA OFERTA
+  # -------------------------------------------------------------------------
+  pitch_1:
+    duration: "2-5 minutos"
+    purpose: "Introduzir a oferta para quem já está pronto"
+
+    transition: |
+      "Antes de continuar e ir mais fundo nesses tópicos, quero fazer uma pausa.
+
+      Sei que alguns de vocês já estão prontos para dar o próximo passo.
+      Não quero fazer vocês esperarem.
+
+      Me dá 2 minutos para apresentar como podemos trabalhar juntos,
+      e depois volto direto pro conteúdo.
+
+      Pode ser?"
+
+    pitch_template: |
+      "{{product_name}} é [DESCRIÇÃO EM UMA FRASE].
+
+      Custa {{price}}.
+      [Se tiver parcelamento: Ou {{parcelas}}.]
+
+      Aqui está o que você recebe:
+      - [COMPONENTE 1]
+      - [COMPONENTE 2]
+      - [COMPONENTE 3]
+
+      Para quem está pronto, o link está no chat.
+      [Se for call: Você vai preencher uma aplicação e agendar uma conversa.]
+      [Se for checkout: É só clicar e finalizar a compra.]
+
+      Agora, voltando ao conteúdo..."
+
+    key_elements:
+      - "Pedir PERMISSÃO para pitchar"
+      - "Ser direto: produto, preço, o que recebe"
+      - "NÃO fazer pitch longo"
+      - "Voltar IMEDIATAMENTE para conteúdo"
+
+  # -------------------------------------------------------------------------
+  # 1.4 Q&A #1
+  # -------------------------------------------------------------------------
+  qa_1:
+    duration: "2-5 minutos"
+    purpose: "Transição suave de volta para conteúdo"
+
+    template: |
+      "Alguém tem alguma pergunta rápida antes de continuarmos?
+
+      [RESPONDER 1-2 PERGUNTAS - perguntas plantadas se necessário]
+
+      Ótimas perguntas. Agora vamos mais fundo em {{topic_2}}..."
+
+    planted_questions:
+      - "Para quem isso é ideal?"
+      - "Para quem NÃO é?"
+
+# =============================================================================
+# SECTION 2: SECOND THIRD (20-40 minutes)
+# =============================================================================
+section_2:
+  name: "Second Third - Examples & Depth"
+  duration: "20 minutos"
+
+  # -------------------------------------------------------------------------
+  # 2.1 CONTENT WITH EXAMPLES
+  # -------------------------------------------------------------------------
+  content:
+    duration: "12-15 minutos"
+    approach: "Mostrar COMO funciona com EXEMPLOS"
+
+    template: |
+      "Agora vamos ver isso na prática.
+
+      [MOSTRAR EXEMPLO 1 - com screenshots/números se possível]
+
+      Você viu como {{case_1.name}} foi de {{case_1.before}} para {{case_1.after}}
+      em {{case_1.time}}.
+
+      [MOSTRAR EXEMPLO 2]
+
+      O padrão que você está vendo é:
+      - [Insight 1]
+      - [Insight 2]
+      - [Insight 3]
+
+      Agora, deixa eu te mostrar como isso se aplica a {{topic_3}}..."
+
+    elements_to_include:
+      - "Screenshots de resultados"
+      - "Números específicos (não vagos)"
+      - "Histórias de clientes"
+      - "Demonstração se possível"
+
+  # -------------------------------------------------------------------------
+  # 2.2 PITCH #2: FRAMING PITCH
+  # -------------------------------------------------------------------------
+  pitch_2:
+    duration: "2-5 minutos"
+    purpose: "Framing - comprar velocidade, suporte, comprometimento"
+
+    template: |
+      "Já falei sobre a oferta, então não vou repetir tudo.
+
+      Mas deixa eu te fazer uma pergunta:
+
+      Você pode sair daqui e fazer tudo isso sozinho.
+      Eu te dei informação suficiente para começar.
+
+      Mas quanto tempo isso vai levar?
+      Quantos erros você vai cometer no caminho?
+      Quanto vão custar esses erros?
+
+      O que estou oferecendo é VELOCIDADE.
+      É SUPORTE enquanto você faz.
+      É a CERTEZA de que está fazendo certo.
+
+      Porque aqui está a verdade:
+
+      Você está aqui de graça.
+      Quanto dessa informação você vai lembrar amanhã?
+      Quanto você vai realmente implementar?
+
+      Sabe o que faria você implementar?
+      Ter investido dinheiro nisso.
+
+      Quem paga, presta atenção.
+      Quem paga, implementa.
+      Quem paga, tem skin in the game.
+
+      Para quem está pronto para comprar velocidade,
+      para comprar suporte,
+      para investir no próprio comprometimento...
+
+      O link está no chat.
+
+      Próxima seção..."
+
+    key_difference: |
+      Pitch #2 não repete o que vem no produto.
+      Faz FRAMING sobre POR QUE comprar.
+
+  # -------------------------------------------------------------------------
+  # 2.3 Q&A #2
+  # -------------------------------------------------------------------------
+  qa_2:
+    duration: "2-5 minutos"
+
+    template: |
+      "Alguma pergunta sobre o que acabamos de cobrir?
+
+      [RESPONDER 1-2 PERGUNTAS]
+
+      Ótimo. Agora vamos para a parte mais importante..."
+
+    planted_questions:
+      - "Faz sentido para quem está começando do zero?"
+      - "E se eu não tiver muito tempo?"
+
+# =============================================================================
+# SECTION 3: FINAL THIRD (40-60 minutes)
+# =============================================================================
+section_3:
+  name: "Final Third - Deep Content + Full Pitch"
+  duration: "20+ minutos"
+
+  # -------------------------------------------------------------------------
+  # 3.1 DEEP CONTENT / GETTING THEM STARTED
+  # -------------------------------------------------------------------------
+  content:
+    duration: "10-15 minutos"
+    approach: "Fazer eles COMEÇAREM a agir"
+
+    template: |
+      "Agora vamos para a parte que realmente importa.
+
+      Eu poderia falar por mais horas, mas você não precisa de mais informação.
+
+      Você precisa de AÇÃO.
+
+      Então vamos fazer um exercício rápido..."
+
+      [EXERCÍCIO ou DEMONSTRAÇÃO que faz eles começarem]
+
+      "Você está vendo agora as perguntas que surgem.
+      As complexidades que aparecem quando você realmente tenta fazer.
+
+      É exatamente por isso que {{product_name}} existe.
+      Para te guiar através dessas complexidades."
+
+    key_insight: |
+      Se você conseguir fazer eles COMEÇAREM a implementar,
+      eles vão rapidamente perceber que precisam de ajuda.
+
+    exercise_types:
+      - "Mini diagnóstico que revela problemas"
+      - "Primeiro passo que mostra complexidade"
+      - "Teste que revela onde estão"
+      - "Exercício que cria perguntas"
+
+  # -------------------------------------------------------------------------
+  # 3.2 PITCH #3: FULL OBJECTION HANDLING + CLOSE
+  # -------------------------------------------------------------------------
+  pitch_3:
+    duration: "10-15 minutos"
+
+    part_a_objection_handling:
+      duration: "5-7 minutos"
+
+      template: |
+        "Antes de finalizar, deixa eu abordar algumas coisas que você
+        provavelmente está pensando.
+
+        **'É muito caro'**
+
+        Eu entendo. {{price}} não é pouco.
+
+        Mas deixa eu perguntar: quanto está custando NÃO resolver isso?
+        [Desenvolver o custo de não agir]
+
+        [Mencionar opções de pagamento se tiver]
+
+        ---
+
+        **'Não tenho tempo'**
+
+        Ninguém tem tempo sobrando.
+
+        A questão é: você está usando seu tempo para [DOR] ou para [SOLUÇÃO]?
+
+        {{product_name}} exige [TEMPO REAL] por semana.
+        É menos do que você está gastando tentando descobrir sozinho.
+
+        ---
+
+        **'Já tentei antes e não funcionou'**
+
+        Provavelmente você tentou [ABORDAGEM COMUM].
+
+        O problema com isso é [POR QUE FALHA].
+
+        {{product_name}} é diferente porque [DIFERENCIADOR].
+
+        ---
+
+        **'Preciso pensar'**
+
+        Claro. Pensa.
+
+        Mas deixa eu te fazer uma pergunta:
+        O que vai mudar entre agora e amanhã?
+
+        Você vai ter mais informação? Não. Você já tem.
+        Vai estar menos ocupado? Provavelmente não.
+
+        A única coisa que vai mudar é que você vai ter perdido
+        mais um dia sem [RESULTADO]."
+
+    part_b_full_pitch:
+      duration: "5-7 minutos"
+
+      template: |
+        "Então, recapitulando.
+
+        {{product_name}} inclui:
+
+        ✅ [COMPONENTE 1] - [valor ou benefício]
+        ✅ [COMPONENTE 2] - [valor ou benefício]
+        ✅ [COMPONENTE 3] - [valor ou benefício]
+
+        [SE TIVER BÔNUS:]
+        🎁 BÔNUS: {{bonus_1}}
+        🎁 BÔNUS: {{bonus_2}}
+
+        Valor total se você comprasse separado: [VALOR STACKED]
+
+        Seu investimento hoje: {{price}}
+
+        [SE TIVER GARANTIA:]
+        GARANTIA: {{guarantee}}
+
+        [SE TIVER URGÊNCIA REAL:]
+        {{urgency}}
+
+        O link está no chat.
+
+        [Se for call]:
+        Preenche a aplicação, agenda uma conversa,
+        e vamos ver se faz sentido para você.
+
+        [Se for checkout]:
+        Clica, finaliza, e você tem acesso imediato."
+
+    part_c_final_push:
+      template: |
+        "Duas opções agora:
+
+        1. Você fecha essa página, volta pra sua vida,
+           e daqui 6 meses está no mesmo lugar.
+
+        2. Você toma uma decisão, investe em você,
+           e daqui 6 meses tem {{main_outcome}}.
+
+        A escolha é sua.
+
+        Para quem está pronto, o link está no chat.
+
+        Vou abrir para perguntas agora."
+
+  # -------------------------------------------------------------------------
+  # 3.3 Q&A FINAL
+  # -------------------------------------------------------------------------
+  qa_final:
+    duration: "Sem limite"
+
+    template: |
+      "Perguntas?
+
+      [COMEÇAR com: 'Quem aqui já clicou e entrou?']
+      [CELEBRAR quem comprou - social proof]
+
+      [RESPONDER PERGUNTAS - tratar como oportunidades de close]"
+
+    objection_handling_pattern:
+      1: "Reconhecer a preocupação"
+      2: "Reframar a pergunta"
+      3: "Responder direcionando para a oferta"
+      4: "Fechar: 'Isso responde? Então vai lá.'"
+
+    closing_urgency:
+      - "Lembrar de deadline se houver"
+      - "Lembrar de bônus que expiram"
+      - "Última chamada"
+      - "Link no chat"
+
+# =============================================================================
+# PLANTED QUESTIONS BANK
+# =============================================================================
+planted_questions:
+  for_pitch_1:
+    - "Para quem isso é ideal?"
+    - "Para quem NÃO é?"
+    - "Qual o nível de comprometimento necessário?"
+
+  for_pitch_2:
+    - "Faz sentido para quem está começando do zero?"
+    - "E se eu não tiver muito tempo?"
+    - "Isso funciona para [NICHO ESPECÍFICO]?"
+
+  for_pitch_3:
+    - "Qual a garantia?"
+    - "Como funciona o suporte?"
+    - "Em quanto tempo vejo resultados?"
+    - "[Alguém compartilha que comprou]"
+
+# =============================================================================
+# DURATION ADAPTATIONS
+# =============================================================================
+duration_guides:
+  affluent_60min:
+    section_1: "15 min"
+    section_2: "20 min"
+    section_3: "25 min"
+    style: "Estratégico, high-level"
+
+  general_public_90min:
+    section_1: "25 min"
+    section_2: "30 min"
+    section_3: "35 min"
+    style: "Mais tático, mais detalhado"
+
+# =============================================================================
+# QUALITY CHECKLIST
+# =============================================================================
+checklist:
+  intro:
+    - "[ ] Zero small talk"
+    - "[ ] Imediatamente diz o que vão aprender"
+    - "[ ] Menciona exemplos reais"
+    - "[ ] Menos de 30 segundos"
+
+  content:
+    - "[ ] Value density em todas as seções"
+    - "[ ] Exemplos com números específicos"
+    - "[ ] Case studies reais"
+    - "[ ] Exercício/demonstração no final"
+
+  pitches:
+    - "[ ] Pitch #1: Introdução da oferta (2-5 min)"
+    - "[ ] Pitch #2: Framing/velocidade (2-5 min)"
+    - "[ ] Pitch #3: Full pitch + objections (10-15 min)"
+    - "[ ] Pediu permissão no Pitch #1"
+
+  logistics:
+    - "[ ] Perguntas plantadas preparadas"
+    - "[ ] Link testado"
+    - "[ ] Timer configurado"
+    - "[ ] Alguém para plantar perguntas no chat"
+
+# =============================================================================
+# VERSION HISTORY
+# =============================================================================
+version_history:
+  - version: "1.0"
+    date: "2025-01-24"
+    changes: "Initial template based on Jeremy Haynes cold webinar system"

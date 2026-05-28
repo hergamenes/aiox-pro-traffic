@@ -1,0 +1,92 @@
+sop:
+  id: "tb-campaign-diagnosis"
+  version: "1.0.0"
+  title: "Campaign Diagnosis System (3 Steps to Gold)"
+  purpose: "Diagnose underperforming campaigns by classifying the problem as ECONOMIC or PERFORMANCE and identifying the single earliest constraint to fix"
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    sub_category: "campaign-optimization"
+    risk_level: "low"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "When a campaign is not profitable, when performance is declining, or as regular campaign health check"
+  context:
+    input:
+      - name: "cpa_data"
+        type: "number"
+        required: true
+        description: "Cost Per Acquisition — total media spend divided by total new customers"
+      - name: "aov_data"
+        type: "number"
+        required: true
+        description: "Average Order Value — total revenue divided by total orders, including upsells"
+      - name: "campaign_assets"
+        type: "object"
+        required: true
+        description: "Access to all funnel components with per-asset performance metrics"
+  steps:
+    - id: "S001"
+      name: "Collect Data and Classify"
+      action: "calculate_cpa_aov_and_classify"
+      description: "Calculate CPA and AOV from actual data. Classify as ECONOMIC (assets OK but ratio unprofitable) or PERFORMANCE (asset underperforming). Document classification with evidence."
+      performer: "copywriter"
+      critical: true
+      on_success: "S002"
+      on_failure: "retry"
+    - id: "S002"
+      name: "Fix Economics or Find Constraint"
+      action: "optimize_economics_or_find_weakest_link"
+      description: "If ECONOMIC: test upsell1 then upsell2 then bump then core price LAST. If PERFORMANCE: map full conversion chain and identify EARLIEST underperforming link."
+      performer: "copywriter"
+      critical: true
+      on_success: "S003"
+      on_failure: "retry"
+    - id: "S003"
+      name: "Fix Weak Link"
+      action: "apply_targeted_fix"
+      description: "Focus 100% on fixing the single identified constraint. Apply appropriate fix based on the type of underperformance."
+      performer: "copywriter"
+      critical: true
+      on_success: "S004"
+      on_failure: "retry"
+    - id: "S004"
+      name: "Measure and Find Next Constraint"
+      action: "measure_and_iterate"
+      description: "Measure impact with sufficient data (min 100 conversions). Find the NEXT constraint in the chain. Repeat indefinitely."
+      performer: "copywriter"
+      critical: false
+      on_success: "END"
+      on_failure: "retry"
+  error_handling:
+    global_timeout: "PT3H"
+    retry_policy:
+      max_retries: 1
+      backoff: "linear"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "data_based_classification"
+        type: "boolean"
+        target: true
+        weight: 0.3
+      - name: "correct_fix_order"
+        type: "boolean"
+        target: true
+        weight: 0.25
+      - name: "earliest_constraint_identified"
+        type: "boolean"
+        target: true
+        weight: 0.25
+      - name: "single_fix_at_a_time"
+        type: "boolean"
+        target: true
+        weight: 0.2
+    pass_threshold: 0.85
+  outputs:
+    artifacts:
+      - name: "diagnosis_report"
+        type: "file"
+        format: "md"
+        description: "CPA/AOV analysis, ECONOMIC vs PERFORMANCE classification, constraint identification, and single optimization action"

@@ -1,0 +1,109 @@
+sop:
+  id: "rb-fill-your-funnel"
+  version: "1.0.0"
+  title: "Fill Your Funnel Framework (Any Platform)"
+  purpose: "Drive traffic into any funnel by aligning with platform incentives, leveraging Dream 100 audiences, and converting rented social attention into owned email list traffic."
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    risk_level: "low"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "When a new or existing funnel needs a platform-specific traffic strategy that converts social followers into email subscribers."
+  context:
+    input:
+      - name: "target_platform"
+        type: "string"
+        required: true
+        description: "The social media platform to build traffic strategy for (e.g., YouTube, Instagram, LinkedIn, X)."
+      - name: "dream_100_list"
+        type: "list"
+        required: true
+        description: "Compiled Dream 100 list of people/channels that already have the target audience."
+      - name: "funnel_url"
+        type: "string"
+        required: false
+        description: "URL of the lead capture page where traffic will be directed."
+  steps:
+    - id: "S001"
+      name: "Understand Platform History and Goal"
+      action: "research_platform_incentives"
+      description: "Research the platform's origin, business model, and algorithm preferences. Document what content the platform rewards and align strategy accordingly."
+      performer: "copywriter"
+      critical: true
+      on_success: "S002"
+      on_failure: "retry"
+    - id: "S002"
+      name: "Find Dream 100 on Platform"
+      action: "map_dream_100_to_platform"
+      description: "Identify which Dream 100 members are active on the target platform. Note follower count, posting frequency, engagement rate, and content style for top 10-20."
+      performer: "copywriter"
+      critical: false
+      on_success: "S003"
+      on_failure: "retry"
+    - id: "S003"
+      name: "Identify Publishing Strategy"
+      action: "create_content_calendar"
+      description: "Determine ideal posting frequency, preferred content formats, and create a content calendar with 80% value / 20% funnel-bridge content mix."
+      performer: "copywriter"
+      critical: true
+      on_success: "S004"
+      on_failure: "retry"
+    - id: "S004"
+      name: "Work Your Way In"
+      action: "execute_organic_engagement"
+      description: "Begin daily engagement with Dream 100 content through substantive comments, sharing, collaborative content, and genuine value exchange. Minimum 30 days."
+      performer: "copywriter"
+      critical: false
+      on_success: "S005"
+      on_failure: "retry"
+    - id: "S005"
+      name: "Buy Your Way In"
+      action: "launch_paid_amplification"
+      description: "After 30+ days of organic presence, run targeted ads to Dream 100 audiences. Start at $10-50/day testing segments before scaling winners. Every paid piece must drive to lead capture."
+      performer: "copywriter"
+      critical: false
+      on_success: "S006"
+      on_failure: "retry"
+    - id: "S006"
+      name: "Convert to Owned Traffic"
+      action: "implement_list_capture"
+      description: "Ensure every content piece has a path to email list capture. Track weekly conversion from platform to list. Drop platforms that don't convert to owned traffic."
+      performer: "copywriter"
+      critical: true
+      on_success: "DONE"
+      on_failure: "retry"
+  error_handling:
+    global_timeout: "PT8H"
+    retry_policy: "max 2 retries per step before escalation"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "platform_incentives_documented"
+        type: "boolean"
+        target: true
+        weight: 0.8
+      - name: "dream_100_mapped"
+        type: "boolean"
+        target: true
+        weight: 0.7
+      - name: "every_piece_has_list_cta"
+        type: "boolean"
+        target: true
+        weight: 1.0
+      - name: "organic_before_paid"
+        type: "boolean"
+        target: true
+        weight: 0.9
+      - name: "weekly_tracking_active"
+        type: "boolean"
+        target: true
+        weight: 0.6
+    pass_threshold: 0.8
+  outputs:
+    artifacts:
+      - name: "platform_traffic_strategy"
+        type: "file"
+        format: "md"
+        description: "Platform-specific traffic strategy with content calendar, organic plan, paid plan, and list conversion tracking."

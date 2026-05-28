@@ -1,0 +1,164 @@
+version: "1.0.0"
+owner: "copy-chief"
+status: active
+purpose: "Definir boundaries de layer, source-of-truth e regras de reconciliação para artifacts de copy no Sinkra Hub."
+
+layers:
+  business_brand:
+    owner: copy
+    question: "Quem somos, como nos posicionamos e qual linguagem governa a comunicação?"
+    canonical_paths:
+      - "workspace/businesses/{business}/L0-identity/"
+      - "workspace/businesses/{business}/L1-strategy/"
+      - "workspace/businesses/{business}/L2-tactical/brand/"
+      - "workspace/businesses/{business}/L2-tactical/movement/"
+    canonical_artifacts:
+      - "L0-identity/company-dna.yaml"
+      - "L0-identity/founder-dna.yaml"
+      - "L1-strategy/icp.yaml"
+      - "L1-strategy/offerbook.yaml"
+      - "L1-strategy/pricing-strategy.yaml"
+      - "L2-tactical/brand/brandbook.yaml"
+      - "L2-tactical/brand/strategic-positioning.yaml"
+
+  product:
+    owner: copy
+    question: "O que estamos vendendo, qual prova existe e o que é estruturalmente verdadeiro sobre a oferta?"
+    canonical_paths:
+      - "workspace/businesses/{business}/L3-product/{product}/"
+      - "workspace/businesses/{business}/L3-product/{product}/narrative/"
+    canonical_artifacts:
+      - "L3-product/{product}/offerbook.yaml"
+      - "L3-product/{product}/proof.yaml"
+      - "L3-product/{product}/testimonials.yaml"
+      - "L3-product/{product}/curriculum.yaml"
+      - "L3-product/{product}/narrative/product-story.yaml"
+      - "L3-product/{product}/narrative/pitch-narrative.yaml"
+      - "L3-product/{product}/narrative/brandscript.yaml"
+      - "L3-product/{product}/narrative/objection-destroyers.yaml"
+
+  campaign:
+    owner: copy
+    question: "O que esta campanha precisa alcançar, com qual lógica de mensagem e quais assets?"
+    canonical_paths:
+      - "workspace/businesses/{business}/L4-operational/campaigns/{campaign_slug}/"
+    canonical_artifacts:
+      - "campaign-brief.yaml"              # raiz cross-squad (ADR-012)
+      - "message-architecture.yaml"        # raiz cross-squad (ADR-012)
+      - "copy/creative-brief.yaml"         # copy subdir (ADR-012)
+      - "copy/assets/asset-brief-*.yaml"   # copy subdir (ADR-012)
+
+  delivery:
+    owner: copy
+    question: "Qual copy está pronta para publicação ou handoff?"
+    canonical_paths:
+      - "outputs/copy/{business}/"
+    canonical_artifacts:
+      - "pages/*"
+      - "drafts/*"
+      - "emails/*"
+      - "ads/*"
+
+source_of_truth:
+  icp_and_business_context:
+    paths:
+      - "L1-strategy/icp.yaml"
+      - "L0-identity/company-dna.yaml"
+      - "L0-identity/founder-dna.yaml"
+    layer: business_brand
+  brand_voice_and_positioning:
+    paths:
+      - "L2-tactical/brand/brandbook.yaml"
+      - "L2-tactical/brand/strategic-positioning.yaml"
+    layer: business_brand
+  movement_and_identity_narrative:
+    path: "L2-tactical/movement/"
+    layer: business_brand
+  product_structure_and_value_stack:
+    path: "L3-product/{product}/offerbook.yaml"
+    layer: product
+  proof_and_testimonials:
+    paths:
+      - "L3-product/{product}/proof.yaml"
+      - "L3-product/{product}/testimonials.yaml"
+    layer: product
+  reusable_product_story_assets:
+    path: "L3-product/{product}/narrative/*"
+    layer: product
+  campaign_objective_and_scope:
+    path: "L4-operational/campaigns/{campaign_slug}/campaign-brief.yaml"
+    layer: campaign
+  campaign_message_strategy:
+    path: "L4-operational/campaigns/{campaign_slug}/message-architecture.yaml"
+    layer: campaign
+  execution_angle_and_tone:
+    path: "L4-operational/campaigns/{campaign_slug}/copy/creative-brief.yaml"
+    layer: campaign
+  per_asset_requirements:
+    path: "L4-operational/campaigns/{campaign_slug}/copy/assets/asset-brief-*.yaml"
+    layer: campaign
+  actual_written_copy:
+    path: "outputs/copy/{business}/..."
+    layer: delivery
+
+stage_source_of_truth:
+  stage_1_intake:
+    primary_artifact: "campaign-brief.yaml"
+    owner: copy
+    canonical_path: "workspace/businesses/{business}/L4-operational/campaigns/{campaign_slug}/campaign-brief.yaml"
+    truth_statement: "Escopo, objetivo, audiência, canais, constraints e critérios de sucesso"
+    fallback_policy: "Brief implícito só para DRAFT exploratório ou peça simples"
+  stage_2_message_strategy:
+    primary_artifact: "message-architecture.yaml"
+    owner: copy
+    canonical_path: "workspace/businesses/{business}/L4-operational/campaigns/{campaign_slug}/message-architecture.yaml"
+    truth_statement: "Lógica de mensagem, hierarquia de prova, mecanismo e boundaries de claim"
+    fallback_policy: "Pode ser comprimido apenas em campanhas leves"
+  stage_3_creative_direction:
+    primary_artifact: "creative-brief.yaml"
+    owner: copy
+    canonical_path: "workspace/businesses/{business}/L4-operational/campaigns/{campaign_slug}/copy/creative-brief.yaml"
+    truth_statement: "Ângulo, tom emocional, território criativo e CTA"
+    fallback_policy: "Pode ser incorporado ao asset brief em peça única simples"
+  stage_4_asset_planning:
+    primary_artifact: "assets/asset-brief-*.yaml"
+    owner: copy
+    canonical_path: "workspace/businesses/{business}/L4-operational/campaigns/{campaign_slug}/copy/assets/asset-brief-*.yaml"
+    truth_statement: "Especificação por deliverable"
+    fallback_policy: "Pode ser implícito em peça única simples"
+  stage_5_delivery:
+    primary_artifact: "copy deck / output final"
+    owner: copy
+    canonical_path: "outputs/copy/{business}/..."
+    truth_statement: "Copy executável e pronta para handoff"
+    fallback_policy: "Sem fallback"
+  stage_6_review:
+    primary_artifact: "approval state"
+    owner: copy
+    canonical_path: "squads/copy/checklists/ + fontes de truth upstream"
+    truth_statement: "Promoção para FINAL depende dos gates e da validação factual"
+    fallback_policy: "Sem fallback"
+
+reconciliation_rules:
+  copy_brief_protocol:
+    status: active
+    role: loader_and_validator
+    rules:
+      - "Carrega truth de business_brand e product antes de qualquer escrita"
+      - "Se campaign-brief.yaml existir, ele governa a camada de campanha"
+      - "Sem campaign-brief persistido, só DRAFT exploratório ou peça simples"
+      - "Estratégico, multi-asset, high-ticket ou FINAL exigem campaign brief explícito"
+
+  generic_message_hierarchy:
+    status: legacy_supported_not_primary
+    rules:
+      - "Arquivos antigos de mensagem podem continuar como referência"
+      - "Não criar novos message-hierarchy genéricos para campaign planning"
+      - "Mensagem de campanha nova deve viver em message-architecture.yaml"
+
+runtime_rules:
+  copy_chief:
+    - "Carregar L1-strategy, L2-tactical/brand e L3-product antes de escrever"
+    - "Resolver business, product e campaign_slug antes de tentar promover para FINAL"
+    - "Salvar planning em workspace/businesses/{business}/L4-operational/campaigns/{campaign_slug}/ (ADR-012)"
+    - "Salvar delivery-ready copy em outputs/copy/{business}/"

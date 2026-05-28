@@ -1,0 +1,128 @@
+sop:
+  id: halbert-veto-conditions
+  version: "1.0"
+  title: Halbert Veto Conditions
+  purpose: >
+    Enforce Gary Halbert's non-negotiable pre-conditions and hard blocks that prevent
+    fundamental strategic errors. Veto conditions must ALL pass before copy drafting begins.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: gary-halbert
+    artifact_type: veto
+    tier: t1
+
+  steps:
+    - action: validate_market_list_first
+      id: GH_V01
+      description: Writing copy before validating market/list -> BLOCK
+      rule: list_validated == true AND offer_validated == true
+      principle: "List > Offer > Copy"
+      on_fail: BLOCK
+      remediation: return_to_strategy_phase
+
+    - action: validate_proof_stack_minimum
+      id: GH_V02
+      description: Copy without proof stack (less than 3 evidence types) -> PAUSE
+      rule: distinct_proof_types >= 3
+      proof_types:
+        - testimonial
+        - statistic
+        - case_study
+        - expert_endorsement
+        - demonstration
+        - logical_argument
+      on_fail: PAUSE
+      remediation: gather_additional_proof
+
+    - action: validate_not_b_pile
+      id: GH_V03
+      description: Copy that looks like advertising (B-pile) -> REWRITE
+      rule: b_pile_indicators == 0
+      on_fail: REWRITE
+      remediation: restructure_as_personal_letter
+
+    - action: validate_no_vague_numbers
+      id: GH_V04
+      description: Vague or generic numbers -> REJECT
+      prohibited_terms:
+        - many
+        - several
+        - a lot
+        - significant
+        - huge
+        - tons of
+        - numerous
+      rule: vague_quantifier_count == 0
+      on_fail: REJECT
+      remediation: replace_all_with_exact_figures
+
+    - action: validate_headline_strength
+      id: GH_V05
+      description: Weak or generic headline -> STOP
+      rule: headline_is_specific AND headline_has_benefit
+      principle: "Headline = 80% of the work"
+      minimum_variants_tested: 10
+      on_fail: STOP
+      remediation: rewrite_10x_variants
+
+    - action: validate_natural_urgency
+      id: GH_V06
+      description: Artificial urgency or fake scarcity -> REFUSE
+      prohibited_patterns:
+        - fake_countdown_timer
+        - manufactured_limited_spots
+        - baseless_last_chance
+        - artificial_expiring_bonus
+      rule: artificial_urgency_count == 0
+      on_fail: REFUSE
+      remediation: replace_with_natural_urgency_or_remove
+
+    - action: validate_paragraph_max_lines
+      id: GH_V07
+      description: Paragraphs with more than 4 lines -> BREAK
+      rule: max_paragraph_lines <= 3
+      hard_limit: 4
+      on_fail: BREAK
+      remediation: split_at_sentence_boundary
+
+    - action: validate_marketing_arithmetic
+      id: GH_V08
+      description: Marketing decision without arithmetic -> STOP
+      required_calculations:
+        - cost_per_thousand
+        - response_per_thousand
+        - profit_per_sale
+      rule: all_calculations_present == true
+      on_fail: STOP
+      remediation: calculate_unit_economics_first
+
+  error_handling:
+    - error: list_not_validated
+      severity: critical
+      action: block_entire_assignment
+    - error: insufficient_proof_types
+      severity: high
+      action: pause_and_research
+    - error: b_pile_detected
+      severity: critical
+      action: full_rewrite
+    - error: vague_numbers_found
+      severity: high
+      action: reject_until_specific
+    - error: weak_headline
+      severity: critical
+      action: stop_and_rewrite_10x
+    - error: artificial_urgency
+      severity: critical
+      action: refuse_and_remove
+
+  quality_gate:
+    pass_threshold: 8
+    total_checks: 8
+    mandatory_passes:
+      - GH_V01
+      - GH_V03
+      - GH_V05
+      - GH_V06
+    verdict_on_fail: BLOCK

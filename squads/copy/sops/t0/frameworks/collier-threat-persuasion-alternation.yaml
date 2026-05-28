@@ -1,0 +1,86 @@
+sop:
+  id: collier-threat-persuasion-alternation
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Threat/Persuasion Alternation"
+  purpose: >
+    Alternate threatening and persuasive messages in sequences for maximum response.
+    Like stroking cat's fur — sparks fly, smooth down, sparks again. Prevents
+    adaptation to single emotional tone through tension-release cycle.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: robert-collier
+    artifact_type: framework
+
+  steps:
+    - id: apply_alternation_pattern
+      action: apply_establish_tptp_pattern
+      description: "Establish strict alternation: Threat-Persuasion-Threat-Persuasion. Deliberate emotional contrast, not random."
+      critical: true
+      inputs:
+        - sequence_length
+        - relationship_status
+      output: pattern_plan
+
+    - id: apply_threat_craft
+      action: apply_craft_threat_letter
+      description: "Craft threat letter: firm, direct, consequence-focused. Not angry — factual and urgent. Creates tension."
+      depends_on: apply_alternation_pattern
+      output: threat_letters
+
+    - id: apply_persuasion_craft
+      action: apply_craft_persuasive_letter
+      description: "Craft persuasive letter: warm, understanding, benefit-focused. Acknowledges situation, offers help. Releases tension."
+      depends_on: apply_alternation_pattern
+      output: persuasive_letters
+
+    - id: apply_cats_fur_principle
+      action: apply_contrast_energy
+      description: "Cat's fur principle: friction between threat and persuasion creates energy. All threats = resentment. All persuasion = complacency."
+      depends_on:
+        - apply_threat_craft
+        - apply_persuasion_craft
+      output: alternated_sequence
+
+  error_handling:
+    - error: all_threats
+      symptom: "Prospect becomes resentful; relationship damaged"
+      resolution: "Alternate: follow every threat with genuine warmth"
+    - error: all_persuasion
+      symptom: "Prospect ignores messages; no urgency"
+      resolution: "Alternate: follow every warm message with clear consequence"
+    - error: empty_threats
+      symptom: "Prospect learns consequences never enforced"
+      resolution: "Only state consequences you will actually enforce"
+    - error: fake_persuasion
+      symptom: "'We care about you' but tone is cold"
+      resolution: "Genuine warmth; reference specific relationship value"
+    - error: broken_pattern
+      symptom: "Random ordering; technique fails"
+      resolution: "Strict T-P-T-P alternation"
+
+  quality_gate:
+    criteria:
+      - "Strict alternation maintained (no consecutive same-tone)"
+      - "Threats are factual and consequence-focused"
+      - "Persuasion is genuinely warm"
+      - "Emotional contrast clear between adjacent messages"
+      - "Consequences are real and enforceable"
+      - "Clear escalation path"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: alternated_sequence
+      format: tagged_messages
+      description: "Multi-message sequence with T-P-T-P tagging"
+    - name: escalation_ladder
+      format: severity_scale
+      description: "Increasing severity within threat messages"
+    - name: resolution_mechanism
+      format: per_stage_actions
+      description: "What prospect can do to resolve at each stage"

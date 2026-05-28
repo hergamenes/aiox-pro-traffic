@@ -1,0 +1,48 @@
+sop:
+  id: hopkins-anti-competitor
+  version: "1.0"
+  title: "Anti-Competitor Rule (CH_H11)"
+  purpose: "Eliminar mencoes a concorrentes. Publicidade negativa da atencao gratuita ao concorrente. Foco exclusivo no proprio produto."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: claude-hopkins
+  steps:
+    - step: 1
+      action: "Identificar mencoes a concorrentes na copy"
+      decision_point:
+        condition: "Tipo de mencao ao concorrente?"
+        branches:
+          - if: "Mencao direta (nome, marca)"
+            then: "Remover imediatamente — da atencao gratuita"
+          - if: "Mencao indireta ('diferente dos outros', 'ao contrario da concorrencia')"
+            then: "Reformular: falar do proprio produto SEM referencia ao outro"
+          - if: "Comparacao tecnica necessaria"
+            then: "Avaliar alternativa"
+            next_decision:
+              condition: "Pode demonstrar superioridade sem citar concorrente?"
+              branches:
+                - if: "Sim"
+                  then: "Usar demonstracao propria"
+                - if: "Nao (contexto tecnico/regulatorio)"
+                  then: "Manter com foco em dados objetivos, sem ataques"
+    - step: 2
+      action: "Redirecionar toda copy para proprio produto, resultados e clientes"
+  error_handling:
+    - error: "Concorrente mencionado pelo nome"
+      severity: critical
+      action: "Remover imediatamente e reformular"
+    - error: "Comparacao implicita"
+      severity: warning
+      action: "Reformular sem nenhuma referencia externa"
+    - error: "Ataque velado ao concorrente"
+      severity: warning
+      action: "Substituir por tom positivo sobre proprio produto"
+  quality_gate:
+    criteria:
+      - "Zero mencoes a concorrentes"
+      - "Nenhuma comparacao implicita"
+      - "Foco 100% no proprio produto"
+      - "Tom positivo sem ataques"
+    pass_threshold: "Todos os criterios atendidos"

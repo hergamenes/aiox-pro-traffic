@@ -1,0 +1,78 @@
+sop:
+  id: task-mht-exercise
+  version: "1.0"
+  title: "Moment of Highest Tension (MHT) Exercise"
+  purpose: "Create vivid sensory-rich scene of prospect's peak pain moment as named emotional anchor for all empathy-driven copy"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: ry-schwartz
+    tier: T3
+
+  inputs:
+    - name: prospect_profile
+      type: object
+      required: true
+      description: "Specific prospect demographic profile"
+    - name: pain_relationship
+      type: object
+      required: true
+      description: "Product/pain relationship mapping"
+
+  outputs:
+    - name: mht_scene
+      type: document
+      description: "Named MHT scene with full sensory detail (200-400 words)"
+
+  steps:
+    - id: step_1
+      action: define_prospect
+      description: "Identify specific demographic — not generic category but specific person with circumstances"
+
+    - id: step_2
+      action: walk_through_day
+      description: "Map emotional landscape of full day: morning, afternoon, evening, night — triggers, interactions, stressors"
+      critical: true
+
+    - id: step_3
+      action: find_exact_moment
+      description: "Locate single moment of maximum vulnerability — specific not chronic"
+      critical: true
+      error_handling:
+        condition: "MHT is chronic state not specific moment"
+        action: "Narrow to the ONE moment where pain peaks — a scene, not a condition"
+
+    - id: step_4
+      action: describe_sensory_detail
+      description: "Write scene in 3D: visual, physical sensation, auditory, internal self-talk"
+      channels:
+        - visual
+        - physical
+        - auditory
+        - self_talk
+
+    - id: step_5
+      action: name_moment
+      description: "Give MHT a short evocative name (2-4 words) as emotional anchor for copy"
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "Prospect is specific not generic"
+      - "Full day walkthrough completed"
+      - "MHT is specific moment not chronic state"
+      - "At least 3 sensory channels included"
+      - "MHT has short evocative name"
+      - "Scene based on real audience data"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies: []
+
+  related_sops:
+    - task-big-idea-system
+    - task-sales-video-big-four
+    - task-voc-first-email
+    - task-frank-matt-archetype

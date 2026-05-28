@@ -1,0 +1,118 @@
+sop:
+  id: ogilvy-headline-system
+  version: "1.0"
+  title: "Headline System — 10 Rules of Ogilvy"
+  purpose: "Create headlines that filter prospects, promise benefits, include brand and news, and compel body copy readership — minimum 16 variations"
+  classification:
+    domain: copywriting
+    category: master
+    tier: T1
+    source_agent: david-ogilvy
+
+  inputs:
+    - name: brand_product_facts
+      type: document
+      required: true
+    - name: consumer_insight
+      type: text
+      required: true
+    - name: positioning
+      type: text
+      required: true
+
+  outputs:
+    - name: headline_variations
+      type: list
+      description: "16+ headline variations with benefit, news, brand, curiosity, and clarity"
+
+  steps:
+    - id: step_01
+      action: filter_for_prospect
+      description: "Use headline as 'ticket on the meat' — mention target audience or their situation"
+      critical: true
+      error_handling:
+        condition: "headline_appeals_to_everyone"
+        action: "add_specific_prospect_identifier"
+
+    - id: step_02
+      action: promise_benefit
+      description: "Appeal to self-interest with specific benefit from reader's perspective"
+      critical: true
+      error_handling:
+        condition: "feature_focused_instead_of_benefit"
+        action: "reframe_from_reader_perspective_answer_whats_in_it_for_me"
+
+    - id: step_03
+      action: inject_news
+      description: "Include news element (discovery, study, development) whenever genuine news exists"
+      critical: false
+
+    - id: step_04
+      action: use_power_words
+      description: "Incorporate proven words: FREE, NEW, HOW TO, SUDDENLY, NOW, ANNOUNCING"
+      critical: false
+
+    - id: step_05
+      action: include_brand_name
+      description: "Place brand name in headline since 80% never read body copy"
+      critical: true
+      error_handling:
+        condition: "brand_name_absent"
+        action: "add_brand_name_to_headline"
+
+    - id: step_06
+      action: include_sales_promise
+      description: "Include complete sales promise — long headlines with promise outperform short clever ones"
+      critical: true
+      error_handling:
+        condition: "promise_sacrificed_for_brevity"
+        action: "expand_headline_to_include_full_promise"
+
+    - id: step_07
+      action: create_curiosity_gap
+      description: "Arouse curiosity that can only be satisfied by reading body copy"
+      critical: false
+
+    - id: step_08
+      action: eliminate_wordplay
+      description: "Remove puns, double meanings, obscurities — headline must communicate instantly"
+      critical: true
+      error_handling:
+        condition: "headline_requires_second_read"
+        action: "rewrite_for_instant_comprehension"
+
+    - id: step_09
+      action: eliminate_negatives
+      description: "Rephrase negative constructions as positives — readers skip 'not' when scanning"
+      critical: true
+      error_handling:
+        condition: "negative_construction_present"
+        action: "rephrase_as_positive_statement"
+
+    - id: step_10
+      action: verify_standalone_communication
+      description: "Ensure headline communicates meaning without body copy — no blind headlines"
+      critical: true
+      error_handling:
+        condition: "headline_meaningless_without_body"
+        action: "rewrite_to_communicate_independently"
+
+    - id: step_11
+      action: generate_minimum_16_variations
+      description: "Write at least 16 variations exploring different rule combinations, angles, and structures"
+      critical: true
+      error_handling:
+        condition: "fewer_than_16_variations"
+        action: "continue_generating_until_16_minimum"
+
+  quality_gate:
+    min_criteria_met: 7
+    criteria:
+      - "headline_filters_for_right_prospect"
+      - "clear_benefit_promised"
+      - "brand_name_included"
+      - "sales_promise_present"
+      - "no_puns_or_obscurities"
+      - "no_negative_constructions"
+      - "headline_communicates_without_body"
+      - "minimum_16_variations_generated"

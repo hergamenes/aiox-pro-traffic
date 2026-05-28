@@ -1,0 +1,138 @@
+sop:
+  id: deutsch-veto-conditions
+  version: "1.0"
+  title: Deutsch Veto Conditions
+  purpose: >
+    Enforce David Deutsch's non-negotiable standards for CopyThinking methodology,
+    headline hypothesis diversity, video script visual directions, demonstration
+    density, CTA repetition, and research depth beyond briefing.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: david-deutsch
+    artifact_type: veto
+    tier: t1
+
+  steps:
+    - action: validate_copythinking_first
+      id: DD_V01
+      description: Writing BEFORE thinking -> BLOCK. Apply CopyThinking first.
+      rule: copythinking_output_documented == true
+      copythinking_components:
+        - core_promise_defined
+        - proof_architecture_mapped
+        - emotional_journey_identified
+        - persuasion_strategy_selected
+        - copy_structure_planned
+      on_fail: BLOCK
+      remediation: complete_copythinking_phase
+
+    - action: validate_headline_hypothesis_diversity
+      id: DD_V02
+      description: Headlines as cosmetic variations -> REJECT. Require different hypotheses.
+      rule: headline_hypotheses_are_distinct == true
+      checks:
+        - each_headline_tests_different_angle
+        - not_cosmetic_rephrasing
+        - fundamentally_different_persuasive_approaches
+      examples:
+        cosmetic_fail:
+          - "Lose 10 pounds in 30 days"
+          - "Drop 10 lbs in just 30 days"
+        genuine_pass:
+          - "Lose 10 pounds in 30 days"
+          - "The dinner trick that makes diets unnecessary"
+          - "Why your metabolism has been lying to you"
+      on_fail: REJECT
+      remediation: develop_radically_different_hypotheses
+
+    - action: validate_visual_directions
+      id: DD_V03
+      description: Video script without [VISUAL:] directions -> BLOCK
+      condition: format == "video_script"
+      rule: visual_direction_tags_present == true
+      required_tags:
+        - product_shots
+        - demonstrations
+        - b_roll
+        - graphics
+        - text_overlays
+      on_fail: BLOCK
+      remediation: add_visual_directions_throughout
+
+    - action: validate_demonstration_count
+      id: DD_V04
+      description: Video script with fewer than 3 demonstrations -> PAUSE
+      condition: format == "video_script"
+      rule: demonstration_count >= 3
+      demonstration_types:
+        - product_in_use
+        - before_after_comparison
+        - side_by_side_test
+        - results_visualization
+        - mechanism_illustration
+        - customer_usage_footage
+      on_fail: PAUSE
+      remediation: add_demonstrations_until_minimum_3
+
+    - action: validate_cta_repetition
+      id: DD_V05
+      description: CTA appears only 1 time in video -> REJECT. Minimum 3.
+      condition: format == "video_script"
+      rule: cta_count >= 3
+      recommended_placement:
+        - after_initial_proof_stack
+        - midpoint_after_objections
+        - close
+      on_fail: REJECT
+      remediation: add_cta_at_three_strategic_points
+
+    - action: validate_research_beyond_briefing
+      id: DD_V06
+      description: Research limited to briefing -> ALERT
+      rule: independent_research_conducted == true
+      independent_sources:
+        - books_on_subject
+        - primary_research_papers
+        - independent_interviews
+        - competitor_analysis
+      on_fail: ALERT
+      remediation: recommend_deeper_independent_research
+      severity: advisory
+
+  error_handling:
+    - error: no_copythinking
+      severity: critical
+      action: block_until_thinking_documented
+    - error: cosmetic_headlines
+      severity: high
+      action: reject_and_develop_new_hypotheses
+    - error: no_visual_directions
+      severity: critical
+      action: block_video_script
+    - error: insufficient_demonstrations
+      severity: high
+      action: pause_and_add_demonstrations
+    - error: single_cta
+      severity: high
+      action: reject_and_add_cta_repetitions
+    - error: briefing_only_research
+      severity: medium
+      action: alert_and_recommend_deep_dive
+
+  quality_gate:
+    pass_threshold: 5
+    total_checks: 6
+    mandatory_passes:
+      - DD_V01
+      - DD_V02
+    conditional_mandatory:
+      - condition: format == "video_script"
+        required:
+          - DD_V03
+          - DD_V05
+    advisory_checks:
+      - DD_V06
+    verdict_on_fail: BLOCK
+    special_verdicts:
+      DD_V06: ALERT

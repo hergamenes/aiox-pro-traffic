@@ -1,0 +1,184 @@
+sop:
+  id: "sg-rmbc-full-pipeline"
+  version: "1.0.0"
+  title: "RMBC Method Full Pipeline"
+  purpose: "Execute Stefan Georgi's four-phase Research-Mechanism-Brief-Copy pipeline for producing high-converting direct response copy"
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    risk_level: "medium"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "When writing any direct response copy piece (VSL, sales letter, advertorial, email sequence, landing page) that must generate measurable results"
+  context:
+    input:
+      - name: "product_service_details"
+        type: "object"
+        required: true
+        description: "Complete product or service information including features, ingredients, benefits, and pricing"
+      - name: "market_research_sources"
+        type: "list"
+        required: true
+        description: "At least 3 research sources: product documentation, competitor copy, and customer/market psychographic data"
+      - name: "competitor_landscape"
+        type: "object"
+        required: true
+        description: "Analysis of competitor claims, angles, and copy positioning in the market"
+  steps:
+    - id: "S001"
+      name: "Build unified research document"
+      action: "compile_research_document"
+      description: "Create a single document consolidating product/market/awareness research, competitor research, and psychographic research into one unified reference."
+      performer: "copywriter"
+      critical: true
+      on_success: "S002"
+      on_failure: "retry"
+    - id: "S002"
+      name: "Collect direct prospect quotes"
+      action: "extract_prospect_language"
+      description: "Collect 20+ direct quotes in the prospect's EXACT language from Amazon reviews, Reddit, Facebook groups, support tickets, forums, and surveys. Do not paraphrase."
+      performer: "copywriter"
+      critical: true
+      on_success: "S003"
+      on_failure: "retry"
+    - id: "S003"
+      name: "Map pain points and objections"
+      action: "map_pain_failures_objections"
+      description: "Create a structured map of what prospects tried before, why it failed, what they believe about the failure, and what objections they will have to a new solution."
+      performer: "copywriter"
+      critical: false
+      on_success: "S004"
+      on_failure: "retry"
+    - id: "S004"
+      name: "Define UMP"
+      action: "define_unique_mechanism_problem"
+      description: "Answer: 'Why has everything they tried before FAILED?' Identify the hidden mechanism causing the problem that they didn't know about. This externalizes blame from the prospect."
+      performer: "copywriter"
+      critical: true
+      on_success: "S005"
+      on_failure: "retry"
+    - id: "S005"
+      name: "Define UMS"
+      action: "define_unique_mechanism_solution"
+      description: "Answer: 'Why does THIS solution work when everything else failed?' The UMS must directly address the UMP with logical connection between problem mechanism and solution mechanism."
+      performer: "copywriter"
+      critical: true
+      on_success: "S006"
+      on_failure: "retry"
+    - id: "S006"
+      name: "Apply Wife Test"
+      action: "validate_mechanism_clarity"
+      description: "Explain the mechanism to a non-expert in 30 seconds. If they respond with genuine 'Oh!' understanding, proceed. If confused, simplify the mechanism further."
+      performer: "copywriter"
+      critical: false
+      on_success: "S007"
+      on_failure: "S004"
+    - id: "S007"
+      name: "Create named oddity"
+      action: "name_mechanism"
+      description: "Give the mechanism a proprietary, memorable name that becomes the centerpiece of the copy. Must be ownable and specific to this product."
+      performer: "copywriter"
+      critical: false
+      on_success: "S008"
+      on_failure: "retry"
+    - id: "S008"
+      name: "Score mechanism"
+      action: "evaluate_mechanism_strength"
+      description: "Rate mechanism on 4 dimensions (1-10 each): Believable, Testable, Viral in 30 seconds, Novel. Average must be >7.5 to proceed. Below 7.5 returns to S004."
+      performer: "copywriter"
+      critical: true
+      on_success: "S009"
+      on_failure: "S004"
+    - id: "S009"
+      name: "Build Brief 2.0"
+      action: "construct_25_point_brief"
+      description: "Build narrative brief covering 25 points across 5 categories: Audience (5), Mechanism (5), Product (5), Story (5), Proof+Offer (5). Write as copy chunks, NOT bullet points."
+      performer: "copywriter"
+      critical: true
+      on_success: "S010"
+      on_failure: "retry"
+    - id: "S010"
+      name: "Write body copy first"
+      action: "draft_body_copy"
+      description: "Write the body copy BEFORE the lead. The body informs what the lead needs to promise and set up. Apply Bar Stool Test during writing — every sentence should sound conversational."
+      performer: "copywriter"
+      critical: true
+      on_success: "S011"
+      on_failure: "retry"
+    - id: "S011"
+      name: "Generate micro-lead variants"
+      action: "create_lead_variants"
+      description: "Write 3-5 micro-lead variants (150-300 words each) in different styles: Emotional, Pure Curiosity, Contrarian, Story-based, Big Promise + Fascinations. Body stays constant."
+      performer: "copywriter"
+      critical: false
+      on_success: "S012"
+      on_failure: "retry"
+    - id: "S012"
+      name: "Apply Bar Stool Test"
+      action: "validate_conversational_tone"
+      description: "Read entire copy aloud. If any sentence sounds like marketing copy or corporate-speak instead of a conversation between friends at a bar, rewrite it."
+      performer: "copywriter"
+      critical: false
+      on_success: "S013"
+      on_failure: "retry"
+    - id: "S013"
+      name: "Cut throat clearing"
+      action: "trim_opening_paragraphs"
+      description: "Review first 3-5 paragraphs. If they are warm-up text that doesn't immediately engage, cut them. Copy should start where it gets interesting."
+      performer: "copywriter"
+      critical: false
+      on_success: "END"
+      on_failure: "retry"
+  error_handling:
+    global_timeout: "PT8H"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "research_document_complete"
+        type: "boolean"
+        target: true
+        weight: 0.15
+      - name: "direct_quotes_minimum_20"
+        type: "numeric"
+        target: 20
+        weight: 0.15
+      - name: "mechanism_score_above_7_5"
+        type: "numeric"
+        target: 7.5
+        weight: 0.2
+      - name: "brief_is_narrative"
+        type: "boolean"
+        target: true
+        weight: 0.1
+      - name: "body_written_before_lead"
+        type: "boolean"
+        target: true
+        weight: 0.1
+      - name: "micro_lead_variants_count"
+        type: "numeric"
+        target: 3
+        weight: 0.15
+      - name: "bar_stool_test_passed"
+        type: "boolean"
+        target: true
+        weight: 0.15
+    pass_threshold: 0.85
+  outputs:
+    artifacts:
+      - name: "unified_research_document"
+        type: "file"
+        format: "md"
+        description: "Complete research with 20+ quotes, pain map, and objection log"
+      - name: "mechanism_scorecard"
+        type: "file"
+        format: "md"
+        description: "UMP + UMS + Named Oddity with 4-dimension scores"
+      - name: "brief_2_0"
+        type: "file"
+        format: "md"
+        description: "25-point narrative brief"
+      - name: "complete_copy"
+        type: "file"
+        format: "md"
+        description: "Body copy with 3-5 micro-lead variants ready for A/B testing"

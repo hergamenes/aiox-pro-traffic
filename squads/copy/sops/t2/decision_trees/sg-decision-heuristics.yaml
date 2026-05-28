@@ -1,0 +1,283 @@
+sop:
+  id: sg-decision-heuristics
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+
+  title: "Stefan Georgi Decision Heuristics"
+  purpose: "Comprehensive 14-point decision heuristic set based on Stefan Georgi's RMBC Method covering the entire copywriting lifecycle — research quality, mechanism strength, conversational tone, lead order, headline audit, and cross-market mechanism transport."
+
+  classification:
+    domain: copywriting
+    subdomain: rmbc-method
+    source_agent: stefan-georgi
+    artifact_type: decision_tree
+    tier: t2
+
+  steps:
+    - id: SG_H01
+      name: stuck_copywriter_diagnostic
+      decision_point: "Copywriter is stuck (blank page, ideas not flowing)"
+      branches:
+        - condition: "Research (R phase) is complete and verified"
+          goto: SG_H02
+        - condition: "Research is insufficient or incomplete"
+          goto: SG_H01_FIX
+          action: "Prep insufficient. Go back to R of RMBC."
+
+    - id: SG_H01_FIX
+      name: return_to_research
+      action: "Complete R phase of RMBC. Gather prospect language, pain points, desires."
+      goto: SG_H05
+
+    - id: SG_H02
+      name: mechanism_substitution
+      decision_point: "Prospect can substitute solution for another"
+      branches:
+        - condition: "Mechanism is unique and non-substitutable"
+          goto: SG_H03
+        - condition: "Solution is interchangeable with competitors"
+          goto: SG_H02_FIX
+          action: "Mechanism is weak. Redo M phase of RMBC."
+
+    - id: SG_H02_FIX
+      name: redo_mechanism
+      action: "Redo M (Mechanism) phase entirely. Find or create unique, defensible mechanism."
+      goto: SG_H02
+
+    - id: SG_H03
+      name: bar_stool_test
+      decision_point: "Reading copy aloud — does it sound like conversation between friends?"
+      branches:
+        - condition: "Sounds like natural conversation at a bar"
+          goto: SG_H04
+        - condition: "Sounds like salesperson reading script"
+          goto: SG_H03_FIX
+          action: "Bar Stool Test failed. Rewrite conversationally."
+
+    - id: SG_H03_FIX
+      name: conversational_rewrite
+      action: "Rewrite using contractions, short sentences, natural rhythm. Friend, not salesperson."
+      goto: SG_H03
+
+    - id: SG_H04
+      name: throat_clearing_detection
+      decision_point: "First 2-3 paragraphs — could they be removed without losing meaning?"
+      branches:
+        - condition: "First paragraphs are essential to the message"
+          goto: SG_H05
+        - condition: "First 2-3 paragraphs are filler/preamble"
+          goto: SG_H04_FIX
+          action: "Throat Clearing detected. CUT them."
+
+    - id: SG_H04_FIX
+      name: cut_throat_clearing
+      action: "Delete the first 2-3 filler paragraphs. The real copy starts after the throat clearing."
+      goto: SG_H05
+
+    - id: SG_H05
+      name: research_quality_audit
+      decision_point: "Does research contain direct quotes in prospect's own language?"
+      branches:
+        - condition: "Direct quotes from actual prospects present"
+          goto: SG_H06
+        - condition: "No direct prospect language quotes"
+          goto: SG_H05_FIX
+          action: "Research insufficient. Go back to R phase. Mine Amazon, Reddit, forums."
+
+    - id: SG_H05_FIX
+      name: gather_prospect_language
+      action: "Mine Amazon reviews, Reddit, Facebook groups, support tickets for exact prospect language."
+      goto: SG_H05
+
+    - id: SG_H06
+      name: lead_writing_order
+      decision_point: "Is body copy finished?"
+      branches:
+        - condition: "Body copy is complete"
+          goto: SG_H07
+          action: "Now write the lead. Lead LAST."
+        - condition: "Body copy not finished"
+          goto: SG_H06_HOLD
+          action: "Do NOT write the lead yet. Write placeholder. Lead LAST (90% of the time)."
+
+    - id: SG_H06_HOLD
+      name: hold_lead
+      action: "Write placeholder lead. Complete body copy first. Return to write real lead after body is done."
+      goto: SG_H07
+
+    - id: SG_H07
+      name: money_close_section
+      decision_point: "Offer has multiple packages or price tiers"
+      branches:
+        - condition: "Dedicated 2-page Money Close for premium package exists"
+          goto: SG_H08
+        - condition: "Premium package treated same as base"
+          goto: SG_H07_FIX
+          action: "Add dedicated Money Close section for larger package."
+
+    - id: SG_H07_FIX
+      name: add_money_close
+      action: "Dedicate full 2-page section to the premium package. Address premium buyer objections specifically."
+      goto: SG_H08
+
+    - id: SG_H08
+      name: killer_word_audit
+      decision_point: "Headline contains word with strong existing prejudice"
+      action: "Check for: collagen, keto, CBD, crypto, MLM, and similar prejudice-carrying words."
+      branches:
+        - condition: "No killer words in headline"
+          goto: SG_H09
+        - condition: "Killer word present in headline"
+          goto: SG_H08_TEST
+          action: "Test version WITHOUT the killer word."
+
+    - id: SG_H08_TEST
+      name: test_without_killer_word
+      decision_point: "Does headline work without the killer word?"
+      branches:
+        - condition: "Headline works without it"
+          goto: SG_H09
+          action: "Use version without killer word, or move word deeper into copy."
+        - condition: "Word is essential to mechanism"
+          goto: SG_H09
+          action: "Keep word but mitigate with strong proof early in copy."
+
+    - id: SG_H09
+      name: mechanism_virality_check
+      decision_point: "Can mechanism be explained to a friend in 30 seconds?"
+      branches:
+        - condition: "Explainable in 30 seconds or less"
+          goto: SG_H10
+          action: "Mechanism is shareable. Will spread via word-of-mouth."
+        - condition: "Takes more than 30 seconds to explain"
+          goto: SG_H09_FIX
+          action: "50% of impact lost (Mechanism Virality 50/50). Simplify."
+
+    - id: SG_H09_FIX
+      name: simplify_mechanism
+      action: "Simplify or reframe mechanism until it's explainable in 30 seconds."
+      goto: SG_H09
+
+    - id: SG_H10
+      name: vssl_button_visibility
+      decision_point: "VSSL format — is buy button visible from start?"
+      branches:
+        - condition: "Button hidden with timer (or not VSSL format)"
+          goto: SG_H11
+        - condition: "Button visible from start in VSSL"
+          goto: SG_H10_FIX
+          action: "Hide with timer. Evidence: BShred 0.3% to 0.6% conversion."
+
+    - id: SG_H10_FIX
+      name: add_button_timer
+      action: "Add timer to hide buy button. Only reveal after key copy points are delivered."
+      goto: SG_H11
+
+    - id: SG_H11
+      name: amazon_pain_point_validation
+      decision_point: "Are pain points assumed or validated with data?"
+      branches:
+        - condition: "Pain points validated via real buyer data (Amazon, forums)"
+          goto: SG_H12
+        - condition: "Pain points assumed without data"
+          goto: SG_H11_FIX
+          action: "STOP assuming. Validate via Amazon top categories. Read 1-star and 5-star reviews."
+
+    - id: SG_H11_FIX
+      name: validate_pain_points
+      action: "Check Amazon reviews, forums, support tickets. Use REAL pain points, not assumed ones."
+      goto: SG_H11
+
+    - id: SG_H12
+      name: physical_proof_test
+      decision_point: "Mechanism needs tangible proof beyond testimonials"
+      branches:
+        - condition: "Physical test included that prospect can do while reading"
+          goto: SG_H13
+        - condition: "No physical test possible"
+          goto: SG_H13
+          action: "Use vivid, sensory demonstration language instead."
+        - condition: "Physical test possible but not included"
+          goto: SG_H12_FIX
+          action: "Include physical test prospect can perform while reading."
+
+    - id: SG_H12_FIX
+      name: add_physical_test
+      action: "Design a physical test the prospect can do during consumption. Embed early in copy."
+      goto: SG_H13
+
+    - id: SG_H13
+      name: research_delegation_check
+      decision_point: "Is research being 100% delegated to someone else?"
+      branches:
+        - condition: "Copywriter doing or analyzing research personally"
+          goto: SG_H14
+        - condition: "100% delegated — copywriter only reads summaries"
+          goto: SG_H13_FIX
+          action: "You lose the big ideas. Do research yourself or at minimum analyze raw data."
+
+    - id: SG_H13_FIX
+      name: personal_research_analysis
+      action: "Delegate collection if needed but do the analysis personally. Read the raw material."
+      goto: SG_H14
+
+    - id: SG_H14
+      name: mechanism_transport
+      decision_point: "Transporting mechanism to new market"
+      branches:
+        - condition: "Explaining the CONCEPT, renamed for new market"
+          goto: COMPLETE
+        - condition: "Using exact same mechanism name in new market"
+          goto: SG_H14_FIX
+          action: "STOP. Name may carry baggage. Explain concept, don't copy name."
+
+    - id: SG_H14_FIX
+      name: rename_mechanism
+      action: "Rename mechanism for new market while preserving the underlying concept."
+      goto: COMPLETE
+
+  error_handling:
+    - error: "writing_when_stuck"
+      symptom: "Hours wasted on blank page; forced, unnatural copy"
+      resolution: "Return to SG_H01. Go back to R phase of RMBC."
+
+    - error: "commodity_mechanism"
+      symptom: "Copy could work for any competitor"
+      resolution: "Return to SG_H02. Redo M phase with unique mechanism."
+
+    - error: "corporate_tone"
+      symptom: "Copy sounds like a brochure, not a conversation"
+      resolution: "Return to SG_H03. Apply Bar Stool Test, rewrite conversationally."
+
+    - error: "research_without_prospect_language"
+      symptom: "Copy uses marketer's words, not buyer's words"
+      resolution: "Return to SG_H05. Mine reviews and forums for direct quotes."
+
+    - error: "writing_lead_first"
+      symptom: "Lead doesn't match the strongest element of the body"
+      resolution: "Return to SG_H06. Write lead LAST."
+
+    - error: "assumed_pain_points"
+      symptom: "Copy addresses problems the audience doesn't actually have"
+      resolution: "Return to SG_H11. Validate via Amazon reviews."
+
+    - error: "fully_delegated_research"
+      symptom: "Copy is technically correct but uninspired, big ideas missing"
+      resolution: "Return to SG_H13. Do analysis personally."
+
+  quality_gate:
+    criteria:
+      - "Research contains direct prospect language quotes"
+      - "Mechanism passes substitution check and virality check"
+      - "Copy passes Bar Stool Test (conversational)"
+      - "No throat clearing in first 2-3 paragraphs"
+      - "Lead written AFTER body copy"
+      - "Headlines audited for killer/prejudice words"
+      - "Pain points validated with real data"
+      - "Multi-package offers have Money Close section"
+      - "VSSL buttons are timer-gated"
+      - "Research done or analyzed personally"
+    pass_threshold: "10/10 criteria met"

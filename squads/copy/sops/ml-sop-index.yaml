@@ -1,0 +1,2353 @@
+version: '1.0'
+date: '2026-03-17'
+author:
+  agent: claude-code
+  squad: sop-factory
+description: Index of all 387 ML SOP contracts for CopywriterOS squad
+counts:
+  total: 395
+  by_tier:
+    t0: 107
+    t1: 93
+    t2: 99
+    t3: 96
+  by_type:
+    checklists: 69
+    decision_trees: 71
+    frameworks: 127
+    tasks: 128
+contracts:
+  collier-never-use-vocabulary:
+    file: squads/copy/sops/t0/checklists/collier-never-use-vocabulary.yaml
+    title: Collier Never-Use Vocabulary
+    tier: t0
+    type: checklists
+    version: '1.0'
+  collier-proof-pyramid:
+    file: squads/copy/sops/t0/checklists/collier-proof-pyramid.yaml
+    title: Collier Proof Pyramid (Strength Ranking)
+    tier: t0
+    type: checklists
+    version: '1.0'
+  collier-six-essentials-checklist:
+    file: squads/copy/sops/t0/checklists/collier-six-essentials-checklist.yaml
+    title: Collier 6 Essentials Checklist
+    tier: t0
+    type: checklists
+    version: '1.0'
+  collier-test-priority:
+    file: squads/copy/sops/t0/checklists/collier-test-priority.yaml
+    title: Collier Test Priority Order
+    tier: t0
+    type: checklists
+    version: '1.0'
+  collier-validation-checklist:
+    file: squads/copy/sops/t0/checklists/collier-validation-checklist.yaml
+    title: Collier Pre-Response Validation Checklist
+    tier: t0
+    type: checklists
+    version: '1.0'
+  collier-veto-checklist:
+    file: squads/copy/sops/t0/checklists/collier-veto-checklist.yaml
+    title: Collier Veto Conditions (Blockers)
+    tier: t0
+    type: checklists
+    version: '1.0'
+  hopkins-never-use-vocabulary:
+    file: squads/copy/sops/t0/checklists/hopkins-never-use-vocabulary.yaml
+    title: Hopkins Never-Use Vocabulary
+    tier: t0
+    type: checklists
+    version: '1.0'
+  hopkins-seven-pillars:
+    file: squads/copy/sops/t0/checklists/hopkins-seven-pillars.yaml
+    title: Hopkins Seven Pillars of Scientific Advertising
+    tier: t0
+    type: checklists
+    version: '1.0'
+  hopkins-specificity-transforms:
+    file: squads/copy/sops/t0/checklists/hopkins-specificity-transforms.yaml
+    title: Hopkins Specificity Transform Rules
+    tier: t0
+    type: checklists
+    version: '1.0'
+  hopkins-validation-checklist:
+    file: squads/copy/sops/t0/checklists/hopkins-validation-checklist.yaml
+    title: Hopkins Pre-Response Validation Checklist
+    tier: t0
+    type: checklists
+    version: '1.0'
+  hopkins-veto-checklist:
+    file: squads/copy/sops/t0/checklists/hopkins-veto-checklist.yaml
+    title: Hopkins Veto Conditions (Blockers)
+    tier: t0
+    type: checklists
+    version: '1.0'
+  schwartz-awareness-headline-matrix:
+    file: squads/copy/sops/t0/checklists/schwartz-awareness-headline-matrix.yaml
+    title: Awareness Level to Headline Type Matrix
+    tier: t0
+    type: checklists
+    version: '1.0'
+  schwartz-never-use-vocabulary:
+    file: squads/copy/sops/t0/checklists/schwartz-never-use-vocabulary.yaml
+    title: Schwartz Never-Use Vocabulary
+    tier: t0
+    type: checklists
+    version: '1.0'
+  schwartz-validation-checklist:
+    file: squads/copy/sops/t0/checklists/schwartz-validation-checklist.yaml
+    title: Schwartz Pre-Response Validation Checklist
+    tier: t0
+    type: checklists
+    version: '1.0'
+  schwartz-veto-checklist:
+    file: squads/copy/sops/t0/checklists/schwartz-veto-checklist.yaml
+    title: Schwartz Veto Conditions (Blockers)
+    tier: t0
+    type: checklists
+    version: '1.0'
+  collier-conversation-entry:
+    file: squads/copy/sops/t0/decision_trees/collier-conversation-entry.yaml
+    title: Conversation Entry Rule (RC_H01)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  collier-desire-depth:
+    file: squads/copy/sops/t0/decision_trees/collier-desire-depth.yaml
+    title: Desire Depth Rule (RC_H02)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  collier-diagnostic-routing-tree:
+    file: squads/copy/sops/t0/decision_trees/collier-diagnostic-routing-tree.yaml
+    title: Diagnostic Input Routing Tree
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  collier-emotion-logic:
+    file: squads/copy/sops/t0/decision_trees/collier-emotion-logic.yaml
+    title: Emotion + Logic Layering (RC_H08)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  collier-first-paragraph:
+    file: squads/copy/sops/t0/decision_trees/collier-first-paragraph.yaml
+    title: First Paragraph Priority (RC_H04)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  collier-long-copy:
+    file: squads/copy/sops/t0/decision_trees/collier-long-copy.yaml
+    title: Long Copy Rule (RC_H07)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  collier-opening-type-tree:
+    file: squads/copy/sops/t0/decision_trees/collier-opening-type-tree.yaml
+    title: Opening Type Decision Tree (4 Types)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  collier-price-justification-tree:
+    file: squads/copy/sops/t0/decision_trees/collier-price-justification-tree.yaml
+    title: Price Justification Decision Tree
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  collier-self-interest:
+    file: squads/copy/sops/t0/decision_trees/collier-self-interest.yaml
+    title: Self-Interest Filter (RC_H03)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  collier-sincerity-test:
+    file: squads/copy/sops/t0/decision_trees/collier-sincerity-test.yaml
+    title: Sincerity Test (RC_H05)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  collier-universality:
+    file: squads/copy/sops/t0/decision_trees/collier-universality.yaml
+    title: Universality of Basic Ideas (RC_H06)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  hopkins-anti-competitor:
+    file: squads/copy/sops/t0/decision_trees/hopkins-anti-competitor.yaml
+    title: Anti-Competitor Rule (CH_H11)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  hopkins-campaign-viability-tree:
+    file: squads/copy/sops/t0/decision_trees/hopkins-campaign-viability-tree.yaml
+    title: Campaign Viability Decision Tree
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  hopkins-complete-story:
+    file: squads/copy/sops/t0/decision_trees/hopkins-complete-story.yaml
+    title: Complete Story Rule (CH_H07)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  hopkins-headline-filter:
+    file: squads/copy/sops/t0/decision_trees/hopkins-headline-filter.yaml
+    title: Headline as Filter Rule (CH_H03)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  hopkins-image-rule:
+    file: squads/copy/sops/t0/decision_trees/hopkins-image-rule.yaml
+    title: Image Selling Rule (CH_H10)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  hopkins-positive-tone:
+    file: squads/copy/sops/t0/decision_trees/hopkins-positive-tone.yaml
+    title: Positive Tone Rule (CH_H12)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  hopkins-preemptive-claim-rule:
+    file: squads/copy/sops/t0/decision_trees/hopkins-preemptive-claim-rule.yaml
+    title: Preemptive Claim Rule (CH_H09)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  hopkins-reason-why:
+    file: squads/copy/sops/t0/decision_trees/hopkins-reason-why.yaml
+    title: Reason-Why Rule (CH_H04)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  hopkins-salesman-test:
+    file: squads/copy/sops/t0/decision_trees/hopkins-salesman-test.yaml
+    title: Salesman Test (CH_H02)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  hopkins-sample-decision-tree:
+    file: squads/copy/sops/t0/decision_trees/hopkins-sample-decision-tree.yaml
+    title: Sample Distribution Decision Tree
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  hopkins-sampling-rule:
+    file: squads/copy/sops/t0/decision_trees/hopkins-sampling-rule.yaml
+    title: Intelligent Sampling Rule (CH_H06)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  hopkins-service-rule:
+    file: squads/copy/sops/t0/decision_trees/hopkins-service-rule.yaml
+    title: Service Rule (CH_H08)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  hopkins-specificity-rule:
+    file: squads/copy/sops/t0/decision_trees/hopkins-specificity-rule.yaml
+    title: Specificity Rule (CH_H01)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  hopkins-test-before-scale:
+    file: squads/copy/sops/t0/decision_trees/hopkins-test-before-scale.yaml
+    title: Test Before Scale Rule (CH_H05)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  schwartz-awareness-rule:
+    file: squads/copy/sops/t0/decision_trees/schwartz-awareness-rule.yaml
+    title: Awareness Level Rule (ES_H01)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  schwartz-channeling-rule:
+    file: squads/copy/sops/t0/decision_trees/schwartz-channeling-rule.yaml
+    title: Channeling Rule (ES_H03)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  schwartz-disadvantage-redefinition-tree:
+    file: squads/copy/sops/t0/decision_trees/schwartz-disadvantage-redefinition-tree.yaml
+    title: Disadvantage Redefinition Decision Tree
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  schwartz-format-adaptation:
+    file: squads/copy/sops/t0/decision_trees/schwartz-format-adaptation.yaml
+    title: Format Adaptation Rule (ES_H12)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  schwartz-logic-language:
+    file: squads/copy/sops/t0/decision_trees/schwartz-logic-language.yaml
+    title: Logic Language Seasoning (ES_H10)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  schwartz-mechanism-headline:
+    file: squads/copy/sops/t0/decision_trees/schwartz-mechanism-headline.yaml
+    title: Mechanism Headline Test (ES_H07)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  schwartz-mechanism-staging-tree:
+    file: squads/copy/sops/t0/decision_trees/schwartz-mechanism-staging-tree.yaml
+    title: Mechanism Presentation Decision Tree (3 Stages)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  schwartz-product-delay:
+    file: squads/copy/sops/t0/decision_trees/schwartz-product-delay.yaml
+    title: Product Delay Rule (ES_H09)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  schwartz-punch-placement:
+    file: squads/copy/sops/t0/decision_trees/schwartz-punch-placement.yaml
+    title: Punch Placement Rule (ES_H11)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  schwartz-single-promise:
+    file: squads/copy/sops/t0/decision_trees/schwartz-single-promise.yaml
+    title: Single Promise Rule (ES_H08)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  schwartz-sophistication-headline-tree:
+    file: squads/copy/sops/t0/decision_trees/schwartz-sophistication-headline-tree.yaml
+    title: Sophistication Stage to Headline Strategy Tree
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  schwartz-sophistication-rule:
+    file: squads/copy/sops/t0/decision_trees/schwartz-sophistication-rule.yaml
+    title: Sophistication Rule (ES_H02)
+    tier: t0
+    type: decision_trees
+    version: '1.0'
+  collier-damaged-set-protocol:
+    file: squads/copy/sops/t0/frameworks/collier-damaged-set-protocol.yaml
+    title: Damaged-Set Protocol
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  collier-desire-hierarchy:
+    file: squads/copy/sops/t0/frameworks/collier-desire-hierarchy.yaml
+    title: Desire Hierarchy (4 Levels)
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  collier-favor-appeal:
+    file: squads/copy/sops/t0/frameworks/collier-favor-appeal.yaml
+    title: Favor/Courtesy Appeal
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  collier-follow-up-sequence:
+    file: squads/copy/sops/t0/tasks/collier-follow-up-sequence.yaml
+    title: Follow-Up Sequence Protocol (5 Letters)
+    tier: t0
+    type: tasks
+    version: '1.0'
+  collier-four-opening-types:
+    file: squads/copy/sops/t0/frameworks/collier-four-opening-types.yaml
+    title: The 4 Opening Types
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  collier-hook-penalty-close:
+    file: squads/copy/sops/t0/frameworks/collier-hook-penalty-close.yaml
+    title: Hook/Penalty Close
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  collier-impulse-supply:
+    file: squads/copy/sops/t0/frameworks/collier-impulse-supply.yaml
+    title: Impulse Supply Framework
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  collier-mental-conversation:
+    file: squads/copy/sops/t0/frameworks/collier-mental-conversation.yaml
+    title: Mental Conversation Mapping (Enter the Conversation)
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  collier-post-purchase-resell:
+    file: squads/copy/sops/t0/frameworks/collier-post-purchase-resell.yaml
+    title: Post-Purchase Re-Sell
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  collier-six-essentials:
+    file: squads/copy/sops/t0/frameworks/collier-six-essentials.yaml
+    title: The 6 Essentials of Every Letter
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  collier-six-prime-motives:
+    file: squads/copy/sops/t0/frameworks/collier-six-prime-motives.yaml
+    title: The Six Prime Motives
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  collier-threat-persuasion-alternation:
+    file: squads/copy/sops/t0/frameworks/collier-threat-persuasion-alternation.yaml
+    title: Threat/Persuasion Alternation
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  collier-word-picture:
+    file: squads/copy/sops/t0/frameworks/collier-word-picture.yaml
+    title: Word Picture Framework
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  hopkins-complete-offer-test:
+    file: squads/copy/sops/t0/frameworks/hopkins-complete-offer-test.yaml
+    title: Complete Offer Test
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  hopkins-forced-distribution:
+    file: squads/copy/sops/t0/frameworks/hopkins-forced-distribution.yaml
+    title: Forced Distribution Mechanism
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  hopkins-four-headline-filters:
+    file: squads/copy/sops/t0/frameworks/hopkins-four-headline-filters.yaml
+    title: 4 Headline Filters
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  hopkins-preemptive-claim:
+    file: squads/copy/sops/t0/frameworks/hopkins-preemptive-claim.yaml
+    title: Preemptive Claim Framework
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  hopkins-proof-hierarchy:
+    file: squads/copy/sops/t0/frameworks/hopkins-proof-hierarchy.yaml
+    title: Proof Hierarchy (6 Levels)
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  hopkins-scientific-advertising-diagnostic:
+    file: squads/copy/sops/t0/frameworks/hopkins-scientific-advertising-diagnostic.yaml
+    title: Scientific Advertising Diagnostic
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  schwartz-assembly-method:
+    file: squads/copy/sops/t0/frameworks/schwartz-assembly-method.yaml
+    title: Assembly Method (Metodo de Montagem)
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  schwartz-belief-architecture:
+    file: squads/copy/sops/t0/tasks/schwartz-belief-architecture.yaml
+    title: Belief Architecture Construction (Gradualizacao)
+    tier: t0
+    type: tasks
+    version: '1.0'
+  schwartz-concentration:
+    file: squads/copy/sops/t0/frameworks/schwartz-concentration.yaml
+    title: Concentracao (Competitor Destruction)
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  schwartz-epigram-formula:
+    file: squads/copy/sops/t0/frameworks/schwartz-epigram-formula.yaml
+    title: Formula do Epigrama
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  schwartz-five-awareness-levels:
+    file: squads/copy/sops/t0/frameworks/schwartz-five-awareness-levels.yaml
+    title: 5 Estagios de Consciencia do Mercado
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  schwartz-five-sophistication-stages:
+    file: squads/copy/sops/t0/frameworks/schwartz-five-sophistication-stages.yaml
+    title: 5 Estagios de Sofisticacao do Mercado
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  schwartz-mass-desire-equation:
+    file: squads/copy/sops/t0/frameworks/schwartz-mass-desire-equation.yaml
+    title: Mass Desire Equation
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  schwartz-redefinition:
+    file: squads/copy/sops/t0/frameworks/schwartz-redefinition.yaml
+    title: Redefinicao de Desvantagens
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  schwartz-seven-breakthrough-techniques:
+    file: squads/copy/sops/t0/frameworks/schwartz-seven-breakthrough-techniques.yaml
+    title: 7 Tecnicas do Breakthrough Copy
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  schwartz-shift-points:
+    file: squads/copy/sops/t0/frameworks/schwartz-shift-points.yaml
+    title: Shift Points (Copy Architecture)
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  schwartz-three-sentence-rules:
+    file: squads/copy/sops/t0/frameworks/schwartz-three-sentence-rules.yaml
+    title: 3 Regras da Frase Clara
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  schwartz-triade-diagnostica:
+    file: squads/copy/sops/t0/frameworks/schwartz-triade-diagnostica.yaml
+    title: Triade Diagnostica de Mercado
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  schwartz-two-words-theory:
+    file: squads/copy/sops/t0/frameworks/schwartz-two-words-theory.yaml
+    title: Teoria das Duas Palavras (Two Words Theory)
+    tier: t0
+    type: frameworks
+    version: '1.0'
+  collier-desire-hierarchy-mapping:
+    file: squads/copy/sops/t0/tasks/collier-desire-hierarchy-mapping.yaml
+    title: Desire Hierarchy Mapping (4 Levels)
+    tier: t0
+    type: tasks
+    version: '1.0'
+  collier-diagnostic-routing:
+    file: squads/copy/sops/t0/tasks/collier-diagnostic-routing.yaml
+    title: Diagnostic Input Routing
+    tier: t0
+    type: tasks
+    version: '1.0'
+  collier-ideal-letter-method:
+    file: squads/copy/sops/t0/tasks/collier-ideal-letter-method.yaml
+    title: Ideal Letter Method
+    tier: t0
+    type: tasks
+    version: '1.0'
+  collier-mental-conversation-mapping:
+    file: squads/copy/sops/t0/tasks/collier-mental-conversation-mapping.yaml
+    title: Mental Conversation Mapping (Full Protocol)
+    tier: t0
+    type: tasks
+    version: '1.0'
+  collier-motive-classification:
+    file: squads/copy/sops/t0/tasks/collier-motive-classification.yaml
+    title: Six Prime Motives Classification
+    tier: t0
+    type: tasks
+    version: '1.0'
+  collier-opening-type-diagnostic:
+    file: squads/copy/sops/t0/tasks/collier-opening-type-diagnostic.yaml
+    title: Opening Type Diagnostic (4 Types)
+    tier: t0
+    type: tasks
+    version: '1.0'
+  collier-six-essentials-audit:
+    file: squads/copy/sops/t0/tasks/collier-six-essentials-audit.yaml
+    title: 6 Essentials Audit
+    tier: t0
+    type: tasks
+    version: '1.0'
+  hopkins-campaign-viability:
+    file: squads/copy/sops/t0/tasks/hopkins-campaign-viability.yaml
+    title: Campaign Viability Assessment
+    tier: t0
+    type: tasks
+    version: '1.0'
+  hopkins-claim-audit:
+    file: squads/copy/sops/t0/tasks/hopkins-claim-audit.yaml
+    title: Claim Audit (Line-by-Line)
+    tier: t0
+    type: tasks
+    version: '1.0'
+  hopkins-headline-audit:
+    file: squads/copy/sops/t0/tasks/hopkins-headline-audit.yaml
+    title: Headline Audit (4 Filters)
+    tier: t0
+    type: tasks
+    version: '1.0'
+  hopkins-preemptive-claim-discovery:
+    file: squads/copy/sops/t0/tasks/hopkins-preemptive-claim-discovery.yaml
+    title: Preemptive Claim Discovery
+    tier: t0
+    type: tasks
+    version: '1.0'
+  hopkins-product-story-diagnostic:
+    file: squads/copy/sops/t0/tasks/hopkins-product-story-diagnostic.yaml
+    title: Product Story Diagnostic ('Story of the Product')
+    tier: t0
+    type: tasks
+    version: '1.0'
+  hopkins-scientific-diagnostic:
+    file: squads/copy/sops/t0/tasks/hopkins-scientific-diagnostic.yaml
+    title: Scientific Advertising Diagnostic (Full Protocol)
+    tier: t0
+    type: tasks
+    version: '1.0'
+  hopkins-test-plan:
+    file: squads/copy/sops/t0/tasks/hopkins-test-plan.yaml
+    title: A/B Test Plan Structuring
+    tier: t0
+    type: tasks
+    version: '1.0'
+  schwartz-awareness-classification:
+    file: squads/copy/sops/t0/tasks/schwartz-awareness-classification.yaml
+    title: Awareness Level Classification
+    tier: t0
+    type: tasks
+    version: '1.0'
+  schwartz-copy-critique:
+    file: squads/copy/sops/t0/tasks/schwartz-copy-critique.yaml
+    title: Copy Critique (3 Lenses)
+    tier: t0
+    type: tasks
+    version: '1.0'
+  schwartz-headline-verbalization:
+    file: squads/copy/sops/t0/tasks/schwartz-headline-verbalization.yaml
+    title: Headline Verbalization (38 Techniques)
+    tier: t0
+    type: tasks
+    version: '1.0'
+  schwartz-market-diagnostic:
+    file: squads/copy/sops/t0/tasks/schwartz-market-diagnostic.yaml
+    title: Triade Diagnostica de Mercado (Full Protocol)
+    tier: t0
+    type: tasks
+    version: '1.0'
+  schwartz-mechanism-staging:
+    file: squads/copy/sops/t0/tasks/schwartz-mechanism-staging.yaml
+    title: Mechanism Staging (3 Stages)
+    tier: t0
+    type: tasks
+    version: '1.0'
+  schwartz-sentence-diagnosis:
+    file: squads/copy/sops/t0/tasks/schwartz-sentence-diagnosis.yaml
+    title: Sentence-Level Clarity Diagnosis
+    tier: t0
+    type: tasks
+    version: '1.0'
+  schwartz-sophistication-classification:
+    file: squads/copy/sops/t0/tasks/schwartz-sophistication-classification.yaml
+    title: Sophistication Stage Classification
+    tier: t0
+    type: tasks
+    version: '1.0'
+  bencivenga-12rs-motivation:
+    file: squads/copy/sops/t1/checklists/bencivenga-12rs-motivation.yaml
+    title: The 12 Rs of Powerful Motivation (Research Checklist)
+    tier: t1
+    type: checklists
+    version: '1.0'
+  bencivenga-copy-validation:
+    file: squads/copy/sops/t1/checklists/bencivenga-copy-validation.yaml
+    title: Bencivenga Copy Validation Checklist
+    tier: t1
+    type: checklists
+    version: '1.0'
+  bencivenga-veto-conditions:
+    file: squads/copy/sops/t1/checklists/bencivenga-veto-conditions.yaml
+    title: Bencivenga Veto Conditions
+    tier: t1
+    type: checklists
+    version: '1.0'
+  carlton-copy-validation:
+    file: squads/copy/sops/t1/checklists/carlton-copy-validation.yaml
+    title: Carlton Copy Validation Checklist
+    tier: t1
+    type: checklists
+    version: '1.0'
+  carlton-veto-conditions:
+    file: squads/copy/sops/t1/checklists/carlton-veto-conditions.yaml
+    title: Carlton Veto Conditions
+    tier: t1
+    type: checklists
+    version: '1.0'
+  deutsch-veto-conditions:
+    file: squads/copy/sops/t1/checklists/deutsch-veto-conditions.yaml
+    title: Deutsch Veto Conditions
+    tier: t1
+    type: checklists
+    version: '1.0'
+  halbert-a-pile-rules:
+    file: squads/copy/sops/t1/checklists/halbert-a-pile-rules.yaml
+    title: A-Pile Classification Rules
+    tier: t1
+    type: checklists
+    version: '1.0'
+  halbert-copy-validation:
+    file: squads/copy/sops/t1/checklists/halbert-copy-validation.yaml
+    title: Halbert Copy Validation Checklist
+    tier: t1
+    type: checklists
+    version: '1.0'
+  halbert-veto-conditions:
+    file: squads/copy/sops/t1/checklists/halbert-veto-conditions.yaml
+    title: Halbert Veto Conditions
+    tier: t1
+    type: checklists
+    version: '1.0'
+  lampropoulos-veto-conditions:
+    file: squads/copy/sops/t1/checklists/lampropoulos-veto-conditions.yaml
+    title: Lampropoulos Veto Conditions
+    tier: t1
+    type: checklists
+    version: '1.0'
+  makepeace-copy-validation:
+    file: squads/copy/sops/t1/checklists/makepeace-copy-validation.yaml
+    title: Makepeace Copy Validation Checklist
+    tier: t1
+    type: checklists
+    version: '1.0'
+  makepeace-veto-conditions:
+    file: squads/copy/sops/t1/checklists/makepeace-veto-conditions.yaml
+    title: Makepeace Veto Conditions
+    tier: t1
+    type: checklists
+    version: '1.0'
+  ogilvy-copy-validation:
+    file: squads/copy/sops/t1/checklists/ogilvy-copy-validation.yaml
+    title: Ogilvy Copy Validation Checklist
+    tier: t1
+    type: checklists
+    version: '1.0'
+  ogilvy-veto-conditions:
+    file: squads/copy/sops/t1/checklists/ogilvy-veto-conditions.yaml
+    title: Ogilvy Veto Conditions
+    tier: t1
+    type: checklists
+    version: '1.0'
+  rutz-veto-conditions:
+    file: squads/copy/sops/t1/checklists/rutz-veto-conditions.yaml
+    title: Rutz Magalog Veto Conditions
+    tier: t1
+    type: checklists
+    version: '1.0'
+  bencivenga-sophistication-routing:
+    file: squads/copy/sops/t1/decision_trees/bencivenga-sophistication-routing.yaml
+    title: Bencivenga Sophistication-Level Routing
+    tier: t1
+    type: decision_trees
+    version: '1.0'
+  carlton-diagnostic-routing:
+    file: squads/copy/sops/t1/decision_trees/carlton-diagnostic-routing.yaml
+    title: Carlton Input Classification and Routing
+    tier: t1
+    type: decision_trees
+    version: '1.0'
+  deutsch-drtv-decisions:
+    file: squads/copy/sops/t1/decision_trees/deutsch-drtv-decisions.yaml
+    title: Deutsch DRTV/VSL Decision Rules
+    tier: t1
+    type: decision_trees
+    version: '1.0'
+  deutsch-problem-awareness-ladder:
+    file: squads/copy/sops/t1/frameworks/deutsch-problem-awareness-ladder.yaml
+    title: Problem Awareness Ladder (Pain Agitation Scale)
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  halbert-awareness-routing:
+    file: squads/copy/sops/t1/decision_trees/halbert-awareness-routing.yaml
+    title: Halbert Awareness-Based Decisions
+    tier: t1
+    type: decision_trees
+    version: '1.0'
+  halbert-hierarchy-decision:
+    file: squads/copy/sops/t1/decision_trees/halbert-hierarchy-decision.yaml
+    title: List > Offer > Copy Diagnostic Tree
+    tier: t1
+    type: decision_trees
+    version: '1.0'
+  lampropoulos-lead-type-matrix:
+    file: squads/copy/sops/t1/decision_trees/lampropoulos-lead-type-matrix.yaml
+    title: Lampropoulos Lead Type Selection Matrix
+    tier: t1
+    type: decision_trees
+    version: '1.0'
+  makepeace-awareness-routing:
+    file: squads/copy/sops/t1/decision_trees/makepeace-awareness-routing.yaml
+    title: Makepeace Awareness-Based Lead Selection
+    tier: t1
+    type: decision_trees
+    version: '1.0'
+  ogilvy-creative-direction:
+    file: squads/copy/sops/t1/decision_trees/ogilvy-creative-direction.yaml
+    title: Ogilvy Creative Direction Decision Tree
+    tier: t1
+    type: decision_trees
+    version: '1.0'
+  rutz-engagement-decisions:
+    file: squads/copy/sops/t1/decision_trees/rutz-engagement-decisions.yaml
+    title: Rutz Engagement Decision Rules
+    tier: t1
+    type: decision_trees
+    version: '1.0'
+  bencivenga-adversity-seed:
+    file: squads/copy/sops/t1/frameworks/bencivenga-adversity-seed.yaml
+    title: Adversity Seed Principle
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  bencivenga-credo-technique:
+    file: squads/copy/sops/t1/frameworks/bencivenga-credo-technique.yaml
+    title: The Credo Technique
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  bencivenga-monkeys-fist:
+    file: squads/copy/sops/t1/frameworks/bencivenga-monkeys-fist.yaml
+    title: Monkey's Fist Strategy
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  bencivenga-persuasion-equation:
+    file: squads/copy/sops/t1/frameworks/bencivenga-persuasion-equation.yaml
+    title: Bencivenga Persuasion Equation (BPE)
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  bencivenga-reason-why-triple:
+    file: squads/copy/sops/t1/frameworks/bencivenga-reason-why-triple.yaml
+    title: Reason-Why Triple
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  bencivenga-yeah-sure:
+    file: squads/copy/sops/t1/frameworks/bencivenga-yeah-sure.yaml
+    title: Yeah-Sure Alarm Framework
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  carlton-11-themes:
+    file: squads/copy/sops/t1/frameworks/carlton-11-themes.yaml
+    title: 11 Proven Letter/Ad Themes
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  carlton-gun-to-head:
+    file: squads/copy/sops/t1/frameworks/carlton-gun-to-head.yaml
+    title: Gun To The Head Mindset
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  carlton-one-legged-golfer:
+    file: squads/copy/sops/t1/tasks/carlton-one-legged-golfer.yaml
+    title: One-Legged Golfer Hook Discovery Method
+    tier: t1
+    type: tasks
+    version: '1.0'
+  carlton-sws:
+    file: squads/copy/sops/t1/frameworks/carlton-sws.yaml
+    title: Simple Writing System (SWS)
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  deutsch-big-idea-validation:
+    file: squads/copy/sops/t1/frameworks/deutsch-big-idea-validation.yaml
+    title: Big Idea Validation Test (Deutsch)
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  deutsch-copythinking:
+    file: squads/copy/sops/t1/frameworks/deutsch-copythinking.yaml
+    title: The Deutsch Copy Process (CopyThinking)
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  deutsch-headline-hypothesis:
+    file: squads/copy/sops/t1/frameworks/deutsch-headline-hypothesis.yaml
+    title: Headline Hypothesis Diversification
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  deutsch-idea-power:
+    file: squads/copy/sops/t1/frameworks/deutsch-idea-power.yaml
+    title: IDEA POWER Toolkit
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  halbert-30-day-hold:
+    file: squads/copy/sops/t1/frameworks/halbert-30-day-hold.yaml
+    title: 30-Day Hold Technique
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  halbert-a-pile-b-pile:
+    file: squads/copy/sops/t1/frameworks/halbert-a-pile-b-pile.yaml
+    title: A-Pile / B-Pile Classification System
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  halbert-grabber-system:
+    file: squads/copy/sops/t1/frameworks/halbert-grabber-system.yaml
+    title: Grabber/Impact System
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  halbert-proof-hierarchy:
+    file: squads/copy/sops/t1/frameworks/halbert-proof-hierarchy.yaml
+    title: Proof Hierarchy (Evidence Pyramid)
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  halbert-reason-why:
+    file: squads/copy/sops/t1/frameworks/halbert-reason-why.yaml
+    title: Reason-Why Framework (Excuse for a Deal)
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  halbert-starving-crowd:
+    file: squads/copy/sops/t1/frameworks/halbert-starving-crowd.yaml
+    title: Starving Crowd + List Quality Hierarchy (10 Levels)
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  halbert-triangle-marketing:
+    file: squads/copy/sops/t1/frameworks/halbert-triangle-marketing.yaml
+    title: Triangle of Marketing
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  lampropoulos-3-deep:
+    file: squads/copy/sops/t1/frameworks/lampropoulos-3-deep.yaml
+    title: 3-Deep Benefit Excavation
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  lampropoulos-control-beating:
+    file: squads/copy/sops/t1/tasks/lampropoulos-control-beating.yaml
+    title: Control-Beating Methodology — The Parris Process
+    tier: t1
+    type: tasks
+    version: '1.0'
+  lampropoulos-lizard-gatekeeper:
+    file: squads/copy/sops/t1/frameworks/lampropoulos-lizard-gatekeeper.yaml
+    title: Lizard and the Gatekeeper (Dual Brain System)
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  lampropoulos-wow:
+    file: squads/copy/sops/t1/frameworks/lampropoulos-wow.yaml
+    title: WOW Framework (Novelty + Surprise)
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  makepeace-belief-bridge:
+    file: squads/copy/sops/t1/frameworks/makepeace-belief-bridge.yaml
+    title: Belief Bridge Framework
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  makepeace-dre:
+    file: squads/copy/sops/t1/frameworks/makepeace-dre.yaml
+    title: Dominant Resident Emotion (DRE)
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  makepeace-edge-believability:
+    file: squads/copy/sops/t1/frameworks/makepeace-edge-believability.yaml
+    title: Edge of Believability
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  makepeace-esp:
+    file: squads/copy/sops/t1/frameworks/makepeace-esp.yaml
+    title: Emotional Selling Proposition (ESP)
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  makepeace-proof-stacking:
+    file: squads/copy/sops/t1/frameworks/makepeace-proof-stacking.yaml
+    title: Proof Stacking Protocol (The Makepeace Avalanche)
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  makepeace-three-sales:
+    file: squads/copy/sops/t1/frameworks/makepeace-three-sales.yaml
+    title: Three Sales Framework
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  ogilvy-7-pillars:
+    file: squads/copy/sops/t1/frameworks/ogilvy-7-pillars.yaml
+    title: The 7 Pillars of Ogilvy
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  ogilvy-big-idea-test:
+    file: squads/copy/sops/t1/frameworks/ogilvy-big-idea-test.yaml
+    title: Ogilvy Big Idea Test (5 Questions)
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  ogilvy-brand-image-architecture:
+    file: squads/copy/sops/t1/frameworks/ogilvy-brand-image-architecture.yaml
+    title: Brand Image Architecture
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  ogilvy-long-copy-philosophy:
+    file: squads/copy/sops/t1/frameworks/ogilvy-long-copy-philosophy.yaml
+    title: Long Copy Philosophy — The More You Tell
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  rutz-frame-setting-bullets:
+    file: squads/copy/sops/t1/frameworks/rutz-frame-setting-bullets.yaml
+    title: Frame-Setting Bullet System
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  rutz-page-turn-system:
+    file: squads/copy/sops/t1/frameworks/rutz-page-turn-system.yaml
+    title: Page Turn System (5 Techniques)
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  rutz-subscription-selling:
+    file: squads/copy/sops/t1/frameworks/rutz-subscription-selling.yaml
+    title: Subscription Selling System
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  rutz-three-faiths:
+    file: squads/copy/sops/t1/frameworks/rutz-three-faiths.yaml
+    title: Three Faiths Framework (Qualification Gate)
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  rutz-unpredictability:
+    file: squads/copy/sops/t1/frameworks/rutz-unpredictability.yaml
+    title: The Unpredictability Principle
+    tier: t1
+    type: frameworks
+    version: '1.0'
+  bencivenga-big-idea-discovery:
+    file: squads/copy/sops/t1/tasks/bencivenga-big-idea-discovery.yaml
+    title: Big Idea Discovery Process
+    tier: t1
+    type: tasks
+    version: '1.0'
+  bencivenga-diagnostic-flow:
+    file: squads/copy/sops/t1/tasks/bencivenga-diagnostic-flow.yaml
+    title: Bencivenga Diagnostic & Writing Flow
+    tier: t1
+    type: tasks
+    version: '1.0'
+  bencivenga-master-research:
+    file: squads/copy/sops/t1/tasks/bencivenga-master-research.yaml
+    title: Bencivenga Master Research SOP
+    tier: t1
+    type: tasks
+    version: '1.0'
+  bencivenga-two-package-test:
+    file: squads/copy/sops/t1/tasks/bencivenga-two-package-test.yaml
+    title: Two-Package Test Insurance
+    tier: t1
+    type: tasks
+    version: '1.0'
+  carlton-features-benefits-sensory:
+    file: squads/copy/sops/t1/tasks/carlton-features-benefits-sensory.yaml
+    title: Features to Benefits to Sensory Pictures Pipeline
+    tier: t1
+    type: tasks
+    version: '1.0'
+  carlton-sws-full:
+    file: squads/copy/sops/t1/tasks/carlton-sws-full.yaml
+    title: Simple Writing System (SWS) — Full 4-Phase Process
+    tier: t1
+    type: tasks
+    version: '1.0'
+  deutsch-copythinking-process:
+    file: squads/copy/sops/t1/tasks/deutsch-copythinking-process.yaml
+    title: The Deutsch Copy Process (CopyThinking)
+    tier: t1
+    type: tasks
+    version: '1.0'
+  deutsch-drtv-script-creation:
+    file: squads/copy/sops/t1/tasks/deutsch-drtv-script-creation.yaml
+    title: DRTV/VSL Script Creation
+    tier: t1
+    type: tasks
+    version: '1.0'
+  halbert-best-shot-testing:
+    file: squads/copy/sops/t1/tasks/halbert-best-shot-testing.yaml
+    title: Best Shot Testing Method
+    tier: t1
+    type: tasks
+    version: '1.0'
+  halbert-copy-prep:
+    file: squads/copy/sops/t1/tasks/halbert-copy-prep.yaml
+    title: Copy Prep System (Fact Sheet to Benefit to Deal)
+    tier: t1
+    type: tasks
+    version: '1.0'
+  halbert-diagnostic-flow:
+    file: squads/copy/sops/t1/tasks/halbert-diagnostic-flow.yaml
+    title: Halbert Copy Diagnostic Flow
+    tier: t1
+    type: tasks
+    version: '1.0'
+  halbert-dm-promotion-creation:
+    file: squads/copy/sops/t1/tasks/halbert-dm-promotion-creation.yaml
+    title: The Halbert DM Promotion Creation Process (12-Step Master SOP)
+    tier: t1
+    type: tasks
+    version: '1.0'
+  halbert-market-intimacy:
+    file: squads/copy/sops/t1/tasks/halbert-market-intimacy.yaml
+    title: Market Intimacy System (5 Steps)
+    tier: t1
+    type: tasks
+    version: '1.0'
+  halbert-the-suck-research:
+    file: squads/copy/sops/t1/tasks/halbert-the-suck-research.yaml
+    title: The Suck + Nugget Notes Research System
+    tier: t1
+    type: tasks
+    version: '1.0'
+  lampropoulos-info-product-copy:
+    file: squads/copy/sops/t1/tasks/lampropoulos-info-product-copy.yaml
+    title: Info Product Copy Method
+    tier: t1
+    type: tasks
+    version: '1.0'
+  makepeace-diagnostic-flow:
+    file: squads/copy/sops/t1/tasks/makepeace-diagnostic-flow.yaml
+    title: Makepeace Diagnostic & Writing Flow
+    tier: t1
+    type: tasks
+    version: '1.0'
+  makepeace-esp-construction:
+    file: squads/copy/sops/t1/tasks/makepeace-esp-construction.yaml
+    title: ESP (Emotional Selling Proposition) Construction
+    tier: t1
+    type: tasks
+    version: '1.0'
+  makepeace-guarantee-10-steps:
+    file: squads/copy/sops/t1/tasks/makepeace-guarantee-10-steps.yaml
+    title: 10 Steps for Guarantee Power
+    tier: t1
+    type: tasks
+    version: '1.0'
+  makepeace-machine:
+    file: squads/copy/sops/t1/tasks/makepeace-machine.yaml
+    title: The Makepeace Machine (5-Phase Health/Finance Formula)
+    tier: t1
+    type: tasks
+    version: '1.0'
+  makepeace-qwikcrit:
+    file: squads/copy/sops/t1/tasks/makepeace-qwikcrit.yaml
+    title: QwikCrit Copy Evaluation
+    tier: t1
+    type: tasks
+    version: '1.0'
+  ogilvy-creative-decision-tree:
+    file: squads/copy/sops/t1/tasks/ogilvy-creative-decision-tree.yaml
+    title: Creative Decision Tree
+    tier: t1
+    type: tasks
+    version: '1.0'
+  ogilvy-headline-system:
+    file: squads/copy/sops/t1/tasks/ogilvy-headline-system.yaml
+    title: Headline System — 10 Rules of Ogilvy
+    tier: t1
+    type: tasks
+    version: '1.0'
+  ogilvy-research-first-campaign:
+    file: squads/copy/sops/t1/tasks/ogilvy-research-first-campaign.yaml
+    title: Research-First Campaign Development
+    tier: t1
+    type: tasks
+    version: '1.0'
+  rutz-engagement-audit:
+    file: squads/copy/sops/t1/tasks/rutz-engagement-audit.yaml
+    title: Magalog Engagement Audit
+    tier: t1
+    type: tasks
+    version: '1.0'
+  rutz-magalog-architecture:
+    file: squads/copy/sops/t1/tasks/rutz-magalog-architecture.yaml
+    title: Magalog Architecture (32-Page Engine)
+    tier: t1
+    type: tasks
+    version: '1.0'
+  ah-never-use-vocabulary:
+    file: squads/copy/sops/t2/checklists/ah-never-use-vocabulary.yaml
+    title: Alex Hormozi Vocabulary Veto List
+    tier: t2
+    type: checklists
+    version: '1.0'
+  ah-veto-conditions:
+    file: squads/copy/sops/t2/checklists/ah-veto-conditions.yaml
+    title: Alex Hormozi Veto Conditions
+    tier: t2
+    type: checklists
+    version: '1.0'
+  ah-voice-validation:
+    file: squads/copy/sops/t2/checklists/ah-voice-validation.yaml
+    title: Alex Hormozi Voice Validation Checklist
+    tier: t2
+    type: checklists
+    version: '1.0'
+  dk-never-use-vocabulary:
+    file: squads/copy/sops/t2/checklists/dk-never-use-vocabulary.yaml
+    title: Dan Kennedy Vocabulary Veto List
+    tier: t2
+    type: checklists
+    version: '1.0'
+  dk-veto-conditions:
+    file: squads/copy/sops/t2/checklists/dk-veto-conditions.yaml
+    title: Dan Kennedy Veto Conditions
+    tier: t2
+    type: checklists
+    version: '1.0'
+  dk-voice-validation:
+    file: squads/copy/sops/t2/checklists/dk-voice-validation.yaml
+    title: Dan Kennedy Voice Validation Checklist
+    tier: t2
+    type: checklists
+    version: '1.0'
+  fk-veto-conditions:
+    file: squads/copy/sops/t2/checklists/fk-veto-conditions.yaml
+    title: Frank Kern Veto Conditions
+    tier: t2
+    type: checklists
+    version: '1.0'
+  fk-voice-validation:
+    file: squads/copy/sops/t2/checklists/fk-voice-validation.yaml
+    title: Frank Kern Voice Validation Checklist
+    tier: t2
+    type: checklists
+    version: '1.0'
+  rb-immune-system:
+    file: squads/copy/sops/t2/checklists/rb-immune-system.yaml
+    title: Russell Brunson Auto-Reject List
+    tier: t2
+    type: checklists
+    version: '1.0'
+  rb-veto-conditions:
+    file: squads/copy/sops/t2/checklists/rb-veto-conditions.yaml
+    title: Russell Brunson Veto Conditions
+    tier: t2
+    type: checklists
+    version: '1.0'
+  rb-voice-validation:
+    file: squads/copy/sops/t2/checklists/rb-voice-validation.yaml
+    title: Russell Brunson Voice Validation Checklist
+    tier: t2
+    type: checklists
+    version: '1.0'
+  sg-mechanism-evaluation:
+    file: squads/copy/sops/t2/checklists/sg-mechanism-evaluation.yaml
+    title: Stefan Georgi Mechanism Evaluation Scorecard
+    tier: t2
+    type: checklists
+    version: '1.0'
+  sg-research-quality-gate:
+    file: squads/copy/sops/t2/checklists/sg-research-quality-gate.yaml
+    title: Stefan Georgi Research Quality Gate
+    tier: t2
+    type: checklists
+    version: '1.0'
+  sg-veto-conditions:
+    file: squads/copy/sops/t2/checklists/sg-veto-conditions.yaml
+    title: Stefan Georgi Veto Conditions
+    tier: t2
+    type: checklists
+    version: '1.0'
+  sg-voice-validation:
+    file: squads/copy/sops/t2/checklists/sg-voice-validation.yaml
+    title: Stefan Georgi Voice Validation Checklist
+    tier: t2
+    type: checklists
+    version: '1.0'
+  tb-immune-system:
+    file: squads/copy/sops/t2/checklists/tb-immune-system.yaml
+    title: Todd Brown Auto-Reject List
+    tier: t2
+    type: checklists
+    version: '1.0'
+  tb-mechanism-strength-test:
+    file: squads/copy/sops/t2/checklists/tb-mechanism-strength-test.yaml
+    title: Unique Mechanism Strength Test
+    tier: t2
+    type: checklists
+    version: '1.0'
+  tb-veto-conditions:
+    file: squads/copy/sops/t2/checklists/tb-veto-conditions.yaml
+    title: Todd Brown Veto Conditions
+    tier: t2
+    type: checklists
+    version: '1.0'
+  tb-voice-validation:
+    file: squads/copy/sops/t2/checklists/tb-voice-validation.yaml
+    title: Todd Brown Voice Validation Checklist
+    tier: t2
+    type: checklists
+    version: '1.0'
+  ah-decision-heuristics:
+    file: squads/copy/sops/t2/decision_trees/ah-decision-heuristics.yaml
+    title: Alex Hormozi Decision Heuristics
+    tier: t2
+    type: decision_trees
+    version: '1.0'
+  ah-diagnostic-flow:
+    file: squads/copy/sops/t2/decision_trees/ah-diagnostic-flow.yaml
+    title: Alex Hormozi Diagnostic Flow
+    tier: t2
+    type: decision_trees
+    version: '1.0'
+  dk-decision-heuristics:
+    file: squads/copy/sops/t2/decision_trees/dk-decision-heuristics.yaml
+    title: Dan Kennedy Decision Heuristics
+    tier: t2
+    type: decision_trees
+    version: '1.0'
+  dk-diagnostic-flow:
+    file: squads/copy/sops/t2/decision_trees/dk-diagnostic-flow.yaml
+    title: Dan Kennedy Diagnostic Flow
+    tier: t2
+    type: decision_trees
+    version: '1.0'
+  fk-decision-heuristics:
+    file: squads/copy/sops/t2/decision_trees/fk-decision-heuristics.yaml
+    title: Frank Kern Decision Heuristics
+    tier: t2
+    type: decision_trees
+    version: '1.0'
+  fk-diagnostic-flow:
+    file: squads/copy/sops/t2/decision_trees/fk-diagnostic-flow.yaml
+    title: Frank Kern Diagnostic Flow
+    tier: t2
+    type: decision_trees
+    version: '1.0'
+  rb-decision-heuristics:
+    file: squads/copy/sops/t2/decision_trees/rb-decision-heuristics.yaml
+    title: Russell Brunson Decision Heuristics
+    tier: t2
+    type: decision_trees
+    version: '1.0'
+  rb-diagnostic-flow:
+    file: squads/copy/sops/t2/decision_trees/rb-diagnostic-flow.yaml
+    title: Russell Brunson Diagnostic Flow
+    tier: t2
+    type: decision_trees
+    version: '1.0'
+  sg-decision-heuristics:
+    file: squads/copy/sops/t2/decision_trees/sg-decision-heuristics.yaml
+    title: Stefan Georgi Decision Heuristics
+    tier: t2
+    type: decision_trees
+    version: '1.0'
+  tb-decision-heuristics:
+    file: squads/copy/sops/t2/decision_trees/tb-decision-heuristics.yaml
+    title: Todd Brown Decision Heuristics
+    tier: t2
+    type: decision_trees
+    version: '1.0'
+  tb-diagnostic-flow:
+    file: squads/copy/sops/t2/decision_trees/tb-diagnostic-flow.yaml
+    title: Todd Brown Diagnostic Flow
+    tier: t2
+    type: decision_trees
+    version: '1.0'
+  ah-magic-naming:
+    file: squads/copy/sops/t2/frameworks/ah-magic-naming.yaml
+    title: MAGIC Naming Formula
+    tier: t2
+    type: frameworks
+    version: '1.0'
+  ah-scarcity-urgency:
+    file: squads/copy/sops/t2/frameworks/ah-scarcity-urgency.yaml
+    title: Scarcity and Urgency Framework
+    tier: t2
+    type: frameworks
+    version: '1.0'
+  ah-value-equation:
+    file: squads/copy/sops/t2/frameworks/ah-value-equation.yaml
+    title: Value Equation
+    tier: t2
+    type: frameworks
+    version: '1.0'
+  dk-28-step-system:
+    file: squads/copy/sops/t2/frameworks/dk-28-step-system.yaml
+    title: 28-Step Sales Letter System
+    tier: t2
+    type: frameworks
+    version: '1.0'
+  dk-52x-contact-fence:
+    file: squads/copy/sops/t2/frameworks/dk-52x-contact-fence.yaml
+    title: 52X Contact Program (The Fence)
+    tier: t2
+    type: frameworks
+    version: '1.0'
+  dk-magnetic-marketing:
+    file: squads/copy/sops/t2/frameworks/dk-magnetic-marketing.yaml
+    title: Magnetic Marketing 3-Step System
+    tier: t2
+    type: frameworks
+    version: '1.0'
+  dk-persuasion-equation:
+    file: squads/copy/sops/t2/frameworks/dk-persuasion-equation.yaml
+    title: Kennedy Persuasion Equation
+    tier: t2
+    type: frameworks
+    version: '1.0'
+  dk-results-triangle:
+    file: squads/copy/sops/t2/frameworks/dk-results-triangle.yaml
+    title: Results Triangle (Kennedy Marketing Triangle)
+    tier: t2
+    type: frameworks
+    version: '1.0'
+  dk-urgency-stack:
+    file: squads/copy/sops/t2/frameworks/dk-urgency-stack.yaml
+    title: Urgency Stack Kennedy (5 Types)
+    tier: t2
+    type: frameworks
+    version: '1.0'
+  fk-4-day-cash-machine-fw:
+    file: squads/copy/sops/t2/frameworks/fk-4-day-cash-machine-fw.yaml
+    title: 4-Day Cash Machine
+    tier: t2
+    type: frameworks
+    version: '1.0'
+  fk-formula-5:
+    file: squads/copy/sops/t2/frameworks/fk-formula-5.yaml
+    title: Formula 5 -- 5 Profit Vectors
+    tier: t2
+    type: frameworks
+    version: '1.0'
+  fk-four-offer-structures:
+    file: squads/copy/sops/t2/frameworks/fk-four-offer-structures.yaml
+    title: Four IBB Offer Structures
+    tier: t2
+    type: frameworks
+    version: '1.0'
+  fk-intent-based-branding:
+    file: squads/copy/sops/t2/frameworks/fk-intent-based-branding.yaml
+    title: Intent-Based Branding (IBB)
+    tier: t2
+    type: frameworks
+    version: '1.0'
+  fk-mass-control-idt:
+    file: squads/copy/sops/t2/frameworks/fk-mass-control-idt.yaml
+    title: Mass Control / Implicit Decision Triggers
+    tier: t2
+    type: frameworks
+    version: '1.0'
+  fk-results-in-advance:
+    file: squads/copy/sops/t2/tasks/fk-results-in-advance.yaml
+    title: Results in Advance System
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  fk-revenue-equation:
+    file: squads/copy/sops/t2/frameworks/fk-revenue-equation.yaml
+    title: Revenue = Offers x Goodwill (Magic Equation)
+    tier: t2
+    type: frameworks
+    version: '1.0'
+  rb-attractive-character:
+    file: squads/copy/sops/t2/frameworks/rb-attractive-character.yaml
+    title: Attractive Character
+    tier: t2
+    type: frameworks
+    version: '1.0'
+  rb-epiphany-bridge:
+    file: squads/copy/sops/t2/frameworks/rb-epiphany-bridge.yaml
+    title: Epiphany Bridge
+    tier: t2
+    type: frameworks
+    version: '1.0'
+  rb-hook-story-offer-fw:
+    file: squads/copy/sops/t2/frameworks/rb-hook-story-offer-fw.yaml
+    title: Hook-Story-Offer Framework
+    tier: t2
+    type: frameworks
+    version: '1.0'
+  rb-perfect-webinar:
+    file: squads/copy/sops/t2/frameworks/rb-perfect-webinar.yaml
+    title: Perfect Webinar Script
+    tier: t2
+    type: frameworks
+    version: '1.0'
+  rb-soap-opera-fw:
+    file: squads/copy/sops/t2/frameworks/rb-soap-opera-fw.yaml
+    title: Soap Opera Sequence
+    tier: t2
+    type: frameworks
+    version: '1.0'
+  rb-three-types-traffic:
+    file: squads/copy/sops/t2/frameworks/rb-three-types-traffic.yaml
+    title: Three Types of Traffic
+    tier: t2
+    type: frameworks
+    version: '1.0'
+  rb-value-ladder:
+    file: squads/copy/sops/t2/frameworks/rb-value-ladder.yaml
+    title: Value Ladder + Funnel Architecture
+    tier: t2
+    type: frameworks
+    version: '1.0'
+  sg-funnel-as-funnel:
+    file: squads/copy/sops/t2/frameworks/sg-funnel-as-funnel.yaml
+    title: Funnel-as-Funnel Optimization
+    tier: t2
+    type: frameworks
+    version: '1.0'
+  sg-rmbc-method:
+    file: squads/copy/sops/t2/frameworks/sg-rmbc-method.yaml
+    title: RMBC Method
+    tier: t2
+    type: frameworks
+    version: '1.0'
+  sg-vssl-length-taxonomy:
+    file: squads/copy/sops/t2/frameworks/sg-vssl-length-taxonomy.yaml
+    title: VSSL Length Taxonomy
+    tier: t2
+    type: frameworks
+    version: '1.0'
+  tb-cpa-aov-golden-ratio:
+    file: squads/copy/sops/t2/frameworks/tb-cpa-aov-golden-ratio.yaml
+    title: CPA-to-AOV Golden Ratio + PAI
+    tier: t2
+    type: frameworks
+    version: '1.0'
+  tb-e5-method:
+    file: squads/copy/sops/t2/frameworks/tb-e5-method.yaml
+    title: E5 Campaign Method
+    tier: t2
+    type: frameworks
+    version: '1.0'
+  tb-format-breakthrough:
+    file: squads/copy/sops/t2/frameworks/tb-format-breakthrough.yaml
+    title: Format Breakthrough Cycle
+    tier: t2
+    type: frameworks
+    version: '1.0'
+  tb-lead-opening-formula:
+    file: squads/copy/sops/t2/frameworks/tb-lead-opening-formula.yaml
+    title: Lead Opening Formula
+    tier: t2
+    type: frameworks
+    version: '1.0'
+  ah-grand-slam-offer-build:
+    file: squads/copy/sops/t2/tasks/ah-grand-slam-offer-build.yaml
+    title: Grand Slam Offer Algorithm
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  ah-guarantee-engineering:
+    file: squads/copy/sops/t2/tasks/ah-guarantee-engineering.yaml
+    title: Guarantee Engineering
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  ah-value-equation-diagnosis:
+    file: squads/copy/sops/t2/tasks/ah-value-equation-diagnosis.yaml
+    title: Value Equation Diagnostic
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  ah-value-stack-build:
+    file: squads/copy/sops/t2/tasks/ah-value-stack-build.yaml
+    title: Value Stack Construction
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  dk-10-smart-questions:
+    file: squads/copy/sops/t2/tasks/dk-10-smart-questions.yaml
+    title: 10 Smart Questions Avatar Discovery
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  dk-28-step-sales-letter:
+    file: squads/copy/sops/t2/tasks/dk-28-step-sales-letter.yaml
+    title: 28-Step Sales Letter System
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  dk-magnetic-marketing-3step:
+    file: squads/copy/sops/t2/tasks/dk-magnetic-marketing-3step.yaml
+    title: Magnetic Marketing 3-Step Lead Gen System
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  dk-no-bs-audit:
+    file: squads/copy/sops/t2/tasks/dk-no-bs-audit.yaml
+    title: 10 No BS Rules Audit
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  dk-results-triangle-diagnosis:
+    file: squads/copy/sops/t2/tasks/dk-results-triangle-diagnosis.yaml
+    title: Results Triangle Marketing Diagnosis
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  fk-4-day-cash-machine:
+    file: squads/copy/sops/t2/tasks/fk-4-day-cash-machine.yaml
+    title: 4-Day Cash Machine
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  fk-content-compounding:
+    file: squads/copy/sops/t2/tasks/fk-content-compounding.yaml
+    title: Content Compounding + Expansion Pipeline
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  fk-formula-5-optimization:
+    file: squads/copy/sops/t2/tasks/fk-formula-5-optimization.yaml
+    title: Formula 5 - 5 Profit Vectors Optimization
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  fk-ibb-implementation:
+    file: squads/copy/sops/t2/tasks/fk-ibb-implementation.yaml
+    title: Intent-Based Branding (IBB) Implementation
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  fk-mass-control-idt-launch:
+    file: squads/copy/sops/t2/tasks/fk-mass-control-idt-launch.yaml
+    title: Mass Control Launch via Implicit Decision Triggers
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  rb-dream-100-implementation:
+    file: squads/copy/sops/t2/tasks/rb-dream-100-implementation.yaml
+    title: Dream 100 Implementation
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  rb-epiphany-bridge-story:
+    file: squads/copy/sops/t2/tasks/rb-epiphany-bridge-story.yaml
+    title: Epiphany Bridge Story Construction
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  rb-fill-your-funnel:
+    file: squads/copy/sops/t2/tasks/rb-fill-your-funnel.yaml
+    title: Fill Your Funnel Framework (Any Platform)
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  rb-hook-story-offer:
+    file: squads/copy/sops/t2/tasks/rb-hook-story-offer.yaml
+    title: Hook-Story-Offer Construction
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  rb-perfect-webinar-script:
+    file: squads/copy/sops/t2/tasks/rb-perfect-webinar-script.yaml
+    title: Perfect Webinar Script
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  rb-soap-opera-sequence:
+    file: squads/copy/sops/t2/tasks/rb-soap-opera-sequence.yaml
+    title: Soap Opera Email Sequence
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  rb-value-ladder-design:
+    file: squads/copy/sops/t2/tasks/rb-value-ladder-design.yaml
+    title: Value Ladder + Funnel Architecture Design
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  sg-aov-money-close:
+    file: squads/copy/sops/t2/tasks/sg-aov-money-close.yaml
+    title: AOV Money Close
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  sg-copy-thinker-ai-pipeline:
+    file: squads/copy/sops/t2/tasks/sg-copy-thinker-ai-pipeline.yaml
+    title: Copy Thinker AI Pipeline (RMBC II)
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  sg-fascination-system:
+    file: squads/copy/sops/t2/tasks/sg-fascination-system.yaml
+    title: Alpha-Omega Fascination System
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  sg-micro-lead-testing:
+    file: squads/copy/sops/t2/tasks/sg-micro-lead-testing.yaml
+    title: Micro-Lead Testing Architecture
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  sg-rmbc-full-pipeline:
+    file: squads/copy/sops/t2/tasks/sg-rmbc-full-pipeline.yaml
+    title: RMBC Method Full Pipeline
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  tb-campaign-diagnosis:
+    file: squads/copy/sops/t2/tasks/tb-campaign-diagnosis.yaml
+    title: Campaign Diagnosis System (3 Steps to Gold)
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  tb-e5-campaign-build:
+    file: squads/copy/sops/t2/tasks/tb-e5-campaign-build.yaml
+    title: E5 Campaign Method Build
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  tb-re-lead-strategy:
+    file: squads/copy/sops/t2/tasks/tb-re-lead-strategy.yaml
+    title: Re-Leading Strategy for Dying Campaigns
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  tb-unique-mechanism-discovery:
+    file: squads/copy/sops/t2/tasks/tb-unique-mechanism-discovery.yaml
+    title: Unique Mechanism Discovery System
+    tier: t2
+    type: tasks
+    version: 1.0.0
+  checklist-benson-never-use:
+    file: squads/copy/sops/t3/checklists/checklist-benson-never-use.yaml
+    title: Benson Vocabulary Veto List
+    tier: t3
+    type: checklists
+    version: '1.0'
+  checklist-benson-veto:
+    file: squads/copy/sops/t3/checklists/checklist-benson-veto.yaml
+    title: Benson Veto Conditions
+    tier: t3
+    type: checklists
+    version: '1.0'
+  checklist-benson-voice-validation:
+    file: squads/copy/sops/t3/checklists/checklist-benson-voice-validation.yaml
+    title: Benson Voice Validation Checklist
+    tier: t3
+    type: checklists
+    version: '1.0'
+  checklist-chaperon-never-use:
+    file: squads/copy/sops/t3/checklists/checklist-chaperon-never-use.yaml
+    title: Chaperon Vocabulary Veto List
+    tier: t3
+    type: checklists
+    version: '1.0'
+  checklist-chaperon-veto:
+    file: squads/copy/sops/t3/checklists/checklist-chaperon-veto.yaml
+    title: Chaperon Veto Conditions
+    tier: t3
+    type: checklists
+    version: '1.0'
+  checklist-chaperon-voice-validation:
+    file: squads/copy/sops/t3/checklists/checklist-chaperon-voice-validation.yaml
+    title: Chaperon Voice Validation Checklist
+    tier: t3
+    type: checklists
+    version: '1.0'
+  checklist-koe-never-use:
+    file: squads/copy/sops/t3/checklists/checklist-koe-never-use.yaml
+    title: Koe Vocabulary Veto List
+    tier: t3
+    type: checklists
+    version: '1.0'
+  checklist-koe-veto:
+    file: squads/copy/sops/t3/checklists/checklist-koe-veto.yaml
+    title: Koe Veto Conditions
+    tier: t3
+    type: checklists
+    version: '1.0'
+  checklist-koe-voice-validation:
+    file: squads/copy/sops/t3/checklists/checklist-koe-voice-validation.yaml
+    title: Koe Voice Validation Checklist
+    tier: t3
+    type: checklists
+    version: '1.0'
+  checklist-schwartz-never-use:
+    file: squads/copy/sops/t3/checklists/checklist-schwartz-never-use.yaml
+    title: Schwartz Vocabulary Veto List
+    tier: t3
+    type: checklists
+    version: '1.0'
+  checklist-schwartz-veto:
+    file: squads/copy/sops/t3/checklists/checklist-schwartz-veto.yaml
+    title: Schwartz Veto Conditions
+    tier: t3
+    type: checklists
+    version: '1.0'
+  checklist-schwartz-voice-validation:
+    file: squads/copy/sops/t3/checklists/checklist-schwartz-voice-validation.yaml
+    title: Schwartz Voice Validation Checklist
+    tier: t3
+    type: checklists
+    version: '1.0'
+  checklist-settle-never-use:
+    file: squads/copy/sops/t3/checklists/checklist-settle-never-use.yaml
+    title: Settle Vocabulary Veto List
+    tier: t3
+    type: checklists
+    version: '1.0'
+  checklist-settle-veto:
+    file: squads/copy/sops/t3/checklists/checklist-settle-veto.yaml
+    title: Settle Veto Conditions
+    tier: t3
+    type: checklists
+    version: '1.0'
+  checklist-settle-voice-validation:
+    file: squads/copy/sops/t3/checklists/checklist-settle-voice-validation.yaml
+    title: Settle Voice Validation Checklist
+    tier: t3
+    type: checklists
+    version: '1.0'
+  checklist-sugarman-30-triggers:
+    file: squads/copy/sops/t3/checklists/checklist-sugarman-30-triggers.yaml
+    title: 30 Psychological Triggers Checklist
+    tier: t3
+    type: checklists
+    version: '1.0'
+  checklist-sugarman-context-weighting:
+    file: squads/copy/sops/t3/checklists/checklist-sugarman-context-weighting.yaml
+    title: Sugarman Context Weighting -- Critical Triggers by Copy Type
+    tier: t3
+    type: checklists
+    version: '1.0'
+  checklist-sugarman-qa-output-validation:
+    file: squads/copy/sops/t3/checklists/checklist-sugarman-qa-output-validation.yaml
+    title: Sugarman QA Output Self-Validation
+    tier: t3
+    type: checklists
+    version: '1.0'
+  checklist-sugarman-slippery-slide:
+    file: squads/copy/sops/t3/checklists/checklist-sugarman-slippery-slide.yaml
+    title: Slippery Slide Evaluation Checklist
+    tier: t3
+    type: checklists
+    version: '1.0'
+  checklist-sugarman-veto:
+    file: squads/copy/sops/t3/checklists/checklist-sugarman-veto.yaml
+    title: Sugarman Veto Conditions
+    tier: t3
+    type: checklists
+    version: '1.0'
+  tree-benson-diagnostic:
+    file: squads/copy/sops/t3/decision_trees/tree-benson-diagnostic.yaml
+    title: Benson Diagnostic Router
+    tier: t3
+    type: decision_trees
+    version: '1.0'
+  tree-benson-format-selection:
+    file: squads/copy/sops/t3/decision_trees/tree-benson-format-selection.yaml
+    title: Benson Format Selection
+    tier: t3
+    type: decision_trees
+    version: '1.0'
+  tree-benson-heuristics:
+    file: squads/copy/sops/t3/decision_trees/tree-benson-heuristics.yaml
+    title: Benson Decision Heuristics
+    tier: t3
+    type: decision_trees
+    version: '1.0'
+  tree-chaperon-diagnostic:
+    file: squads/copy/sops/t3/decision_trees/tree-chaperon-diagnostic.yaml
+    title: Chaperon Diagnostic Router
+    tier: t3
+    type: decision_trees
+    version: '1.0'
+  tree-chaperon-heuristics:
+    file: squads/copy/sops/t3/decision_trees/tree-chaperon-heuristics.yaml
+    title: Chaperon Decision Heuristics
+    tier: t3
+    type: decision_trees
+    version: '1.0'
+  tree-koe-diagnostic:
+    file: squads/copy/sops/t3/decision_trees/tree-koe-diagnostic.yaml
+    title: Koe Diagnostic Router
+    tier: t3
+    type: decision_trees
+    version: '1.0'
+  tree-koe-heuristics:
+    file: squads/copy/sops/t3/decision_trees/tree-koe-heuristics.yaml
+    title: Koe Decision Heuristics
+    tier: t3
+    type: decision_trees
+    version: '1.0'
+  tree-schwartz-diagnostic:
+    file: squads/copy/sops/t3/decision_trees/tree-schwartz-diagnostic.yaml
+    title: Schwartz Diagnostic Router
+    tier: t3
+    type: decision_trees
+    version: '1.0'
+  tree-schwartz-heuristics:
+    file: squads/copy/sops/t3/decision_trees/tree-schwartz-heuristics.yaml
+    title: Schwartz Decision Heuristics
+    tier: t3
+    type: decision_trees
+    version: '1.0'
+  tree-settle-diagnostic:
+    file: squads/copy/sops/t3/decision_trees/tree-settle-diagnostic.yaml
+    title: Settle Diagnostic Router
+    tier: t3
+    type: decision_trees
+    version: '1.0'
+  tree-settle-heuristics:
+    file: squads/copy/sops/t3/decision_trees/tree-settle-heuristics.yaml
+    title: Settle Decision Heuristics
+    tier: t3
+    type: decision_trees
+    version: '1.0'
+  tree-sugarman-evaluation-flow:
+    file: squads/copy/sops/t3/decision_trees/tree-sugarman-evaluation-flow.yaml
+    title: Sugarman QA Evaluation Flow
+    tier: t3
+    type: decision_trees
+    version: '1.0'
+  tree-sugarman-trigger-layers:
+    file: squads/copy/sops/t3/decision_trees/tree-sugarman-trigger-layers.yaml
+    title: Sugarman 30 Triggers -- 5 Functional Layers
+    tier: t3
+    type: decision_trees
+    version: '1.0'
+  fw-10-villain-pillars:
+    file: squads/copy/sops/t3/frameworks/fw-10-villain-pillars.yaml
+    title: The 10 Villain Charisma Pillars
+    tier: t3
+    type: frameworks
+    version: '1.0'
+  fw-30-triggers-5-layers:
+    file: squads/copy/sops/t3/frameworks/fw-30-triggers-5-layers.yaml
+    title: 30 Triggers — 5 Functional Layers
+    tier: t3
+    type: frameworks
+    version: '1.0'
+  fw-5-step-vsl:
+    file: squads/copy/sops/t3/frameworks/fw-5-step-vsl.yaml
+    title: 5-Step VSL Formula
+    tier: t3
+    type: frameworks
+    version: '1.0'
+  fw-6-conversion-blocks:
+    file: squads/copy/sops/t3/frameworks/fw-6-conversion-blocks.yaml
+    title: 6 Conversion Building Blocks
+    tier: t3
+    type: frameworks
+    version: '1.0'
+  fw-agreeance-aikido:
+    file: squads/copy/sops/t3/frameworks/fw-agreeance-aikido.yaml
+    title: Agreeance Principle (Aikido)
+    tier: t3
+    type: frameworks
+    version: '1.0'
+  fw-apag:
+    file: squads/copy/sops/t3/frameworks/fw-apag.yaml
+    title: APAG Persuasive Writing Framework
+    tier: t3
+    type: frameworks
+    version: '1.0'
+  fw-big-idea-system:
+    file: squads/copy/sops/t3/frameworks/fw-big-idea-system.yaml
+    title: Big Idea System
+    tier: t3
+    type: frameworks
+    version: '1.0'
+  fw-campfire-megaphone:
+    file: squads/copy/sops/t3/frameworks/fw-campfire-megaphone.yaml
+    title: Campfire vs. Megaphone
+    tier: t3
+    type: frameworks
+    version: '1.0'
+  fw-concept-selling:
+    file: squads/copy/sops/t3/frameworks/fw-concept-selling.yaml
+    title: Concept Selling (Axiom 9)
+    tier: t3
+    type: frameworks
+    version: '1.0'
+  fw-digital-soulcraft:
+    file: squads/copy/sops/t3/frameworks/fw-digital-soulcraft.yaml
+    title: Digital Soulcraft — 4 Layers
+    tier: t3
+    type: frameworks
+    version: '1.0'
+  fw-email-marketing-villain:
+    file: squads/copy/sops/t3/frameworks/fw-email-marketing-villain.yaml
+    title: Email Marketing Villain Framework
+    tier: t3
+    type: frameworks
+    version: '1.0'
+  fw-email-triad:
+    file: squads/copy/sops/t3/frameworks/fw-email-triad.yaml
+    title: The Email Triad
+    tier: t3
+    type: frameworks
+    version: '1.0'
+  fw-exclusive-empowerment:
+    file: squads/copy/sops/t3/frameworks/fw-exclusive-empowerment.yaml
+    title: Exclusive Empowerment Positioning
+    tier: t3
+    type: frameworks
+    version: '1.0'
+  fw-forbidden-fruit:
+    file: squads/copy/sops/t3/frameworks/fw-forbidden-fruit.yaml
+    title: Forbidden Fruit Click-Through Secret
+    tier: t3
+    type: frameworks
+    version: '1.0'
+  fw-identity-stack:
+    file: squads/copy/sops/t3/frameworks/fw-identity-stack.yaml
+    title: Identity Stack
+    tier: t3
+    type: frameworks
+    version: '1.0'
+  fw-intentional-constraints:
+    file: squads/copy/sops/t3/frameworks/fw-intentional-constraints.yaml
+    title: Intentional Constraints — 3 Axioms
+    tier: t3
+    type: frameworks
+    version: '1.0'
+  fw-never-be-benign:
+    file: squads/copy/sops/t3/frameworks/fw-never-be-benign.yaml
+    title: Never Be Benign (Polarization Principle)
+    tier: t3
+    type: frameworks
+    version: '1.0'
+  fw-purpose-path-priority:
+    file: squads/copy/sops/t3/frameworks/fw-purpose-path-priority.yaml
+    title: Purpose-Path-Priority (PPP)
+    tier: t3
+    type: frameworks
+    version: '1.0'
+  fw-resonance-fidelity:
+    file: squads/copy/sops/t3/frameworks/fw-resonance-fidelity.yaml
+    title: Resonance Fidelity — 3 Dimensions
+    tier: t3
+    type: frameworks
+    version: '1.0'
+  fw-reverse-complexity:
+    file: squads/copy/sops/t3/frameworks/fw-reverse-complexity.yaml
+    title: Reverse Complexity Rule
+    tier: t3
+    type: frameworks
+    version: '1.0'
+  fw-satisfaction-conviction:
+    file: squads/copy/sops/t3/frameworks/fw-satisfaction-conviction.yaml
+    title: Satisfaction Conviction System
+    tier: t3
+    type: frameworks
+    version: '1.0'
+  fw-slippery-slide:
+    file: squads/copy/sops/t3/frameworks/fw-slippery-slide.yaml
+    title: Slippery Slide System — 5 Evaluation Layers
+    tier: t3
+    type: frameworks
+    version: '1.0'
+  fw-somatic-copy:
+    file: squads/copy/sops/t3/frameworks/fw-somatic-copy.yaml
+    title: Somatic Copy
+    tier: t3
+    type: frameworks
+    version: '1.0'
+  fw-tiny-digital-worlds:
+    file: squads/copy/sops/t3/frameworks/fw-tiny-digital-worlds.yaml
+    title: Tiny Digital Worlds (TDW)
+    tier: t3
+    type: frameworks
+    version: '1.0'
+  task-2-hour-writer:
+    file: squads/copy/sops/t3/tasks/task-2-hour-writer.yaml
+    title: 2-Hour Writer System
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-3x-personality-method:
+    file: squads/copy/sops/t3/tasks/task-3x-personality-method.yaml
+    title: 3X Personality Method
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-3x-vsl-creation:
+    file: squads/copy/sops/t3/tasks/task-3x-vsl-creation.yaml
+    title: 3X VSL Method — Multi-Length Versions
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-90s-smartphone-pattern-interrupt:
+    file: squads/copy/sops/t3/tasks/task-90s-smartphone-pattern-interrupt.yaml
+    title: 90-Second Smartphone Pattern Interrupt
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-alpha-omega-optimization:
+    file: squads/copy/sops/t3/tasks/task-alpha-omega-optimization.yaml
+    title: Alpha/Omega VSL Optimization
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-apag-newsletter:
+    file: squads/copy/sops/t3/tasks/task-apag-newsletter.yaml
+    title: APAG Persuasive Newsletter
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-behavioral-segmentation:
+    file: squads/copy/sops/t3/tasks/task-behavioral-segmentation.yaml
+    title: Behavioral Segmentation Setup
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-big-idea-system:
+    file: squads/copy/sops/t3/tasks/task-big-idea-system.yaml
+    title: Big Idea System (5-Phase)
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-content-repurposing:
+    file: squads/copy/sops/t3/tasks/task-content-repurposing.yaml
+    title: Content Repurposing Engine
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-contrarian-content:
+    file: squads/copy/sops/t3/tasks/task-contrarian-content.yaml
+    title: Contrarian Content Formula
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-copyslacker-5-step:
+    file: squads/copy/sops/t3/tasks/task-copyslacker-5-step.yaml
+    title: CopySlacker 5-Step Sales Letter Formula
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-core-notes:
+    file: squads/copy/sops/t3/tasks/task-core-notes.yaml
+    title: Core Notes System (Ideas as Legos)
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-daily-email-flywheel:
+    file: squads/copy/sops/t3/tasks/task-daily-email-flywheel.yaml
+    title: Daily Email Flywheel
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-dead-list-revival:
+    file: squads/copy/sops/t3/tasks/task-dead-list-revival.yaml
+    title: Dead List Revival Protocol
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-email-engine-setup:
+    file: squads/copy/sops/t3/tasks/task-email-engine-setup.yaml
+    title: Email Engine Architecture Setup
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-epic-email:
+    file: squads/copy/sops/t3/tasks/task-epic-email.yaml
+    title: EPIC Email Framework
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-epistemic-method:
+    file: squads/copy/sops/t3/tasks/task-epistemic-method.yaml
+    title: Epistemic Method — Idea Development
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-frank-matt-archetype:
+    file: squads/copy/sops/t3/tasks/task-frank-matt-archetype.yaml
+    title: Frank & Matt Archetype Definition
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-ghost-story-technique:
+    file: squads/copy/sops/t3/tasks/task-ghost-story-technique.yaml
+    title: Ghost Story Technique
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-hook-architecture:
+    file: squads/copy/sops/t3/tasks/task-hook-architecture.yaml
+    title: Hook Architecture — Social Content
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-hook-discovery:
+    file: squads/copy/sops/t3/tasks/task-hook-discovery.yaml
+    title: Simple Hook Formula (Mind Map Method)
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-identity-stack:
+    file: squads/copy/sops/t3/tasks/task-identity-stack.yaml
+    title: Identity Stack Definition
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-infotainment-email:
+    file: squads/copy/sops/t3/tasks/task-infotainment-email.yaml
+    title: Infotainment Email System (6 Steps)
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-mht-exercise:
+    file: squads/copy/sops/t3/tasks/task-mht-exercise.yaml
+    title: Moment of Highest Tension (MHT) Exercise
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-mpps-creation:
+    file: squads/copy/sops/t3/tasks/task-mpps-creation.yaml
+    title: Multi-Page Presell Site (MPPS) Creation
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-negative-positive-hook-system:
+    file: squads/copy/sops/t3/tasks/task-negative-positive-hook-system.yaml
+    title: Negative/Positive Hook System
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-objection-raising-protocol:
+    file: squads/copy/sops/t3/tasks/task-objection-raising-protocol.yaml
+    title: Objection Raising -> Resolution Protocol
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-open-loop-architecture:
+    file: squads/copy/sops/t3/tasks/task-open-loop-architecture.yaml
+    title: Open Loop Architecture Design
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-outcome-description-rewrite:
+    file: squads/copy/sops/t3/tasks/task-outcome-description-rewrite.yaml
+    title: Outcome Description Rewrite
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-sales-video-big-four:
+    file: squads/copy/sops/t3/tasks/task-sales-video-big-four.yaml
+    title: Sales Video — Big Four Structure
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-slippery-slide-evaluation:
+    file: squads/copy/sops/t3/tasks/task-slippery-slide-evaluation.yaml
+    title: Slippery Slide 5-Layer Evaluation
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-soap-opera-sequence:
+    file: squads/copy/sops/t3/tasks/task-soap-opera-sequence.yaml
+    title: Soap Opera Sequence (SOS) Creation
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-subject-line-micro-riddle:
+    file: squads/copy/sops/t3/tasks/task-subject-line-micro-riddle.yaml
+    title: Subject Line Micro-Riddle Creation
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-sugarman-qa-gate:
+    file: squads/copy/sops/t3/tasks/task-sugarman-qa-gate.yaml
+    title: 30 Psychological Triggers QA Gate (Full Analysis)
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-testimonial-flip:
+    file: squads/copy/sops/t3/tasks/task-testimonial-flip.yaml
+    title: Testimonial Flip Technique
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-two-sweeps-audit:
+    file: squads/copy/sops/t3/tasks/task-two-sweeps-audit.yaml
+    title: Two Sweeps Audit (So What + Specificity)
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-voc-first-email:
+    file: squads/copy/sops/t3/tasks/task-voc-first-email.yaml
+    title: VOC-First Email Architecture
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-vsl-5-step:
+    file: squads/copy/sops/t3/tasks/task-vsl-5-step.yaml
+    title: 5-Step VSL Creation
+    tier: t3
+    type: tasks
+    version: '1.0'
+  task-weekly-writing-production:
+    file: squads/copy/sops/t3/tasks/task-weekly-writing-production.yaml
+    title: Weekly Writing Production (Kortex Method)
+    tier: t3
+    type: tasks
+    version: '1.0'
+  jw-internal-launch:
+    file: squads/copy/sops/t2/tasks/jw-internal-launch.yaml
+    title: Internal Launch
+    tier: t2
+    type: tasks
+    version: '1.0'
+  jw-jv-launch:
+    file: squads/copy/sops/t2/tasks/jw-jv-launch.yaml
+    title: Jv Launch
+    tier: t2
+    type: tasks
+    version: '1.0'
+  jw-mental-triggers:
+    file: squads/copy/sops/t2/tasks/jw-mental-triggers.yaml
+    title: Mental Triggers
+    tier: t2
+    type: tasks
+    version: '1.0'
+  jw-open-cart-sequence:
+    file: squads/copy/sops/t2/tasks/jw-open-cart-sequence.yaml
+    title: Open Cart Sequence
+    tier: t2
+    type: tasks
+    version: '1.0'
+  jw-plc-production:
+    file: squads/copy/sops/t2/tasks/jw-plc-production.yaml
+    title: Plc Production
+    tier: t2
+    type: tasks
+    version: '1.0'
+  jw-plf-full-sequence:
+    file: squads/copy/sops/t2/tasks/jw-plf-full-sequence.yaml
+    title: Plf Full Sequence
+    tier: t2
+    type: tasks
+    version: '1.0'
+  jw-seed-launch:
+    file: squads/copy/sops/t2/tasks/jw-seed-launch.yaml
+    title: Seed Launch
+    tier: t2
+    type: tasks
+    version: '1.0'
+  jw-sideways-sales-letter:
+    file: squads/copy/sops/t2/tasks/jw-sideways-sales-letter.yaml
+    title: Sideways Sales Letter
+    tier: t2
+    type: tasks
+    version: '1.0'

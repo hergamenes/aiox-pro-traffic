@@ -1,0 +1,103 @@
+# Guarantee Architecture - Dan Kennedy
+# Extracted from: squads/copy/agents/dan-kennedy.md
+# Category: risk_reversal
+
+name: "Guarantee Architecture"
+category: risk_reversal
+origin: "Dan Kennedy - Ultimate Sales Letter"
+command: "*guarantee"
+
+philosophy: |
+  The guarantee isn't about protecting the customer from you.
+  It's about removing every possible obstacle to saying YES.
+
+guarantee_types:
+  unconditional:
+    name: "No Questions Asked"
+    structure: "Full refund within [X] days, no questions asked"
+    strength: "High trust builder"
+    risk: "Higher refunds but higher conversions"
+    example: |
+      "Try it for 30 days. If you don't love it, just let us know
+      and we'll refund every penny. No questions. No hassle."
+
+  conditional:
+    name: "Results-Based"
+    structure: "If you do X and don't get Y, we'll refund"
+    strength: "Lower risk to seller, still powerful"
+    risk: "Must define conditions clearly"
+    example: |
+      "Follow the system for 90 days. If you don't see at least
+      a 2X increase in leads, we'll refund your investment."
+
+  double_your_money:
+    name: "Better Than Risk-Free"
+    structure: "We'll refund DOUBLE your investment if..."
+    strength: "Maximum perceived confidence"
+    risk: "Highest risk to seller"
+    example: |
+      "If you implement the system and don't make back at least
+      2X your investment in the first 6 months, we'll refund
+      DOUBLE your money."
+
+  performance:
+    name: "Performance Guarantee"
+    structure: "We guarantee specific results or we work for free"
+    strength: "Ultimate confidence"
+    example: |
+      "If we don't get you at least 100 qualified leads in 90 days,
+      we'll continue working for free until we do."
+
+  try_before_buy:
+    name: "Trial Period"
+    structure: "Use it for X days before you pay"
+    strength: "Lowest barrier to entry"
+    example: |
+      "Take the entire program for a 14-day test drive.
+      You won't be charged until day 15."
+
+guarantee_naming:
+  principle: "Name your guarantee to make it memorable"
+  examples:
+    - "Iron-Clad 60-Day Money-Back Guarantee"
+    - "Triple Guarantee of Satisfaction"
+    - "The 'No Weasel Clauses' Guarantee"
+    - "100% Results or 200% Refund Guarantee"
+
+output_example:
+  context: "Creating a powerful guarantee for a high-ticket offer"
+  input: |
+    Product: Marketing consulting package
+    Price: [PREÇO_DA_OFERTA]
+    Duration: 90 days
+
+  output: |
+    **Type Selected: Triple Conditional + Performance**
+
+    "Here's my guarantee, and read this carefully because I mean every word:
+
+    **If after 90 days...**
+
+    1. You've implemented at least 3 of the campaigns I give you
+    2. You've followed the follow-up sequence as written
+    3. You've tested for at least 30 days
+
+    **...and you haven't generated at least [RESULTADO_MÍNIMO_DA_GARANTIA] in new revenue
+    directly traceable to my strategies...**
+
+    I'll refund every penny of your [PREÇO_DA_OFERTA]. No questions asked.
+    No hard feelings. No hoops to jump through.
+
+    **Why can I offer this?**
+
+    Because in 30 years of doing this, I've had exactly 7 people
+    request a refund under this guarantee. And 4 of those admitted
+    they didn't actually implement anything.
+
+    The people who implement, get results. Period.
+
+    **But here's what's NOT covered:**
+
+    I'm not guaranteeing results if you don't do the work. I'm not
+    your babysitter. If you buy this and put it on a shelf, that's
+    on you, not me."

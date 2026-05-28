@@ -1,0 +1,121 @@
+sop:
+  id: dk-28-step-system
+  version: "1.0"
+  title: "28-Step Sales Letter System"
+  purpose: >
+    Systematic 28-step process for writing high-converting sales letters,
+    covering preparation, writing, and polish phases to ensure no critical
+    persuasion element is omitted.
+  classification:
+    domain: copywriting
+    subdomain: direct-response
+    tier: t2
+    source_agent: dan-kennedy
+    artifact_type: framework
+
+  steps:
+    - id: step_1_preparation
+      action: apply_preparation_phase
+      label: "Phase 1 PREPARATION (Steps 1-6)"
+      description: >
+        Get into the customer's world, define the complete offer, write a
+        damaging admission, create emotional involvement, crystallize the USP,
+        and engineer an irresistible offer.
+      inputs:
+        - customer_research_data
+        - product_details
+        - competitive_landscape
+      outputs:
+        - customer_language_swipe
+        - offer_stack_draft
+        - damaging_admission_statement
+        - usp_one_liner
+      validation:
+        - field: damaging_admission_statement
+          rule: not_empty
+        - field: usp_one_liner
+          rule: max_length_50_words
+
+    - id: step_2_writing
+      action: apply_writing_phase
+      label: "Phase 2 WRITING (Steps 7-22)"
+      description: >
+        Write the headline to flag the reader, open with the strongest hook,
+        build benefits, layer proof elements, address objections, present the
+        offer, add risk reversal, include response device, write transitions,
+        and add sub-headlines.
+      inputs:
+        - customer_language_swipe
+        - offer_stack_draft
+        - proof_elements
+        - testimonials
+      outputs:
+        - sales_letter_draft
+        - headline_variants
+        - value_stack_table
+      validation:
+        - field: headline_variants
+          rule: min_count_10
+        - field: sales_letter_draft
+          rule: contains_proof_elements
+        - field: sales_letter_draft
+          rule: contains_risk_reversal
+
+    - id: step_3_polish
+      action: apply_polish_phase
+      label: "Phase 3 POLISH (Steps 23-28)"
+      description: >
+        Perform clarity check by reading aloud, remove weasel words, verify
+        every claim has proof, write the PS, apply real urgency, and conduct
+        final No BS Review as a hostile skeptical prospect.
+      inputs:
+        - sales_letter_draft
+      outputs:
+        - sales_letter_final
+        - ps_section
+        - urgency_elements
+      validation:
+        - field: sales_letter_final
+          rule: no_weasel_words
+        - field: ps_section
+          rule: contains_benefit_guarantee_deadline
+        - field: urgency_elements
+          rule: all_genuine
+
+  error_handling:
+    - error: skipped_preparation
+      symptom: "Copy feels generic with no emotional resonance"
+      resolution: "Return to step_1, spend minimum 2 hours on customer research"
+    - error: missing_damaging_admission
+      symptom: "Reader perceives copy as too good to be true"
+      resolution: "Add one honest limitation in the first third of the letter"
+    - error: fake_urgency
+      symptom: "Trust erosion, complaints, elevated refund rate"
+      resolution: "Replace with real deadline, real scarcity, or real price increase"
+    - error: weak_transitions
+      symptom: "Low scroll depth, reader drops mid-page"
+      resolution: "Add curiosity hook or open loop at end of each section"
+
+  quality_gate:
+    min_score: 7
+    criteria:
+      - "All 28 steps addressed"
+      - "Damaging admission present and genuine"
+      - "USP is unique, specific, defensible"
+      - "Offer stack >= 10x perceived value vs price"
+      - "Guarantee is specific and bold"
+      - "Minimum 3 proof types used"
+      - "PS restates core offer + deadline"
+      - "Copy reads aloud without stumbling"
+
+  outputs:
+    - type: sales_letter
+      format: markdown
+      length: "2000-8000+ words"
+    - type: headline_variants
+      format: list
+      min_count: 10
+    - type: offer_stack
+      format: table
+    - type: guarantee_statement
+      format: text

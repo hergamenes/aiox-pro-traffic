@@ -1,0 +1,241 @@
+# --- document metadata ---
+version: "1.1"
+date: "2026-03-08"
+updated: "2026-03-10"
+author:
+  agent: "squad-chief"
+  squad: "squad-creator-pro"
+aiox: true
+project: "copy"
+
+# Routing Matrix — CopywriterOS
+# Used by Copy Chief to route briefings to the right copywriter(s).
+# Source of truth for agent selection by copy type.
+
+routing_matrix:
+
+  sales_page_long_form:
+    display: "Pagina de vendas (long-form)"
+    tier_primary: tier_1
+    agents_primary:
+      - gary-halbert
+      - clayton-makepeace
+      - gary-bencivenga
+    reviewers:
+      - diagnostic: [claude-hopkins, eugene-schwartz, robert-collier]
+      - qa: joe-sugarman
+    notes: "High-stakes. Always run full Tier 0 diagnostic first."
+
+  vsl_script:
+    display: "VSL script"
+    tier_primary: [tier_2, tier_3]
+    agents_primary:
+      - stefan-georgi    # RMBC Method
+      - jon-benson       # Sellerator / 3X VSL
+    reviewers:
+      - diagnostic: [claude-hopkins]
+      - qa: joe-sugarman
+    notes: "Georgi for health VSLs, Benson for conversational VSLs."
+
+  email_sequence:
+    display: "Email sequence"
+    tier_primary: tier_3
+    agents_primary:
+      - andre-chaperon   # Nurture / story sequences
+      - ben-settle       # Daily emails
+    reviewers:
+      - diagnostic: [eugene-schwartz]
+      - qa: joe-sugarman
+    notes: "Chaperon for long nurture. Settle for daily personality emails."
+
+  launch_sequence:
+    display: "Launch sequence"
+    tier_primary: tier_2
+    agents_primary:
+      - jeff-walker      # PLF
+      - russell-brunson   # Webinar scripts
+      - frank-kern       # Relationship launches
+    reviewers:
+      - diagnostic: [robert-collier]
+      - secondary: alex-hormozi
+      - qa: joe-sugarman
+    notes: "Walker for PLF structure. Brunson for webinar. Kern for relational."
+
+  ads_copy:
+    display: "Ads copy"
+    tier_primary: [tier_2, tier_1]
+    agents_primary:
+      - dan-kennedy      # Urgency
+      - gary-halbert     # Hooks
+    reviewers:
+      - diagnostic: [claude-hopkins]
+      - qa: joe-sugarman
+    notes: "Kennedy for urgency/deadline. Halbert for emotional hooks."
+
+  cohort_workshop:
+    display: "Cohort / workshop"
+    tier_primary: tier_3
+    agents_primary:
+      - ry-schwartz
+    reviewers:
+      - diagnostic: [eugene-schwartz]
+      - secondary: jeff-walker
+      - qa: joe-sugarman
+    notes: "Ry Schwartz is the specialist. Walker can support with launch structure."
+
+  unique_mechanism:
+    display: "Mecanismo unico"
+    tier_primary: tier_2
+    agents_primary:
+      - todd-brown       # E5 Method
+    reviewers:
+      - diagnostic: [eugene-schwartz]
+      - qa: joe-sugarman
+    notes: "Todd Brown owns mechanism discovery. Schwartz validates sophistication."
+
+  brand_plus_dr:
+    display: "Brand + Direct Response"
+    tier_primary: tier_1
+    agents_primary:
+      - david-ogilvy     # Brand
+      - gary-bencivenga  # Big Idea
+    reviewers:
+      - diagnostic: [robert-collier]
+      - qa: joe-sugarman
+    notes: "Ogilvy for brand layer. Bencivenga for response layer."
+
+  magalog_direct_mail:
+    display: "Magalog / direct mail"
+    tier_primary: tier_1
+    agents_primary:
+      - jim-rutz
+      - clayton-makepeace
+      - parris-lampropoulos
+    reviewers:
+      - diagnostic: [claude-hopkins, eugene-schwartz]
+      - secondary: dan-kennedy
+      - qa: joe-sugarman
+    notes: "Rutz for magalogs. Makepeace for health/finance. Lampropoulos for controls."
+
+  infomercial_tv:
+    display: "Infomercial / TV copy"
+    tier_primary: tier_1
+    agents_primary:
+      - david-deutsch
+    reviewers:
+      - diagnostic: [claude-hopkins]
+      - qa: joe-sugarman
+    notes: "Deutsch is the sole DRTV specialist."
+
+  social_creator:
+    display: "Social media / creator copy"
+    tier_primary: tier_3
+    agents_primary:
+      - dan-koe
+    reviewers:
+      - diagnostic: [eugene-schwartz]
+      - secondary: gary-halbert
+      - qa: joe-sugarman
+    notes: "Koe for OPB/creator. Halbert for hooks support."
+
+  webinar_script:
+    display: "Webinar script"
+    tier_primary: tier_2
+    agents_primary:
+      - russell-brunson   # Perfect Webinar
+    reviewers:
+      - diagnostic: [eugene-schwartz]
+      - secondary: todd-brown
+      - qa: joe-sugarman
+    notes: "Brunson owns Perfect Webinar. Brown supports with mechanism."
+
+  offer_engineering:
+    display: "Engenharia de oferta"
+    tier_primary: tier_2
+    agents_primary:
+      - alex-hormozi    # Grand Slam Offers + Value Equation
+    reviewers:
+      - diagnostic: [eugene-schwartz]
+      - secondary: todd-brown
+      - qa: joe-sugarman
+    notes: "Hormozi for offer construction. Brown supports with mechanism. Schwartz validates awareness."
+
+  high_ticket_sales:
+    display: "High-ticket sales copy"
+    tier_primary: [tier_2, tier_1]
+    agents_primary:
+      - dan-kennedy      # Avatar + 4Ms + Close scripts
+      - alex-hormozi     # Grand Slam Offer
+    reviewers:
+      - diagnostic: [eugene-schwartz, robert-collier]
+      - secondary: [todd-brown, clayton-makepeace]
+      - qa: joe-sugarman
+    notes: "Kennedy for avatar + close. Hormozi for offer. Makepeace for emotion layer."
+
+  funnel_optimization:
+    display: "Otimizacao de funil existente"
+    tier_primary: [tier_0, tier_2]
+    agents_primary:
+      - claude-hopkins    # Scientific audit
+    reviewers:
+      - diagnostic: [eugene-schwartz]
+      - secondary: [alex-hormozi, todd-brown, gary-bencivenga]
+      - qa: joe-sugarman
+    notes: "Hopkins audits. Schwartz validates awareness level. Hormozi checks offer. Brown checks mechanism. Bencivenga checks bullets."
+
+# Copy Blending Rules (future feature)
+blending_rules:
+  max_agents_per_project: 3
+  blending_order: "Primary writes → Secondary reviews → Blend merge"
+  conflict_resolution: "Copy Chief decides which version wins per section"
+  mandatory_sequence:
+    - "Always run Tier 0 diagnostic first"
+    - "Strategists (Todd Brown, Hormozi, Kennedy) before Executors"
+    - "Sugarman QA gate always last"
+  prohibited_blends:
+    - "Halbert + Carlton (charm vs aggression conflict)"
+    - "Ogilvy + Makepeace (sophisticated vs visceral conflict)"
+    - "Settle + Chaperon on same list (frequency confusion)"
+
+# Product Type Routing (from Strategic Framework)
+product_type_routing:
+  curso_online:
+    strategy: [eugene-schwartz, alex-hormozi, todd-brown]
+    execution: [jon-benson, gary-bencivenga]
+    email: [andre-chaperon]
+    optimization: [claude-hopkins]
+  mentoria_high_ticket:
+    strategy: [dan-kennedy, alex-hormozi]
+    execution: [clayton-makepeace, gary-halbert]
+    email: [dan-kennedy, andre-chaperon]
+    optimization: [claude-hopkins]
+  saas_software:
+    strategy: [todd-brown, eugene-schwartz]
+    execution: [david-ogilvy, john-carlton]
+    email: [ben-settle, andre-chaperon]
+    optimization: [claude-hopkins]
+  ecommerce:
+    strategy: [alex-hormozi, eugene-schwartz]
+    execution: [john-carlton, gary-bencivenga]
+    email: [ben-settle, andre-chaperon]
+    optimization: [claude-hopkins]
+  suplemento_saude:
+    strategy: [todd-brown, eugene-schwartz]
+    execution: [clayton-makepeace, jon-benson]
+    email: [andre-chaperon]
+    optimization: [claude-hopkins]
+  financeiro:
+    strategy: [dan-kennedy, todd-brown]
+    execution: [clayton-makepeace, david-ogilvy]
+    email: [andre-chaperon]
+    optimization: [claude-hopkins]
+  servico_local_b2b:
+    strategy: [dan-kennedy, eugene-schwartz]
+    execution: [david-ogilvy, gary-halbert]
+    email: [ben-settle]
+    optimization: [claude-hopkins]
+  personal_brand_creator:
+    strategy: [alex-hormozi, todd-brown]
+    execution: [dan-koe, gary-halbert]
+    email: [ben-settle]
+    optimization: [claude-hopkins]

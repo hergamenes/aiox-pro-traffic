@@ -1,0 +1,115 @@
+sop:
+  id: rb-epiphany-bridge
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Epiphany Bridge"
+  purpose: >
+    Transform selling into story-driven experiences where prospects have their
+    own 'aha moment' instead of being educated logically. Epiphanies create
+    buyers; education creates know-it-alls.
+  classification:
+    domain: copywriting
+    subdomain: storytelling
+    complexity: intermediate
+    source_agent: russell-brunson
+
+  steps:
+    - id: step_1
+      name: establish_backstory
+      action: apply_backstory_mirroring
+      description: >
+        Describe where you were BEFORE the transformation, mirroring the
+        prospect's current situation exactly. Use specific emotions, frustrations,
+        failed attempts. Be vulnerable and honest.
+      inputs:
+        - personal_origin_story
+        - prospect_current_situation
+      outputs:
+        - backstory_narrative
+      validation: backstory_mirrors_prospect_situation
+
+    - id: step_2
+      name: narrate_journey
+      action: apply_tension_journey
+      description: >
+        Describe events leading to epiphany with tension, conflict, setbacks,
+        and near-failures. Not a straight line. Include sensory details
+        and dialogue. Must feel real and earned.
+      inputs:
+        - key_events_sequence
+        - conflict_points
+      outputs:
+        - journey_narrative
+      validation: journey_includes_real_tension
+
+    - id: step_3
+      name: deliver_epiphany
+      action: apply_epiphany_moment
+      description: >
+        Describe the specific, emotional 'aha moment' as a single concrete
+        event. What did you see, hear, or experience? Make it vivid and
+        emotionally charged. Reader should feel the shift.
+      inputs:
+        - epiphany_event_details
+      outputs:
+        - epiphany_scene
+      validation: epiphany_is_single_concrete_moment
+
+    - id: step_4
+      name: show_transformation
+      action: apply_transformation_proof
+      description: >
+        Present concrete results with specific numbers, timelines, tangible
+        outcomes. Before/after contrast must be dramatic but truthful.
+        Transformation validates the epiphany.
+      inputs:
+        - before_after_metrics
+        - timeline
+      outputs:
+        - transformation_proof
+      validation: specific_numbers_and_outcomes_present
+
+    - id: step_5
+      name: build_bridge_to_product
+      action: apply_product_bridge
+      description: >
+        Connect the personal epiphany to the product. Product is the
+        systematized, repeatable version of the discovery. Bridge language:
+        'I built [product] so you can have this result without the struggle.'
+      inputs:
+        - product_details
+        - epiphany_connection
+      outputs:
+        - bridge_narrative
+      validation: bridge_explicitly_connects_story_to_offer
+
+  error_handling:
+    - error: educating_instead_of_storytelling
+      symptom: "Copy reads like a textbook, prospect nods but does not buy"
+      resolution: "Remove all teaching. Replace with story. Let lesson emerge from narrative."
+    - error: fake_backstory
+      symptom: "Prospect senses inauthenticity, trust drops"
+      resolution: "Use only real details. Imperfect stories convert better than polished ones."
+    - error: gradual_realization
+      symptom: "No emotional peak, story fizzles"
+      resolution: "Find the single moment. Write that exact scene with sensory detail."
+    - error: missing_bridge
+      symptom: "Great story but no connection to offer"
+      resolution: "Add explicit bridge: 'That is why I created [product].'"
+
+  quality_gate:
+    criteria:
+      - backstory_mirrors_prospect
+      - journey_has_tension_and_conflict
+      - epiphany_is_single_moment
+      - transformation_has_specific_numbers
+      - bridge_connects_to_product
+    min_pass: 4
+
+  outputs:
+    - type: epiphany_bridge_story
+      format: narrative
+      description: "300-800 word story with all five stages for embedding in any copy piece"

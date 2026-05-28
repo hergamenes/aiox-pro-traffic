@@ -1,0 +1,53 @@
+sop:
+  id: halbert-triangle-marketing
+  version: "1.0"
+  title: "Triangle of Marketing"
+  purpose: >
+    Structure campaigns and diagnose failures using three vertices in strict
+    order: Audience (who) > Message (what to say) > Copy (how to say it).
+    80% of failures originate at the Audience vertex.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: gary-halbert
+    tier: t1
+
+  steps:
+    - id: apply_audience
+      action: "Define target audience with specificity; evaluate on Starving Crowd hierarchy"
+      input: "market_data, customer_research"
+      output: "audience_definition"
+      condition: "audience_level >= 5"
+
+    - id: apply_message
+      action: "Articulate core message matching audience's dominant desire or pain point in one sentence"
+      input: "audience_definition"
+      output: "core_message"
+
+    - id: apply_copy
+      action: "Create copy as execution of message for specific audience (LAST step, never first)"
+      input: "audience_definition, core_message"
+      output: "copy_draft"
+      condition: "audience_locked == true AND message_locked == true"
+
+    - id: apply_diagnose_failure
+      action: "Check vertices in order: Audience (80%) > Message > Copy. Fix first failing vertex."
+      input: "campaign_results"
+      output: "diagnosis_report"
+
+  error_handling:
+    - error: "copy_before_audience"
+      severity: critical
+      action: "BLOCK — define and validate audience before any copy work"
+    - error: "blame_copy_first"
+      severity: high
+      action: "Run triangle diagnosis in A > M > C order before changing copy"
+    - error: "vague_audience"
+      severity: high
+      action: "Require specific segmentation criteria, not generic descriptions"
+
+  quality_gate:
+    audience_specific: true
+    audience_level_5_plus: true
+    message_one_sentence: true
+    sequential_order_followed: true

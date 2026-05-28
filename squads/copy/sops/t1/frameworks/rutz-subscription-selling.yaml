@@ -1,0 +1,48 @@
+sop:
+  id: rutz-subscription-selling
+  version: "1.0"
+  title: "Subscription Selling System"
+  purpose: "Apply Jim Rutz's Subscription Selling System to sell subscription-based products (newsletters, memberships, SaaS, courses) using a value-first, exclusivity-driven approach. Subscription selling differ"
+  classification:
+    domain: copywriting
+    category: master
+    tier: t1
+    source_agent: jim-rutz
+  steps:
+    - id: apply_value_first_include_real_content
+      action: "Include 2-3 real mini-articles or valuable insights in the promotion itself."
+      input: "Value First: Include 2-3 real mini-articles. Reader thinks: 'If the free is this good, the paid must be incredible.'"
+      output: "Step 1 deliverable: Value First: Include Real Content completed with documented findings"
+      validation: "Promotion includes at least 2 pieces of genuinely valuable free content"
+    - id: apply_exclusivity_use_invitation_language
+      action: "Frame the subscription as an invitation, not a sale."
+      input: "Exclusivity: Invitation language, not sales language. 'You were selected...' Subscription = identity."
+      output: "Step 2 deliverable: Exclusivity: Use Invitation Language completed with documented findings"
+      validation: "All sales language replaced with invitation and exclusivity language"
+    - id: apply_renewal_seeding_plant_from_first_contact
+      action: "From the very first promotion, plant the seed of renewal."
+      input: "Renewal Seeding: Plant renewal seed FROM first contact. Show cumulative benefits."
+      output: "Step 3 deliverable: Renewal Seeding: Plant from First Contact completed with documented findings"
+      validation: "Renewal seeding language frames subscription as ongoing journey, not one-time purchase"
+    - id: apply_value_anchoring_make_price_seem_absurd
+      action: "Anchor the price against the value of specific content."
+      input: "Value Anchoring: 'The content of a single issue may be worth R$X.' Price must seem ridiculous vs value."
+      output: "Step 4 deliverable: Value Anchoring: Make Price Seem Absurd completed with documented findings"
+      validation: "At least 3 specific value anchors with real subscriber examples"
+  error_handling:
+    - error: "Teasing content instead of giving real value upfront"
+      resolution: "Give real, immediately useful content -- not summaries or previews"
+    - error: "Using standard sales language for a subscription offer"
+      resolution: "Replace all buy/purchase language with invitation/selection language"
+    - error: "Focusing on single-issue value instead of cumulative"
+      resolution: "Frame every benefit as compounding over 12+ months"
+    - error: "Generic value anchoring without specific examples"
+      resolution: "Use named subscribers, specific issues, and exact value amounts"
+  quality_gate:
+    criteria:
+      - "Promotion includes at least 2 pieces of genuinely valuable free content"
+      - "All sales language replaced with invitation and exclusivity language"
+      - "Renewal seeding language frames subscription as ongoing journey, not one-time purchase"
+      - "At least 3 specific value anchors with real subscriber examples"
+      - "Price presentation follows value demonstration, not the reverse"
+    pass_threshold: "All 5 criteria met"

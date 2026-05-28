@@ -1,0 +1,91 @@
+sop:
+  id: collier-desire-hierarchy-mapping
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Desire Hierarchy Mapping (4 Levels)"
+  purpose: >
+    Map prospect desires from surface to core fear. Most copy targets surface
+    desire. Most powerful copy targets identity desire or core fear — layers
+    the prospect may not consciously articulate.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: robert-collier
+    artifact_type: task
+
+  steps:
+    - id: map_surface
+      action: identify_conscious_desire
+      description: "Level 1 — Surface: What does prospect explicitly SAY they want? Document in their exact words."
+      inputs:
+        - prospect_description
+        - known_needs
+      critical: true
+      output: surface_desire
+
+    - id: map_emotional
+      action: identify_emotional_desire
+      description: "Level 2 — Emotional: WHY do they want it? What do they FEEL underneath the stated desire?"
+      depends_on: map_surface
+      output: emotional_desire
+
+    - id: map_identity
+      action: identify_identity_desire
+      description: "Level 3 — Identity: WHO do they want to BECOME? What identity transformation would solving the problem create?"
+      depends_on: map_emotional
+      output: identity_desire
+
+    - id: map_core_fear
+      action: identify_core_fear
+      description: "Level 4 — Core Fear: What do they FEAR if nothing changes? The 3 AM dread. Specific, not vague."
+      depends_on: map_identity
+      critical: true
+      output: core_fear
+
+    - id: identify_dominant
+      action: determine_dominant_level
+      description: "Identify which level holds strongest emotional charge for majority of target audience"
+      depends_on:
+        - map_surface
+        - map_emotional
+        - map_identity
+        - map_core_fear
+      output: dominant_level_recommendation
+
+  error_handling:
+    - error: stopped_at_surface
+      symptom: "Copy targets surface desire only; weak emotional connection"
+      resolution: "Ask 'why' at least 3 times to reach deeper levels"
+    - error: synonym_levels
+      symptom: "Levels are reworded versions of each other"
+      resolution: "Each level must reveal a NEW dimension, not a rephrasing"
+    - error: generic_fears
+      symptom: "Core fear is 'they fear failure' without specificity"
+      resolution: "What SPECIFIC failure? Name the scenario they dread"
+    - error: exploitative_level_4
+      symptom: "Core fear used to shame rather than motivate"
+      resolution: "Show the path OUT of the fear; motivate, do not shame"
+
+  quality_gate:
+    criteria:
+      - "All 4 levels mapped with specific examples"
+      - "Level 1 uses prospect's exact words"
+      - "Each level genuinely deeper than previous"
+      - "Level 4 is specific fear, not vague anxiety"
+      - "Dominant level identified with reasoning"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: desire_hierarchy
+      format: four_level_map
+      description: "Surface, Emotional, Identity, Core Fear with examples"
+    - name: dominant_level
+      format: recommendation
+      description: "Which level holds strongest emotional charge"
+    - name: entry_point
+      format: recommendation
+      description: "Copy entry point based on dominant level"

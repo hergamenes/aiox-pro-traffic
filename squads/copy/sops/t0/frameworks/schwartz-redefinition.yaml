@@ -1,0 +1,89 @@
+sop:
+  id: schwartz-redefinition
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Redefinicao de Desvantagens"
+  purpose: >
+    Reframe product disadvantages without changing the product. Neutralize objections
+    by changing frame of reference, comparison standard, or scope of benefit.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: eugene-schwartz
+    artifact_type: framework
+
+  steps:
+    - id: apply_disadvantage_classification
+      action: apply_classify_disadvantage
+      description: "Classify each disadvantage: Complex/Difficult, Unimportant/Narrow, or Too Expensive."
+      critical: true
+      inputs:
+        - perceived_disadvantages
+        - customer_feedback
+      output: classified_disadvantages
+
+    - id: apply_simplificacao
+      action: apply_complexity_relabeling
+      description: "For Complex/Difficult: rename complexity. 'Repairs' becomes 'adjustments to controls.' Change label, not product."
+      depends_on: apply_disadvantage_classification
+      condition: "disadvantage_type == 'complex_difficult'"
+      output: simplified_language
+
+    - id: apply_escalacao
+      action: apply_benefit_expansion
+      description: "For Narrow Appeal: expand benefit horizon. Connect specialized benefit to broader desire."
+      depends_on: apply_disadvantage_classification
+      condition: "disadvantage_type == 'narrow_appeal'"
+      output: escalated_positioning
+
+    - id: apply_reducao_preco
+      action: apply_price_reanchoring
+      description: "For Too Expensive: change comparison standard. Anchor against higher reference, break to daily cost, or frame cost of NOT buying."
+      depends_on: apply_disadvantage_classification
+      condition: "disadvantage_type == 'too_expensive'"
+      output: reanchored_price
+
+    - id: apply_redefinition_validation
+      action: apply_honesty_check
+      description: "Validate each redefinition is genuinely true from different angle. Not deception. Must survive scrutiny."
+      depends_on:
+        - apply_simplificacao
+        - apply_escalacao
+        - apply_reducao_preco
+      critical: true
+      output: validated_redefinitions
+
+  error_handling:
+    - error: wrong_classification
+      symptom: "Applying Simplificacao to a price objection"
+      resolution: "Re-classify: is core objection about complexity, relevance, or price?"
+    - error: dishonest_reframe
+      symptom: "Prospect feels manipulated; trust breaks"
+      resolution: "Ensure reframe is genuinely true from a different angle"
+    - error: vague_relabeling
+      symptom: "New label equally unclear"
+      resolution: "Use concrete, specific language"
+    - error: ignoring_disadvantage
+      symptom: "Copy never addresses the objection"
+      resolution: "Name the objection and reframe it; silence implies agreement"
+
+  quality_gate:
+    criteria:
+      - "Each disadvantage correctly classified"
+      - "Redefinition strategy matches classification"
+      - "Reframe genuinely true from new angle"
+      - "Language change specific and concrete"
+      - "Redefinition survives prospect scrutiny"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: classification_table
+      format: categorized_list
+      description: "Each disadvantage classified by type"
+    - name: redefined_copy
+      format: before_after
+      description: "Original framing vs. redefined framing per objection"

@@ -1,0 +1,78 @@
+sop:
+  id: halbert-market-intimacy
+  version: "1.0"
+  title: "Market Intimacy System (5 Steps)"
+  purpose: "Develop deep prospect understanding through direct multi-channel customer contact to discover emotional triggers and language patterns"
+  classification:
+    domain: copywriting
+    category: master
+    tier: T1
+    source_agent: gary-halbert
+
+  inputs:
+    - name: customer_list
+      type: dataset
+      required: true
+    - name: incoming_mail_access
+      type: resource
+      required: true
+    - name: phone_access
+      type: resource
+      required: true
+
+  outputs:
+    - name: deep_prospect_understanding
+      type: document
+      description: "Organized prospect profile with demographics, language, objections, and emotional triggers"
+    - name: validated_sales_points
+      type: list
+      description: "Arguments proven to work in person, transferable to copy"
+
+  steps:
+    - id: step_01
+      action: study_customer_list
+      description: "Read customer names/addresses observing gender, income, geographic patterns"
+      critical: true
+      error_handling:
+        condition: "cursory_scan_instead_of_study"
+        action: "allocate_dedicated_time_block_for_pattern_analysis"
+
+    - id: step_02
+      action: examine_incoming_mail
+      description: "Review actual correspondence, checks, complaints capturing verbatim customer language"
+      critical: true
+      error_handling:
+        condition: "reading_summaries_not_originals"
+        action: "access_original_correspondence_directly"
+
+    - id: step_03
+      action: answer_phone_personally
+      description: "Handle business phone for 2-3 days with open-ended conversations, no scripts"
+      critical: false
+
+    - id: step_04
+      action: call_best_customers
+      description: "Contact 100 highest-value customers with dollar bill pre-send and open-ended questions"
+      critical: true
+      error_handling:
+        condition: "calling_random_customers"
+        action: "sort_by_ltv_and_purchase_frequency_call_top_100"
+
+    - id: step_05
+      action: sell_personally
+      description: "Sell product face-to-face at events, door-to-door, or trade shows to discover real closing triggers"
+      critical: true
+      error_handling:
+        condition: "skipping_personal_selling"
+        action: "schedule_minimum_10_face_to_face_interactions"
+
+  quality_gate:
+    min_criteria_met: 5
+    criteria:
+      - "customer_list_reviewed_with_pattern_notes"
+      - "incoming_mail_examined_with_verbatim_language"
+      - "phone_answered_minimum_2_days"
+      - "minimum_50_best_customers_called"
+      - "personal_selling_attempted_minimum_10_interactions"
+      - "verbatim_language_captured_not_paraphrased"
+      - "prospect_profile_document_compiled"

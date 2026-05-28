@@ -1,0 +1,250 @@
+# Blend Template
+# CopywriterOS - Template para Copy Híbrido (Blend de Copywriters)
+
+template:
+  id: blend-template-v1
+  name: "Blend Template"
+  version: "1.0"
+  output:
+    format: markdown
+    filename: "blend-{{blend_id}}-{{date}}.md"
+
+# Variáveis de Input
+variables:
+  required:
+    - copywriters: "Lista de copywriters a combinar (2-4)"
+    - proportions: "Proporção de cada estilo (soma = 100%)"
+    - copy_type: "Tipo de copy (sales_page, email, ad, vsl, headline)"
+    - briefing: "Briefing completo do projeto"
+  optional:
+    - primary_copywriter: "Quem define a estrutura base"
+    - blend_focus: "Foco do blend (voice, structure, techniques, all)"
+    - output_length: "Curto, médio ou longo"
+    - alternative_proportions: "Segunda combinação para comparação"
+
+# Estrutura do Template de Output
+sections:
+  - id: blend_header
+    name: "Header Section"
+    template: |
+      # Blend Copy: {{copy_type}}
+
+      **Data:** {{date}}
+      **Copywriters:** {{copywriters_list}}
+      **Proporções:** {{proportions_display}}
+      **Tipo:** {{copy_type}}
+
+      ---
+
+  - id: blend_strategy
+    name: "Blend Strategy Section"
+    template: |
+      ## 🎨 Estratégia de Blend
+
+      ### Combinação
+      {{#each copywriters}}
+      - **{{name}}** ({{proportion}}%): {{contribution}}
+      {{/each}}
+
+      ### Copywriter Primário
+      **{{primary_copywriter}}** define a estrutura base e voz narrativa.
+
+      ### Pontos de Fusão Planejados
+      {{fusion_points_planned}}
+
+      ---
+
+  - id: dna_analysis
+    name: "DNA Analysis Section"
+    template: |
+      ## 🧬 DNA Analysis
+
+      {{#each copywriters}}
+      ### Elementos de {{name}} ({{proportion}}%)
+
+      **Técnicas Aplicadas:**
+      {{#each techniques_used}}
+      - **{{technique}}:** Aplicada em [{{section}}]
+      {{/each}}
+
+      **Palavras/Frases Características:**
+      {{characteristic_phrases}}
+
+      **Seções Dominadas:**
+      {{sections_dominated}}
+
+      ---
+      {{/each}}
+
+  - id: fusion_map
+    name: "Fusion Map Section"
+    template: |
+      ## 🔀 Mapa de Fusão
+
+      | Seção | Estilo Principal | Influências |
+      |-------|------------------|-------------|
+      {{#each sections}}
+      | {{name}} | {{primary_style}} | {{influences}} |
+      {{/each}}
+
+      ### Transições
+      {{#each transitions}}
+      - **{{from}} → {{to}}:** {{technique}}
+      {{/each}}
+
+      ---
+
+  - id: blended_copy
+    name: "Blended Copy Section"
+    template: |
+      ## 📝 Copy Final (Blend)
+
+      ---
+
+      {{blended_copy_content}}
+
+      ---
+
+  - id: markers
+    name: "Style Markers Section"
+    template: |
+      ## 🏷️ Marcadores de Estilo
+
+      > Os marcadores abaixo identificam onde cada copywriter influenciou o copy.
+
+      {{#each markers}}
+      **[{{copywriter}}]** - {{location}}
+      > "{{excerpt}}"
+      > *Técnica: {{technique}}*
+
+      {{/each}}
+
+  - id: alternative
+    name: "Alternative Blend Section"
+    condition: "{{#if alternative_proportions}}"
+    template: |
+      ---
+
+      ## 🔄 Blend Alternativo ({{alternative_proportions}})
+
+      Para comparação, aqui está uma versão com proporções diferentes:
+
+      {{alternative_copy_content}}
+
+      ### Diferenças Principais
+      {{differences}}
+
+  - id: quality_report
+    name: "Quality Report Section"
+    template: |
+      ---
+
+      ## ✅ Relatório de Qualidade
+
+      ### Checklist de Blend
+      - [{{proportions_respected}}] Proporções respeitadas
+      - [{{techniques_present}}] Técnicas-chave presentes
+      - [{{transitions_smooth}}] Transições suaves
+      - [{{cohesive}}] Copy coeso (não parece colagem)
+      - [{{dna_accurate}}] DNA Analysis preciso
+      - [{{distinctive}}] Resultado distintivo
+
+      ### Métricas
+      - **Palavras:** {{word_count}}
+      - **Proporção Real:** {{actual_proportions}}
+      - **Coesão Score:** {{cohesion_score}}/10
+
+      ### Notas
+      {{quality_notes}}
+
+# Patterns de Blend por Combinação
+blend_patterns:
+  halbert_ogilvy:
+    name: "Storytelling Sofisticado"
+    structure: "halbert"
+    voice: "mix"
+    techniques:
+      from_halbert: ["story_opening", "personal_tone", "natural_urgency"]
+      from_ogilvy: ["factual_proof", "sophisticated_close", "benefit_headlines"]
+    ideal_for: "Produtos premium com história"
+
+  schwartz_kennedy:
+    name: "Consciência + Urgência"
+    structure: "schwartz"
+    voice: "kennedy"
+    techniques:
+      from_schwartz: ["awareness_levels", "big_idea", "desire_channeling"]
+      from_kennedy: ["deadline", "scarcity", "aggressive_cta"]
+    ideal_for: "Lançamentos em mercado saturado"
+
+  bencivenga_sugarman:
+    name: "Bullets + Flow"
+    structure: "sugarman"
+    voice: "mix"
+    techniques:
+      from_bencivenga: ["hypnotic_bullets", "fascinations", "specificity"]
+      from_sugarman: ["slippery_slide", "triggers", "conversational_flow"]
+    ideal_for: "Long-form com lista de benefícios"
+
+  benson_halbert:
+    name: "VSL Emocional"
+    structure: "benson"
+    voice: "benson"
+    techniques:
+      from_benson: ["vsl_structure", "curiosity_loops", "emotional_hooks"]
+      from_halbert: ["story_arc", "personal_revelation", "guarantee_framing"]
+    ideal_for: "Vídeos de vendas emocionais"
+
+  kern_hopkins:
+    name: "Autêntico + Testável"
+    structure: "kern"
+    voice: "kern"
+    techniques:
+      from_kern: ["authentic_voice", "value_first", "casual_cta"]
+      from_hopkins: ["measurable_claims", "specific_numbers", "test_ready_headlines"]
+    ideal_for: "Marketing digital com métricas"
+
+# Quality Validation
+validation:
+  required_sections:
+    - blend_strategy
+    - dna_analysis
+    - blended_copy
+    - quality_report
+  recommended_sections:
+    - fusion_map
+    - markers
+    - alternative
+  quality_thresholds:
+    cohesion_score_min: 7
+    proportion_variance_max: 15  # Max deviation from planned proportions
+    techniques_per_copywriter_min: 2
+  checklist:
+    - "Proporções declaradas foram respeitadas?"
+    - "Cada copywriter tem pelo menos 2 técnicas identificáveis?"
+    - "Transições entre estilos são suaves?"
+    - "O copy é coeso (não parece colagem)?"
+    - "DNA Analysis documenta corretamente?"
+    - "Resultado é distintivo dos originais puros?"
+
+# Anti-Patterns a Evitar
+anti_patterns:
+  - name: "Colagem Óbvia"
+    description: "Copy parece cortado e colado de fontes diferentes"
+    solution: "Melhorar transições, unificar voz narrativa"
+
+  - name: "Perda de Identidade"
+    description: "Nenhum estilo é reconhecível no resultado"
+    solution: "Aumentar proporção do copywriter primário"
+
+  - name: "Inconsistência de Tom"
+    description: "Muda abruptamente entre estilos"
+    solution: "Usar transições graduais, manter voz do primário"
+
+  - name: "Proporções Ignoradas"
+    description: "Promete 60/40 mas entrega 90/10"
+    solution: "Contar técnicas e ajustar"
+
+  - name: "DNA Superficial"
+    description: "DNA Analysis genérico, não específico"
+    solution: "Citar excerpts exatos e técnicas aplicadas"

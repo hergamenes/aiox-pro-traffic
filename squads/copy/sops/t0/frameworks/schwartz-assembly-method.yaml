@@ -1,0 +1,51 @@
+sop:
+  id: schwartz-assembly-method
+  version: "1.0"
+  title: "Assembly Method (Metodo de Montagem)"
+  purpose: "Copy is assembled from research blocks, not written from inspiration — 80% research, 20% assembly."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: eugene-schwartz
+  steps:
+    - id: apply_research
+      action: "Read everything until you know more than the product creator"
+      input: "Product docs, patents, manuals, customer logs, competitor materials, industry publications"
+      output: "Research archive covering product, market, prospect, and competition"
+      validation: "Copywriter can answer any product question better than the creator"
+    - id: apply_collect
+      action: "Compile all claims, testimonials, proofs, benefits, and mechanisms"
+      input: "Research archive"
+      output: "Swipe file with 10+ proof points, 5+ testimonials, 3+ mechanism descriptions"
+      validation: "Quantity thresholds met; every possible ammunition type collected"
+    - id: apply_organize
+      action: "Sort collected materials by emotional impact, not logical category"
+      input: "Collected materials"
+      output: "Organized framework with strongest emotional material first"
+      validation: "Order reflects emotional hierarchy (desire, fear, curiosity), not topical grouping"
+    - id: apply_intensify
+      action: "Add dimensions to each block — urgency, identification, proof stacking, sensory detail"
+      input: "Organized blocks"
+      output: "Intensified copy blocks with added persuasion layers"
+      validation: "Each block has at least one added dimension beyond raw material"
+    - id: apply_close_assembly
+      action: "Assemble intensified blocks into inevitable argument toward the sale"
+      input: "Intensified blocks"
+      output: "Complete copy draft that flows inevitably to the close"
+      validation: "Close feels like natural conclusion, not a sales pitch"
+  error_handling:
+    - error: "Writer starts writing before research is complete"
+      resolution: "Block writing phase until research checklist is signed off"
+    - error: "Insufficient proof points collected"
+      resolution: "Return to collection; minimum 10 proofs, 5 testimonials, 3 mechanisms"
+    - error: "Materials organized logically instead of emotionally"
+      resolution: "Re-sort by emotional impact; strongest feeling goes first"
+  quality_gate:
+    criteria:
+      - "Research consumed 80%+ of total project time"
+      - "Collection meets minimum thresholds (10 proofs, 5 testimonials)"
+      - "Materials organized by emotional impact"
+      - "Each block intensified with at least one dimension"
+      - "Assembled argument flows inevitably to close"
+    pass_threshold: "All 5 criteria met"

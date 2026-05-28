@@ -1,0 +1,57 @@
+sop:
+  id: halbert-grabber-system
+  version: "1.0"
+  title: "Grabber/Impact System"
+  purpose: >
+    Increase direct mail open and response rates by attaching a relevant physical
+    object (grabber) that demands attention and connects naturally to the sales
+    message. Dollar bill technique achieves 90%+ response rates.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: gary-halbert
+    tier: t1
+
+  steps:
+    - id: apply_select_grabber
+      action: "Select a physical grabber that is directly relevant to the sales message"
+      input: "core_message, offer_type"
+      output: "selected_grabber"
+      condition: "grabber_relevance_to_message == true"
+
+    - id: apply_verify_natural_link
+      action: "Verify the grabber links naturally to the copy without forced explanation"
+      condition: "transition_organic == true"
+      output: "link_validation"
+
+    - id: apply_first_paragraph
+      action: "Write first paragraph explaining why the physical object is in the envelope"
+      input: "selected_grabber"
+      output: "grabber_opening_paragraph"
+
+    - id: apply_authenticity_check
+      action: "Verify grabber is not deceptive (no fake checks, fake currency, or misleading items)"
+      condition: "grabber_authentic == true"
+      output: "authenticity_validation"
+
+    - id: apply_proven_type_selection
+      action: "Select from proven grabber types: dollar bills, pennies, personal photos, contextual objects"
+      input: "budget, volume, message_context"
+      output: "grabber_specification"
+
+  error_handling:
+    - error: "irrelevant_grabber"
+      severity: high
+      action: "Replace with grabber that connects to core message in one sentence"
+    - error: "no_first_paragraph_explanation"
+      severity: high
+      action: "Add opening paragraph addressing the grabber immediately"
+    - error: "deceptive_grabber"
+      severity: critical
+      action: "BLOCK — replace with genuine item; fake checks destroy trust"
+
+  quality_gate:
+    grabber_relevant: true
+    first_paragraph_addresses_grabber: true
+    grabber_authentic: true
+    cost_justified: true

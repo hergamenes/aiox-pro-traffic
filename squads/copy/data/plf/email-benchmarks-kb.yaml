@@ -1,0 +1,333 @@
+# Email Benchmarks Knowledge Base - Product Launch Formula
+# Source: Launch (Jeff Walker) + Industry Data
+# Version: 1.0
+
+metadata:
+  source: "Launch by Jeff Walker + PLF Community Data"
+  validated: true
+  created: "2026-01-27"
+
+overview:
+  description: |
+    Metricas e benchmarks para emails de lancamento baseados
+    no Product Launch Formula e dados da industria.
+  jeff_quote: |
+    "25% of sales happen on the first day. 50% happen on the last day.
+    That's not a guess - that's data from thousands of launches."
+
+core_statistics:
+  sales_distribution:
+    day_1:
+      percentage: "25%"
+      note: "Primeiro dia de Open Cart"
+      jeff_quote: "Your most engaged buyers are ready on day one"
+
+    mid_launch:
+      percentage: "25%"
+      days: "Dias 2-4 (em launch de 5 dias)"
+      note: "Momentum continuo"
+
+    last_day:
+      percentage: "50%"
+      note: "Ultimo dia de Open Cart"
+      jeff_quote: |
+        "Half of your sales happen on the last day.
+        This is why your close cart sequence is so critical."
+
+  repeat_customer_value:
+    stat: "15x"
+    meaning: "E 15x mais facil vender para cliente existente"
+    implication: "Construa sequencias de upsell pos-lancamento"
+
+email_frequency_by_phase:
+  pre_prelaunch:
+    emails_per_week: "1-2"
+    duration: "2-4 semanas"
+    total_emails: "4-8"
+    purpose: "Aquecer lista, survey, antecipar lancamento"
+
+  prelaunch:
+    per_plc: "1-2 emails"
+    between_plcs: "1 email de reminder/engagement"
+    total_emails: "6-10"
+    timing: "7-14 dias"
+
+    breakdown:
+      plc1_announcement: "1 email"
+      plc1_reminder: "1 email (se nao consumiu)"
+      plc2_announcement: "1 email"
+      plc2_reminder: "1 email"
+      plc3_announcement: "1 email"
+      plc3_reminder: "1 email"
+      cart_opens_tomorrow: "1 email"
+
+  open_cart:
+    day_1: "2-3 emails"
+    mid_launch: "1 email por dia"
+    last_day: "3-5 emails"
+    total_5_day_launch: "10-12 emails"
+    total_7_day_launch: "12-15 emails"
+
+    breakdown_5_day:
+      day_1:
+        - time: "08:00"
+          subject_type: "OPEN/Launch announcement"
+        - time: "14:00"
+          subject_type: "First response/momentum"
+        - time: "20:00"
+          subject_type: "Q&A/Behind scenes"
+      day_2:
+        - time: "10:00"
+          subject_type: "Case study"
+      day_3:
+        - time: "10:00"
+          subject_type: "FAQ/Objections"
+      day_4:
+        - time: "10:00"
+          subject_type: "Penultimo dia warning"
+      day_5:
+        - time: "08:00"
+          subject_type: "Ultimo dia"
+        - time: "14:00"
+          subject_type: "Horas finais"
+        - time: "19:00"
+          subject_type: "3 horas restantes"
+        - time: "22:00"
+          subject_type: "1 hora restante"
+        - time: "23:30"
+          subject_type: "30 minutos (opcional)"
+
+email_metrics_benchmarks:
+  open_rates:
+    industry_average: "15-25%"
+    plf_cold_list: "20-30%"
+    plf_warm_list: "30-45%"
+    plf_launch_sequence: "35-50%"
+    plf_last_day: "40-60%"
+
+    factors:
+      - "Qualidade da lista (engajamento previo)"
+      - "Subject line"
+      - "Sender name recognition"
+      - "Timing de envio"
+      - "Antecipacao construida"
+
+    jeff_note: |
+      "If your open rates during launch aren't at least 30-35%,
+      your list wasn't properly warmed up in pre-prelaunch."
+
+  click_through_rates:
+    industry_average: "2-5%"
+    plf_prelaunch: "5-10%"
+    plf_open_cart: "8-15%"
+    plf_last_day: "10-20%"
+
+    optimization:
+      - "CTA claro e unico"
+      - "Link acima da dobra"
+      - "Curiosity-driven copy"
+      - "Multiplos links para mesma pagina"
+
+  conversion_rates:
+    email_to_sales_page: "10-30%"
+    sales_page_to_purchase: "2-10%"
+
+    by_list_temperature:
+      cold: "1-2%"
+      warm: "2-5%"
+      hot: "5-15%"
+      buyer_list: "10-25%"
+
+  unsubscribe_rates:
+    normal_launch: "0.5-2%"
+    acceptable_last_day: "2-5%"
+
+    jeff_perspective: |
+      "Some people will unsubscribe during your launch. That's okay.
+      They were never going to buy anyway. You're better off with
+      a smaller, more engaged list than a big, unresponsive one."
+
+subject_line_benchmarks:
+  high_performers:
+    patterns:
+      - pattern: "Personal name in subject"
+        lift: "+10-15% open rate"
+
+      - pattern: "Question format"
+        lift: "+5-10% open rate"
+
+      - pattern: "Number/list format"
+        lift: "+5-8% open rate"
+
+      - pattern: "Urgency words (ultimo, agora, hoje)"
+        lift: "+8-12% open rate (last day only)"
+
+      - pattern: "Emoji (usar com moderacao)"
+        lift: "+3-5% open rate"
+        warning: "Overuse diminishes effectiveness"
+
+  launch_specific_subjects:
+    plc_announcement:
+      examples:
+        - "[PLC1] Isso muda tudo"
+        - "O video que mudou [resultado] para [X] pessoas"
+        - "Por que [resultado] e mais facil do que voce pensa"
+      benchmark_open: "35-45%"
+
+    cart_open:
+      examples:
+        - "E AGORA - Acesso liberado"
+        - "As portas estao abertas"
+        - "[Produto] esta disponivel"
+      benchmark_open: "40-50%"
+
+    mid_launch:
+      examples:
+        - "Como [Nome] conseguiu [resultado]"
+        - "Suas perguntas, respondidas"
+        - "3 dias restantes para [Produto]"
+      benchmark_open: "30-40%"
+
+    last_day:
+      examples:
+        - "ULTIMO DIA - Fecha as 23:59"
+        - "[URGENTE] Horas finais"
+        - "Isso nao vai durar"
+        - "Estou preocupado com voce"
+      benchmark_open: "45-60%"
+
+    final_hours:
+      examples:
+        - "[3 horas] Ultima chamada"
+        - "Se voce esta na cerca..."
+        - "Antes de voce decidir nao entrar..."
+      benchmark_open: "50-65%"
+
+timing_benchmarks:
+  best_days:
+    ranking:
+      - day: "Terca-feira"
+        performance: "Best for launches"
+      - day: "Quarta-feira"
+        performance: "Strong performer"
+      - day: "Quinta-feira"
+        performance: "Good for mid-launch"
+      - day: "Segunda-feira"
+        performance: "OK, avoid major holidays"
+      - day: "Sexta-feira"
+        performance: "Good for cart close"
+      - day: "Sabado"
+        performance: "Lower engagement"
+      - day: "Domingo"
+        performance: "Lowest, but works for cart close urgency"
+
+    jeff_note: |
+      "I like to open cart on Tuesday or Wednesday, and close on
+      Friday or Sunday night. Sunday close creates natural urgency
+      before the new week starts."
+
+  best_times:
+    morning_emails: "7:00-9:00"
+    midday_emails: "11:00-13:00"
+    afternoon_emails: "14:00-16:00"
+    evening_emails: "19:00-21:00"
+
+    last_day_specific:
+      morning: "08:00-09:00"
+      afternoon: "14:00-15:00"
+      evening: "19:00-20:00"
+      final_push: "22:00-23:00"
+
+    timezone_note: |
+      "Send based on YOUR timezone, not subscriber's.
+      Creates sense of shared event. Mention the timezone in email."
+
+list_health_metrics:
+  healthy_list:
+    open_rate: ">25%"
+    click_rate: ">5%"
+    unsubscribe_rate: "<1%"
+    bounce_rate: "<2%"
+    complaint_rate: "<0.1%"
+
+  warning_signs:
+    open_rate: "<15%"
+    click_rate: "<2%"
+    unsubscribe_rate: ">3%"
+    bounce_rate: ">5%"
+    complaint_rate: ">0.2%"
+
+  list_warming_indicators:
+    pre_prelaunch_engagement:
+      survey_response_rate: "5-15% = good"
+      reply_rate: "1-5% = engaged"
+      click_rate: ">5% = ready for launch"
+
+revenue_benchmarks:
+  by_list_size:
+    small_list:
+      range: "500-2,000 subs"
+      seed_launch: "$2K-$20K"
+      internal_launch: "$5K-$50K"
+      note: "Focus on Seed Launch first"
+
+    medium_list:
+      range: "2,000-10,000 subs"
+      internal_launch: "$20K-$200K"
+      note: "Sweet spot for Internal Launch"
+
+    large_list:
+      range: "10,000-50,000 subs"
+      internal_launch: "$50K-$500K"
+      jv_launch: "$200K-$2M"
+
+    very_large:
+      range: "50,000+ subs"
+      internal_launch: "$200K-$1M+"
+      jv_launch: "$500K-$10M+"
+
+  earnings_per_subscriber:
+    cold_list: "$0.50-$2 per sub"
+    warm_list: "$2-$5 per sub"
+    hot_list: "$5-$15 per sub"
+    buyer_list: "$10-$50 per sub"
+
+    calculation: |
+      Expected Revenue = List Size × Warmth Factor × EPS
+
+      Example:
+      5,000 warm subs × $3 EPS = $15,000 expected
+      (Range: $10K-$25K realistically)
+
+  epc_benchmarks:
+    definition: "Earnings Per Click (for JV launches)"
+    industry_average: "$0.50-$1.50"
+    good_epc: "$2-$5"
+    excellent_epc: "$5-$10+"
+
+    calculation: |
+      EPC = Total Revenue / Total Clicks from affiliates
+
+      $100K revenue / 20,000 clicks = $5 EPC
+
+tracking_checklist:
+  pre_launch:
+    - "Open rate de emails de aquecimento"
+    - "Survey response rate"
+    - "Reply rate em emails conversacionais"
+    - "Unsubscribe rate"
+
+  during_launch:
+    - "Open rate por email"
+    - "Click rate por email"
+    - "Conversion rate sales page"
+    - "Revenue por dia"
+    - "Unsubscribe rate"
+
+  post_launch:
+    - "Total revenue"
+    - "Total buyers"
+    - "Conversion rate total"
+    - "EPS (earnings per subscriber)"
+    - "Refund rate"
+    - "New list size (growth)"

@@ -1,0 +1,177 @@
+sop:
+  id: tb-decision-heuristics
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+
+  title: "Todd Brown Decision Heuristics"
+  purpose: "Systematic decision checkpoints based on Todd Brown's E5 Method and mechanism-first marketing philosophy to ensure offer differentiation, correct campaign diagnosis, and value-side scaling."
+
+  classification:
+    domain: copywriting
+    subdomain: mechanism-marketing
+    source_agent: todd-brown
+    artifact_type: decision_tree
+    tier: t2
+
+  steps:
+    - id: TB_H01
+      name: mechanism_substitution_test
+      decision_point: "Evaluating any offer's differentiation"
+      branches:
+        - condition: "Copy fails when competitor name is swapped in"
+          goto: TB_H02
+          action: "Mechanism is differentiated. Proceed."
+        - condition: "Copy works equally well with competitor name"
+          goto: TB_H01_FIX
+          action: "Mechanism is WEAK. Offer is a commodity."
+
+    - id: TB_H01_FIX
+      name: mechanism_redevelopment
+      action: "Redo mechanism development. Find or create a unique, defensible mechanism."
+      goto: TB_H01
+
+    - id: TB_H02
+      name: mechanism_vs_commodity_buyin
+      decision_point: "Creating educational content or marketing"
+      branches:
+        - condition: "Content creates buy-in for MECHANISM"
+          goto: TB_H03
+        - condition: "Content creates buy-in for COMMODITY"
+          goto: TB_H02_FIX
+          action: "STOP. Prospect will Google it and buy cheaper. Rewrite for mechanism buy-in."
+
+    - id: TB_H02_FIX
+      name: mechanism_centric_rewrite
+      action: "Rewrite content to create buy-in for the unique mechanism, not the commodity category."
+      goto: TB_H02
+
+    - id: TB_H03
+      name: three_finger_rule
+      decision_point: "Writing lead of any campaign"
+      branches:
+        - condition: "Primary promise within three-finger zone at top of page"
+          goto: TB_H04
+        - condition: "Primary promise NOT within three-finger zone"
+          goto: TB_H03_FIX
+          action: "Rewrite lead. Promise must appear immediately."
+
+    - id: TB_H03_FIX
+      name: lead_rewrite
+      action: "Move primary promise to the top three-finger zone of the page."
+      goto: TB_H03
+
+    - id: TB_H04
+      name: diagnose_before_optimize
+      decision_point: "Campaign not performing"
+      branches:
+        - condition: "Issue is ECONOMIC (math doesn't work: CPA too high, AOV too low)"
+          goto: TB_H04_ECONOMIC
+          action: "Fix business model, pricing, or funnel math. Do NOT rewrite copy."
+        - condition: "Issue is PERFORMANCE (copy/creative/funnel not converting)"
+          goto: TB_H05
+          action: "Optimize copy, creative, targeting."
+
+    - id: TB_H04_ECONOMIC
+      name: fix_economics
+      action: "Restructure pricing, offer, or funnel math. Copy optimization cannot fix economic problems."
+      goto: TB_H05
+
+    - id: TB_H05
+      name: value_side_over_cost_side
+      decision_point: "Trying to scale campaign"
+      branches:
+        - condition: "Focused on raising AOV (value side)"
+          goto: TB_H06
+        - condition: "Focused on lowering CPA (cost side)"
+          goto: TB_H05_FIX
+          action: "STOP lowering CPA. Cost side has floor (zero). Value side has infinite upside. Raise AOV."
+
+    - id: TB_H05_FIX
+      name: switch_to_value_side
+      action: "Shift optimization focus from CPA reduction to AOV increase via upsells, bumps, bundles."
+      goto: TB_H05
+
+    - id: TB_H06
+      name: price_test_sequence
+      decision_point: "Testing offer prices"
+      branches:
+        - condition: "Testing in sequence: Upsell 1 > Upsell 2 > Bump > Core (last)"
+          goto: TB_H07
+        - condition: "Testing core price first"
+          goto: TB_H06_FIX
+          action: "STOP. Core price is last. Optimize surrounding offers first."
+
+    - id: TB_H06_FIX
+      name: correct_test_order
+      action: "Reorder price tests: Upsell 1 first, Upsell 2 second, Bump third, Core offer LAST."
+      goto: TB_H06
+
+    - id: TB_H07
+      name: lipstick_on_a_pig_test
+      decision_point: "Copy needs hype to sound interesting"
+      branches:
+        - condition: "Copy is compelling without hyperbolic adjectives"
+          goto: TB_H08
+        - condition: "Copy relies on 'revolutionary', 'groundbreaking', etc."
+          goto: TB_H07_FIX
+          action: "Lipstick on a Pig. The IDEA is weak. Refine the Big Marketing Idea."
+
+    - id: TB_H07_FIX
+      name: refine_bmi
+      action: "Stop writing copy. Go back and refine the Big Marketing Idea until it carries the copy without hype."
+      goto: TB_H07
+
+    - id: TB_H08
+      name: timeline_extension
+      decision_point: "Campaign seems to fail day zero"
+      branches:
+        - condition: "Extended to 30-60 day window; backend closes the equation"
+          goto: COMPLETE
+          action: "Campaign is profitable on extended timeline. Scale it."
+        - condition: "Extended window still shows negative ROI"
+          goto: TB_H04
+          action: "Diagnose using TB_H04 (economic vs. performance) before killing."
+        - condition: "Campaign killed on day 1 without extension"
+          goto: TB_H08_FIX
+          action: "Clayton Move: extend evaluation window to 30/45/60 days. Backend may close equation."
+
+    - id: TB_H08_FIX
+      name: extend_evaluation
+      action: "Extend campaign evaluation window to minimum 30 days. Track backend revenue."
+      goto: TB_H08
+
+  error_handling:
+    - error: "commodity_mechanism"
+      symptom: "Copy works for any competitor when names are swapped"
+      resolution: "Return to TB_H01. Redo mechanism development."
+
+    - error: "commodity_buyin"
+      symptom: "Prospects educate themselves and buy cheaper alternatives"
+      resolution: "Return to TB_H02. Shift from commodity to mechanism buy-in."
+
+    - error: "optimizing_without_diagnosing"
+      symptom: "Rewriting copy when real issue is pricing/math"
+      resolution: "Return to TB_H04. Classify as economic or performance first."
+
+    - error: "cost_side_obsession"
+      symptom: "Constantly lowering CPA but revenue stays flat"
+      resolution: "Return to TB_H05. Focus on AOV and value-side improvements."
+
+    - error: "killing_campaigns_too_early"
+      symptom: "Shutting down campaigns before backend revenue materializes"
+      resolution: "Return to TB_H08. Apply Clayton Move — extend window."
+
+  quality_gate:
+    criteria:
+      - "Mechanism Substitution Test performed (copy fails with competitor swap)"
+      - "Content creates buy-in for mechanism, not commodity"
+      - "Primary promise within three-finger zone of lead"
+      - "Campaign diagnosis classified as economic or performance"
+      - "Scaling focuses on value side (AOV), not cost side (CPA)"
+      - "Price testing follows correct sequence"
+      - "Copy doesn't rely on hyperbolic adjectives"
+      - "Underperforming campaigns given 30-60 day window"
+    pass_threshold: "8/8 criteria met"

@@ -1,0 +1,114 @@
+sop:
+  id: lampropoulos-control-beating
+  version: "1.0"
+  title: "Control-Beating Methodology — The Parris Process"
+  purpose: "Systematically beat existing control through 5 phases: autopsy, deep research (80% time), angle synthesis, awareness-based lead selection, and precision writing with 3-Deep/WOW/Lizard-Gatekeeper"
+  classification:
+    domain: copywriting
+    category: master
+    tier: T1
+    source_agent: parris-lampropoulos
+
+  inputs:
+    - name: current_control_copy
+      type: document
+      required: true
+    - name: product_information
+      type: document
+      required: true
+    - name: market_research_access
+      type: resource
+      required: true
+
+  outputs:
+    - name: new_copy_package
+      type: document
+      description: "Copy designed to beat control with side-by-side comparison"
+    - name: side_by_side_comparison
+      type: document
+      description: "Section-by-section improvement documentation"
+
+  steps:
+    - id: phase_01
+      action: conduct_control_autopsy
+      description: "Dissect control: headline, lead, proof, mechanism, CTA, offer. Map 6 vulnerability areas (1-2 days)"
+      critical: true
+      error_handling:
+        condition: "autopsy_superficial"
+        action: "evaluate_each_vulnerability_area_explicitly"
+
+    - id: phase_02
+      action: execute_deep_research
+      description: "Research deeper than original writer: clinical studies, patents, forums, interviews (5-10 days, 80% of time)"
+      critical: true
+      error_handling:
+        condition: "fewer_than_10_i_didnt_know_that_items"
+        action: "continue_researching_until_10_plus_surprises_found"
+
+    - id: phase_03
+      action: synthesize_angles
+      description: "Generate 10-20 angles (Springsteen method), select top 3 by mandatory criteria: different, supported, relevant"
+      critical: true
+      error_handling:
+        condition: "same_angle_as_control"
+        action: "discard_and_select_different_angle"
+
+    - id: phase_04
+      action: select_lead_by_awareness
+      description: "Choose lead type from matrix: Most Aware=Offer/Promise, Product=Promise/Invitation, Solution=Problem-Solution/Secret, Problem=Secret/Story, Unaware=Story/Secret"
+      critical: true
+      error_handling:
+        condition: "lead_chosen_by_preference"
+        action: "override_with_awareness_level_matrix"
+
+    - id: phase_05a
+      action: write_with_3_deep
+      description: "Apply 3-Deep to every benefit: feature > benefit > TRANSFORMATION"
+      critical: true
+      error_handling:
+        condition: "benefits_stop_at_level_2"
+        action: "force_transformation_level_for_every_benefit"
+
+    - id: phase_05b
+      action: inject_wow_moments
+      description: "Ensure every section has novelty + surprise element"
+      critical: false
+
+    - id: phase_05c
+      action: satisfy_lizard_then_gatekeeper
+      description: "Address emotion first (Lizard), then logic (Gatekeeper) in every section"
+      critical: false
+
+    - id: phase_05d
+      action: translate_dry_to_dramatic
+      description: "Convert technical concepts to dramatic experiential language"
+      critical: false
+
+    - id: phase_05e
+      action: write_headline_last
+      description: "Find headline in the finished copy, do not invent separately"
+      critical: true
+      error_handling:
+        condition: "headline_written_first"
+        action: "rewrite_headline_from_strongest_insight_in_completed_copy"
+
+    - id: phase_05f
+      action: compare_side_by_side
+      description: "Compare new copy section-by-section with control, verify improvement in each"
+      critical: true
+      error_handling:
+        condition: "sections_not_demonstrably_stronger"
+        action: "revise_weaker_sections_until_all_outperform_control"
+
+  quality_gate:
+    min_criteria_met: 7
+    criteria:
+      - "control_fully_dissected_with_vulnerabilities"
+      - "research_80_percent_of_time"
+      - "10_plus_i_didnt_know_that_items"
+      - "angle_different_from_control"
+      - "lead_type_matches_awareness_level"
+      - "3_deep_applied_to_every_benefit"
+      - "wow_in_every_section"
+      - "headline_written_last"
+      - "side_by_side_shows_improvement"

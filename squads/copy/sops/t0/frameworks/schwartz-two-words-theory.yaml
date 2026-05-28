@@ -1,0 +1,41 @@
+sop:
+  id: schwartz-two-words-theory
+  version: "1.0"
+  title: "Teoria das Duas Palavras (Two Words Theory)"
+  purpose: "Diagnose and improve sentence clarity — ALL language is Picture Words (images) + Connecting Words (relationships), with ~90% economy through image compression."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: eugene-schwartz
+  steps:
+    - id: apply_identify_picture_words
+      action: "Highlight words that carry visual images — things, actions, details, feelings"
+      input: "Draft sentence or paragraph"
+      output: "Highlighted Picture Words with count per sentence"
+      validation: "Every sentence contains at least one word the reader can visualize"
+    - id: apply_identify_connecting_words
+      action: "Highlight words that show relationships — space, time, cause, contrast, identity"
+      input: "Draft sentence or paragraph"
+      output: "Highlighted Connecting Words categorized by relationship type"
+      validation: "Each connector serves a real relationship purpose (not filler)"
+    - id: apply_compression
+      action: "Rewrite to maximize image density and remove empty connectors"
+      input: "Analyzed sentence with Picture/Connecting word highlights"
+      output: "Compressed sentence with higher image-to-connector ratio"
+      validation: "Image-to-connector ratio favors images; abstract words replaced with concrete images"
+  error_handling:
+    - error: "Sentence has no Picture Words"
+      resolution: "Rewrite with at least one concrete, visualizable word"
+    - error: "Over-compressed (relationships unclear)"
+      resolution: "Restore necessary connectors for cause, time, or contrast"
+    - error: "Adjectives mistaken for Picture Words ('nice', 'great')"
+      resolution: "Apply visualization test: if reader cannot SEE it, it is not a Picture Word"
+  quality_gate:
+    criteria:
+      - "Every sentence has at least one clear Picture Word"
+      - "No filler connectors remain"
+      - "Abstract concepts replaced with concrete images where possible"
+      - "Image-to-connector ratio favors images"
+      - "Sentences pass the mental movie test (reader can visualize)"
+    pass_threshold: "All 5 criteria met"

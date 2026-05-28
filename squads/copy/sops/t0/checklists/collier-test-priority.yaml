@@ -1,0 +1,88 @@
+sop:
+  id: collier-test-priority
+  version: "1.0"
+  title: "Collier Test Priority Order"
+  purpose: >
+    Define correct priority order for testing direct response campaign
+    variables. List determines 60% of success, proposition most of the
+    remainder, and copy has the least individual impact. Testing in the
+    wrong order wastes budget on low-impact variables.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    subcategory: testing-methodology
+    tier: T0
+    source_agent: robert-collier
+  steps:
+    - id: validate_list_test_first
+      action: "Verify LIST is tested first (60% of success)"
+      input: testing_plan
+      validation:
+        rule: "list testing precedes proposition and copy testing"
+        priority: 1
+        success_impact: 0.60
+        test_variables:
+          - audience_segments
+          - purchased_vs_organic
+          - recency_of_activity
+          - list_quality_indicators
+        budget_allocation: 0.60
+        principle: "The best letter in the world sent to the wrong list fails"
+        fail_action: reorder_testing_plan
+    - id: validate_proposition_test_second
+      action: "Verify PROPOSITION tested second"
+      input: testing_plan
+      validation:
+        rule: "proposition testing follows list validation"
+        priority: 2
+        success_impact: 0.30
+        test_variables:
+          - offer_structure
+          - price_points
+          - guarantee_terms
+          - bonuses_bundling
+          - urgency_mechanisms
+        budget_allocation: 0.30
+        fail_action: reorder_testing_plan
+    - id: validate_letter_test_last
+      action: "Verify LETTER (copy) tested last"
+      input: testing_plan
+      validation:
+        rule: "copy testing follows list AND proposition validation"
+        priority: 3
+        success_impact: 0.10
+        test_variables:
+          - headline_variants
+          - opening_approaches
+          - proof_elements
+          - length_variants
+          - close_variants
+        budget_allocation: 0.10
+        fail_action: reorder_testing_plan
+    - id: validate_never_stop_testing
+      action: "Verify ongoing testing protocol (new vs. control in every send)"
+      input: testing_plan
+      validation:
+        rule: "every campaign send includes at least one test variable against control"
+        criteria:
+          - control_defined: true
+          - one_variable_per_test: true
+          - ongoing_testing: true
+        fail_action: add_ongoing_testing_protocol
+  error_handling:
+    on_wrong_order: reorder_and_explain_rationale
+    on_multi_variable_test: block_require_isolation
+    on_wrong_metric: redirect_to_conversions
+    escalation: route_to_copy_chief
+  quality_gate:
+    pass_criteria: "testing follows LIST > PROPOSITION > LETTER order"
+    measurement: "conversions and CPA only — not opens, clicks, or engagement"
+    sample_size: "minimum statistical significance required before declaring winner"
+    on_pass: testing_plan_approved
+    on_fail: reorder_plan_to_correct_priority
+  metadata:
+    date: "2026-03-14"
+    author:
+      agent: sop-converter
+      squad: sop-factory
+    source_artifact: collier-test-priority

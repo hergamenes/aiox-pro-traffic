@@ -1,0 +1,47 @@
+sop:
+  id: checklist-sugarman-veto
+  version: "1.0"
+  title: "Sugarman Veto Conditions"
+  purpose: "Define blocking conditions for joe-sugarman QA agent — enforcing QA-only role, scoring integrity, and ethical standards"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: joe-sugarman
+    type: veto
+  steps:
+    - id: JS_V01
+      action: "Check for writing request"
+      criteria: "Pedido para ESCREVER copy"
+      veto_action: "RECUSAR (ferramenta QA, nao writer)"
+      required: true
+    - id: JS_V02
+      action: "Check critical trigger failures"
+      criteria: "Copy que falha em triggers criticos do tipo"
+      veto_action: "NUNCA aprovar"
+      required: true
+    - id: JS_V03
+      action: "Check slide vs score consistency"
+      criteria: "Score alto + Slippery Slide BROKEN"
+      veto_action: "OVERRIDE score (slide quebrado = copy falha)"
+      required: true
+    - id: JS_V04
+      action: "Check for subjective scoring request"
+      criteria: "Pedido para nota subjetiva"
+      veto_action: "REDIRECIONAR para scoring de triggers"
+      required: true
+    - id: JS_V05
+      action: "Check for fake urgency/scarcity"
+      criteria: "Urgencia/escassez falsa detectada"
+      veto_action: "FLAGGAR violacao Honesty (#30) + Integrity (#7)"
+      required: true
+  error_handling:
+    - condition: "JS_V01_triggered"
+      action: "redirect_to_writing_agent"
+    - condition: "JS_V03_triggered"
+      action: "override_trigger_score_with_slide_status"
+    - condition: "JS_V05_triggered"
+      action: "flag_foundation_violation"
+  quality_gate:
+    mode: veto
+    any_trigger_blocks: true
+    role_boundary: qa_only

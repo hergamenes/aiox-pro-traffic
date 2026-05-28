@@ -1,0 +1,104 @@
+# Pain Agitation System
+# Source: Clayton Makepeace
+# Command: *agitate
+
+name: "Pain Agitation System"
+category: "persuasion"
+origin: "Clayton Makepeace"
+command: "*agitate"
+
+philosophy: |
+  Your prospect has a wound. Your job is not to immediately bandage it -
+  your job is to pour salt in it first. Make the pain so vivid, so
+  unbearable, that they're DESPERATE for relief. Then - and only then -
+  offer the solution.
+
+agitation_sequence:
+  step_1:
+    name: "Name the Pain"
+    instruction: "State the problem in their exact words"
+    example: "You've tried everything. The diets. The pills. The exercise programs that promise results in 30 days."
+
+  step_2:
+    name: "Validate the Pain"
+    instruction: "Show you understand their frustration"
+    example: "And every time, it's the same story. You lose 10 pounds... then gain back 15. You're right back where you started - except now you're even MORE frustrated."
+
+  step_3:
+    name: "Expand the Pain"
+    instruction: "Show all the ways this problem affects their life"
+    example: "It's not just about the number on the scale. It's about avoiding mirrors. Dreading summer. Making excuses to skip the beach. Wondering if your spouse still finds you attractive."
+
+  step_4:
+    name: "Project the Pain"
+    instruction: "Show the future if nothing changes"
+    example: "And if you do nothing? In 5 years, you'll be 20 pounds heavier. Your knees will hurt more. Your energy will be lower. And you'll look back at TODAY as the 'good old days.'"
+
+  step_5:
+    name: "Reveal the Real Enemy"
+    instruction: "Shift blame to an external factor - it's NOT their fault"
+    example: "But here's what nobody told you: It's not your willpower. It's not your genetics. It's a metabolic switch that's been stuck in the OFF position since you were 35."
+
+  step_6:
+    name: "Offer Hope"
+    instruction: "Now - and ONLY now - introduce the solution"
+    example: "What if you could flip that switch back ON? What if your body started burning fat the way it did when you were 25?"
+
+salt_in_wound_technique:
+  principle: |
+    Don't be gentle with the problem. Make it unbearable.
+    The more pain they feel, the more they'll value the relief.
+
+  execution:
+    - "Use their exact language from research"
+    - "Paint the worst-case scenario vividly"
+    - "Show how the problem spreads to other areas of life"
+    - "Make inaction the most painful option"
+
+agitation_formulas:
+  formula_1:
+    name: "You've Tried Everything"
+    pattern: "You've tried [list of attempts]... and [disappointing result]. But here's what [authority] never told you..."
+    use_for: "Products solving chronic problems"
+
+  formula_2:
+    name: "Every Day That Passes"
+    pattern: "Every [time unit] you wait, [consequence gets worse]. In [timeframe], [projected pain]."
+    use_for: "Urgency and time-sensitive decisions"
+
+  formula_3:
+    name: "It's Not Just About"
+    pattern: "It's not just about [surface problem]. It's about [deeper pain 1]. And [deeper pain 2]. And [deepest pain]."
+    use_for: "Revealing hidden costs of the problem"
+
+  formula_4:
+    name: "While Others"
+    pattern: "While [successful others] are [enjoying benefit], you're [suffering consequence]."
+    use_for: "Triggering envy and FOMO"
+
+common_mistakes:
+  mistake_1:
+    wrong: "Rushing to the solution"
+    why_wrong: "Solution feels unnecessary without adequate pain"
+    fix: "Spend at least 30% of copy on problem before solution"
+
+  mistake_2:
+    wrong: "Being too gentle with the problem"
+    why_wrong: "Reader doesn't feel urgency to act"
+    fix: "Use visceral language, concrete details, specific consequences"
+
+  mistake_3:
+    wrong: "Blaming the reader"
+    why_wrong: "Creates resistance and defensiveness"
+    fix: "Always shift blame to external enemy (industry, genetics, misinformation)"
+
+agitation_audit:
+  questions:
+    - "Did I NAME the pain in their words?"
+    - "Did I VALIDATE their frustration?"
+    - "Did I EXPAND to show life impact?"
+    - "Did I PROJECT the future without change?"
+    - "Did I REVEAL an external enemy?"
+    - "Did I wait to OFFER hope?"
+
+  if_no_to_any: "The agitation sequence is incomplete. Add missing elements."

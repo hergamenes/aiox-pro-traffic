@@ -1,0 +1,45 @@
+sop:
+  id: tree-schwartz-heuristics
+  version: "1.0"
+  title: "Schwartz Decision Heuristics"
+  purpose: "Quick-reference decision rules for Ry Schwartz copy production — specificity, catalysis, and transparency"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: ry-schwartz
+  steps:
+    - id: heur-01
+      condition: "Travado no Big Idea"
+      action: "Pare de inventar. Ouca success stories. Nomeie o que ja existe"
+    - id: heur-02
+      condition: "Hesitando publicar"
+      action: "Medo do proprio copy e sinal de qualidade. Publique"
+    - id: heur-03
+      condition: "Prospect reclama do preco"
+      action: "Nao reduza preco. Aumente outcome description"
+    - id: heur-04
+      condition: "Pesquisando dor"
+      action: "Substitua cliche por: 'Qual momento de 30s arruina o dia dele?'"
+    - id: heur-05
+      condition: "Abrindo sales page"
+      action: "Prospect precisa QUERER que seja verdade. Provas vem depois"
+    - id: heur-06
+      condition: "Criando webinar"
+      action: "Tecnicas sem Big Idea = just information. Contexto primeiro"
+    - id: heur-07
+      condition: "Escrevendo argumento"
+      action: "Se TEM que dizer a resposta, perdeu. Catalise — nao declare"
+    - id: heur-08
+      condition: "Tentado a diluir"
+      action: "Quanto mais especifico, mais universal. Escreva para UM"
+    - id: heur-09
+      condition: "Tentado a esconder"
+      action: "Se marketing nao sobrevive a transparencia, e manipulacao"
+  error_handling:
+    - condition: "invented_big_idea"
+      action: "return_to_customer_language"
+    - condition: "transparency_failure"
+      action: "ethical_violation_stop_and_revise"
+  quality_gate:
+    mode: heuristic_application
+    ethical_check: transparency_test

@@ -1,0 +1,53 @@
+sop:
+  id: rutz-unpredictability
+  version: "1.0"
+  title: "The Unpredictability Principle"
+  purpose: "Apply Jim Rutz's Unpredictability Principle to eliminate boring, predictable copy sentence by sentence. The number one sin in advertising is being boring. This framework provides a systematic test for"
+  classification:
+    domain: copywriting
+    category: master
+    tier: t1
+    source_agent: jim-rutz
+  steps:
+    - id: apply_sentence_predictability_test
+      action: "Read each sentence and pause after the first half."
+      input: "For each sentence: can reader predict what comes next? YES = REWRITE. NO = KEEP."
+      output: "Step 1 deliverable: Sentence Predictability Test completed with documented findings"
+      validation: "Every sentence tested: reader cannot predict the ending"
+    - id: apply_cliche_subversion
+      action: "For each phrase, check: is this a cliche? If YES, do not simply avoid it -- SUBVERT it."
+      input: "For each phrase: uses cliche? YES = SUBVERT (don't avoid, subvert). NO = KEEP."
+      output: "Step 2 deliverable: Cliche Subversion completed with documented findings"
+      validation: "All cliches identified and subverted (not just avoided)"
+    - id: apply_format_variation
+      action: "For each page, check: is the next element the same format as the previous? If the last element was a paragraph, the n..."
+      input: "For each page: next element same format as previous? YES = VARY. NO = KEEP."
+      output: "Step 3 deliverable: Format Variation completed with documented findings"
+      validation: "No two consecutive elements use the same format"
+    - id: apply_apply_surprise_tools
+      action: "Deploy specific nouns instead of generic ones ('a 1987 Buick' not 'a car')."
+      input: "Surprise tools: specific nouns, action verbs, clever analogies, cliche subversion"
+      output: "Step 4 deliverable: Apply Surprise Tools completed with documented findings"
+      validation: "Specific nouns and action verbs replace all generic language"
+    - id: apply_accept_the_cost_multi_draft_discipline
+      action: "First draft: write freely and accept mediocre sentences."
+      input: "Cost: 'This takes time and toil.' First draft = accepted garbage. Second = seek surprise. Third+ = polish every sentence."
+      output: "Step 5 deliverable: Accept the Cost: Multi-Draft Discipline completed with documented findings"
+      validation: "At least 3 drafts completed with unpredictability as the editing focus"
+  error_handling:
+    - error: "Confusing randomness with unpredictability"
+      resolution: "Each surprise must be BETTER than the expected ending, not just different"
+    - error: "Avoiding cliches instead of subverting them"
+      resolution: "Keep the cliche setup; twist only the payoff"
+    - error: "Attempting unpredictability in the first draft"
+      resolution: "Accept predictable first drafts; apply unpredictability in draft 2+"
+    - error: "Uniform format throughout a long piece"
+      resolution: "Change format every 2-3 elements: paragraph, bullets, sidebar, testimonial, subhead"
+  quality_gate:
+    criteria:
+      - "Every sentence tested: reader cannot predict the ending"
+      - "All cliches identified and subverted (not just avoided)"
+      - "No two consecutive elements use the same format"
+      - "Specific nouns and action verbs replace all generic language"
+      - "At least 3 drafts completed with unpredictability as the editing focus"
+    pass_threshold: "All 5 criteria met"

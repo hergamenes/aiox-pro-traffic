@@ -1,0 +1,193 @@
+# Ralph Progress Log - Copy Framework v2.0 Upgrade
+
+**Project:** copy-framework-v2-upgrade
+**Git:** Disabled (squad - direct editing)
+**Started:** 2026-01-22
+**Status:** Ready for Swarm Execution
+
+---
+
+## Summary
+
+| Metric | Count |
+|--------|-------|
+| **Total Stories** | 52 |
+| **Agent Stories** | 14 (US-001 to US-014) |
+| **Task Upgrade Stories** | 35 (US-015 to US-049) |
+| **Config/Doc Stories** | 3 (US-050 to US-052) |
+| **Parallel Phase** | 49 stories (US-001 to US-049) |
+| **Serial Phase** | 3 stories (US-050 to US-052) |
+
+---
+
+## Codebase Patterns (KEEP AT TOP)
+
+### Critical Corrections (MEMORIZE)
+- **3Ms NOT 4Ms**: Dan Kennedy uses 3Ms (Message-Market-Media)
+- **30 NOT 31**: Joe Sugarman has 30 triggers
+- **Partner NOT Student**: John Carlton was PARTNER of Halbert for 20 years
+- **Tool NOT Clone**: Joe Sugarman is a TOOL, not a cognitive clone
+
+### Research-First Methodology
+- **Research minimum**: 500+ lines per task
+- **Task minimum**: 600+ lines rewritten
+- **Workflow**: Follow `squads/squad-creator/workflows/wf-research-then-create-agent.yaml`
+- **Validation**: Use `squads/squad-creator/checklists/deep-research-quality.md`
+- **Local Sources Map**: `projects/copy-v2-upgrade/local-sources-map.yaml`
+
+### LOCAL SOURCES - CHECK FIRST
+| Copywriter | Path | Key Files |
+|------------|------|-----------|
+| **alex_hormozi** ⭐ | `outputs/minds/alex_hormozi/sources/` | **4 livros + 24 playbooks** (offers/funnels/ads) |
+| dan_kennedy | `outputs/minds/dan_kennedy/sources/books/` | 14 livros |
+| eugene_schwartz | `outputs/minds/eugene_schwartz/sources/books/` | Breakthrough Advertising |
+| gary_halbert | `outputs/minds/gary_halbert/sources/` | Boron Letters + 90 swipes |
+| claude_hopkins | `outputs/minds/claude_hopkins/sources/obsidian/` | 7 módulos |
+| jon_benson | `outputs/minds/jon_benson/sources/` | VSL method |
+| david_deutsch | `outputs/minds/david_deutsch/sources/obsidian/` | Analysis |
+
+### Hormozi Sources → Story Mapping
+| Playbook | Story |
+|----------|-------|
+| 100M Ofertas + Pricing | US-023 (create-offer) |
+| 100M Leads | US-019 (lead-magnet) |
+| Ads Playbook | US-033 (ad-copy) |
+| Hooks Playbook | US-026 (video-hook) |
+| Fechamento | US-037 (close-script) |
+| Lead Nurture | US-016 (email-sequence) |
+| Retention | US-031 (abandoned-cart) |
+| Proof Checklist | US-043 (authority-arsenal) |
+
+### Research Priority Order
+```
+1. LOCAL FIRST: outputs/minds/{slug}/sources/
+2. EXISTING RESEARCH: docs/research/{slug}-*.md
+3. ANALYSIS: outputs/minds/{slug}/analysis/
+4. WEB RESEARCH: Only for gaps
+```
+
+### Agent Structure
+- **Golden Standard**: `squads/copy/agents/dan-kennedy.md` (~1565 lines)
+- **Tier 0 minimum**: 800+ lines
+- **Tier 1-3 minimum**: 1000+ lines
+- **Required sections**: agent, persona, core_principles, commands, operational_frameworks, communication_dna, signature_phrases, authority_proof_arsenal, objection_algorithms, dependencies, knowledge_areas
+
+---
+
+## Execution Strategy
+
+```
+PHASE 1: PARALLEL (49 stories, up to 49 workers)
+┌─────────────────────────────────────────────────────────────┐
+│ US-001 to US-014: Agent creation/updates                    │
+│ US-015 to US-049: Task upgrades with research               │
+│                                                             │
+│ All stories touch DIFFERENT files - max parallelism         │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼ (wait for ALL to complete)
+PHASE 2: SERIAL (3 stories)
+┌─────────────────────────────────────────────────────────────┐
+│ US-050: Copy Chief (needs complete roster)                  │
+│ US-051: config.yaml (needs all files registered)            │
+│ US-052: README.md (needs everything documented)             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Files Inventory
+
+### Agent Stories (US-001 to US-014)
+
+| Story | Agent | New Tasks | Checklists | Templates |
+|-------|-------|-----------|------------|-----------|
+| US-001 | archive 4 | - | - | - |
+| US-002 | claude-hopkins | 2 | 1 | - |
+| US-003 | dan-kennedy (verify) | - | - | - |
+| US-004 | eugene-schwartz | 2 | 1 | - |
+| US-005 | joe-sugarman (tool) | - | 1 | - |
+| US-006 | robert-collier | 2 | 1 | 1 |
+| US-007 | clayton-makepeace | 1 | - | - |
+| US-008 | jim-rutz | 1 | 1 | 1 |
+| US-009 | parris-lampropoulos | 1 | 1 | - |
+| US-010 | david-deutsch | - | - | - |
+| US-011 | stefan-georgi | 1 | 1 | 1 |
+| US-012 | john-carlton | 1 | 1 | - |
+| US-013 | ben-settle | 1 | 1 | 1 |
+| US-014 | andre-chaperon | 1 | 1 | 1 |
+
+### Task Upgrade Stories (US-015 to US-049)
+
+Each story produces:
+- 1 research document (500+ lines): `docs/research/{topic}-methodology-research.md`
+- 1 upgraded task (600+ lines): `tasks/{task-name}.md`
+
+| Story | Task | Research Focus |
+|-------|------|----------------|
+| US-015 | create-sales-page | Halbert, Schwartz, Hopkins |
+| US-016 | create-email-sequence | Chaperon, Settle, Kennedy |
+| US-017 | create-headlines | Schwartz, Halbert, Bencivenga, Ogilvy |
+| US-018 | create-landing-page | Conversion, Schwartz, Hopkins |
+| US-019 | create-lead-magnet | Value-first, Collier |
+| US-020 | create-upsell-page | One-click, Kennedy |
+| US-021 | create-webinar-script | Perfect Webinar, storytelling |
+| US-022 | vsl-script | Jon Benson (inventor) |
+| US-023 | create-offer | Kennedy, value stacking |
+| US-024 | create-bullets | Lampropoulos, Bencivenga |
+| US-025 | blend | Style combination |
+| US-026 | create-video-hook | Pattern interrupt |
+| US-027 | create-downsell-page | Objection handling |
+| US-028 | create-order-bump | Impulse psychology |
+| US-029 | create-thank-you-page | Post-purchase |
+| US-030 | create-launch-emails | Jeff Walker PLF |
+| US-031 | create-abandoned-cart | Recovery psychology |
+| US-032 | evaluate-offer | Value assessment |
+| US-033 | create-ad-copy | Platform-specific, Hopkins |
+| US-034 | create-ad-script | DR video, UGC |
+| US-035 | create-newsletter | Settle (infotainment) |
+| US-036 | audit-landing-page | Hopkins audit, UX |
+| US-037 | create-close-script | Objection handling |
+| US-038 | create-cold-email | B2B outreach |
+| US-039 | create-youtube-ads | Pre-roll, TrueView |
+| US-040 | create-native-ads | Advertorial |
+| US-041 | copy-debate | Multi-perspective |
+| US-042 | avatar-research | Collier, JTBD |
+| US-043 | build-authority-arsenal | Social proof |
+| US-044 | copysearch | Swipe file |
+| US-045 | create-copywriter-agent | Agent creation |
+| US-046 | create-objection-algorithms | Reframe techniques |
+| US-047 | extract-communication-dna | Style analysis |
+| US-048 | extract-frameworks | Pattern extraction |
+| US-049 | extract-signature-phrases | Phrase categorization |
+
+---
+
+## File List (Cumulative)
+
+| File | Action | Story | Description |
+|------|--------|-------|-------------|
+| | | | |
+
+---
+
+## Quality Gates
+
+### Per-Story Validation
+- [ ] Research doc >= 500 lines (for task upgrades)
+- [ ] Task file >= 600 lines (for task upgrades)
+- [ ] Agent file >= 800/1000 lines (for agent creation)
+- [ ] YAML syntax valid
+- [ ] All required sections present
+- [ ] Primary sources >= 3 (for research)
+- [ ] Critical corrections verified
+
+---
+
+## Session Log
+
+> Ralph APPENDS to this section after each story completion.
+
+---
+
+*Last Updated: 2026-01-22*

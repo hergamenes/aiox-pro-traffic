@@ -1,0 +1,157 @@
+sop:
+  id: ah-magic-naming
+  version: "1.0"
+  title: "MAGIC Naming Formula"
+  purpose: >
+    Create offer names that maximize perceived value using six components:
+    Mechanism, Attractive target, Graphic element, Idea that helps,
+    time Convergence, and final Objective. The name IS part of the offer.
+  classification:
+    domain: copywriting
+    subdomain: offer-naming
+    tier: t2
+    source_agent: alex-hormozi
+    artifact_type: framework
+
+  steps:
+    - id: step_1_mechanism
+      action: apply_mechanism_embedding
+      label: "M: Mechanism"
+      description: >
+        Identify what makes the offer fundamentally different. Embed the
+        mechanism into the name so it hints at HOW it works. If no mechanism
+        exists, differentiate the offer first.
+      inputs:
+        - unique_mechanism
+        - competitive_landscape
+      outputs:
+        - mechanism_name_component
+      validation:
+        - field: mechanism_name_component
+          rule: not_generic
+        - field: mechanism_name_component
+          rule: hints_at_how
+
+    - id: step_2_attractive_target
+      action: apply_target_specification
+      label: "A: Attractive Target"
+      description: >
+        Name the ultra-specific avatar. Narrower is better. Acts as a filter
+        where the right people lean in and wrong people self-select out.
+      inputs:
+        - target_avatar
+      outputs:
+        - target_name_component
+      validation:
+        - field: target_name_component
+          rule: is_ultra_specific
+        - field: target_name_component
+          rule: not_everyone
+
+    - id: step_3_graphic_element
+      action: apply_graphic_element
+      label: "G: Graphic Element"
+      description: >
+        Add a memorable visual or sensory element: metaphor (Ladder, Blueprint),
+        number (7-Figure, 90-Day), or image (Diamond, Vault). Must reinforce
+        mechanism or outcome.
+      inputs:
+        - mechanism_name_component
+        - outcome
+      outputs:
+        - graphic_name_component
+      validation:
+        - field: graphic_name_component
+          rule: is_memorable
+        - field: graphic_name_component
+          rule: reinforces_mechanism_or_outcome
+
+    - id: step_4_idea_that_helps
+      action: apply_benefit_embedding
+      label: "I: Idea That Helps"
+      description: >
+        Embed the single most compelling benefit. Prospect should understand
+        what they GET from the name alone.
+      inputs:
+        - primary_benefit
+      outputs:
+        - benefit_name_component
+      validation:
+        - field: benefit_name_component
+          rule: benefit_clear_from_name
+        - field: benefit_name_component
+          rule: singular_not_list
+
+    - id: step_5_time_convergence
+      action: apply_time_convergence
+      label: "C: Time Convergence"
+      description: >
+        Include specific time element (90-Day, 7-Day, 48-Hour, 2026). Creates
+        urgency and sets expectations. Must be realistic and defensible.
+      inputs:
+        - realistic_timeline
+      outputs:
+        - time_name_component
+      validation:
+        - field: time_name_component
+          rule: is_specific
+        - field: time_name_component
+          rule: is_defensible
+
+    - id: step_6_final_objective
+      action: apply_objective_naming
+      label: "O: Final Objective"
+      description: >
+        End with the transformative result — status-based (Millionaire,
+        Authority, Expert, Champion). Combine all elements into a name
+        that reads naturally and is memorable after one hearing.
+      inputs:
+        - transformation_outcome
+        - all_name_components
+      outputs:
+        - final_name_candidates
+        - component_scores
+      validation:
+        - field: final_name_candidates
+          rule: count_3_to_5
+        - field: final_name_candidates
+          rule: reads_naturally_aloud
+        - field: final_name_candidates
+          rule: memorable_after_one_hearing
+
+  error_handling:
+    - error: generic_name
+      symptom: "Name sounds like everything else in the market"
+      resolution: "Add mechanism, target, and graphic element to differentiate"
+    - error: no_time_element
+      symptom: "Name lacks urgency, feels open-ended"
+      resolution: "Add specific realistic timeframe"
+    - error: vague_target
+      symptom: "Name appeals to everyone, converts no one"
+      resolution: "Narrow avatar until it feels too specific"
+    - error: overly_complex
+      symptom: "Prospect cannot repeat name to a friend"
+      resolution: "Remove one element to simplify"
+
+  quality_gate:
+    min_score: 7
+    criteria:
+      - "Mechanism embedded in name"
+      - "Target avatar is ultra-specific"
+      - "Graphic element makes name memorable"
+      - "Benefit clear from name alone"
+      - "Time element specific and realistic"
+      - "Objective is status-based"
+      - "Reads naturally aloud"
+
+  outputs:
+    - type: name_candidates
+      format: list
+      count: "3-5"
+    - type: component_scores
+      format: table
+      fields: [mechanism, target, graphic, benefit, time, objective]
+    - type: final_recommendation
+      format: text
+    - type: tagline
+      format: text

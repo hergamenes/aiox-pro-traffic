@@ -1,0 +1,99 @@
+sop:
+  id: rb-three-types-traffic
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Three Types of Traffic"
+  purpose: >
+    Classify all traffic into Controlled, Earned, and Owned categories.
+    Ensure every piece of copy converts controlled and earned traffic
+    into owned traffic (email list). The list is the business.
+  classification:
+    domain: copywriting
+    subdomain: traffic-strategy
+    complexity: foundational
+    source_agent: russell-brunson
+
+  steps:
+    - id: step_1
+      name: audit_controlled_traffic
+      action: apply_controlled_traffic_audit
+      description: >
+        Identify all paid traffic sources. Write ad copy that drives to opt-in
+        pages, NOT directly to sales pages. Goal of controlled traffic is to
+        convert into owned traffic first. Fix any ads driving directly to purchase.
+      inputs:
+        - paid_traffic_sources
+        - current_ad_destinations
+      outputs:
+        - controlled_traffic_audit
+        - revised_ad_destinations
+      validation: all_ads_drive_to_opt_in_first
+
+    - id: step_2
+      name: audit_earned_traffic
+      action: apply_earned_traffic_audit
+      description: >
+        Identify all organic traffic sources. Write CTA into every piece of
+        earned content driving to lead capture. Blog posts need opt-in forms.
+        Social posts need landing page links. Podcast mentions need specific URLs.
+      inputs:
+        - organic_traffic_sources
+        - current_content_ctas
+      outputs:
+        - earned_traffic_audit
+        - revised_content_ctas
+      validation: every_content_piece_has_lead_capture_cta
+
+    - id: step_3
+      name: build_owned_traffic
+      action: apply_owned_traffic_priority
+      description: >
+        Email list is the only traffic truly yours. Design every copy piece
+        to grow the list. Write welcome sequence delivering immediate value.
+        Establish regular email cadence (minimum 3x/week).
+      inputs:
+        - current_list_size
+        - email_cadence
+        - welcome_sequence_status
+      outputs:
+        - list_growth_plan
+        - welcome_sequence
+        - email_calendar
+      validation: welcome_sequence_active_and_regular_cadence_set
+
+  error_handling:
+    - error: paid_traffic_to_sales_directly
+      symptom: "High ad spend, low ROI, no list growth"
+      resolution: "Insert opt-in step between ad and sales page. Capture lead first."
+    - error: organic_without_cta
+      symptom: "Large following, tiny email list"
+      resolution: "Add lead capture CTA to every post, bio, and content piece."
+    - error: list_neglect
+      symptom: "High unsubscribe rate, low open rates"
+      resolution: "Send valuable emails consistently. List dies from neglect."
+    - error: platform_dependency
+      symptom: "Business collapses when algorithm changes"
+      resolution: "Diversify sources and prioritize list building above all."
+
+  quality_gate:
+    criteria:
+      - all_paid_ads_drive_to_opt_in
+      - all_organic_content_has_lead_cta
+      - welcome_sequence_active
+      - regular_email_cadence_established
+      - no_single_source_above_50_percent
+    min_pass: 4
+
+  outputs:
+    - type: traffic_audit
+      format: classification_document
+      description: "All sources classified as Controlled, Earned, or Owned"
+    - type: gap_analysis
+      format: report
+      description: "Where lead capture is missing"
+    - type: revised_copy
+      format: ad_and_content_copy
+      description: "Copy with list-building CTAs included"

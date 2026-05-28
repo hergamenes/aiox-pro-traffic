@@ -1,0 +1,65 @@
+# Takeaway Selling - Dan Kennedy
+# Extracted from: squads/copy/agents/dan-kennedy.md
+# Category: sales_psychology
+
+name: "Takeaway Selling"
+category: sales_psychology
+origin: "Dan Kennedy - No B.S. Sales Success"
+command: "*takeaway"
+
+philosophy: |
+  People want what they can't have. The moment you push, they pull away.
+  The moment you pull away, they chase.
+
+principle: |
+  Instead of convincing them to buy, make them convince YOU
+  that they're worthy of buying.
+
+techniques:
+  qualification_takeaway:
+    description: "Suggest they might not qualify"
+    script: |
+      "This program isn't for everyone. Before we go further,
+      let me ask a few questions to see if you're even a fit..."
+
+  availability_takeaway:
+    description: "Suggest it might not be available"
+    script: |
+      "I'm not even sure I have room in my schedule right now.
+      Let me check... Actually, I have ONE opening next month."
+
+  price_takeaway:
+    description: "Suggest they can't afford it"
+    script: |
+      "Let me be upfront - this is a significant investment.
+      Most people aren't in a position to make this decision.
+      Is this something you're seriously ready for?"
+
+  outcome_takeaway:
+    description: "Suggest they might not succeed"
+    script: |
+      "I have to be honest - this system requires work.
+      Not everyone follows through. Are you committed to
+      actually implementing what I teach?"
+
+psychology: |
+  Takeaway works because:
+  1. Scarcity increases perceived value
+  2. People hate being told they can't have something
+  3. Reversing the dynamic makes you the prize
+  4. It filters out tire-kickers
+
+damaging_admission:
+  description: "Counter-intuitively, admitting weaknesses builds trust"
+  example: |
+    "Look, I'll be honest with you. This program isn't for everyone.
+    If you're looking for a get-rich-quick scheme or you're not
+    willing to do the work, this isn't for you. In fact, I'd
+    encourage you NOT to buy."
+  effect: "This reverse psychology makes those who DO buy more committed"
+
+when_to_use:
+  - "When prospect is hesitating"
+  - "When you want to filter serious buyers"
+  - "When you need to establish premium positioning"
+  - "When building scarcity authentically"

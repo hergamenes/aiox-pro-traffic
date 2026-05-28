@@ -1,0 +1,126 @@
+sop:
+  id: halbert-dm-promotion-creation
+  version: "1.0"
+  title: "The Halbert DM Promotion Creation Process (12-Step Master SOP)"
+  purpose: "Execute complete direct mail promotion creation from list selection through campaign scaling using Halbert's proven 12-step system"
+  classification:
+    domain: copywriting
+    category: master
+    tier: T1
+    source_agent: gary-halbert
+
+  inputs:
+    - name: market_niche_selection
+      type: text
+      required: true
+    - name: srds_list_book_access
+      type: resource
+      required: true
+    - name: product_concept
+      type: text
+      required: true
+
+  outputs:
+    - name: complete_dm_package
+      type: document
+      description: "Envelope, letter, reply elements, attention grabber ready for test mailing"
+    - name: response_tracking_system
+      type: framework
+      description: "Key-coded tracking for each mailing segment"
+
+  steps:
+    - id: step_01
+      action: identify_hot_mailing_list
+      description: "Search SRDS list book for hotline, multi-buyer, recent, high-dollar lists in target market"
+      critical: true
+      error_handling:
+        condition: "no_hot_list_found"
+        action: "pivot_market_before_proceeding"
+
+    - id: step_02
+      action: immerse_in_topic
+      description: "Read 3-4 books on list topic with detailed notes on language, problems, desires, objections"
+      critical: false
+
+    - id: step_03
+      action: collect_competitive_dm_pieces
+      description: "Gather direct mail pieces and space ads from competitors in same topic"
+      critical: false
+
+    - id: step_04
+      action: incubate_ideas
+      description: "Reread Robert Collier and Scientific Advertising, review headline swipe file, allow subconscious synthesis"
+      critical: true
+      error_handling:
+        condition: "forcing_ideas_prematurely"
+        action: "pause_minimum_24_hours_before_writing"
+
+    - id: step_05
+      action: extract_best_ideas
+      description: "Compile strongest insights, angles, proof, hooks into concentrated ~100 page reference report"
+      critical: false
+
+    - id: step_06
+      action: create_a_pile_envelope
+      description: "Design envelope for personal mail pile: no company name, live stamp, typed address, day/date/time"
+      critical: true
+      error_handling:
+        condition: "envelope_has_corporate_branding"
+        action: "remove_all_branding_elements_redesign_as_personal_correspondence"
+
+    - id: step_07
+      action: add_relevant_attention_grabber
+      description: "Include physical grabber (dirt, coin, photo) that directly ties to letter opening"
+      critical: true
+      error_handling:
+        condition: "grabber_irrelevant_to_message"
+        action: "replace_with_grabber_that_connects_to_opening_sentence"
+
+    - id: step_08
+      action: write_letter_aida
+      description: "Write sales letter following AIDA: Attention, Interest, Desire, Action — as face-to-face conversation"
+      critical: false
+
+    - id: step_09
+      action: prepare_reply_elements
+      description: "Prepare SRE/BRE/PSH envelopes, hide brochure until after letter is read"
+      critical: true
+      error_handling:
+        condition: "brochure_visible_before_letter"
+        action: "restructure_package_so_letter_is_read_first"
+
+    - id: step_10
+      action: execute_test_mailing
+      description: "Mail 1K-5K pieces first class with key codes for response tracking"
+      critical: true
+      error_handling:
+        condition: "test_volume_below_1000"
+        action: "increase_to_minimum_1000_for_statistical_validity"
+
+    - id: step_11
+      action: validate_expanded_test
+      description: "If positive ROI, expand to 20K-100K pieces with same package unchanged"
+      critical: false
+      error_handling:
+        condition: "negative_roi_at_scale"
+        action: "analyze_list_quality_and_deliverability_before_abandoning"
+
+    - id: step_12
+      action: scale_and_manage
+      description: "Scale aggressively, set up fulfillment infrastructure, begin testing variations"
+      critical: false
+      error_handling:
+        condition: "scaling_before_establishing_control"
+        action: "establish_profitable_baseline_before_testing_variations"
+
+  quality_gate:
+    min_criteria_met: 6
+    criteria:
+      - "mailing_list_is_hotline_or_multibuyer"
+      - "minimum_3_books_read_with_notes"
+      - "competitive_dm_collected_and_analyzed"
+      - "envelope_designed_for_a_pile"
+      - "attention_grabber_relevant_to_message"
+      - "letter_follows_aida_structure"
+      - "brochure_hidden_from_initial_view"
+      - "test_mailing_first_class_min_1k"

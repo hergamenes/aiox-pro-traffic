@@ -1,0 +1,99 @@
+sop:
+  id: hopkins-product-story-diagnostic
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Product Story Diagnostic ('Story of the Product')"
+  purpose: >
+    Conduct deep-dive product investigation to uncover every selling fact,
+    specific detail, and differentiator. Replicates Hopkins' weeks-long
+    product study before writing a single word of copy.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: claude-hopkins
+    artifact_type: task
+
+  steps:
+    - id: visit_production
+      action: observe_production_process
+      description: "Visit factory/lab; document every production stage, equipment, quality checks, and remarkable steps"
+      inputs:
+        - product_access
+        - production_facility_access
+      critical: true
+      output: production_documentation
+
+    - id: interview_technical_staff
+      action: interview_creators
+      description: "Interview scientists, engineers, chemists about technical differentiators and what makes production hard"
+      depends_on: visit_production
+      output: technical_interviews
+
+    - id: study_literature
+      action: review_technical_documentation
+      description: "Read patents, research papers, specs, lab reports; extract numbers, comparisons, certifications"
+      output: technical_facts
+
+    - id: use_product
+      action: test_product_personally
+      description: "Use product personally for extended period; document impressions, performance, surprises, comparisons"
+      output: personal_experience_notes
+
+    - id: interview_consumers
+      action: gather_consumer_insights
+      description: "Interview real consumers about buying habits, objections, unmet needs; capture verbatim language"
+      critical: true
+      output: consumer_verbatims
+
+    - id: compile_facts
+      action: list_selling_facts
+      description: "Compile all specific facts from steps 1-5: numbers, process details, consumer quotes, technical advantages"
+      depends_on:
+        - visit_production
+        - interview_technical_staff
+        - study_literature
+        - use_product
+        - interview_consumers
+      output: complete_fact_sheet
+
+    - id: identify_preemptive
+      action: flag_preemptive_candidates
+      description: "From fact list, identify facts no competitor communicates as preemptive claim candidates"
+      depends_on: compile_facts
+      output: preemptive_candidates
+
+  error_handling:
+    - error: skipped_factory_visit
+      symptom: "Copy lacks specific production details"
+      resolution: "No substitute for seeing the process; schedule the visit"
+    - error: marketing_only_interviews
+      symptom: "Facts are generic brochure content"
+      resolution: "Interview people who MAKE the product, not those who sell it"
+    - error: paraphrased_consumer_language
+      symptom: "Copy sounds like a writer, not a real customer"
+      resolution: "Record and transcribe exact consumer words"
+
+  quality_gate:
+    criteria:
+      - "Production process documented with specific details"
+      - "At least 3 technical staff interviews completed"
+      - "Product used personally for meaningful period"
+      - "Consumer verbatim quotes captured"
+      - "Fact list contains specific numbers"
+      - "At least one preemptive claim candidate identified"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: fact_sheet
+      format: structured_document
+      description: "Specific, verifiable product claims with sources"
+    - name: preemptive_recommendation
+      format: recommendation
+      description: "Preemptive claim candidates with supporting evidence"
+    - name: consumer_verbatims
+      format: quote_collection
+      description: "Consumer quotes organized by theme"

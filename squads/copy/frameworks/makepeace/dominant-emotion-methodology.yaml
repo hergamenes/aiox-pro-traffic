@@ -1,0 +1,151 @@
+# Dominant Resident Emotion (DRE) Methodology
+# Source: Clayton Makepeace - The Total Package
+# Command: *dominant-emotion
+
+name: "Dominant Resident Emotion (DRE) Methodology"
+category: "strategic_foundation"
+origin: "Clayton Makepeace - The Total Package"
+command: "*dominant-emotion"
+
+philosophy: |
+  Your prospect isn't a blank slate. They come to your copy ALREADY feeling
+  something - fear, frustration, hope, greed, whatever. This is their Dominant
+  Resident Emotion. Your job is NOT to create new emotions from scratch. Your
+  job is to DISCOVER what they're already feeling and AMPLIFY it until action
+  is the only relief.
+
+eight_ways_to_spot_dre:
+  method_1:
+    name: "Walk a Mile in Their Shoes"
+    instruction: |
+      Close your eyes. Become your prospect. Feel what they feel.
+      What keeps them awake at 3am? What makes them angry? Scared? Hopeful?
+    questions:
+      - "What is the ONE thing they think about most regarding this problem?"
+      - "What have they tried that failed? How did that feel?"
+      - "What do they secretly wish could happen?"
+      - "What would they pay ANY price to achieve or avoid?"
+
+  method_2:
+    name: "Study Customer Service Logs"
+    instruction: |
+      Real complaints reveal real emotions. Look for patterns.
+      The words they use ARE the words you should use.
+    what_to_look_for:
+      - "Repeated complaints (frequency = intensity)"
+      - "Emotional language they use naturally"
+      - "Unmet needs they express"
+      - "Frustrations with existing solutions"
+
+  method_3:
+    name: "Read Amazon Reviews"
+    instruction: |
+      Both positive and negative reviews reveal emotional triggers.
+      Pay special attention to 1-star and 5-star reviews.
+    analyze_for:
+      - "What made them angry enough to write?"
+      - "What made them happy enough to rave?"
+      - "What specific words do they use repeatedly?"
+
+  method_4:
+    name: "Join Forums and Facebook Groups"
+    instruction: |
+      Go where your prospects gather to complain, ask questions, and share.
+      Listen. Don't sell. Just absorb their language and emotions.
+    look_for:
+      - "Questions they ask repeatedly"
+      - "Frustrations they express"
+      - "Solutions they've tried and rejected"
+      - "Dreams they share"
+
+  method_5:
+    name: "Interview Real Customers"
+    instruction: |
+      Ask open-ended questions. Let them talk. Record it.
+      The gold is in the tangents, not the direct answers.
+    key_questions:
+      - "Tell me about the moment you decided to look for a solution..."
+      - "What had you tried before? How did that feel?"
+      - "If this worked perfectly, what would your life look like?"
+
+  method_6:
+    name: "Study Competitor Controls"
+    instruction: |
+      Long-running controls have found the emotional trigger.
+      Study what emotions they're targeting. Then do it BETTER.
+
+  method_7:
+    name: "Use Survey Data"
+    instruction: |
+      But don't just read the statistics. Read the open-ended responses.
+      That's where the emotional language lives.
+
+  method_8:
+    name: "Check Your Own Gut"
+    instruction: |
+      If you're in the target market, YOUR feelings are data.
+      What would make YOU buy? Be brutally honest.
+
+amplification_formula:
+  step_1: "IDENTIFY the Dominant Resident Emotion"
+  step_2: "VALIDATE it - show you understand exactly how they feel"
+  step_3: "INTENSIFY it - pour gasoline on the fire"
+  step_4: "CHANNEL it - point that emotional energy toward your solution"
+  step_5: "RELEASE it - show how your product provides relief"
+
+dre_analysis_template:
+  primary_emotion:
+    question: "What is the ONE emotion they feel most intensely?"
+    examples: ["FEAR", "FRUSTRATION", "GREED", "HOPE"]
+
+  secondary_emotions:
+    question: "What other emotions reinforce the primary?"
+    examples: ["SHAME backing FRUSTRATION", "GUILT reinforcing FEAR"]
+
+  amplification_strategy:
+    steps:
+      - "VALIDATE: 'You've tried everything...'"
+      - "BLAME: 'It's not your willpower. It's [external enemy]'"
+      - "INTENSIFY: 'Every [time unit] you wait, [consequence]...'"
+      - "OFFER: 'But what if you could [transformation]?'"
+
+common_dre_by_niche:
+  health:
+    primary: "FEAR (of disease, disability, death)"
+    secondary: ["FRUSTRATION (failed treatments)", "HOPE (breakthrough)"]
+
+  financial:
+    primary: "GREED (wealth desire)"
+    secondary: ["FEAR (market crash)", "ENVY (successful investors)"]
+
+  weight_loss:
+    primary: "FRUSTRATION (nothing works)"
+    secondary: ["SHAME (appearance)", "HOPE (finally)"]
+
+  business_opportunity:
+    primary: "GREED (financial freedom)"
+    secondary: ["REVENGE (prove doubters wrong)", "PRIDE (success)"]
+
+  relationships:
+    primary: "LOVE (connection desire)"
+    secondary: ["FEAR (loneliness)", "VANITY (attractiveness)"]
+
+output_format: |
+  ## DRE ANALYSIS
+
+  **PRIMARY EMOTION:** [Name]
+  - Why this emotion: [Brief explanation]
+  - Evidence from research: [What revealed this]
+
+  **SECONDARY EMOTIONS:**
+  - [Emotion 1]: [How it reinforces primary]
+  - [Emotion 2]: [How it reinforces primary]
+
+  **AMPLIFICATION STRATEGY:**
+  1. VALIDATE: [Specific validation statement]
+  2. BLAME: [External enemy to blame]
+  3. INTENSIFY: [Stakes escalation]
+  4. OFFER: [Transformation promise]
+
+  **RECOMMENDED LEAD APPROACH:**
+  [Specific recommendation for copy opening]

@@ -1,0 +1,111 @@
+sop:
+  id: task-vsl-5-step
+  version: "1.0"
+  title: "5-Step VSL Creation"
+  purpose: "Transform avatar research, One Big Idea, and product details into a complete 20-45 minute Video Sales Letter script using Jon Benson's 5-Step Formula"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: jon-benson
+    tier: T3
+
+  inputs:
+    - name: avatar_research
+      type: document
+      required: true
+      description: "Complete avatar research (demographics, psychographics, pains, desires)"
+    - name: one_big_idea
+      type: object
+      required: true
+      description: "Defined One Big Idea with negative hook and positive hook"
+    - name: product_details
+      type: object
+      required: true
+      description: "Product/offer features, benefits, pricing, guarantee, testimonials"
+
+  outputs:
+    - name: vsl_script
+      type: document
+      format: text
+      description: "Complete VSL script (20-45 min read time) in 5 sections"
+
+  steps:
+    - id: step_1
+      action: craft_snap_suggestion
+      description: "Create pattern interrupt for first 7-15 seconds using counterintuitive statement or absurd promise"
+      critical: true
+      error_handling:
+        condition: "SNAP sounds generic or similar to competitor VSLs"
+        action: "Rewrite using counterintuitive data point or absurd-specific claim unique to niche"
+
+    - id: step_2
+      action: build_vital_connection
+      description: "Construct emotional bridge: Modest Intro > Nightmare Story (5-beat arc) > Transition > System Hint > Results > Open Loop"
+      substeps:
+        - action: write_modest_intro
+        - action: write_nightmare_story
+          sequence: ["overview", "bad_part", "really_bad_part", "declaration_of_independence", "moral_journey"]
+        - action: write_transition
+        - action: tease_system_hint
+        - action: present_results
+        - action: create_open_loop
+
+    - id: step_3
+      action: construct_big_problem
+      description: "Build problem architecture: Hint > Big Lie > Conspiracy > Not Your Fault > Big Truth > Open Loop"
+      critical: true
+      substeps:
+        - action: hint_problem
+        - action: expose_big_lie
+        - action: reveal_conspiracy
+        - action: absolve_prospect
+        - action: reveal_big_truth
+        - action: create_open_loop
+
+    - id: step_4
+      action: present_big_solution
+      description: "Reveal positive hook name, deliver 3 tips, make 4 comparisons, execute authority shift"
+      substeps:
+        - action: reveal_positive_hook
+        - action: deliver_value_tips
+          count: 3
+        - action: make_comparisons
+          count: 4
+        - action: execute_authority_shift
+
+    - id: step_5
+      action: construct_big_offer
+      description: "Close with Feature-as-Benefit, Testimonial Flip, Price Dropdown, Positive Guarantee, Crossroads Close, Presupposition CTA"
+      critical: true
+      substeps:
+        - action: reframe_features_as_benefits
+        - action: apply_testimonial_flip
+        - action: execute_price_dropdown
+        - action: write_positive_guarantee
+        - action: present_crossroads_close
+        - action: write_presupposition_cta
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "SNAP creates genuine pattern interrupt in under 15 seconds"
+      - "Nightmare Story follows all 5 arc beats"
+      - "Big Lie is niche-specific, not generic"
+      - "Positive Hook has unique memorable name"
+      - "All testimonials use Testimonial Flip technique"
+      - "CTA uses presupposition language"
+      - "Script length is 20-45 minute read time"
+      - "All open loops are resolved by end"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies:
+    - task-negative-positive-hook-system
+    - task-testimonial-flip
+
+  related_sops:
+    - task-3x-vsl-creation
+    - task-alpha-omega-optimization
+    - task-90s-smartphone-pattern-interrupt

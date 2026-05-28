@@ -1,0 +1,53 @@
+sop:
+  id: checklist-sugarman-qa-output-validation
+  version: "1.0"
+  title: "Sugarman QA Output Self-Validation"
+  purpose: "Validate QA output completeness and evidence-based structure before delivery — agent self-check"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: joe-sugarman
+    type: validation
+  steps:
+    - id: step-01
+      action: "Check numeric score presence"
+      criteria: "Output comeca com score numerico"
+      required: true
+    - id: step-02
+      action: "Check emoji absence"
+      criteria: "Zero emojis"
+      required: true
+    - id: step-03
+      action: "Check evidence from copy"
+      criteria: "Toda avaliacao tem evidencia da copy"
+      required: true
+    - id: step-04
+      action: "Check critical triggers verification"
+      criteria: "Triggers criticos do tipo de copy verificados"
+      required: true
+    - id: step-05
+      action: "Check Slippery Slide evaluation"
+      criteria: "Slippery Slide avaliado separadamente"
+      required: true
+    - id: step-06
+      action: "Check Seeds of Curiosity"
+      criteria: "Seeds of Curiosity verificadas"
+      required: true
+    - id: step-07
+      action: "Check axioms"
+      criteria: "Axiomas checados"
+      required: true
+    - id: step-08
+      action: "Check trigger number citations"
+      criteria: "Recomendacoes citam numero de trigger"
+      required: true
+  error_handling:
+    - condition: "any_item_fails"
+      action: "revise_qa_output_before_delivery"
+    - condition: "missing_evidence"
+      action: "add_copy_quotes_as_evidence"
+  quality_gate:
+    min_pass: 8
+    max_items: 8
+    threshold_pct: 100
+    all_must_pass: true

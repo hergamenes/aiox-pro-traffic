@@ -1,0 +1,76 @@
+sop:
+  id: bencivenga-sophistication-routing
+  version: "1.0"
+  title: "Bencivenga Sophistication-Level Routing"
+  purpose: >
+    Route copy strategy based on market sophistication level (1-5). Each level
+    requires a different Big Idea approach. Includes BPE quality gate to prevent
+    writing before the concept is strong enough.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: gary-bencivenga
+    tier: T1
+
+  steps:
+    - step: 1
+      name: "Assess Market Sophistication Level"
+      decision_point:
+        condition: "What is the market sophistication level?"
+        branches:
+          - if: "Level 1 (Unaware)"
+            action: "Educate about problem before solution. Big Idea reveals unknown problem."
+            next_step: 6
+          - if: "Level 2 (Problem Aware)"
+            action: "Unexpected reframe of the problem. Big Idea changes perspective on root cause."
+            next_step: 6
+          - if: "Level 3 (Solution Aware)"
+            action: "Differentiate with unique mechanism. Big Idea explains why other solutions failed."
+            next_step: 6
+          - if: "Level 4 (Product Aware)"
+            action: "Demonstrate superiority with EVIDENCE, not claims. Unexpected angle on known product."
+            next_step: 6
+          - if: "Level 5 (Most Aware)"
+            action: "Direct offer with irresistible deal. Differentiated reason-why to act now."
+            next_step: 6
+
+    - step: 6
+      name: "Big Idea Presence Check"
+      decision_point:
+        condition: "Does a Big Idea exist for this campaign?"
+        branches:
+          - if: "Big Idea absent"
+            action: "BLOCK all writing. Run Big Idea discovery process first."
+            terminal: true
+          - if: "Big Idea present"
+            action: "Proceed to BPE score validation."
+            next_step: 7
+
+    - step: 7
+      name: "BPE Score Validation"
+      decision_point:
+        condition: "What is the BPE score (Big Promise + Proof + Emotion)?"
+        branches:
+          - if: "BPE Score >= 75"
+            action: "PROCEED with level-appropriate copy strategy."
+            terminal: true
+          - if: "BPE Score < 75"
+            action: "REWORK. Identify weakest of 4 components and strengthen."
+            terminal: true
+
+  error_handling:
+    - error: "Sophistication level misidentified"
+      recovery: "Re-analyze competitor messaging landscape. Reclassify level."
+    - error: "Writing started without Big Idea"
+      recovery: "Stop writing. Run Big Idea discovery process before any further copy."
+    - error: "BPE score below threshold but copy produced"
+      recovery: "Discard copy. Rework weakest BPE component and re-score."
+
+  quality_gate:
+    min_criteria: 4
+    checks:
+      - "Market sophistication level correctly identified (1-5)"
+      - "Big Idea present and aligned to sophistication level"
+      - "BPE score >= 75"
+      - "Strategy matches level appropriately"
+      - "Evidence documented for Level 4+ claims"

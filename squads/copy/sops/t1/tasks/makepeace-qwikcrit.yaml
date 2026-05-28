@@ -1,0 +1,117 @@
+sop:
+  id: makepeace-qwikcrit
+  version: "1.0"
+  title: "QwikCrit Copy Evaluation"
+  purpose: "Objectively evaluate copy across 12 dimensions (0-5 each, 60 total) to identify strengths, weaknesses, and deployment readiness"
+  classification:
+    domain: copywriting
+    category: master
+    tier: T1
+    source_agent: clayton-makepeace
+
+  inputs:
+    - name: complete_copy_draft
+      type: document
+      required: true
+
+  outputs:
+    - name: qwikcrit_score
+      type: number
+      description: "Total score 0-60 with band classification"
+    - name: per_dimension_scores
+      type: document
+      description: "12 individual scores (0-5) with specific observations"
+    - name: improvement_priorities
+      type: list
+      description: "Ordered list of dimensions needing improvement"
+
+  steps:
+    - id: dim_01
+      action: score_main_theme
+      description: "Rate theme effectiveness 0-5: central message clarity, relevance, consistency throughout"
+      critical: false
+
+    - id: dim_02
+      action: score_organization_flow
+      description: "Rate logical progression 0-5: section building, transitions, momentum maintenance"
+      critical: false
+
+    - id: dim_03
+      action: score_headline_impact
+      description: "Rate headline 0-5: prospect filtering, benefit promise, curiosity, body copy compulsion"
+      critical: true
+      error_handling:
+        condition: "headline_score_below_3"
+        action: "flag_as_priority_rewrite_before_deployment"
+
+    - id: dim_04
+      action: score_deck_copy
+      description: "Rate subheadlines 0-5: headline reinforcement, scanning entry points, additional reading reasons"
+      critical: false
+
+    - id: dim_05
+      action: score_opening_engagement
+      description: "Rate first 200-300 words 0-5: self-interest engagement, emotional momentum creation"
+      critical: true
+      error_handling:
+        condition: "opening_score_below_3"
+        action: "flag_as_critical_most_readers_lost_at_opening"
+
+    - id: dim_06
+      action: score_credibility
+      description: "Rate credibility architecture 0-5: credentials, trustworthiness, institutional affiliations"
+      critical: false
+
+    - id: dim_07
+      action: score_proof_elements
+      description: "Rate proof coverage 0-5: quantity (target 40+), quality, variety (testimonials, studies, endorsements, before/after)"
+      critical: true
+      error_handling:
+        condition: "proof_score_below_3"
+        action: "add_proof_elements_before_deployment"
+
+    - id: dim_08
+      action: score_risk_relief
+      description: "Rate guarantee 0-5: risk transfer completeness, positioning as selling point, multi-risk coverage"
+      critical: false
+
+    - id: dim_09
+      action: score_offer_clarity
+      description: "Rate offer communication 0-5: what they get, cost, how to order — understandable in 10 seconds"
+      critical: true
+      error_handling:
+        condition: "offer_score_below_3"
+        action: "simplify_and_clarify_offer_section"
+
+    - id: dim_10
+      action: score_premiums
+      description: "Rate bonus stack 0-5: perceived value increase, relevance, standalone value"
+      critical: false
+
+    - id: dim_11
+      action: score_price_justification
+      description: "Rate price framing 0-5: value comparison, cost-per-day, what-would-it-cost-without"
+      critical: false
+
+    - id: dim_12
+      action: score_order_devices
+      description: "Rate ordering mechanics 0-5: CTA clarity, repetition, simplicity, urgency"
+      critical: false
+
+    - id: final
+      action: calculate_total_and_classify
+      description: "Sum all 12 scores. Bands: 0-12=tremendous room, 13-24=substantial, 25-36=good, 37-48=slight, 49-60=superstar"
+      critical: true
+      error_handling:
+        condition: "total_below_37"
+        action: "block_deployment_require_revision_of_lowest_scoring_dimensions"
+
+  quality_gate:
+    min_criteria_met: 4
+    criteria:
+      - "all_12_dimensions_scored_individually"
+      - "each_score_justified_with_specific_observations"
+      - "lowest_dimensions_identified_as_priorities"
+      - "total_score_calculated_correctly"
+      - "score_band_applied"
+      - "dimensions_below_3_have_improvement_recommendations"

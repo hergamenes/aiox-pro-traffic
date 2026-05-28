@@ -1,0 +1,71 @@
+sop:
+  id: task-epic-email
+  version: "1.0"
+  title: "EPIC Email Framework"
+  purpose: "Create rotating 4-type email system (Engage, Promote, Inspire, Consume) that maintains audience engagement through varied email functions"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: jon-benson
+    tier: T3
+
+  inputs:
+    - name: email_list
+      type: object
+      required: true
+      description: "Active email list/audience"
+    - name: product_offer
+      type: object
+      required: true
+      description: "Product/offer to promote in Promote emails"
+
+  outputs:
+    - name: epic_emails
+      type: list
+      description: "4 email types rotated in E-P-I-C sequence"
+
+  steps:
+    - id: step_1
+      action: write_engage_email
+      description: "Break reader's thinking pattern with provocative question or counterintuitive claim — zero selling"
+
+    - id: step_2
+      action: write_promote_email
+      description: "Deliver benefit-driven persuasion with direct response principles for specific offer"
+      critical: true
+
+    - id: step_3
+      action: write_inspire_email
+      description: "Create emotional buy-in through transformation story, success case, or aspirational vision"
+
+    - id: step_4
+      action: write_consume_email
+      description: "Drive single specific action: watch video, read article, download resource"
+
+    - id: step_5
+      action: rotate_sequence
+      description: "Follow E-P-I-C order strictly — never send same type consecutively"
+      critical: true
+      error_handling:
+        condition: "Same email type appears consecutively"
+        action: "Reorder to maintain EPIC rotation sequence"
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "Each type is distinct in purpose and tone"
+      - "No consecutive emails are same type"
+      - "Promote emails use direct response techniques"
+      - "Engage emails contain zero selling"
+      - "Consume emails have single clear action"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies: []
+
+  related_sops:
+    - task-infotainment-email
+    - task-soap-opera-sequence
+    - task-daily-email-flywheel

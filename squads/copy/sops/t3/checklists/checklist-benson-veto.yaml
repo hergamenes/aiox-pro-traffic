@@ -1,0 +1,51 @@
+sop:
+  id: checklist-benson-veto
+  version: "1.0"
+  title: "Benson Veto Conditions"
+  purpose: "Define blocking conditions that trigger immediate rejection or revision of copy produced under Jon Benson's methodology"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: jon-benson
+    type: veto
+  steps:
+    - id: JB_V01
+      action: "Check product mention timing"
+      criteria: "Mencionar produto antes de rapport completo"
+      veto_action: BLOQUEAR
+      required: true
+    - id: JB_V02
+      action: "Check opening positioning"
+      criteria: "Comecar como heroi/genio/expert"
+      veto_action: REESCREVER
+      required: true
+    - id: JB_V03
+      action: "Check production vs copy priority"
+      criteria: "Investir em producao antes de copy converter"
+      veto_action: PAUSAR
+      required: true
+    - id: JB_V04
+      action: "Check guarantee framing"
+      criteria: "Garantia com framing negativo"
+      veto_action: REESCREVER
+      required: true
+    - id: JB_V05
+      action: "Check idea singularity"
+      criteria: "Copy com multiplos problemas/solucoes"
+      veto_action: "SIMPLIFICAR (One Big Idea)"
+      required: true
+    - id: JB_V06
+      action: "Check honesty and ethics"
+      criteria: "Hype, mentira ou manipulacao"
+      veto_action: RECUSAR
+      required: true
+      override: false
+  error_handling:
+    - condition: "any_veto_triggered"
+      action: "block_delivery"
+    - condition: "JB_V06_triggered"
+      action: "absolute_block_no_override"
+  quality_gate:
+    mode: veto
+    any_trigger_blocks: true
+    requires_rescan_after_fix: true

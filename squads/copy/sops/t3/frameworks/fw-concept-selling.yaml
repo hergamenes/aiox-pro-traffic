@@ -1,0 +1,69 @@
+sop:
+  id: fw-concept-selling
+  version: "1.0"
+  title: "Concept Selling (Axiom 9)"
+  purpose: "Never sell the product directly — identify the concept behind it and sell that; the product is the vehicle"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: joe-sugarman
+    tier: t4
+  steps:
+    - id: apply_never_sell_product
+      name: "Never Sell Product Directly"
+      description: "Resist describing what the product IS; prospects buy destinations, not vehicles"
+      inputs:
+        - product_description
+        - feature_list
+      outputs:
+        - product_abstraction_analysis
+      validation:
+        - not_feature_led: true
+        - destination_focus: true
+    - id: apply_identify_concept
+      name: "Identify the Concept"
+      description: "Find the bigger idea, transformation, or identity shift the product represents"
+      inputs:
+        - product_abstraction_analysis
+        - customer_motivations
+        - identity_implications
+      outputs:
+        - concept_definition
+      validation:
+        - exists_beyond_product: true
+        - specific_enough_to_own: true
+        - creates_identity_shift: true
+    - id: apply_sell_concept
+      name: "Sell the Concept — Product as Vehicle"
+      description: "Write copy with 70% concept, 30% product; introduce product as delivery mechanism"
+      inputs:
+        - concept_definition
+        - product_details
+        - proof_elements
+      outputs:
+        - concept_selling_copy
+      validation:
+        - concept_ratio: ">=70%"
+        - product_as_vehicle: true
+        - proof_product_delivers: true
+  error_handling:
+    - error: feature_led_copy
+      condition: "Copy opens with product specifications"
+      action: "Restructure to lead with concept; features after desire is built"
+    - error: abstract_concept
+      condition: "Concept is generic ('be your best self')"
+      action: "Specialize until concept cannot be claimed by competitor"
+    - error: concept_abandoned
+      condition: "Copy reverts to product-selling midway"
+      action: "Maintain concept framing throughout; product details serve the concept"
+    - error: unproven_concept
+      condition: "No evidence product delivers the concept"
+      action: "Add specific proof elements connecting product to concept delivery"
+  quality_gate:
+    min_sections: 3
+    required_elements:
+      - concept_identified
+      - concept_dominates_copy
+      - product_as_vehicle
+      - proof_present
+    pass_threshold: "concept is the star; product is supporting actor"

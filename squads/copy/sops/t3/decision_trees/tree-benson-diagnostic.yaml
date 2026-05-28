@@ -1,0 +1,33 @@
+sop:
+  id: tree-benson-diagnostic
+  version: "1.0"
+  title: "Benson Diagnostic Router"
+  purpose: "Route incoming copywriting requests to the correct Jon Benson methodology based on deliverable type"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: jon-benson
+  steps:
+    - id: route-01
+      condition: "request == 'NOVO VSL'"
+      action: "Avatar research -> One Big Idea -> Hooks -> 5-Step VSL Formula"
+    - id: route-02
+      condition: "request == 'VSL EXISTENTE que nao converte'"
+      action: "Alpha/Omega diagnosis -> Reescrever Lead + Close"
+    - id: route-03
+      condition: "request == 'HOOK DISCOVERY needed'"
+      action: "Simple Hook Formula com survey data -> Mind map -> Combinar"
+    - id: route-04
+      condition: "request == 'EMAIL needed'"
+      action: "EPIC framework -> 4 tipos rotacionados"
+    - id: route-default
+      condition: "request not classified"
+      action: "Clarify request type before proceeding"
+  error_handling:
+    - condition: "ambiguous_request"
+      action: "ask_for_clarification"
+    - condition: "wrong_route_selected"
+      action: "restart_diagnostic"
+  quality_gate:
+    mode: routing
+    requires_classification: true

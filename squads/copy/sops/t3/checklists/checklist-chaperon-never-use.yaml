@@ -1,0 +1,50 @@
+sop:
+  id: checklist-chaperon-never-use
+  version: "1.0"
+  title: "Chaperon Vocabulary Veto List"
+  purpose: "Enforce vocabulary constraints for Andre Chaperon copy — prohibit aggressive marketing language, replace with narrative-first alternatives"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: andre-chaperon
+    type: validation
+  steps:
+    - id: step-01
+      action: "Scan for 'email blast/blast'"
+      criteria: "Must not appear"
+      replacement: "sequencia, arco narrativo, capitulo"
+      required: true
+    - id: step-02
+      action: "Scan for 'spray and pray'"
+      criteria: "Must not appear"
+      replacement: "segmentacao comportamental"
+      required: true
+    - id: step-03
+      action: "Scan for 'BUY NOW!!!/EXCLUSIVE OFFER!!!'"
+      criteria: "Must not appear"
+      replacement: "o CTA emerge naturalmente da narrativa"
+      required: true
+    - id: step-04
+      action: "Scan for 'Limited time offer (sem contexto)'"
+      criteria: "Must not appear without narrative context"
+      replacement: "urgencia natural da historia"
+      required: true
+    - id: step-05
+      action: "Scan for 'hack de crescimento/growth hack'"
+      criteria: "Must not appear"
+      replacement: "Practice Spiral, campfire"
+      required: true
+    - id: step-06
+      action: "Scan for 'funil agressivo/push'"
+      criteria: "Must not appear"
+      replacement: "jornada, experiencia narrativa"
+      required: true
+  error_handling:
+    - condition: "prohibited_phrase_found"
+      action: "replace_with_approved_alternative"
+    - condition: "aggressive_cta_detected"
+      action: "rewrite_cta_from_narrative"
+  quality_gate:
+    mode: vocabulary_scan
+    zero_tolerance: true
+    requires_full_text_search: true

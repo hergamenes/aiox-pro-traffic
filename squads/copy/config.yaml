@@ -1,0 +1,2289 @@
+# Copy - Elite Copywriting Squad v3.0
+# Squad Configuration
+
+name: copy
+version: "4.0.0"
+short-title: "Copy - Elite Copywriting Squad"
+description: "Time de copywriters lendários organizado por tiers para criar peças de alta conversão."
+author: "AIOX Team"
+slashPrefix: copy
+entry_agent: copy-chief
+tested: true
+aiox:
+  type: squad
+
+pack:
+  name: copy
+  title: "Copy - Elite Copywriting Squad"
+  version: "4.0.0"
+  author: "AIOX Team"
+  description: "Time de copywriters lendários organizados por Tier para criar peças de alta conversão"
+  icon: "✍️"
+  slash_prefix: "copy"
+
+metadata:
+  version: "4.0.0"
+  score: 10.0
+
+settings:
+  activation:
+    show_context_report: true
+    show_preload_report: true
+    show_quick_commands: true
+    quick_commands_limit: 6
+  preload:
+    max_shared_files: 4
+    max_product_files: 6
+  output:
+    base_path: "outputs/copy/{business}/"
+    pages: "outputs/copy/{business}/pages/"
+    drafts: "outputs/copy/{business}/drafts/"
+    rule: "Nunca salvar outputs finais dentro de squads/. Sempre usar outputs/copy na raiz do projeto."
+
+agnosticism_exceptions:
+  - scope: "agents/*.md"
+    reason: >-
+      Os agents do copy squad carregam provas, track record e referências reais
+      dos copywriters para preservar fidelidade metodológica. Esses sinais não
+      representam acoplamento a um business do workspace.
+    approved_by: "squad-chief"
+    approved_at: "2026-03-27"
+  - scope: "authority/*.yaml"
+    reason: "Authority files concentram claims históricos e social proof dos experts."
+    approved_by: "squad-chief"
+    approved_at: "2026-03-27"
+  - scope: "reference/*.md"
+    reason: "Reference docs armazenam material de calibração e documentação de frameworks."
+    approved_by: "squad-chief"
+    approved_at: "2026-03-27"
+  - scope: "swipe-sources/*.yaml"
+    reason: "Swipe sources preservam exemplos documentados usados para benchmarking de copy."
+    approved_by: "squad-chief"
+    approved_at: "2026-03-27"
+  - scope: "swipe/*.md"
+    reason: "Assets de swipe concentram exemplos extraídos e benchmarking, não lógica operacional do squad."
+    approved_by: "squad-chief"
+    approved_at: "2026-03-27"
+  - scope: "archive/*.md"
+    reason: "Artefatos arquivados mantêm histórico e não definem o comportamento operacional atual."
+    approved_by: "squad-chief"
+    approved_at: "2026-03-27"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# CHANGELOG
+# ═══════════════════════════════════════════════════════════════════════════════
+# Changelog (2026-03-28) - Campaign Governance Sync
+#   - Importados gates, briefs, planning pack e workflow de produção do aiox-stage
+#   - Assets adaptados para o workspace L0-L4 do Sinkra Hub
+#   - Output de copy formalizado em workspace/businesses/{business}/L4-operational/campaigns/{campaign_slug}/ + outputs/copy/{business}/ (ADR-012)
+#
+# Changelog v4.0.0 (2026-02-06) - Config Sync Mega-Update
+#   - 139 orphan components registered (14 agents, 37 tasks, 30 checklists, 36 templates, 5 workflows, 31 research, 15 data)
+#   - 3 FK violations resolved (alex-hormozi, dan-koe, frank-kern reactivated)
+#   - 1 backup file deleted (gary-halbert.md.backup-atomic)
+#   - Version bumped from 3.0.0 to 4.0.0
+#
+# Changelog v3.0.0 (2026-01-23)
+# MAJOR UPGRADE - Tier System & Research-First Methodology
+#
+# TIER SYSTEM:
+# - Tier 0 (Diagnosis): Hopkins, Schwartz, Collier [planned]
+# - Tier 1 (Masters $500M+): Halbert, Bencivenga, Ogilvy
+# - Tier 2 (Systematizers): Kennedy, Todd Brown
+# - Tier 3 (Format Specialists): Jon Benson (VSL)
+# - TOOL: Sugarman 30 Triggers (post-copy checklist)
+#
+# ARCHIVED (not direct response copywriters):
+# - Alex Hormozi → Business strategist
+# - Dan Koe → Content creator
+# - Frank Kern → Marketing strategist
+# - Ramit Sethi → Personal finance educator
+#
+# RESEARCH-FIRST METHODOLOGY:
+# - All tasks now have companion research files (500+ lines)
+# - Tasks upgraded to 600+ lines each
+# - 6 research documents added
+#
+# UPGRADED COMPONENTS:
+# - Copy Chief: Tier-based orchestration
+# - 37 tasks (upgraded from basic versions)
+# - 40 checklists (10 original + 30 new in v4.0)
+# - 48 templates (12 original + 36 new in v4.0)
+# - 6 research documents (new)
+#
+# v2.1.0 (2026-01-15)
+# - Alex Hormozi Agent upgraded (now archived in v3.0)
+#
+# v2.0.0 (2026-01-10)
+# - Initial tier concept introduced
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# LOGGING (Mandamento 3: Toda automação tem logging obrigatório)
+# ═══════════════════════════════════════════════════════════════════════════════
+logging:
+  required: true
+  level: info
+  fields: [workflow_id, agent_id, phase, duration_ms, input_tokens, output_tokens, status]
+  destination: "outputs/{business}/copy/logs/workflow-execution.jsonl"
+  error_logging:
+    level: error
+    alert_on_failure: true
+    fields: [workflow_id, agent_id, phase, error_type, error_message, retry_count]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# MMOS INTEGRATION
+# ═══════════════════════════════════════════════════════════════════════════════
+mmos_integration:
+  enabled: false
+  log_source: true
+  fallback_behavior: "graceful"
+
+  # Mind mappings for clone personas materializadas no squad (v4.0 readiness)
+  mind_mapping:
+    # Tier 0 - Foundation & Diagnosis
+    claude-hopkins: claude_hopkins
+    eugene-schwartz: eugene_schwartz
+
+    # Tier 1 - Documented Masters ($500M+)
+    gary-halbert: gary_halbert
+    gary-bencivenga: gary_bencivenga
+    david-ogilvy: david_ogilvy
+
+    # Tier 2 - Modern Systematizers
+    dan-kennedy: dan_kennedy
+    todd-brown: todd_brown
+
+    # Tier 3 - Format Specialists
+    jon-benson: jon_benson
+
+    # TOOL (not a clone, used as checklist)
+    joe-sugarman: joe_sugarman  # 30 Triggers only
+
+    # Promoted from planned to active (v4.0)
+    robert-collier: robert_collier
+    jeff-walker: jeff_walker
+    alex-hormozi: alex_hormozi
+    clayton-makepeace: clayton_makepeace
+    parris-lampropoulos: parris_lampropoulos
+    john-carlton: john_carlton
+    jim-rutz: jim_rutz
+    david-deutsch: david_deutsch
+    frank-kern: frank_kern
+    stefan-georgi: stefan_georgi
+    russell-brunson: russell_brunson
+    dan-koe: dan_koe
+    andre-chaperon: andre_chaperon
+    ben-settle: ben_settle
+    ry-schwartz: ry_schwartz
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENTS - Organized by Tier
+# ═══════════════════════════════════════════════════════════════════════════════
+agents:
+  # Orchestrator
+  - id: copy-chief
+    name: "Copy Chief"
+    role: "Orquestrador do time - Tier workflow, diagnóstico e delegação"
+    tier: orchestrator
+    version: "3.0.0"
+    file: "agents/copy-chief.md"
+    executor_profile:
+      sinkra_type: Agent
+      human_in_the_loop: true
+      output_schema: "deliverable definido pela task ativa e materializado via template, checklist ou handoff"
+      story_role: reviewer
+      can_execute: false
+      core_replaces: null
+      work_contexts: ["copy orchestration", "tier workflow", "copywriter routing", "diagnóstico", "delegação", "copy quality"]
+      can_review: ["copy-quality", "workflow-routing", "tier-compliance"]
+
+  # Operational Executors
+  - id: launch-owner
+    name: "Launch Owner"
+    role: "Aprovação humana, julgamento comercial e liberação de checkpoints críticos"
+    tier: operations
+    type: human
+    file: "agents/launch-owner.md"
+    executor_profile:
+      sinkra_type: Human
+      human_in_the_loop: true
+      output_schema: "deliverable definido pela task ativa e materializado via template, checklist ou handoff"
+      story_role: reviewer
+      can_execute: true
+      core_replaces: null
+      work_contexts: ["aprovação humana", "launch readiness", "go/no-go", "truth checking", "commercial judgment", "checkpoint release"]
+      can_review: ["launch-readiness", "offer-truth", "risk-control", "checkpoint-approval"]
+
+  - id: copy-ops-worker
+    name: "Copy Ops Worker"
+    role: "Empacotamento determinístico, normalização de entregáveis e handoff operacional"
+    tier: operations
+    type: worker
+    file: "agents/copy-ops-worker.md"
+    executor_profile:
+      sinkra_type: Worker
+      human_in_the_loop: true
+      output_schema: "deliverable definido pela task ativa e materializado via template, checklist ou handoff"
+      story_role: executor
+      can_execute: true
+      core_replaces: null
+      work_contexts: ["package assembly", "deliverable normalization", "handoff manifest", "output packaging", "ops handoff", "file normalization"]
+      can_review: ["delivery-completeness", "handoff-integrity"]
+
+  # Tier 0 - Foundation & Diagnosis (ALWAYS first)
+  - id: claude-hopkins
+    name: "Claude Hopkins"
+    role: "Scientific Advertising - Auditoria & Testes"
+    tier: 0
+    era: "Classic (1866-1932)"
+    specialty: "Auditoria científica, split tests, métricas"
+    file: "agents/claude-hopkins.md"
+    executor_profile:
+      sinkra_type: Clone
+      human_in_the_loop: true
+      output_schema: "deliverable definido pela task ativa e materializado via template, checklist ou handoff"
+      story_role: consultant
+      can_execute: false
+      core_replaces: null
+      work_contexts: ["scientific advertising", "split tests", "auditoria científica", "métricas", "copy testing", "data-driven copy"]
+      can_review: ["copy-testing", "scientific-method"]
+
+  - id: eugene-schwartz
+    name: "Eugene Schwartz"
+    role: "5 Levels of Awareness & Market Sophistication"
+    tier: 0
+    era: "Classic (1927-1995)"
+    specialty: "Diagnóstico de awareness, big ideas, breakthrough copy"
+    file: "agents/eugene-schwartz.md"
+    executor_profile:
+      sinkra_type: Clone
+      human_in_the_loop: true
+      output_schema: "deliverable definido pela task ativa e materializado via template, checklist ou handoff"
+      story_role: consultant
+      can_execute: false
+      core_replaces: null
+      work_contexts: ["awareness levels", "market sophistication", "big ideas", "breakthrough copy", "diagnóstico de awareness"]
+      can_review: ["awareness-diagnosis", "market-sophistication"]
+
+  # Tier 1 - Documented Masters ($500M+)
+  - id: gary-halbert
+    name: "Gary Halbert"
+    role: "Sales Letters & Storytelling Visceral"
+    tier: 1
+    era: "Classic (1938-2007)"
+    results: "$1 BILLION+ em vendas"
+    specialty: "Cartas de vendas, headlines, storytelling emocional"
+    file: "agents/gary-halbert.md"
+    executor_profile:
+      sinkra_type: Clone
+      human_in_the_loop: true
+      output_schema: "deliverable definido pela task ativa e materializado via template, checklist ou handoff"
+      story_role: executor
+      can_execute: true
+      core_replaces: "@dev"
+      work_contexts: ["sales letters", "headlines", "storytelling visceral", "emotional copy", "direct mail", "cartas de vendas"]
+      can_review: ["sales-letter-quality", "headline-power"]
+
+  - id: gary-bencivenga
+    name: "Gary Bencivenga"
+    role: "Bullets & Fascinations Master"
+    tier: 1
+    era: "Classic/Modern"
+    results: "80% win rate em controles"
+    specialty: "Bullets hipnóticos, fascinations, long-form"
+    file: "agents/gary-bencivenga.md"
+    executor_profile:
+      sinkra_type: Clone
+      human_in_the_loop: true
+      output_schema: "deliverable definido pela task ativa e materializado via template, checklist ou handoff"
+      story_role: executor
+      can_execute: true
+      core_replaces: "@dev"
+      work_contexts: ["bullets", "fascinations", "long-form copy", "control beating", "hipnotic bullets", "proof stack"]
+      can_review: ["bullet-quality", "fascination-power"]
+
+  - id: david-ogilvy
+    name: "David Ogilvy"
+    role: "Branding & Copy Elegante"
+    tier: 1
+    era: "Classic (1911-1999)"
+    specialty: "Copy premium, research-based, branding"
+    file: "agents/david-ogilvy.md"
+    executor_profile:
+      sinkra_type: Clone
+      human_in_the_loop: true
+      output_schema: "deliverable definido pela task ativa e materializado via template, checklist ou handoff"
+      story_role: executor
+      can_execute: true
+      core_replaces: "@dev"
+      work_contexts: ["branding copy", "premium copy", "research-based", "elegant writing", "brand advertising", "long headlines"]
+      can_review: ["brand-copy", "premium-quality"]
+
+  # Tier 2 - Modern Systematizers
+  - id: dan-kennedy
+    name: "Dan Kennedy"
+    role: "Direct Response & NO B.S. Marketing"
+    tier: 2
+    era: "Transition (1980-2010)"
+    results: "$100M+ em royalties, 300K membros GKIC"
+    specialty: "Urgência, escassez, 3Ms, PAS, Ultimate Sales Letter"
+    note: "3Ms (NOT 4Ms): Message-Market-Media"
+    file: "agents/dan-kennedy.md"
+    executor_profile:
+      sinkra_type: Clone
+      human_in_the_loop: true
+      output_schema: "deliverable definido pela task ativa e materializado via template, checklist ou handoff"
+      story_role: executor
+      can_execute: true
+      core_replaces: "@dev"
+      work_contexts: ["direct response", "urgência", "escassez", "3Ms", "PAS", "ultimate sales letter", "NO B.S."]
+      can_review: ["direct-response-quality", "urgency-scarcity"]
+
+  - id: todd-brown
+    name: "Todd Brown"
+    role: "Big Ideas & Unique Mechanisms"
+    tier: 2
+    era: "Modern (active)"
+    specialty: "E5 Method, diferenciação, mercados saturados"
+    file: "agents/todd-brown.md"
+    executor_profile:
+      sinkra_type: Clone
+      human_in_the_loop: true
+      output_schema: "deliverable definido pela task ativa e materializado via template, checklist ou handoff"
+      story_role: executor
+      can_execute: true
+      core_replaces: "@dev"
+      work_contexts: ["big ideas", "unique mechanisms", "E5 method", "diferenciação", "mercados saturados", "marketing differentiation"]
+      can_review: ["big-idea-quality", "mechanism-uniqueness"]
+
+  # Tier 3 - Format Specialists
+  - id: jon-benson
+    name: "Jon Benson"
+    role: "VSL (Video Sales Letter) - Inventor do formato"
+    tier: 3
+    era: "Modern (active)"
+    results: "$1 BILLION+ em vendas via VSL"
+    specialty: "VSL scripts, video copy, Sellerator method"
+    file: "agents/jon-benson.md"
+    executor_profile:
+      sinkra_type: Clone
+      human_in_the_loop: true
+      output_schema: "deliverable definido pela task ativa e materializado via template, checklist ou handoff"
+      story_role: executor
+      can_execute: true
+      core_replaces: "@dev"
+      work_contexts: ["VSL scripts", "video sales letter", "Sellerator method", "video copy", "slide VSL", "conversion video"]
+      can_review: ["VSL-quality", "video-copy"]
+
+  # PLF Specialist
+  - id: jeff-walker
+    name: "Jeff Walker"
+    role: "Product Launch Formula - Launch Sequences & CPL Strategy"
+    tier: 2
+    era: "Modern (active)"
+    results: "$1 BILLION+ in student launches"
+    specialty: "PLF methodology, PLC sequences, mental triggers, launch copy"
+    note: "Primary evaluator for CPL analysis workflows"
+    file: "agents/jeff-walker.md"
+    executor_profile:
+      sinkra_type: Clone
+      human_in_the_loop: true
+      output_schema: "deliverable definido pela task ativa e materializado via template, checklist ou handoff"
+      story_role: executor
+      can_execute: true
+      core_replaces: "@dev"
+      work_contexts: ["PLF", "product launch formula", "PLC sequences", "mental triggers", "launch copy", "seed launch"]
+      can_review: ["launch-sequence", "PLF-compliance"]
+
+  - id: alex-hormozi
+    name: "Alex Hormozi"
+    role: "Offer Creation & $100M Methodology"
+    tier: 2
+    era: "Modern (active)"
+    results: "$100M+ em ofertas e crescimento"
+    specialty: "Grand Slam Offers, value equation, pricing, value stacks"
+    file: "agents/alex-hormozi.md"
+    executor_profile:
+      sinkra_type: Clone
+      human_in_the_loop: true
+      output_schema: "deliverable definido pela task ativa e materializado via template, checklist ou handoff"
+      story_role: executor
+      can_execute: true
+      core_replaces: "@dev"
+      work_contexts: ["offer creation", "grand slam offers", "value equation", "pricing", "value stack", "irresistible offers"]
+      can_review: ["offer-strength", "pricing-strategy", "value-equation"]
+
+  # TOOL (not a clone)
+  - id: joe-sugarman
+    name: "Joe Sugarman"
+    role: "30 Psychological Triggers Checklist"
+    tier: tool
+    type: checklist
+    usage: "*sugarman-check"
+    note: "CRITICAL: 30 triggers (NOT 31). Apply AFTER writing copy."
+    file: "agents/joe-sugarman.md"
+    executor_profile:
+      sinkra_type: Clone
+      human_in_the_loop: true
+      output_schema: "deliverable definido pela task ativa e materializado via template, checklist ou handoff"
+      story_role: consultant
+      can_execute: false
+      core_replaces: null
+      work_contexts: ["psychological triggers", "30 triggers", "copy checklist", "persuasion triggers", "post-copy validation"]
+      can_review: ["trigger-compliance", "persuasion-checklist"]
+
+  # === NEWLY REGISTERED AGENTS (v4.0) ===
+
+  # Tier 0 - Foundation & Diagnosis
+  - id: robert-collier
+    name: "Robert Collier"
+    role: "Enter the Conversation - Mental Conversation Analysis"
+    tier: 0
+    era: "Classic (1885-1950)"
+    specialty: "Entrar na conversa mental do prospect, cartas de vendas"
+    file: "agents/robert-collier.md"
+    executor_profile:
+      sinkra_type: Clone
+      human_in_the_loop: true
+      output_schema: "deliverable definido pela task ativa e materializado via template, checklist ou handoff"
+      story_role: consultant
+      can_execute: false
+      core_replaces: null
+      work_contexts: ["mental conversation", "prospect mindset", "conversa mental", "cartas de vendas", "letter writing", "empathy copy"]
+      can_review: ["prospect-alignment", "mental-conversation"]
+
+  # Tier 1 - Documented Masters ($500M+)
+  - id: clayton-makepeace
+    name: "Clayton Makepeace"
+    role: "Visceral Copy & Emotional Amplification"
+    tier: 1
+    era: "Classic/Modern (1952-2020)"
+    specialty: "Copy visceral, amplificacao emocional, health market"
+    file: "agents/clayton-makepeace.md"
+    executor_profile:
+      sinkra_type: Clone
+      human_in_the_loop: true
+      output_schema: "deliverable definido pela task ativa e materializado via template, checklist ou handoff"
+      story_role: executor
+      can_execute: true
+      core_replaces: "@dev"
+      work_contexts: ["visceral copy", "emotional amplification", "health market", "copy visceral", "amplificação emocional", "supplement copy"]
+      can_review: ["emotional-copy", "health-copy"]
+
+  - id: parris-lampropoulos
+    name: "Parris Lampropoulos"
+    role: "Fascinations & Bullets Master"
+    tier: 1
+    era: "Modern"
+    results: "12 anos mantendo controle na Boardroom"
+    specialty: "Bullets 700-to-100, fascinations, long-form"
+    file: "agents/parris-lampropoulos.md"
+    executor_profile:
+      sinkra_type: Clone
+      human_in_the_loop: true
+      output_schema: "deliverable definido pela task ativa e materializado via template, checklist ou handoff"
+      story_role: executor
+      can_execute: true
+      core_replaces: "@dev"
+      work_contexts: ["fascinations", "bullets 700-to-100", "long-form", "control copy", "Boardroom controls", "financial copy"]
+      can_review: ["bullet-density", "fascination-quality"]
+
+  - id: john-carlton
+    name: "John Carlton"
+    role: "Simple Writing System & Sales Copy"
+    tier: 1
+    era: "Modern"
+    specialty: "Copy simplificada, conversacional, persuasiva"
+    file: "agents/john-carlton.md"
+    executor_profile:
+      sinkra_type: Clone
+      human_in_the_loop: true
+      output_schema: "deliverable definido pela task ativa e materializado via template, checklist ou handoff"
+      story_role: executor
+      can_execute: true
+      core_replaces: "@dev"
+      work_contexts: ["simple writing system", "conversational copy", "sales copy", "copy simplificada", "persuasive writing"]
+      can_review: ["copy-simplicity", "conversational-tone"]
+
+  - id: jim-rutz
+    name: "Jim Rutz"
+    role: "Magalogs & Direct Mail Innovation"
+    tier: 1
+    era: "Classic/Modern"
+    specialty: "Magalogs, direct mail volume, magazine-format copy"
+    file: "agents/jim-rutz.md"
+    executor_profile:
+      sinkra_type: Clone
+      human_in_the_loop: true
+      output_schema: "deliverable definido pela task ativa e materializado via template, checklist ou handoff"
+      story_role: executor
+      can_execute: true
+      core_replaces: "@dev"
+      work_contexts: ["magalogs", "direct mail", "magazine-format copy", "high-volume mail", "editorial style", "long-form direct"]
+      can_review: ["magalog-quality", "direct-mail-format"]
+
+  - id: david-deutsch
+    name: "David Deutsch"
+    role: "Direct Mail & Sales Letters"
+    tier: 1
+    era: "Classic/Modern"
+    specialty: "Direct mail, cartas de vendas, controles"
+    file: "agents/david-deutsch.md"
+    executor_profile:
+      sinkra_type: Clone
+      human_in_the_loop: true
+      output_schema: "deliverable definido pela task ativa e materializado via template, checklist ou handoff"
+      story_role: executor
+      can_execute: true
+      core_replaces: "@dev"
+      work_contexts: ["direct mail", "sales letters", "control copy", "cartas de vendas", "mail campaigns", "response copy"]
+      can_review: ["direct-mail-quality", "control-performance"]
+
+  # Tier 2 - Modern Systematizers
+  - id: frank-kern
+    name: "Frank Kern"
+    role: "Intent-Based Branding & Mass Control"
+    tier: 2
+    era: "Modern (active)"
+    specialty: "Intent-based branding, mass control, behavioral dynamic response"
+    file: "agents/frank-kern.md"
+    executor_profile:
+      sinkra_type: Clone
+      human_in_the_loop: true
+      output_schema: "deliverable definido pela task ativa e materializado via template, checklist ou handoff"
+      story_role: executor
+      can_execute: true
+      core_replaces: "@dev"
+      work_contexts: ["intent-based branding", "mass control", "behavioral dynamic response", "results in advance", "brand marketing"]
+      can_review: ["intent-branding", "mass-control"]
+
+  - id: stefan-georgi
+    name: "Stefan Georgi"
+    role: "RMBC Method - Research, Mechanism, Brief, Copy"
+    tier: 2
+    era: "Modern (active)"
+    results: "$700M+ em vendas, 80% win rate"
+    specialty: "RMBC system, copy sistematizada, mecanismos"
+    file: "agents/stefan-georgi.md"
+    executor_profile:
+      sinkra_type: Clone
+      human_in_the_loop: true
+      output_schema: "deliverable definido pela task ativa e materializado via template, checklist ou handoff"
+      story_role: executor
+      can_execute: true
+      core_replaces: "@dev"
+      work_contexts: ["RMBC method", "research mechanism brief copy", "copy sistematizada", "mecanismos", "systematic copy"]
+      can_review: ["RMBC-compliance", "mechanism-quality"]
+
+  - id: russell-brunson
+    name: "Russell Brunson"
+    role: "Funnels & Book Launch Systems"
+    tier: 2
+    era: "Modern (active)"
+    results: "$100M+ em vendas com funnels"
+    specialty: "Funnels, book launches, free + shipping, value ladders"
+    file: "agents/russell-brunson.md"
+    executor_profile:
+      sinkra_type: Clone
+      human_in_the_loop: true
+      output_schema: "deliverable definido pela task ativa e materializado via template, checklist ou handoff"
+      story_role: executor
+      can_execute: true
+      core_replaces: "@dev"
+      work_contexts: ["funnels", "book launches", "free + shipping", "value ladders", "funnel hacking", "ClickFunnels"]
+      can_review: ["funnel-copy", "launch-copy"]
+
+  # Tier 3 - Format & Channel Specialists
+  - id: dan-koe
+    name: "Dan Koe"
+    role: "Digital Writing & One-Person Business"
+    tier: 3
+    era: "Modern (active)"
+    specialty: "Digital writing, one-person business, content systems"
+    file: "agents/dan-koe.md"
+    executor_profile:
+      sinkra_type: Clone
+      human_in_the_loop: true
+      output_schema: "deliverable definido pela task ativa e materializado via template, checklist ou handoff"
+      story_role: executor
+      can_execute: true
+      core_replaces: "@dev"
+      work_contexts: ["digital writing", "one-person business", "content systems", "newsletter", "social writing", "creator economy"]
+      can_review: ["digital-writing", "content-systems"]
+
+  - id: andre-chaperon
+    name: "Andre Chaperon"
+    role: "Soap Opera Sequences & Story-Driven Email"
+    tier: 3
+    era: "Modern (active)"
+    specialty: "Email storytelling, autoresponder sequences, soap operas"
+    file: "agents/andre-chaperon.md"
+    executor_profile:
+      sinkra_type: Clone
+      human_in_the_loop: true
+      output_schema: "deliverable definido pela task ativa e materializado via template, checklist ou handoff"
+      story_role: executor
+      can_execute: true
+      core_replaces: "@dev"
+      work_contexts: ["soap opera sequences", "email storytelling", "autoresponder", "story-driven email", "narrative email"]
+      can_review: ["email-sequence", "story-email"]
+
+  - id: ben-settle
+    name: "Ben Settle"
+    role: "Daily Email & Infotainment Marketing"
+    tier: 3
+    era: "Modern (active)"
+    specialty: "Email diario, infotainment, personality-driven marketing"
+    file: "agents/ben-settle.md"
+    executor_profile:
+      sinkra_type: Clone
+      human_in_the_loop: true
+      output_schema: "deliverable definido pela task ativa e materializado via template, checklist ou handoff"
+      story_role: executor
+      can_execute: true
+      core_replaces: "@dev"
+      work_contexts: ["daily email", "infotainment", "personality-driven", "email diário", "provocative marketing"]
+      can_review: ["daily-email-quality", "infotainment"]
+
+  - id: ry-schwartz
+    name: "Ry Schwartz"
+    role: "Email Copywriting & Sequences"
+    tier: 3
+    era: "Modern (active)"
+    specialty: "Email sequences, automation copy"
+    file: "agents/ry-schwartz.md"
+    executor_profile:
+      sinkra_type: Clone
+      human_in_the_loop: true
+      output_schema: "deliverable definido pela task ativa e materializado via template, checklist ou handoff"
+      story_role: executor
+      can_execute: true
+      core_replaces: "@dev"
+      work_contexts: ["email copywriting", "email sequences", "automation copy", "drip campaigns", "conversion emails"]
+      can_review: ["email-copy", "sequence-quality"]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PATTERN LIBRARY (CW-xxx)
+# ═══════════════════════════════════════════════════════════════════════════════
+pattern_library:
+  prefix: CW
+  naming_convention:
+    format: "{PREFIX}-{CATEGORY}-{NUMBER}"
+    example: "CW-TP-001"
+  categories:
+    - id: TP
+      name: "Task Patterns"
+      description: "Patterns for copy task structure and execution"
+    - id: EP
+      name: "Executor Patterns"
+      description: "Patterns for executor types and selection"
+    - id: PP
+      name: "Process Patterns"
+      description: "Patterns for copy workflow processes"
+    - id: RP
+      name: "Routing Patterns"
+      description: "Patterns for Copy Chief routing decisions"
+    - id: QP
+      name: "Quality Patterns"
+      description: "Patterns for copy QA and review"
+  patterns: []
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# TASK STANDARDS (CW-TP-001)
+# ═══════════════════════════════════════════════════════════════════════════════
+task_standards:
+  enforce_anatomy: true
+  validator: "CW-TP-001"
+  required_fields:
+    - task_name
+    - status
+    - responsible_executor
+    - execution_type
+    - input
+    - output
+    - action_items
+    - acceptance_criteria
+  optional_fields:
+    - estimated_time
+    - dependencies
+    - templates
+    - quality_gate
+    - handoff
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# MODEL ROUTING PER TIER
+# ═══════════════════════════════════════════════════════════════════════════════
+model_routing:
+  copy-chief: opus
+  tier_0_diagnostic: opus
+  tier_1_masters: opus
+  tier_2_systematizers: sonnet
+  tier_3_specialists: sonnet
+  tool_sugarman: haiku
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# WORKFLOW CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════════
+workflow_config:
+  checkpoint_policy: always_active
+  fail_fast: true
+  allow_manual_override: false
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# TIER ARCHITECTURE
+# ═══════════════════════════════════════════════════════════════════════════════
+tiers:
+  orchestrator:
+    name: "Copy Chief"
+    agents: [copy-chief]
+    function: "Routing + QA"
+  tier_0:
+    name: "Diagnostic"
+    agents: [claude-hopkins, eugene-schwartz, robert-collier]
+    function: "Diagnose before writing"
+  tier_1:
+    name: "Masters"
+    agents: [gary-halbert, gary-bencivenga, david-ogilvy, clayton-makepeace, parris-lampropoulos, john-carlton, jim-rutz, david-deutsch]
+    function: "High-stakes copy ($500M+ track record)"
+  tier_2:
+    name: "Systematizers"
+    agents: [dan-kennedy, alex-hormozi, todd-brown, jeff-walker, stefan-georgi, russell-brunson, frank-kern]
+    function: "Framework-based systems"
+  tier_3:
+    name: "Specialists"
+    agents: [jon-benson, andre-chaperon, ben-settle, ry-schwartz, dan-koe]
+    function: "Format/channel specialists"
+  tool:
+    name: "QA Gate"
+    agents: [joe-sugarman]
+    function: "30 Triggers Checklist"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ML SOP REGISTRY — Machine-Learned Execution Contracts
+# ═══════════════════════════════════════════════════════════════════════════════
+ml_sop_registry:
+  enabled: true
+  index_file: "sops/ml-sop-index.yaml"
+  base_path: "sops"
+  counts:
+    total_contracts: 395
+    by_tier:
+      t0_diagnostic: 107
+      t1_masters: 93
+      t2_systematizers: 99
+      t3_specialists: 96
+    by_type:
+      tasks: 128
+      frameworks: 127
+      decision_trees: 71
+      checklists: 69
+    templates: 19
+    agent_tasks: 146
+    agent_checklists: 18
+    workflows: 6
+  blending_rules:
+    - id: "BR-001"
+      rule: "Schwartz diagnostic MUST run before any draft SOP"
+      enforcement: "BLOCKING"
+      rationale: "Awareness level determines which SOP pathway is appropriate"
+    - id: "BR-002"
+      rule: "Kennedy 28-step and Hormozi grand-slam are mutually exclusive on same copy"
+      enforcement: "BLOCKING"
+      rationale: "Both impose conflicting structural requirements on the sales letter"
+    - id: "BR-003"
+      rule: "Research SOPs run before strategy SOPs (ordering)"
+      enforcement: "SEQUENCING"
+      rationale: "Strategy depends on research outputs; executing out of order produces generic copy"
+  quality_enforcement:
+    fail_fast: true
+    escalate_to: "copy-chief"
+    min_sop_compliance: 0.8
+    violation_action: "BLOCK_AND_REPORT"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# EXECUTOR TYPES
+# ═══════════════════════════════════════════════════════════════════════════════
+executor_types:
+  human:
+    id: "CP-EP-001"
+    name: "Human Executor"
+    use_for: ["Aprovação estratégica", "Julgamento comercial", "Liberação de checkpoints críticos"]
+  agent:
+    id: "CP-EP-002"
+    name: "AI Orchestrator"
+    use_for: ["Orquestração", "Roteamento", "Review do pacote"]
+  clone:
+    id: "CP-EP-003"
+    name: "Legendary Copy Clone"
+    use_for: ["Diagnóstico", "Criação de copy", "Auditoria metodológica"]
+  worker:
+    id: "CP-EP-004"
+    name: "Copy Ops Worker"
+    use_for: ["Empacotamento determinístico", "Normalização de entregáveis", "Handoff operacional"]
+
+executor_selection:
+  requires_judgment: [human, agent]
+  requires_copy_creation: clone
+  requires_orchestration: agent
+  requires_packaging: worker
+  requires_final_approval: human
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ARCHIVED AGENTS
+# ═══════════════════════════════════════════════════════════════════════════════
+archived_agents:
+  location: "archive/agents/"
+  reason: "Not direct response copywriters"
+  agents:
+    - id: ramit-sethi
+      reason: "Personal finance educator, not copywriter"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# TASKS - Complete Registry (76 tasks)
+# ═══════════════════════════════════════════════════════════════════════════════
+tasks:
+  # Agent Creation Tasks
+  - id: create-copywriter-agent
+    name: "Criar Agente Copywriter"
+    category: agent-creation
+  - id: extract-communication-dna
+    name: "Extrair DNA de Comunicação"
+    category: agent-creation
+  - id: extract-frameworks
+    name: "Extrair Frameworks"
+    category: agent-creation
+  - id: extract-signature-phrases
+    name: "Extrair Frases Assinatura"
+    category: agent-creation
+    version: "2.0.0"
+    lines: 1197
+  - id: build-authority-arsenal
+    name: "Construir Arsenal de Autoridade"
+    category: agent-creation
+  - id: create-objection-algorithms
+    name: "Criar Algoritmos de Objeção"
+    category: agent-creation
+
+  # Diagnosis Tasks (Tier 0)
+  - id: audit-copy-hopkins
+    name: "Auditoria Científica Hopkins"
+    category: diagnosis
+    tier: 0
+  - id: setup-split-test
+    name: "Setup de Split Test"
+    category: diagnosis
+    tier: 0
+  - id: audit-landing-page
+    name: "Auditoria de Landing Page"
+    category: diagnosis
+
+  # Research Tasks
+  - id: avatar-research
+    name: "Pesquisa de Avatar"
+    category: research
+  - id: copysearch
+    name: "Pesquisa de Copy Competidora"
+    category: research
+  - id: load-workspace-context
+    name: "Carregar Contexto do Workspace"
+    category: research
+
+  # Creation Tasks - Sales Pages & Funnels
+  - id: create-sales-page
+    name: "Criar Página de Vendas"
+    category: creation
+  - id: create-landing-page
+    name: "Criar Landing Page"
+    category: creation
+  - id: create-upsell-page
+    name: "Criar Página de Upsell"
+    category: creation
+  - id: create-downsell-page
+    name: "Criar Página de Downsell"
+    category: creation
+  - id: create-order-bump
+    name: "Criar Order Bump"
+    category: creation
+  - id: create-thank-you-page
+    name: "Criar Thank You Page"
+    category: creation
+  - id: create-lead-magnet
+    name: "Criar Lead Magnet"
+    category: creation
+    version: "2.0.0"
+    lines: 1249
+  - id: create-abandoned-cart
+    name: "Criar Sequência Carrinho Abandonado"
+    category: creation
+    version: "2.0.0"
+    lines: 1165
+
+  # Creation Tasks - Email
+  - id: create-email-sequence
+    name: "Criar Sequência de Emails"
+    category: creation
+  - id: create-launch-emails
+    name: "Criar Emails de Lançamento"
+    category: creation
+  - id: create-cold-email
+    name: "Criar Cold Email"
+    category: creation
+  - id: create-newsletter
+    name: "Criar Newsletter"
+    category: creation
+
+  # Creation Tasks - Video & Ads
+  - id: vsl-script
+    name: "Criar Script de VSL"
+    category: creation
+    tier: 3
+  - id: create-video-hook
+    name: "Criar Hook de Video"
+    category: creation
+  - id: create-ad-copy
+    name: "Criar Copy de Anúncios"
+    category: creation
+  - id: create-ad-script
+    name: "Criar Script de Anúncio"
+    category: creation
+  - id: create-youtube-ads
+    name: "Criar Anúncios YouTube"
+    category: creation
+  - id: create-native-ads
+    name: "Criar Native Ads"
+    category: creation
+
+  # Creation Tasks - Other
+  - id: create-headlines
+    name: "Criar Headlines & Hooks"
+    category: creation
+  - id: create-bullets
+    name: "Criar Bullets & Fascinations"
+    category: creation
+  - id: create-webinar-script
+    name: "Criar Script de Webinar"
+    category: creation
+  - id: create-close-script
+    name: "Criar Script de Close"
+    category: creation
+  - id: create-offer
+    name: "Criar Oferta"
+    category: creation
+  - id: evaluate-offer
+    name: "Avaliar Oferta"
+    category: creation
+
+  # Collaboration Tasks
+  - id: blend
+    name: "Combinar Estilos de Copywriters"
+    category: collaboration
+  - id: copy-debate
+    name: "Debate entre Copywriters"
+    category: collaboration
+
+  # PLF Tasks
+  - id: plf/evaluate-cpl
+    name: "Avaliar CPL (Pre-Launch Content)"
+    category: plf
+    version: "2.0.0"
+    agent: jeff-walker
+    note: "Deep evaluation using Production Aids (Sections 4, 5, 8, 9)"
+
+  # === NEW TASKS TO REGISTER (v4.0) ===
+
+  # Diagnosis & Strategy Tasks
+  - id: diagnose-awareness-level
+    name: "Diagnosticar Nivel de Awareness (Schwartz)"
+    category: diagnosis
+    tier: 0
+  - id: diagnose-market-sophistication
+    name: "Diagnosticar Sofisticacao de Mercado (Schwartz)"
+    category: diagnosis
+    tier: 0
+  - id: analyze-mental-conversation
+    name: "Analisar Conversa Mental (Collier)"
+    category: diagnosis
+    tier: 0
+  - id: create-decision-matrix
+    name: "Criar Decision Matrix de Workflow"
+    category: strategy
+  - id: create-unique-mechanism
+    name: "Criar Mecanismo Unico (Todd Brown E5)"
+    category: strategy
+  - id: create-big-idea
+    name: "Criar Big Marketing Idea (Todd Brown)"
+    category: strategy
+  - id: rmbc-method
+    name: "RMBC Method Completo (Stefan Georgi)"
+    category: strategy
+  - id: map-6-primary-motives
+    name: "Mapear 6 Motivos Primarios"
+    category: research
+
+  # Creation Tasks - Sales & Funnels
+  - id: create-call-script
+    name: "Criar Script de Call (Kennedy)"
+    category: creation
+  - id: create-magalog
+    name: "Criar Magalog (Rutz)"
+    category: creation
+  - id: create-proof-stack
+    name: "Criar Proof Stack (Bencivenga)"
+    category: creation
+  - id: create-cold-webinar-script
+    name: "Criar Script Webinar Cold"
+    category: creation
+  - id: create-warm-webinar-script
+    name: "Criar Script Webinar Warm"
+    category: creation
+
+  # Creation Tasks - Email
+  - id: create-daily-email
+    name: "Criar Email Diario (Ben Settle)"
+    category: creation
+  - id: create-soap-opera-sequence
+    name: "Criar Soap Opera Sequence (Chaperon)"
+    category: creation
+  - id: create-pre-call-hammer-sequence
+    name: "Criar Hammer Sequence Pre-Call"
+    category: creation
+  - id: create-ghosted-lead-recovery
+    name: "Criar Sistema de Recuperacao de Leads"
+    category: creation
+
+  # Quality & Tool Tasks
+  - id: apply-sugarman-triggers
+    name: "Aplicar 30 Triggers Sugarman"
+    category: quality
+    tier: tool
+  - id: simple-writing-audit
+    name: "Auditoria Simple Writing (Carlton)"
+    category: quality
+  - id: write-visceral-copy
+    name: "Transformar Copy em Visceral (Makepeace)"
+    category: quality
+  - id: write-lampropoulos-bullets
+    name: "Escrever Bullets Lampropoulos (700-to-100)"
+    category: creation
+
+  # MMOS Integration
+  - id: load-mmos-voice
+    name: "Carregar Voice Clone MMOS"
+    category: mmos-integration
+
+  # PLF Tasks (Jeff Walker sub-module)
+  - id: plf/create-plc-sequence
+    name: "Criar Sequencia PLC1-2-3"
+    category: plf
+    agent: jeff-walker
+  - id: plf/create-preprelaunch
+    name: "Criar Pre-Prelaunch"
+    category: plf
+    agent: jeff-walker
+  - id: plf/create-launch-emails
+    name: "Criar Emails de Launch PLF"
+    category: plf
+    agent: jeff-walker
+  - id: plf/create-launch-stack
+    name: "Criar Launch Stack"
+    category: plf
+    agent: jeff-walker
+  - id: plf/create-open-cart-sequence
+    name: "Criar Open Cart Sequence"
+    category: plf
+    agent: jeff-walker
+  - id: plf/create-seed-launch
+    name: "Criar Seed Launch"
+    category: plf
+    agent: jeff-walker
+  - id: plf/create-live-launch
+    name: "Criar Live Launch"
+    category: plf
+    agent: jeff-walker
+  - id: plf/create-evergreen-launch
+    name: "Criar Evergreen Launch"
+    category: plf
+    agent: jeff-walker
+  - id: plf/create-jv-launch
+    name: "Criar JV Launch"
+    category: plf
+    agent: jeff-walker
+  - id: plf/create-sales-page-plf
+    name: "Criar Sales Page PLF"
+    category: plf
+    agent: jeff-walker
+  - id: plf/create-case-study
+    name: "Criar Case Study"
+    category: plf
+    agent: jeff-walker
+  - id: plf/diagnose-failed-launch
+    name: "Diagnosticar Launch Falho"
+    category: plf
+    agent: jeff-walker
+  - id: plf/map-mental-triggers
+    name: "Mapear Mental Triggers PLF"
+    category: plf
+    agent: jeff-walker
+  - id: plf/plan-paid-traffic
+    name: "Planejar Paid Traffic para Launch"
+    category: plf
+    agent: jeff-walker
+
+  # Brunson Tasks
+  - id: brunson/create-book-funnel
+    name: "Criar Book Funnel (Free + Shipping)"
+    category: brunson
+    agent: russell-brunson
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# TEMPLATES (51 templates)
+# ═══════════════════════════════════════════════════════════════════════════════
+templates:
+  # Core Templates
+  - id: sales-page-tmpl
+    name: "Template de Página de Vendas"
+  - id: email-sequence-tmpl
+    name: "Template de Sequência de Emails"
+  - id: ad-copy-tmpl
+    name: "Template de Anúncios"
+  - id: vsl-tmpl
+    name: "Template de VSL Script"
+
+  # Agent Creation Templates
+  - id: copywriter-agent-tmpl
+    name: "Template de Agente Copywriter"
+  - id: communication-dna-tmpl
+    name: "Template de DNA de Comunicação"
+  - id: frameworks-extraction-tmpl
+    name: "Template de Extração de Frameworks"
+  - id: signature-phrases-tmpl
+    name: "Template de Frases Assinatura"
+  - id: authority-arsenal-tmpl
+    name: "Template de Arsenal de Autoridade"
+  - id: objection-algorithms-tmpl
+    name: "Template de Algoritmos de Objeção"
+
+  # Collaboration Templates
+  - id: blend-tmpl
+    name: "Template de Blend de Copywriters"
+  - id: debate-tmpl
+    name: "Template de Copy Debate"
+
+  # === NEW TEMPLATES TO REGISTER (v4.0) ===
+
+  # Core Templates
+  - id: avatar-research-template
+    name: "Template de Pesquisa de Avatar"
+  - id: copysearch-template
+    name: "Template de Pesquisa de Copy"
+  - id: daily-email-tmpl
+    name: "Template de Email Diario"
+  - id: soap-opera-tmpl
+    name: "Template de Soap Opera Sequence"
+  - id: magalog-tmpl
+    name: "Template de Magalog"
+  - id: collier-letter-tmpl
+    name: "Template de Carta Collier"
+  - id: rmbc-brief-tmpl
+    name: "Template de Brief RMBC"
+  - id: hammer-email-sequence-tmpl
+    name: "Template de Hammer Email Sequence"
+  - id: cold-webinar-script-tmpl
+    name: "Template de Script Webinar Cold"
+  - id: owner-cleanup-call-tmpl
+    name: "Template de Cleanup Call"
+
+  # Swipe File Extraction Templates
+  - id: swipe/extract-headlines
+    name: "Extrair Headlines de Swipe"
+    category: swipe
+  - id: swipe/extract-bullets
+    name: "Extrair Bullets de Swipe"
+    category: swipe
+  - id: swipe/extract-leads
+    name: "Extrair Leads de Swipe"
+    category: swipe
+  - id: swipe/extract-emails
+    name: "Extrair Emails de Swipe"
+    category: swipe
+  - id: swipe/extract-hooks
+    name: "Extrair Hooks de Swipe"
+    category: swipe
+  - id: swipe/extract-closes
+    name: "Extrair Closes de Swipe"
+    category: swipe
+  - id: swipe/extract-full-pieces
+    name: "Extrair Full Pieces de Swipe"
+    category: swipe
+  - id: swipe/extract-naming
+    name: "Extrair Naming de Swipe"
+    category: swipe
+  - id: swipe/extract-transitions
+    name: "Extrair Transitions de Swipe"
+    category: swipe
+
+  # PLF Templates
+  - id: plf/preprelaunch-survey-tmpl
+    name: "Template Survey Pre-Prelaunch"
+    category: plf
+  - id: plf/plc1-script-tmpl
+    name: "Template Script PLC1"
+    category: plf
+  - id: plf/plc2-script-tmpl
+    name: "Template Script PLC2"
+    category: plf
+  - id: plf/plc3-script-tmpl
+    name: "Template Script PLC3"
+    category: plf
+  - id: plf/open-cart-day1-tmpl
+    name: "Template Open Cart Day 1"
+    category: plf
+  - id: plf/open-cart-final-tmpl
+    name: "Template Open Cart Final"
+    category: plf
+  - id: plf/launch-stack-tmpl
+    name: "Template Launch Stack"
+    category: plf
+  - id: plf/case-study-tmpl
+    name: "Template Case Study"
+    category: plf
+  - id: plf/sales-page-blueprint-tmpl
+    name: "Template Sales Page Blueprint PLF"
+    category: plf
+  - id: plf/jv-swipe-tmpl
+    name: "Template JV Swipe"
+    category: plf
+  - id: plf/launch-timeline-tmpl
+    name: "Template Launch Timeline"
+    category: plf
+  - id: plf/objection-crusher-tmpl
+    name: "Template Objection Crusher"
+    category: plf
+  - id: plf/email-subject-lines-tmpl
+    name: "Template Subject Lines"
+    category: plf
+  - id: plf/beat-analysis-tmpl
+    name: "Template Beat Analysis"
+    category: plf
+  - id: plf/cpl-evaluation-report-tmpl
+    name: "Template CPL Evaluation Report"
+    category: plf
+  - id: plf/rubric-scores-tmpl
+    name: "Template Rubric Scores"
+    category: plf
+
+  # Brunson Templates
+  - id: brunson/book-funnel-sales-page-tmpl
+    name: "Template Sales Page Book Funnel"
+    category: brunson
+  - id: brunson/follow-up-email-sequence-tmpl
+    name: "Template Follow-up Email Sequence"
+    category: brunson
+  - id: brunson/order-bump-tmpl
+    name: "Template Order Bump"
+    category: brunson
+  - id: brunson/upsell-oto-tmpl
+    name: "Template Upsell OTO"
+    category: brunson
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# CHECKLISTS (55 checklists)
+# ═══════════════════════════════════════════════════════════════════════════════
+checklists:
+  # Quality Checklists
+  - id: copy-quality-checklist
+    name: "Checklist de Qualidade de Copy"
+  - id: copywriter-quality-checklist
+    name: "Checklist de Qualidade por Copywriter"
+  - id: ad-copy-quality
+    name: "Checklist Qualidade de Ad Copy"
+  - id: call-script-quality
+    name: "Checklist Qualidade de Call Script"
+  - id: close-script-quality
+    name: "Checklist Qualidade de Close Script"
+  - id: cold-email-quality
+    name: "Checklist Qualidade de Cold Email"
+  - id: daily-email-quality
+    name: "Checklist Qualidade de Daily Email"
+  - id: decision-matrix-quality
+    name: "Checklist Qualidade de Decision Matrix"
+  - id: email-quality-checklist
+    name: "Checklist Qualidade de Email"
+  - id: headline-quality-checklist
+    name: "Checklist Qualidade de Headline"
+  - id: landing-page-quality
+    name: "Checklist Qualidade de Landing Page"
+  - id: magalog-quality
+    name: "Checklist Qualidade de Magalog"
+  - id: offer-quality-checklist
+    name: "Checklist Qualidade de Oferta"
+  - id: proof-stack-quality
+    name: "Checklist Qualidade de Proof Stack"
+  - id: soap-opera-quality
+    name: "Checklist Qualidade de Soap Opera"
+  - id: visceral-copy-quality
+    name: "Checklist Qualidade de Visceral Copy"
+  - id: vsl-quality-checklist
+    name: "Checklist Qualidade de VSL"
+
+  # Tier 0 Checklists
+  - id: hopkins-audit-checklist
+    name: "Checklist de Auditoria Hopkins"
+    tier: 0
+
+  # Agent Creation Checklists
+  - id: copywriter-agent-creation-checklist
+    name: "Checklist de Criação de Agente"
+  - id: avatar-research-checklist
+    name: "Checklist de Pesquisa de Avatar"
+  - id: copysearch-checklist
+    name: "Checklist de Pesquisa de Copy"
+
+  # Tool Checklist (Sugarman)
+  # Note: sugarman-30-triggers.md is planned
+
+  # PLF Production Aids (CPL Evaluation)
+  - id: plf/plc1-complete-production-aid
+    name: "PLC #1 Production Aid (The Opportunity)"
+    category: plf
+    lines: 589
+  - id: plf/plc2-complete-production-aid
+    name: "PLC #2 Production Aid (The Transformation)"
+    category: plf
+    lines: 827
+  - id: plf/plc3-complete-production-aid
+    name: "PLC #3 Production Aid (The Ownership)"
+    category: plf
+    lines: 943
+  - id: plf/sales-video-complete-production-aid
+    name: "Sales Video Production Aid (Open Cart)"
+    category: plf
+    lines: 1126
+
+  # === NEW CHECKLISTS TO REGISTER (v4.0) ===
+
+  # Core Quality Checklists
+  - id: schwartz-diagnosis-checklist
+    name: "Checklist Diagnostico Schwartz"
+    tier: 0
+  - id: sugarman-30-triggers
+    name: "30 Psychological Triggers (Sugarman)"
+    tier: tool
+  - id: bullet-quality-checklist
+    name: "Checklist Qualidade de Bullets"
+  - id: carlton-simplicity-checklist
+    name: "Checklist Simplicidade Carlton"
+  - id: collier-letter-checklist
+    name: "Checklist Carta Collier"
+  - id: email-infotainment-checklist
+    name: "Checklist Email Infotainment"
+  - id: magalog-checklist
+    name: "Checklist Magalog"
+  - id: soap-opera-checklist
+    name: "Checklist Soap Opera Sequence"
+  - id: rmbc-checklist
+    name: "Checklist RMBC Method"
+  - id: pre-call-email-validation
+    name: "Checklist Validacao Email Pre-Call"
+  - id: cold-vs-warm-webinar-checklist
+    name: "Checklist Cold vs Warm Webinar"
+
+  # PLF Checklists
+  - id: plf/preprelaunch-readiness
+    name: "Pre-Prelaunch Readiness"
+    category: plf
+  - id: plf/mental-triggers-activation
+    name: "Mental Triggers Activation"
+    category: plf
+  - id: plf/launch-stack-completeness
+    name: "Launch Stack Completeness"
+    category: plf
+  - id: plf/open-cart-sequence
+    name: "Open Cart Sequence"
+    category: plf
+  - id: plf/live-launch-readiness
+    name: "Live Launch Readiness"
+    category: plf
+  - id: plf/seed-launch-checklist
+    name: "Seed Launch Checklist"
+    category: plf
+  - id: plf/jv-launch-partner
+    name: "JV Launch Partner"
+    category: plf
+  - id: plf/sales-page-plf
+    name: "Sales Page PLF"
+    category: plf
+  - id: plf/launch-day-execution
+    name: "Launch Day Execution"
+    category: plf
+  - id: plf/post-launch-analysis
+    name: "Post Launch Analysis"
+    category: plf
+  - id: plf/evergreen-setup
+    name: "Evergreen Setup"
+    category: plf
+  - id: plf/social-media-launch
+    name: "Social Media Launch"
+    category: plf
+  - id: plf/video-production-complete-checklist
+    name: "Video Production Complete"
+    category: plf
+  - id: plf/cpl-evaluation-execution-checklist
+    name: "CPL Evaluation Execution"
+    category: plf
+  - id: plf/cpl1-opportunity-checklist
+    name: "CPL1 Opportunity Checklist"
+    category: plf
+  - id: plf/cpl2-transformation-checklist
+    name: "CPL2 Transformation Checklist"
+    category: plf
+  - id: plf/cpl3-ownership-checklist
+    name: "CPL3 Ownership Checklist"
+    category: plf
+  - id: plf/cpl4-enrollment-checklist
+    name: "CPL4 Enrollment Checklist"
+    category: plf
+
+  # Brunson Checklist
+  - id: brunson/book-funnel-completeness
+    name: "Book Funnel Completeness"
+    category: brunson
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# RESEARCH DOCUMENTS (37 docs)
+# ═══════════════════════════════════════════════════════════════════════════════
+research:
+  location: "docs/research/"
+  documents:
+    - id: signature-phrases-methodology-research
+      name: "Metodologia de Extração de Frases Assinatura"
+      lines: 698
+      task_upgraded: extract-signature-phrases
+
+    - id: lead-magnet-methodology-research
+      name: "Metodologia de Lead Magnets"
+      lines: 689
+      task_upgraded: create-lead-magnet
+
+    - id: abandoned-cart-methodology-research
+      name: "Metodologia de Carrinho Abandonado"
+      lines: 720
+      task_upgraded: create-abandoned-cart
+
+    - id: close-script-methodology-research
+      name: "Metodologia de Scripts de Close"
+      task_upgraded: create-close-script
+
+    - id: copy-blending-methodology-research
+      name: "Metodologia de Blending de Copy"
+      task_upgraded: blend
+
+    - id: authority-arsenal-methodology-research
+      name: "Metodologia de Arsenal de Autoridade"
+      task_upgraded: build-authority-arsenal
+
+    # === NEW RESEARCH DOCS TO REGISTER (v4.0) ===
+    # Pattern: cada research doc suporta uma task especifica
+    # Location: docs/research/{id}.md
+
+    - id: ad-copy-methodology-research
+      name: "Metodologia de Ad Copy"
+      task_upgraded: create-ad-copy
+
+    - id: ad-script-methodology-research
+      name: "Metodologia de Ad Script"
+      task_upgraded: create-ad-script
+
+    - id: avatar-research-methodology-research
+      name: "Metodologia de Pesquisa de Avatar"
+      task_upgraded: avatar-research
+
+    - id: book-launch-system-research
+      name: "Metodologia de Book Launch System"
+      task_upgraded: brunson/create-book-funnel
+
+    - id: bullets-methodology-research
+      name: "Metodologia de Bullets"
+      task_upgraded: write-lampropoulos-bullets
+
+    - id: cold-email-methodology-research
+      name: "Metodologia de Cold Email"
+      task_upgraded: create-cold-email
+
+    - id: communication-dna-methodology-research
+      name: "Metodologia de Communication DNA"
+      task_upgraded: extract-communication-dna
+
+    - id: copy-debate-methodology-research
+      name: "Metodologia de Copy Debate"
+      task_upgraded: copy-debate
+
+    - id: copysearch-methodology-research
+      name: "Metodologia de Copysearch"
+      task_upgraded: copysearch
+
+    - id: copywriter-agent-creation-methodology-research
+      name: "Metodologia de Criacao de Agente Copywriter"
+      task_upgraded: extract-frameworks
+
+    - id: downsell-methodology-research
+      name: "Metodologia de Downsell"
+      task_upgraded: create-downsell
+
+    - id: email-sequence-methodology-research
+      name: "Metodologia de Email Sequence"
+      task_upgraded: create-email-sequence
+
+    - id: evaluate-offer-methodology-research
+      name: "Metodologia de Avaliacao de Oferta"
+      task_upgraded: evaluate-offer
+
+    - id: framework-extraction-methodology-research
+      name: "Metodologia de Extracao de Frameworks"
+      task_upgraded: extract-frameworks
+
+    - id: headline-methodology-research
+      name: "Metodologia de Headlines"
+      task_upgraded: create-headlines
+
+    - id: landing-page-audit-methodology-research
+      name: "Metodologia de Auditoria de Landing Page"
+      task_upgraded: audit-landing-page
+
+    - id: landing-page-methodology-research
+      name: "Metodologia de Landing Page"
+      task_upgraded: create-landing-page
+
+    - id: launch-emails-methodology-research
+      name: "Metodologia de Launch Emails"
+      task_upgraded: create-launch-emails
+
+    - id: native-ads-methodology-research
+      name: "Metodologia de Native Ads"
+      task_upgraded: create-native-ads
+
+    - id: newsletter-methodology-research
+      name: "Metodologia de Newsletter"
+      task_upgraded: create-newsletter
+
+    - id: objection-algorithms-methodology-research
+      name: "Metodologia de Algoritmos de Objecao"
+      task_upgraded: create-objection-algorithms
+
+    - id: offer-creation-methodology-research
+      name: "Metodologia de Criacao de Oferta"
+      task_upgraded: create-offer
+
+    - id: offer-evaluation-methodology-research
+      name: "Metodologia de Avaliacao de Ofertas"
+      task_upgraded: evaluate-offer
+
+    - id: order-bump-methodology-research
+      name: "Metodologia de Order Bump"
+      task_upgraded: create-order-bump
+
+    - id: sales-page-methodology-research
+      name: "Metodologia de Sales Page"
+      task_upgraded: create-sales-page
+
+    - id: thank-you-page-methodology-research
+      name: "Metodologia de Thank You Page"
+      task_upgraded: create-thank-you-page
+
+    - id: upsell-methodology-research
+      name: "Metodologia de Upsell"
+      task_upgraded: create-upsell-page
+
+    - id: video-hook-methodology-research
+      name: "Metodologia de Video Hook"
+      task_upgraded: create-video-hook
+
+    - id: vsl-methodology-research
+      name: "Metodologia de VSL"
+      task_upgraded: create-vsl
+
+    - id: webinar-script-methodology-research
+      name: "Metodologia de Webinar Script"
+      task_upgraded: create-webinar-script
+
+    - id: youtube-ads-methodology-research
+      name: "Metodologia de YouTube Ads"
+      task_upgraded: create-youtube-ads
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# DATA (19 files)
+# ═══════════════════════════════════════════════════════════════════════════════
+data:
+  - id: copywriting-kb
+    name: "Knowledge Base de Copywriting"
+
+  # === NEW DATA FILES TO REGISTER (v4.0) ===
+
+  # Core Data Files
+  - id: boron-letters-collier-dna
+    name: "Boron Letters - Collier DNA Extraction"
+    format: yaml
+
+  - id: expert-clone-mapping
+    name: "Expert Clone Mapping"
+    format: yaml
+
+  - id: jeff-walker-plf-extraction
+    name: "Jeff Walker PLF Extraction"
+    format: md
+
+  # PLF Knowledge Bases (data/plf/)
+  - id: plf/avatar-framework-kb
+    name: "PLF Avatar Framework KB"
+    format: yaml
+    category: plf
+
+  - id: plf/content-formats-kb
+    name: "PLF Content Formats KB"
+    format: yaml
+    category: plf
+
+  - id: plf/contingency-framework-kb
+    name: "PLF Contingency Framework KB"
+    format: yaml
+    category: plf
+
+  - id: plf/copy-scripts-extracted
+    name: "PLF Copy Scripts Extracted"
+    format: yaml
+    category: plf
+
+  - id: plf/copy-swipes-kb
+    name: "PLF Copy Swipes KB"
+    format: yaml
+    category: plf
+
+  - id: plf/email-benchmarks-kb
+    name: "PLF Email Benchmarks KB"
+    format: yaml
+    category: plf
+
+  - id: plf/launch-budget-kb
+    name: "PLF Launch Budget KB"
+    format: yaml
+    category: plf
+
+  - id: plf/mental-triggers-kb
+    name: "PLF Mental Triggers KB"
+    format: yaml
+    category: plf
+
+  - id: plf/objection-database
+    name: "PLF Objection Database"
+    format: yaml
+    category: plf
+
+  - id: plf/platform-comparison-kb
+    name: "PLF Platform Comparison KB"
+    format: yaml
+    category: plf
+
+  - id: plf/plc-criteria-extracted
+    name: "PLF PLC Criteria Extracted"
+    format: yaml
+    category: plf
+
+  - id: plf/timeline-reference-kb
+    name: "PLF Timeline Reference KB"
+    format: yaml
+    category: plf
+
+  - id: token-registry
+    name: "Copy Token Registry"
+    format: yaml
+    category: governance
+
+  - id: quality-gates
+    name: "Copy Quality Gates"
+    format: yaml
+    category: governance
+
+  - id: quality-gate-coverage
+    name: "Copy Quality Gate Coverage"
+    format: yaml
+    category: governance
+
+token_layer:
+  registry: "data/token-registry.yaml"
+  handoff_persistence: "projects/{project}/token-state.json"
+  default_human_accountable: "launch-owner"
+  default_worker_handoff: "copy-ops-worker"
+  critical_tokens:
+    - "checkpoint_decision_token"
+    - "delivery_manifest_token"
+    - "launch_strategy_token"
+    - "cro_test_plan_token"
+
+quality_gate_system:
+  registry: "data/quality-gates.yaml"
+  coverage_matrix: "data/quality-gate-coverage.yaml"
+  enforcement_policy: "blocking-no-override"
+  default_human_reviewer: "launch-owner"
+  default_ai_reviewer: "copy-chief"
+  default_worker_executor: "copy-ops-worker"
+  default_thresholds:
+    pass: 0.80
+    review: 0.65
+    fail: 0.64
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# DEPENDENCIES & TAGS
+# ═══════════════════════════════════════════════════════════════════════════════
+dependencies:
+  internal:
+    - aiox-core
+  # Future: mmos (when integration is enabled)
+
+tags:
+  - copywriting
+  - marketing
+  - sales
+  - direct-response
+  - conversion
+  - tier-system
+  - research-first
+
+workspace_integration:
+  level: workspace_first
+  rationale: >-
+    Copy squad deve ler primeiro a estrutura real de negócios do workspace
+    (offerbook, brand, movement e sales-process por business/produto) antes de
+    executar qualquer workflow. Qualquer mutação canônica em `workspace/`
+    permanece sob handoff explícito para a governança COO/workspace-chief.
+  read_paths:
+    - workspace/_templates/business-template/L1-strategy/
+    - workspace/_templates/business-template/L2-tactical/brand/
+    - workspace/_templates/business-template/L2-tactical/movement/
+    - workspace/businesses/
+  write_paths: []
+  template_namespace: business-template
+  owner: c-level/workspace-chief
+  execution_mode: handoff_only
+  readiness_owner: workspace-chief
+  bootstrap:
+    required: true
+    script: "scripts/bootstrap-copy-workspace.sh"
+  essentials_validation:
+    required: true
+    script: "scripts/validate-copy-essentials.sh"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# YOLO MODE - Autonomous Workflow Execution (v2.0)
+# ═══════════════════════════════════════════════════════════════════════════════
+yolo_mode:
+  enabled: true
+  version: "2.0.0"
+  description: "100% autonomous workflow execution with phase-based checkpoints"
+
+  # Execution Settings
+  execution:
+    auto_mode: true                     # true = no pauses at checkpoints
+    max_iterations: 30                  # Maximum loop iterations per run
+    iteration_delay_seconds: 2          # Pause between iterations
+    checkpoint_human_review: false      # Pause for human review at checkpoints
+    checkpoint_review_agent: "launch-owner"
+    delivery_worker_agent: "copy-ops-worker"
+    workspace_preflight_required: true  # run bootstrap + essentials validator
+
+  # Script Configuration
+  script:
+    entry_point: "scripts/copy.sh"
+    usage: "./copy.sh <project-dir> [max-iterations]"
+    workspace_bootstrap: "scripts/bootstrap-copy-workspace.sh"
+    workspace_validator: "scripts/validate-copy-essentials.sh"
+    skip_preflight_env: "COPY_SKIP_WORKSPACE_CHECK=1"
+
+  # File Structure
+  paths:
+    workflows: "workflows/"
+    templates: "templates/"
+    projects: "projects/"
+    outputs: "outputs/"
+    workspace: "workspace/"
+
+  # State Management
+  state:
+    file: "copy-state.json"
+    template: "templates/copy-state.json"
+    tracked_fields:
+      - project
+      - workflow_id
+      - current_phase
+      - tasks_completed
+      - artifacts
+      - checkpoints
+      - decision_matrix
+      - agents_used
+      - iteration_history
+
+  # Progress Logging
+  progress:
+    file: "progress.txt"
+    template: "templates/progress-copy.txt"
+    sections:
+      - "Project Info"
+      - "Phase Progress"
+      - "Artifacts Generated"
+      - "Clone Combinations Used"
+      - "Session Log"
+
+  # Handoff Context
+  handoff:
+    file: "handoff.md"
+    required_sections:
+      - "Estado Atual"
+      - "Context Mínimo"
+      - "Erros a Evitar"
+      - "Arquivos Tocados"
+      - "Próxima Story"
+
+  # Completion Signals (recognized by copy.sh)
+  signals:
+    complete: "<promise>COMPLETE</promise>"
+    checkpoint: "<promise>CHECKPOINT:PHASE-X</promise>"
+    blocked: "<promise>BLOCKED:reason</promise>"
+    pattern_complete: "<promise>COMPLETE</promise>"
+    pattern_checkpoint: "CHECKPOINT:PHASE-[0-9]+"
+    pattern_blocked: "BLOCKED:[^<]+"
+
+  # Default Workflow Selection
+  default_workflow: "wf-1-full-launch"
+
+  # Available Workflows
+  workflows:
+    - id: wf-1-full-launch
+      name: "Full Product Launch"
+      duration: "5-7 days"
+      description: "Complete launch with all copy assets"
+      file: "workflows/wf-1-full-launch.yaml"
+      phases: 5
+      recommended_for:
+        - "New product launches"
+        - "Complete funnel builds"
+        - "High-budget campaigns"
+
+    - id: wf-2-paid-traffic
+      name: "Paid Traffic Campaign"
+      duration: "2-3 days"
+      description: "Quick ad campaign setup"
+      file: "workflows/wf-2-paid-traffic.yaml"
+      phases: 3
+      recommended_for:
+        - "Facebook/Google ads"
+        - "Quick traffic tests"
+        - "Existing products"
+
+    - id: wf-3-high-ticket
+      name: "High-Ticket Sales"
+      duration: "7-10 days"
+      description: "Premium $5k+ offers with sales calls"
+      file: "workflows/wf-3-high-ticket.yaml"
+      phases: 4
+      recommended_for:
+        - "Coaching/consulting"
+        - "Premium programs"
+        - "B2B sales"
+
+    - id: wf-4-organic-content
+      name: "Organic Content System"
+      duration: "Ongoing"
+      description: "Content marketing machine"
+      file: "workflows/wf-4-organic-content.yaml"
+      phases: 6
+      recommended_for:
+        - "Brand building"
+        - "Long-term growth"
+        - "Authority positioning"
+
+    - id: wf-5-email-marketing
+      name: "Email Marketing System"
+      duration: "Setup + Ongoing"
+      description: "Complete email infrastructure"
+      file: "workflows/wf-5-email-marketing.yaml"
+      phases: 4
+      recommended_for:
+        - "List building"
+        - "Nurture sequences"
+        - "Launch sequences"
+
+    - id: wf-6-funnel-optimization
+      name: "Funnel Optimization"
+      duration: "3-5 days"
+      description: "Diagnose and fix existing funnels"
+      file: "workflows/wf-6-funnel-optimization.yaml"
+      phases: 4
+      recommended_for:
+        - "Underperforming funnels"
+        - "Conversion optimization"
+        - "A/B testing setup"
+
+    - id: wf-7-direct-mail
+      name: "Direct Mail Campaign"
+      duration: "2-3 weeks"
+      description: "Physical mail campaigns"
+      file: "workflows/wf-7-direct-mail.yaml"
+      phases: 4
+      recommended_for:
+        - "High-value lists"
+        - "B2B outreach"
+        - "Premium positioning"
+
+    - id: wf-evaluate-cpl
+      name: "CPL Evaluation (Product Launch Formula)"
+      duration: "30-60 min per CPL"
+      description: "Deep evaluation of Pre-Launch Content using Production Aids"
+      file: "workflows/wf-evaluate-cpl.yaml"
+      version: "2.0.0"
+      phases: 6
+      recommended_for:
+        - "PLF launches (Jeff Walker methodology)"
+        - "CPL/PLC quality assurance"
+        - "Pre-launch content optimization"
+      dependencies:
+        production_aids:
+          - "checklists/plf/plc1-complete-production-aid.md"
+          - "checklists/plf/plc2-complete-production-aid.md"
+          - "checklists/plf/plc3-complete-production-aid.md"
+          - "checklists/plf/sales-video-complete-production-aid.md"
+        templates:
+          - "templates/plf/cpl-evaluation-report-tmpl.md"
+          - "templates/plf/beat-analysis-tmpl.yaml"
+          - "templates/plf/rubric-scores-tmpl.yaml"
+      agents:
+        primary: "@jeff-walker"
+        orchestrator: "@copy-chief"
+
+    - id: wf-evaluate-cpls-batch
+      name: "Batch CPL Evaluation"
+      duration: "2-4 hours"
+      description: "Evaluate all CPLs from a launch in parallel or sequential mode"
+      file: "workflows/wf-evaluate-cpls-batch.yaml"
+      phases: 5
+      recommended_for:
+        - "Full launch review"
+        - "Multiple CPL analysis"
+        - "Launch readiness assessment"
+
+    # NOTA: wf-8 nao existe (numeracao pula de 7 para 9, intencional)
+
+    - id: wf-9-call-funnel-complete
+      name: "Call Funnel Complete"
+      file: "workflows/wf-9-call-funnel-complete.yaml"
+
+    - id: wf-10-webinar-cold-weekly
+      name: "Cold Webinar Weekly"
+      file: "workflows/wf-10-webinar-cold-weekly.yaml"
+
+    - id: wf-11-ghosted-recovery
+      name: "Ghosted Lead Recovery"
+      file: "workflows/wf-11-ghosted-recovery.yaml"
+
+    - id: wf-book-launch
+      name: "Book Launch (Brunson)"
+      file: "workflows/wf-book-launch.yaml"
+
+    - id: wf-voice-clone-copy
+      name: "Voice Clone Copy (MMOS)"
+      file: "workflows/wf-voice-clone-copy.yaml"
+
+  # Decision Matrix (used to select workflow)
+  decision_matrix:
+    description: "5 questions to determine optimal workflow"
+    questions:
+      q1_awareness:
+        label: "Awareness Level"
+        options:
+          - "Unaware"
+          - "Problem Aware"
+          - "Solution Aware"
+          - "Product Aware"
+          - "Most Aware"
+        source: "Schwartz"
+
+      q2_sophistication:
+        label: "Market Sophistication"
+        options:
+          - "Stage 1 - First to Market"
+          - "Stage 2 - Second to Market"
+          - "Stage 3 - Market Matured"
+          - "Stage 4 - Market Skeptical"
+          - "Stage 5 - Market Exhausted"
+        source: "Schwartz"
+
+      q3_price_point:
+        label: "Price Point"
+        options:
+          - "Low (<$100)"
+          - "Mid ($100-$1000)"
+          - "High ($1000-$5000)"
+          - "Premium ($5000+)"
+
+      q4_traffic:
+        label: "Traffic Temperature"
+        options:
+          - "Cold"
+          - "Warm"
+          - "Hot"
+
+      q5_output:
+        label: "Primary Output"
+        options:
+          - "VSL"
+          - "Sales Letter"
+          - "Email Sequence"
+          - "Ad Creative"
+          - "Webinar"
+          - "Direct Mail"
+          - "Landing Page"
+          - "Content"
+          - "Funnel Optimization"
+
+    recommendation_matrix:
+      # Price Point → Traffic → Recommended Workflow
+      "Premium + Any": "wf-3-high-ticket"
+      "High + Cold": "wf-1-full-launch"
+      "High + Warm": "wf-2-paid-traffic"
+      "Mid + Cold": "wf-2-paid-traffic"
+      "Mid + Warm": "wf-5-email-marketing"
+      "Low + Cold": "wf-2-paid-traffic"
+      "Low + Warm": "wf-4-organic-content"
+      "Optimization": "wf-6-funnel-optimization"
+      "Direct Mail": "wf-7-direct-mail"
+      "Content Focus": "wf-4-organic-content"
+
+  # Clone Combinations (proven synergies)
+  clone_combinations:
+    proven:
+      - combo: "Schwartz + Anyone"
+        reason: "Always diagnose awareness first"
+        usage: "PHASE-1 of any workflow"
+
+      - combo: "Todd Brown + Georgi"
+        reason: "Mechanism + production"
+        usage: "Strategy phases"
+
+      - combo: "Halbert + Makepeace"
+        reason: "Story + emotion"
+        usage: "Long-form copy"
+
+      - combo: "Chaperon + Settle"
+        reason: "Hybrid email"
+        usage: "Email marketing"
+
+      - combo: "Bencivenga + Lampropoulos"
+        reason: "Bullet power"
+        usage: "Fascinations, sales pages"
+
+      - combo: "Kennedy + Todd Brown"
+        reason: "Avatar + differentiation"
+        usage: "Market positioning"
+
+      - combo: "Hopkins + Sugarman"
+        reason: "Testing + triggers"
+        usage: "Optimization phases"
+
+      - combo: "Rutz + Deutsch"
+        reason: "Direct mail volume"
+        usage: "Magalogs, mailers"
+
+    caution:
+      - combo: "Halbert + Carlton same piece"
+        reason: "Style conflict - both dominant voices"
+
+      - combo: "Ogilvy + Makepeace"
+        reason: "Tone conflict - elegant vs visceral"
+
+      - combo: "All 30 Sugarman triggers"
+        reason: "Overkill - creates distrust"
+
+      - combo: "Settle + Chaperon same list"
+        reason: "Confusing - daily vs automated"
+
+  # Quality Gates per Phase
+  quality_gates:
+    phase_1_foundation:
+      - "Awareness level diagnosed (Schwartz)"
+      - "Market sophistication identified"
+      - "Avatar research complete"
+      - "Scientific framework set (Hopkins)"
+
+    phase_2_strategy:
+      - "Unique mechanism defined (Todd Brown)"
+      - "Big idea validated"
+      - "RMBC structure complete (Georgi)"
+
+    phase_3_execution:
+      - "Headlines tested (multi-clone)"
+      - "Copy complete (VSL/Letter/Emails)"
+      - "Bullets created (Bencivenga)"
+      - "Emotion amplified (Makepeace)"
+
+    phase_4_optimization:
+      - "Hopkins audit complete"
+      - "Sugarman triggers applied (15-20)"
+      - "A/B tests configured"
+      - "95% confidence metrics set"
+
+  # Error Recovery
+  error_recovery:
+    on_blocked:
+      - "Document blocker in progress.txt"
+      - "Check reference files for patterns"
+      - "Try alternative approach"
+      - "If truly blocked, move to next task if no dependencies"
+      - "NEVER output false completion promise"
+
+    on_failure:
+      - "Log error to progress.txt"
+      - "Preserve state in copy-state.json"
+      - "Create handoff with error context"
+      - "Exit with code 2 for blocked, 1 for max iterations"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# TIER QUICK REFERENCE
+# ═══════════════════════════════════════════════════════════════════════════════
+# TIER 0 - DIAGNOSIS (always first)
+#   @claude-hopkins  → Scientific audit, split tests
+#   @eugene-schwartz → Awareness levels, sophistication
+#
+# TIER 1 - MASTERS ($500M+)
+#   @gary-halbert    → Sales letters, storytelling
+#   @gary-bencivenga → Bullets, fascinations
+#   @david-ogilvy    → Premium, branding
+#
+# TIER 2 - SYSTEMATIZERS
+#   @dan-kennedy     → Urgency, 3Ms, NO B.S.
+#   @todd-brown      → Big ideas, mechanisms
+#
+# TIER 3 - FORMAT SPECIALISTS
+#   @jon-benson      → VSL (inventor)
+#
+# TOOL (not clone)
+#   *sugarman-check  → 30 Triggers checklist
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# SINKRA v3.1 (Story 54.11)
+bu_mapping: "hub-framework"
+artifact_contracts:
+  - artifact_id: "copy-output"
+    template_path: "templates/copy-output-tmpl.md"
+    lifecycle_states: [draft, validated, approved]
+  # EPIC-120 / Story 120.3 / ADR-012 — cross-squad campaign contracts
+  - artifact_id: "campaign-brief"
+    template_path: "../../workspace/_templates/business-template-v3/L4-operational/campaigns/_example/campaign-brief.yaml"
+    schema_path: "../../docs/schemas/campaign-brief-schema.yaml"
+    workspace_path_pattern: "workspace/businesses/{business}/L4-operational/campaigns/{campaign-slug}/campaign-brief.yaml"
+    lifecycle_states: [draft, validated, approved, in_execution, completed]
+    cross_squad: true
+    adr: "ADR-012"
+  - artifact_id: "message-architecture"
+    template_path: "../../workspace/_templates/business-template-v3/L4-operational/campaigns/_example/message-architecture.yaml"
+    schema_path: "../../docs/schemas/message-architecture-schema.yaml"
+    workspace_path_pattern: "workspace/businesses/{business}/L4-operational/campaigns/{campaign-slug}/message-architecture.yaml"
+    lifecycle_states: [draft, validated, approved]
+    cross_squad: true
+    adr: "ADR-012"
+  - artifact_id: "creative-brief"
+    template_path: "../../workspace/_templates/business-template-v3/L4-operational/campaigns/_example/copy/creative-brief.yaml"
+    workspace_path_pattern: "workspace/businesses/{business}/L4-operational/campaigns/{campaign-slug}/copy/creative-brief.yaml"
+    lifecycle_states: [draft, validated, approved]
+    cross_squad: false
+    adr: "ADR-012"
+supported_modes:
+  - CRIAR
+  - VALIDAR
+  - ENTENDER
+  - EXPLORAR
+# BEGIN MAP MATERIALIZATION: supported_domains
+materialized_supported_domains: [Strategic, Tactical, Operational]
+materialized_supported_domains_ptbr: [Estratégico, Tático, Operacional]
+# Source: outputs/sinkra-squad/copy/map/20260328-065841-gemini-gemini-3.1-pro-preview/domain_map.yaml
+# END MAP MATERIALIZATION: supported_domains
+
+compositional_hierarchy:
+  levels:
+    - level: 1
+      name: Token
+      copy_example: "mode_token, checkpoint_decision_token"
+    - level: 2
+      name: Atom
+      copy_example: "headline, hook, CTA, objection handler, audit task"
+    - level: 3
+      name: Molecule
+      copy_example: "bullets block, email section, proof stack"
+    - level: 4
+      name: Organism
+      copy_example: "sales page, email sequence, VSL structure"
+    - level: 5
+      name: Template
+      copy_example: "copy-output template, webinar template, RMBC template"
+    - level: 6
+      name: Instance
+      copy_example: "deliverable generated for a specific launch or funnel"
+  rule: "Copy assets must compose only from the level immediately below."
+
+composition_mapping:
+  tokens:
+    source: "data/token-registry.yaml"
+    description: "Token contract materializado a partir de arquivos já presentes no squad."
+  atoms:
+    description: "Tasks atômicas detectadas em tasks/*.md"
+    mapping:
+      - pattern: "tasks/analyze-mental-conversation.md"
+        task_id: "analyze-mental-conversation"
+      - pattern: "tasks/apply-sugarman-triggers.md"
+        task_id: "apply-sugarman-triggers"
+      - pattern: "tasks/audit-copy-hopkins.md"
+        task_id: "audit-copy-hopkins"
+      - pattern: "tasks/audit-landing-page.md"
+        task_id: "audit-landing-page"
+      - pattern: "tasks/avatar-research.md"
+        task_id: "avatar-research"
+      - pattern: "tasks/blend.md"
+        task_id: "blend"
+      - pattern: "tasks/build-authority-arsenal.md"
+        task_id: "build-authority-arsenal"
+      - pattern: "tasks/copy-debate.md"
+        task_id: "copy-debate"
+      - pattern: "tasks/copysearch.md"
+        task_id: "copysearch"
+      - pattern: "tasks/create-abandoned-cart.md"
+        task_id: "create-abandoned-cart"
+      - pattern: "tasks/create-ad-copy.md"
+        task_id: "create-ad-copy"
+      - pattern: "tasks/create-ad-script.md"
+        task_id: "create-ad-script"
+  templates:
+    description: "Templates explícitos detectados em templates/."
+    paths:
+      - "templates/ad-copy-tmpl.yaml"
+      - "templates/authority-arsenal-tmpl.yaml"
+      - "templates/avatar-research-template.md"
+      - "templates/blend-tmpl.yaml"
+      - "templates/cold-webinar-script-tmpl.yaml"
+      - "templates/collier-letter-tmpl.yaml"
+      - "templates/communication-dna-tmpl.yaml"
+      - "templates/copy-output-tmpl.md"
+      - "templates/copy-state.json"
+      - "templates/copysearch-template.md"
+      - "templates/copywriter-agent-tmpl.yaml"
+  workflows:
+    description: "Workflows explícitos detectados em workflows/."
+    paths:
+      - "workflows/map-generated-quality-gates.yaml"
+      - "workflows/map-generated-workflow-definition.yaml"
+      - "workflows/wf-1-full-launch.yaml"
+      - "workflows/wf-10-webinar-cold-weekly.yaml"
+      - "workflows/wf-11-ghosted-recovery.yaml"
+      - "workflows/wf-2-paid-traffic.yaml"
+      - "workflows/wf-3-high-ticket.yaml"
+      - "workflows/wf-4-organic-content.yaml"
+      - "workflows/wf-5-email-marketing.yaml"
+      - "workflows/wf-6-funnel-optimization.yaml"
+      - "workflows/wf-7-direct-mail.yaml"
+      - "workflows/wf-9-call-funnel-complete.yaml"

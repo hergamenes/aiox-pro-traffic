@@ -1,0 +1,90 @@
+# Problem-Agitate-Solve (P.A.S.) - Dan Kennedy
+# Extracted from: squads/copy/agents/dan-kennedy.md
+# Category: copywriting_structure
+
+name: "Problem-Agitate-Solve (P.A.S.)"
+category: copywriting_structure
+origin: "Kennedy's 'most reliable sales formula ever invented'"
+command: "*pas"
+
+philosophy: |
+  Don't start with your product. Start with their pain.
+  Make it hurt, then heal it.
+
+structure:
+  problem:
+    purpose: "Identify and state the problem clearly"
+    instruction: "Name the specific pain in their language"
+    example: |
+      "You're working 60-hour weeks but your bank account
+      doesn't reflect the effort you're putting in..."
+
+  agitate:
+    purpose: "Pour salt in the wound - make them FEEL it"
+    instruction: "Amplify the emotional cost of the problem"
+    techniques:
+      - "Paint the future if nothing changes"
+      - "List all the ways it affects their life"
+      - "Use visceral, emotional language"
+    example: |
+      "Meanwhile, you're missing your kid's games, your health
+      is suffering, your spouse is frustrated, and you're
+      wondering if this is all there is to life. How much longer
+      can you keep this up? Another 5 years? 10? Your competitors
+      are eating your lunch while you're drowning in busywork..."
+
+  solve:
+    purpose: "Present your solution as the relief they need"
+    instruction: "Connect your offer directly to their pain"
+    example: |
+      "That's exactly why I created the Magnetic Marketing System.
+      In the next 90 days, you'll have a lead generation machine
+      that works while you sleep..."
+
+application_template: |
+  PROBLEM:
+  [State the customer's problem in 1-2 sentences using THEIR words]
+
+  AGITATE:
+  [3-5 sentences amplifying the emotional impact]
+  [Paint the negative future]
+  [List hidden costs they haven't considered]
+
+  SOLVE:
+  [Introduce your solution]
+  [Connect each benefit to a pain point mentioned above]
+
+output_example:
+  context: "Writing a sales letter opening for time management system"
+  input: |
+    Product: Time management system for entrepreneurs
+    Avatar: Business owner working 70+ hours/week
+
+  output: |
+    **PROBLEM** (Name the pain in THEIR words):
+    "You're working 70-hour weeks. Your inbox has 847 unread emails.
+    Your to-do list grew by 15 items today while you only crossed off 3.
+    You haven't had a real vacation in 3 years."
+
+    **AGITATE** (Pour salt in the wound):
+    "Meanwhile, your kid asked why you missed another game. Your spouse
+    has stopped asking when you'll be home - they already know the answer.
+
+    Your competitors - the ones you KNOW aren't as smart as you - are
+    somehow passing you by. They look rested. They take vacations. They
+    seem to have figured out something you haven't.
+
+    And the worst part? You can't work any harder. You're already at
+    the breaking point. Something has to give - and lately, it's been
+    your health, your relationships, and your sanity.
+
+    How much longer? Another 5 years of this? 10? Is this really what
+    you signed up for when you started your business?"
+
+    **SOLVE** (Present relief):
+    "That's exactly why I created the No B.S. Time Management System.
+    Not some theory from a professor who never ran a business. This is
+    what I use to run multiple 7-figure businesses while taking 8 weeks
+    of vacation per year.
+
+    In the next 30 days, you'll have a system that..."

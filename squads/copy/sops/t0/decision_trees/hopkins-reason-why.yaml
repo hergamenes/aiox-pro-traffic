@@ -1,0 +1,53 @@
+sop:
+  id: hopkins-reason-why
+  version: "1.0"
+  title: "Reason-Why Rule (CH_H04)"
+  purpose: "Garantir que toda claim em copy seja acompanhada de explicacao causal. A razao e mais persuasiva que a claim."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: claude-hopkins
+  steps:
+    - step: 1
+      action: "Identificar claims sem explicacao na copy"
+      decision_point:
+        condition: "Claim possui explicacao causal (por que)?"
+        branches:
+          - if: "Claim generica sem explicacao (ex: 'puro', 'melhor')"
+            then: "Fornecer o PORQUE — ex: nao diga 'puro', diga POR QUE e puro"
+            next_decision:
+              condition: "Existe razao real para a claim?"
+              branches:
+                - if: "Sim, razao factual disponivel"
+                  then: "Adicionar reason-why concisa (1-2 frases)"
+                - if: "Nao existe razao real"
+                  then: "Remover claim ou reformular com evidencia"
+          - if: "Claim com explicacao parcial"
+            then: "Avaliar se razao e suficientemente especifica e convincente"
+            next_decision:
+              condition: "Razao e convincente?"
+              branches:
+                - if: "Sim"
+                  then: "Claim aprovada"
+                - if: "Nao"
+                  then: "Aprofundar a explicacao"
+          - if: "Fato obvio que nao precisa de explicacao"
+            then: "Prosseguir — nem toda afirmacao precisa de reason-why"
+  error_handling:
+    - error: "Razao circular (e bom porque e bom)"
+      severity: critical
+      action: "Fornecer causa raiz tecnica ou factual"
+    - error: "Razao inventada sem base real"
+      severity: critical
+      action: "Usar apenas fatos verificaveis"
+    - error: "Explicacao longa demais"
+      severity: minor
+      action: "Condensar para 1-2 frases concisas"
+  quality_gate:
+    criteria:
+      - "Toda claim significativa tem reason-why"
+      - "Razao e mais convincente que a claim"
+      - "Explicacoes baseadas em fatos"
+      - "Reason-why adiciona credibilidade sem complexidade desnecessaria"
+    pass_threshold: "Todos os criterios atendidos"

@@ -1,0 +1,88 @@
+sop:
+  id: halbert-the-suck-research
+  version: "1.0"
+  title: "The Suck + Nugget Notes Research System"
+  purpose: "Systematically absorb and rate massive information about a product/subject, then let subconscious synthesize a breakthrough Central Selling Idea"
+  classification:
+    domain: copywriting
+    category: master
+    tier: T1
+    source_agent: gary-halbert
+
+  inputs:
+    - name: product_subject
+      type: text
+      required: true
+    - name: index_cards_3x5
+      type: resource
+      required: true
+    - name: swipe_file_proven_ads
+      type: collection
+      required: true
+
+  outputs:
+    - name: rated_nugget_notes
+      type: document
+      description: "Star-rated research notes (1-3 stars) with 100+ nuggets per major source"
+    - name: central_selling_idea
+      type: text
+      description: "Single organizing insight for the entire piece"
+    - name: research_foundation
+      type: document
+      description: "Organized raw material ready for copywriting"
+
+  steps:
+    - id: step_01
+      action: review_headline_cards
+      description: "Distribute and read 150 proven headline cards to prime subconscious with persuasion patterns"
+      critical: true
+      error_handling:
+        condition: "fewer_than_150_headlines_reviewed"
+        action: "expand_swipe_file_before_proceeding"
+
+    - id: step_02
+      action: extract_all_nuggets
+      description: "Examine product/subject from every angle, take numbered notes of everything pertinent, target 115+ nuggets per source"
+      critical: true
+      error_handling:
+        condition: "filtering_during_extraction"
+        action: "capture_everything_without_judgment_filter_in_next_step"
+
+    - id: step_03
+      action: rate_with_star_system
+      description: "Reread notes and apply star ratings: 1=good, 2=better, 3=top. Target distribution 60/30/10"
+      critical: false
+      error_handling:
+        condition: "all_notes_rated_3_stars"
+        action: "force_redistribution_to_60_30_10_ratio"
+
+    - id: step_04
+      action: incubate_ideas
+      description: "Store notes for 1-2 days without writing. Allow subconscious synthesis"
+      critical: true
+      error_handling:
+        condition: "premature_writing_attempt"
+        action: "block_writing_enforce_minimum_24_hour_separation"
+
+    - id: step_05
+      action: capture_breakthrough_idea
+      description: "Capture naturally emerging Central Selling Idea immediately when it appears"
+      critical: false
+      error_handling:
+        condition: "no_breakthrough_after_2_days"
+        action: "return_to_step_02_add_more_raw_material"
+
+    - id: step_06
+      action: write_from_rated_notes
+      description: "Use 3-star material as backbone, 2-star as support, 1-star as texture, organized by Central Selling Idea"
+      critical: false
+
+  quality_gate:
+    min_criteria_met: 4
+    criteria:
+      - "minimum_150_headlines_reviewed"
+      - "notes_numbered_and_comprehensive_100_plus"
+      - "star_ratings_applied_with_proper_distribution"
+      - "full_incubation_period_observed"
+      - "central_selling_idea_emerged_naturally"
+      - "writing_draws_from_3_star_material_first"

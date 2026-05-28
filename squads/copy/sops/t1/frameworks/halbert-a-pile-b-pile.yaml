@@ -1,0 +1,49 @@
+sop:
+  id: halbert-a-pile-b-pile
+  version: "1.0"
+  title: "A-Pile / B-Pile Classification System"
+  purpose: >
+    Ensure every communication piece lands in the prospect's A-Pile (personal,
+    always opened) instead of B-Pile (advertising, discarded). Applies to both
+    physical mail and digital formats.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: gary-halbert
+    tier: t1
+
+  steps:
+    - id: apply_mental_model
+      action: "Classify communication as A-Pile (personal) or B-Pile (advertising) from prospect's perspective"
+      input: "communication_piece"
+      output: "pile_classification"
+
+    - id: apply_b_pile_audit
+      action: "Scan for B-Pile signals: bulk mail indicators, polished design, promotional language, stock photos, corporate logos"
+      output: "b_pile_signals_list"
+
+    - id: apply_a_pile_physical
+      action: "Apply A-Pile formatting for physical mail: hand-addressed envelope, real stamps, plain envelope, personal return address, no teaser copy"
+      condition: "medium == 'physical_mail'"
+      output: "a_pile_physical_format"
+
+    - id: apply_a_pile_digital
+      action: "Apply A-Pile formatting for digital: friend-like subject line, conversational email, personal letter landing page"
+      condition: "medium == 'digital'"
+      output: "a_pile_digital_format"
+
+  error_handling:
+    - error: "corporate_html_template"
+      severity: high
+      action: "Replace with plain-text or minimal formatting"
+    - error: "promotional_subject_line"
+      severity: high
+      action: "Rewrite as if messaging a friend"
+    - error: "teaser_copy_on_envelope"
+      severity: medium
+      action: "Remove all teaser copy; leave envelope clean"
+
+  quality_gate:
+    b_pile_signals_removed: true
+    friend_test_passed: true
+    format_matches_personal: true

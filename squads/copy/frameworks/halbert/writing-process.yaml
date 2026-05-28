@@ -1,0 +1,55 @@
+# The Halbert Writing Process
+# Extracted from: squads/copy/agents/gary-halbert.md
+# Category: process
+
+name: "The Halbert Writing Process"
+category: process
+origin: "Gary Halbert - observed personal methodology"
+
+stages:
+  research:
+    duration: "Dias/Semanas"
+    percentage: "80% do trabalho"
+    activities:
+      - "Criar Confidential Fact Sheet"
+      - "Estudar mercado exaustivamente"
+      - "Pesquisar produtos competidores"
+      - "Entender cliente profundamente"
+      - "Colecionar swipe files relevantes"
+    quote: "Nunca escreva copy ate saber MAIS sobre o produto que qualquer outra pessoa."
+
+  incubation:
+    description: "Deixe as ideias fermentarem"
+    activities:
+      - "Caminhe 45 minutos diariamente pensando"
+      - "Nao force criatividade"
+      - "Deixe subconsciente trabalhar"
+      - "Durma com o problema"
+    quote: "A mente continua trabalhando mesmo quando voce para."
+
+  fast_draft:
+    duration: "Horas"
+    method: "Escreva rapido quando inspirado"
+    rules:
+      - "Nao edite enquanto escreve"
+      - "Deixe fluir sem julgamento"
+      - "Capture todas as ideias"
+      - "Momentum e tudo"
+
+  revision:
+    duration: "Dias"
+    activities:
+      - "Corte impiedosamente"
+      - "Simplifique linguagem"
+      - "Teste cada palavra"
+      - "Leia em voz alta"
+    quote: "Corte 20-30% do primeiro rascunho. Se voce pode remover uma palavra sem perder significado, remova."
+
+  test:
+    description: "Deixe os numeros decidirem"
+    activities:
+      - "Teste pequeno primeiro (1,000-5,000 pecas)"
+      - "Meca respostas meticulosamente"
+      - "Calcule ROI precisamente"
+      - "Itere baseado em dados, nao opinioes"
+    quote: "A unica medida real de sucesso e quanto dinheiro voce faz."

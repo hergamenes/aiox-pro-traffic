@@ -1,0 +1,276 @@
+# Launch Budget Framework - Product Launch Formula
+# Source: Launch (Jeff Walker) Updated Edition 2021 - Paid Traffic Chapter
+# Version: 1.0
+
+metadata:
+  source: "Launch by Jeff Walker (Updated Edition 2021) - Chapter 13"
+  validated: true
+  created: "2026-01-27"
+
+overview:
+  description: |
+    Framework de orcamento para lancamentos baseado no PLF,
+    desde Seed Launch sem investimento ate JV Launch com budget significativo.
+  jeff_philosophy: |
+    "You can start with almost nothing. I started with an email to 19 people.
+    But as you scale, smart investment in the right places compounds your results."
+
+launch_types_budget:
+  seed_launch:
+    name: "Seed Launch"
+    investment_level: "Minimo"
+    typical_budget: "$0-$500"
+    breakdown:
+      email_platform: "$0-$50/mes (free tiers disponiveis)"
+      landing_page: "$0-$100 (free tools disponiveis)"
+      payment_processing: "Taxas variáveis (~3%)"
+      ads: "$0 (opcional, organico first)"
+
+    jeff_story: |
+      "Anne LaFollette started with $5/day ad spend.
+      Michael Walker started with $3/day.
+      You don't need a big budget to start."
+
+    roi_expectation: "$2K-$50K revenue possivel"
+    minimum_viable:
+      - "Conta de email (gratuita)"
+      - "Lista de contatos (pode ser pequena)"
+      - "Forma de receber pagamento"
+
+  internal_launch:
+    name: "Internal Launch"
+    investment_level: "Moderado"
+    typical_budget: "$500-$5,000"
+    breakdown:
+      email_platform: "$50-$200/mes"
+      landing_pages: "$100-$500"
+      video_production: "$0-$1,000 (smartphone ok)"
+      graphics: "$100-$500"
+      payment_platform: "Taxas ~3%"
+      ads_optional: "$500-$3,000"
+
+    where_to_invest:
+      priority_1: "Qualidade do conteudo (PLCs)"
+      priority_2: "Email deliverability"
+      priority_3: "Sales page conversion"
+      priority_4: "Paid traffic (se lista pequena)"
+
+    roi_expectation: "$10K-$500K+ revenue"
+
+  jv_launch:
+    name: "JV Launch"
+    investment_level: "Significativo"
+    typical_budget: "$5,000-$50,000+"
+    breakdown:
+      affiliate_commissions: "40-50% do revenue"
+      affiliate_prizes: "$5K-$50K+ em premios"
+      video_production: "$2K-$10K (qualidade profissional)"
+      copy_sales_page: "$2K-$15K"
+      tech_infrastructure: "$500-$2K/mes"
+      ads: "$5K-$20K"
+      event_virtual: "$1K-$5K"
+
+    critical_investment: |
+      "Don't test with your partners' lists.
+      Do an Internal Launch first to prove your offer converts."
+
+    roi_expectation: "$100K-$10M+ revenue"
+
+  live_launch:
+    name: "Live Launch"
+    investment_level: "Moderado-Alto"
+    typical_budget: "$2,000-$20,000"
+    breakdown:
+      streaming_platform: "$50-$200/mes"
+      equipment: "$500-$3,000 (camera, mic, lights)"
+      virtual_event_platform: "$500-$2K"
+      ads: "$1K-$10K"
+      team_support: "$500-$5K"
+
+    equipment_tiers:
+      minimum:
+        camera: "Smartphone (iPhone recente)"
+        microphone: "Lapela wireless ($50-$100)"
+        lighting: "Ring light ($30-$100)"
+        total: "$100-$200"
+
+      intermediate:
+        camera: "Webcam HD (Logitech C920+)"
+        microphone: "USB (Blue Yeti, Rode NT-USB)"
+        lighting: "Softbox kit"
+        total: "$300-$600"
+
+      professional:
+        camera: "DSLR/Mirrorless"
+        microphone: "Shotgun + interface"
+        lighting: "3-point setup"
+        total: "$2,000-$5,000"
+
+  evergreen_launch:
+    name: "Evergreen Launch"
+    investment_level: "Setup alto, ongoing moderado"
+    setup_budget: "$2,000-$10,000"
+    monthly_budget: "$1,000-$10,000+"
+    breakdown:
+      automation_platform: "$100-$500/mes"
+      deadline_software: "$50-$200/mes"
+      ad_spend: "$500-$5,000/mes (ongoing)"
+      video_hosting: "$50-$200/mes"
+      maintenance: "$200-$500/mes"
+
+    break_even_timeline: "2-6 meses tipicamente"
+
+paid_traffic_budget:
+  cold_traffic:
+    definition: "People who don't know you"
+    timing: "Start 3-4 days before Prelaunch"
+    destination: "Opt-in page para Pre-Launch Content"
+
+    budget_allocation:
+      testing_phase: "20% do budget"
+      scaling_phase: "80% do budget"
+
+    benchmarks:
+      cost_per_lead:
+        low: "$1-$3"
+        average: "$3-$7"
+        high: "$7-$15"
+        acceptable_max: "Depende do ticket"
+
+      cost_calculation: |
+        Max CPL = (Ticket × Conversion Rate × Profit Margin) / 10
+
+        Exemplo:
+        Produto de $500 × 3% conversion × 50% margin = $7.50 max CPL
+
+    scaling_rules:
+      - "Nao escale antes de validar conversao"
+      - "Escale 20-30% por dia maximo"
+      - "Pause se CPA sobe mais de 30%"
+
+  warm_traffic:
+    definition: "People already on list or engaged"
+    uses:
+      - "Reengage lista antes do lancamento"
+      - "Push para consumir PLC content"
+      - "Open Cart retargeting"
+      - "Cart abandon recovery"
+
+    budget_allocation: "30-50% do budget total de ads"
+
+    retargeting_tiers:
+      tier_1: "Visitou sales page, nao comprou"
+      tier_2: "Assistiu PLCs"
+      tier_3: "Abriu emails mas nao clicou"
+
+    roi_typical: "3-10x ROAS"
+
+  advanced_cold_strategy:
+    name: "Two-Step Cold Traffic"
+    description: |
+      "Run content-only video ads for weeks (no CTA).
+      Then retarget that audience with opt-in ads.
+      Like doing Pre-Prelaunch to cold traffic."
+
+    phase_1:
+      duration: "2-4 semanas antes"
+      content: "Value video, sem CTA"
+      goal: "Build warm audience"
+      budget: "40% do cold budget"
+
+    phase_2:
+      duration: "Durante Pre-Launch"
+      content: "Opt-in ads para PLCs"
+      audience: "Retarget video viewers"
+      budget: "60% do cold budget"
+
+budget_allocation_framework:
+  seed_launch_allocation:
+    content_creation: "40%"
+    tech_tools: "30%"
+    ads: "20%"
+    contingency: "10%"
+
+  internal_launch_allocation:
+    content_creation: "30%"
+    tech_tools: "20%"
+    ads: "35%"
+    contingency: "15%"
+
+  jv_launch_allocation:
+    affiliate_management: "10%"
+    content_production: "25%"
+    tech_infrastructure: "15%"
+    ads: "35%"
+    prizes_incentives: "10%"
+    contingency: "5%"
+
+roi_calculations:
+  minimum_viable_launch:
+    investment: "$500"
+    target_revenue: "$5,000"
+    target_roi: "10x"
+    break_even: "1-2 vendas dependendo do ticket"
+
+  standard_internal:
+    investment: "$3,000"
+    target_revenue: "$30,000"
+    target_roi: "10x"
+    break_even: "3-10 vendas"
+
+  scaled_jv:
+    investment: "$20,000"
+    target_revenue: "$200,000"
+    target_roi: "10x"
+    note: "Nao inclui comissoes de afiliados"
+
+case_studies_budget:
+  anne_lafollette:
+    niche: "Surface pattern design"
+    starting_ad_spend: "$5/day"
+    year_2_revenue: "$400,000"
+    lesson: "Start small, scale what works"
+
+  michael_walker:
+    niche: "Modern Musician"
+    starting_ad_spend: "$3/day"
+    current_revenue: "$120K/month"
+    team_size: "18 people"
+    list_size: "40,000 emails"
+    lesson: "Consistent investment compounds"
+
+budget_red_flags:
+  overspending:
+    - "Ads antes de validar conversao"
+    - "Production value excessivo para Seed"
+    - "Ferramentas premium antes de precisar"
+
+  underspending:
+    - "Economizar em copy (sales page ruim)"
+    - "Email platform nao confiavel"
+    - "Sem budget para retargeting"
+
+monthly_costs_checklist:
+  essential:
+    - item: "Email platform"
+      range: "$0-$200"
+    - item: "Landing page builder"
+      range: "$0-$100"
+    - item: "Payment processing"
+      range: "Taxas ~3%"
+
+  recommended:
+    - item: "Video hosting"
+      range: "$20-$100"
+    - item: "Analytics"
+      range: "$0-$100"
+    - item: "Customer support tool"
+      range: "$0-$100"
+
+  growth:
+    - item: "Automation platform"
+      range: "$100-$500"
+    - item: "Webinar platform"
+      range: "$50-$200"
+    - item: "Affiliate tracking"
+      range: "$50-$200"

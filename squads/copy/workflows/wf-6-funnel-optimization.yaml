@@ -1,0 +1,646 @@
+# WF-6: Funnel Optimization Workflow
+# Framework: Copy Expansion Pack v2.0
+# Focus: Improving existing funnels through systematic diagnosis and testing
+# Duration: 3-5 days
+# Target: Conversion rate optimization for existing funnels
+
+workflow:
+  id: wf-6-funnel-optimization
+  name: "Funnel Optimization - CRO Pipeline"
+  type: optimization
+  duration: "3-5 days"
+  description: |
+    Systematic workflow for optimizing existing funnels.
+    Uses Claude Hopkins' scientific testing methodology,
+    Eugene Schwartz's awareness diagnosis, and
+    Joe Sugarman's psychological triggers for enhancement.
+
+    IMPORTANT: This workflow assumes you have an EXISTING funnel with data.
+    If starting from scratch, use WF-1 (Full Launch) or WF-2 (Paid Traffic).
+  operational_roles:
+    orchestrator: copy-chief
+    human_review_agent: launch-owner
+    delivery_agent: copy-ops-worker
+  state_machine:
+    states: [init, audit, diagnosis, enhancements, test-plan, complete, failed]
+    transitions:
+      - { trigger: start, source: init, dest: audit }
+      - { trigger: audit_complete, source: audit, dest: diagnosis }
+      - { trigger: diagnosis_complete, source: diagnosis, dest: enhancements }
+      - { trigger: enhancements_complete, source: enhancements, dest: test-plan }
+      - { trigger: test-plan_complete, source: test-plan, dest: complete }
+      - { trigger: fail, source: "*", dest: failed }
+  quality_gate_refs: [QG-CP-1.1, QG-CP-6.1, QG-CP-8.1, QG-CP-4.1, QG-CP-5.1]
+
+  target_output:
+    - "Diagnostic report with gap analysis"
+    - "Prioritized fix recommendations"
+    - "Enhanced copy with trigger injection"
+    - "A/B test plan with statistical requirements"
+
+  key_agents:
+    primary:
+      - claude-hopkins   # Scientific testing, metrics, A/B setup
+      - eugene-schwartz  # Awareness level diagnosis, gap analysis
+      - joe-sugarman     # Psychological trigger injection
+    secondary:
+      - gary-bencivenga  # Fascinations and proof enhancement
+      - todd-brown       # Mechanism clarity check
+      - john-carlton     # Headline optimization
+
+  prerequisites:
+    - "Existing funnel with traffic (minimum 1000 visitors/week recommended)"
+    - "Current metrics available (conversion rate, CTR, bounce rate)"
+    - "Access to edit funnel copy"
+    - "Analytics tracking implemented"
+
+  sequence:
+    - phase: audit
+      id: audit
+      agent: claude-hopkins
+      task_ref: tasks/audit-copy-hopkins.md
+      action: "Auditar o funnel atual com método científico e baseline de métricas"
+      creates: cro-audit
+      on_complete: { trigger: audit_complete }
+    - phase: diagnosis
+      id: diagnosis
+      agent: eugene-schwartz
+      task_ref: tasks/diagnose-awareness-level.md
+      requires: cro-audit
+      action: "Diagnosticar awareness, mecanismo e desalinhamentos de mensagem"
+      creates: cro-diagnosis
+      on_complete: { trigger: diagnosis_complete }
+    - phase: enhancements
+      id: enhancements
+      agent: joe-sugarman
+      task_ref: tasks/apply-sugarman-triggers.md
+      requires: cro-diagnosis
+      action: "Aplicar reforços de gatilhos e melhorias de persuasão"
+      creates: enhanced-funnel-copy
+      on_complete: { trigger: enhancements_complete }
+    - phase: test-plan
+      id: test-plan
+      agent: claude-hopkins
+      task_ref: tasks/setup-split-test.md
+      requires: enhanced-funnel-copy
+      action: "Definir plano de testes e validação estatística"
+      creates: cro-test-plan
+      on_complete: { trigger: test-plan_complete }
+
+  handoff_prompts:
+    default: "Entregue o artefato criado, decisões tomadas, riscos abertos e o critério exato para o próximo agente continuar sem reinterpretar o contexto."
+
+# ==============================================================================
+# PHASE 1: DIAGNOSTIC (Day 1-2)
+# ==============================================================================
+
+phases:
+  - id: PHASE-1
+    name: "Diagnostic - Scientific Audit"
+    day: 1-2
+    tier: 0
+    description: |
+      Complete diagnostic of current funnel performance.
+      Apply Hopkins' scientific method: measure before you fix.
+      Identify gaps across 6 critical dimensions:
+      Awareness, Mechanism, Emotion, Proof, Objection, Entry.
+
+    tasks:
+      - task_file: audit-copy-hopkins.md
+        agent: claude-hopkins
+        required: true
+        focus: "Scientific audit of current copy - metrics and claims"
+        output: "Hopkins Audit Report with specific scores"
+        key_questions:
+          - "Are all claims specific and testable?"
+          - "Is tracking implemented at every step?"
+          - "What is cost-per-conversion by channel?"
+          - "Which elements have been tested vs assumed?"
+
+      - task_file: diagnose-awareness-level.md
+        agent: eugene-schwartz
+        required: true
+        focus: "Verify copy matches prospect awareness level"
+        output: "Awareness alignment report"
+        key_questions:
+          - "What is the actual awareness level of traffic?"
+          - "Does copy match that level?"
+          - "Is there mismatch causing drop-off?"
+
+      - task_file: diagnose-market-sophistication.md
+        agent: eugene-schwartz
+        required: true
+        focus: "Check market sophistication alignment"
+        output: "Market sophistication analysis"
+
+      - task_file: analyze-mental-conversation.md
+        agent: robert-collier
+        required: false
+        focus: "Verify entry point matches prospect's mental conversation"
+        output: "Mental conversation alignment check"
+
+    gap_analysis:
+      description: |
+        After tasks complete, compile Gap Analysis across 6 dimensions.
+        Each gap represents potential conversion lift opportunity.
+
+      dimensions:
+        awareness_gap:
+          question: "Is copy aligned to traffic awareness level?"
+          symptoms:
+            - "High bounce rate (copy too advanced for traffic)"
+            - "Low engagement (copy too basic for traffic)"
+          diagnosis_by: "eugene-schwartz"
+
+        mechanism_gap:
+          question: "Is the unique mechanism clear and compelling?"
+          symptoms:
+            - "Price objections (mechanism not differentiated)"
+            - "Comparison shopping (commodity perception)"
+          diagnosis_by: "todd-brown"
+
+        emotion_gap:
+          question: "Does copy create emotional engagement?"
+          symptoms:
+            - "Reading but not acting (intellectual not emotional)"
+            - "Low time-on-page (no emotional hook)"
+          diagnosis_by: "gary-halbert"
+
+        proof_gap:
+          question: "Is there sufficient credible proof?"
+          symptoms:
+            - "Trust issues in survey/heatmaps"
+            - "Drop-off at proof section"
+          diagnosis_by: "gary-bencivenga"
+
+        objection_gap:
+          question: "Are all objections addressed?"
+          symptoms:
+            - "Late-funnel abandonment"
+            - "Support tickets with same questions"
+          diagnosis_by: "dan-kennedy"
+
+        entry_gap:
+          question: "Does first line match mental conversation?"
+          symptoms:
+            - "High above-fold bounce"
+            - "Low scroll depth"
+          diagnosis_by: "robert-collier"
+
+    checkpoint:
+      criteria:
+        - "CURRENT METRICS documented"
+        - "AWARENESS ALIGNMENT verified"
+        - "GAP ANALYSIS complete (6 dimensions)"
+        - "PRIORITY GAPS identified"
+      human_review: true
+      message: "Review diagnostic findings before proceeding to fixes."
+
+# ==============================================================================
+# PHASE 2: PRIORITIZED FIXES (Day 2-3)
+# ==============================================================================
+
+  - id: PHASE-2
+    name: "Prioritized Fixes - High-Impact Improvements"
+    day: 2-3
+    tier: 1
+    description: |
+      Apply fixes in priority order based on impact potential.
+      Hopkins' Rule: Test the biggest lever first.
+
+      Priority Order (proven impact hierarchy):
+      1. HEADLINE (can change results by 500%+)
+      2. LEAD (first 50 words determine if they read on)
+      3. OFFER (what they get and at what price)
+      4. CTA (the actual conversion moment)
+      5. PROOF (testimonials, credentials, data)
+
+    fix_priority_order:
+      priority_1_headline:
+        impact: "Can change results by 500%+"
+        agent: john-carlton
+        task: create-headlines.md
+        action: "Create 5-10 headline variations for testing"
+
+      priority_2_lead:
+        impact: "Determines if they read on"
+        agent: joe-sugarman
+        task: audit-landing-page.md
+        action: "Optimize first 50 words for slippery slide"
+
+      priority_3_offer:
+        impact: "Core value proposition"
+        agent: dan-kennedy
+        task: evaluate-offer.md
+        action: "Restructure offer, add bonuses, improve guarantee"
+
+      priority_4_cta:
+        impact: "Conversion moment"
+        agent: dan-kennedy
+        task: create-offer.md
+        action: "Optimize CTA copy, urgency, clarity"
+
+      priority_5_proof:
+        impact: "Trust and credibility"
+        agent: gary-bencivenga
+        task: build-authority-arsenal.md
+        action: "Add fascinations, specific proof, testimonials"
+
+    tasks:
+      - task_file: create-headlines.md
+        agent: john-carlton
+        required: true
+        focus: "Create 5-10 headline variations based on diagnosis"
+        output: "Headline test variants"
+        notes: |
+          Headlines to create (prioritized by gap analysis):
+          - If awareness gap: Match awareness level
+          - If mechanism gap: Lead with unique mechanism
+          - If emotion gap: Use emotional hook
+          - If proof gap: Lead with proof/result
+
+      - task_file: audit-landing-page.md
+        agent: joe-sugarman
+        required: true
+        focus: "Audit and fix lead section (first 50 words)"
+        output: "Optimized lead copy"
+
+      - task_file: evaluate-offer.md
+        agent: dan-kennedy
+        required: true
+        focus: "Review and optimize offer structure"
+        output: "Improved offer with stack"
+
+      - task_file: write-lampropoulos-bullets.md
+        agent: gary-bencivenga
+        required: false
+        focus: "Enhance bullets and fascinations"
+        output: "New bullet variations"
+
+      - task_file: build-authority-arsenal.md
+        agent: gary-bencivenga
+        required: false
+        focus: "Strengthen proof elements"
+        output: "Enhanced proof stack"
+
+    checkpoint:
+      criteria:
+        - "HEADLINE variations created (5-10)"
+        - "LEAD optimized"
+        - "OFFER reviewed and enhanced"
+        - "CTA copy improved"
+        - "PROOF elements strengthened"
+      human_review: true
+      message: "Review proposed fixes before trigger injection."
+
+# ==============================================================================
+# PHASE 3: TRIGGER ENHANCEMENT (Day 3-4)
+# ==============================================================================
+
+  - id: PHASE-3
+    name: "Trigger Enhancement - Psychological Amplification"
+    day: 3-4
+    tier: 2
+    description: |
+      Apply Joe Sugarman's 30 Psychological Triggers strategically.
+      Target: Inject 5-10 missing triggers without overload.
+
+      WARNING: Natural copy has 15-20 triggers organically.
+      Forcing 25+ triggers feels manipulative.
+      Quality over quantity ALWAYS.
+
+    trigger_injection_rules:
+      target_count: "Add 5-10 missing high-impact triggers"
+      max_total: "22 triggers total (avoid overload)"
+      priority_triggers:
+        - "1. Honesty - FOUNDATION (most important)"
+        - "5. Involvement/Ownership - Mental engagement"
+        - "6. Storytelling - Emotional connection"
+        - "15. Specificity - Credibility through precision"
+        - "21. Belonging - Tribal psychology"
+        - "23. Curiosity - Forward momentum"
+        - "24. Hope - Future pacing"
+
+    tasks:
+      - task_file: apply-sugarman-triggers.md
+        agent: joe-sugarman
+        required: true
+        focus: "Audit current triggers and inject missing ones"
+        output: "Trigger enhancement report + enhanced copy"
+        process:
+          - "1. Audit: Count current triggers (expect 15-20)"
+          - "2. Gap: Identify 5-10 missing high-impact triggers"
+          - "3. Inject: Add triggers naturally without forcing"
+          - "4. Balance: Verify category balance"
+          - "5. Score: Final trigger count (target 18-22)"
+
+      - task_file: audit-copy-hopkins.md
+        agent: claude-hopkins
+        required: true
+        focus: "Verify all claims remain specific and testable after enhancement"
+        output: "Post-enhancement specificity check"
+        key_verification:
+          - "No vague claims introduced"
+          - "All numbers remain specific"
+          - "Honesty trigger present"
+
+    trigger_checklist:
+      must_have:
+        - "Trigger 1 (Honesty) - ALWAYS include"
+        - "Trigger 15 (Specificity) - Numbers must be specific"
+        - "Trigger 23 (Curiosity) - Open loops present"
+      recommended:
+        - "Trigger 5 (Ownership) - Reader imagines using product"
+        - "Trigger 6 (Storytelling) - Narrative element"
+        - "Trigger 21 (Belonging) - Community aspect"
+        - "Trigger 24 (Hope) - Future pacing"
+      caution:
+        - "Trigger 25 (Guilt) - Use sparingly, ethically"
+        - "Trigger 16 (Urgency) - Only if real reason exists"
+
+    checkpoint:
+      criteria:
+        - "TRIGGER AUDIT complete"
+        - "5-10 MISSING TRIGGERS identified"
+        - "TRIGGERS INJECTED naturally"
+        - "TOTAL COUNT between 18-22"
+        - "SPECIFICITY maintained (Hopkins check)"
+      human_review: false
+      message: "Triggers enhanced. Ready for testing setup."
+
+# ==============================================================================
+# PHASE 4: A/B TEST SETUP (Day 4-5)
+# ==============================================================================
+
+  - id: PHASE-4
+    name: "Testing - Scientific Validation"
+    day: 4-5
+    tier: 3
+    description: |
+      Set up A/B tests using Claude Hopkins' scientific methodology.
+      "Almost any question can be answered, cheaply, quickly and finally, by a test campaign."
+
+      Statistical Requirements:
+      - 95% confidence level (standard)
+      - Minimum sample size calculated per variant
+      - One variable tested at a time
+      - Control vs single variant per test
+
+    tasks:
+      - task_file: setup-split-test.md
+        agent: claude-hopkins
+        required: true
+        focus: "Create A/B test plan with statistical requirements"
+        output: "Test plan document"
+        test_requirements:
+          confidence_level: "95% (p < 0.05)"
+          minimum_detectable_effect: "10% improvement"
+          statistical_power: "80%"
+          sample_size_formula: |
+            n = (Z_α/2 + Z_β)² × 2 × p(1-p) / (p₁ - p₀)²
+
+            Where:
+            Z_α/2 = 1.96 (for 95% confidence)
+            Z_β = 0.84 (for 80% power)
+            p = baseline conversion rate
+            p₁ - p₀ = minimum detectable difference
+
+    test_plan_structure:
+      test_1_headline:
+        priority: "HIGHEST"
+        variable: "Headline only"
+        control: "Current headline"
+        variant: "New headline from Phase 2"
+        metric: "CTR / scroll depth"
+        sample_size: "Calculate based on current CTR"
+        duration: "Until statistical significance"
+
+      test_2_lead:
+        priority: "HIGH"
+        variable: "First 50 words"
+        control: "Current lead"
+        variant: "Optimized lead from Phase 2"
+        metric: "Time on page / scroll depth"
+        sample_size: "Calculate based on engagement"
+
+      test_3_offer:
+        priority: "HIGH"
+        variable: "Offer structure"
+        control: "Current offer"
+        variant: "Enhanced offer from Phase 2"
+        metric: "Conversion rate"
+        sample_size: "Calculate based on CVR"
+
+      test_4_cta:
+        priority: "MEDIUM"
+        variable: "CTA copy/placement"
+        control: "Current CTA"
+        variant: "Optimized CTA"
+        metric: "Click-through to checkout"
+
+      test_5_triggers:
+        priority: "MEDIUM"
+        variable: "Full copy with triggers"
+        control: "Pre-enhancement copy"
+        variant: "Trigger-enhanced copy"
+        metric: "Overall conversion rate"
+
+    sample_size_calculator:
+      description: |
+        Use this formula to calculate required sample size per variant:
+
+        For conversion rate tests:
+        n = 16 × p × (1-p) / δ²
+
+        Where:
+        p = baseline conversion rate (as decimal)
+        δ = minimum detectable difference (as decimal)
+
+        Example:
+        - Current CVR: 2% (p = 0.02)
+        - Want to detect: 20% improvement (δ = 0.004)
+        - n = 16 × 0.02 × 0.98 / 0.000016 = 19,600 per variant
+
+        Quick reference at 95% confidence, 80% power:
+        | Current CVR | 10% lift | 20% lift | 30% lift |
+        |-------------|----------|----------|----------|
+        | 1%          | 63,000   | 16,000   | 7,000    |
+        | 2%          | 31,000   | 8,000    | 3,500    |
+        | 5%          | 12,000   | 3,000    | 1,400    |
+        | 10%         | 5,700    | 1,400    | 600      |
+
+    testing_rules:
+      do:
+        - "Test ONE variable at a time"
+        - "Run until statistical significance"
+        - "Use proper tracking codes for each variant"
+        - "Document all test results"
+        - "Scale winners, kill losers"
+      dont:
+        - "End test early because 'it looks good'"
+        - "Test multiple variables at once"
+        - "Ignore statistical significance"
+        - "Let opinions override data"
+        - "Skip documentation"
+
+    checkpoint:
+      criteria:
+        - "TEST PLAN created"
+        - "SAMPLE SIZES calculated"
+        - "TRACKING CODES assigned"
+        - "TEST SEQUENCE prioritized"
+        - "SUCCESS METRICS defined"
+      human_review: true
+      message: "Test plan ready for implementation. Review before launching tests."
+
+# ==============================================================================
+# WORKFLOW OUTPUTS
+# ==============================================================================
+
+outputs:
+  diagnostic:
+    - "Hopkins Scientific Audit Report"
+    - "Awareness Level Alignment Analysis"
+    - "6-Dimension Gap Analysis"
+    - "Priority Gap Identification"
+
+  fixes:
+    - "5-10 Headline Variations"
+    - "Optimized Lead Section"
+    - "Enhanced Offer Structure"
+    - "Improved CTA Copy"
+    - "Strengthened Proof Elements"
+
+  enhancement:
+    - "Trigger Audit Report (before)"
+    - "Trigger Injection Log (what was added)"
+    - "Enhanced Copy (with triggers)"
+    - "Final Trigger Score (target 18-22)"
+
+  testing:
+    - "A/B Test Plan Document"
+    - "Sample Size Calculations"
+    - "Test Sequence (prioritized)"
+    - "Tracking Code Assignments"
+    - "Success Metrics Definition"
+
+# ==============================================================================
+# SIGNALS & AUTOMATION
+# ==============================================================================
+
+completion_signal: "<promise>COMPLETE</promise>"
+checkpoint_signal: "<promise>CHECKPOINT:PHASE-X</promise>"
+blocked_signal: "<promise>BLOCKED:T-X.Y</promise>"
+
+automation:
+  state_file: "copy-state.json"
+  progress_file: "progress.txt"
+  handoff_file: "handoff.md"
+
+# ==============================================================================
+# AGENT SPECIALIZATIONS
+# ==============================================================================
+
+agent_roles:
+  claude-hopkins:
+    specialty: "Scientific testing, metrics, A/B setup, specificity"
+    applies_to:
+      - "Initial audit (Phase 1)"
+      - "Post-enhancement verification (Phase 3)"
+      - "Test plan creation (Phase 4)"
+    key_framework: "Scientific Advertising + Coupon Tracking"
+
+  eugene-schwartz:
+    specialty: "Awareness levels and market sophistication diagnosis"
+    applies_to:
+      - "Awareness alignment check (Phase 1)"
+      - "Market sophistication analysis"
+      - "Gap analysis foundation"
+    key_framework: "5 Levels of Awareness + 5 Stages of Market Sophistication"
+
+  joe-sugarman:
+    specialty: "Psychological triggers and slippery slide"
+    applies_to:
+      - "Trigger audit (Phase 3)"
+      - "Trigger injection (Phase 3)"
+      - "Lead optimization (Phase 2)"
+    key_framework: "30 Psychological Triggers + Slippery Slide"
+
+  john-carlton:
+    specialty: "Headlines and direct response copy"
+    applies_to:
+      - "Headline variations (Phase 2)"
+    key_framework: "SWS Method (Simple Writing System)"
+
+  gary-bencivenga:
+    specialty: "Fascinations, bullets, and proof"
+    applies_to:
+      - "Bullet enhancement (Phase 2)"
+      - "Proof strengthening (Phase 2)"
+    key_framework: "Fascination Framework + Proof Stack"
+
+  dan-kennedy:
+    specialty: "Offers, urgency, and direct response"
+    applies_to:
+      - "Offer evaluation (Phase 2)"
+      - "CTA optimization (Phase 2)"
+    key_framework: "3Ms (Market, Message, Media) + Urgency Stack"
+
+  todd-brown:
+    specialty: "Unique mechanism diagnosis"
+    applies_to:
+      - "Mechanism gap analysis (Phase 1)"
+    key_framework: "E5 Method + Big Idea Framework"
+
+# ==============================================================================
+# QUALITY GATES
+# ==============================================================================
+
+quality_gates:
+  diagnostic_quality:
+    - "All current metrics documented"
+    - "Awareness level verified with evidence"
+    - "All 6 gap dimensions analyzed"
+    - "Priority gaps clearly identified"
+
+  fix_quality:
+    - "Headlines match diagnosed awareness level"
+    - "Lead creates slippery slide effect"
+    - "Offer has clear value stack"
+    - "CTA is specific and action-oriented"
+    - "Proof is specific, not generic"
+
+  enhancement_quality:
+    - "Trigger count between 18-22"
+    - "No forced or unnatural triggers"
+    - "Honesty trigger present (Trigger 1)"
+    - "Specificity maintained (Trigger 15)"
+    - "Copy reads naturally"
+
+  testing_quality:
+    - "Sample sizes properly calculated"
+    - "One variable per test"
+    - "Statistical significance defined"
+    - "Tracking properly implemented"
+    - "Test sequence prioritized by impact"
+
+# ==============================================================================
+# METADATA
+# ==============================================================================
+
+metadata:
+  version: "1.0"
+  framework: "copy-framework-v2"
+  created: "2026-01-23"
+  story_id: "US-008"
+  primary_use_case: "Improving existing funnels, conversion rate optimization"
+  secondary_use_cases:
+    - "Landing page optimization"
+    - "Sales page improvement"
+    - "Email sequence enhancement"
+    - "Ad performance improvement"
+
+  references:
+    - "Claude Hopkins - Scientific Advertising (1923)"
+    - "Eugene Schwartz - Breakthrough Advertising"
+    - "Joe Sugarman - Triggers (30 Psychological Triggers)"

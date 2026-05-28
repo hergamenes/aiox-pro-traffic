@@ -1,0 +1,70 @@
+sop:
+  id: task-apag-newsletter
+  version: "1.0"
+  title: "APAG Persuasive Newsletter"
+  purpose: "Write persuasive newsletter using APAG framework (Attention, Perspective, Advantage, Gamify) with hook written LAST"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: dan-koe
+    tier: T3
+
+  inputs:
+    - name: topic
+      type: string
+      required: true
+      description: "Topic/idea to write about"
+    - name: personal_experience
+      type: string
+      required: true
+      description: "Personal experience related to topic"
+
+  outputs:
+    - name: newsletter
+      type: document
+      description: "Persuasive APAG newsletter (Koe Letter style)"
+
+  steps:
+    - id: step_1
+      action: write_attention_last
+      description: "Hook using BIG problem/benefit/idea/transformation/timeframe — written AFTER body complete"
+      critical: true
+      write_order: last
+
+    - id: step_2
+      action: write_perspective
+      description: "Paint enemy/wrong perspective + personal stories + amplify pain + negative future pacing"
+      critical: true
+
+    - id: step_3
+      action: write_advantage
+      description: "Present benefits, transformation, unique solution, step-by-step process"
+
+    - id: step_4
+      action: write_gamify
+      description: "Frictionless CTA — so simple that NOT taking it feels harder than taking it"
+      critical: true
+      error_handling:
+        condition: "CTA requires complex multi-step action"
+        action: "Simplify to ONE action taking under 60 seconds"
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "Hook written LAST"
+      - "Perspective includes personal experience"
+      - "Enemy clearly identified"
+      - "Advantage has step-by-step process"
+      - "Gamify CTA is frictionless single action"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies: []
+
+  related_sops:
+    - task-hook-architecture
+    - task-weekly-writing-production
+    - task-contrarian-content
+    - task-identity-stack

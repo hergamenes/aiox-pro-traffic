@@ -1,0 +1,60 @@
+sop:
+  id: ogilvy-long-copy-philosophy
+  version: "1.0"
+  title: "Long Copy Philosophy — The More You Tell"
+  purpose: >
+    Apply the principle that long copy outsells short copy in split-run tests.
+    Readership drop from 50 to 500 words is minimal. Key rules: make it
+    interesting, use subheads, prioritize facts, and add selling captions.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: david-ogilvy
+    tier: t1
+
+  steps:
+    - id: apply_length_decision
+      action: "Determine if long copy is appropriate: complex product, high price, new product, multiple benefits, strong story"
+      input: "product_attributes"
+      output: "long_copy_justified: true | false"
+
+    - id: apply_interesting_rule
+      action: "Every paragraph must earn its place — inform, persuade, or entertain. Cut boring paragraphs regardless of quality."
+      condition: "paragraph_earns_place == true"
+      output: "edited_copy"
+
+    - id: apply_subheads
+      action: "Insert benefit-oriented subheads every 3-4 paragraphs as re-entry points for scanners"
+      condition: "subhead_interval <= 4_paragraphs"
+      output: "structured_copy"
+
+    - id: apply_facts_over_adjectives
+      action: "Replace every adjective with a specific, verifiable fact"
+      condition: "adjective_count_minimized"
+      output: "fact_based_copy"
+
+    - id: apply_photo_captions
+      action: "Add selling captions to every photo (read 4x more than body copy)"
+      condition: "all_photos_have_captions"
+      output: "captioned_photos"
+
+  error_handling:
+    - error: "boring_long_copy"
+      severity: high
+      action: "Apply 'earn its place' test; cut or rewrite non-earning paragraphs"
+    - error: "no_subheads"
+      severity: medium
+      action: "Add benefit-oriented subheads every 3-4 paragraphs"
+    - error: "adjective_heavy"
+      severity: medium
+      action: "Replace each adjective with a specific fact"
+    - error: "photos_without_captions"
+      severity: medium
+      action: "Add selling caption to every photo"
+
+  quality_gate:
+    long_copy_justified: true
+    every_paragraph_earns_place: true
+    subheads_present: true
+    facts_over_adjectives: true
+    all_photos_captioned: true

@@ -1,0 +1,63 @@
+sop:
+  id: fw-intentional-constraints
+  version: "1.0"
+  title: "Intentional Constraints — 3 Axioms"
+  purpose: "Design opt-in flows and product access using deliberate friction as a feature to select committed participants"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: andre-chaperon
+    tier: t3
+  steps:
+    - id: apply_selection_principle
+      name: "Selection Principle"
+      description: "Design systems where the process itself selects the right audience"
+      inputs:
+        - funnel_touchpoints
+        - ideal_participant_profile
+      outputs:
+        - selection_map
+      validation:
+        - each_touchpoint_selects: true
+        - selection_criteria_defined: true
+    - id: apply_gate_effect
+      name: "Gate Effect"
+      description: "Introduce gates requiring effort that increase perceived value"
+      inputs:
+        - selection_map
+        - value_proposition
+      outputs:
+        - gate_specifications
+      validation:
+        - gates_require_effort: true
+        - value_exceeds_friction: true
+    - id: apply_law_of_thresholds
+      name: "Law of Thresholds"
+      description: "Design friction points that deepen commitment through self-selection"
+      inputs:
+        - gate_specifications
+        - commitment_indicators
+      outputs:
+        - threshold_design
+        - quality_metrics_plan
+      validation:
+        - friction_is_intentional: true
+        - commitment_deepens: true
+        - max_gates: 3
+  error_handling:
+    - error: accidental_friction
+      condition: "Friction from bad UX, not intentional design"
+      action: "Audit each friction point; remove accidental, keep intentional"
+    - error: low_value_friction
+      condition: "Gates on offers where perceived value doesn't justify effort"
+      action: "Increase perceived value before gate or remove gate"
+    - error: over_filtering
+      condition: "More than 3 gates causing qualified prospect abandonment"
+      action: "Reduce to 2-3 maximum gates; A/B test each one"
+  quality_gate:
+    min_sections: 3
+    required_elements:
+      - selection_map
+      - gate_specifications
+      - quality_metrics
+    pass_threshold: "each friction point has stated purpose and downstream quality measurement"

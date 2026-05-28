@@ -1,0 +1,133 @@
+sop:
+  id: halbert-copy-validation
+  version: "1.0"
+  title: Halbert Copy Validation Checklist
+  purpose: >
+    Validate copy against Gary Halbert's quality standards for paragraph brevity,
+    numeric specificity, proof density, personal tone, and A-Pile classification.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: gary-halbert
+    artifact_type: quality_gate
+    tier: t1
+
+  steps:
+    - action: validate_paragraph_length
+      description: Verify all paragraphs are 1-3 lines, never exceeding 4
+      input: full_copy_text
+      rule: max_lines_per_paragraph <= 3
+      hard_limit: 4
+      on_fail: split_paragraph
+
+    - action: validate_no_emojis
+      description: Confirm zero emoji characters in entire document
+      input: full_copy_text
+      rule: emoji_count == 0
+      on_fail: remove_all_emojis
+
+    - action: validate_specific_numbers
+      description: Every claim must contain exact numbers, zero vague quantifiers
+      input: full_copy_text
+      prohibited_terms:
+        - many
+        - several
+        - a lot
+        - significant
+        - huge
+        - numerous
+        - countless
+      rule: vague_quantifier_count == 0
+      on_fail: replace_with_exact_figures
+
+    - action: validate_opening_pattern
+      description: First sentence uses Halbert-pattern opener
+      input: first_paragraph
+      preferred_patterns:
+        - "Most people"
+        - direct_personal_address
+        - startling_specific_fact
+      on_fail: rewrite_opening
+
+    - action: validate_proof_stack
+      description: Minimum 3 different proof types supporting claims
+      input: full_copy_text
+      proof_types:
+        - testimonial
+        - case_study
+        - statistic
+        - expert_endorsement
+        - demonstration
+        - logical_argument
+        - analogy
+        - before_after
+        - third_party_validation
+      rule: distinct_proof_types >= 3
+      on_fail: add_missing_proof_types
+
+    - action: validate_ps_present
+      description: PS section exists at end of sales letters
+      input: full_copy_text
+      condition: document_type == "sales_letter"
+      rule: ps_section_exists == true
+      on_fail: add_ps_section
+
+    - action: validate_a_pile_classification
+      description: Copy reads as personal mail, not advertising
+      input: full_copy_text
+      a_pile_signals:
+        - personal_conversational_tone
+        - no_corporate_headers
+        - no_promotional_formatting
+        - handwritten_feel
+      b_pile_signals:
+        - slick_formatting
+        - corporate_logos
+        - promotional_language
+        - advertising_layout
+      rule: b_pile_signal_count == 0
+      on_fail: rewrite_to_personal
+
+    - action: validate_read_aloud_flow
+      description: Copy flows naturally when read aloud without stumbles
+      input: full_copy_text
+      checks:
+        - no_awkward_phrasing
+        - natural_rhythm
+        - conversational_pace
+      on_fail: smooth_bumps
+
+    - action: validate_voice_authenticity
+      description: Copy sounds like Halbert writing a personal letter
+      input: full_copy_text
+      voice_markers:
+        - first_person_voice
+        - direct_address_you
+        - casual_confident_tone
+        - streetwise_intelligence
+        - zero_academic_posturing
+      on_fail: rewrite_in_voice
+
+  error_handling:
+    - error: paragraph_exceeds_limit
+      severity: high
+      action: auto_split_at_sentence_boundary
+    - error: vague_quantifier_detected
+      severity: high
+      action: flag_for_research_and_replacement
+    - error: missing_proof_types
+      severity: critical
+      action: block_until_3_types_present
+    - error: b_pile_classification
+      severity: critical
+      action: full_rewrite_required
+
+  quality_gate:
+    pass_threshold: 9
+    total_checks: 9
+    mandatory_passes:
+      - validate_no_emojis
+      - validate_specific_numbers
+      - validate_proof_stack
+      - validate_a_pile_classification
+    verdict_on_fail: REJECT

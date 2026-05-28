@@ -1,0 +1,41 @@
+sop:
+  id: schwartz-triade-diagnostica
+  version: "1.0"
+  title: "Triade Diagnostica de Mercado"
+  purpose: "Three-question diagnostic that determines ALL copy strategy — mass desire, awareness stage, and sophistication stage — mandatory before any creative work."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: eugene-schwartz
+  steps:
+    - id: apply_mass_desire
+      action: "Identify the dominant mass desire driving the market"
+      input: "Market research, customer interviews, search data, competitor analysis"
+      output: "Documented mass desire statement with evidence of urgency and market size"
+      validation: "Desire already exists (not invented), is massive, urgent, and product is acceptable channel"
+    - id: apply_awareness_classification
+      action: "Classify prospect awareness stage (1-5)"
+      input: "Customer interviews, search behavior, market research"
+      output: "Awareness stage number (1-5) with supporting evidence"
+      validation: "Classification based on evidence, not assumptions; implications for headline type documented"
+    - id: apply_sophistication_classification
+      action: "Classify market sophistication stage (1-5)"
+      input: "Competitor ad audit, historical campaign analysis, market maturity data"
+      output: "Sophistication stage number (1-5) with competitor evidence"
+      validation: "Classification based on competitor count and claim similarity analysis"
+  error_handling:
+    - error: "Desire identified does not exist in market"
+      resolution: "Return to research; survey prospects for actual desires; never invent"
+    - error: "Awareness and sophistication stages conflict"
+      resolution: "Re-examine evidence; segment market if multiple stages coexist"
+    - error: "Incomplete triad (only 1-2 questions answered)"
+      resolution: "Block creative brief until all 3 questions are answered with evidence"
+  quality_gate:
+    criteria:
+      - "Mass desire identified with evidence (not invented)"
+      - "Awareness stage classified with supporting data"
+      - "Sophistication stage classified with competitor audit"
+      - "All 3 answers are internally consistent"
+      - "Strategic implications documented (headline type, copy length, approach)"
+    pass_threshold: "All 5 criteria met"

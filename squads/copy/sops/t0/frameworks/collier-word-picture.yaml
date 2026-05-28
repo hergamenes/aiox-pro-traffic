@@ -1,0 +1,75 @@
+sop:
+  id: collier-word-picture
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Word Picture Framework"
+  purpose: >
+    Replace feature lists with vivid mental movies that put product in prospect's
+    hands before purchase. Mind thinks in pictures. One clear picture is worth
+    a thousand feature bullets. Creates ownership experience before transaction.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: robert-collier
+    artifact_type: framework
+
+  steps:
+    - id: apply_sensory_scene
+      action: apply_paint_vivid_scene
+      description: "Paint sensory, vivid, emotional scene. Use sight, sound, touch. Place prospect in specific moment experiencing benefit."
+      critical: true
+      inputs:
+        - product_experience_details
+        - prospect_current_situation
+      output: sensory_scene
+
+    - id: apply_mental_ownership
+      action: apply_product_in_hands
+      description: "Put product in their hands mentally. Describe moment of first use. What they see, feel, what changes."
+      depends_on: apply_sensory_scene
+      output: ownership_moment
+
+    - id: apply_single_picture_rule
+      action: apply_one_clear_picture
+      description: "One clear picture = worth a thousand drawings. Choose single most compelling moment. Full detail on ONE scene."
+      depends_on: apply_mental_ownership
+      critical: true
+      output: final_word_picture
+
+  error_handling:
+    - error: feature_list_disguised
+      symptom: "Description lists features with adjectives"
+      resolution: "Write a scene with prospect as protagonist: 'You slip them on and...'"
+    - error: abstract_benefits
+      symptom: "'Experience comfort like never before' — no sensory grounding"
+      resolution: "Ground in specific sensory detail: what does it feel like?"
+    - error: multiple_competing_pictures
+      symptom: "3 different scenarios in one paragraph"
+      resolution: "Choose ONE moment and paint it completely"
+    - error: product_as_protagonist
+      symptom: "'Our product does X, Y, Z'"
+      resolution: "Prospect as protagonist: 'You do X, you feel Y'"
+    - error: missing_sensory_detail
+      symptom: "Visual-only description"
+      resolution: "Add at least one non-visual sense (touch, sound, smell)"
+
+  quality_gate:
+    criteria:
+      - "Scene uses at least 2 sensory channels"
+      - "Prospect is protagonist, not product"
+      - "Describes specific moment, not general benefit"
+      - "Creates physical or emotional sensation when read"
+      - "One clear picture dominates"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: signature_scene
+      format: word_picture
+      description: "Primary word picture — the signature scene of the product experience"
+    - name: supporting_pictures
+      format: word_pictures
+      description: "1-2 optional supporting pictures for secondary benefits"

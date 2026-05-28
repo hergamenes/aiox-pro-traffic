@@ -1,0 +1,105 @@
+sop:
+  id: "fk-mass-control-idt-launch"
+  version: "1.0.0"
+  title: "Mass Control Launch via Implicit Decision Triggers"
+  purpose: "Execute a high-trust product launch where prospects self-select and ask to buy through 6+ months of goodwill building, genuine value delivery, and responsive (not pushed) offer framing."
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    risk_level: "high"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "When launching a high-ticket product ($500+) to an engaged audience that has received 6+ months of consistent goodwill and value delivery."
+  context:
+    input:
+      - name: "goodwill_history"
+        type: "string"
+        required: true
+        description: "Documentation of 6+ months of consistent value delivery to the audience (IBB, Results in Advance, content)."
+      - name: "engaged_audience"
+        type: "object"
+        required: true
+        description: "Email list with 20%+ open rates, audience size, and engagement metrics indicating active relationship."
+      - name: "product_offer"
+        type: "object"
+        required: true
+        description: "High-quality product with clear value proposition, pricing, guarantee, and delivery mechanism."
+      - name: "social_proof"
+        type: "list"
+        required: true
+        description: "Case studies, testimonials, and documented results from existing customers or beta users."
+  steps:
+    - id: "S001"
+      name: "GIVE - Results in Advance Sequence"
+      action: "deliver_pre_launch_value"
+      description: "Create and deliver 3-4 high-value content pieces over 2-3 weeks, each producing a standalone result. No mention of upcoming launch. Demonstrate breadth of expertise and hint at a bigger picture without stating it."
+      performer: "copywriter"
+      critical: true
+      on_success: "S002"
+      on_failure: "retry"
+    - id: "S002"
+      name: "DECIDE - Monitor Organic Interest"
+      action: "track_self_generated_demand"
+      description: "Monitor for organic interest signals: reply emails asking about programs, DMs requesting more depth, comments asking 'how do I work with you?' Wait until multiple unsolicited inquiries occur daily. Do NOT rush or manufacture signals."
+      performer: "copywriter"
+      critical: true
+      on_success: "S003"
+      on_failure: "S001"
+    - id: "S003"
+      name: "ASK - Respond to Demand"
+      action: "frame_offer_as_response"
+      description: "Create pre-launch announcement framed as response to organic demand: 'Many of you have been asking...' Present offer as invitation, not pitch. Keep announcement short and genuine. The goodwill has done the selling."
+      performer: "copywriter"
+      critical: true
+      on_success: "S004"
+      on_failure: "retry"
+    - id: "S004"
+      name: "AGREE - Open Enrollment"
+      action: "launch_with_real_scarcity"
+      description: "Open enrollment with real spot cap or genuine deadline. Send maximum 3 emails: announcement, case study/FAQ, final reminder. No aggressive urgency tactics. Close on stated date without exception."
+      performer: "copywriter"
+      critical: true
+      on_success: "S005"
+      on_failure: "retry"
+    - id: "S005"
+      name: "Close and Honor Commitment"
+      action: "close_enrollment_definitively"
+      description: "Close enrollment at stated deadline. Do not reopen, extend, or create workarounds. Document results. Begin onboarding enrolled customers."
+      performer: "copywriter"
+      critical: true
+      on_success: "DONE"
+      on_failure: "retry"
+  error_handling:
+    global_timeout: "PT8H"
+    retry_policy: "max 1 retry per step — authenticity requires patience, not repetition"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "six_months_goodwill"
+        type: "boolean"
+        target: true
+        weight: 1.0
+      - name: "organic_interest_documented"
+        type: "boolean"
+        target: true
+        weight: 1.0
+      - name: "responsive_not_pushed_framing"
+        type: "boolean"
+        target: true
+        weight: 0.9
+      - name: "real_scarcity_honored"
+        type: "boolean"
+        target: true
+        weight: 1.0
+      - name: "max_3_launch_emails"
+        type: "boolean"
+        target: true
+        weight: 0.7
+    pass_threshold: 0.9
+  outputs:
+    artifacts:
+      - name: "mass_control_launch_package"
+        type: "file"
+        format: "md"
+        description: "Complete Mass Control launch with pre-launch value sequence, organic interest documentation, responsive offer framing, and enrollment emails."

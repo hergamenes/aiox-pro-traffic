@@ -1,0 +1,76 @@
+sop:
+  id: task-contrarian-content
+  version: "1.0"
+  title: "Contrarian Content Formula"
+  purpose: "Create differentiated content by identifying conventional wisdom, questioning genuinely, reframing with evidence, providing alternative, and naming the framework"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: dan-koe
+    tier: T3
+
+  inputs:
+    - name: conventional_wisdom
+      type: string
+      required: true
+      description: "Specific conventional wisdom in niche to challenge"
+    - name: personal_experience
+      type: string
+      required: true
+      description: "Personal experience that contradicts conventional advice"
+
+  outputs:
+    - name: named_framework
+      type: string
+      description: "Named contrarian framework (2-4 words)"
+    - name: content_piece
+      type: document
+      description: "Differentiated content with 5-section structure"
+
+  steps:
+    - id: step_1
+      action: identify_convention
+      description: "Name specific advice, practice, or belief dominating the space — be precise"
+
+    - id: step_2
+      action: question_genuinely
+      description: "Ask honest questions about convention — genuine curiosity not performative rebellion"
+      critical: true
+      error_handling:
+        condition: "Questioning feels forced or performative"
+        action: "Do not force contrarian take — only challenge what you genuinely disagree with"
+
+    - id: step_3
+      action: reframe_with_evidence
+      description: "Present alternative perspective backed by personal experience, data, or logic"
+
+    - id: step_4
+      action: provide_alternative
+      description: "Present actionable better approach — build, not just tear down"
+      critical: true
+
+    - id: step_5
+      action: name_framework
+      description: "Give alternative a proprietary 2-4 word name — named ideas spread, unnamed ones die"
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "Convention specifically identified"
+      - "Questioning is genuine"
+      - "Reframe includes evidence"
+      - "Alternative is actionable"
+      - "Framework has 2-4 word name"
+      - "Reader has aha moment"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies: []
+
+  related_sops:
+    - task-apag-newsletter
+    - task-identity-stack
+    - task-hook-architecture
+    - task-epistemic-method

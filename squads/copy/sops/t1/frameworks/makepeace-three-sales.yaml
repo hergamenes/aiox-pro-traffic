@@ -1,0 +1,58 @@
+sop:
+  id: makepeace-three-sales
+  version: "1.0"
+  title: "Three Sales Framework"
+  purpose: >
+    Structure every promotion as three sequential sales: Sale #1 Readership
+    (bribe to READ via DRE), Sale #2 Belief (make BELIEVE via proof stacking),
+    Sale #3 Action (compel IMMEDIATE action via urgency + risk reversal).
+    Must be won in order. Most copy fails by skipping to Sale #3.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: clayton-makepeace
+    tier: t1
+
+  steps:
+    - id: apply_sale1_readership
+      action: "Win readership using DRE headlines, news hooks, curiosity gaps, and personal relevance"
+      input: "dre_research, headline_candidates"
+      output: "readership_sale_won"
+
+    - id: apply_sale2_belief
+      action: "Win belief via proof stacking: testimonials, data, demonstrations, authority, mechanism"
+      input: "proof_elements, claims_list"
+      output: "belief_sale_won"
+      condition: "readership_sale_won == true"
+
+    - id: apply_sale3_action
+      action: "Compel immediate action via urgency, risk reversal, guarantees, bonuses, and CTA"
+      input: "offer_structure, urgency_elements"
+      output: "action_sale_won"
+      condition: "belief_sale_won == true"
+
+    - id: apply_sequential_check
+      action: "Verify no sale is attempted before the previous one is fully won"
+      condition: "sequence == [1, 2, 3]"
+      output: "sequential_integrity_verified"
+
+  error_handling:
+    - error: "skipped_to_sale3"
+      severity: critical
+      action: "BLOCK — win Sales #1 and #2 before any action CTA"
+    - error: "weak_sale1"
+      severity: high
+      action: "Reinvest in DRE headline and opening; nobody reads = nothing else matters"
+    - error: "weak_sale2"
+      severity: high
+      action: "Apply proof-stacking protocol; insufficient proof = no belief"
+    - error: "inverted_sequence"
+      severity: critical
+      action: "Restructure copy to strict #1 -> #2 -> #3 order"
+
+  quality_gate:
+    sale1_readership_won: true
+    sale2_belief_won: true
+    sale3_action_won: true
+    sequential_order: true
+    weakest_sale_identified: true

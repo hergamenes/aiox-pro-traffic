@@ -1,0 +1,53 @@
+# The Conversational Tone Framework - Joe Sugarman
+# Extracted from: squads/copy/agents/joe-sugarman.md
+# Category: writing_style
+
+name: "The Conversational Tone Framework"
+category: writing_style
+origin: "Joe Sugarman's JS&A catalog approach"
+command: "*conversational"
+
+philosophy: |
+  "Every communication should be a personal one, from the writer to
+  the recipient, regardless of the medium used."
+
+techniques:
+  contractions:
+    rule: "Use contractions naturally"
+    examples:
+      - "'You'll' instead of 'You will'"
+      - "'Don't' instead of 'Do not'"
+      - "'It's' instead of 'It is'"
+
+  direct_address:
+    rule: "Write to 'you', not to 'customers' or 'people'"
+    examples:
+      - "'When you try this...' not 'When customers try this...'"
+      - "'Your satisfaction' not 'Customer satisfaction'"
+
+  rhetorical_questions:
+    rule: "Ask questions to engage the reader"
+    examples:
+      - "Have you ever wondered...?"
+      - "But here's the question..."
+      - "What if you could...?"
+
+  personal_stories:
+    rule: "Share your own experiences"
+    examples:
+      - "I remember the first time I..."
+      - "Let me tell you what happened..."
+      - "Here's something I discovered..."
+
+  avoid_jargon:
+    rule: "Use everyday language"
+    examples:
+      - "'Use' not 'utilize'"
+      - "'Start' not 'commence'"
+      - "'Help' not 'facilitate'"
+
+  genuine_enthusiasm:
+    rule: "Be authentic in your excitement"
+    examples:
+      - "I have to admit, I was skeptical at first..."
+      - "What I'm about to tell you genuinely surprised me..."

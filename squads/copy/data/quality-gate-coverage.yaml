@@ -1,0 +1,346 @@
+# Quality Gate Coverage — Copy Squad
+# Mapeia gates formais para os 14 workflows ativos do squad
+
+meta:
+  generated_from: "data/quality-gates.yaml"
+  generated_date: "2026-03-27"
+  total_workflows: 14
+  covered_workflows: 14
+  total_gates: 8
+  gap_workflows: 0
+
+workflow_coverage:
+  - workflow_id: "wf-1-full-launch"
+    workflow_name: "Full Product Launch"
+    covered_by:
+      - gate_id: "QG-CP-1.1"
+        stage: "workflow.prerequisites -> PHASE-1"
+        threshold_summary: "briefing_completeness_pct >= 0.90"
+        veto_condition_ref: ["CP_VC_001", "CP_VC_002"]
+      - gate_id: "QG-CP-2.1"
+        stage: "PHASE-2 exit"
+        threshold_summary: "awareness_alignment_score >= 0.80; mechanism_clarity_score >= 0.75"
+        veto_condition_ref: ["CP_VC_003", "CP_VC_004"]
+      - gate_id: "QG-CP-3.1"
+        stage: "PHASE-3/4 exit"
+        threshold_summary: "deliverable_completeness_pct >= 0.90; proof_injections_count >= 3"
+        veto_condition_ref: ["CP_VC_005"]
+      - gate_id: "QG-CP-4.1"
+        stage: "PHASE-2/5 human review"
+        threshold_summary: "truth_risk_flags_count == 0; commercial_alignment_score >= 0.80"
+        veto_condition_ref: ["CP_VC_006"]
+      - gate_id: "QG-CP-5.1"
+        stage: "final handoff"
+        threshold_summary: "deliverable_completeness_pct >= 0.95; handoff_manifest_present = true"
+        veto_condition_ref: ["CP_VC_007"]
+
+  - workflow_id: "wf-2-paid-traffic"
+    workflow_name: "Quick Traffic - Paid Traffic Pipeline"
+    covered_by:
+      - gate_id: "QG-CP-1.1"
+        stage: "workflow.prerequisites"
+        threshold_summary: "briefing_completeness_pct >= 0.90"
+        veto_condition_ref: ["CP_VC_001", "CP_VC_002"]
+      - gate_id: "QG-CP-2.1"
+        stage: "diagnosis -> ad-copy"
+        threshold_summary: "awareness_alignment_score >= 0.80"
+        veto_condition_ref: ["CP_VC_003", "CP_VC_004"]
+      - gate_id: "QG-CP-3.1"
+        stage: "landing-assets exit"
+        threshold_summary: "deliverable_completeness_pct >= 0.90"
+        veto_condition_ref: ["CP_VC_005"]
+      - gate_id: "QG-CP-8.1"
+        stage: "campaign test readiness"
+        threshold_summary: "baseline_metric_present = true; hypothesis_count >= 1"
+        veto_condition_ref: ["CP_VC_010"]
+      - gate_id: "QG-CP-5.1"
+        stage: "handoff"
+        threshold_summary: "handoff_manifest_present = true"
+        veto_condition_ref: ["CP_VC_007"]
+
+  - workflow_id: "wf-3-high-ticket"
+    workflow_name: "High-Ticket Sales Pipeline"
+    covered_by:
+      - gate_id: "QG-CP-1.1"
+        stage: "premium-foundation entry"
+        threshold_summary: "briefing_completeness_pct >= 0.90"
+        veto_condition_ref: ["CP_VC_001", "CP_VC_002"]
+      - gate_id: "QG-CP-2.1"
+        stage: "mechanism / offer-architecture"
+        threshold_summary: "mechanism_clarity_score >= 0.75; proof_points_count >= 3"
+        veto_condition_ref: ["CP_VC_003", "CP_VC_004"]
+      - gate_id: "QG-CP-3.1"
+        stage: "conversion-assets exit"
+        threshold_summary: "deliverable_completeness_pct >= 0.90"
+        veto_condition_ref: ["CP_VC_005"]
+      - gate_id: "QG-CP-4.1"
+        stage: "final-system review"
+        threshold_summary: "commercial_alignment_score >= 0.80"
+        veto_condition_ref: ["CP_VC_006"]
+      - gate_id: "QG-CP-5.1"
+        stage: "handoff"
+        threshold_summary: "deliverable_completeness_pct >= 0.95"
+        veto_condition_ref: ["CP_VC_007"]
+
+  - workflow_id: "wf-4-organic-content"
+    workflow_name: "Organic Content Creation Pipeline"
+    covered_by:
+      - gate_id: "QG-CP-1.1"
+        stage: "research entry"
+        threshold_summary: "briefing_completeness_pct >= 0.90"
+        veto_condition_ref: ["CP_VC_001", "CP_VC_002"]
+      - gate_id: "QG-CP-2.1"
+        stage: "architecture"
+        threshold_summary: "awareness_alignment_score >= 0.80; promise_specificity_score >= 0.75"
+        veto_condition_ref: ["CP_VC_003", "CP_VC_004"]
+      - gate_id: "QG-CP-3.1"
+        stage: "long-form / distribution"
+        threshold_summary: "cta_count >= 1; channel_constraints_respected = true"
+        veto_condition_ref: ["CP_VC_005"]
+      - gate_id: "QG-CP-5.1"
+        stage: "final-review handoff"
+        threshold_summary: "handoff_manifest_present = true"
+        veto_condition_ref: ["CP_VC_007"]
+
+  - workflow_id: "wf-5-email-marketing"
+    workflow_name: "Email Marketing System"
+    covered_by:
+      - gate_id: "QG-CP-1.1"
+        stage: "strategy entry"
+        threshold_summary: "briefing_completeness_pct >= 0.90"
+        veto_condition_ref: ["CP_VC_001", "CP_VC_002"]
+      - gate_id: "QG-CP-2.1"
+        stage: "style decision"
+        threshold_summary: "promise_specificity_score >= 0.75; proof_points_count >= 3"
+        veto_condition_ref: ["CP_VC_003", "CP_VC_004"]
+      - gate_id: "QG-CP-3.1"
+        stage: "broadcast/automation/sequence-library"
+        threshold_summary: "deliverable_completeness_pct >= 0.90"
+        veto_condition_ref: ["CP_VC_005"]
+      - gate_id: "QG-CP-5.1"
+        stage: "final-review handoff"
+        threshold_summary: "deliverable_completeness_pct >= 0.95"
+        veto_condition_ref: ["CP_VC_007"]
+
+  - workflow_id: "wf-6-funnel-optimization"
+    workflow_name: "Funnel Optimization - CRO Pipeline"
+    covered_by:
+      - gate_id: "QG-CP-1.1"
+        stage: "audit entry"
+        threshold_summary: "briefing_completeness_pct >= 0.90"
+        veto_condition_ref: ["CP_VC_001", "CP_VC_002"]
+      - gate_id: "QG-CP-6.1"
+        stage: "audit -> diagnosis"
+        threshold_summary: "evidence_refs_count >= 5; scoring_trace_complete = true"
+        veto_condition_ref: ["CP_VC_008"]
+      - gate_id: "QG-CP-8.1"
+        stage: "test-plan exit"
+        threshold_summary: "baseline_metric_present = true; success_threshold_defined = true"
+        veto_condition_ref: ["CP_VC_010"]
+      - gate_id: "QG-CP-4.1"
+        stage: "human checkpoint"
+        threshold_summary: "commercial_alignment_score >= 0.80"
+        veto_condition_ref: ["CP_VC_006"]
+      - gate_id: "QG-CP-5.1"
+        stage: "handoff"
+        threshold_summary: "handoff_manifest_present = true"
+        veto_condition_ref: ["CP_VC_007"]
+
+  - workflow_id: "wf-7-direct-mail"
+    workflow_name: "Direct Mail Campaign"
+    covered_by:
+      - gate_id: "QG-CP-1.1"
+        stage: "list-strategy entry"
+        threshold_summary: "briefing_completeness_pct >= 0.90"
+        veto_condition_ref: ["CP_VC_001", "CP_VC_002"]
+      - gate_id: "QG-CP-2.1"
+        stage: "format-selection"
+        threshold_summary: "mechanism_clarity_score >= 0.75"
+        veto_condition_ref: ["CP_VC_003", "CP_VC_004"]
+      - gate_id: "QG-CP-3.1"
+        stage: "copy-package"
+        threshold_summary: "deliverable_completeness_pct >= 0.90; proof_injections_count >= 3"
+        veto_condition_ref: ["CP_VC_005"]
+      - gate_id: "QG-CP-4.1"
+        stage: "testing review"
+        threshold_summary: "truth_risk_flags_count == 0"
+        veto_condition_ref: ["CP_VC_006"]
+      - gate_id: "QG-CP-5.1"
+        stage: "handoff"
+        threshold_summary: "deliverable_completeness_pct >= 0.95"
+        veto_condition_ref: ["CP_VC_007"]
+
+  - workflow_id: "wf-9-call-funnel-complete"
+    workflow_name: "Complete Call Funnel Workflow"
+    covered_by:
+      - gate_id: "QG-CP-1.1"
+        stage: "intake entry"
+        threshold_summary: "briefing_completeness_pct >= 0.90"
+        veto_condition_ref: ["CP_VC_001", "CP_VC_002"]
+      - gate_id: "QG-CP-2.1"
+        stage: "sales-call strategy"
+        threshold_summary: "promise_specificity_score >= 0.75; proof_points_count >= 3"
+        veto_condition_ref: ["CP_VC_003", "CP_VC_004"]
+      - gate_id: "QG-CP-3.1"
+        stage: "pre-call / follow-up package"
+        threshold_summary: "deliverable_completeness_pct >= 0.90"
+        veto_condition_ref: ["CP_VC_005"]
+      - gate_id: "QG-CP-4.1"
+        stage: "final-review"
+        threshold_summary: "commercial_alignment_score >= 0.80"
+        veto_condition_ref: ["CP_VC_006"]
+      - gate_id: "QG-CP-5.1"
+        stage: "handoff"
+        threshold_summary: "handoff_manifest_present = true"
+        veto_condition_ref: ["CP_VC_007"]
+
+  - workflow_id: "wf-10-webinar-cold-weekly"
+    workflow_name: "Weekly Cold Webinar System"
+    covered_by:
+      - gate_id: "QG-CP-1.1"
+        stage: "promotion entry"
+        threshold_summary: "briefing_completeness_pct >= 0.90"
+        veto_condition_ref: ["CP_VC_001", "CP_VC_002"]
+      - gate_id: "QG-CP-2.1"
+        stage: "promotion -> registration"
+        threshold_summary: "awareness_alignment_score >= 0.80"
+        veto_condition_ref: ["CP_VC_003", "CP_VC_004"]
+      - gate_id: "QG-CP-3.1"
+        stage: "presentation / follow-up"
+        threshold_summary: "deliverable_completeness_pct >= 0.90"
+        veto_condition_ref: ["CP_VC_005"]
+      - gate_id: "QG-CP-5.1"
+        stage: "operations handoff"
+        threshold_summary: "deliverable_completeness_pct >= 0.95"
+        veto_condition_ref: ["CP_VC_007"]
+
+  - workflow_id: "wf-11-ghosted-recovery"
+    workflow_name: "Ghosted Lead Recovery System"
+    covered_by:
+      - gate_id: "QG-CP-1.1"
+        stage: "segmentation entry"
+        threshold_summary: "briefing_completeness_pct >= 0.90"
+        veto_condition_ref: ["CP_VC_001", "CP_VC_002"]
+      - gate_id: "QG-CP-2.1"
+        stage: "recovery positioning"
+        threshold_summary: "promise_specificity_score >= 0.75"
+        veto_condition_ref: ["CP_VC_003", "CP_VC_004"]
+      - gate_id: "QG-CP-3.1"
+        stage: "systematic-recovery / nurture-routes"
+        threshold_summary: "deliverable_completeness_pct >= 0.90"
+        veto_condition_ref: ["CP_VC_005"]
+      - gate_id: "QG-CP-4.1"
+        stage: "final-system review"
+        threshold_summary: "truth_risk_flags_count == 0"
+        veto_condition_ref: ["CP_VC_006"]
+      - gate_id: "QG-CP-5.1"
+        stage: "handoff"
+        threshold_summary: "handoff_manifest_present = true"
+        veto_condition_ref: ["CP_VC_007"]
+
+  - workflow_id: "wf-book-launch"
+    workflow_name: "Book Launch System"
+    covered_by:
+      - gate_id: "QG-CP-1.1"
+        stage: "foundation entry"
+        threshold_summary: "briefing_completeness_pct >= 0.90"
+        veto_condition_ref: ["CP_VC_001", "CP_VC_002"]
+      - gate_id: "QG-CP-2.1"
+        stage: "foundation -> funnel"
+        threshold_summary: "mechanism_clarity_score >= 0.75; proof_points_count >= 3"
+        veto_condition_ref: ["CP_VC_003", "CP_VC_004"]
+      - gate_id: "QG-CP-3.1"
+        stage: "funnel / cart"
+        threshold_summary: "deliverable_completeness_pct >= 0.90"
+        veto_condition_ref: ["CP_VC_005"]
+      - gate_id: "QG-CP-4.1"
+        stage: "final-system review"
+        threshold_summary: "commercial_alignment_score >= 0.80"
+        veto_condition_ref: ["CP_VC_006"]
+      - gate_id: "QG-CP-5.1"
+        stage: "handoff"
+        threshold_summary: "deliverable_completeness_pct >= 0.95"
+        veto_condition_ref: ["CP_VC_007"]
+
+  - workflow_id: "wf-evaluate-cpl"
+    workflow_name: "Evaluate CPL"
+    covered_by:
+      - gate_id: "QG-CP-1.1"
+        stage: "context entry"
+        threshold_summary: "briefing_completeness_pct >= 0.90"
+        veto_condition_ref: ["CP_VC_001", "CP_VC_002"]
+      - gate_id: "QG-CP-6.1"
+        stage: "beat-analysis / rubric / findings"
+        threshold_summary: "evidence_refs_count >= 5; recommendation_specificity_score >= 0.80"
+        veto_condition_ref: ["CP_VC_008"]
+      - gate_id: "QG-CP-4.1"
+        stage: "report review"
+        threshold_summary: "truth_risk_flags_count == 0"
+        veto_condition_ref: ["CP_VC_006"]
+      - gate_id: "QG-CP-5.1"
+        stage: "report handoff"
+        threshold_summary: "handoff_manifest_present = true"
+        veto_condition_ref: ["CP_VC_007"]
+
+  - workflow_id: "wf-evaluate-cpls-batch"
+    workflow_name: "Evaluate CPLs Batch"
+    covered_by:
+      - gate_id: "QG-CP-1.1"
+        stage: "batch-context entry"
+        threshold_summary: "briefing_completeness_pct >= 0.90"
+        veto_condition_ref: ["CP_VC_001", "CP_VC_002"]
+      - gate_id: "QG-CP-6.1"
+        stage: "batch-scoring / narrative-review"
+        threshold_summary: "evidence_refs_count >= 5; scoring_trace_complete = true"
+        veto_condition_ref: ["CP_VC_008"]
+      - gate_id: "QG-CP-4.1"
+        stage: "consolidated-report review"
+        threshold_summary: "commercial_alignment_score >= 0.80"
+        veto_condition_ref: ["CP_VC_006"]
+      - gate_id: "QG-CP-5.1"
+        stage: "batch handoff"
+        threshold_summary: "handoff_manifest_present = true"
+        veto_condition_ref: ["CP_VC_007"]
+
+  - workflow_id: "wf-voice-clone-copy"
+    workflow_name: "Voice Clone Copy Integration"
+    covered_by:
+      - gate_id: "QG-CP-1.1"
+        stage: "detection entry"
+        threshold_summary: "briefing_completeness_pct >= 0.90"
+        veto_condition_ref: ["CP_VC_001", "CP_VC_002"]
+      - gate_id: "QG-CP-3.1"
+        stage: "rewrite package"
+        threshold_summary: "deliverable_completeness_pct >= 0.90"
+        veto_condition_ref: ["CP_VC_005"]
+      - gate_id: "QG-CP-7.1"
+        stage: "validation"
+        threshold_summary: "voice_match_score >= 0.85; distortion_flags_count == 0"
+        veto_condition_ref: ["CP_VC_009"]
+      - gate_id: "QG-CP-4.1"
+        stage: "human checkpoint"
+        threshold_summary: "truth_risk_flags_count == 0"
+        veto_condition_ref: ["CP_VC_006"]
+      - gate_id: "QG-CP-5.1"
+        stage: "handoff"
+        threshold_summary: "handoff_manifest_present = true"
+        veto_condition_ref: ["CP_VC_007"]
+
+summary:
+  fully_covered_workflows:
+    - "wf-1-full-launch"
+    - "wf-2-paid-traffic"
+    - "wf-3-high-ticket"
+    - "wf-4-organic-content"
+    - "wf-5-email-marketing"
+    - "wf-6-funnel-optimization"
+    - "wf-7-direct-mail"
+    - "wf-9-call-funnel-complete"
+    - "wf-10-webinar-cold-weekly"
+    - "wf-11-ghosted-recovery"
+    - "wf-book-launch"
+    - "wf-evaluate-cpl"
+    - "wf-evaluate-cpls-batch"
+    - "wf-voice-clone-copy"
+  uncovered_workflows: []
+  note: "A cobertura foi definida por concern e fase operacional, não por automação de runtime."

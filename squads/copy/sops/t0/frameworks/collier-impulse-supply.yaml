@@ -1,0 +1,81 @@
+sop:
+  id: collier-impulse-supply
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Impulse Supply Framework"
+  purpose: >
+    Overcome purchase hesitation by giving prospect easy preliminary task instead
+    of asking to buy. Reduces friction through progressive commitment. At hesitation
+    point, lower the ask dramatically.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: robert-collier
+    artifact_type: framework
+
+  steps:
+    - id: apply_hesitation_identification
+      action: apply_identify_hesitation_point
+      description: "Identify where in copy or sales process prospect stops. Map exact moment where momentum dies."
+      critical: true
+      inputs:
+        - conversion_data
+        - sales_process_map
+      output: hesitation_point
+
+    - id: apply_no_push
+      action: apply_remove_buy_pressure
+      description: "Do NOT ask to buy at hesitation point. Prospect says 'not yet', not 'no'. Lower the ask dramatically."
+      depends_on: apply_hesitation_identification
+      output: pressure_removed
+
+    - id: apply_progressive_commitment
+      action: apply_look_sit_drive
+      description: "Ask for progressive commitment: LOOK (low) then SIT (medium) then DRIVE (purchase). Easy preliminary task."
+      depends_on: apply_no_push
+      output: commitment_ladder
+
+    - id: apply_micro_action_design
+      action: apply_design_micro_action
+      description: "Design specific easy action: <30 seconds, does not feel like purchase, moves closer to ownership, provides immediate value."
+      depends_on: apply_progressive_commitment
+      critical: true
+      output: micro_action
+
+  error_handling:
+    - error: pushing_harder
+      symptom: "Prospect leaves entirely; high bounce/abandon rate"
+      resolution: "Lower the ask; offer easy preliminary action"
+    - error: micro_action_too_complex
+      symptom: "Prospect abandons preliminary task"
+      resolution: "Simplify to under 30 seconds; one field, one click"
+    - error: disconnected_action
+      symptom: "Prospect completes action but no path to buy"
+      resolution: "Action must logically lead to next step toward purchase"
+    - error: transparent_manipulation
+      symptom: "Prospect recognizes tactic; trust lost"
+      resolution: "Frame action as genuinely helpful, not sales trick"
+
+  quality_gate:
+    criteria:
+      - "Hesitation point identified with evidence"
+      - "Micro-action requires less than 30 seconds"
+      - "Micro-action does not feel like purchase commitment"
+      - "Micro-action moves prospect closer to purchase"
+      - "Progressive commitment path is clear"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: hesitation_analysis
+      format: point_identification
+      description: "Where and why hesitation occurs"
+    - name: micro_action
+      format: action_design
+      description: "What prospect does instead of buying"
+    - name: commitment_path
+      format: progressive_steps
+      description: "Micro-action to purchase in 2-3 steps"

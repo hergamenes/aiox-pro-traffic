@@ -1,0 +1,51 @@
+sop:
+  id: bencivenga-monkeys-fist
+  version: "1.0"
+  title: "Monkey's Fist Strategy"
+  purpose: >
+    Create an irresistibly easy, non-threatening first step that pulls cold
+    prospects into a relationship. Wins 'Sale #1' (the chance to sell) before
+    attempting 'Sale #2' (the product itself).
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: gary-bencivenga
+    tier: t1
+
+  steps:
+    - id: apply_two_sale_recognition
+      action: "Identify the two-sale structure: Sale #1 (attention) must be won before Sale #2 (product)"
+      output: "sale_structure_map"
+
+    - id: apply_create_value
+      action: "Create genuinely valuable free content (guide, report, mini-course, diagnostic) — not a teaser"
+      input: "prospect_needs, product_expertise"
+      output: "monkeys_fist_asset"
+      condition: "standalone_value == true"
+
+    - id: apply_minimize_barrier
+      action: "Reduce entry friction to minimum: no credit card, short form, instant delivery"
+      condition: "barrier_score <= low"
+      output: "frictionless_entry_point"
+
+    - id: apply_connect_to_offer
+      action: "Design content that naturally reveals the need for the main paid product"
+      input: "monkeys_fist_asset, main_product"
+      output: "connection_strategy"
+
+  error_handling:
+    - error: "thin_teaser_content"
+      severity: high
+      action: "Replace with genuinely valuable standalone content"
+    - error: "excessive_commitment"
+      severity: high
+      action: "Remove credit card, reduce form fields, add instant delivery"
+    - error: "direct_to_sale2"
+      severity: critical
+      action: "BLOCK — create monkey's fist for Sale #1 before attempting product sale"
+
+  quality_gate:
+    genuine_standalone_value: true
+    minimal_friction: true
+    natural_connection_to_offer: true
+    no_bait_and_switch: true

@@ -1,0 +1,64 @@
+sop:
+  id: bencivenga-persuasion-equation
+  version: "1.0"
+  title: "Bencivenga Persuasion Equation (BPE)"
+  purpose: >
+    Score every ad or promotion on a 100-point scale across four components
+    (UP1-UP4, 25 points each). Score below 75 = mandatory rework. Ensures
+    no critical persuasion element is missing.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: gary-bencivenga
+    tier: t1
+
+  steps:
+    - id: apply_up1_urgent_problem
+      action: "Score problem urgency (0-25): does copy identify a problem prospect ALREADY feels?"
+      input: "copy_draft, prospect_research"
+      output: "up1_score"
+      condition: "problem_is_real_and_urgent == true"
+
+    - id: apply_up2_unique_promise
+      action: "Score promise uniqueness (0-25): can ONLY this product make this promise?"
+      input: "copy_draft, competitive_landscape"
+      output: "up2_score"
+      condition: "promise_not_copyable_by_competitor == true"
+
+    - id: apply_up3_unquestionable_proof
+      action: "Score proof strength (0-25): is proof stronger than claims? Multiple types?"
+      input: "copy_draft, proof_elements"
+      output: "up3_score"
+      condition: "proof_strength > claim_strength"
+
+    - id: apply_up4_user_friendly_proposition
+      action: "Score offer ease (0-25): risk reversal, bonuses, simple terms, urgency?"
+      input: "copy_draft, offer_structure"
+      output: "up4_score"
+      condition: "perceived_risk_of_buying < perceived_risk_of_not_buying"
+
+    - id: apply_total_decision
+      action: "Sum UP1-UP4. Total < 75 = BLOCK publication, rework weakest component"
+      input: "up1_score, up2_score, up3_score, up4_score"
+      output: "total_score, go_no_go_decision"
+      condition: "total_score >= 75"
+
+  error_handling:
+    - error: "manufactured_problem"
+      severity: critical
+      action: "Research real prospect pain points; replace manufactured problem"
+    - error: "generic_promise"
+      severity: high
+      action: "Find unique differentiator; if competitor can use same ad, promise fails"
+    - error: "claims_exceed_proof"
+      severity: high
+      action: "Add proof types or reduce claim strength until proof > claim"
+    - error: "score_below_75"
+      severity: critical
+      action: "BLOCK publication — identify and rework weakest component"
+
+  quality_gate:
+    min_total_score: 75
+    all_components_scored: true
+    weakest_component_identified: true
+    scoring_by_non_writer: true

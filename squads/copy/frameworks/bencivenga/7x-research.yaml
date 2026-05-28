@@ -1,0 +1,56 @@
+# The 7X Research Framework
+# Source: John Caples advice to Bencivenga
+# Category: preparation
+# Command: *research
+
+name: "The 7X Research Framework"
+category: "preparation"
+origin: "John Caples advice to Bencivenga"
+command: "*research"
+
+philosophy: |
+  "The best copywriters are the most tenacious researchers. Like miners,
+  they dig, drill, dynamite, and chip until they have carloads of valuable ore."
+
+rule: |
+  John Caples advised: "Gather seven times more interesting information
+  than you could possibly use."
+
+allocation:
+  research: "At least 1/3 of total project time"
+  writing: "1/3 of total project time"
+  editing: "1/3 of total project time"
+
+research_areas:
+  product:
+    - "Every feature and benefit"
+    - "How it was developed"
+    - "What makes it different"
+    - "Technical specifications"
+    - "Manufacturing process"
+
+  customer:
+    - "Demographics and psychographics"
+    - "Current behaviors and beliefs"
+    - "Pain points and desires"
+    - "Language they use"
+    - "Where they congregate"
+
+  competition:
+    - "What competitors claim"
+    - "How they position"
+    - "What gaps exist"
+    - "What's not being said"
+
+  market:
+    - "Current trends"
+    - "Industry news"
+    - "Regulatory environment"
+    - "Economic factors"
+
+process:
+  step_1: "Immerse yourself completely before writing a single word"
+  step_2: "Read everything—product manuals, reviews, complaints, forums"
+  step_3: "Interview customers, salespeople, product developers"
+  step_4: "Study the competition obsessively"
+  step_5: "Don't start writing until you understand more than the client"

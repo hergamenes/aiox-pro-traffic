@@ -1,0 +1,46 @@
+sop:
+  id: hopkins-test-before-scale
+  version: "1.0"
+  title: "Test Before Scale Rule (CH_H05)"
+  purpose: "Impedir expansao de campanhas nao testadas. Gate obrigatorio de teste e validacao antes de escala."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: claude-hopkins
+  steps:
+    - step: 1
+      action: "Verificar status de teste da campanha"
+      decision_point:
+        condition: "Campanha foi testada?"
+        branches:
+          - if: "Campanha NAO foi testada"
+            then: "BLOQUEAR escala — definir UMA variavel, implementar tracking, rodar ate significancia"
+            next_decision:
+              condition: "Resultado do teste?"
+              branches:
+                - if: "Variante vencedora identificada"
+                  then: "Escalar vencedor"
+                - if: "Sem diferenca significativa"
+                  then: "Testar outra variavel"
+          - if: "Testada com resultado positivo"
+            then: "Aprovar escala — escalar vencedor"
+          - if: "Testada com resultado negativo"
+            then: "REFORMULAR antes de escalar — retornar ao ciclo de teste"
+  error_handling:
+    - error: "Multiplas variaveis testadas simultaneamente"
+      severity: critical
+      action: "Isolar UMA variavel por teste"
+    - error: "Teste encerrado antes de significancia"
+      severity: critical
+      action: "Definir tamanho amostral minimo e aguardar"
+    - error: "Tracking nao implementado"
+      severity: critical
+      action: "Configurar tracking ANTES de lancar teste"
+  quality_gate:
+    criteria:
+      - "UMA variavel testada por vez"
+      - "Tracking implementado e funcional"
+      - "Significancia estatistica atingida"
+      - "Vencedor claramente identificado"
+    pass_threshold: "Todos os criterios atendidos"

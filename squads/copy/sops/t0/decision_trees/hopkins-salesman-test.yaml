@@ -1,0 +1,46 @@
+sop:
+  id: hopkins-salesman-test
+  version: "1.0"
+  title: "Salesman Test (CH_H02)"
+  purpose: "Eliminar linguagem publicitaria artificial garantindo que toda copy soe como conversa natural de vendedor porta-a-porta."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: claude-hopkins
+  steps:
+    - step: 1
+      action: "Ler copy em voz alta como vendedor de porta em porta"
+      decision_point:
+        condition: "Copy soa como publicidade ou como conversa?"
+        branches:
+          - if: "Soa como publicidade / linguagem artificial"
+            then: "Identificar trechos artificiais e reescrever em linguagem conversacional"
+            next_decision:
+              condition: "Reescrita passa no teste?"
+              branches:
+                - if: "Sim"
+                  then: "Copy aprovada"
+                - if: "Nao"
+                  then: "Repetir reescrita ate soar como conversa"
+          - if: "Soa como conversa natural"
+            then: "Copy aprovada — pode funcionar"
+          - if: "Parcialmente natural, parcialmente artificial"
+            then: "Marcar trechos artificiais e reescrever apenas esses trechos"
+  error_handling:
+    - error: "Nao ler em voz alta"
+      severity: warning
+      action: "Ler literalmente em voz alta para capturar nuances"
+    - error: "Confundir casual com desleixado"
+      severity: warning
+      action: "Manter tom conversacional mas profissional"
+    - error: "Jargao tecnico excessivo"
+      severity: minor
+      action: "Simplificar vocabulario mantendo precisao"
+  quality_gate:
+    criteria:
+      - "Copy lida em voz alta soa como conversa natural"
+      - "Nenhum trecho soa como propaganda"
+      - "Vocabulario compativel com fala cotidiana"
+      - "Tom direto e pessoal, nao institucional"
+    pass_threshold: "Todos os criterios atendidos"

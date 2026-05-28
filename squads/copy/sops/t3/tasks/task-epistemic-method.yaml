@@ -1,0 +1,76 @@
+sop:
+  id: task-epistemic-method
+  version: "1.0"
+  title: "Epistemic Method — Idea Development"
+  purpose: "Develop original frameworks through 6-phase cycle (Observation, Research, Experiment, Discoveries, Theories, Processes) transforming consumption into named ownable methods"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: dan-koe
+    tier: T3
+
+  inputs:
+    - name: daily_consumption
+      type: list
+      required: true
+      description: "Daily observation, reading, and experience inputs"
+
+  outputs:
+    - name: frameworks
+      type: list
+      description: "Original named frameworks and processes"
+    - name: intellectual_capital
+      type: document
+      description: "Theories and mental models connecting discoveries"
+
+  steps:
+    - id: step_1
+      action: observe_patterns
+      description: "Pay attention to life and information — notice patterns, anomalies, curiosity sparks"
+
+    - id: step_2
+      action: research_cross_domain
+      description: "Pursue observations with curiosity — seek data, references, perspectives across different fields"
+
+    - id: step_3
+      action: experiment_combinations
+      description: "Dissect and rearrange ideas in novel combinations — creative phase for original thinking"
+      critical: true
+
+    - id: step_4
+      action: share_discoveries
+      description: "Publish preliminary insights as content — let audience reaction validate resonance"
+
+    - id: step_5
+      action: connect_theories
+      description: "Connect multiple discoveries into larger theories and personal mental models"
+
+    - id: step_6
+      action: formalize_processes
+      description: "Formalize theories into replicable methods and NAME them — intellectual capital creation"
+      critical: true
+      error_handling:
+        condition: "Process exists but is unnamed"
+        action: "Create 2-4 word proprietary name to make it teachable and shareable"
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "Observations recorded daily"
+      - "Research crosses domain boundaries"
+      - "Experimentation produces novel combinations"
+      - "Discoveries shared publicly"
+      - "Theories connect multiple discoveries"
+      - "Processes are named and replicable"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies: []
+
+  related_sops:
+    - task-core-notes
+    - task-contrarian-content
+    - task-2-hour-writer
+    - task-identity-stack

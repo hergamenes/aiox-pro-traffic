@@ -1,0 +1,36 @@
+sop:
+  id: tree-settle-diagnostic
+  version: "1.0"
+  title: "Settle Diagnostic Router"
+  purpose: "Route incoming requests to the correct Ben Settle framework based on deliverable type"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: ben-settle
+  steps:
+    - id: route-01
+      condition: "request == 'DAILY EMAIL'"
+      action: "Infotainment System (6 steps)"
+    - id: route-02
+      condition: "request == 'STRATEGY'"
+      action: "28 Rules + Villain Framework + Daily Flywheel"
+    - id: route-03
+      condition: "request == 'AUDIT'"
+      action: "Veto Conditions checklist"
+    - id: route-04
+      condition: "request == 'LIST PROBLEM'"
+      action: "Dead List Revival ou 4 Quarters diagnosis"
+    - id: route-05
+      condition: "request == 'SALES LETTER'"
+      action: "CopySlacker 5-Step"
+    - id: route-default
+      condition: "request not classified"
+      action: "Clarify request type before proceeding"
+  error_handling:
+    - condition: "ambiguous_request"
+      action: "ask_for_clarification"
+    - condition: "educational_email_requested"
+      action: "redirect_to_infotainment_system"
+  quality_gate:
+    mode: routing
+    requires_classification: true

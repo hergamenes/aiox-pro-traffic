@@ -1,0 +1,55 @@
+sop:
+  id: checklist-schwartz-never-use
+  version: "1.0"
+  title: "Schwartz Vocabulary Veto List"
+  purpose: "Enforce vocabulary constraints for Ry Schwartz copy — replace generic cliche phrases with hyper-specific catalytic alternatives"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: ry-schwartz
+    type: validation
+  steps:
+    - id: step-01
+      action: "Scan for 'o que tira seu sono'"
+      criteria: "Must not appear"
+      replacement: "qual o momento de 30 segundos que arruina seu dia?"
+      required: true
+    - id: step-02
+      action: "Scan for 'muitos beneficios'"
+      criteria: "Must not appear"
+      replacement: "o momento exato em que [outcome especifico]"
+      required: true
+    - id: step-03
+      action: "Scan for 'solucao completa'"
+      criteria: "Must not appear"
+      replacement: "o caminho de [passo 1] a [resultado vivido]"
+      required: true
+    - id: step-04
+      action: "Scan for 'interessante/legal'"
+      criteria: "Must not appear"
+      replacement: "polarizante, visceral, catalisador"
+      required: true
+    - id: step-05
+      action: "Scan for 'self-paced/at your own pace'"
+      criteria: "Must not appear"
+      replacement: "ao vivo, em comunidade, sincronico"
+      required: true
+    - id: step-06
+      action: "Scan for 'lifetime access'"
+      criteria: "Must not appear"
+      replacement: "experiencia temporal, cohort, turma"
+      required: true
+    - id: step-07
+      action: "Scan for 'limited time offer (sem deadline real)'"
+      criteria: "Must not appear without real deadline"
+      replacement: "doors close [data real]"
+      required: true
+  error_handling:
+    - condition: "prohibited_phrase_found"
+      action: "replace_with_specific_alternative"
+    - condition: "cliche_language_detected"
+      action: "increase_specificity_level"
+  quality_gate:
+    mode: vocabulary_scan
+    zero_tolerance: true
+    requires_full_text_search: true

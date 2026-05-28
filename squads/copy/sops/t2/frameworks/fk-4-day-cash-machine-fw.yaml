@@ -1,0 +1,107 @@
+sop:
+  id: fk-4-day-cash-machine-fw
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "4-Day Cash Machine"
+  purpose: >
+    Generate quick revenue from existing audience in 4 days using 4 emails.
+    Each day has specific role: goodwill, deeper value, offer, urgency close.
+    Works without elaborate funnel, webinar, or sales page.
+  classification:
+    domain: copywriting
+    subdomain: email-launches
+    complexity: intermediate
+    source_agent: frank-kern
+
+  steps:
+    - id: step_1
+      name: write_day_1
+      action: apply_pure_goodwill
+      description: >
+        Deliver genuine value with absolutely no selling. Teach something
+        useful, share case study, or provide tool/template. End with teaser
+        for tomorrow without hinting at selling. Establishes trust.
+      inputs:
+        - valuable_content_piece
+      outputs:
+        - day_1_email
+        - day_1_subject_line
+      validation: zero_selling_in_email
+
+    - id: step_2
+      name: write_day_2
+      action: apply_value_plus_teaser
+      description: >
+        Deliver second piece of genuine value building on Day 1. Last 2-3
+        sentences only: natural teaser about tomorrow. No selling, no pitch,
+        no sales page link. Teaser creates genuine curiosity.
+      inputs:
+        - complementary_value_content
+      outputs:
+        - day_2_email
+        - day_2_subject_line
+      validation: value_delivered_and_natural_teaser_only
+
+    - id: step_3
+      name: write_day_3
+      action: apply_offer_connection
+      description: >
+        Connect Day 1-2 value to product. Frame as complete system for
+        results they already experienced. Present inclusions, transformation,
+        price. Single CTA. No heavy urgency yet.
+      inputs:
+        - offer_details
+        - value_connection_points
+      outputs:
+        - day_3_email
+        - day_3_subject_line
+      validation: offer_logically_connects_to_free_value
+
+    - id: step_4
+      name: write_day_4
+      action: apply_urgency_close
+      description: >
+        Brief value recap over 3 days. Restate offer. Add genuine urgency:
+        real deadline, bonus expiration, or limited spots. Recap transformation.
+        Final CTA with conviction and finality.
+      inputs:
+        - urgency_element
+        - offer_recap
+      outputs:
+        - day_4_email
+        - day_4_subject_line
+      validation: urgency_is_genuine_and_specific
+
+  error_handling:
+    - error: selling_on_day_1
+      symptom: "Unsubscribes spike, Day 2 open rate drops"
+      resolution: "Remove ALL selling from Day 1. Pure value only."
+    - error: fake_urgency
+      symptom: "List knows it is fake, conversion drops"
+      resolution: "Use real deadlines only. Create legitimate urgency if none exists."
+    - error: no_value_before_offer
+      symptom: "Day 3 offer falls flat, feels like cold pitch"
+      resolution: "Ensure Days 1-2 delivered genuine, actionable value."
+    - error: disconnected_days
+      symptom: "Each email feels random"
+      resolution: "Write all 4 in one sitting to maintain story arc."
+
+  quality_gate:
+    criteria:
+      - day_1_is_pure_value
+      - day_2_teaser_is_natural
+      - day_3_connects_value_to_offer
+      - day_4_urgency_is_genuine
+      - all_4_read_as_coherent_narrative
+    min_pass: 4
+
+  outputs:
+    - type: email_sequence
+      format: 4_email_series
+      description: "Complete 4-email sequence for 4 consecutive days"
+    - type: subject_lines
+      format: list
+      description: "Optimized subject lines for each email"

@@ -1,0 +1,54 @@
+sop:
+  id: lampropoulos-control-beating
+  version: "1.0"
+  title: "Control-Beating Methodology"
+  purpose: "Execute Parris Lampropoulos's 5-phase Control-Beating Methodology to systematically defeat an existing control (the current winning promotion). You do not beat a control by writing better copy -- you "
+  classification:
+    domain: copywriting
+    category: master
+    tier: t1
+    source_agent: parris-lampropoulos
+  steps:
+    - id: apply_phase_1_control_autopsy_1_2_days
+      action: "Dissect the existing control with forensic precision."
+      input: "Phase 1: Control Autopsy — dissect structure, map angle, find vulnerabilities (1-2 days)"
+      output: "Step 1 deliverable: Phase 1: Control Autopsy (1-2 days) completed with documented findings"
+      validation: "Phase 1 autopsy documents at least 5 specific vulnerabilities in the control"
+    - id: apply_phase_2_deep_research_5_10_days
+      action: "Spend 80% of your total project time on research."
+      input: "Phase 2: Deep Research — 80% of time, 'I Didn't Know That' list (5-10 days)"
+      output: "Step 2 deliverable: Phase 2: Deep Research (5-10 days) completed with documented findings"
+      validation: "Phase 2 'I Didn't Know That' list has 50+ entries"
+    - id: apply_phase_3_angle_synthesis_1_2_days
+      action: "Generate 10-20 possible angles using the Springsteen method: sit down and generate angles like Springsteen writes son..."
+      input: "Phase 3: Angle Synthesis — 10-20 angles via Springsteen method, select top 3 (1-2 days)"
+      output: "Step 3 deliverable: Phase 3: Angle Synthesis (1-2 days) completed with documented findings"
+      validation: "Phase 3 produced 10+ genuinely different angles (not cosmetic variations)"
+    - id: apply_phase_4_lead_type_selection
+      action: "Choose the lead type based on the prospect's awareness level, NOT based on personal preference."
+      input: "Phase 4: Lead Type Selection — by awareness level matrix, NEVER by preference"
+      output: "Step 4 deliverable: Phase 4: Lead Type Selection completed with documented findings"
+      validation: "Phase 4 lead type matches prospect awareness level, not personal preference"
+    - id: apply_phase_5_precision_writing_3_5_days
+      action: "Write using three integrated precision techniques."
+      input: "Phase 5: Precision Writing — 3-Deep + WOW + Lizard/Gatekeeper + headline LAST (3-5 days)"
+      output: "Step 5 deliverable: Phase 5: Precision Writing (3-5 days) completed with documented findings"
+      validation: "Phase 5 uses 3-Deep at Level 3, WOW in every section, and Lizard-then-Gatekeeper sequence"
+  error_handling:
+    - error: "Trying to beat the control by writing 'better' copy in the same angle"
+      resolution: "Phase 3 forces genuinely different angles; never use the same angle as the control"
+    - error: "Spending less than 50% of total time on research (Phase 2)"
+      resolution: "Block calendar for 5-10 days of pure research before any writing"
+    - error: "Choosing lead type based on what feels comfortable"
+      resolution: "Use awareness level matrix objectively; choose what the DATA says, not what feels natural"
+    - error: "Writing headline first"
+      resolution: "Write headline LAST after the strongest copy elements have been identified"
+  quality_gate:
+    criteria:
+      - "Phase 1 autopsy documents at least 5 specific vulnerabilities in the control"
+      - "Phase 2 'I Didn't Know That' list has 50+ entries"
+      - "Phase 3 produced 10+ genuinely different angles (not cosmetic variations)"
+      - "Phase 4 lead type matches prospect awareness level, not personal preference"
+      - "Phase 5 uses 3-Deep at Level 3, WOW in every section, and Lizard-then-Gatekeeper sequence"
+      - "Headline written LAST, derived from strongest copy element"
+    pass_threshold: "All 6 criteria met"

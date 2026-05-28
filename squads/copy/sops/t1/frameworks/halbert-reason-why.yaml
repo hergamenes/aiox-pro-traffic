@@ -1,0 +1,50 @@
+sop:
+  id: halbert-reason-why
+  version: "1.0"
+  title: "Reason-Why Framework (Excuse for a Deal)"
+  purpose: >
+    Provide a credible reason for every deal or unusually good offer to
+    neutralize 'too good to be true' suspicion. The word 'because' alone
+    boosts compliance from 60% to 94% (Langer experiment).
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: gary-halbert
+    tier: t1
+
+  steps:
+    - id: apply_identify_suspicion
+      action: "Scan offer for elements that could trigger 'too good to be true' response"
+      input: "offer_details"
+      output: "suspicion_triggers"
+
+    - id: apply_formulate_reason
+      action: "Create credible reason-why from proven categories: overstock, end of season, anniversary, printing error, new market, test offer"
+      input: "suspicion_triggers"
+      output: "reason_why_statement"
+
+    - id: apply_integrate_copy
+      action: "Position reason-why immediately adjacent to the offer using causal language ('because', 'here's why')"
+      condition: "reason_near_offer == true"
+      output: "copy_with_reason_why"
+
+    - id: apply_credibility_check
+      action: "Validate reason does not contradict brand positioning or other copy claims"
+      output: "credibility_assessment"
+
+  error_handling:
+    - error: "no_reason_given"
+      severity: high
+      action: "Add reason-why statement; even a simple reason dramatically increases compliance"
+    - error: "obviously_fake_reason"
+      severity: high
+      action: "Replace with plausible reason from proven categories"
+    - error: "reason_buried"
+      severity: medium
+      action: "Reposition reason-why adjacent to the offer"
+
+  quality_gate:
+    all_triggers_addressed: true
+    reason_credible: true
+    reason_near_offer: true
+    no_brand_contradiction: true

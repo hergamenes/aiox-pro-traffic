@@ -1,0 +1,18 @@
+# Full Copy Pieces
+# Target: 20-30 entries
+# Complete sales letters/VSLs
+
+category: full_pieces
+target_count: "20-30"
+description: "Complete sales letters/VSLs"
+created: 2026-01-23T04:07:02-03:00
+entries: []
+tags: []
+
+# Quality distribution (target)
+quality_distribution:
+  5_star: "10%"
+  4_star: "30%"
+  3_star: "40%"
+  2_star: "15%"
+  1_star: "5%"

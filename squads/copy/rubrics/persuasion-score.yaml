@@ -1,0 +1,19 @@
+rubric:
+  name: persuasion-score
+  threshold: 0.7
+  weight: 2
+  max_tokens: 150
+
+prompt: |
+  You are evaluating the output of an AI pipeline phase.
+
+  Task: {{task_description}}
+  Expected fields: {{expected_fields}}
+
+  Output (first 2000 chars):
+  {{output_preview}}
+
+  Score 0-100 on PERSUASION: Does the copy employ effective persuasion techniques?
+  Check for: clear value proposition, emotional triggers, social proof elements,
+  urgency/scarcity when appropriate, and logical flow of arguments.
+  Respond with JSON only: {"score": N, "reason": "one line"}

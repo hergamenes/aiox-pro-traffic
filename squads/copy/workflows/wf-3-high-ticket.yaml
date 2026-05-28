@@ -1,0 +1,800 @@
+# WF-3: High-Ticket Sales Workflow
+# Duration: 7-10 days
+# Best for: Coaching, consulting, masterminds, premium programs ($5K+)
+# Key Agents: Dan Kennedy (3Ms, Sales Process), Todd Brown (E5, Mechanism), Andre Chaperon (SOS), Jon Benson (VSL)
+
+workflow:
+  id: wf-3-high-ticket
+  name: "High-Ticket Sales Pipeline"
+  type: sales-pipeline
+  duration: "7-10 days"
+  description: |
+    Complete high-ticket sales system for $5,000+ offers.
+    Builds premium positioning, creates long-form SOS sequences,
+    webinar scripts, and sales call scripts with objection handling.
+
+    This workflow produces everything needed to sell premium offers:
+    - Application funnels
+    - Webinar presentations
+    - 10-14 email SOS sequences
+    - Sales call scripts with objection handling
+    - Follow-up sequences for non-closes
+
+    High-ticket requires more trust-building than low-ticket.
+    The sales call is the conversion event, not the page.
+  operational_roles:
+    orchestrator: copy-chief
+    human_review_agent: launch-owner
+    delivery_agent: copy-ops-worker
+  state_machine:
+    states: [init, premium-foundation, mechanism, offer-architecture, conversion-assets, final-system, complete, failed]
+    transitions:
+      - { trigger: start, source: init, dest: premium-foundation }
+      - { trigger: premium-foundation_complete, source: premium-foundation, dest: mechanism }
+      - { trigger: mechanism_complete, source: mechanism, dest: offer-architecture }
+      - { trigger: offer-architecture_complete, source: offer-architecture, dest: conversion-assets }
+      - { trigger: conversion-assets_complete, source: conversion-assets, dest: final-system }
+      - { trigger: final-system_complete, source: final-system, dest: complete }
+      - { trigger: fail, source: "*", dest: failed }
+  quality_gate_refs: [QG-CP-1.1, QG-CP-2.1, QG-CP-3.1, QG-CP-4.1, QG-CP-5.1]
+
+  best_for:
+    - "Coaching programs ($5K-$50K)"
+    - "Consulting engagements ($10K+)"
+    - "Mastermind groups ($15K-$100K)"
+    - "Premium courses ($3K-$10K)"
+    - "Done-for-you services ($10K+)"
+    - "Enterprise B2B sales"
+
+  decision_matrix_fit:
+    awareness: "Problem Aware to Solution Aware"
+    sophistication: "Stage 4-5 (need mechanism + differentiation)"
+    price_point: "Premium ($5000+)"
+    traffic_temp: "Warm to Hot (webinar attendees, qualified leads)"
+    primary_output: "Application Funnel + Sales Call"
+
+  clone_combinations:
+    primary: "Kennedy + Todd Brown (avatar + differentiation)"
+    secondary:
+      - "Chaperon (long SOS sequences)"
+      - "Benson + Makepeace (webinar VSL)"
+      - "Schwartz (awareness diagnosis)"
+
+  sequence:
+    - phase: premium-foundation
+      id: premium-foundation
+      agent: dan-kennedy
+      task_ref: tasks/avatar-research.md
+      action: "Pesquisar avatar premium e qualificar o mercado high-ticket"
+      creates: high-ticket-foundation
+      on_complete: { trigger: premium-foundation_complete }
+    - phase: mechanism
+      id: mechanism
+      agent: todd-brown
+      task_ref: tasks/create-unique-mechanism.md
+      requires: high-ticket-foundation
+      action: "Definir mecanismo, diferenciação e posicionamento premium"
+      creates: high-ticket-positioning
+      on_complete: { trigger: mechanism_complete }
+    - phase: offer-architecture
+      id: offer-architecture
+      agent: alex-hormozi
+      task_ref: tasks/create-offer.md
+      requires: high-ticket-positioning
+      action: "Estruturar a oferta high-ticket com value equation e pricing"
+      creates: high-ticket-offer
+      on_complete: { trigger: offer-architecture_complete }
+    - phase: conversion-assets
+      id: conversion-assets
+      agent: jon-benson
+      task_ref: tasks/create-webinar-script.md
+      requires: high-ticket-offer
+      action: "Criar os ativos de conversão para webinar, funnel e sales call"
+      creates: high-ticket-assets
+      on_complete: { trigger: conversion-assets_complete }
+    - phase: final-system
+      id: final-system
+      agent: copy-chief
+      task_ref: tasks/evaluate-offer.md
+      requires: high-ticket-assets
+      action: "Consolidar e validar o sistema completo de vendas high-ticket"
+      creates: high-ticket-system
+      on_complete: { trigger: final-system_complete }
+
+  handoff_prompts:
+    default: "Entregue o artefato criado, decisões tomadas, riscos abertos e o critério exato para o próximo agente continuar sem reinterpretar o contexto."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 1: DEEP FOUNDATION (Days 1-2)
+# ═══════════════════════════════════════════════════════════════════════════════
+phases:
+  - id: PHASE-1
+    name: "Deep Foundation - Premium Positioning"
+    days: "1-2"
+    tier: 0
+    description: |
+      High-ticket requires DEEPER research than low-ticket.
+      Kennedy's "starving crowd" is critical - find people with MONEY and PAIN.
+      Premium avatar = demographics + psychographics + buying behavior.
+      Schwartz Stage 4-5 = you need a new/improved mechanism to stand out.
+
+    tasks:
+      - task_file: avatar-research.md
+        agent: dan-kennedy
+        required: true
+        description: "Premium avatar research using Kennedy's 3Ms - find the WEALTHY starving crowd"
+        output: "premium-avatar.md"
+        notes: |
+          For high-ticket, avatar MUST include:
+          - Income/revenue qualification ($250K+ personal or business)
+          - Decision-making authority (no "need to check with partner")
+          - Previous investment in solutions (have spent money trying to fix)
+          - Urgency indicators (why NOW, not later)
+
+      - task_file: diagnose-awareness-level.md
+        agent: eugene-schwartz
+        required: true
+        description: "Diagnose awareness level of premium prospects"
+        output: "awareness-diagnosis.md"
+
+      - task_file: diagnose-market-sophistication.md
+        agent: eugene-schwartz
+        required: true
+        description: "Diagnose sophistication - high-ticket markets are usually Stage 4-5"
+        output: "sophistication-diagnosis.md"
+
+      - task_file: create-unique-mechanism.md
+        agent: todd-brown
+        required: true
+        description: "Create Premium Mechanism using E5 Method - differentiation is CRITICAL at high-ticket"
+        output: "premium-mechanism.md"
+        notes: |
+          At $5K+, prospects have tried cheaper solutions.
+          Your mechanism must explain:
+          1. Why cheaper solutions failed (Problem Mechanism)
+          2. Why yours is different AND worth premium price (Solution Mechanism)
+          3. What makes it IMPOSSIBLE to get this result elsewhere
+
+    premium_avatar_framework:
+      kennedy_3ms_for_premium:
+        market:
+          - "WHO has both MONEY and PAIN?"
+          - "WHO has tried and failed with cheaper solutions?"
+          - "WHO is ready to invest seriously to solve this?"
+          - "WHO has decision-making authority?"
+        message:
+          - "What specific outcome do they want?"
+          - "What would they pay premium for?"
+          - "What's their biggest frustration with current solutions?"
+        media:
+          - "Where do premium prospects hang out?"
+          - "What content do they consume?"
+          - "How do they prefer to buy? (application, call, etc.)"
+
+      qualification_criteria:
+        financial: "Can invest $5K-$50K without hardship"
+        authority: "Final decision maker or can get fast approval"
+        urgency: "Problem is costing them significantly NOW"
+        coachability: "Willing to implement, not just consume"
+        fit: "Problem matches your solution"
+
+    checkpoint:
+      criteria:
+        - "premium_avatar COMPLETE with financial qualification"
+        - "awareness_level DIAGNOSED"
+        - "sophistication_level DIAGNOSED (expect Stage 4-5)"
+        - "unique_mechanism DEVELOPED"
+      human_review: true
+      message: "Review premium positioning before creating acquisition content"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 2: ACQUISITION CONTENT (Days 3-5)
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: PHASE-2
+    name: "Acquisition Content Creation"
+    days: "3-5"
+    tier: 1
+    description: |
+      Create the content that attracts and nurtures premium prospects.
+      Lead magnet must demonstrate expertise and filter for quality.
+      Webinar is the bridge between cold traffic and sales call.
+      SOS sequence builds relationship over 10-14 emails.
+
+    tasks:
+      # Lead Magnet
+      - task_file: create-lead-magnet.md
+        agent: todd-brown
+        required: true
+        description: "Create mechanism-based lead magnet that attracts premium prospects"
+        output: "lead-magnet-copy.md"
+        notes: |
+          For high-ticket, lead magnet should:
+          - Demonstrate deep expertise
+          - Introduce the unique mechanism
+          - Filter OUT non-qualified prospects
+          - Lead naturally to webinar or application
+
+      # Webinar Script
+      - task_file: vsl-script.md
+        agent: jon-benson
+        required: true
+        description: "Create webinar/VSL script with Benson structure + Makepeace emotion"
+        output: "webinar-script.md"
+        notes: |
+          High-ticket webinars are 60-90 minutes:
+          - First 30 min: Value and mechanism education
+          - Middle 30 min: Case studies and transformation
+          - Final 30 min: Offer and application CTA
+
+      - task_file: write-visceral-copy.md
+        agent: clayton-makepeace
+        required: true
+        description: "Add visceral emotional language to webinar script"
+        output: "webinar-visceral.md"
+
+      # Long SOS Sequence
+      - task_file: create-soap-opera-sequence.md
+        agent: andre-chaperon
+        required: true
+        description: "Create 10-14 email SOS sequence for premium prospect nurturing"
+        output: "long-sos-sequence.md"
+        notes: |
+          High-ticket SOS is LONGER than low-ticket:
+          - Emails 1-3: Origin story + problem agitation
+          - Emails 4-6: Discovery + mechanism introduction
+          - Emails 7-9: Transformation stories + hidden benefits
+          - Emails 10-12: Objection handling through story
+          - Emails 13-14: Application CTA + urgency
+
+    sos_structure_high_ticket:
+      email_1:
+        name: "Set the Stage"
+        purpose: "Introduce story, establish credibility"
+        elements:
+          - "Origin story opening"
+          - "Establish relatability (I was where you are)"
+          - "Hint at transformation coming"
+        cliffhanger: "What happened next changed everything..."
+
+      email_2:
+        name: "High Drama Part 1"
+        purpose: "Intensify the problem"
+        elements:
+          - "The low point"
+          - "Failed attempts"
+          - "Emotional cost of the problem"
+        cliffhanger: "That's when I discovered..."
+
+      email_3:
+        name: "High Drama Part 2"
+        purpose: "Deepen the pain"
+        elements:
+          - "Specific struggles"
+          - "What didn't work and why"
+          - "The moment of desperation"
+        cliffhanger: "Everything was about to change..."
+
+      email_4:
+        name: "The Epiphany"
+        purpose: "The breakthrough moment"
+        elements:
+          - "The aha moment"
+          - "What you discovered"
+          - "Introduction of the mechanism"
+        cliffhanger: "But that was just the beginning..."
+
+      email_5:
+        name: "The Mechanism"
+        purpose: "Explain the unique approach"
+        elements:
+          - "Why traditional approaches fail"
+          - "The Problem Mechanism explained"
+          - "The Solution Mechanism teased"
+        cliffhanger: "Here's what happened when I applied it..."
+
+      email_6:
+        name: "First Results"
+        purpose: "Show early proof"
+        elements:
+          - "Your first results"
+          - "Unexpected benefits"
+          - "Building belief"
+        cliffhanger: "Then I started teaching it to others..."
+
+      email_7:
+        name: "Case Study 1"
+        purpose: "Social proof through story"
+        elements:
+          - "Client who was skeptical"
+          - "Their specific situation"
+          - "Their transformation"
+        cliffhanger: "But that wasn't the only one..."
+
+      email_8:
+        name: "Case Study 2"
+        purpose: "Different persona, same result"
+        elements:
+          - "Different type of client"
+          - "Different starting point"
+          - "Same mechanism, same success"
+        cliffhanger: "There's something I haven't told you yet..."
+
+      email_9:
+        name: "Hidden Benefits"
+        purpose: "Unexpected positive outcomes"
+        elements:
+          - "Benefits they didn't expect"
+          - "Ripple effects"
+          - "Quality of life improvements"
+        cliffhanger: "Now let me address something..."
+
+      email_10:
+        name: "Objection Handling 1"
+        purpose: "Time/effort objection"
+        elements:
+          - "Story about someone who thought they didn't have time"
+          - "How the mechanism is actually time-efficient"
+          - "ROI of time invested"
+        cliffhanger: "But what about the cost?"
+
+      email_11:
+        name: "Objection Handling 2"
+        purpose: "Price/investment objection"
+        elements:
+          - "Story about investment decision"
+          - "Cost of NOT solving the problem"
+          - "Value perspective shift"
+        cliffhanger: "I've been building to something..."
+
+      email_12:
+        name: "The Opportunity"
+        purpose: "Soft introduction of offer"
+        elements:
+          - "What you're offering"
+          - "Who it's for (qualification)"
+          - "What's included"
+        cliffhanger: "Tomorrow, applications open..."
+
+      email_13:
+        name: "Application Open"
+        purpose: "Direct CTA"
+        elements:
+          - "Recap the journey"
+          - "Clear application CTA"
+          - "What happens after they apply"
+
+      email_14:
+        name: "Urgency & Deadline"
+        purpose: "Create urgency"
+        elements:
+          - "Close all open loops"
+          - "Genuine scarcity"
+          - "Final deadline"
+
+    webinar_structure:
+      introduction:
+        duration: "5-10 min"
+        elements:
+          - "Hook: Big promise or bold claim"
+          - "Quick credibility establishment"
+          - "Agenda: What they'll learn"
+          - "Promise: By the end, you'll know X"
+
+      content_section_1:
+        duration: "15-20 min"
+        name: "The Problem"
+        elements:
+          - "Why most approaches fail"
+          - "The real root cause (mechanism)"
+          - "Validation: It's not their fault"
+
+      content_section_2:
+        duration: "15-20 min"
+        name: "The Solution"
+        elements:
+          - "Your unique mechanism"
+          - "Why it works"
+          - "Case study demonstration"
+
+      content_section_3:
+        duration: "15-20 min"
+        name: "The Transformation"
+        elements:
+          - "More case studies"
+          - "What life looks like after"
+          - "Hidden benefits"
+
+      transition:
+        duration: "5 min"
+        elements:
+          - "Recap of what they learned"
+          - "Bridge to offer"
+          - "Permission to share opportunity"
+
+      offer:
+        duration: "20-30 min"
+        elements:
+          - "What's included (value stack)"
+          - "Who it's for / not for"
+          - "Investment and ROI"
+          - "Guarantee"
+          - "Application process"
+          - "Q&A"
+
+    checkpoint:
+      criteria:
+        - "lead_magnet COMPLETE"
+        - "webinar_script COMPLETE (60-90 min)"
+        - "visceral_enhancement APPLIED"
+        - "long_sos_sequence COMPLETE (10-14 emails)"
+      human_review: true
+      message: "Review all acquisition content before conversion phase"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 3: CONVERSION SYSTEM (Days 6-8)
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: PHASE-3
+    name: "Conversion System"
+    days: "6-8"
+    tier: 2
+    description: |
+      The sales call is where high-ticket conversion happens.
+      Application page qualifies and warms up prospects.
+      Call script handles rapport, discovery, presentation, objections.
+      Follow-up sequence catches non-closes.
+
+    tasks:
+      # Application Page
+      - task_file: create-landing-page.md
+        agent: dan-kennedy
+        required: true
+        description: "Create application page with Kennedy qualification framework"
+        output: "application-page.md"
+        notes: |
+          Application page serves TWO purposes:
+          1. QUALIFY: Filter out non-buyers before call
+          2. WARM UP: Get them mentally invested before call
+
+      # Sales Call Script
+      - task_file: create-call-script.md
+        agent: dan-kennedy
+        required: true
+        description: "Create 45-60 min sales call script with objection handling"
+        output: "call-script.md"
+        notes: |
+          Uses Kennedy's 6-Step No BS Sales Process:
+          1. Pre-qualify before conversation
+          2. Establish authority immediately
+          3. Diagnose before prescribing
+          4. Present solution as inevitable conclusion
+          5. Handle objections with questions
+          6. Close with urgency
+
+      # Follow-up Sequence
+      - task_file: create-email-sequence.md
+        agent: andre-chaperon
+        required: true
+        description: "Create follow-up sequence for non-closes (Settle warmth + Chaperon automation)"
+        output: "followup-sequence.md"
+        notes: |
+          For people who didn't buy on the call:
+          - Day 1: "Thanks for your time" + recap benefits
+          - Day 3: Case study relevant to their objection
+          - Day 5: New angle / perspective shift
+          - Day 7: Deadline / last chance
+          - Day 10: "Closing your file" (Kennedy takeaway)
+
+    application_page_structure:
+      headline:
+        purpose: "Filter for qualified prospects"
+        example: "Apply For [Program Name] - Limited to [X] Qualified [Avatars]"
+
+      qualification_section:
+        purpose: "Make them self-select"
+        elements:
+          - "This is for you IF..."
+          - "This is NOT for you IF..."
+          - "Minimum requirements to apply"
+
+      application_form:
+        fields:
+          required:
+            - "Name"
+            - "Email"
+            - "Phone"
+            - "Business/Situation description"
+            - "Current revenue/results"
+            - "Biggest challenge"
+            - "Why now?"
+            - "Investment readiness question"
+          optional:
+            - "Website/LinkedIn"
+            - "How did you hear about us"
+
+      next_steps:
+        purpose: "Set expectations"
+        elements:
+          - "What happens after they apply"
+          - "Call scheduling process"
+          - "What to prepare for the call"
+
+    call_script_structure:
+      phase_1_rapport:
+        duration: "5 minutes"
+        purpose: "Build connection + set frame"
+        kennedy_principles:
+          - "Takeaway positioning from the start"
+          - "Authority establishment"
+          - "Agenda setting"
+        script_elements:
+          - "Warm greeting"
+          - "Set call expectations"
+          - "Establish you're selective"
+
+      phase_2_discovery:
+        duration: "15-20 minutes"
+        purpose: "Diagnose before prescribing"
+        question_tiers:
+          situation: "Where are you now?"
+          problem: "What's the biggest challenge?"
+          past_attempts: "What have you tried?"
+          cost: "What's this costing you?"
+          desired_outcome: "What does success look like?"
+
+      phase_3_presentation:
+        duration: "10-15 minutes"
+        purpose: "Present solution as inevitable conclusion"
+        elements:
+          - "Transition from their pain to your solution"
+          - "Mechanism explanation (connects to their specific situation)"
+          - "Case study that mirrors their situation"
+          - "Value stack presentation"
+          - "Investment reveal"
+
+      phase_4_close:
+        duration: "10-15 minutes"
+        purpose: "Get decision NOW"
+        kennedy_closes:
+          takeaway_close: "This isn't for everyone..."
+          deadline_close: "I can only hold this price until..."
+          scarcity_close: "We only have [X] spots..."
+          bonus_close: "If you start today, you also get..."
+
+      objection_handling:
+        need_to_think:
+          kennedy_response: "What specifically do you need to think about?"
+          goal: "Surface the real objection"
+
+        too_expensive:
+          kennedy_response: "Compared to what - the cost of staying stuck?"
+          goal: "Reframe investment vs cost"
+
+        need_spouse_approval:
+          kennedy_response: "What do you think their main concern will be?"
+          goal: "Address concerns now, schedule follow-up"
+
+        bad_timing:
+          kennedy_response: "What would have to be true for NOW to be right?"
+          goal: "Create urgency, expose real objection"
+
+    follow_up_sequence:
+      email_1:
+        timing: "Same day"
+        subject: "Thanks for your time, [Name]"
+        purpose: "Warm follow-up, recap value"
+
+      email_2:
+        timing: "Day 3"
+        subject: "Thought you'd find this interesting..."
+        purpose: "Case study relevant to their specific objection"
+
+      email_3:
+        timing: "Day 5"
+        subject: "A different way to think about this..."
+        purpose: "New angle / perspective shift"
+
+      email_4:
+        timing: "Day 7"
+        subject: "[Name], quick question"
+        purpose: "Direct check-in, offer deadline"
+
+      email_5:
+        timing: "Day 10"
+        subject: "Closing your file"
+        purpose: "Kennedy takeaway - creates urgency"
+
+    checkpoint:
+      criteria:
+        - "application_page COMPLETE"
+        - "call_script COMPLETE with objection handling"
+        - "followup_sequence COMPLETE (5 emails)"
+      human_review: true
+      message: "Review complete conversion system before launch"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 4: OPTIMIZATION & POLISH (Days 9-10)
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: PHASE-4
+    name: "Optimization & Polish"
+    days: "9-10"
+    tier: 3
+    description: |
+      Final quality assurance and optimization.
+      Hopkins audit ensures all claims have proof.
+      Sugarman triggers enhance psychological impact.
+      Integration testing ensures funnel flows correctly.
+
+    tasks:
+      - task_file: audit-copy-hopkins.md
+        agent: claude-hopkins
+        required: true
+        description: "Scientific audit - all claims must have 'Reason Why'"
+        output: "hopkins-audit-report.md"
+
+      - task_file: apply-sugarman-triggers.md
+        agent: joe-sugarman
+        required: true
+        description: "Add psychological triggers to key conversion points"
+        output: "sugarman-enhanced-copy.md"
+        notes: |
+          Priority injection points for high-ticket:
+          - Webinar registration page (#16 Specificity, #7 Honesty)
+          - Application page (#4 Authority, #5 Reason Why)
+          - Email subject lines (#1 Curiosity, #14 Storytelling)
+          - Call script transitions (#18 Mental Engagement)
+
+    funnel_integration_check:
+      traffic_to_optin:
+        - "Message match between ads and landing page"
+        - "Lead magnet promise is compelling"
+        - "Form captures right information"
+
+      optin_to_sos:
+        - "Welcome email delivers lead magnet"
+        - "SOS sequence starts within 24 hours"
+        - "Open loops are established early"
+
+      sos_to_webinar:
+        - "Natural transition to webinar invite"
+        - "Multiple webinar CTAs throughout sequence"
+        - "Reminder sequence for registered"
+
+      webinar_to_application:
+        - "Clear CTA at end of webinar"
+        - "Application page is accessible"
+        - "Qualification questions filter properly"
+
+      application_to_call:
+        - "Booking system works"
+        - "Confirmation emails send"
+        - "Prep materials delivered"
+
+      call_to_close:
+        - "Call script handles all objections"
+        - "Payment processing works"
+        - "Onboarding sequence triggers"
+
+      non_close_followup:
+        - "Follow-up sequence triggers for non-buyers"
+        - "Proper segmentation applied"
+        - "Future offer sequences queued"
+
+    checkpoint:
+      criteria:
+        - "hopkins_audit PASSED"
+        - "sugarman_triggers APPLIED"
+        - "funnel_integration VERIFIED"
+        - "all_copy FINALIZED"
+      human_review: true
+      message: "Final review before launching high-ticket funnel"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# COMPLETION SIGNALS
+# ═══════════════════════════════════════════════════════════════════════════════
+completion_signal: "<promise>COMPLETE</promise>"
+checkpoint_signal: "<promise>CHECKPOINT:PHASE-X</promise>"
+blocked_signal: "<promise>BLOCKED:T-X.Y</promise>"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# OUTPUT ARTIFACTS
+# ═══════════════════════════════════════════════════════════════════════════════
+outputs:
+  research:
+    - "premium-avatar.md (Kennedy 3Ms + financial qualification)"
+    - "awareness-diagnosis.md"
+    - "sophistication-diagnosis.md"
+    - "premium-mechanism.md (Todd Brown E5)"
+
+  acquisition:
+    - "lead-magnet-copy.md"
+    - "webinar-script.md (60-90 min)"
+    - "webinar-visceral.md (Makepeace enhancement)"
+    - "long-sos-sequence.md (10-14 emails)"
+
+  conversion:
+    - "application-page.md"
+    - "call-script.md (45-60 min with objection handling)"
+    - "followup-sequence.md (5 emails)"
+
+  optimization:
+    - "hopkins-audit-report.md"
+    - "sugarman-enhanced-copy.md"
+    - "funnel-integration-checklist.md"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENT ASSIGNMENTS BY PHASE
+# ═══════════════════════════════════════════════════════════════════════════════
+agents_by_phase:
+  phase_1_foundation:
+    primary:
+      - "dan-kennedy (3Ms for premium avatar)"
+      - "todd-brown (premium mechanism)"
+    secondary:
+      - "eugene-schwartz (awareness + sophistication)"
+
+  phase_2_acquisition:
+    primary:
+      - "todd-brown (mechanism-based lead magnet)"
+      - "jon-benson (webinar VSL structure)"
+      - "andre-chaperon (long SOS sequence)"
+    secondary:
+      - "clayton-makepeace (visceral copy)"
+
+  phase_3_conversion:
+    primary:
+      - "dan-kennedy (application + call script)"
+    secondary:
+      - "andre-chaperon (follow-up sequence)"
+      - "ben-settle (follow-up warmth)"
+
+  phase_4_optimization:
+    primary:
+      - "claude-hopkins (scientific audit)"
+      - "joe-sugarman (psychological triggers)"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY CHECKLIST
+# ═══════════════════════════════════════════════════════════════════════════════
+quality_checklist:
+  foundation:
+    - "[ ] Premium avatar includes financial qualification"
+    - "[ ] Market sophistication diagnosed (expect Stage 4-5)"
+    - "[ ] Unique mechanism explains why premium is worth it"
+    - "[ ] Problem AND Solution mechanisms documented"
+
+  acquisition:
+    - "[ ] Lead magnet filters for premium prospects"
+    - "[ ] Webinar script is 60-90 minutes"
+    - "[ ] Webinar has clear application CTA"
+    - "[ ] SOS sequence is 10-14 emails"
+    - "[ ] All emails end with open loops (except last)"
+    - "[ ] Case studies match target avatar"
+
+  conversion:
+    - "[ ] Application page qualifies financially"
+    - "[ ] Call script follows Kennedy 6-Step Process"
+    - "[ ] All 4 major objections have responses"
+    - "[ ] Takeaway positioning established in call"
+    - "[ ] Follow-up sequence covers 10 days"
+    - "[ ] 'Closing your file' email included"
+
+  optimization:
+    - "[ ] Hopkins audit passed (all claims have Reason Why)"
+    - "[ ] Sugarman triggers added to key pages"
+    - "[ ] Funnel integration verified end-to-end"
+    - "[ ] Payment processing tested"
+    - "[ ] Onboarding sequence ready"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+metadata:
+  version: "1.0"
+  framework: "copy-framework-v2"
+  created: "2026-01-23"
+  story_id: "US-005"
+  primary_use_case: "High-ticket sales ($5K+ offers)"
+  key_difference_from_low_ticket: |
+    High-ticket sales CANNOT happen on a webpage alone.
+    The conversion event is the SALES CALL, not the sales page.
+    All content builds trust and qualifies prospects for the call.

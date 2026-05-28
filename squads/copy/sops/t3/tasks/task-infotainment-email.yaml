@@ -1,0 +1,80 @@
+sop:
+  id: task-infotainment-email
+  version: "1.0"
+  title: "Infotainment Email System (6 Steps)"
+  purpose: "Write 200-300 word daily email that entertains while educating and sells without desperation using 6-step formula"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: ben-settle
+    tier: T3
+
+  inputs:
+    - name: story_source
+      type: string
+      required: true
+      description: "Personal story, observation, or pop culture reference"
+    - name: product_offer
+      type: object
+      required: true
+      description: "Product/offer to promote via embedded pitch"
+
+  outputs:
+    - name: infotainment_email
+      type: document
+      format: text
+      description: "200-300 word infotainment email with subject line"
+
+  steps:
+    - id: step_1
+      action: write_micro_riddle_subject
+      description: "Create subject line as curiosity itch using direct response bullet adaptation"
+      critical: true
+
+    - id: step_2
+      action: write_story_opening
+      description: "Open with anecdote, pop culture reference, or controversial observation unrelated to product"
+
+    - id: step_3
+      action: write_infotainment_body
+      description: "Develop story weaving value and entertainment simultaneously — think talk show host"
+      critical: true
+
+    - id: step_4
+      action: write_sidewind_transition
+      description: "Bridge naturally from story to reader's problem — transition should feel inevitable"
+      error_handling:
+        condition: "Transition feels forced or visible"
+        action: "Rewrite transition to arise naturally from story logic"
+
+    - id: step_5
+      action: write_embedded_pitch
+      description: "Product as natural solution in 3-5 lines maximum — zero desperation"
+      max_lines: 5
+
+    - id: step_6
+      action: write_cta
+      description: "Single simple action with casual language, one link only"
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "Subject line creates genuine curiosity"
+      - "Story opening unrelated to product"
+      - "Body entertains AND teaches"
+      - "Transition feels natural"
+      - "Pitch is 3-5 lines max with zero desperation"
+      - "Single CTA with casual language"
+      - "Total length 200-300 words"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies: []
+
+  related_sops:
+    - task-3x-personality-method
+    - task-subject-line-micro-riddle
+    - task-daily-email-flywheel
+    - task-ghost-story-technique

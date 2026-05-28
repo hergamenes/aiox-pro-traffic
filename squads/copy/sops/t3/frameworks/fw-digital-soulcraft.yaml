@@ -1,0 +1,82 @@
+sop:
+  id: fw-digital-soulcraft
+  version: "1.0"
+  title: "Digital Soulcraft — 4 Layers"
+  purpose: "Build principled digital businesses bottom-up where trust crystallizes last as emergent output"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: andre-chaperon
+    tier: t3
+  steps:
+    - id: apply_artifacts
+      name: "Artifacts (Landmarks)"
+      description: "Create tangible, standalone-valuable assets that demonstrate thinking and care"
+      inputs:
+        - expertise_areas
+        - worldview_values
+      outputs:
+        - artifact_inventory
+      validation:
+        - standalone_value: true
+        - not_bait: true
+        - pride_worthy: true
+    - id: apply_email_circulatory
+      name: "Email (Circulatory)"
+      description: "Design email as conversation medium connecting artifacts to relationships"
+      inputs:
+        - artifact_inventory
+        - email_triad_principles
+      outputs:
+        - email_system_design
+      validation:
+        - entertains: true
+        - educates: true
+        - advances_toward_purchase: true
+        - written_to_one_person: true
+    - id: apply_relationships_orbital
+      name: "Relationships (Orbital)"
+      description: "Nurture genuine relationships where subscribers stay because they feel valued"
+      inputs:
+        - email_system_design
+        - audience_segments
+      outputs:
+        - relationship_nurturing_strategy
+      validation:
+        - authentic_not_transactional: true
+        - no_urgency_tactics: true
+    - id: apply_trust_gravitational
+      name: "Trust (Gravitational Center)"
+      description: "Allow trust to crystallize as natural result of the three outer layers"
+      inputs:
+        - artifact_inventory
+        - email_system_design
+        - relationship_nurturing_strategy
+      outputs:
+        - trust_conditions_map
+        - complete_business_blueprint
+      validation:
+        - trust_is_emergent: true
+        - no_premature_trust_claims: true
+        - all_layers_present: true
+  error_handling:
+    - error: premature_trust_claims
+      condition: "Copy includes 'trust me' or explicit trust demands"
+      action: "Remove trust claims; demonstrate trustworthiness through actions"
+    - error: bait_artifacts
+      condition: "Artifacts designed primarily as lead-gen, not standalone value"
+      action: "Redesign to be genuinely useful even without purchase"
+    - error: broadcast_email
+      condition: "Email reads as mass communication, not personal conversation"
+      action: "Rewrite as if addressing one specific person"
+    - error: skipped_layers
+      condition: "Attempting to build trust without completing outer layers"
+      action: "Return to outermost incomplete layer; build sequentially"
+  quality_gate:
+    min_sections: 4
+    required_elements:
+      - valuable_artifacts
+      - email_triad_compliance
+      - authentic_relationships
+      - emergent_trust
+    pass_threshold: "all 4 layers built bottom-up without shortcuts"

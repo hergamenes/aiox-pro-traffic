@@ -1,0 +1,140 @@
+sop:
+  id: "dk-no-bs-audit"
+  version: "1.0.0"
+  title: "10 No BS Rules Audit"
+  purpose: "Audit any marketing piece against Dan Kennedy's 10 non-negotiable direct-response rules with binary pass/fail scoring and rewrite prescriptions"
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    sub_category: "quality-audit"
+    risk_level: "low"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "Before publishing any marketing piece, as campaign quality gate, or monthly audit of active materials"
+  context:
+    input:
+      - name: "marketing_piece"
+        type: "object"
+        required: true
+        description: "The actual marketing piece to audit — ad, email, letter, landing page, or any customer-facing material"
+  steps:
+    - id: "S001"
+      name: "Check Offer"
+      action: "verify_direct_offer"
+      description: "Rule 1: Does the piece have a clear, specific offer the reader can say YES or NO to? Nothing goes out without a direct offer."
+      performer: "copywriter"
+      critical: true
+      on_success: "S002"
+      on_failure: "S002"
+    - id: "S002"
+      name: "Check Urgency"
+      action: "verify_reason_to_respond_now"
+      description: "Rule 2: Is there a compelling reason to act NOW? Real deadline, limited quantity, expiring bonus, or price increase."
+      performer: "copywriter"
+      critical: false
+      on_success: "S003"
+      on_failure: "S003"
+    - id: "S003"
+      name: "Check Instructions"
+      action: "verify_clear_instructions"
+      description: "Rule 3: Are there clear, focused instructions for taking action? Reader must know exactly what to do next."
+      performer: "copywriter"
+      critical: false
+      on_success: "S004"
+      on_failure: "S004"
+    - id: "S004"
+      name: "Check Tracking"
+      action: "verify_tracking_mechanism"
+      description: "Rule 4: Is there tracking and measurement? Unique URL, phone number, coupon code, or reference number to track ROI per piece."
+      performer: "copywriter"
+      critical: false
+      on_success: "S005"
+      on_failure: "S005"
+    - id: "S005"
+      name: "Check Branding vs Response"
+      action: "verify_response_focus"
+      description: "Rule 5: Is the focus on generating RESPONSE, not brand awareness? Brand should be byproduct only."
+      performer: "copywriter"
+      critical: false
+      on_success: "S006"
+      on_failure: "S006"
+    - id: "S006"
+      name: "Check Follow-up"
+      action: "verify_data_capture"
+      description: "Rule 6: Does the piece capture data from every respondent for follow-up? Every lead must enter a follow-up system."
+      performer: "copywriter"
+      critical: false
+      on_success: "S007"
+      on_failure: "S007"
+    - id: "S007"
+      name: "Check Copy Strength"
+      action: "verify_strong_copy"
+      description: "Rule 7: Is the copy commanding and confident — 'Arnold Schwarzenegger' copy? Direct, assertive, impossible to ignore."
+      performer: "copywriter"
+      critical: false
+      on_success: "S008"
+      on_failure: "S008"
+    - id: "S008"
+      name: "Check Mail-Order Format"
+      action: "verify_direct_response_layout"
+      description: "Rule 8: Does it look like mail-order? Long-form, copy-heavy, strong offers clearly presented, even in digital."
+      performer: "copywriter"
+      critical: false
+      on_success: "S009"
+      on_failure: "S009"
+    - id: "S009"
+      name: "Check Results Governance"
+      action: "verify_results_rule"
+      description: "Rule 9: Are decisions governed by measurable results, not opinions or aesthetics? Previous versions A/B tested?"
+      performer: "copywriter"
+      critical: false
+      on_success: "S010"
+      on_failure: "S010"
+    - id: "S010"
+      name: "Check Organizational Commitment"
+      action: "verify_strict_diet"
+      description: "Rule 10: Has the organization committed to purging all non-conforming marketing for minimum 6 months?"
+      performer: "copywriter"
+      critical: false
+      on_success: "S011"
+      on_failure: "S011"
+    - id: "S011"
+      name: "Aggregate and Prescribe"
+      action: "score_and_prescribe_fixes"
+      description: "Count PASS/FAIL. 10/10=deploy, 7-9=fix failing rules, 4-6=major rewrite, 0-3=discard. Write specific rewrite instructions per failed rule."
+      performer: "copywriter"
+      critical: true
+      on_success: "END"
+      on_failure: "retry"
+  error_handling:
+    global_timeout: "PT2H"
+    retry_policy:
+      max_retries: 1
+      backoff: "linear"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "all_10_rules_evaluated"
+        type: "boolean"
+        target: true
+        weight: 0.3
+      - name: "evidence_cited_per_rule"
+        type: "boolean"
+        target: true
+        weight: 0.25
+      - name: "rewrite_prescriptions_for_failures"
+        type: "boolean"
+        target: true
+        weight: 0.25
+      - name: "aggregate_score_calculated"
+        type: "boolean"
+        target: true
+        weight: 0.2
+    pass_threshold: 1.0
+  outputs:
+    artifacts:
+      - name: "audit_scorecard"
+        type: "file"
+        format: "md"
+        description: "PASS/FAIL per rule with evidence and rewrite prescriptions for every failure"

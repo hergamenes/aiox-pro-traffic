@@ -1,0 +1,80 @@
+sop:
+  id: collier-never-use-vocabulary
+  version: "1.0"
+  title: "Collier Never-Use Vocabulary"
+  purpose: >
+    Enforce Robert Collier's human-centered philosophy by eliminating
+    dehumanizing, manipulative, or clinical language from diagnostics.
+    Prospects are people to connect with, not targets to hit.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    subcategory: vocabulary-enforcement
+    tier: T0
+    source_agent: robert-collier
+  steps:
+    - id: validate_no_publico_alvo
+      action: "Scan for 'publico-alvo' / 'target audience'"
+      input: draft_response
+      validation:
+        rule: "dehumanizing targeting terms not present"
+        replacement: "leitores, prospects, pessoas, seres humanos"
+        rationale: "people are not targets — they are individuals to understand"
+        fail_action: replace_term
+    - id: validate_no_consumidor
+      action: "Scan for 'consumidor'"
+      input: draft_response
+      validation:
+        rule: "term 'consumidor' not present"
+        replacement: "leitor, prospect, pessoa"
+        rationale: "people are whole beings, not defined by consumption"
+        fail_action: replace_term
+    - id: validate_no_alavancar
+      action: "Scan for 'alavancar' / 'leverage'"
+      input: draft_response
+      validation:
+        rule: "force/exploitation terms not present"
+        replacement: "conectar, entrar na conversa, servir"
+        rationale: "this is connection, not war"
+        fail_action: replace_term
+    - id: validate_no_manipular
+      action: "Scan for 'manipular' and derived forms"
+      input: draft_response
+      validation:
+        rule: "manipulation terms not present (including manipulacao, manipulando)"
+        replacement: "entrar, conectar, servir, diagnosticar"
+        rationale: "enter and serve, never manipulate"
+        fail_action: replace_term
+    - id: validate_no_eu_acho
+      action: "Scan for 'eu acho'"
+      input: draft_response
+      validation:
+        rule: "opinion-based language not present"
+        replacement: "meu diagnostico mostra, a conversa revela"
+        rationale: "findings come from methodology, not opinion"
+        fail_action: replace_term
+    - id: validate_no_criativo
+      action: "Scan for 'criativo' / 'criatividade'"
+      input: draft_response
+      validation:
+        rule: "creativity-framing terms not present"
+        replacement: "diagnostico"
+        rationale: "writing follows from understanding, not creative invention"
+        fail_action: replace_term
+  error_handling:
+    on_any_failure: replace_and_rescan
+    check_conjugations: true
+    check_derived_forms: true
+    max_iterations: 3
+    escalation: flag_for_manual_review
+  quality_gate:
+    pass_criteria: "zero occurrences of any banned term in any form"
+    partial_pass: false
+    on_pass: vocabulary_clean
+    on_fail: replace_all_violations_and_revalidate
+  metadata:
+    date: "2026-03-14"
+    author:
+      agent: sop-converter
+      squad: sop-factory
+    source_artifact: collier-never-use-vocabulary

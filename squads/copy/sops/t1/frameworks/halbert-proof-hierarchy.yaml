@@ -1,0 +1,70 @@
+sop:
+  id: halbert-proof-hierarchy
+  version: "1.0"
+  title: "Proof Hierarchy (Evidence Pyramid)"
+  purpose: >
+    Layer multiple types of proof across every claim in copy using a 5-tier
+    hierarchy from strongest (Demonstration) to foundational (Reason Why).
+    Minimum 3 different proof types per claim, more for bold promises.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: gary-halbert
+    tier: t1
+
+  steps:
+    - id: apply_catalog_claims
+      action: "Identify and list every claim, promise, or benefit statement in the copy"
+      input: "copy_draft"
+      output: "claims_inventory"
+
+    - id: apply_tier1_demonstration
+      action: "Assign demonstration proof (video, before/after, live demo) to applicable claims"
+      condition: "claim_type IN ['result', 'transformation', 'performance']"
+      output: "demonstration_proof_elements"
+
+    - id: apply_tier2_testimonials
+      action: "Assign specific testimonials with names, locations, exact results, and timelines"
+      condition: "testimonial_specificity >= high"
+      output: "testimonial_proof_elements"
+
+    - id: apply_tier3_data
+      action: "Assign concrete numbers, percentages, and study results with cited sources"
+      condition: "data_source_available == true"
+      output: "data_proof_elements"
+
+    - id: apply_tier4_authority
+      action: "Assign endorsements from experts, institutions, or media relevant to the market"
+      condition: "authority_relevance_to_market >= high"
+      output: "authority_proof_elements"
+
+    - id: apply_tier5_reason_why
+      action: "Explain the mechanism behind each claim to remove 'too good to be true' suspicion"
+      output: "reason_why_proof_elements"
+
+    - id: apply_minimum_rule
+      action: "Verify every significant claim has minimum 3 different proof types"
+      condition: "proof_types_per_claim >= 3"
+      output: "proof_coverage_validation"
+
+    - id: apply_distribution
+      action: "Intercalate proof elements between claims, stories, and benefits throughout copy"
+      condition: "proof_not_grouped_in_single_section"
+      output: "distributed_proof_layout"
+
+  error_handling:
+    - error: "single_proof_type"
+      severity: high
+      action: "Add minimum 2 additional proof types from different tiers"
+    - error: "generic_testimonials"
+      severity: medium
+      action: "Replace with specific testimonials containing names, numbers, timelines"
+    - error: "proof_clustering"
+      severity: medium
+      action: "Redistribute proof elements throughout the copy"
+
+  quality_gate:
+    min_proof_types_per_claim: 3
+    bold_promise_proof_types: 5
+    proof_distributed: true
+    skeptic_stress_test_passed: true

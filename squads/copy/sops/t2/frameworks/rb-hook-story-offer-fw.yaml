@@ -1,0 +1,97 @@
+sop:
+  id: rb-hook-story-offer-fw
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Hook-Story-Offer Framework"
+  purpose: >
+    Universal three-part structure for ANY copy piece. Every successful
+    piece of marketing captures attention (Hook), creates connection
+    (Story), and presents the solution (Offer).
+  classification:
+    domain: copywriting
+    subdomain: copy-structure
+    complexity: foundational
+    source_agent: russell-brunson
+
+  steps:
+    - id: step_1
+      name: craft_hook
+      action: apply_hook_creation
+      description: >
+        Capture attention in 3 seconds. Choose from four types: Question
+        ('Are you still...?'), Statement (bold specific claim), Story
+        (mid-action scene), or Number (specific surprising stat).
+        Write 5-10 variants and test.
+      inputs:
+        - target_audience_pain_point
+        - context_format
+      outputs:
+        - hook_variants
+        - selected_hook
+      validation: hook_captures_attention_in_3_seconds
+
+    - id: step_2
+      name: tell_story
+      action: apply_story_selection
+      description: >
+        Select story type: Epiphany Bridge (personal discovery), Case Study
+        (client before/after), Parable (everyday lesson), or Origin (how
+        product was created). Must include tension, vulnerability, turning
+        point. Naturally leads to offer.
+      inputs:
+        - available_stories
+        - story_type_selection
+      outputs:
+        - story_narrative
+      validation: story_creates_emotional_resonance
+
+    - id: step_3
+      name: present_offer
+      action: apply_offer_matching
+      description: >
+        Match CTA to funnel stage. Direct (buy now, warm traffic),
+        Content (free training, cold traffic), Lead (download guide,
+        list building), or Engagement (comment/share, social).
+        Must be natural extension of story.
+      inputs:
+        - funnel_stage
+        - traffic_temperature
+        - offer_details
+      outputs:
+        - offer_copy
+        - cta
+      validation: offer_naturally_extends_story_and_single_cta
+
+  error_handling:
+    - error: weak_generic_hook
+      symptom: "High scroll-past rate, low open rate"
+      resolution: "Write 10 hook variants. Test the most specific and bold one."
+    - error: story_without_tension
+      symptom: "Reader skims, no emotional engagement"
+      resolution: "Add conflict, vulnerability, or setback before resolution."
+    - error: offer_disconnected_from_story
+      symptom: "Reader engaged but did not click"
+      resolution: "Rewrite offer as natural conclusion of story."
+    - error: multiple_ctas
+      symptom: "Reader confused, clicks nothing"
+      resolution: "One CTA per piece. Remove all secondary actions."
+
+  quality_gate:
+    criteria:
+      - hook_stops_reader_in_3_seconds
+      - story_has_emotional_connection
+      - story_leads_naturally_to_offer
+      - single_clear_cta
+      - all_three_parts_present
+    min_pass: 4
+
+  outputs:
+    - type: copy_piece
+      format: varies_by_target
+      description: "Complete Hook-Story-Offer in target format (ad, email, post, page)"
+    - type: hook_variants
+      format: list
+      description: "5-10 hook alternatives for testing"

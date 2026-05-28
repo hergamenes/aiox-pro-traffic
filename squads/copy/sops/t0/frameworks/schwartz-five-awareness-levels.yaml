@@ -1,0 +1,51 @@
+sop:
+  id: schwartz-five-awareness-levels
+  version: "1.0"
+  title: "5 Estagios de Consciencia do Mercado"
+  purpose: "Classify prospect awareness (1-5) to determine headline type, copy length, and opening approach — wrong level = guaranteed failure."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: eugene-schwartz
+  steps:
+    - id: apply_level_1_most_aware
+      action: "Check if prospect knows product and wants it — lead with OFFER"
+      input: "Customer data, purchase intent signals"
+      output: "If Level 1: short copy, product name + deal + close"
+      validation: "Prospect demonstrates prior knowledge of product and purchase intent"
+    - id: apply_level_2_product_aware
+      action: "Check if prospect knows product but is not convinced — lead with UNIQUE MECHANISM"
+      input: "Competitor analysis, product differentiators"
+      output: "If Level 2: medium copy emphasizing proof, testimonials, and differentiators"
+      validation: "Prospect recognizes product but has not committed"
+    - id: apply_level_3_solution_aware
+      action: "Check if prospect wants result but does not know product — lead with DESIRED RESULT"
+      input: "Prospect desires, solution landscape"
+      output: "If Level 3: longer copy introducing product as vehicle for desired outcome"
+      validation: "Prospect seeks result actively but has not found this product"
+    - id: apply_level_4_problem_aware
+      action: "Check if prospect recognizes problem but sees no solution — lead with PROBLEM"
+      input: "Prospect pain points, problem awareness indicators"
+      output: "If Level 4: long copy that validates problem then reveals solution path"
+      validation: "Prospect acknowledges problem but has no solution in mind"
+    - id: apply_level_5_completely_unaware
+      action: "Check if prospect has no awareness — lead with IDENTIFICATION or STORY"
+      input: "Prospect demographics, media consumption, identity markers"
+      output: "If Level 5: longest copy, story/identity opening, builds awareness from zero"
+      validation: "Prospect shows no prior awareness of problem, solution, or product"
+  error_handling:
+    - error: "Awareness level misclassified"
+      resolution: "Re-examine evidence; conduct additional customer interviews"
+    - error: "Multiple awareness levels in single audience"
+      resolution: "Segment audience; create separate approaches per level"
+    - error: "Copy length mismatched to awareness level"
+      resolution: "Adjust copy length: short for Level 1, progressively longer through Level 5"
+  quality_gate:
+    criteria:
+      - "Awareness level classified with evidence"
+      - "Headline type matches classified level"
+      - "Copy length is appropriate for the level"
+      - "Opening approach enters prospect's current conversation"
+      - "Classification is documented with supporting research"
+    pass_threshold: "All 5 criteria met"

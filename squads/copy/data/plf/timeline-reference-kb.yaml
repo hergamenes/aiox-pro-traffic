@@ -1,0 +1,351 @@
+# Timeline Reference Knowledge Base - Product Launch Formula
+# Source: Launch (Jeff Walker) - All Launch Types
+# Version: 1.0
+
+metadata:
+  source: "Launch by Jeff Walker (Original + Updated Edition 2021)"
+  validated: true
+  created: "2026-01-27"
+
+overview:
+  description: |
+    Timelines de referencia para cada tipo de lancamento PLF,
+    desde Seed Launch rapido ate JV Launch completo.
+  jeff_principle: |
+    "The timeline isn't arbitrary. Each phase builds on the previous one.
+    Rush the pre-launch and you'll pay for it in the open cart."
+
+standard_internal_launch:
+  name: "Internal Launch - Timeline Padrao"
+  total_duration: "6-8 semanas"
+
+  phases:
+    pre_prelaunch:
+      duration: "2-4 semanas"
+      start: "Semana -6 a -4"
+      activities:
+        week_minus_6:
+          - "Finalizar produto/oferta"
+          - "Criar lead magnet"
+          - "Setup de paginas de captura"
+          - "Preparar survey de avatar"
+        week_minus_5:
+          - "Lancar survey para lista"
+          - "Analisar respostas"
+          - "Comecar a criar PLCs"
+          - "Testar email deliverability"
+        week_minus_4:
+          - "Continuar criacao de PLCs"
+          - "Configurar automacoes"
+          - "Criar sales page (rascunho)"
+          - "Aquecer lista com conteudo"
+        week_minus_3:
+          - "Finalizar PLCs"
+          - "Teasers para o lancamento"
+          - "Anunciar 'algo grande vindo'"
+
+    prelaunch:
+      duration: "7-14 dias"
+      start: "Semana -2 a -1"
+
+      day_by_day_14_days:
+        day_1:
+          - "Enviar PLC1"
+          - "Post em social media"
+        day_2:
+          - "Email de reminder PLC1"
+          - "Responder comentarios"
+        day_3:
+          - "Email de engajamento"
+          - "Social content"
+        day_4:
+          - "Enviar PLC2"
+          - "Anunciar em social"
+        day_5:
+          - "Reminder PLC2"
+          - "Responder comentarios"
+        day_6:
+          - "Email de valor/conexao"
+          - "Teaser PLC3"
+        day_7:
+          - "Enviar PLC3"
+          - "Build anticipation"
+        day_8:
+          - "Reminder PLC3"
+          - "Social engagement"
+        day_9:
+          - "Email: 'Algo especial chegando'"
+          - "Criar urgencia"
+        day_10:
+          - "Email: 'Amanha e o dia'"
+          - "Final check de tech"
+        days_11_14:
+          note: "Podem ser Open Cart se timeline curto"
+
+      day_by_day_7_days:
+        day_1: "PLC1"
+        day_2: "Reminder + engagement"
+        day_3: "PLC2"
+        day_4: "Reminder + engagement"
+        day_5: "PLC3"
+        day_6: "Reminder + anticipation"
+        day_7: "Open Cart begins"
+
+    open_cart:
+      duration: "5-7 dias"
+
+      five_day_cart:
+        day_1_launch:
+          emails: 3
+          timing:
+            - "08:00 - WE ARE OPEN"
+            - "14:00 - First response"
+            - "20:00 - Q&A / BTS"
+        day_2:
+          emails: 1
+          content: "Case study"
+          timing: "10:00"
+        day_3:
+          emails: 1
+          content: "FAQ / Objections"
+          timing: "10:00"
+        day_4:
+          emails: 1
+          content: "Penultimo dia warning"
+          timing: "10:00"
+        day_5_close:
+          emails: 4
+          timing:
+            - "08:00 - Ultimo dia"
+            - "14:00 - Horas finais"
+            - "20:00 - Fechando em 4 horas"
+            - "23:00 - Ultima chamada"
+
+      seven_day_cart:
+        day_1: "Same as 5-day"
+        day_2: "Case study"
+        day_3: "FAQ"
+        day_4: "Testimonials"
+        day_5: "Behind the scenes"
+        day_6: "Penultimo dia"
+        day_7: "Close cart (4 emails)"
+
+live_launch_timeline:
+  name: "Live Launch - Timeline Comprimido"
+  total_duration: "2-3 semanas prep + 1 semana launch"
+
+  compressed_delivery:
+    day_1: "PLC #1 Live"
+    day_2: "PLC #2 Live"
+    day_3: "PLC #3 Live"
+    day_4_onward: "Open Cart (5 dias)"
+
+  expanded_open_cart:
+    open_day_1: "Enrollment Live"
+    open_day_2: "Sales Video"
+    open_day_3: "FAQ Live"
+    open_day_4: "Case Study Live"
+    open_day_5: "Closing Live"
+
+  case_study_anne_lafollette:
+    monday: "PLC #1 Live"
+    wednesday: "PLC #2 Live"
+    friday: "PLC #3 Live"
+    following_monday: "Open Cart Live"
+    following_tuesday_thursday: "Additional broadcasts"
+    result: "$400,000 in year 2"
+
+seed_launch_timeline:
+  name: "Seed Launch - Timeline Rapido"
+  total_duration: "1-2 semanas"
+
+  minimum_viable:
+    day_1_2:
+      - "Identificar problema/desejo"
+      - "Criar oferta simples"
+      - "Escrever emails de pre-launch"
+    day_3_4:
+      - "Enviar email 1: O problema"
+      - "Enviar email 2: A solucao existe"
+    day_5_6:
+      - "Enviar email 3: Sua oportunidade"
+      - "Abrir vendas"
+    day_7_10:
+      - "Cart aberto"
+      - "Emails de follow-up"
+    day_11_14:
+      - "Close cart"
+      - "Comecar entrega"
+
+  delivery_format:
+    - "Calls ao vivo (Zoom)"
+    - "Entregar enquanto cria"
+    - "Coletar feedback em tempo real"
+
+  jeff_story: |
+    "After my partnership breakup in 2005, I started over.
+    Spoke at a conference, sold 6 spots in PLF Workshop.
+    Invited friends to reach ~30 people critical mass.
+    Did 9-10 calls instead of promised 5 based on questions.
+    This became the first Product Launch Formula course."
+
+jv_launch_timeline:
+  name: "JV Launch - Timeline Extenso"
+  total_duration: "3-6 meses"
+
+  phases:
+    affiliate_recruitment:
+      duration: "6-12 semanas antes"
+      activities:
+        week_1_4:
+          - "Listar potenciais parceiros"
+          - "Preparar materiais de recrutamento"
+          - "Criar affiliate page"
+          - "Definir comissoes e premios"
+        week_5_8:
+          - "Outreach para top affiliates"
+          - "Follow-up calls"
+          - "Confirmar participacoes"
+          - "Enviar preview do produto"
+        week_9_12:
+          - "Finalizar lista de parceiros"
+          - "Enviar swipe copy"
+          - "Coordenar datas de promocao"
+          - "Setup tracking"
+
+    internal_launch_first:
+      duration: "4-6 semanas"
+      purpose: "Validar oferta antes de JV"
+      jeff_rule: |
+        "Don't test with your partners' lists.
+        Do an Internal Launch first to prove your offer converts."
+
+    jv_prelaunch:
+      duration: "2-3 semanas"
+      activities:
+        - "Parceiros comecam a aquecer listas"
+        - "Emails de pre-pre dos afiliados"
+        - "Cross-promotion entre parceiros"
+        - "Build up coordenado"
+
+    jv_launch:
+      duration: "2-3 semanas"
+      structure:
+        prelaunch_week:
+          - "PLCs liberados"
+          - "Afiliados promovem PLCs"
+          - "Engajamento massivo"
+        open_cart_week:
+          - "Coordenar emails dos afiliados"
+          - "Atualizar leaderboard"
+          - "Suporte intensivo"
+          - "Celebrar marcos"
+
+    post_jv:
+      duration: "2-4 semanas"
+      activities:
+        - "Pagar comissoes"
+        - "Premiar top affiliates"
+        - "Coletar feedback"
+        - "Documentar aprendizados"
+
+evergreen_setup_timeline:
+  name: "Evergreen Launch - Setup"
+  total_duration: "4-8 semanas apos live launch"
+
+  phases:
+    content_adaptation:
+      duration: "1-2 semanas"
+      activities:
+        - "Editar PLCs para remover referencias temporais"
+        - "Gravar novos intros/outros se necessario"
+        - "Adaptar emails para automacao"
+
+    tech_setup:
+      duration: "1-2 semanas"
+      activities:
+        - "Configurar automacao de email"
+        - "Setup deadline software"
+        - "Criar triggers e tags"
+        - "Testar fluxo completo"
+
+    testing:
+      duration: "1-2 semanas"
+      activities:
+        - "Testar com leads reais"
+        - "Verificar deadlines funcionando"
+        - "Ajustar timing de emails"
+        - "Otimizar conversoes"
+
+    traffic_setup:
+      duration: "2-4 semanas"
+      activities:
+        - "Criar anuncios"
+        - "Setup tracking"
+        - "Testar audiences"
+        - "Escalar o que funciona"
+
+calendar_templates:
+  weekly_view_prelaunch:
+    monday: "Content creation / Prep"
+    tuesday: "PLC release ideal day"
+    wednesday: "Engagement / Responses"
+    thursday: "PLC release good day"
+    friday: "Engagement / Prep weekend"
+    saturday: "Low activity (scheduling)"
+    sunday: "Cart close ideal (optional)"
+
+  launch_week_example:
+    monday: "PLC1 Release"
+    tuesday: "PLC1 Reminder + Engagement"
+    wednesday: "PLC2 Release"
+    thursday: "PLC2 Reminder"
+    friday: "PLC3 Release"
+    saturday: "Final prep"
+    sunday: "Open Cart / Engagement"
+
+  jeff_preferred_timing:
+    cart_open: "Tuesday or Wednesday"
+    cart_close: "Friday or Sunday night"
+    rationale: |
+      "Sunday close creates natural urgency before the new week starts.
+      People don't want to start Monday regretting they didn't act."
+
+critical_deadlines:
+  before_prelaunch:
+    - "Sales page DONE"
+    - "Checkout funcionando"
+    - "PLCs finalizados"
+    - "Emails escritos"
+    - "Tech testada"
+
+  before_open_cart:
+    - "Suporte preparado"
+    - "FAQ pronto"
+    - "Payment processing testado"
+    - "Automacoes verificadas"
+
+  daily_during_launch:
+    - "Monitorar vendas"
+    - "Responder perguntas"
+    - "Postar em social"
+    - "Enviar emails programados"
+
+timeline_adjustments:
+  shortened_timeline:
+    when: "Urgencia real ou oportunidade"
+    minimum_prelaunch: "5-7 dias"
+    minimum_cart: "3-5 dias"
+    trade_offs:
+      - "Menos tempo para consumir PLCs"
+      - "Menos buildup de antecipacao"
+      - "Exige lista mais quente"
+
+  extended_timeline:
+    when: "Produto complexo ou ticket alto"
+    extended_prelaunch: "3-4 semanas"
+    extended_cart: "10-14 dias"
+    benefits:
+      - "Mais tempo para educar"
+      - "Mais touchpoints"
+      - "Melhor para high-ticket"

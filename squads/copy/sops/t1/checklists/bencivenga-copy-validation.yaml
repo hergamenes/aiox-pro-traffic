@@ -1,0 +1,128 @@
+sop:
+  id: bencivenga-copy-validation
+  version: "1.0"
+  title: Bencivenga Copy Validation Checklist
+  purpose: >
+    Validate copy against Gary Bencivenga's standards for intellectual elegance,
+    Big Idea clarity, proof-at-the-hip technique, layered persuasion, and
+    zero-hype communication.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: gary-bencivenga
+    artifact_type: quality_gate
+    tier: t1
+
+  steps:
+    - action: validate_big_idea
+      description: Big Idea present, clear, and articulable in 10 words or fewer
+      input: full_copy_text
+      rule: big_idea_identifiable == true AND big_idea_word_count <= 10
+      presence_check:
+        - headline
+        - lead
+        - body
+        - close
+      on_fail: define_or_clarify_big_idea
+
+    - action: validate_zero_hype
+      description: Zero hype, hyperbole, or artificial urgency
+      input: full_copy_text
+      prohibited_terms:
+        - incredible
+        - revolutionary
+        - amazing
+        - insane
+        - mind-blowing
+        - unbelievable
+        - game-changing
+      prohibited_patterns:
+        - multiple_exclamation_marks
+        - fake_countdown_timer
+        - manufactured_scarcity
+      rule: hype_indicator_count == 0
+      on_fail: replace_with_specific_data
+
+    - action: validate_proof_at_hip
+      description: Every claim has proof immediately adjacent
+      input: full_copy_text
+      rule: max_distance_claim_to_proof <= 1
+      unit: paragraphs
+      on_fail: move_proof_adjacent_to_claim
+
+    - action: validate_elegant_tone
+      description: Reader feels smarter and respected, not manipulated
+      input: full_copy_text
+      positive_indicators:
+        - educational_framing
+        - respectful_address
+        - privileged_knowledge_sharing
+        - understated_confidence
+      negative_indicators:
+        - pressure_language
+        - urgency_pushing
+        - condescension
+        - hard_sell_closing
+      on_fail: rewrite_as_mentor_sharing
+
+    - action: validate_layered_persuasion
+      description: Multiple distinct persuasive dimensions, not repeated single argument
+      input: full_copy_text
+      persuasion_layers:
+        - logical_argument
+        - emotional_resonance
+        - social_proof
+        - authority
+        - natural_scarcity
+        - reciprocity
+      rule: distinct_persuasion_layers >= 3
+      on_fail: add_missing_dimensions
+
+    - action: validate_voice_intellectual_mentor
+      description: Sounds like refined intellectual mentor, not TV salesperson
+      input: full_copy_text
+      voice_markers:
+        - deep_expertise
+        - warmth_and_accessibility
+        - never_condescending
+        - persuasive_not_pushy
+      anti_markers:
+        - infomercial_tone
+        - aggressive_closing
+        - hype_language
+        - exclamation_abuse
+      on_fail: rewrite_in_mentor_voice
+
+    - action: validate_symphony_structure
+      description: Each section contributes to final crescendo, nothing superfluous
+      input: full_copy_text
+      checks:
+        - builds_momentum
+        - each_section_essential
+        - no_filler_content
+        - crescendo_at_close
+      rule: superfluous_sections == 0
+      on_fail: cut_or_restructure
+
+  error_handling:
+    - error: big_idea_missing
+      severity: critical
+      action: block_until_big_idea_defined
+    - error: hype_detected
+      severity: high
+      action: replace_all_hype_with_specifics
+    - error: proof_distant_from_claim
+      severity: high
+      action: restructure_proof_proximity
+    - error: single_argument_repeated
+      severity: medium
+      action: diversify_persuasion_layers
+
+  quality_gate:
+    pass_threshold: 7
+    total_checks: 7
+    mandatory_passes:
+      - validate_big_idea
+      - validate_zero_hype
+      - validate_proof_at_hip
+    verdict_on_fail: REJECT

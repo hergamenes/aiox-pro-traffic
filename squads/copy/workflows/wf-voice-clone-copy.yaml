@@ -1,0 +1,463 @@
+# WF-VOICE-CLONE: Voice Clone Integration Workflow
+# Integrates MMOS cognitive clones with Copy production
+# Best for: Any copy that needs to sound like a specific expert
+
+workflow:
+  id: wf-voice-clone-copy
+  name: "Voice Clone Copy Integration"
+  type: enhancement
+  duration: "Adds 5-10 min to any copy workflow"
+  description: >-
+    Integrates MMOS cognitive clones with copy production. Automatically detects
+    expert from briefing, loads voice artifacts, and rewrites copy with authentic
+    voice including signature phrases, frameworks, and personal stories.
+  operational_roles:
+    orchestrator: copy-chief
+    human_review_agent: launch-owner
+    delivery_agent: copy-ops-worker
+  state_machine:
+    states: [init, detection, voice-dna, rewrite, validation, complete, failed]
+    transitions:
+      - { trigger: start, source: init, dest: detection }
+      - { trigger: detection_complete, source: detection, dest: voice-dna }
+      - { trigger: voice-dna_complete, source: voice-dna, dest: rewrite }
+      - { trigger: rewrite_complete, source: rewrite, dest: validation }
+      - { trigger: validation_complete, source: validation, dest: complete }
+      - { trigger: fail, source: "*", dest: failed }
+  quality_gate_refs: [QG-CP-1.1, QG-CP-3.1, QG-CP-7.1, QG-CP-4.1, QG-CP-5.1]
+
+  # ========================================================================
+  # INTEGRATION POINTS
+  # ========================================================================
+  integration:
+    can_combine_with:
+      - "wf-5-email-marketing"
+      - "wf-1-full-launch"
+      - "wf-3-high-ticket"
+      - "Any copy task that produces text"
+
+    trigger_points:
+      - "After initial copy draft"
+      - "During copy review phase"
+      - "As post-processing step"
+
+  # ========================================================================
+  # EXPERT-CLONE MAPPING
+  # ========================================================================
+  expert_detection:
+    auto_detect_rules:
+      - keyword: ["cohort", "cohort-based", "comunidade", "IAPE"]
+        expert: jose_carlos_amorim
+        confidence: high
+
+      - keyword: ["IA para empresários", "nexialismo", "Lendário"]
+        expert: jose_carlos_amorim
+        confidence: high
+
+      - keyword: ["automation", "Claude Code", "AIOX"]
+        expert: alan_nicolas
+        confidence: medium
+
+    fallback: "Ask user which clone to load"
+
+  # ========================================================================
+  # ARTIFACT LOADING PRIORITY
+  # ========================================================================
+  artifact_priority:
+    tier_1_required:
+      - path: "artifacts/voice_guide.md"
+        purpose: "Quick voice reference"
+        load_order: 1
+
+      - path: "artifacts/writing_style.yaml"
+        purpose: "Linguistic patterns"
+        load_order: 2
+
+    tier_2_frameworks:
+      - path: "artifacts/communication_templates.md"
+        purpose: "Personas and templates"
+        load_order: 3
+
+      - path: "artifacts/frameworks_synthesized.md"
+        purpose: "Expert's proprietary frameworks"
+        load_order: 4
+
+    tier_3_stories:
+      - path: "sources/mental_archeology.yaml"
+        purpose: "Timeline, decisions, catchphrases"
+        load_order: 5
+
+      - path: "sources/interviews/entrevista.md"
+        purpose: "Personal stories and anecdotes"
+        load_order: 6
+
+      - path: "sources/geral.md"
+        purpose: "General profile and background"
+        load_order: 7
+
+    tier_4_deep:
+      - path: "system_prompts/system-prompt-generalista.md"
+        purpose: "Full cognitive clone context"
+        load_order: 8
+        when: "Complex or long-form copy"
+
+  sequence:
+    - phase: detection
+      id: detection
+      agent: copy-chief
+      task_ref: tasks/load-mmos-voice.md
+      action: "Detectar o expert alvo e preparar o briefing de clonagem de voz"
+      creates: clone-brief
+      on_complete: { trigger: detection_complete }
+    - phase: voice-dna
+      id: voice-dna
+      agent: dan-koe
+      task_ref: tasks/extract-communication-dna.md
+      requires: clone-brief
+      action: "Extrair DNA de voz, padrões linguísticos e frameworks do expert"
+      creates: voice-dna
+      on_complete: { trigger: voice-dna_complete }
+    - phase: rewrite
+      id: rewrite
+      agent: gary-halbert
+      task_ref: tasks/blend.md
+      requires: voice-dna
+      action: "Reescrever a copy com voz, ritmo e assinatura do expert"
+      creates: cloned-copy-draft
+      on_complete: { trigger: rewrite_complete }
+    - phase: validation
+      id: validation
+      agent: copy-chief
+      task_ref: tasks/simple-writing-audit.md
+      requires: cloned-copy-draft
+      action: "Validar fidelidade de voz e preparar a entrega final"
+      creates: voice-clone-package
+      on_complete: { trigger: validation_complete }
+
+  handoff_prompts:
+    default: "Entregue o artefato criado, decisões tomadas, riscos abertos e o critério exato para o próximo agente continuar sem reinterpretar o contexto."
+
+# ════════════════════════════════════════════════════════════════════════════════
+# PHASES
+# ════════════════════════════════════════════════════════════════════════════════
+
+phases:
+  # ========================================================================
+  # PHASE 1: DETECTION & LOADING (2-3 min)
+  # ========================================================================
+  - id: PHASE-1
+    name: "Clone Detection & Loading"
+    duration: "2-3 min"
+    description: "Detect expert and load voice artifacts"
+
+    tasks:
+      - name: "Detect Expert"
+        action: |
+          1. Parse briefing for expert name
+          2. Check expert-clone-mapping.yaml
+          3. If found with high confidence → proceed
+          4. If uncertain → ask user
+
+      - name: "Load Voice Artifacts"
+        task_file: load-mmos-voice.md
+        required: true
+        output: "Voice context loaded"
+        notes: |
+          Load in priority order:
+          1. voice_guide.md (MUST)
+          2. writing_style.yaml (MUST)
+          3. communication_templates.md (SHOULD)
+          4. frameworks_synthesized.md (SHOULD)
+          5. mental_archeology.yaml (FOR STORIES)
+          6. sources/interviews/ (FOR ANECDOTES)
+
+    checkpoint:
+      criteria:
+        - "Expert identified"
+        - "Voice artifacts loaded"
+        - "Story bank available"
+      human_review: false
+
+  # ========================================================================
+  # PHASE 2: VOICE DNA EXTRACTION (2-3 min)
+  # ========================================================================
+  - id: PHASE-2
+    name: "Voice DNA Extraction"
+    duration: "2-3 min"
+    description: "Extract usable voice elements from artifacts"
+
+    tasks:
+      - name: "Extract Signature Elements"
+        action: |
+          From loaded artifacts, extract:
+          - Signature phrases (opening, transition, closing)
+          - Rhetorical patterns (metaphors, questions, antitheses)
+          - Emotional markers (intensifiers, validators, provocateurs)
+          - Structural patterns (Espiral Expansiva, rhythm)
+
+      - name: "Extract Story Bank"
+        action: |
+          From mental_archeology.yaml and interviews, extract:
+          - Origin stories
+          - Transformation stories
+          - Vulnerability stories (→ learning → universalization)
+          - Triumph stories
+
+      - name: "Select Persona"
+        action: |
+          Based on copy type, select appropriate persona:
+          - Email/Educational → Professor Socrático
+          - Peer content → Visionário Inquieto
+          - 1-on-1 messages → Conselheiro Empático
+          - Business/Sales → Estrategista Direto
+
+    checkpoint:
+      criteria:
+        - "Voice DNA documented"
+        - "Story bank ready"
+        - "Persona selected"
+      human_review: false
+
+  # ========================================================================
+  # PHASE 3: COPY REWRITE (Main processing)
+  # ========================================================================
+  - id: PHASE-3
+    name: "Copy Rewrite with Voice"
+    duration: "Variable (depends on copy length)"
+    description: "Rewrite copy applying voice DNA and stories"
+
+    tasks:
+      - name: "Apply Espiral Expansiva"
+        action: |
+          Restructure each piece using 5 layers:
+          1. GANCHO EMOCIONAL - Hook that creates identification
+          2. METÁFORA VISUAL - Concrete visual image
+          3. FUNDAMENTO CONCEITUAL - Technical/scientific rigor
+          4. APLICAÇÃO PRÁTICA - Executable steps
+          5. EXPANSÃO FILOSÓFICA - Connection to meaning/purpose/legacy
+
+      - name: "Apply Voice Patterns"
+        action: |
+          Inject voice elements:
+          - Replace generic openings with signature phrases
+          - Add parenthetical thoughts (TDAH pattern)
+          - Vary sentence rhythm (short impact, long density)
+          - Use 2nd person ("você") consistently
+          - Add rhetorical questions before key points
+          - Include antitheses ("Não é X, é Y")
+
+      - name: "Integrate Personal Stories"
+        action: |
+          Where appropriate, insert:
+          - Relevant anecdote from story bank
+          - Vulnerability → Learning → Universalization pattern
+          - Specific details (dates, numbers, names)
+          - Emotional authenticity (not melodrama)
+
+      - name: "Apply Emotional Markers"
+        action: |
+          Add:
+          - Strategic intensifiers ("MUDA tudo")
+          - Empathic validators ("Te entendo...")
+          - Intellectual provocations ("Mas e se...")
+
+    checkpoint:
+      criteria:
+        - "Structure follows Espiral Expansiva"
+        - "Voice patterns applied consistently"
+        - "At least 1 relevant story integrated"
+        - "Emotional markers present"
+      human_review: true
+      message: "Review rewritten copy for voice authenticity"
+
+  # ========================================================================
+  # PHASE 4: QUALITY VALIDATION
+  # ========================================================================
+  - id: PHASE-4
+    name: "Voice Quality Validation"
+    duration: "1-2 min"
+    description: "Validate copy sounds like the expert"
+
+    tasks:
+      - name: "Run Voice Checklist"
+        checklist:
+          structure:
+            - "Metáfora visual-espacial presente?"
+            - "Alternância curtas/longas?"
+            - "Parênteses (pensamento paralelo)?"
+
+          tone:
+            - "2ª pessoa ('você')?"
+            - "Entusiasmo (não neutro)?"
+            - "Urgência existencial calibrada?"
+
+          rhetoric:
+            - "Perguntou antes de responder?"
+            - "Antítese 'Não é X, é Y'?"
+
+          authenticity:
+            - "Vulnerabilidade relevante?"
+            - "Sem jargão desnecessário?"
+            - "Sem tom corporativo?"
+
+          stories:
+            - "História pessoal incluída?"
+            - "Conexão emocional?"
+
+      - name: "Before/After Comparison"
+        action: |
+          Document:
+          - Original copy (before voice)
+          - Rewritten copy (after voice)
+          - Key improvements made
+          - Voice elements applied
+
+    artifacts:
+      - voice-quality-report.md
+      - before-after-comparison.md
+
+    checkpoint:
+      criteria:
+        - "4+ checklist items = ✅"
+        - "Comparison documented"
+      human_review: false
+
+# ════════════════════════════════════════════════════════════════════════════════
+# VOICE ELEMENT REFERENCE (José Carlos Amorim)
+# ════════════════════════════════════════════════════════════════════════════════
+
+voice_reference:
+  jose_carlos_amorim:
+    signature_phrases:
+      opening:
+        - "Olha só..."
+        - "Vem comigo..."
+        - "Antes de te responder, te pergunto..."
+        - "Sabe o que é louco?"
+
+      transition:
+        - "E aí que tá..."
+        - "Mas tem uma camada mais profunda..."
+        - "O que ninguém te conta é..."
+        - "Aliás..."
+
+      closing:
+        - "Simples assim."
+        - "Ponto."
+        - "É sobre isso."
+        - "Agora respire fundo. E comece."
+
+    rhetorical_patterns:
+      - "Perguntas retóricas antes de responder"
+      - "Antíteses: 'Não é X, é Y'"
+      - "Parênteses (pensamento paralelo TDAH)"
+      - "Metáforas tecnológicas/neurológicas"
+      - "Confessionalidade: vulnerabilidade → aprendizado → universalização"
+
+    frameworks:
+      espiral_expansiva:
+        - "Gancho Emocional"
+        - "Metáfora Visual"
+        - "Fundamento Conceitual"
+        - "Aplicação Prática"
+        - "Expansão Filosófica"
+
+      omfa:
+        - "Objetivo: O que quero alcançar?"
+        - "Momento: Quando/contexto da audiência?"
+        - "Formato: Que mídia?"
+        - "Abordagem: Tom/estilo apropriado?"
+
+    personas:
+      professor_socratico:
+        when: "Teaching, educational content"
+        tone: "Didactic + Provocative"
+        pattern: "Ask before answering"
+
+      visionario_inquieto:
+        when: "Peer content, co-creation"
+        tone: "Accomplice + Exploratory"
+        pattern: "Idea overlap, enthusiasm"
+
+      conselheiro_empatico:
+        when: "1-on-1, emotional support"
+        tone: "Warm + Strategic"
+        pattern: "Validation + Clear framework"
+
+      estrategista_direto:
+        when: "Business, sales"
+        tone: "Assertive + Pragmatic"
+        pattern: "Clear ROI, frameworks"
+
+    key_stories:
+      origin:
+        - "Esquistossomose aos 7 anos (aprendizado visual, traduzir complexidade)"
+        - "Criado pelos avós em Manacapuru (superação, origem humilde)"
+
+      transformation:
+        - "7 cursos universitários abandonados → força, não fraqueza"
+        - "Reprovação 6ª série por falar muito → TDAH como superpoder"
+        - "10 anos Rede Amazônica → saída corajosa para IA"
+        - "League of Legends 8 anos → abandono instantâneo por IA"
+
+      vulnerability:
+        - "TDAH + TAG diagnosticados"
+        - "Dificuldade com rotinas e sistemas 'chatos'"
+        - "Autocrítica: 'não consigo terminar nada'"
+
+    anti_patterns:
+      never_do:
+        - "Explicação abstrata sem metáfora"
+        - "Neutralidade emocional em tópicos viscerais"
+        - "Tom corporativo/distante"
+        - "Resposta direta sem provocação"
+        - "Listas sem narrativa"
+
+# ════════════════════════════════════════════════════════════════════════════════
+# EXAMPLE: Before/After
+# ════════════════════════════════════════════════════════════════════════════════
+
+example:
+  before: |
+    Olá! O Cohort Fundamentals vai te ensinar a criar cursos
+    baseados em comunidade. Você vai aprender metodologias
+    testadas e ter acesso a templates. Garanta sua vaga!
+
+  after: |
+    Olha só, te pergunto: você já sentiu que seus cursos
+    são ótimos... mas ninguém termina?
+
+    (pausa pra absorver)
+
+    É tipo construir uma estrada perfeita que não leva
+    a lugar nenhum.
+
+    O problema não é seu conteúdo. É a ARQUITETURA.
+
+    Cohort Fundamentals não é mais um curso sobre cursos.
+    É o método que eu levei 10 anos pra descobrir — e que
+    mudou completamente como eu ensino.
+
+    Simples assim.
+
+  improvements:
+    - "Gancho emocional (pergunta + identificação)"
+    - "Metáfora visual (estrada)"
+    - "Antítese (conteúdo vs arquitetura)"
+    - "Parêntese (pausa)"
+    - "Signature phrase (Simples assim)"
+    - "2ª pessoa consistente"
+
+# ════════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ════════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  version: "1.0.0"
+  created: "2026-02-02"
+  author: "AIOX Copy + MMOS Integration"
+  references:
+    - "squads/copy/tasks/load-mmos-voice.md"
+    - "squads/copy/data/expert-clone-mapping.yaml"
+    - "outputs/minds/{slug}/"
+    - "squads/mmos/"

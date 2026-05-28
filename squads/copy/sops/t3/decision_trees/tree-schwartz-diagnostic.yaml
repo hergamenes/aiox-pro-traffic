@@ -1,0 +1,41 @@
+sop:
+  id: tree-schwartz-diagnostic
+  version: "1.0"
+  title: "Schwartz Diagnostic Router"
+  purpose: "Route incoming requests to the correct Ry Schwartz methodology based on deliverable type"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: ry-schwartz
+  steps:
+    - id: route-01
+      condition: "request == 'COHORT LAUNCH'"
+      action: "Verificar deadline real, vagas reais, instructor authority, alumni proof"
+    - id: route-02
+      condition: "request == 'PRODUCT COPY'"
+      action: "So What Sweep -> Specificity Sweep -> Outcome Description rewrite"
+    - id: route-03
+      condition: "request == 'EMAIL'"
+      action: "VOC coletada? MHT definido? Abrir com VOC-first"
+    - id: route-04
+      condition: "request == 'SALES VIDEO'"
+      action: "Big Four Structure (Big Idea -> Unpack -> Path -> First Move)"
+    - id: route-05
+      condition: "request == 'AUDIT'"
+      action: "Two Sweeps + Never Be Benign check + Blue Ocean Bridge validation"
+    - id: route-06
+      condition: "request == 'ANY COPY before delivery'"
+      action: "Rodar Two Sweeps finais (So What + Specificity)"
+      mandatory: true
+    - id: route-default
+      condition: "request not classified"
+      action: "Clarify request type before proceeding"
+  error_handling:
+    - condition: "ambiguous_request"
+      action: "ask_for_clarification"
+    - condition: "copy_without_final_sweeps"
+      action: "block_delivery_run_sweeps"
+  quality_gate:
+    mode: routing
+    requires_classification: true
+    mandatory_final_step: "two_sweeps"

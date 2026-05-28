@@ -1,0 +1,53 @@
+sop:
+  id: rutz-page-turn-system
+  version: "1.0"
+  title: "Page Turn System (5 Techniques)"
+  purpose: "Apply Jim Rutz's 5 Page Turn Techniques to ensure readers never stop at the bottom of a page. In magalogs and long-form print, every page ending is a potential exit point. This system provides 5 speci"
+  classification:
+    domain: copywriting
+    category: master
+    tier: t1
+    source_agent: jim-rutz
+  steps:
+    - id: apply_interrupted_story
+      action: "Start a compelling story on one page and continue it on the next."
+      input: "Interrupted Story: start story on one page, finish on next"
+      output: "Step 1 deliverable: Interrupted Story completed with documented findings"
+      validation: "Every page ending uses at least one of the 5 techniques"
+    - id: apply_numbered_list_split
+      action: "When presenting a numbered list (5 reasons, 7 secrets, 10 mistakes), split the list across the page break."
+      input: "Numbered List Split: '5 reasons...' items 1-2 here, 3-5 on next page"
+      output: "Step 2 deliverable: Numbered List Split completed with documented findings"
+      validation: "No two consecutive page endings use the same technique"
+    - id: apply_cliffhanger_sidebar
+      action: "Place a sidebar or callout box at the bottom of the page that teases a revelation: 'But the most surprising finding was."
+      input: "Cliffhanger Sidebar: 'But the most surprising finding was...' (see page X)"
+      output: "Step 3 deliverable: Cliffhanger Sidebar completed with documented findings"
+      validation: "Interrupted stories are cut at maximum tension, not mid-sentence"
+    - id: apply_visual_teaser
+      action: "Use a partial image or diagram that continues on the next page."
+      input: "Visual Teaser: partial image that continues on next page"
+      output: "Step 4 deliverable: Visual Teaser completed with documented findings"
+      validation: "Numbered list splits place strong items before the break to build investment"
+    - id: apply_curiosity_subhead
+      action: "Place a subhead at the very bottom of the page that promises a revelation the reader cannot resist."
+      input: "Curiosity Subhead: subhead at page bottom promising revelation"
+      output: "Step 5 deliverable: Curiosity Subhead completed with documented findings"
+      validation: "Curiosity subheads are specific, not generic"
+  error_handling:
+    - error: "Ending pages with completed thoughts"
+      resolution: "Never end a page with a period that could be a stopping point"
+    - error: "Using the same technique on every page"
+      resolution: "Rotate through all 5 techniques; never repeat consecutively"
+    - error: "Interrupting a story at a boring moment"
+      resolution: "Interrupt at the moment of maximum tension or revelation"
+    - error: "Generic curiosity subheads"
+      resolution: "Use specific, concrete promises: name the revelation without revealing it"
+  quality_gate:
+    criteria:
+      - "Every page ending uses at least one of the 5 techniques"
+      - "No two consecutive page endings use the same technique"
+      - "Interrupted stories are cut at maximum tension, not mid-sentence"
+      - "Numbered list splits place strong items before the break to build investment"
+      - "Curiosity subheads are specific, not generic"
+    pass_threshold: "All 5 criteria met"

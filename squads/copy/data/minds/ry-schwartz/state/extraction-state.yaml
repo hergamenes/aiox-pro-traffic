@@ -1,0 +1,29 @@
+# Extraction State - Ry Schwartz
+# Auto-generated: 2026-03-19
+
+extraction:
+  status: "completed"
+  started: "2026-01-26"
+  completed: "2026-01-26"
+
+sources:
+  total: 9
+  tier_1_estimated: 5
+  types_detected: ["books", "interviews", "articles"]
+
+voice_dna:
+  extracted: true
+  power_words: 18
+  signature_phrases: 10
+  anti_patterns: 7
+  quality_estimate: "high"
+
+thinking_dna:
+  extracted: true
+  frameworks: 9
+  heuristics: 9
+  quality_estimate: "high"
+
+overall:
+  fidelity_estimate: "85%"
+  needs_improvement: []

@@ -1,0 +1,54 @@
+sop:
+  id: halbert-30-day-hold
+  version: "1.0"
+  title: "30-Day Hold Technique"
+  purpose: >
+    Triple response rates by offering 30-day delayed billing. Despite higher
+    refund rate (20% vs 10%), net result is 4.75x more profit. Removes upfront
+    financial risk as purchase barrier.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: gary-halbert
+    tier: t1
+
+  steps:
+    - id: apply_structure_offer
+      action: "Tell prospect explicitly: no charge for 30 days, try first, pay only if satisfied"
+      output: "thirty_day_hold_offer"
+
+    - id: apply_calculate_economics
+      action: "Model: 3x response at 20% refund vs 1x response at 10% refund = 4.75x net profit"
+      input: "baseline_response_rate, baseline_refund_rate"
+      output: "net_profit_projection"
+
+    - id: apply_integrate_copy
+      action: "Position 30DH as centerpiece of risk reversal in offer section, not footnote"
+      condition: "offer_prominence == 'high'"
+      output: "copy_with_30dh"
+
+    - id: apply_setup_billing
+      action: "Configure billing systems for 30-day delayed charge processing and automated returns"
+      output: "billing_configuration"
+
+    - id: apply_monitor
+      action: "Track response rate lift vs refund rate increase; flag if refund > 25%"
+      condition: "refund_rate <= 0.25"
+      output: "performance_metrics"
+
+  error_handling:
+    - error: "buried_in_fine_print"
+      severity: high
+      action: "Elevate 30DH to prominent position in offer section"
+    - error: "masking_bad_product"
+      severity: critical
+      action: "BLOCK — 30DH must not compensate for product quality issues"
+    - error: "billing_not_delayed"
+      severity: critical
+      action: "Fix billing configuration before launch; charging immediately destroys trust"
+
+  quality_gate:
+    offer_prominent: true
+    financial_model_positive: true
+    billing_delay_configured: true
+    refund_monitoring_active: true

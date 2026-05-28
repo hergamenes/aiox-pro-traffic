@@ -1,0 +1,73 @@
+sop:
+  id: task-hook-architecture
+  version: "1.0"
+  title: "Hook Architecture — Social Content"
+  purpose: "Create scroll-stopping hooks by identifying correct type, drafting from template, validating curiosity gap, and writing hook LAST after content"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: dan-koe
+    tier: T3
+
+  inputs:
+    - name: content_draft
+      type: document
+      required: true
+      description: "Completed content draft (hook written after)"
+    - name: target_audience
+      type: string
+      required: true
+      description: "Target audience definition"
+
+  outputs:
+    - name: hook
+      type: string
+      description: "Scroll-stopping hook (1-2 lines)"
+
+  steps:
+    - id: step_1
+      action: identify_hook_type
+      description: "Choose type: Contrarian, Curiosity Gap, Bold Claim, Relatable Pain, Framework Preview, Pattern Interrupt"
+      types: ["contrarian", "curiosity_gap", "bold_claim", "relatable_pain", "framework_preview", "pattern_interrupt"]
+
+    - id: step_2
+      action: draft_from_template
+      description: "Write hook using selected type's template customized with specific content details"
+
+    - id: step_3
+      action: validate_curiosity_gap
+      description: "Test: gap between known and wanted-to-know — not too revealing, not too vague"
+      critical: true
+
+    - id: step_4
+      action: validate_not_clickbait
+      description: "Ensure content delivers on hook's promise — clickbait destroys trust"
+      critical: true
+      error_handling:
+        condition: "Content does not deliver on hook's implication"
+        action: "Either strengthen content or tone down hook to match"
+
+    - id: step_5
+      action: write_hook_last
+      description: "Confirm hook was written AFTER content body is complete"
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "Hook type matches content type"
+      - "Curiosity gap is intriguing and relevant"
+      - "Not clickbait — content delivers"
+      - "Written after content body"
+      - "Stops scroll within 1-2 lines"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies: []
+
+  related_sops:
+    - task-apag-newsletter
+    - task-contrarian-content
+    - task-core-notes
+    - task-weekly-writing-production

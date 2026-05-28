@@ -1,0 +1,69 @@
+# The Proof Elements Checklist
+# Source: Bencivenga's Persuasion Equation - Proof Component
+# Category: credibility_building
+# Command: *proof
+
+name: "The Proof Elements Checklist"
+category: "credibility_building"
+origin: "Bencivenga's Persuasion Equation - Proof Component"
+command: "*proof"
+
+philosophy: |
+  "Proof" was critical to Bencivenga's Persuasion Equation and fundamental
+  to every piece of copy he wrote. Gary was a MASTER of proof.
+
+elements:
+  demonstration:
+    description: "Show the product working"
+    instruction: "Video, before/after, live demo"
+    example: "Watch as this stain disappears in 30 seconds..."
+
+  creative_guarantee:
+    description: "A guarantee so strong it removes all risk"
+    instruction: "Name it, make it specific, make it memorable"
+    example: "The 'No Weasel Clauses' Money-Back Guarantee"
+
+  reason_why:
+    description: "Explain WHY your claims are true"
+    instruction: "People believe claims backed by reasons"
+    example: "This works because of the patented XYZ compound that..."
+
+  specifics:
+    description: "Use precise numbers and details"
+    instruction: "Specific claims are more believable than vague ones"
+    example: "'47.3% return' > 'great returns'"
+
+  the_expose:
+    description: "Reveal industry secrets or hidden truths"
+    instruction: "Position yourself as the insider revealing what others hide"
+    example: "What Wall Street doesn't want you to know..."
+
+  explain_the_mechanism:
+    description: "Show HOW it works"
+    instruction: "People believe what they can understand"
+    example: "Here's exactly how the three-step process works..."
+
+  sell_against_type:
+    description: "Acknowledge when your message seems unlikely"
+    instruction: "If it seems too good to be true, address that directly"
+    example: "I know this sounds unbelievable, but here's the proof..."
+
+  acknowledge_disbelief:
+    description: "Anticipate and address skepticism"
+    instruction: "Show you understand why they might doubt"
+    example: "If you're skeptical right now, I don't blame you..."
+
+  highly_believable_source:
+    description: "Quote authorities they trust"
+    instruction: "Third-party validation is more powerful than self-claims"
+    example: "As Dr. [Expert] wrote in the New England Journal of Medicine..."
+
+  testimonials:
+    description: "Real results from real people"
+    instruction: "The more specific and verifiable, the better"
+    example: "John M. from Dallas writes: 'In just 6 weeks, I...'"
+
+  candor:
+    description: "Honest admission of limitations"
+    instruction: "Admitting weaknesses builds trust faster than perfection"
+    example: "This isn't for everyone. If you're looking for X, this isn't it."

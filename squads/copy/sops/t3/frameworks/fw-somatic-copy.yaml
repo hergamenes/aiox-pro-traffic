@@ -1,0 +1,74 @@
+sop:
+  id: fw-somatic-copy
+  version: "1.0"
+  title: "Somatic Copy"
+  purpose: "Write copy that goes beyond emotional to physical — naming bodily experiences the prospect has never articulated"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: ry-schwartz
+    tier: t3
+  steps:
+    - id: apply_identify_body_feelings
+      name: "Identify Body Feelings"
+      description: "Map what the prospect physically feels — beyond emotions to somatic markers"
+      inputs:
+        - customer_interviews
+        - testimonial_data
+        - physical_symptom_research
+      outputs:
+        - somatic_marker_map
+      validation:
+        - physical_not_emotional: true
+        - from_research: true
+    - id: apply_find_unnamed_experiences
+      name: "Find Unnamed Experiences"
+      description: "Discover body experiences the prospect recognizes but has never put into words"
+      inputs:
+        - somatic_marker_map
+        - daily_life_patterns
+      outputs:
+        - unnamed_experience_list
+      validation:
+        - recognizable_but_unnamed: true
+        - specific_enough: true
+    - id: apply_verbalize_body
+      name: "Put Words to Bodily Experiences"
+      description: "Translate somatic experiences into vivid, specific language that triggers mirror response"
+      inputs:
+        - unnamed_experience_list
+      outputs:
+        - somatic_copy_segments
+      validation:
+        - vivid_language: true
+        - creates_mirror_effect: true
+        - not_metaphorical: true
+    - id: apply_beyond_emotional
+      name: "Verify Physical vs. Emotional"
+      description: "Confirm copy is genuinely somatic, not emotional with body words"
+      inputs:
+        - somatic_copy_segments
+      outputs:
+        - validated_somatic_copy
+      validation:
+        - describes_physical_sensations: true
+        - reader_feels_it: true
+        - min_body_experiences: 3
+  error_handling:
+    - error: emotional_with_body_veneer
+      condition: "Copy uses emotional words with body metaphors only"
+      action: "Replace metaphors with actual physical sensation descriptions"
+    - error: invented_experiences
+      condition: "Somatic experiences not sourced from real research"
+      action: "Source from interviews and testimonials; remove invented sensations"
+    - error: overused_somatic
+      condition: "Every paragraph is heavy with somatic language"
+      action: "Reserve for key moments: opening, pain, transformation"
+  quality_gate:
+    min_sections: 4
+    required_elements:
+      - physical_sensations_described
+      - at_least_3_body_experiences
+      - mirror_effect_created
+      - from_real_research
+    pass_threshold: "reader physically feels the copy; somatic not just emotional"

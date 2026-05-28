@@ -1,0 +1,129 @@
+sop:
+  id: fk-veto-conditions
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Frank Kern Veto Conditions"
+  purpose: >
+    Define hard-stop conditions for the frank-kern agent that enforce goodwill-first,
+    Results-in-Advance philosophy. Prevents selling to cold audiences, empty teasers,
+    artificial copy, unsegmented messaging, and premature upsells.
+  classification:
+    domain: copywriting
+    category: systematizer
+    subcategory: veto-conditions
+    source_agent: frank-kern
+    tier: T2
+  status: ACTIVE
+
+  trigger:
+    event: task_intake
+    conditions:
+      - agent == "frank-kern"
+      - task_type in ["content-strategy", "offer-timing", "email-sequence", "upsell-review", "campaign-design"]
+
+  context:
+    input:
+      - task_brief: string
+      - audience_segment: enum[cold, warm, hot, client] | null
+      - content_pieces: list | null
+      - copy_draft: string | null
+      - segmentation_strategy: object | null
+      - client_result_status: enum[achieved, in_progress, not_started] | null
+      - existing_product_optimization: object | null
+    required_knowledge:
+      - frank-kern/thinking_dna.yaml
+
+  steps:
+    - id: step_01
+      action: validate_goodwill_before_offer
+      description: "FK_V01: Verify cold audience received goodwill before offer"
+      check: "if audience_segment == 'cold' then goodwill_delivered == true"
+      on_success: continue
+      on_failure:
+        action: refuse
+        severity: critical
+        message: "REFUSE — Offering to cold audience without goodwill. Serve first, sell second."
+
+    - id: step_02
+      action: validate_results_in_advance
+      description: "FK_V02: Verify content delivers real results, not empty teasers"
+      check: "content delivers tangible_result NOT just teaser_for_paid"
+      on_success: continue
+      on_failure:
+        action: refuse
+        severity: high
+        message: "REFUSE — Empty teaser content. Apply Results in Advance — give real value."
+
+    - id: step_03
+      action: validate_natural_voice
+      description: "FK_V03: Verify copy sounds like friend giving advice, not salesperson"
+      check: "tone == conversational AND NOT [scripted, salesy, pressured]"
+      on_success: continue
+      on_failure:
+        action: rewrite
+        severity: high
+        message: "REWRITE — Sounds artificial/salesy. Rewrite as friend giving honest advice."
+
+    - id: step_04
+      action: validate_intent_segmentation
+      description: "FK_V04: Verify messages segmented by behavior/intent"
+      check: "segmentation_strategy is not null AND segments_by intent_or_behavior"
+      on_success: continue
+      on_failure:
+        action: segment
+        severity: medium
+        message: "SEGMENT — Same message to everyone. Apply IBB intent-aligned messaging."
+
+    - id: step_05
+      action: validate_result_before_upsell
+      description: "FK_V05: If upselling, verify client has gotten result first"
+      check: "if task_type == 'upsell' then client_result_status == 'achieved'"
+      on_success: continue
+      on_failure:
+        action: stop
+        severity: critical
+        message: "STOP — Client hasn't gotten result. Ensure result FIRST, then upsell."
+      condition: "task_type == 'upsell-review'"
+
+    - id: step_06
+      action: validate_demonstration_over_argumentation
+      description: "FK_V06: Verify persuasion through demonstration, not argumentation"
+      check: "persuasion_method == 'demonstration' NOT 'argumentation'"
+      on_success: continue
+      on_failure:
+        action: stop
+        severity: high
+        message: "STOP — Trying to convince via argument. Use IDT: demonstrate, let them decide."
+
+    - id: step_07
+      action: validate_formula5_before_new_product
+      description: "FK_V07: If new product, verify existing product optimized via Formula 5"
+      check: "if new_product then existing_product_optimization.formula5_applied == true"
+      on_success: continue
+      on_failure:
+        action: pause
+        severity: medium
+        message: "PAUSE — Optimize existing product with Formula 5 before creating new one."
+      condition: "task_type involves new_product_creation"
+
+  error_handling:
+    max_retries: 0
+    on_any_failure: block_task
+    fallback: return_veto_report_with_kern_framework_reference
+
+  quality_gate:
+    min_pass_rate: 1.0
+    min_steps_passed: 7
+    critical_steps: [step_01, step_05]
+    verdict_map:
+      all_pass: PROCEED
+      any_veto: BLOCKED
+
+  outputs:
+    - veto_verdict: enum[PROCEED, BLOCKED]
+    - triggered_vetos: list
+    - remediation_instructions: list
+    - audience_relationship_status: enum[cold, warm, hot, client]

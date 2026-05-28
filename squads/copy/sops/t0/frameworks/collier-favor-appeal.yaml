@@ -1,0 +1,78 @@
+sop:
+  id: collier-favor-appeal
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Favor/Courtesy Appeal"
+  purpose: >
+    Reframe transaction from commercial to personal favor. Ask prospect to TEST
+    and give OPINION instead of BUY. Introductory price becomes thank-you.
+    Bypasses purchase resistance by appealing to desire to be helpful.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: robert-collier
+    artifact_type: framework
+
+  steps:
+    - id: apply_commercial_to_personal
+      action: apply_reframe_transaction
+      description: "Shift framing from commercial to personal. Prospect is evaluator/tester, not buyer. Language must reinforce this frame."
+      critical: true
+      output: personal_frame
+
+    - id: apply_favor_request
+      action: apply_ask_favor_not_purchase
+      description: "Explicitly ask for a FAVOR: 'Will you test this and give your opinion?' People more willing to help than to buy."
+      depends_on: apply_commercial_to_personal
+      output: favor_copy
+
+    - id: apply_thank_you_price
+      action: apply_price_as_gratitude
+      description: "Position price as thank-you, not cost. 'As a thank-you for testing, we offer it at [price].' Remove commercial feel."
+      depends_on: apply_favor_request
+      output: thankyou_pricing
+
+    - id: apply_valued_selection
+      action: apply_prospect_selection
+      description: "Make prospect feel chosen, not targeted. Exclusivity and flattery genuine when product benefits from feedback."
+      depends_on: apply_favor_request
+      output: selection_language
+
+  error_handling:
+    - error: favor_wrapping_hard_sell
+      symptom: "Prospect sees through the frame; trust breaks"
+      resolution: "Favor must be genuine; product must actually benefit from feedback"
+    - error: frame_collapse
+      symptom: "'Test for us' then 'BUY NOW!' — language reverts to sales"
+      resolution: "Maintain favor frame throughout including close and CTA"
+    - error: no_feedback_mechanism
+      symptom: "Asking for opinion with no way to collect it"
+      resolution: "Include actual feedback method: survey, reply, review link"
+    - error: dishonest_exclusivity
+      symptom: "'Only 50 spots' but offer runs indefinitely"
+      resolution: "Keep exclusivity honest and time-bounded"
+
+  quality_gate:
+    criteria:
+      - "Transaction framed as personal favor"
+      - "Price positioned as thank-you"
+      - "Prospect positioned as valued evaluator"
+      - "Language maintains favor frame throughout"
+      - "Favor request is genuine"
+      - "Feedback mechanism included"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: favor_copy
+      format: reframed_letter
+      description: "Favor-framed copy for sales letter or email"
+    - name: thankyou_pricing
+      format: price_positioning
+      description: "How price is framed as compensation for helping"
+    - name: feedback_mechanism
+      format: collection_method
+      description: "How the 'opinion' is actually gathered"

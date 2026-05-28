@@ -1,0 +1,168 @@
+# Visceral Copy Transformation System
+# Source: Clayton Makepeace methodology
+# Command: *visceral
+
+name: "Visceral Copy Transformation System"
+category: "copywriting"
+origin: "Clayton Makepeace methodology"
+command: "*visceral"
+
+philosophy: |
+  Cerebral copy informs. Visceral copy TRANSFORMS. Your words should hit
+  the reader in the gut, not the head. They should FEEL the problem in
+  their bones and TASTE the solution before they've spent a dime.
+
+transformation_layers:
+  layer_1:
+    name: "Sensory Language"
+    instruction: "Replace abstract words with concrete, sensory ones"
+    examples:
+      - before: "Feel better"
+        after: "Wake up feeling like you're 25 again - springing out of bed, mind crystal clear, body humming with energy"
+
+      - before: "Save money"
+        after: "Watch your bank balance climb $500, $1,000, $2,000 every month while you do NOTHING different"
+
+      - before: "Look younger"
+        after: "See the shock on your friends' faces when they ask what plastic surgeon you used - and you tell them you didn't"
+
+  layer_2:
+    name: "Pain Amplification"
+    instruction: "Don't just state the problem - make them FEEL it"
+    examples:
+      - before: "High blood pressure is dangerous"
+        after: "Every time your heart beats, it's pumping against concrete walls. The pressure builds. The damage accumulates. Until one day - without warning - those walls give out. That's the reality of uncontrolled blood pressure."
+
+  layer_3:
+    name: "Stakes Escalation"
+    instruction: "Raise the cost of inaction to unbearable levels"
+    examples:
+      - before: "Don't miss this opportunity"
+        after: "Five years from now, you'll look back at this moment. You'll either be celebrating the decision that changed everything... or kicking yourself for letting it slip away. Again."
+
+  layer_4:
+    name: "Future Pacing"
+    instruction: "Transport them to the moment of transformation"
+    examples:
+      - before: "You'll achieve your goals"
+        after: "Picture yourself 90 days from now. You're stepping on the scale - and for the first time in years, you SMILE. You slide into those jeans that have been mocking you from the back of your closet. They fit. Actually, they're LOOSE."
+
+visceral_word_list:
+  feel_words:
+    - "surge"
+    - "flood"
+    - "rush"
+    - "pulse"
+    - "throb"
+    - "sting"
+    - "burn"
+    - "ache"
+    - "gnaw"
+    - "grip"
+    - "melt"
+    - "dissolve"
+    - "release"
+    - "lift"
+    - "soar"
+
+  see_words:
+    - "picture"
+    - "imagine"
+    - "watch"
+    - "notice"
+    - "witness"
+    - "crystal clear"
+    - "vivid"
+    - "stunning"
+    - "jaw-dropping"
+
+  hear_words:
+    - "roar"
+    - "whisper"
+    - "thundering"
+    - "silent"
+    - "deafening"
+    - "resonating"
+
+  taste_words:
+    - "sweet"
+    - "bitter"
+    - "savor"
+    - "devour"
+    - "feast"
+    - "indulge"
+
+  smell_words:
+    - "fresh"
+    - "rank"
+    - "intoxicating"
+    - "pungent"
+    - "clean"
+
+  power_verbs:
+    - "ignite"
+    - "unleash"
+    - "explode"
+    - "transform"
+    - "shatter"
+    - "crush"
+    - "demolish"
+    - "obliterate"
+    - "annihilate"
+    - "reveal"
+    - "expose"
+    - "uncover"
+    - "discover"
+
+transformation_process:
+  step_1:
+    name: "Identify Cerebral Copy"
+    signs:
+      - "Uses abstract words (good, better, improve)"
+      - "Tells instead of shows"
+      - "Appeals to logic first"
+      - "No sensory language"
+
+  step_2:
+    name: "Apply Sensory Layer"
+    action: "Add what they SEE, FEEL, HEAR, TASTE, SMELL"
+
+  step_3:
+    name: "Apply Pain Layer"
+    action: "Make the problem vivid and physical"
+
+  step_4:
+    name: "Apply Stakes Layer"
+    action: "Show the cost of inaction"
+
+  step_5:
+    name: "Apply Future Pacing"
+    action: "Transport them to transformation moment"
+
+visceral_test:
+  question: "Can the reader FEEL this in their body?"
+  if_no: "Add more sensory language until they can."
+  if_yes: "Copy is ready to convert."
+
+cerebral_to_visceral_conversion:
+  before_example: |
+    "This supplement supports healthy cholesterol levels."
+  after_example: |
+    "Feel your arteries unclog... blood flowing freely for the first time in years...
+    that heavy pressure in your chest lifting as your heart finally gets the oxygen
+    it's been starving for."
+
+output_format: |
+  ## VISCERAL TRANSFORMATION
+
+  **BEFORE (Cerebral):**
+  [Original copy]
+
+  **AFTER (Visceral):**
+  [Transformed copy with sensory language, pain amplification, stakes, and future pacing]
+
+  **TRANSFORMATION APPLIED:**
+  - Sensory detail: [what was added]
+  - Social impact: [what was added]
+  - Temporal contrast: [what was added]
+  - Emotional climax: [what was added]

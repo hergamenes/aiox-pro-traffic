@@ -1,0 +1,143 @@
+# The 29-Step Ultimate Sales Letter System - Dan Kennedy
+# Extracted from: squads/copy/agents/dan-kennedy.md
+# Category: copywriting
+
+name: "The 29-Step Ultimate Sales Letter System"
+category: copywriting
+origin: "Dan Kennedy - The Ultimate Sales Letter (1981)"
+command: "*sales-letter"
+
+philosophy: |
+  A sales letter is airtight persuasion from headline to P.S.
+  Every step serves a purpose. Skip none.
+
+steps:
+  preparation:
+    - step: 1
+      name: "Get Into The Customer"
+      action: "Research deeply - become the customer"
+      questions:
+        - "What keeps them awake at night?"
+        - "What are they afraid of?"
+        - "What are they angry about?"
+        - "What are their top 3 daily frustrations?"
+        - "What do they secretly desire most?"
+
+    - step: 2
+      name: "Get Into The Offer"
+      action: "Understand every angle of what you're selling"
+      questions:
+        - "What is the single biggest benefit?"
+        - "What makes this different/better?"
+        - "What proof do you have?"
+
+    - step: 3
+      name: "Create a Damaging Admission"
+      action: "Address flaws openly before they become objections"
+      principle: "Honesty builds trust faster than perfection"
+
+  delivery:
+    - step: 4
+      name: "Get Your Letter Delivered"
+      action: "Design envelope/subject that gets opened"
+      tactics:
+        - "Handwritten font"
+        - "Unusual size/color"
+        - "Teaser copy or no teaser"
+
+    - step: 5
+      name: "Get Your Letter Looked At"
+      action: "Create visual intrigue"
+      elements:
+        - "Grabber (attached object)"
+        - "Headline that stops them"
+        - "Sub-headlines that pull through"
+
+    - step: 6
+      name: "Get Your Letter Read"
+      action: "Use fascination bullets, story, short paragraphs"
+
+  persuasion:
+    - step: 7
+      name: "Beat the Price Bugaboo"
+      action: "Justify price before revealing it"
+      techniques:
+        - "Compare to alternatives"
+        - "Show ROI"
+        - "Break down per day/use"
+
+    - step: 8
+      name: "Review Winning Copywriting Techniques"
+      action: "Study swipe files before writing"
+
+    - step: 9
+      name: "Write the First Draft"
+      action: "Get it all out - don't edit yet"
+
+    - step: 10
+      name: "Rewrite for Strategy"
+      action: "Ensure logical flow and persuasion structure"
+
+    - step: 11
+      name: "Rewrite for Style"
+      action: "Make it conversational, emotional"
+
+    - step: 12
+      name: "Answer Questions and Objections"
+      action: "Address every possible objection"
+
+    - step: 13
+      name: "Spark Immediate Action"
+      action: "Add urgency and scarcity"
+
+    - step: 14
+      name: "The Creative P.S."
+      action: "90% of readers skip to P.S. - make it count"
+
+  refinement:
+    - step: 15
+      name: "Check the Checklists"
+    - step: 16
+      name: "Use Graphic Enhancement"
+    - step: 17
+      name: "Rewrite for Passion, Edit for Clarity"
+    - step: 18
+      name: "Compare to Examples"
+    - step: 19
+      name: "Pretest"
+    - step: 20
+      name: "Bring Your Letter to Life"
+    - step: 21
+      name: "Change Graphic Enhancements"
+    - step: 22
+      name: "Edit Again"
+    - step: 23
+      name: "Mail a Mock-Up to Yourself"
+    - step: 24
+      name: "The Cool Off (24-48 hours)"
+    - step: 25
+      name: "Get Second Opinion"
+    - step: 26
+      name: "Final Edit"
+    - step: 27
+      name: "Prepare for Testing"
+    - step: 28
+      name: "Launch"
+    - step: 29
+      name: "Review Results and Optimize"
+
+ps_strategy:
+  principle: "90% of readers skip to the P.S. first"
+  elements:
+    - "Restate the main offer"
+    - "Add urgency (deadline, scarcity)"
+    - "Bonus reminder"
+    - "Guarantee reminder"
+    - "Contact information"
+  example: |
+    P.S. Remember, this offer expires Friday at midnight. After that,
+    the price goes up to $1,997 and the bonuses disappear. If you're
+    serious about [result], don't let this slip away.
+
+    P.P.S. You're protected by our Iron-Clad 60-Day Guarantee.
+    If it doesn't work, you don't pay. Simple as that.

@@ -1,0 +1,78 @@
+sop:
+  id: fw-reverse-complexity
+  version: "1.0"
+  title: "Reverse Complexity Rule"
+  purpose: "Invert expected complexity level — complexify simple products, simplify complex products to a concept"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: joe-sugarman
+    tier: t4
+  steps:
+    - id: apply_classify
+      name: "Classify Product Complexity"
+      description: "Determine if product is inherently simple or complex"
+      inputs:
+        - product_description
+        - feature_count
+        - market_category
+      outputs:
+        - complexity_classification
+      validation:
+        - honest_assessment: true
+        - classification_clear: true
+    - id: apply_complexify
+      name: "Simple → COMPLEXIFY"
+      description: "Add expertise layers, selection criteria, and evaluation frameworks to simple products"
+      inputs:
+        - simple_product
+        - expertise_elements
+        - selection_criteria
+      outputs:
+        - complexified_positioning
+      validation:
+        - adds_genuine_expertise: true
+        - not_jargon_fluff: true
+        - signals_quality: true
+      condition: "complexity_classification == simple"
+    - id: apply_simplify
+      name: "Complex → SIMPLIFY to Concept"
+      description: "Reduce complex product to one central concept or Big Idea"
+      inputs:
+        - complex_product
+        - core_transformation
+      outputs:
+        - simplified_concept
+      validation:
+        - single_concept: true
+        - maps_to_real_capability: true
+        - memorable: true
+      condition: "complexity_classification == complex"
+    - id: apply_validate_inversion
+      name: "Validate Inversion"
+      description: "Confirm positioning inverts competitor direction and creates differentiation"
+      inputs:
+        - complexified_positioning or simplified_concept
+        - competitor_positioning
+      outputs:
+        - validated_positioning
+      validation:
+        - differs_from_competitors: true
+        - inversion_complete: true
+  error_handling:
+    - error: same_direction_as_expected
+      condition: "Simple product simplified further or complex product made more complex"
+      action: "Reverse direction immediately; inversion is the strategy"
+    - error: fake_complexity
+      condition: "Jargon added without real expertise substance"
+      action: "Replace with genuine selection criteria and real knowledge"
+    - error: hollow_simplification
+      condition: "Concept is a slogan with no product backing"
+      action: "Ensure concept maps to real, demonstrable capability"
+  quality_gate:
+    min_sections: 3
+    required_elements:
+      - correct_classification
+      - direction_inverted
+      - differentiation_achieved
+    pass_threshold: "product positioned opposite to expected complexity with genuine substance"

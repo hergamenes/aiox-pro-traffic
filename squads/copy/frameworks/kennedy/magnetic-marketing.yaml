@@ -1,0 +1,64 @@
+# Magnetic Marketing System - Dan Kennedy
+# Extracted from: squads/copy/agents/dan-kennedy.md
+# Category: lead_generation
+
+name: "Magnetic Marketing System"
+category: lead_generation
+origin: "Dan Kennedy - Magnetic Marketing"
+command: "*magnetic"
+
+philosophy: |
+  Stop prospecting. Start attracting. Create marketing so magnetic
+  that qualified prospects come to YOU, pre-sold and eager to buy.
+
+core_components:
+  message:
+    principle: "Your message must resonate with ONE specific audience"
+    instruction: "Create message-to-market match"
+    diagnostic: "Can you describe your ideal customer in vivid detail?"
+
+  market:
+    principle: "Fish where the fish are"
+    instruction: "Identify where your ideal customers congregate"
+    diagnostic: "What publications do they read? What events do they attend?"
+
+  media:
+    principle: "Use the right media to reach your market"
+    instruction: "Match media to customer behavior"
+    options:
+      - "Direct mail (Kennedy's favorite)"
+      - "Print advertising"
+      - "Online (direct response style)"
+      - "Speaking/Events"
+
+lead_magnet_formula:
+  principle: "Low threshold resistance offers generate leads"
+  structure:
+    - "Free report/guide"
+    - "Free consultation/audit"
+    - "Free sample/trial"
+    - "Free video training"
+  naming: "Title must promise specific benefit"
+  examples:
+    - "7 Deadly Mistakes [Audience] Make With [Topic]"
+    - "The Ultimate Guide to [Desired Result] in [Timeframe]"
+    - "How to [Achieve Result] Without [Pain Point]"
+
+follow_up_sequence:
+  principle: "The fortune is in the follow-up"
+  structure:
+    touch_1: "Immediate - Deliver lead magnet"
+    touch_2: "Day 2-3 - Additional value + soft offer"
+    touch_3: "Day 5-7 - Case study/testimonial"
+    touch_4: "Day 10 - Direct offer with deadline"
+    touch_5: "Day 14 - Urgency intensification"
+    touch_6: "Day 21 - Last chance"
+    touch_7_plus: "Monthly newsletter/nurture"
+
+implementation_checklist:
+  - "Is your ideal customer defined in vivid detail?"
+  - "Do you know where they congregate (publications, events, groups)?"
+  - "Is your lead magnet title benefit-focused?"
+  - "Does your lead magnet provide genuine value?"
+  - "Is your follow-up sequence automated?"
+  - "Are there at least 5-7 touches before giving up?"

@@ -1,0 +1,99 @@
+sop:
+  id: collier-six-essentials-checklist
+  version: "1.0"
+  title: "Collier 6 Essentials Checklist"
+  purpose: >
+    Verify every sales letter contains all 6 mandatory elements defined by
+    Robert Collier. Missing one reduces response. Missing two kills it.
+    This is the structural backbone of Collier-compliant copy evaluation.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    subcategory: structural-quality-gate
+    tier: T0
+    source_agent: robert-collier
+  steps:
+    - id: validate_opening
+      action: "Evaluate OPENING — captures attention by entering reader's train of thought"
+      input: sales_letter
+      validation:
+        rule: "opening reflects reader's world, not product/company"
+        criteria:
+          - first_sentence_about_reader: true
+          - enters_mental_conversation: true
+          - reader_recognition: true
+        fail_action: rewrite_opening_prospect_first
+    - id: validate_description
+      action: "Evaluate DESCRIPTION — vivid word picture, reader sees himself with product"
+      input: sales_letter
+      validation:
+        rule: "description paints scenes, not feature lists"
+        criteria:
+          - reader_sees_self_using: true
+          - sensory_details_present: true
+          - scene_not_spec_list: true
+        fail_action: transform_features_to_scenes
+    - id: validate_motive
+      action: "Evaluate MOTIVE — logical reason to act connected to dominant desire"
+      input: sales_letter
+      validation:
+        rule: "clear reason-why connected to reader's desire"
+        criteria:
+          - reason_why_present: true
+          - connected_to_dominant_desire: true
+          - mechanism_explained: true
+        fail_action: add_reason_why_and_desire_connection
+    - id: validate_proof
+      action: "Evaluate PROOF — testimonials, stats, authority, guarantee"
+      input: sales_letter
+      validation:
+        rule: "at least one strong proof element from proof pyramid"
+        criteria:
+          - testimonial_or_stat_present: true
+          - risk_reversed: true
+          - real_names_locations: true
+        fail_action: add_proof_elements
+        reference_sop: collier-proof-pyramid
+    - id: validate_snapper
+      action: "Evaluate SNAPPER — urgency through loss framing"
+      input: sales_letter
+      validation:
+        rule: "specific consequence of not acting with deadline/scarcity"
+        criteria:
+          - loss_framing_present: true
+          - specific_deadline_or_quantity: true
+          - measurable_cost_of_delay: true
+        fail_action: add_specific_urgency
+    - id: validate_close
+      action: "Evaluate CLOSE — one clear, easy action"
+      input: sales_letter
+      validation:
+        rule: "single CTA with minimal friction"
+        criteria:
+          - one_clear_action: true
+          - minimal_steps: true
+          - benefit_and_urgency_repeated: true
+        fail_action: simplify_to_single_cta
+  error_handling:
+    scoring:
+      present: "element exists and meets criteria"
+      weak: "element exists but criteria partially met"
+      absent: "element missing"
+    thresholds:
+      complete: "0 absent"
+      reduced: "1 absent"
+      dead: "2+ absent"
+    on_reduced: flag_with_prescription
+    on_dead: block_until_gaps_filled
+  quality_gate:
+    pass_criteria: "all 6 essentials PRESENT or WEAK (0 absent)"
+    kill_threshold: "2+ absent = response dead"
+    rule: "Missing one reduces response. Missing two kills it."
+    on_pass: structurally_sound
+    on_fail: prescribe_fixes_by_impact_priority
+  metadata:
+    date: "2026-03-14"
+    author:
+      agent: sop-converter
+      squad: sop-factory
+    source_artifact: collier-six-essentials-checklist

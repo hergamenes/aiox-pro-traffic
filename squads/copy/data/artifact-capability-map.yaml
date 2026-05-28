@@ -1,0 +1,427 @@
+# --- document metadata ---
+version: "1.0"
+date: "2026-03-09"
+author:
+  agent: "squad-chief"
+  squad: "copy"
+aiox: true
+project: "opb-corp"
+
+# Artifact Capability Map — CopywriterOS
+#
+# Maps agents to the artifact types they can CREATE based on their KB.
+# Used by Copy Chief for gap detection + artifact generation.
+#
+# Tags follow the pattern: {dimension}:{value}
+#   channel: email | vsl | sales-page | launch | ads | webinar | social | magalog | infomercial | cohort | direct-mail | funnel
+#   type: template | checklist | workflow | sop
+#   phase: briefing | diagnostic | creation | review | qa | delivery
+#   domain: persuasion | structure | hooks | proof | urgency | story | mechanism | brand | testing
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENT CAPABILITIES — What each agent can CREATE from their KB
+# ═══════════════════════════════════════════════════════════════════════════════
+
+capabilities:
+
+  andre-chaperon:
+    tags: [channel:email, domain:story, domain:structure, domain:persuasion]
+    can_create:
+      - id: email-sequence-tmpl
+        type: template
+        tags: [channel:email, type:template]
+        name: "Email Sequence Template"
+        source_frameworks:
+          - "ARM (Autoresponder Madness)"
+          - "Soap Opera Sequence Creation"
+          - "Email Engine Setup"
+          - "Interest-Based Segmentation"
+          - "CYOA Segmentation"
+        description: "Template de sequência de email baseado na metodologia ARM"
+
+      - id: email-nurture-checklist
+        type: checklist
+        tags: [channel:email, type:checklist]
+        name: "Email Nurture Quality Checklist"
+        source_frameworks:
+          - "Resonance Fidelity"
+          - "Campfire Strategy"
+          - "Open Loop Minimum"
+          - "Bread Analogy Test"
+
+      - id: email-nurture-sop
+        type: sop
+        tags: [channel:email, type:sop]
+        name: "SOP: Email Nurture Sequence"
+        source_frameworks:
+          - "Evergreen Email Engine Setup"
+          - "Digital Soulcraft World-Building"
+
+  ben-settle:
+    tags: [channel:email, domain:personality, domain:hooks, domain:story]
+    can_create:
+      - id: daily-email-tmpl
+        type: template
+        tags: [channel:email, type:template]
+        name: "Daily Email Template"
+        source_frameworks:
+          - "Daily Email Methodology"
+          - "Infotainment Formula"
+          - "Dead List Revival"
+          - "Anti-Hero Positioning"
+
+      - id: daily-email-checklist
+        type: checklist
+        tags: [channel:email, type:checklist]
+        name: "Daily Email Quality Checklist"
+        source_frameworks:
+          - "10 Villain Charisma Pillars"
+          - "Mission-First Charisma"
+          - "Personality-Driven Copy Rules"
+
+  stefan-georgi:
+    tags: [channel:vsl, domain:structure, domain:mechanism, domain:persuasion]
+    can_create:
+      - id: vsl-script-tmpl
+        type: template
+        tags: [channel:vsl, type:template]
+        name: "VSL Script Template (RMBC)"
+        source_frameworks:
+          - "RMBC Method (Research-Mechanism-Brief-Copy)"
+          - "RMBC II AI-Enhanced"
+          - "11 Fascination Bullet Types"
+          - "Named Oddity Technique"
+
+      - id: vsl-checklist
+        type: checklist
+        tags: [channel:vsl, type:checklist]
+        name: "VSL Quality Checklist"
+        source_frameworks:
+          - "VSL Structure Framework"
+          - "Health Copy Compliance"
+
+  jon-benson:
+    tags: [channel:vsl, domain:hooks, domain:structure, domain:persuasion]
+    can_create:
+      - id: conversational-vsl-tmpl
+        type: template
+        tags: [channel:vsl, type:template]
+        name: "Conversational VSL Template"
+        source_frameworks:
+          - "5-Step VSL Formula"
+          - "9-Step Million Dollar VSL SOP"
+          - "90-Second Pattern Interrupt"
+          - "Alpha-Omega Optimization"
+
+  gary-halbert:
+    tags: [channel:sales-page, channel:direct-mail, domain:hooks, domain:proof, domain:story]
+    can_create:
+      - id: sales-page-tmpl
+        type: template
+        tags: [channel:sales-page, type:template]
+        name: "Sales Page Template"
+        source_frameworks:
+          - "A-Pile/B-Pile Strategy"
+          - "AIDA for Direct Mail"
+          - "Starving Crowd Principle"
+          - "Proof Stack Hierarchy"
+          - "Fascination Bullets"
+
+      - id: sales-page-checklist
+        type: checklist
+        tags: [channel:sales-page, type:checklist]
+        name: "Sales Page Quality Checklist"
+        source_frameworks:
+          - "Emotional Hook Validation"
+          - "Proof Elements Hierarchy"
+
+  gary-bencivenga:
+    tags: [channel:sales-page, domain:persuasion, domain:testing, domain:mechanism]
+    can_create:
+      - id: big-idea-checklist
+        type: checklist
+        tags: [domain:mechanism, type:checklist]
+        name: "Big Idea Development Checklist"
+        source_frameworks:
+          - "Big Idea Methodology"
+          - "Persuasion Equation (UP+UP+UP+UP)"
+          - "Yeah Sure Framework"
+          - "Testing Philosophy"
+
+  david-ogilvy:
+    tags: [channel:ads, channel:sales-page, domain:brand, domain:hooks, domain:testing]
+    can_create:
+      - id: headline-checklist
+        type: checklist
+        tags: [domain:hooks, type:checklist]
+        name: "Headline Quality Checklist"
+        source_frameworks:
+          - "Headline Rules"
+          - "Research-First Methodology"
+          - "Brand Image Theory"
+          - "Long Copy Philosophy"
+
+      - id: print-ad-tmpl
+        type: template
+        tags: [channel:ads, type:template]
+        name: "Print Ad / Display Ad Template"
+        source_frameworks:
+          - "Ogilvy Ad Structure"
+          - "Research-First Methodology"
+
+  jeff-walker:
+    tags: [channel:launch, domain:structure, domain:urgency, domain:story]
+    can_create:
+      - id: launch-sequence-tmpl
+        type: template
+        tags: [channel:launch, type:template]
+        name: "Launch Sequence Template (PLF)"
+        source_frameworks:
+          - "Product Launch Formula (PLF)"
+          - "Sideways Sales Letter"
+          - "Seed/Internal/JV Launch"
+          - "9 Mental Triggers"
+
+      - id: launch-checklist
+        type: checklist
+        tags: [channel:launch, type:checklist]
+        name: "Launch Readiness Checklist"
+        source_frameworks:
+          - "PLF Phase Checkpoints"
+          - "Pre-Launch Content Sequence"
+
+  russell-brunson:
+    tags: [channel:webinar, channel:funnel, domain:structure, domain:story, domain:persuasion]
+    can_create:
+      - id: webinar-script-tmpl
+        type: template
+        tags: [channel:webinar, type:template]
+        name: "Webinar Script Template (Perfect Webinar)"
+        source_frameworks:
+          - "Perfect Webinar"
+          - "Epiphany Bridge"
+          - "Stack and Close"
+          - "Hook-Story-Offer"
+
+      - id: funnel-copy-tmpl
+        type: template
+        tags: [channel:funnel, type:template]
+        name: "Funnel Copy Template"
+        source_frameworks:
+          - "Value Ladder"
+          - "Attractive Character"
+          - "Soap Opera Sequence"
+          - "Dream 100"
+
+  dan-kennedy:
+    tags: [channel:sales-page, channel:direct-mail, domain:urgency, domain:structure]
+    can_create:
+      - id: sales-letter-tmpl
+        type: template
+        tags: [channel:sales-page, type:template]
+        name: "Sales Letter Template (28-Step)"
+        source_frameworks:
+          - "28-Step Sales Letter System"
+          - "Marketing Triangle"
+          - "No BS Rules"
+          - "Urgency/Deadline Frameworks"
+
+      - id: urgency-checklist
+        type: checklist
+        tags: [domain:urgency, type:checklist]
+        name: "Urgency & Deadline Checklist"
+        source_frameworks:
+          - "Urgency/Deadline Frameworks"
+          - "No BS Direct Marketing Rules"
+
+  todd-brown:
+    tags: [channel:funnel, domain:mechanism, domain:structure]
+    can_create:
+      - id: mechanism-discovery-tmpl
+        type: template
+        tags: [domain:mechanism, type:template]
+        name: "Unique Mechanism Discovery Template"
+        source_frameworks:
+          - "E5 Method Campaign Construction"
+          - "Unique Mechanism Discovery"
+          - "Big Marketing Idea Framework"
+          - "CPA-to-AOV Golden Ratio"
+
+      - id: e5-campaign-workflow
+        type: workflow
+        tags: [channel:funnel, type:workflow]
+        name: "E5 Campaign Workflow"
+        source_frameworks:
+          - "E5 Method (5 phases)"
+          - "Island-to-Island Bridge Model"
+
+  frank-kern:
+    tags: [channel:ads, channel:funnel, domain:brand, domain:story]
+    can_create:
+      - id: intent-branding-tmpl
+        type: template
+        tags: [domain:brand, type:template]
+        name: "Intent-Based Branding Template"
+        source_frameworks:
+          - "Intent-Based Branding (3 pillars)"
+          - "Results in Advance"
+          - "Content Compounding"
+          - "4-Day Cash Machine"
+
+  dan-koe:
+    tags: [channel:social, domain:hooks, domain:structure, domain:story]
+    can_create:
+      - id: social-copy-tmpl
+        type: template
+        tags: [channel:social, type:template]
+        name: "Social Media / Creator Copy Template"
+        source_frameworks:
+          - "One-Person Business Model"
+          - "Content Compounding"
+          - "Thread Writing Methodology"
+          - "Newsletter Structure"
+
+      - id: thread-checklist
+        type: checklist
+        tags: [channel:social, type:checklist]
+        name: "Thread / Post Quality Checklist"
+        source_frameworks:
+          - "Hook Discovery"
+          - "Value Creation Framework"
+
+  ry-schwartz:
+    tags: [channel:cohort, domain:persuasion, domain:story]
+    can_create:
+      - id: cohort-launch-tmpl
+        type: template
+        tags: [channel:cohort, type:template]
+        name: "Cohort Launch Copy Template"
+        source_frameworks:
+          - "Catalyzing a Conversation"
+          - "PAISA Formula"
+          - "531 Research Method"
+          - "Moment of Highest Tension"
+
+  jim-rutz:
+    tags: [channel:magalog, channel:direct-mail, domain:story, domain:structure]
+    can_create:
+      - id: magalog-tmpl
+        type: template
+        tags: [channel:magalog, type:template]
+        name: "Magalog Template"
+        source_frameworks:
+          - "Magalog Construction"
+          - "Unpredictability Principle"
+          - "Greased Slide"
+          - "Story-Driven Selling"
+
+  clayton-makepeace:
+    tags: [channel:sales-page, domain:persuasion, domain:proof, domain:hooks]
+    can_create:
+      - id: health-copy-tmpl
+        type: template
+        tags: [channel:sales-page, type:template]
+        name: "Health/Supplement Copy Template"
+        source_frameworks:
+          - "Dominant Resident Emotion (DRE)"
+          - "Emotional Selling Proposition"
+          - "18-Step Promotion Creation"
+          - "Proof Stacking System"
+
+  parris-lampropoulos:
+    tags: [channel:sales-page, channel:direct-mail, domain:testing, domain:mechanism]
+    can_create:
+      - id: control-beating-checklist
+        type: checklist
+        tags: [domain:testing, type:checklist]
+        name: "Control-Beating Checklist"
+        source_frameworks:
+          - "Control-Beating Method"
+          - "WOW Framework (Novelty+Surprise)"
+          - "Deep Research Process"
+          - "Lizard & Gatekeeper"
+
+  john-carlton:
+    tags: [channel:sales-page, domain:story, domain:hooks, domain:persuasion]
+    can_create:
+      - id: story-copy-tmpl
+        type: template
+        tags: [domain:story, type:template]
+        name: "Story-Driven Copy Template"
+        source_frameworks:
+          - "Simple Writing System (SWS)"
+          - "Sales Detective Approach"
+          - "One-Legged Golfer Methodology"
+          - "Star/Story/Solution"
+
+  david-deutsch:
+    tags: [channel:infomercial, domain:structure, domain:proof]
+    can_create:
+      - id: infomercial-tmpl
+        type: template
+        tags: [channel:infomercial, type:template]
+        name: "Infomercial / DRTV Script Template"
+        source_frameworks:
+          - "Copythinking Process"
+          - "IDEA POWER Toolkit"
+          - "Problem Awareness Spectrum"
+          - "Demonstration-Based Selling"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# TAG TAXONOMY — Reference for gap detection matching
+# ═══════════════════════════════════════════════════════════════════════════════
+
+tag_taxonomy:
+  channel:
+    - email          # Email sequences, nurture, daily emails
+    - vsl            # Video sales letters
+    - sales-page     # Long-form sales pages
+    - launch         # Product launches (PLF)
+    - ads            # Paid ads (Facebook, Google, display)
+    - webinar        # Webinar scripts
+    - social         # Social media, threads, newsletters
+    - magalog        # Magalogs, subscription mail
+    - infomercial    # TV/DRTV copy
+    - cohort         # Cohort/workshop launches
+    - direct-mail    # Physical direct mail
+    - funnel         # Funnel copy (multi-step)
+
+  type:
+    - template       # Output structure/format
+    - checklist      # Quality validation
+    - workflow       # Multi-phase process
+    - sop            # Standard operating procedure
+
+  domain:
+    - persuasion     # General persuasion techniques
+    - structure      # Copy structure/format
+    - hooks          # Headlines, hooks, pattern interrupts
+    - proof          # Social proof, authority, data
+    - urgency        # Scarcity, deadlines, FOMO
+    - story          # Storytelling, narrative
+    - mechanism      # Unique mechanism, Big Idea
+    - brand          # Brand building + DR
+    - testing        # A/B testing, control-beating
+    - personality    # Voice, personality-driven copy
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# GAP DETECTION RULES — Used by Copy Chief during production
+# ═══════════════════════════════════════════════════════════════════════════════
+
+gap_detection:
+  trigger: "During copy production, when Copy Chief routes to an agent"
+  check: "Does a template/checklist exist for this channel+type combination?"
+  lookup_path: "squads/copy/{templates|checklists|workflows}/"
+  match_by: "tags intersection with briefing channel + copy type"
+
+  on_gap_found:
+    action: |
+      1. Log gap: "Missing {type} for {channel}: {artifact_id}"
+      2. Lookup capability map: which agent can create this?
+      3. After delivery, suggest: "Detectei que não existe {name}.
+         {agent} tem {N} frameworks relevantes ({framework_list}).
+         Quer que eu gere baseado no KB dele?"
+    priority: "Suggest after delivery — never interrupt production flow"
+
+  on_user_approve:
+    action: "Execute tasks/create-artifact-from-kb.md"

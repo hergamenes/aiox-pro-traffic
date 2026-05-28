@@ -1,0 +1,135 @@
+# Swipe File Source Registry
+# Maps Tier 0-3 copywriters to their primary works
+
+created: 2026-01-23T04:07:02-03:00
+updated: 2026-01-23T04:07:02-03:00
+
+tier_0_foundation:
+  # Always read first - provides diagnostic frameworks
+  sources:
+    - author: "Claude Hopkins"
+      works:
+        - "Scientific Advertising"
+        - "My Life in Advertising"
+      priority: 1
+      focus: ["testing", "headlines", "scientific approach"]
+
+    - author: "Robert Collier"
+      works:
+        - "The Robert Collier Letter Book"
+      priority: 1
+      focus: ["leads", "mental conversation", "desire channeling"]
+
+    - author: "Eugene Schwartz"
+      works:
+        - "Breakthrough Advertising"
+        - "The Brilliance Breakthrough"
+      priority: 1
+      focus: ["headlines", "awareness levels", "sophistication stages"]
+
+tier_1_masters:
+  # $500M+ documented - highest quality source
+  sources:
+    - author: "Gary Bencivenga"
+      works:
+        - "Bencivenga Bullets"
+        - "Marketing Bullets Newsletter"
+      priority: 2
+      focus: ["bullets", "fascinations", "objection breaking"]
+
+    - author: "Gary Halbert"
+      works:
+        - "The Gary Halbert Letter"
+        - "The Boron Letters"
+      priority: 2
+      focus: ["leads", "storytelling", "personality"]
+
+    - author: "Clayton Makepeace"
+      works:
+        - "The Total Package Newsletter"
+        - "Health Copy Archives"
+      priority: 2
+      focus: ["visceral copy", "health bullets", "emotion"]
+
+    - author: "Jim Rutz"
+      works:
+        - "Boardroom Magalogs"
+        - "Bookalogs"
+      priority: 2
+      focus: ["full_pieces", "editorial format"]
+
+    - author: "Parris Lampropoulos"
+      works:
+        - "Bottom Line Health controls"
+        - "Boardroom controls"
+      priority: 2
+      focus: ["bullets", "magalogs", "12-year control"]
+
+    - author: "David Deutsch"
+      works:
+        - "Boardroom controls"
+        - "Multiple control pieces"
+      priority: 2
+      focus: ["full_pieces", "multi-angle approach"]
+
+tier_2_systematizers:
+  # Teachable frameworks
+  sources:
+    - author: "Dan Kennedy"
+      works:
+        - "No B.S. Series"
+        - "Magnetic Marketing"
+      priority: 3
+      focus: ["closes", "high-ticket", "avatar questions"]
+
+    - author: "Todd Brown"
+      works:
+        - "E5 Method"
+        - "Big Marketing Idea materials"
+      priority: 3
+      focus: ["leads", "mechanisms", "differentiation"]
+
+    - author: "Stefan Georgi"
+      works:
+        - "RMBC Method"
+        - "Copy Accelerator"
+      priority: 3
+      focus: ["full_pieces", "production process"]
+
+    - author: "John Carlton"
+      works:
+        - "Simple Writing System"
+        - "Kick-Ass Copywriting Secrets"
+      priority: 3
+      focus: ["headlines", "direct style", "aggressive copy"]
+
+tier_3_specialists:
+  # Format experts
+  sources:
+    - author: "Jon Benson"
+      works:
+        - "VSL Formula"
+        - "VSL Examples Archive"
+      priority: 4
+      focus: ["full_pieces", "VSL structure"]
+
+    - author: "Ben Settle"
+      works:
+        - "Email Players Newsletter"
+        - "Daily Email Archives"
+      priority: 4
+      focus: ["emails", "infotainment", "daily format"]
+
+    - author: "Andre Chaperon"
+      works:
+        - "Autoresponder Madness"
+        - "Soap Opera Sequence Examples"
+      priority: 4
+      focus: ["emails", "sequences", "open loops"]
+
+    - author: "David Ogilvy"
+      works:
+        - "Confessions of an Advertising Man"
+        - "Ogilvy on Advertising"
+      priority: 4
+      focus: ["headlines", "premium copy", "factual approach"]

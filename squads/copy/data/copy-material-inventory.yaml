@@ -1,0 +1,1226 @@
+metadata:
+  id: copy-material-inventory
+  version: "2.0"
+  updated_at: "2026-03-10"
+  purpose: >
+    Canonical inventory for 100% of the squad copy document families. Every file
+    must be classified as active, integrate_next, or archive so the squad knows
+    what truly governs execution.
+
+status_definitions:
+  active: Material is part of current operations, runtime, workflows, tasks, agents, or specialized tooling.
+  integrate_next: Material has clear value but is not wired strongly enough into execution yet.
+  archive: Material is historical, duplicative, or too disconnected to justify active guidance.
+
+governance_rules:
+  - README, chief, runtime, workflows, and registry should expose only active materials by default.
+  - integrate_next materials belong in backlog and targeted hardening waves.
+  - archive materials must not masquerade as live operator guidance.
+  - if a file cannot justify one of the three statuses, it is governance drift.
+
+summary:
+  total_files: 210
+  active: 161
+  integrate_next: 0
+  archive: 49
+
+family_summary:
+  data:
+    total: 27
+    active: 27
+    integrate_next: 0
+    archive: 0
+  swipe:
+    total: 13
+    active: 11
+    integrate_next: 0
+    archive: 2
+  reference:
+    total: 3
+    active: 3
+    integrate_next: 0
+    archive: 0
+  frameworks:
+    total: 60
+    active: 60
+    integrate_next: 0
+    archive: 0
+  phrases:
+    total: 6
+    active: 6
+    integrate_next: 0
+    archive: 0
+  voice:
+    total: 6
+    active: 6
+    integrate_next: 0
+    archive: 0
+  authority:
+    total: 6
+    active: 6
+    integrate_next: 0
+    archive: 0
+  docs_root:
+    total: 3
+    active: 1
+    integrate_next: 0
+    archive: 2
+  docs_research:
+    total: 37
+    active: 37
+    integrate_next: 0
+    archive: 0
+  docs_frameworks:
+    total: 4
+    active: 4
+    integrate_next: 0
+    archive: 0
+  projects:
+    total: 43
+    active: 0
+    integrate_next: 0
+    archive: 43
+  archive:
+    total: 2
+    active: 0
+    integrate_next: 0
+    archive: 2
+
+structural_gaps:
+  - area: swipe
+    gap: swipe.sh initializes a broader category set than the committed swipe corpus currently populates.
+    impact: Tooling contract is broader than the library actually available to operators.
+  - area: swipe
+    gap: Swipe assets are still mostly isolated behind swipe.sh and not first-class inputs to the mainline copy tasks.
+    impact: Good material exists, but much of it is not leveraged by the core execution path.
+  - area: docs_frameworks
+    gap: Some framework docs are still tooling-oriented summaries rather than canonical operator guidance.
+    impact: They should remain supporting references, not primary workflow truth.
+  - area: projects
+    gap: Most project artifacts are design-memory or migration residue, not runtime knowledge.
+    impact: Useful historically, but dangerous if confused with current truth.
+
+recent_activation_waves:
+  - path: swipe/email/hammer-them-examples.md
+    activated_in:
+      - workflows/wf-5-email-marketing.yaml
+      - workflows/wf-11-ghosted-recovery.yaml
+      - tasks/create-email-sequence.md
+      - tasks/create-abandoned-cart.md
+      - tasks/create-ghosted-lead-recovery.md
+    outcome: Promoted from dormant swipe example to active follow-up and recovery benchmark.
+  - path: swipe/tactics/break-the-glass-tactics.md
+    activated_in:
+      - workflows/wf-11-ghosted-recovery.yaml
+      - tasks/create-email-sequence.md
+      - tasks/create-abandoned-cart.md
+      - tasks/create-ghosted-lead-recovery.md
+    outcome: Promoted to active recovery and reactivation support layer.
+  - path: data/plf/copy-scripts-extracted.yaml
+    activated_in:
+      - tasks/plf/create-plc-sequence.md
+      - tasks/plf/evaluate-cpl.md
+      - workflows/wf-evaluate-cpl.yaml
+      - workflows/wf-evaluate-cpls-batch.yaml
+    outcome: Promoted to active PLF scripting support layer.
+  - path: data/plf/plc-criteria-extracted.yaml
+    activated_in:
+      - tasks/plf/create-plc-sequence.md
+      - tasks/plf/evaluate-cpl.md
+      - workflows/wf-evaluate-cpl.yaml
+      - workflows/wf-evaluate-cpls-batch.yaml
+    outcome: Promoted to active PLC evaluation support layer.
+  - path: data/boron-letters-collier-dna.yaml
+    activated_in:
+      - tasks/create-sales-page.md
+      - tasks/create-magalog.md
+      - workflows/wf-7-direct-mail.yaml
+      - agents/gary-halbert.md
+    outcome: Promoted to active direct-mail and letter-DNA support.
+  - path: frameworks/halbert/*
+    activated_in:
+      - agents/gary-halbert.md
+      - phrases/halbert.yaml
+      - voice/halbert.yaml
+      - authority/halbert.yaml
+    outcome: Halbert support family now mirrors the live support-bundle pattern used by other agents.
+
+inventory:
+  data:
+    - path: data/boron-letters-collier-dna.yaml
+      status: active
+      owner: direct-response-layer
+      usage_mode: direct-mail-support
+      note: Wired into sales-page, magalog, direct-mail workflow, and Halbert support surfaces.
+    - path: data/builder-delivery-guidelines.md
+      status: active
+      owner: copy-chief
+      usage_mode: delivery-contract
+      note: Canonical copy-to-builder handoff guidance.
+    - path: data/copy-brief-protocol.md
+      status: active
+      owner: copy-chief
+      usage_mode: governance
+      note: Canonical pre-write loading contract.
+    - path: data/copy-craft-rules.md
+      status: active
+      owner: copy-chief
+      usage_mode: guardrail
+      note: Core craft and specificity rules.
+    - path: data/copy-material-inventory.yaml
+      status: active
+      owner: copy-chief
+      usage_mode: governance
+      note: Canonical inventory for all document families.
+    - path: data/copy-operating-model.md
+      status: active
+      owner: copy-chief
+      usage_mode: governance
+      note: Canonical stage and source-of-truth model.
+    - path: data/copy-request-routing.md
+      status: active
+      owner: copy-chief
+      usage_mode: intake
+      note: Request routing and asset path guidance.
+    - path: data/copywriting-kb.md
+      status: active
+      owner: multiple-agents
+      usage_mode: shared-knowledge
+      note: Broad foundational KB used across multiple agents.
+    - path: data/expert-clone-mapping.yaml
+      status: active
+      owner: voice-clone-flow
+      usage_mode: specialized-runtime
+      note: Active in MMOS voice loading and voice-clone workflow surfaces.
+    - path: data/future-regret-close-technique.md
+      status: active
+      owner: copy-chief
+      usage_mode: close-reference
+      note: Close-layer reference for CTA blocks.
+    - path: data/high-ticket-ads-framework.md
+      status: active
+      owner: copy-chief
+      usage_mode: specialized-framework
+      note: Application-first high-ticket ad guidance.
+    - path: data/jeff-walker-plf-extraction.md
+      status: active
+      owner: jeff-walker
+      usage_mode: specialized-framework
+      note: Main PLF extraction surface used by chief and Jeff Walker layers.
+    - path: data/mental-trigger-reference.md
+      status: active
+      owner: copy-chief
+      usage_mode: persuasion-reference
+      note: Lightweight reference complementary to Sugarman.
+    - path: data/page-section-contract.md
+      status: active
+      owner: copy-chief
+      usage_mode: delivery-contract
+      note: Canonical page-ready section contract.
+    - path: data/plf/avatar-framework-kb.yaml
+      status: active
+      owner: plf
+      usage_mode: task-input
+      note: Used by PLF avatar and pre-prelaunch tasks.
+    - path: data/plf/content-formats-kb.yaml
+      status: active
+      owner: plf
+      usage_mode: task-input
+      note: Used by PLF launch-format tasks.
+    - path: data/plf/contingency-framework-kb.yaml
+      status: active
+      owner: plf
+      usage_mode: task-input
+      note: Used by contingency and failed-launch tasks.
+    - path: data/plf/copy-scripts-extracted.yaml
+      status: active
+      owner: plf
+      usage_mode: task-input
+      note: Wired into PLC creation and CPL evaluation surfaces.
+    - path: data/plf/copy-swipes-kb.yaml
+      status: active
+      owner: plf
+      usage_mode: task-input
+      note: Used across PLF sequence-building tasks.
+    - path: data/plf/email-benchmarks-kb.yaml
+      status: active
+      owner: plf
+      usage_mode: task-input
+      note: Used across PLF email and launch sequencing tasks.
+    - path: data/plf/launch-budget-kb.yaml
+      status: active
+      owner: plf
+      usage_mode: task-input
+      note: Supports launch planning and paid traffic assumptions.
+    - path: data/plf/mental-triggers-kb.yaml
+      status: active
+      owner: plf
+      usage_mode: task-input
+      note: Used for trigger mapping and PLF script design.
+    - path: data/plf/objection-database.yaml
+      status: active
+      owner: plf
+      usage_mode: task-input
+      note: Used in stack and case-study objection handling.
+    - path: data/plf/platform-comparison-kb.yaml
+      status: active
+      owner: plf
+      usage_mode: task-input
+      note: Used by channel and launch-format planning tasks.
+    - path: data/plf/plc-criteria-extracted.yaml
+      status: active
+      owner: plf
+      usage_mode: task-input
+      note: Wired into PLC creation and CPL evaluation surfaces.
+    - path: data/plf/timeline-reference-kb.yaml
+      status: active
+      owner: plf
+      usage_mode: task-input
+      note: Used across launch timeline planning tasks.
+    - path: data/premium-positioning-guardrails.md
+      status: active
+      owner: copy-chief
+      usage_mode: guardrail
+      note: Required before FINAL promotion of premium assets.
+
+  swipe:
+    - path: swipe/_meta/swipe-state.json
+      status: active
+      owner: swipe-tooling
+      usage_mode: tooling-state
+      note: Operational state for swipe.sh.
+    - path: swipe/bullets/_index.yaml
+      status: active
+      owner: swipe-tooling
+      usage_mode: tooling-index
+      note: Category index used by swipe.sh.
+    - path: swipe/closes/_index.yaml
+      status: active
+      owner: swipe-tooling
+      usage_mode: tooling-index
+      note: Category index used by swipe.sh.
+    - path: swipe/email/hammer-them-examples.md
+      status: active
+      owner: email-workflows
+      usage_mode: benchmark-bank
+      note: Wired into email sequence, abandoned-cart, ghosted recovery, and email workflow surfaces.
+    - path: swipe/emails/_index.yaml
+      status: active
+      owner: swipe-tooling
+      usage_mode: tooling-index
+      note: Category index used by swipe.sh.
+    - path: swipe/full_pieces/_index.yaml
+      status: active
+      owner: swipe-tooling
+      usage_mode: tooling-index
+      note: Category index used by swipe.sh.
+    - path: swipe/headlines/_index.yaml
+      status: active
+      owner: swipe-tooling
+      usage_mode: tooling-index
+      note: Category index used by swipe.sh.
+    - path: swipe/headlines/headlines_batch_1.yaml
+      status: active
+      owner: headline-layer
+      usage_mode: benchmark-bank
+      note: Now wired into headline, hook, and copysearch tasks.
+    - path: swipe/leads/_index.yaml
+      status: active
+      owner: swipe-tooling
+      usage_mode: tooling-index
+      note: Category index used by swipe.sh.
+    - path: swipe/logs/extract-headlines-20260123.log
+      status: archive
+      owner: none
+      usage_mode: historical-log
+      note: Historical swipe extraction log retained for auditability, not live guidance.
+    - path: swipe/sources/_sources.yaml
+      status: archive
+      owner: none
+      usage_mode: dormant-source-registry
+      note: Curation helper with no meaningful runtime or operator linkage today.
+    - path: swipe/tactics/break-the-glass-tactics.md
+      status: active
+      owner: recovery-workflows
+      usage_mode: benchmark-bank
+      note: Wired into recovery tasks and reference workflows as an active reactivation benchmark.
+    - path: swipe/transitions/_index.yaml
+      status: active
+      owner: swipe-tooling
+      usage_mode: tooling-index
+      note: Category index used by swipe.sh.
+
+  reference:
+    - path: reference/copysearch-anti-hallucination.md
+      status: active
+      owner: copysearch
+      usage_mode: task-reference
+      note: Active copysearch reference.
+    - path: reference/copysearch-quick-reference.md
+      status: active
+      owner: copysearch
+      usage_mode: task-reference
+      note: Active copysearch reference.
+    - path: reference/copysearch-tool-stack.md
+      status: active
+      owner: copysearch
+      usage_mode: task-reference
+      note: Active copysearch reference.
+
+  frameworks:
+    - path: frameworks/bencivenga/12-marketing-maxims.yaml
+      status: active
+      owner: gary-bencivenga
+      usage_mode: agent-support
+      note: Referenced via Bencivenga agent support stack.
+    - path: frameworks/bencivenga/29-marketing-bullets.yaml
+      status: active
+      owner: gary-bencivenga
+      usage_mode: agent-support
+      note: Referenced via Bencivenga agent support stack.
+    - path: frameworks/bencivenga/7x-research.yaml
+      status: active
+      owner: gary-bencivenga
+      usage_mode: agent-support
+      note: Referenced via Bencivenga agent support stack.
+    - path: frameworks/bencivenga/80-20-rule.yaml
+      status: active
+      owner: gary-bencivenga
+      usage_mode: agent-support
+      note: Referenced via Bencivenga agent support stack.
+    - path: frameworks/bencivenga/ad-a-day.yaml
+      status: active
+      owner: gary-bencivenga
+      usage_mode: agent-support
+      note: Referenced via Bencivenga agent support stack.
+    - path: frameworks/bencivenga/credo-technique.yaml
+      status: active
+      owner: gary-bencivenga
+      usage_mode: agent-support
+      note: Referenced via Bencivenga agent support stack.
+    - path: frameworks/bencivenga/fascinations.yaml
+      status: active
+      owner: gary-bencivenga
+      usage_mode: agent-support
+      note: Referenced via Bencivenga agent support stack.
+    - path: frameworks/bencivenga/gifted-product.yaml
+      status: active
+      owner: gary-bencivenga
+      usage_mode: agent-support
+      note: Referenced via Bencivenga agent support stack.
+    - path: frameworks/bencivenga/persuasion-equation.yaml
+      status: active
+      owner: gary-bencivenga
+      usage_mode: agent-support
+      note: Referenced via Bencivenga agent support stack.
+    - path: frameworks/bencivenga/proof-elements.yaml
+      status: active
+      owner: gary-bencivenga
+      usage_mode: agent-support
+      note: Referenced via Bencivenga agent support stack.
+    - path: frameworks/bencivenga/three-questions.yaml
+      status: active
+      owner: gary-bencivenga
+      usage_mode: agent-support
+      note: Referenced via Bencivenga agent support stack.
+    - path: frameworks/bencivenga/two-step-selling.yaml
+      status: active
+      owner: gary-bencivenga
+      usage_mode: agent-support
+      note: Referenced via Bencivenga agent support stack.
+
+    - path: frameworks/halbert/a-pile-b-pile.yaml
+      status: active
+      owner: gary-halbert
+      usage_mode: agent-support
+      note: Referenced via the Halbert support stack.
+    - path: frameworks/halbert/boron-letters.yaml
+      status: active
+      owner: gary-halbert
+      usage_mode: agent-support
+      note: Referenced via the Halbert support stack.
+    - path: frameworks/halbert/bullet-writing.yaml
+      status: active
+      owner: gary-halbert
+      usage_mode: agent-support
+      note: Referenced via the Halbert support stack.
+    - path: frameworks/halbert/halbert-aida.yaml
+      status: active
+      owner: gary-halbert
+      usage_mode: agent-support
+      note: Referenced via the Halbert support stack.
+    - path: frameworks/halbert/halbert-test.yaml
+      status: active
+      owner: gary-halbert
+      usage_mode: agent-support
+      note: Referenced via the Halbert support stack.
+    - path: frameworks/halbert/headline-formulas.yaml
+      status: active
+      owner: gary-halbert
+      usage_mode: agent-support
+      note: Referenced via the Halbert support stack.
+    - path: frameworks/halbert/sales-letter-structure.yaml
+      status: active
+      owner: gary-halbert
+      usage_mode: agent-support
+      note: Referenced via the Halbert support stack.
+    - path: frameworks/halbert/starving-crowd.yaml
+      status: active
+      owner: gary-halbert
+      usage_mode: agent-support
+      note: Referenced via the Halbert support stack.
+    - path: frameworks/halbert/swipe-file-methodology.yaml
+      status: active
+      owner: gary-halbert
+      usage_mode: agent-support
+      note: Referenced via the Halbert support stack.
+    - path: frameworks/halbert/writing-process.yaml
+      status: active
+      owner: gary-halbert
+      usage_mode: agent-support
+      note: Referenced via the Halbert support stack.
+
+    - path: frameworks/kennedy/10-rules.yaml
+      status: active
+      owner: dan-kennedy
+      usage_mode: agent-support
+      note: Referenced via Kennedy agent support stack.
+    - path: frameworks/kennedy/3ms-triangle.yaml
+      status: active
+      owner: dan-kennedy
+      usage_mode: agent-support
+      note: Referenced via Kennedy agent support stack.
+    - path: frameworks/kennedy/6-step-sales-process.yaml
+      status: active
+      owner: dan-kennedy
+      usage_mode: agent-support
+      note: Referenced via Kennedy agent support stack.
+    - path: frameworks/kennedy/guarantee-architecture.yaml
+      status: active
+      owner: dan-kennedy
+      usage_mode: agent-support
+      note: Referenced via Kennedy agent support stack.
+    - path: frameworks/kennedy/magnetic-marketing.yaml
+      status: active
+      owner: dan-kennedy
+      usage_mode: agent-support
+      note: Referenced via Kennedy agent support stack.
+    - path: frameworks/kennedy/market-selection.yaml
+      status: active
+      owner: dan-kennedy
+      usage_mode: agent-support
+      note: Referenced via Kennedy agent support stack.
+    - path: frameworks/kennedy/pas.yaml
+      status: active
+      owner: dan-kennedy
+      usage_mode: agent-support
+      note: Referenced via Kennedy agent support stack.
+    - path: frameworks/kennedy/takeaway-selling.yaml
+      status: active
+      owner: dan-kennedy
+      usage_mode: agent-support
+      note: Referenced via Kennedy agent support stack.
+    - path: frameworks/kennedy/ultimate-sales-letter.yaml
+      status: active
+      owner: dan-kennedy
+      usage_mode: agent-support
+      note: Referenced via Kennedy agent support stack.
+    - path: frameworks/kennedy/urgency-engineering.yaml
+      status: active
+      owner: dan-kennedy
+      usage_mode: agent-support
+      note: Referenced via Kennedy agent support stack.
+
+    - path: frameworks/makepeace/16-dominant-emotions.yaml
+      status: active
+      owner: clayton-makepeace
+      usage_mode: agent-support
+      note: Referenced via Makepeace agent support stack.
+    - path: frameworks/makepeace/21-fascination-bullets.yaml
+      status: active
+      owner: clayton-makepeace
+      usage_mode: agent-support
+      note: Referenced via Makepeace agent support stack.
+    - path: frameworks/makepeace/dimensionalized-benefits.yaml
+      status: active
+      owner: clayton-makepeace
+      usage_mode: agent-support
+      note: Referenced via Makepeace agent support stack.
+    - path: frameworks/makepeace/dominant-emotion-methodology.yaml
+      status: active
+      owner: clayton-makepeace
+      usage_mode: agent-support
+      note: Referenced via Makepeace agent support stack.
+    - path: frameworks/makepeace/niche-specializations.yaml
+      status: active
+      owner: clayton-makepeace
+      usage_mode: agent-support
+      note: Referenced via Makepeace agent support stack.
+    - path: frameworks/makepeace/pain-agitation-system.yaml
+      status: active
+      owner: clayton-makepeace
+      usage_mode: agent-support
+      note: Referenced via Makepeace agent support stack.
+    - path: frameworks/makepeace/sales-letter-outline.yaml
+      status: active
+      owner: clayton-makepeace
+      usage_mode: agent-support
+      note: Referenced via Makepeace agent support stack.
+    - path: frameworks/makepeace/visceral-copy-transformation.yaml
+      status: active
+      owner: clayton-makepeace
+      usage_mode: agent-support
+      note: Referenced via Makepeace agent support stack.
+
+    - path: frameworks/schwartz/38-headline-techniques.yaml
+      status: active
+      owner: eugene-schwartz
+      usage_mode: agent-support
+      note: Referenced via Schwartz agent support stack.
+    - path: frameworks/schwartz/copy-assembly-method.yaml
+      status: active
+      owner: eugene-schwartz
+      usage_mode: agent-support
+      note: Referenced via Schwartz agent support stack.
+    - path: frameworks/schwartz/copy-intensification.yaml
+      status: active
+      owner: eugene-schwartz
+      usage_mode: agent-support
+      note: Referenced via Schwartz agent support stack.
+    - path: frameworks/schwartz/five-levels-of-awareness.yaml
+      status: active
+      owner: eugene-schwartz
+      usage_mode: agent-support
+      note: Referenced via Schwartz agent support stack.
+    - path: frameworks/schwartz/five-stages-of-sophistication.yaml
+      status: active
+      owner: eugene-schwartz
+      usage_mode: agent-support
+      note: Referenced via Schwartz agent support stack.
+    - path: frameworks/schwartz/graduation.yaml
+      status: active
+      owner: eugene-schwartz
+      usage_mode: agent-support
+      note: Referenced via Schwartz agent support stack.
+    - path: frameworks/schwartz/mass-desire-channeling.yaml
+      status: active
+      owner: eugene-schwartz
+      usage_mode: agent-support
+      note: Referenced via Schwartz agent support stack.
+    - path: frameworks/schwartz/method-33-33.yaml
+      status: active
+      owner: eugene-schwartz
+      usage_mode: agent-support
+      note: Referenced via Schwartz agent support stack.
+    - path: frameworks/schwartz/sales-letter-architecture.yaml
+      status: active
+      owner: eugene-schwartz
+      usage_mode: agent-support
+      note: Referenced via Schwartz agent support stack.
+    - path: frameworks/schwartz/three-brain-writing.yaml
+      status: active
+      owner: eugene-schwartz
+      usage_mode: agent-support
+      note: Referenced via Schwartz agent support stack.
+
+    - path: frameworks/sugarman/30-triggers.yaml
+      status: active
+      owner: joe-sugarman
+      usage_mode: agent-support
+      note: Referenced via Sugarman agent support stack.
+    - path: frameworks/sugarman/conversational-tone.yaml
+      status: active
+      owner: joe-sugarman
+      usage_mode: agent-support
+      note: Referenced via Sugarman agent support stack.
+    - path: frameworks/sugarman/first-sentence.yaml
+      status: active
+      owner: joe-sugarman
+      usage_mode: agent-support
+      note: Referenced via Sugarman agent support stack.
+    - path: frameworks/sugarman/graphic-elements.yaml
+      status: active
+      owner: joe-sugarman
+      usage_mode: agent-support
+      note: Referenced via Sugarman agent support stack.
+    - path: frameworks/sugarman/honesty-framework.yaml
+      status: active
+      owner: joe-sugarman
+      usage_mode: agent-support
+      note: Referenced via Sugarman agent support stack.
+    - path: frameworks/sugarman/incubation-process.yaml
+      status: active
+      owner: joe-sugarman
+      usage_mode: agent-support
+      note: Referenced via Sugarman agent support stack.
+    - path: frameworks/sugarman/infomercial-formula.yaml
+      status: active
+      owner: joe-sugarman
+      usage_mode: agent-support
+      note: Referenced via Sugarman agent support stack.
+    - path: frameworks/sugarman/seeds-of-curiosity.yaml
+      status: active
+      owner: joe-sugarman
+      usage_mode: agent-support
+      note: Referenced via Sugarman agent support stack.
+    - path: frameworks/sugarman/slippery-slide.yaml
+      status: active
+      owner: joe-sugarman
+      usage_mode: agent-support
+      note: Referenced via Sugarman agent support stack.
+    - path: frameworks/sugarman/story-structure.yaml
+      status: active
+      owner: joe-sugarman
+      usage_mode: agent-support
+      note: Referenced via Sugarman agent support stack.
+
+  phrases:
+    - path: phrases/bencivenga.yaml
+      status: active
+      owner: gary-bencivenga
+      usage_mode: agent-support
+      note: Live phrase support for the Bencivenga agent.
+    - path: phrases/halbert.yaml
+      status: active
+      owner: gary-halbert
+      usage_mode: agent-support
+      note: Live phrase support for the Halbert agent.
+    - path: phrases/kennedy.yaml
+      status: active
+      owner: dan-kennedy
+      usage_mode: agent-support
+      note: Live phrase support for the Kennedy agent.
+    - path: phrases/makepeace.yaml
+      status: active
+      owner: clayton-makepeace
+      usage_mode: agent-support
+      note: Live phrase support for the Makepeace agent.
+    - path: phrases/schwartz.yaml
+      status: active
+      owner: eugene-schwartz
+      usage_mode: agent-support
+      note: Live phrase support for the Schwartz agent.
+    - path: phrases/sugarman.yaml
+      status: active
+      owner: joe-sugarman
+      usage_mode: agent-support
+      note: Live phrase support for the Sugarman agent.
+
+  voice:
+    - path: voice/bencivenga.yaml
+      status: active
+      owner: gary-bencivenga
+      usage_mode: agent-support
+      note: Live voice support for the Bencivenga agent.
+    - path: voice/halbert.yaml
+      status: active
+      owner: gary-halbert
+      usage_mode: agent-support
+      note: Live voice support for the Halbert agent.
+    - path: voice/kennedy.yaml
+      status: active
+      owner: dan-kennedy
+      usage_mode: agent-support
+      note: Live voice support for the Kennedy agent.
+    - path: voice/makepeace.yaml
+      status: active
+      owner: clayton-makepeace
+      usage_mode: agent-support
+      note: Live voice support for the Makepeace agent.
+    - path: voice/schwartz.yaml
+      status: active
+      owner: eugene-schwartz
+      usage_mode: agent-support
+      note: Live voice support for the Schwartz agent.
+    - path: voice/sugarman.yaml
+      status: active
+      owner: joe-sugarman
+      usage_mode: agent-support
+      note: Live voice support for the Sugarman agent.
+
+  authority:
+    - path: authority/bencivenga.yaml
+      status: active
+      owner: gary-bencivenga
+      usage_mode: agent-support
+      note: Live authority support for the Bencivenga agent.
+    - path: authority/halbert.yaml
+      status: active
+      owner: gary-halbert
+      usage_mode: agent-support
+      note: Live authority support for the Halbert agent.
+    - path: authority/kennedy.yaml
+      status: active
+      owner: dan-kennedy
+      usage_mode: agent-support
+      note: Live authority support for the Kennedy agent.
+    - path: authority/makepeace.yaml
+      status: active
+      owner: clayton-makepeace
+      usage_mode: agent-support
+      note: Live authority support for the Makepeace agent.
+    - path: authority/schwartz.yaml
+      status: active
+      owner: eugene-schwartz
+      usage_mode: agent-support
+      note: Live authority support for the Schwartz agent.
+    - path: authority/sugarman.yaml
+      status: active
+      owner: joe-sugarman
+      usage_mode: agent-support
+      note: Live authority support for the Sugarman agent.
+
+  docs_root:
+    - path: docs/MINDS-ENRICHMENT-REPORT.md
+      status: archive
+      owner: none
+      usage_mode: historical-reference
+      note: Historical enrichment report retained for archaeology, not current operator guidance.
+    - path: docs/SOURCE_REFERENCES_INDEX.md
+      status: archive
+      owner: none
+      usage_mode: historical-reference
+      note: Historical source index retained for provenance review, not current runtime truth.
+    - path: docs/distinctiveness-metrics.md
+      status: active
+      owner: copy-chief
+      usage_mode: quality-reference
+      note: Live distinctiveness rubric referenced by active quality checklists.
+
+  docs_research:
+    - path: docs/research/abandoned-cart-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `abandoned-cart` runtime surfaces.
+    - path: docs/research/ad-copy-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `ad-copy` runtime surfaces.
+    - path: docs/research/ad-script-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `ad-script` runtime surfaces.
+    - path: docs/research/authority-arsenal-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `authority-arsenal` runtime surfaces.
+    - path: docs/research/avatar-research-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `avatar-research` runtime surfaces.
+    - path: docs/research/book-launch-system-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `book-launch-system-research` runtime surfaces.
+    - path: docs/research/bullets-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `bullets` runtime surfaces.
+    - path: docs/research/close-script-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `close-script` runtime surfaces.
+    - path: docs/research/cold-email-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `cold-email` runtime surfaces.
+    - path: docs/research/communication-dna-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `communication-dna` runtime surfaces.
+    - path: docs/research/copy-blending-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `copy-blending` runtime surfaces.
+    - path: docs/research/copy-debate-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `copy-debate` runtime surfaces.
+    - path: docs/research/copysearch-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `copysearch` runtime surfaces.
+    - path: docs/research/copywriter-agent-creation-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `copywriter-agent-creation` runtime surfaces.
+    - path: docs/research/downsell-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `downsell` runtime surfaces.
+    - path: docs/research/email-sequence-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `email-sequence` runtime surfaces.
+    - path: docs/research/evaluate-offer-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `evaluate-offer` runtime surfaces.
+    - path: docs/research/framework-extraction-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `framework-extraction` runtime surfaces.
+    - path: docs/research/headline-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `headline` runtime surfaces.
+    - path: docs/research/landing-page-audit-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `landing-page-audit` runtime surfaces.
+    - path: docs/research/landing-page-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `landing-page` runtime surfaces.
+    - path: docs/research/launch-emails-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `launch-emails` runtime surfaces.
+    - path: docs/research/lead-magnet-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `lead-magnet` runtime surfaces.
+    - path: docs/research/native-ads-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `native-ads` runtime surfaces.
+    - path: docs/research/newsletter-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `newsletter` runtime surfaces.
+    - path: docs/research/objection-algorithms-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `objection-algorithms` runtime surfaces.
+    - path: docs/research/offer-creation-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `offer-creation` runtime surfaces.
+    - path: docs/research/offer-evaluation-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `offer-evaluation` runtime surfaces.
+    - path: docs/research/order-bump-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `order-bump` runtime surfaces.
+    - path: docs/research/sales-page-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `sales-page` runtime surfaces.
+    - path: docs/research/signature-phrases-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `signature-phrases` runtime surfaces.
+    - path: docs/research/thank-you-page-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `thank-you-page` runtime surfaces.
+    - path: docs/research/upsell-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `upsell` runtime surfaces.
+    - path: docs/research/video-hook-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `video-hook` runtime surfaces.
+    - path: docs/research/vsl-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `vsl` runtime surfaces.
+    - path: docs/research/webinar-script-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `webinar-script` runtime surfaces.
+    - path: docs/research/youtube-ads-methodology-research.md
+      status: active
+      owner: research-first
+      usage_mode: task-methodology
+      note: Active methodology research for `youtube-ads` runtime surfaces.
+
+  docs_frameworks:
+    - path: docs/frameworks/02-TIER0-FOUNDATION-AI-OPTIMIZED.md
+      status: active
+      owner: swipe-tooling
+      usage_mode: tooling-reference
+      note: Used by swipe.sh as a tooling reference layer, not as primary operator truth.
+    - path: docs/frameworks/03-TIER1-MASTERS-AI-OPTIMIZED.md
+      status: active
+      owner: swipe-tooling
+      usage_mode: tooling-reference
+      note: Used by swipe.sh as a tooling reference layer, not as primary operator truth.
+    - path: docs/frameworks/05-TIER3-SPECIALISTS-AI-OPTIMIZED.md
+      status: active
+      owner: swipe-tooling
+      usage_mode: tooling-reference
+      note: Used by swipe.sh as a tooling reference layer, not as primary operator truth.
+    - path: docs/frameworks/07-WORKFLOWS-ENHANCED.md
+      status: active
+      owner: workflow-docs
+      usage_mode: supporting-reference
+      note: Historical workflow reference still used in active documentation and one specialized workflow surface.
+
+  projects:
+    - path: projects/README.md
+      status: archive
+      owner: none
+      usage_mode: historical-workbench
+      note: Legacy workbench documentation preserved for archaeology, not runtime truth.
+    - path: projects/copy-v2-enrichment/prd.json
+      status: archive
+      owner: none
+      usage_mode: historical-workbench
+      note: Historical workbench artifact retained for archaeology, not current runtime truth.
+    - path: projects/copy-v2-enrichment/prompt.md
+      status: archive
+      owner: none
+      usage_mode: historical-workbench
+      note: Historical workbench artifact retained for archaeology, not current runtime truth.
+    - path: projects/copy-v2-upgrade/local-sources-map.yaml
+      status: archive
+      owner: none
+      usage_mode: historical-workbench
+      note: Historical workbench artifact retained for archaeology, not current runtime truth.
+    - path: projects/copy-v2-upgrade/monitor.sh
+      status: archive
+      owner: none
+      usage_mode: historical-workbench
+      note: Historical workbench artifact retained for archaeology, not current runtime truth.
+    - path: projects/copy-v2-upgrade/prd.json
+      status: archive
+      owner: none
+      usage_mode: historical-workbench
+      note: Historical workbench artifact retained for archaeology, not current runtime truth.
+    - path: projects/copy-v2-upgrade/progress.txt
+      status: archive
+      owner: none
+      usage_mode: historical-design-memory
+      note: Historical progress artifact retained for archaeology, not runtime truth.
+    - path: projects/copy-v2-upgrade/prompt.md
+      status: archive
+      owner: none
+      usage_mode: historical-workbench
+      note: Historical workbench artifact retained for archaeology, not current runtime truth.
+    - path: projects/copy-v2-upgrade/run-swarm.sh
+      status: archive
+      owner: none
+      usage_mode: historical-workbench
+      note: Historical workbench artifact retained for archaeology, not current runtime truth.
+    - path: projects/copy-v2-upgrade/sync-to-supabase.mjs
+      status: archive
+      owner: none
+      usage_mode: historical-workbench
+      note: Historical workbench artifact retained for archaeology, not current runtime truth.
+    - path: projects/copy-v2-upgrade/sync-to-supabase.ts
+      status: archive
+      owner: none
+      usage_mode: historical-workbench
+      note: Historical workbench artifact retained for archaeology, not current runtime truth.
+    - path: projects/copy-workflows-yolo/handoff.md
+      status: archive
+      owner: none
+      usage_mode: historical-design-memory
+      note: Historical handoff retained for archaeology, not active guidance.
+    - path: projects/copy-workflows-yolo/logs/US-001.log
+      status: archive
+      owner: none
+      usage_mode: historical-log
+      note: Historical YOLO execution log retained for auditability, not live guidance.
+    - path: projects/copy-workflows-yolo/logs/US-002.log
+      status: archive
+      owner: none
+      usage_mode: historical-log
+      note: Historical YOLO execution log retained for auditability, not live guidance.
+    - path: projects/copy-workflows-yolo/logs/US-003.log
+      status: archive
+      owner: none
+      usage_mode: historical-log
+      note: Historical YOLO execution log retained for auditability, not live guidance.
+    - path: projects/copy-workflows-yolo/logs/US-004.log
+      status: archive
+      owner: none
+      usage_mode: historical-log
+      note: Historical YOLO execution log retained for auditability, not live guidance.
+    - path: projects/copy-workflows-yolo/logs/US-005.log
+      status: archive
+      owner: none
+      usage_mode: historical-log
+      note: Historical YOLO execution log retained for auditability, not live guidance.
+    - path: projects/copy-workflows-yolo/logs/US-006.log
+      status: archive
+      owner: none
+      usage_mode: historical-log
+      note: Historical YOLO execution log retained for auditability, not live guidance.
+    - path: projects/copy-workflows-yolo/logs/US-007.log
+      status: archive
+      owner: none
+      usage_mode: historical-log
+      note: Historical YOLO execution log retained for auditability, not live guidance.
+    - path: projects/copy-workflows-yolo/logs/US-008.log
+      status: archive
+      owner: none
+      usage_mode: historical-log
+      note: Historical YOLO execution log retained for auditability, not live guidance.
+    - path: projects/copy-workflows-yolo/logs/US-009.log
+      status: archive
+      owner: none
+      usage_mode: historical-log
+      note: Historical YOLO execution log retained for auditability, not live guidance.
+    - path: projects/copy-workflows-yolo/logs/US-010.log
+      status: archive
+      owner: none
+      usage_mode: historical-log
+      note: Historical YOLO execution log retained for auditability, not live guidance.
+    - path: projects/copy-workflows-yolo/logs/US-011.log
+      status: archive
+      owner: none
+      usage_mode: historical-log
+      note: Historical YOLO execution log retained for auditability, not live guidance.
+    - path: projects/copy-workflows-yolo/logs/US-012.log
+      status: archive
+      owner: none
+      usage_mode: historical-log
+      note: Historical YOLO execution log retained for auditability, not live guidance.
+    - path: projects/copy-workflows-yolo/logs/US-013.log
+      status: archive
+      owner: none
+      usage_mode: historical-log
+      note: Historical YOLO execution log retained for auditability, not live guidance.
+    - path: projects/copy-workflows-yolo/logs/US-014.log
+      status: archive
+      owner: none
+      usage_mode: historical-log
+      note: Historical YOLO execution log retained for auditability, not live guidance.
+    - path: projects/copy-workflows-yolo/logs/US-015.log
+      status: archive
+      owner: none
+      usage_mode: historical-log
+      note: Historical YOLO execution log retained for auditability, not live guidance.
+    - path: projects/copy-workflows-yolo/logs/US-016.log
+      status: archive
+      owner: none
+      usage_mode: historical-log
+      note: Historical YOLO execution log retained for auditability, not live guidance.
+    - path: projects/copy-workflows-yolo/logs/US-017.log
+      status: archive
+      owner: none
+      usage_mode: historical-log
+      note: Historical YOLO execution log retained for auditability, not live guidance.
+    - path: projects/copy-workflows-yolo/logs/US-018.log
+      status: archive
+      owner: none
+      usage_mode: historical-log
+      note: Historical YOLO execution log retained for auditability, not live guidance.
+    - path: projects/copy-workflows-yolo/logs/US-019.log
+      status: archive
+      owner: none
+      usage_mode: historical-log
+      note: Historical YOLO execution log retained for auditability, not live guidance.
+    - path: projects/copy-workflows-yolo/logs/US-020.log
+      status: archive
+      owner: none
+      usage_mode: historical-log
+      note: Historical YOLO execution log retained for auditability, not live guidance.
+    - path: projects/copy-workflows-yolo/logs/US-021.log
+      status: archive
+      owner: none
+      usage_mode: historical-log
+      note: Historical YOLO execution log retained for auditability, not live guidance.
+    - path: projects/copy-workflows-yolo/prd.json
+      status: archive
+      owner: none
+      usage_mode: historical-workbench
+      note: Historical workbench artifact retained for archaeology, not current runtime truth.
+    - path: projects/copy-workflows-yolo/progress.txt
+      status: archive
+      owner: none
+      usage_mode: historical-design-memory
+      note: Historical progress artifact retained for archaeology, not runtime truth.
+    - path: projects/copy-workflows-yolo/prompt.md
+      status: archive
+      owner: none
+      usage_mode: historical-workbench
+      note: Historical workbench artifact retained for archaeology, not current runtime truth.
+    - path: projects/copy-workflows-yolo/test-results.md
+      status: archive
+      owner: none
+      usage_mode: historical-workbench
+      note: Historical workbench artifact retained for archaeology, not current runtime truth.
+    - path: projects/prd-dan-koe.json
+      status: archive
+      owner: none
+      usage_mode: historical-workbench
+      note: Historical workbench artifact retained for archaeology, not current runtime truth.
+    - path: projects/prd.json
+      status: archive
+      owner: none
+      usage_mode: historical-workbench
+      note: Historical workbench artifact retained for archaeology, not current runtime truth.
+    - path: projects/progress-dan-koe.txt
+      status: archive
+      owner: none
+      usage_mode: historical-workbench
+      note: Historical workbench artifact retained for archaeology, not current runtime truth.
+    - path: projects/progress.txt
+      status: archive
+      owner: none
+      usage_mode: historical-design-memory
+      note: Historical progress artifact retained for archaeology, not runtime truth.
+    - path: projects/test-e2e/copy-state.json
+      status: archive
+      owner: none
+      usage_mode: historical-workbench
+      note: Historical test state artifact, not part of the current runtime contract.
+    - path: projects/test-e2e/progress.txt
+      status: archive
+      owner: none
+      usage_mode: historical-design-memory
+      note: Historical progress artifact retained for archaeology, not runtime truth.
+
+  archive:
+    - path: archive/README.md
+      status: archive
+      owner: none
+      usage_mode: historical-reference
+      note: Correctly historical and should stay out of live guidance.
+    - path: archive/agents/ramit-sethi.md
+      status: archive
+      owner: none
+      usage_mode: historical-reference
+      note: Valid historical reference, but not part of current runtime roster.

@@ -1,0 +1,69 @@
+sop:
+  id: task-2-hour-writer
+  version: "1.0"
+  title: "2-Hour Writer System"
+  purpose: "Produce multi-platform content from single 2-hour morning block using Collect-Connect-Create-Distribute cycle"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: dan-koe
+    tier: T3
+
+  inputs:
+    - name: daily_input
+      type: list
+      required: true
+      description: "Daily reading, experience, and conversation inputs"
+    - name: core_notes
+      type: object
+      required: true
+      description: "Core Notes system for idea capture"
+
+  outputs:
+    - name: content_output
+      type: object
+      description: "Multi-platform content from single 2-hour writing block"
+
+  steps:
+    - id: step_1
+      action: collect_ideas
+      description: "Capture ideas from reading, conversations, observations — 3-10 raw ideas daily, no filtering"
+
+    - id: step_2
+      action: connect_patterns
+      description: "Find cross-domain patterns and connections — value is in connections not individual ideas"
+      critical: true
+
+    - id: step_3
+      action: create_piece
+      description: "Focused 2-hour morning block — one substantial piece from strongest connected idea"
+      time_limit_minutes: 120
+
+    - id: step_4
+      action: distribute_content
+      description: "Repurpose across platforms — NEVER recreate from scratch, extract and adapt"
+      critical: true
+      error_handling:
+        condition: "Creating separate content per platform"
+        action: "Stop and extract from single source piece instead"
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "3-10 raw ideas collected daily"
+      - "Cross-domain connections identified"
+      - "2-hour block produces one substantial piece"
+      - "Distribution adapts not recreates"
+      - "Each platform post traces to source"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies:
+    - task-core-notes
+
+  related_sops:
+    - task-content-repurposing
+    - task-weekly-writing-production
+    - task-epistemic-method

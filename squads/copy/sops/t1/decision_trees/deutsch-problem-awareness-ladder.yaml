@@ -1,0 +1,85 @@
+sop:
+  id: deutsch-problem-awareness-ladder
+  version: "1.0"
+  title: "Deutsch Problem Awareness Ladder (Agitation Calibration)"
+  purpose: >
+    Calibrate agitation level in copy based on how acutely the prospect feels their
+    problem. Ranges from 0% (acute pain) to 70% (unknown problem). Includes originality
+    gates and hypothesis testing rules.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: david-deutsch
+    tier: T1
+
+  steps:
+    - step: 1
+      name: "Classify Problem Awareness"
+      decision_point:
+        condition: "How acutely does the prospect feel their problem?"
+        branches:
+          - if: "Level 4 - Knife at Throat (acute pain, feels it NOW)"
+            action: "0% agitation. Go directly to solution."
+            next_step: 5
+          - if: "Level 3 - Arthritis (chronic, lives with it daily)"
+            action: "20% agitation. Step on the corns a little bit."
+            next_step: 5
+          - if: "Level 2 - High Blood Pressure (silent killer, knows but doesn't feel)"
+            action: "50% agitation. Reframe as urgent: ticking time bomb."
+            next_step: 5
+          - if: "Level 1 - Scrivener (problem they don't know they have)"
+            action: "70% agitation. Create awareness of problem first."
+            next_step: 5
+
+    - step: 5
+      name: "Originality Check"
+      decision_point:
+        condition: "Does the copy sound like AI or any other copywriter?"
+        branches:
+          - if: "Sounds like AI or generic copywriter"
+            action: "Autopilot detected. STOP and THINK. Rewrite with original voice."
+            terminal: true
+          - if: "Sounds original"
+            action: "Proceed to headline hypothesis check."
+            next_step: 6
+
+    - step: 6
+      name: "Headline Hypothesis Check"
+      decision_point:
+        condition: "Are headlines testing different hypotheses or just phrasing variations?"
+        branches:
+          - if: "Headlines are cosmetic variations"
+            action: "REJECT. Change the HYPOTHESIS, not the phrasing."
+            terminal: true
+          - if: "Headlines test genuinely different angles"
+            action: "Proceed with testing."
+            next_step: 7
+
+    - step: 7
+      name: "Idea Quality Evaluation"
+      decision_point:
+        condition: "Does the idea seem unconventional or terrible?"
+        branches:
+          - if: "Idea seems terrible"
+            action: "May be genius. 50% of Rutz's ideas were terrible, 50% genius. Test before rejecting."
+            terminal: true
+          - if: "Idea seems conventional"
+            action: "Proceed but consider if a bolder angle exists."
+            terminal: true
+
+  error_handling:
+    - error: "Agitated a Knife-at-Throat prospect"
+      recovery: "Remove all agitation. Lead directly with solution."
+    - error: "No agitation for Scrivener-level prospect"
+      recovery: "Add 70% agitation. Build problem awareness before presenting solution."
+    - error: "Autopilot copy passed review"
+      recovery: "Re-review with fresh eyes. Rewrite all generic-sounding sections."
+
+  quality_gate:
+    min_criteria: 4
+    checks:
+      - "Problem awareness level correctly classified (1-4)"
+      - "Agitation percentage matches awareness level"
+      - "Copy does not sound like AI or generic copywriter"
+      - "Headlines test different hypotheses, not variations"
+      - "Unconventional ideas evaluated before rejection"

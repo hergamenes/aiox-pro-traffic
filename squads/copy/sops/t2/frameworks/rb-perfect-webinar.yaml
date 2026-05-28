@@ -1,0 +1,139 @@
+sop:
+  id: rb-perfect-webinar
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Perfect Webinar Script"
+  purpose: >
+    Complete webinar script structure for selling middle and backend tier offers.
+    Systematically breaks three core false beliefs using mini Epiphany Bridge
+    stories, then transitions to a value stack close.
+  classification:
+    domain: copywriting
+    subdomain: webinar-scripts
+    complexity: advanced
+    source_agent: russell-brunson
+
+  steps:
+    - id: step_1
+      name: write_intro
+      action: apply_intro_hook
+      description: >
+        Open with hook promising '3 Secrets'. Establish authority in 30 seconds.
+        Set expectations for 60-minute presentation. Disarm skepticism.
+        Create micro-commitment to stay until end.
+      inputs:
+        - three_secrets_topics
+        - authority_credentials
+      outputs:
+        - intro_script_5min
+      validation: intro_promises_3_secrets_with_specific_outcome
+
+    - id: step_2
+      name: write_secret_1
+      action: apply_vehicle_belief_break
+      description: >
+        Address false belief about the type of solution (vehicle). Tell
+        Epiphany Bridge story showing discovery of the RIGHT vehicle.
+        Demolish old belief with evidence and story.
+      inputs:
+        - vehicle_false_belief
+        - vehicle_epiphany_story
+      outputs:
+        - secret_1_script_15min
+      validation: vehicle_belief_clearly_broken_and_replaced
+
+    - id: step_3
+      name: write_secret_2
+      action: apply_internal_belief_break
+      description: >
+        Address 'I cannot do this' false belief. Tell Epiphany Bridge story
+        of someone in prospect's exact situation succeeding. Address specific
+        internal objection (age, experience, time, talent).
+      inputs:
+        - internal_false_belief
+        - internal_epiphany_story
+      outputs:
+        - secret_2_script_15min
+      validation: internal_objection_demolished_with_proof
+
+    - id: step_4
+      name: write_secret_3
+      action: apply_external_belief_break
+      description: >
+        Address false belief about external factors (market, economy, support).
+        Tell Epiphany Bridge story destroying this objection. Show external
+        factor is irrelevant or actually an advantage.
+      inputs:
+        - external_false_belief
+        - external_epiphany_story
+      outputs:
+        - secret_3_script_15min
+      validation: external_belief_neutralized
+
+    - id: step_5
+      name: write_transition
+      action: apply_two_options_bridge
+      description: >
+        Bridge from teaching to selling using '2 options' framework.
+        Recap three secrets and belief shifts. Introduce offer as
+        logical next step.
+      inputs:
+        - three_secrets_recap
+        - offer_introduction
+      outputs:
+        - transition_script_5min
+      validation: transition_feels_natural_not_abrupt
+
+    - id: step_6
+      name: write_stack_and_close
+      action: apply_value_stack_close
+      description: >
+        Present each offer component with assigned value. Build stack slide.
+        Total value 10x price. Reveal price. Present guarantee. Add genuine
+        urgency. Deliver final CTA with enrollment instructions.
+      inputs:
+        - offer_components_with_values
+        - price_point
+        - guarantee_structure
+        - urgency_elements
+      outputs:
+        - close_script_20min
+        - stack_slide_content
+      validation: value_stack_total_exceeds_10x_price
+
+  error_handling:
+    - error: teaching_instead_of_breaking_beliefs
+      symptom: "Audience says 'great info' but does not buy"
+      resolution: "Replace education with Epiphany Bridge stories for each Secret."
+    - error: weak_transition
+      symptom: "Audience drops off when selling starts"
+      resolution: "Use the '2 options' bridge. Make offer the logical conclusion."
+    - error: no_value_anchoring
+      symptom: "Price feels expensive"
+      resolution: "Assign dollar values to each component. Total must dwarf the price."
+    - error: same_belief_type
+      symptom: "Secrets feel repetitive"
+      resolution: "Audit: S1=Vehicle, S2=Internal, S3=External. Each must be distinct."
+
+  quality_gate:
+    criteria:
+      - three_secrets_address_distinct_beliefs
+      - each_secret_uses_epiphany_bridge
+      - transition_is_natural
+      - value_stack_exceeds_10x_price
+      - urgency_is_genuine
+    min_pass: 4
+
+  outputs:
+    - type: webinar_script
+      format: timed_script
+      description: "60-90 minute presentation script with six sections"
+    - type: slide_deck_outline
+      format: outline
+      description: "Slide structure aligned to script"
+    - type: registration_copy
+      format: landing_page
+      description: "Registration page previewing the 3 Secrets"

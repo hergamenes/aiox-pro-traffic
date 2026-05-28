@@ -1,0 +1,657 @@
+# soap-opera-tmpl.yaml
+# Template para criação de Soap Opera Sequences no estilo Andre Chaperon
+
+template:
+  name: Soap Opera Sequence Template
+  id: soap-opera-tmpl
+  version: "2.0"
+  category: email_marketing
+  primary_agent: andre-chaperon
+  usage: "Usar como estrutura base para sequências de 5 emails story-driven"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  description: |
+    Template para Soap Opera Sequences (SOS) - sequências de 5 emails
+    que contam uma história envolvente enquanto constroem relacionamento
+    e convertem leitores em compradores. Baseado na metodologia de
+    Andre Chaperon (Autoresponder Madness).
+
+  principles:
+    - "Cada email é um episódio, não uma peça isolada"
+    - "Todo email (exceto o último) deve ter cliffhanger"
+    - "A história deve ser verdadeira ou claramente ilustrativa"
+    - "A oferta deve ser conclusão natural, não interrupção"
+    - "Open loops criam tensão que exige resolução"
+
+  typical_results:
+    - "$70/subscriber vs $1 industry average"
+    - "83%+ open rates"
+    - "Cold traffic to buyer conversion"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SEQUENCE PLANNING
+# ═══════════════════════════════════════════════════════════════════════════════
+
+sequence_planning:
+
+  context_template:
+    audience:
+      who: "[Descrição do avatar]"
+      pain_points:
+        - "[Dor 1]"
+        - "[Dor 2]"
+        - "[Dor 3]"
+      desires:
+        - "[Desejo 1]"
+        - "[Desejo 2]"
+        - "[Desejo 3]"
+      current_beliefs: "[O que eles acreditam atualmente]"
+      new_belief_needed: "[O que precisam acreditar para comprar]"
+
+    product:
+      name: "[Nome do produto]"
+      main_benefit: "[Principal benefício/transformação]"
+      price: "[Faixa de preço]"
+      unique_mechanism: "[O que torna diferente]"
+
+    story:
+      type: "[origin/client/discovery/industry/underdog]"
+      protagonist: "[Quem é o personagem principal]"
+      initial_situation: "[Onde a história começa]"
+      conflict: "[Qual é o problema/conflito]"
+      epiphany: "[Qual é a descoberta]"
+      transformation: "[Qual é a mudança]"
+
+  open_loops_planning:
+    loop_1:
+      opens_in: "Email 1"
+      description: "[O que fica incompleto]"
+      closes_in: "[Email onde fecha]"
+
+    loop_2:
+      opens_in: "Email 2"
+      description: "[O que fica incompleto]"
+      closes_in: "[Email onde fecha]"
+
+    loop_3:
+      opens_in: "Email 3"
+      description: "[O que fica incompleto]"
+      closes_in: "[Email onde fecha]"
+
+    loop_4:
+      opens_in: "Email 4"
+      description: "[O que fica incompleto]"
+      closes_in: "Email 5"
+
+    main_story_loop:
+      opens_in: "Email 1"
+      description: "História principal começa"
+      closes_in: "Email 5"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# EMAIL 1: SET THE STAGE
+# ═══════════════════════════════════════════════════════════════════════════════
+
+email_1:
+  name: "Set the Stage"
+  purpose: "Introduzir personagem, situação inicial e criar curiosidade"
+
+  structure:
+    subject_line:
+      max_length: 50
+      types:
+        - curiosity: "[Algo intrigante sobre o início]"
+        - story_tease: "[Hint da história por vir]"
+        - personal: "[Tom pessoal/íntimo]"
+
+    hook:
+      length: "1-2 linhas"
+      requirement: "Capturar atenção IMEDIATAMENTE"
+      examples:
+        - "Três anos atrás, eu estava [situação específica]..."
+        - "[Ação happening] quando tudo mudou..."
+        - "O email que eu nunca deveria ter enviado..."
+
+    body_sections:
+      context:
+        purpose: "Estabelecer onde/quando a história começa"
+        content: |
+          [Detalhes específicos do momento]
+          - Onde você estava
+          - O que estava fazendo
+          - Com quem (se relevante)
+
+      character_introduction:
+        purpose: "Apresentar protagonista de forma relatable"
+        content: |
+          [Tornar o personagem humano]
+          - Detalhes que criam identificação
+          - Situação inicial (status quo)
+          - Qualidades e falhas
+
+      tension_building:
+        purpose: "Criar senso de que algo vai mudar"
+        content: |
+          [Hints de conflito chegando]
+          - Pequenos sinais de problema
+          - Dúvidas surgindo
+          - "Algo não estava certo..."
+
+    cliffhanger:
+      purpose: "Garantir abertura do Email 2"
+      examples:
+        - "O que aconteceu depois mudou tudo. Mas primeiro, preciso explicar [teaser]..."
+        - "Amanhã vou te contar o que eu descobri naquele momento..."
+        - "Mal sabia eu que em [período], [teaser do conflito]..."
+
+    ps:
+      purpose: "Reforçar cliffhanger ou conectar com audiência"
+      example: "P.S. Se você já [experiência similar], o email de amanhã vai fazer muito sentido."
+
+  template: |
+    Subject: [Subject line < 50 chars]
+
+    [HOOK - 1-2 linhas que capturam atenção]
+
+    [CONTEXT - Onde/quando isso começa]
+
+    [CHARACTER - Quem é o protagonista, situação inicial]
+
+    [TENSION - Hints de que algo vai mudar]
+
+    [CLIFFHANGER - O que vai acontecer?]
+
+    [SIGN-OFF]
+
+    P.S. [Reforço ou conexão]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# EMAIL 2: HIGH DRAMA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+email_2:
+  name: "High Drama"
+  purpose: "Intensificar conflito e criar empatia através da dor"
+
+  structure:
+    subject_line:
+      focus: "Relacionado ao conflito/drama"
+      examples:
+        - "O dia em que tudo desmoronou"
+        - "Eu não conseguia dormir"
+        - "A conta que mudou tudo"
+
+    bridge:
+      purpose: "Conectar ao Email 1"
+      examples:
+        - "Ontem eu comecei a te contar sobre [recap]..."
+        - "Lembra do que eu disse ontem? Ficou pior..."
+
+    body_sections:
+      conflict_manifestation:
+        purpose: "O problema se torna real"
+        content: |
+          [O que deu errado]
+          - O momento em que o problema apareceu
+          - Como afetou o protagonista
+          - Consequências imediatas
+
+      emotional_depth:
+        purpose: "Fazer o leitor SENTIR a dor"
+        content: |
+          [Detalhes emocionais]
+          - Detalhes sensoriais
+          - Diálogo interno/externo
+          - Momentos de desespero
+
+      stakes:
+        purpose: "O que está em risco"
+        content: |
+          [Consequências de não resolver]
+          - Perdas potenciais
+          - Medos realizados
+          - "Se eu não resolvesse isso..."
+
+      failed_attempts:
+        purpose: "Mostrar que soluções comuns não funcionam"
+        content: |
+          [O que NÃO funcionou]
+          - Tentativa 1 - falhou
+          - Tentativa 2 - piorou
+          - Frustração crescente
+
+    cliffhanger:
+      purpose: "Criar esperança e curiosidade"
+      examples:
+        - "Estava pronto para desistir. Então descobri algo que mudou tudo..."
+        - "O que eu encontrei naquela noite... é algo que a maioria nunca vai saber."
+
+  template: |
+    Subject: [Drama/conflito related < 50 chars]
+
+    [BRIDGE - Conexão com Email 1]
+
+    [CONFLICT - O que deu errado, intensificado]
+
+    [EMOTIONAL DEPTH - Faça-os sentir]
+
+    [STAKES - O que estava em risco]
+
+    [FAILED ATTEMPTS - O que você tentou]
+
+    [CLIFFHANGER - Hint de virada]
+
+    [SIGN-OFF]
+
+    P.S. [Conexão emocional]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# EMAIL 3: EPIPHANY
+# ═══════════════════════════════════════════════════════════════════════════════
+
+email_3:
+  name: "Epiphany"
+  purpose: "O momento 'aha!' - a descoberta que muda tudo"
+
+  structure:
+    subject_line:
+      focus: "Relacionado à descoberta"
+      examples:
+        - "A descoberta que mudou tudo"
+        - "Por que eu estava fazendo tudo errado"
+        - "O insight de 3am"
+
+    bridge:
+      purpose: "Recap rápido do drama"
+      examples:
+        - "Eu estava no fundo do poço..."
+        - "Depois de [tentativas], eu estava perdido..."
+
+    body_sections:
+      the_moment:
+        purpose: "Descrever o momento exato da epifania"
+        content: |
+          [Quando/onde aconteceu]
+          - O momento específico
+          - O que você viu/ouviu/percebeu
+          - O clique mental
+
+      the_insight:
+        purpose: "Explicar o que você descobriu"
+        content: |
+          [A revelação]
+          - O insight em termos claros
+          - Por que isso muda a perspectiva
+          - Como desafia o senso comum
+
+      why_it_works:
+        purpose: "Validar o insight"
+        content: |
+          [A lógica por trás]
+          - Princípio ou razão
+          - Por que outros não ensinam isso
+          - Conexão com problema da audiência
+
+      early_results:
+        purpose: "Mostrar primeiros resultados"
+        content: |
+          [O que mudou]
+          - Primeiros resultados (específicos)
+          - Primeiras mudanças perceptíveis
+          - "Mas isso era só o começo..."
+
+    cliffhanger:
+      purpose: "Criar expectativa para benefícios completos"
+      examples:
+        - "O que aconteceu depois foi ainda melhor..."
+        - "Mas eu ainda não tinha visto o melhor..."
+
+  template: |
+    Subject: [Descoberta related < 50 chars]
+
+    [BRIDGE - Recap do drama]
+
+    [THE MOMENT - Descreva a epifania]
+
+    [THE INSIGHT - O que você descobriu]
+
+    [WHY IT WORKS - Por que funciona]
+
+    [EARLY RESULTS - Primeiros resultados]
+
+    [CLIFFHANGER - Mais por vir]
+
+    [SIGN-OFF]
+
+    P.S. [Teaser do valor por vir]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# EMAIL 4: HIDDEN BENEFITS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+email_4:
+  name: "Hidden Benefits"
+  purpose: "Mostrar transformação completa e benefícios inesperados"
+
+  structure:
+    subject_line:
+      focus: "Resultados ou benefícios inesperados"
+      examples:
+        - "O que eu não esperava"
+        - "[Resultado específico] em [tempo]"
+        - "E isso foi só o começo"
+
+    bridge:
+      purpose: "Recap da epifania"
+      examples:
+        - "Depois que descobri [insight]..."
+        - "Com [insight] em mente, tudo mudou..."
+
+    body_sections:
+      transformation:
+        purpose: "Mostrar a mudança completa"
+        content: |
+          [Resultados específicos]
+          - Números quando possível
+          - Mudanças tangíveis
+          - Comparação antes/depois
+
+      hidden_benefits:
+        purpose: "Revelar benefícios inesperados"
+        content: |
+          [O que você não planejou]
+          - Benefício escondido 1
+          - Benefício escondido 2
+          - "O que eu não esperava..."
+
+      social_proof:
+        purpose: "Mostrar que funciona para outros"
+        content: |
+          [Se disponível]
+          - Resultados de outras pessoas
+          - Depoimentos
+          - "Não sou só eu..."
+
+      objection_handling:
+        purpose: "Endereçar objeções através da história"
+        content: |
+          [Objeções comuns]
+          - "Eu também pensei que..."
+          - "O que me surpreendeu foi..."
+          - Resposta através da experiência
+
+      product_tease:
+        purpose: "Começar transição para oferta"
+        content: |
+          [Hint natural]
+          - Menciona que sistematizou
+          - Hint de que há uma forma de acelerar
+          - "Depois de tanto pedir..."
+
+    cliffhanger:
+      purpose: "Preparar para a oferta"
+      examples:
+        - "Amanhã eu vou te dar a chance de..."
+        - "No próximo email, vou revelar como você pode..."
+
+  template: |
+    Subject: [Resultados/benefícios < 50 chars]
+
+    [BRIDGE - Recap da epifania]
+
+    [TRANSFORMATION - Mudança completa]
+
+    [HIDDEN BENEFITS - Surpresas positivas]
+
+    [SOCIAL PROOF - Outros resultados]
+
+    [OBJECTION HANDLING - Através da história]
+
+    [PRODUCT TEASE - Transição natural]
+
+    [CLIFFHANGER - Oferta chegando]
+
+    [SIGN-OFF]
+
+    P.S. [Importância do próximo email]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# EMAIL 5: URGENCY
+# ═══════════════════════════════════════════════════════════════════════════════
+
+email_5:
+  name: "Urgency"
+  purpose: "Fechar todos os loops e apresentar a oferta"
+
+  structure:
+    subject_line:
+      focus: "Oportunidade/decisão"
+      examples:
+        - "Sua vez"
+        - "A decisão"
+        - "[Prazo/escassez]"
+
+    body_sections:
+      recap:
+        purpose: "Resumir a jornada"
+        content: |
+          [Nos últimos dias...]
+          - Email 1: Onde eu estava
+          - Email 2: O que deu errado
+          - Email 3: O que descobri
+          - Email 4: O que mudou
+
+      loop_closure:
+        purpose: "Fechar TODOS os loops"
+        content: |
+          [Resolver tudo]
+          - Fechar loops menores
+          - Concluir história principal
+          - Satisfação emocional
+
+      offer:
+        purpose: "Apresentar a solução"
+        content: |
+          [O que é]
+          - Nome do produto
+          - O que faz
+          - Principal benefício
+
+      value_stack:
+        purpose: "Mostrar o que está incluído"
+        content: |
+          [Componentes]
+          ✅ [Componente 1] - [benefício]
+          ✅ [Componente 2] - [benefício]
+          ✅ [Componente 3] - [benefício]
+          ✅ BÔNUS: [Se houver]
+
+      risk_reversal:
+        purpose: "Remover medo de comprar"
+        content: |
+          [Garantia]
+          - Tipo de garantia
+          - Período
+          - Como funciona
+
+      urgency:
+        purpose: "Razão para agir AGORA"
+        types:
+          deadline: "Preço sobe em [data]"
+          scarcity: "Apenas [X] vagas"
+          bonus: "Bônus disponível até [data]"
+          consequence: "Se você esperar, [consequência]"
+
+      cta:
+        purpose: "Dizer exatamente o que fazer"
+        content: |
+          [Ação clara]
+          - O que clicar
+          - Link visível
+          - Simplicidade
+
+    ps:
+      purpose: "Último reforço"
+      examples:
+        - "P.S. Lembra do [elemento da história]? [Conexão com oferta]"
+        - "P.P.S. [Última urgência]"
+
+  template: |
+    Subject: [Oportunidade/decisão < 50 chars]
+
+    [RECAP - Resumo da jornada]
+
+    [LOOP CLOSURE - Fechar tudo]
+
+    [TRANSITION - Sua vez]
+
+    [OFFER - O que é]
+
+    [VALUE STACK - O que inclui]
+    ✅ [Componente 1]
+    ✅ [Componente 2]
+    ✅ [Componente 3]
+    ✅ BÔNUS: [Se houver]
+
+    [RISK REVERSAL - Garantia]
+
+    [URGENCY - Por que agora]
+
+    [CTA - O que fazer]
+    [LINK]
+
+    [SIGN-OFF]
+
+    P.S. [Conexão final com história]
+    P.P.S. [Última urgência]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# TIMING OPTIONS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+timing:
+  standard:
+    description: "Cadência padrão para maioria dos casos"
+    schedule:
+      day_0: "Opt-in + Lead Magnet"
+      day_1: "Email 1 - Set the Stage"
+      day_2: "Email 2 - High Drama"
+      day_3: "Email 3 - Epiphany"
+      day_4: "Email 4 - Hidden Benefits"
+      day_5: "Email 5 - Urgency"
+
+  aggressive:
+    description: "Para lançamentos ou urgência real"
+    schedule:
+      day_0_am: "Opt-in"
+      day_0_pm: "Email 1"
+      day_1: "Email 2"
+      day_2: "Email 3"
+      day_3: "Email 4"
+      day_4: "Email 5"
+
+  extended:
+    description: "Para high-ticket ou audiência fria"
+    schedule:
+      day_0: "Opt-in + Lead Magnet"
+      day_2: "Email 1"
+      day_4: "Email 2"
+      day_6: "Email 3"
+      day_8: "Email 4"
+      day_10: "Email 5"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# OUTPUT FORMAT
+# ═══════════════════════════════════════════════════════════════════════════════
+
+output_format:
+  description: "Formato para entrega da sequência completa"
+
+  structure: |
+    ```yaml
+    soap_opera_sequence:
+      name: "[Nome da Sequência]"
+      target_audience: "[Avatar]"
+      product: "[Produto]"
+      story_type: "[origin/client/discovery/etc]"
+      timing: "[standard/aggressive/extended]"
+
+      emails:
+        email_1:
+          name: "Set the Stage"
+          subject: "[Subject line]"
+          body: |
+            [Corpo completo do email]
+          open_loop: "[Descrição do loop]"
+          word_count: [número]
+
+        email_2:
+          name: "High Drama"
+          subject: "[Subject line]"
+          body: |
+            [Corpo completo do email]
+          open_loop: "[Descrição do loop]"
+          word_count: [número]
+
+        email_3:
+          name: "Epiphany"
+          subject: "[Subject line]"
+          body: |
+            [Corpo completo do email]
+          open_loop: "[Descrição do loop]"
+          word_count: [número]
+
+        email_4:
+          name: "Hidden Benefits"
+          subject: "[Subject line]"
+          body: |
+            [Corpo completo do email]
+          open_loop: "[Descrição do loop]"
+          word_count: [número]
+
+        email_5:
+          name: "Urgency"
+          subject: "[Subject line]"
+          body: |
+            [Corpo completo do email]
+          loops_closed: "[Lista de loops fechados]"
+          word_count: [número]
+
+      open_loops_tracker:
+        - loop: "[Descrição]"
+          opened: "Email X"
+          closed: "Email Y"
+          status: "closed"
+
+      metadata:
+        total_words: [número]
+        checklist_passed: true/false
+        created_date: "[data]"
+    ```
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# USAGE NOTES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+usage_notes:
+  - "Este template é um guia, não uma fórmula rígida"
+  - "A história deve ser verdadeira ou claramente ilustrativa"
+  - "Todos os loops DEVEM ser fechados no Email 5"
+  - "A oferta deve ser conclusão natural, não interrupção"
+  - "Sempre use o checklist antes de ativar"
+  - "Teste subject lines se possível"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# VERSION INFO
+# ═══════════════════════════════════════════════════════════════════════════════
+
+version_info:
+  version: "2.0"
+  last_updated: "2026-01-23"
+  primary_agent: "andre-chaperon"
+  related_task: "create-soap-opera-sequence.md"
+  related_checklist: "soap-opera-checklist.md"

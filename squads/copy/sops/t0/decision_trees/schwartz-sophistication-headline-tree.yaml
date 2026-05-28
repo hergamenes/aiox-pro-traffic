@@ -1,0 +1,43 @@
+sop:
+  id: schwartz-sophistication-headline-tree
+  version: "1.0"
+  title: "Sophistication Stage to Headline Strategy Tree"
+  purpose: "Arvore completa mapeando cada estagio de sofisticacao para estrategia de headline. Inversao estrutural chave no Stage 3."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: eugene-schwartz
+  steps:
+    - step: 1
+      action: "Diagnosticar stage de sofisticacao do mercado"
+      decision_point:
+        condition: "Qual stage de sofisticacao?"
+        branches:
+          - if: "Stage 1 (Mercado Virgem)"
+            then: "Claim direto e simples — ex: 'Emagreca!' — ninguem promete, basta prometer"
+          - if: "Stage 2 (Competicao Inicial)"
+            then: "Ampliar claim ao limite, quantificar — ex: 'Perca 10kg em 30 dias!' — prometer MAIS"
+          - if: "Stage 3 (Saturacao de Promessas)"
+            then: "NOVO MECANISMO no headline — inversao estrutural: mecanismo moves to headline — ex: 'Floats Fat Right Out of Your Body'"
+          - if: "Stage 4 (Saturacao de Mecanismos)"
+            then: "Elaborar mecanismo existente — mais rapido, facil, provado. Adicionar credenciais e provas"
+          - if: "Stage 5 (Mercado Exausto)"
+            then: "IDENTIFICACAO — quem usa, nao o que faz — ex: 'Para pessoas serias sobre transformacao'"
+  error_handling:
+    - error: "Stage 1 em mercado Stage 3+"
+      severity: critical
+      action: "Diagnosticar stage antes — promessa direta nao funciona em mercado saturado"
+    - error: "Ampliar promessa indefinidamente (ficar no Stage 2)"
+      severity: critical
+      action: "Migrar para mecanismo no Stage 3"
+    - error: "Stage 3 com mecanismo no body, nao no headline"
+      severity: critical
+      action: "Inversao estrutural: mecanismo DEVE estar no headline"
+  quality_gate:
+    criteria:
+      - "Stage diagnosticado antes da estrategia"
+      - "Headline compativel com stage do mercado"
+      - "Stage 3: mecanismo no headline"
+      - "Stage 5: identificacao antes de promessa"
+    pass_threshold: "Todos os criterios atendidos"

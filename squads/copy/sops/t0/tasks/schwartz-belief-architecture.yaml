@@ -1,0 +1,90 @@
+sop:
+  id: schwartz-belief-architecture
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Belief Architecture Construction (Gradualizacao)"
+  purpose: >
+    Build layered belief structure making the sale inevitable using Schwartz's
+    gradualization method. Escalates from small initial agreement to complete
+    conviction through 6 sequential devices.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: eugene-schwartz
+    artifact_type: task
+
+  steps:
+    - id: inclusion_question
+      action: craft_inclusion_question
+      description: "Create question that 95%+ of target audience answers 'Yes' — about their experience, not the product"
+      inputs:
+        - target_audience_beliefs
+        - known_pain_points
+      critical: true
+      output: inclusion_question_text
+
+    - id: detailed_identification
+      action: catalog_prospect_symptoms
+      description: "Demonstrate deep understanding: list specific symptoms, daily reality, frustrations using prospect's own language"
+      depends_on: inclusion_question
+      output: identification_section
+
+    - id: false_belief_contradiction
+      action: destroy_false_belief
+      description: "Name the false belief explicitly, show WHY it is false mechanistically, create vacuum for new belief"
+      depends_on: detailed_identification
+      output: contradiction_section
+
+    - id: logic_language
+      action: sprinkle_logic_connectors
+      description: "Insert logic connectors (portanto, a razao e, provado) to create unconscious conviction throughout copy"
+      depends_on: false_belief_contradiction
+      output: logic_enhanced_copy
+
+    - id: syllogistic_thinking
+      action: construct_logical_chain
+      description: "Build A→B→C chain where each premise is individually acceptable, making product the inevitable conclusion"
+      depends_on: false_belief_contradiction
+      critical: true
+      output: syllogistic_structure
+
+    - id: promise_proof_alternation
+      action: structure_promise_proof_pairs
+      description: "Alternate every promise with immediate proof so reader never thinks 'prove it' — proof arrives before the thought"
+      depends_on: syllogistic_thinking
+      output: alternation_blueprint
+
+  error_handling:
+    - error: broad_inclusion_question
+      symptom: "Question gets 'yes' but creates no engagement"
+      resolution: "Make specific to prospect's situation and pain point"
+    - error: generic_identification
+      symptom: "Prospect does not feel personally understood"
+      resolution: "Use verbatim consumer language from interviews"
+    - error: skipped_false_belief
+      symptom: "New belief competes with old instead of replacing it"
+      resolution: "Always destroy old belief BEFORE introducing the new one"
+    - error: syllogistic_gap
+      symptom: "Conclusion feels forced despite agreeable premises"
+      resolution: "Each step must be individually provable; add evidence at gap"
+
+  quality_gate:
+    criteria:
+      - "Inclusion question gets 95%+ agreement"
+      - "Identification uses prospect's actual language"
+      - "False belief mechanistically destroyed"
+      - "Syllogistic chain has no gaps"
+      - "Every promise has immediate proof"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: belief_blueprint
+      format: ordered_blueprint
+      description: "6-layer belief architecture in sequence"
+    - name: device_mapping
+      format: structured_document
+      description: "Specific devices mapped to each layer"

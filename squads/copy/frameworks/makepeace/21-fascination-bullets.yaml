@@ -1,0 +1,144 @@
+# The 21 Types of Fascination Bullets
+# Source: Clayton Makepeace - Screaming Eagle Newsletter, September 2006
+# Command: *21-bullets
+
+name: "The 21 Types of Fascination Bullets"
+category: "copywriting"
+origin: "Clayton Makepeace - Screaming Eagle Newsletter, September 2006"
+command: "*21-bullets"
+
+philosophy: |
+  A fascination bullet is a miniature sales letter. It opens a loop that
+  DEMANDS to be closed. It creates such intense curiosity that the reader
+  will buy just to satisfy the itch. Master these 21 types and you'll
+  never struggle to write bullets again.
+
+bullets:
+  type_1:
+    name: "The 'How To' Bullet"
+    formula: "How to [achieve result] [with ease/speed qualifier]"
+    example: "How to rub your stomach away. The simplest and most natural way to lose weight is by this effortless two-minute exercise."
+
+  type_2:
+    name: "The 'Secret To' Bullet"
+    formula: "The secret to [achieving desirable result]"
+    example: "The secrets of 'Single Finger' takedowns...using moves that are indefensible even by a larger and more experienced opponent!"
+
+  type_3:
+    name: "The 'Why' Bullet"
+    formula: "Why [surprising fact or outcome]"
+    example: "Why up to 70 percent of all poisonings happen to children under five. And the best prevention of them all. Page 34."
+
+  type_4:
+    name: "The 'What' Bullet"
+    formula: "What [specific thing] [does/reveals/means]"
+    example: "What you must do immediately before November 15th to preserve your wealth and..."
+
+  type_5:
+    name: "The 'What Never' Bullet"
+    formula: "What never to [do] [and why/consequence]"
+    example: "What never to keep in your deposit box. Never. And how to stop the IRS from making you 'an offer you can't refuse.'"
+
+  type_6:
+    name: "The 'Number' Bullet"
+    formula: "[Number] ways/secrets/mistakes [related to benefit]"
+    example: "11 ways to slash your heating bills without spending a dime."
+
+  type_7:
+    name: "The 'Right/Wrong' Bullet"
+    formula: "The right/wrong way to [common action]"
+    example: "The wrong way to stretch before exercise... and the 60-second alternative that prevents injury and boosts performance."
+
+  type_8:
+    name: "The 'Warning' Bullet"
+    formula: "WARNING: [danger or mistake to avoid]"
+    example: "WARNING: The popular heart drug that can actually CAUSE heart attacks in certain patients."
+
+  type_9:
+    name: "The 'Do You' Bullet"
+    formula: "Do you [make this mistake/have this symptom]?"
+    example: "Do you make these embarrassing mistakes when speaking to your boss?"
+
+  type_10:
+    name: "The 'If/Then' Bullet"
+    formula: "If you [condition], then [consequence/solution]"
+    example: "If you're over 50 and take this common medication, you MUST read page 47."
+
+  type_11:
+    name: "The 'Exposed' Bullet"
+    formula: "[Authority/industry] [exposed/revealed]"
+    example: "Big Pharma's dirty secret exposed: Why they HOPE you never read page 23."
+
+  type_12:
+    name: "The 'Truth About' Bullet"
+    formula: "The truth about [controversial topic]"
+    example: "The shocking truth about your morning orange juice that Big Agriculture doesn't want you to know."
+
+  type_13:
+    name: "The 'When' Bullet"
+    formula: "When to [take specific action] [for best results]"
+    example: "When to buy gold - and the one indicator that tells you EXACTLY when to sell."
+
+  type_14:
+    name: "The 'Only' Bullet"
+    formula: "The only [thing] that [achieves result]"
+    example: "The only supplement proven in clinical trials to restore memory function in patients over 70."
+
+  type_15:
+    name: "The 'Single' Bullet"
+    formula: "A single [small action] that [big result]"
+    example: "A single sentence that got me a 300% raise... and how to use it in YOUR next salary negotiation."
+
+  type_16:
+    name: "The 'Simple' Bullet"
+    formula: "A simple [action] that [achieves result]"
+    example: "A simple 10-second morning ritual that can drop your blood pressure 20 points - without drugs."
+
+  type_17:
+    name: "The 'Now' Bullet"
+    formula: "Now you can [achieve previously difficult result]"
+    example: "Now you can speak conversational Spanish in just 10 days - even if you failed high school French."
+
+  type_18:
+    name: "The 'Startling Fact' Bullet"
+    formula: "[Surprising statistic or fact] [implication]"
+    example: "83% of people who die from heart attacks have THIS in common... and it's NOT cholesterol."
+
+  type_19:
+    name: "The 'Hidden' Bullet"
+    formula: "The hidden [danger/opportunity] in [common thing]"
+    example: "The hidden toxin in your shower water that's been linked to Alzheimer's - and the $17 filter that removes it."
+
+  type_20:
+    name: "The 'Bizarre' Bullet"
+    formula: "The bizarre [method/thing] that [achieves result]"
+    example: "The bizarre Tibetan breathing technique that stops panic attacks in 90 seconds flat."
+
+  type_21:
+    name: "The 'Little-Known' Bullet"
+    formula: "The little-known [thing] that [achieves result]"
+    example: "The little-known IRS provision that lets you legally shelter up to $50,000 from taxation each year."
+
+bullet_power_amplifiers:
+  - "Add specific numbers: '7 foods' vs 'foods'"
+  - "Add timeframes: 'in 30 days' vs 'fast'"
+  - "Add page numbers: 'Page 47' creates tangibility"
+  - "Add qualifiers: 'even if you've tried everything'"
+  - "Add stakes: 'before it's too late'"
+  - "Add contrast: 'without drugs, diets, or exercise'"
+
+bullet_quality_test:
+  questions:
+    - "Does it create a curiosity gap?"
+    - "Does it promise a specific benefit?"
+    - "Does it AVOID revealing the answer?"
+    - "Would YOU click to learn more?"
+    - "Is it specific enough to be believable?"
+
+  if_no_to_any: "Rewrite the bullet using one of the 21 formulas."
+
+usage_guidelines:
+  quantity: "15-50 bullets per sales letter"
+  variety: "Mix at least 5-7 different types"
+  placement: "After credibility section, before offer"
+  formatting: "Use checkmarks, bullets, or arrows"

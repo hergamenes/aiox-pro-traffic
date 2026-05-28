@@ -1,0 +1,267 @@
+{
+  "project": "CopywriterOS Agent Upgrade",
+  "branchName": "ralph/copywriter-agent-upgrade",
+  "projectName": "CopywriterOS Agent Upgrade - Super Complete",
+  "description": "Upgrade all 11 CopywriterOS agents to Hormozi-level quality with full frameworks, communication DNA, signature phrases, and objection algorithms",
+  "researchSources": {
+    "minds": "outputs/minds/{slug}/",
+    "webSearch": true,
+    "context7": true,
+    "webFetch": true,
+    "exa": false
+  },
+  "targetStructure": [
+    "operational_frameworks (5-10)",
+    "communication_dna",
+    "signature_phrases (30-50)",
+    "authority_proof_arsenal",
+    "objection_algorithms (3+)"
+  ],
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Upgrade Dan Kennedy Agent",
+      "description": "As a CopywriterOS user, I want Dan Kennedy agent to be super complete, so that I get authentic No B.S. style copy with all his frameworks",
+      "agent": "dan-kennedy",
+      "currentLines": 1484,
+      "hasMind": true,
+      "mindPath": "outputs/minds/dan_kennedy/",
+      "acceptanceCriteria": [
+        "Read existing mind data from outputs/minds/dan_kennedy/",
+        "Add missing operational_frameworks (Magnetic Marketing, No B.S. Time Management, etc.)",
+        "Complete communication_dna with Kennedy vocabulary",
+        "Add 30-50 signature phrases organized by tier",
+        "Add authority_proof_arsenal with GKIC story",
+        "Add 3+ objection_algorithms",
+        "Agent activates correctly with @dan-kennedy",
+        "Output matches Kennedy's direct, no-nonsense style"
+      ],
+      "priority": 1,
+      "passes": false,
+      "notes": "Almost complete at 1484 lines. Has mind available. Focus on filling gaps."
+    },
+    {
+      "id": "US-002",
+      "title": "Upgrade Eugene Schwartz Agent",
+      "description": "As a CopywriterOS user, I want Eugene Schwartz agent to be super complete, so that I get his sophisticated awareness levels and Breakthrough Advertising frameworks",
+      "agent": "eugene-schwartz",
+      "currentLines": 118,
+      "hasMind": true,
+      "mindPath": "outputs/minds/eugene_schwartz/",
+      "acceptanceCriteria": [
+        "Read existing mind data from outputs/minds/eugene_schwartz/",
+        "Add 5 Levels of Awareness framework (complete)",
+        "Add 5 Levels of Sophistication framework",
+        "Add Mass Desire Channeling framework",
+        "Add communication_dna with Schwartz vocabulary",
+        "Add 30-50 signature phrases from Breakthrough Advertising",
+        "Add authority_proof_arsenal",
+        "Add objection_algorithms",
+        "Agent activates correctly with @eugene-schwartz"
+      ],
+      "priority": 2,
+      "passes": false,
+      "notes": "Has mind available. Major frameworks: Awareness Levels, Sophistication, Mass Desire."
+    },
+    {
+      "id": "US-003",
+      "title": "Upgrade Gary Halbert Agent",
+      "description": "As a CopywriterOS user, I want Gary Halbert agent to be super complete, so that I get his street-smart direct mail mastery and Boron Letters wisdom",
+      "agent": "gary-halbert",
+      "currentLines": 121,
+      "hasMind": true,
+      "mindPath": "outputs/minds/gary_halbert/",
+      "acceptanceCriteria": [
+        "Read existing mind data from outputs/minds/gary_halbert/",
+        "Add AIDA framework (Halbert style)",
+        "Add Starving Crowd framework",
+        "Add A-Pile vs B-Pile framework",
+        "Add communication_dna with Halbert vocabulary",
+        "Add 30-50 signature phrases from Boron Letters",
+        "Add authority_proof_arsenal with coat-of-arms story",
+        "Add objection_algorithms",
+        "Agent activates correctly with @gary-halbert"
+      ],
+      "priority": 3,
+      "passes": false,
+      "notes": "Has mind available. Known for Boron Letters, street-smart approach."
+    },
+    {
+      "id": "US-004",
+      "title": "Upgrade Jon Benson Agent",
+      "description": "As a CopywriterOS user, I want Jon Benson agent to be super complete, so that I get his VSL formula and email copywriting frameworks",
+      "agent": "jon-benson",
+      "currentLines": 204,
+      "hasMind": true,
+      "mindPath": "outputs/minds/jon_benson/",
+      "acceptanceCriteria": [
+        "Read existing mind data from outputs/minds/jon_benson/",
+        "Add VSL Formula framework (complete)",
+        "Add Sellerator framework",
+        "Add Email Copy Made Easy framework",
+        "Add communication_dna with Benson vocabulary",
+        "Add 30-50 signature phrases",
+        "Add authority_proof_arsenal",
+        "Add objection_algorithms",
+        "Agent activates correctly with @jon-benson"
+      ],
+      "priority": 4,
+      "passes": false,
+      "notes": "Has mind available. Creator of VSL format. Focus on video sales letter frameworks."
+    },
+    {
+      "id": "US-005",
+      "title": "Upgrade Gary Bencivenga Agent",
+      "description": "As a CopywriterOS user, I want Gary Bencivenga agent to be super complete, so that I get his Marketing Bullets wisdom and scientific approach",
+      "agent": "gary-bencivenga",
+      "currentLines": 1107,
+      "hasMind": false,
+      "acceptanceCriteria": [
+        "Research Bencivenga frameworks via WebSearch",
+        "Add Marketing Bullets framework",
+        "Add Persuasion Equation framework",
+        "Add First Law of Great Advertising framework",
+        "Complete communication_dna with Bencivenga vocabulary",
+        "Add missing signature phrases to reach 30-50",
+        "Complete authority_proof_arsenal",
+        "Add 3+ objection_algorithms",
+        "Agent activates correctly with @gary-bencivenga"
+      ],
+      "priority": 5,
+      "passes": false,
+      "notes": "Partially complete at 1107 lines. No mind. Known as 'World's Greatest Living Copywriter'. Marketing Bullets newsletter."
+    },
+    {
+      "id": "US-006",
+      "title": "Upgrade Joe Sugarman Agent",
+      "description": "As a CopywriterOS user, I want Joe Sugarman agent to be super complete, so that I get his triggers framework and BluBlocker storytelling style",
+      "agent": "joe-sugarman",
+      "currentLines": 1080,
+      "hasMind": false,
+      "acceptanceCriteria": [
+        "Research Sugarman frameworks via WebSearch",
+        "Add Psychological Triggers framework (complete)",
+        "Add Slippery Slide framework",
+        "Add Seeds of Curiosity framework",
+        "Complete communication_dna with Sugarman vocabulary",
+        "Add missing signature phrases to reach 30-50",
+        "Complete authority_proof_arsenal with BluBlocker story",
+        "Add 3+ objection_algorithms",
+        "Agent activates correctly with @joe-sugarman"
+      ],
+      "priority": 6,
+      "passes": false,
+      "notes": "Partially complete at 1080 lines. No mind. Adweek Copywriting Handbook, BluBlocker ads."
+    },
+    {
+      "id": "US-007",
+      "title": "Upgrade Frank Kern Agent",
+      "description": "As a CopywriterOS user, I want Frank Kern agent to be super complete, so that I get his Mass Control and launch frameworks",
+      "agent": "frank-kern",
+      "currentLines": 138,
+      "hasMind": false,
+      "acceptanceCriteria": [
+        "Research Frank Kern frameworks via WebSearch",
+        "Add Mass Control framework",
+        "Add Intent-Based Branding framework",
+        "Add Results In Advance framework",
+        "Add communication_dna with Kern vocabulary (casual, surf-bro)",
+        "Add 30-50 signature phrases",
+        "Add authority_proof_arsenal",
+        "Add objection_algorithms",
+        "Agent activates correctly with @frank-kern"
+      ],
+      "priority": 7,
+      "passes": false,
+      "notes": "No mind. Digital era pioneer. Known for Mass Control, casual/authentic style."
+    },
+    {
+      "id": "US-008",
+      "title": "Upgrade David Ogilvy Agent",
+      "description": "As a CopywriterOS user, I want David Ogilvy agent to be super complete, so that I get his elegant research-driven advertising frameworks",
+      "agent": "david-ogilvy",
+      "currentLines": 119,
+      "hasMind": false,
+      "acceptanceCriteria": [
+        "Research Ogilvy frameworks via WebSearch",
+        "Add Big Idea framework",
+        "Add Brand Image framework",
+        "Add Research-Based Advertising framework",
+        "Add communication_dna with Ogilvy vocabulary (elegant, sophisticated)",
+        "Add 30-50 signature phrases from Ogilvy on Advertising",
+        "Add authority_proof_arsenal with Ogilvy & Mather story",
+        "Add objection_algorithms",
+        "Agent activates correctly with @david-ogilvy"
+      ],
+      "priority": 8,
+      "passes": false,
+      "notes": "No mind. Father of Advertising. Ogilvy on Advertising, Confessions of an Advertising Man."
+    },
+    {
+      "id": "US-009",
+      "title": "Upgrade Claude Hopkins Agent",
+      "description": "As a CopywriterOS user, I want Claude Hopkins agent to be super complete, so that I get his scientific advertising and testing frameworks",
+      "agent": "claude-hopkins",
+      "currentLines": 116,
+      "hasMind": false,
+      "acceptanceCriteria": [
+        "Research Hopkins frameworks via WebSearch",
+        "Add Scientific Advertising framework",
+        "Add Reason Why framework",
+        "Add Test Everything framework",
+        "Add communication_dna with Hopkins vocabulary (direct, factual)",
+        "Add 30-50 signature phrases from Scientific Advertising",
+        "Add authority_proof_arsenal with Palmolive/Pepsodent stories",
+        "Add objection_algorithms",
+        "Agent activates correctly with @claude-hopkins"
+      ],
+      "priority": 9,
+      "passes": false,
+      "notes": "No mind. Pioneer of advertising. Scientific Advertising (1923), My Life in Advertising."
+    },
+    {
+      "id": "US-010",
+      "title": "Upgrade Todd Brown Agent",
+      "description": "As a CopywriterOS user, I want Todd Brown agent to be super complete, so that I get his Big Idea and E5 Method frameworks",
+      "agent": "todd-brown",
+      "currentLines": 274,
+      "hasMind": false,
+      "acceptanceCriteria": [
+        "Research Todd Brown frameworks via WebSearch",
+        "Add E5 Method framework (complete)",
+        "Add Big Idea Marketing framework",
+        "Add Unique Mechanism framework",
+        "Add communication_dna with Brown vocabulary",
+        "Add 30-50 signature phrases",
+        "Add authority_proof_arsenal",
+        "Add objection_algorithms",
+        "Agent activates correctly with @todd-brown"
+      ],
+      "priority": 10,
+      "passes": false,
+      "notes": "No mind. Digital era. Known for E5 Method, Big Idea Marketing. Marketing Funnel Automation."
+    },
+    {
+      "id": "US-011",
+      "title": "Upgrade Ramit Sethi Agent",
+      "description": "As a CopywriterOS user, I want Ramit Sethi agent to be super complete, so that I get his email copywriting and premium positioning frameworks",
+      "agent": "ramit-sethi",
+      "currentLines": 292,
+      "hasMind": false,
+      "acceptanceCriteria": [
+        "Research Ramit Sethi frameworks via WebSearch",
+        "Add CEO Briefcase Technique framework",
+        "Add Premium Positioning framework",
+        "Add Email Persuasion framework",
+        "Add communication_dna with Sethi vocabulary (conversational, data-driven)",
+        "Add 30-50 signature phrases",
+        "Add authority_proof_arsenal with IWT story",
+        "Add objection_algorithms",
+        "Agent activates correctly with @ramit-sethi"
+      ],
+      "priority": 11,
+      "passes": false,
+      "notes": "No mind. Digital era. I Will Teach You To Be Rich. Known for premium products, email mastery."
+    }
+  ]
+}

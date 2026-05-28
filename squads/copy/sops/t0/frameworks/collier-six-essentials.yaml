@@ -1,0 +1,98 @@
+sop:
+  id: collier-six-essentials
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "The 6 Essentials of Every Letter"
+  purpose: >
+    Ensure every sales letter contains six mandatory structural components.
+    Missing even one essential weakens the entire letter. Construction guide
+    and audit checklist for direct response copy.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: robert-collier
+    artifact_type: framework
+
+  steps:
+    - id: apply_opening
+      action: apply_attention_capture
+      description: "Essential 1 — Opening: Enter reader's train of thought. Start with their world, not product."
+      critical: true
+      inputs:
+        - mental_conversation_map
+        - entry_point
+      output: opening_section
+
+    - id: apply_description
+      action: apply_word_picture
+      description: "Essential 2 — Description: Paint vivid word picture. Reader SEES themselves with product. Sensory, not feature list."
+      depends_on: apply_opening
+      output: description_section
+
+    - id: apply_motive
+      action: apply_logical_justification
+      description: "Essential 3 — Motive: Give logical reason to act. Connect to dominant desire. Justify purchase rationally."
+      depends_on: apply_description
+      output: motive_section
+
+    - id: apply_proof
+      action: apply_confidence_building
+      description: "Essential 4 — Proof: Establish confidence via testimonials, stats, authority, guarantee. Specific beats vague."
+      depends_on: apply_motive
+      output: proof_section
+
+    - id: apply_snapper
+      action: apply_loss_urgency
+      description: "Essential 5 — Snapper: Create urgency via what they LOSE by not acting. Cost of inaction."
+      depends_on: apply_proof
+      output: snapper_section
+
+    - id: apply_close
+      action: apply_clear_action
+      description: "Essential 6 — Close: Tell exactly what to do. One clear action. Remove friction."
+      depends_on: apply_snapper
+      critical: true
+      output: close_section
+
+  error_handling:
+    - error: missing_opening
+      symptom: "Jumps to product; high bounce rate"
+      resolution: "Start with reader's world, not yours"
+    - error: feature_list_description
+      symptom: "Reader understands but does not desire"
+      resolution: "Replace features with sensory word pictures"
+    - error: no_logical_motive
+      symptom: "Reader wants it but feels guilty buying"
+      resolution: "Provide rational justification for self and others"
+    - error: weak_proof
+      symptom: "Interested but skeptical"
+      resolution: "Stack specific proof: numbers, names, demos, guarantees"
+    - error: no_snapper
+      symptom: "Reader thinks 'I will do this later'"
+      resolution: "Show cost of waiting; what they lose each day"
+    - error: ambiguous_close
+      symptom: "Reader does not know what to do next"
+      resolution: "One clear action, one button, one step"
+
+  quality_gate:
+    criteria:
+      - "Opening enters reader's train of thought"
+      - "Description paints vivid sensory picture"
+      - "Motive provides logical justification"
+      - "Proof includes specific, verifiable elements"
+      - "Snapper creates urgency through loss"
+      - "Close states one clear action"
+      - "All 6 essentials present in order"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: complete_letter
+      format: structured_copy
+      description: "Sales letter with all 6 essentials"
+    - name: audit_checklist
+      format: checklist
+      description: "Presence and quality of each essential"

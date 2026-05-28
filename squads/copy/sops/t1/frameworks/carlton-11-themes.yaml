@@ -1,0 +1,83 @@
+sop:
+  id: carlton-11-themes
+  version: "1.0"
+  title: "11 Proven Letter/Ad Themes"
+  purpose: "Select the optimal letter or ad theme from John Carlton's 11 proven structures. Each theme is a tested structural template that determines the overall tone, framing, and approach of the promotion. Cho"
+  classification:
+    domain: copywriting
+    category: master
+    tier: t1
+    source_agent: john-carlton
+  steps:
+    - id: apply_star_story_solution
+      action: "Use when you have a compelling character and transformation arc."
+      input: "Star-Story-Solution"
+      output: "Step 1 deliverable: Star-Story-Solution completed with documented findings"
+      validation: "Theme selected matches prospect relationship stage (cold, warm, customer)"
+    - id: apply_money_where_my_mouth_is
+      action: "Use when you can put your own credibility on the line."
+      input: "Money Where My Mouth Is"
+      output: "Step 2 deliverable: Money Where My Mouth Is completed with documented findings"
+      validation: "Theme aligns with the product type and offer structure"
+    - id: apply_market_test
+      action: "Use when launching a new product or entering a new market."
+      input: "Market Test"
+      output: "Step 3 deliverable: Market Test completed with documented findings"
+      validation: "Theme has not been overused in recent promotions to the same list"
+    - id: apply_i_need_your_help
+      action: "Use when you can genuinely ask the prospect for assistance -- a survey, feedback, or beta test."
+      input: "I Need Your Help"
+      output: "Step 4 deliverable: I Need Your Help completed with documented findings"
+      validation: "Theme complements the hook discovered in Phase 1 investigation"
+    - id: apply_the_grabber_physical_object
+      action: "Use when a physical item can be attached to the mailing that metaphorically connects to the message."
+      input: "The Grabber (physical object)"
+      output: "Step 5 deliverable: The Grabber (Physical Object) completed with documented findings"
+      validation: "Theme selection documented with rationale for the choice"
+    - id: apply_private_account_check
+      action: "Use when you can send a personalized check, credit, or account statement."
+      input: "Private Account Check"
+      output: "Step 6 deliverable: Private Account Check completed with documented findings"
+      validation: "Theme selection documented with rationale for the choice"
+    - id: apply_reasonable_bargain
+      action: "Use when the price-to-value ratio is obviously in the prospect's favor."
+      input: "Reasonable Bargain"
+      output: "Step 7 deliverable: Reasonable Bargain completed with documented findings"
+      validation: "Theme selection documented with rationale for the choice"
+    - id: apply_information_ad
+      action: "Use when the product is information itself (courses, books, newsletters) or when information leads naturally to the p..."
+      input: "Information Ad"
+      output: "Step 8 deliverable: Information Ad completed with documented findings"
+      validation: "Theme selection documented with rationale for the choice"
+    - id: apply_endorsed_mailing
+      action: "Use when a respected third party can introduce the offer."
+      input: "Endorsed Mailing"
+      output: "Step 9 deliverable: Endorsed Mailing completed with documented findings"
+      validation: "Theme selection documented with rationale for the choice"
+    - id: apply_straight_pitch
+      action: "Use when the audience is warm and the offer is strong enough to stand on its own."
+      input: "Straight Pitch"
+      output: "Step 10 deliverable: Straight Pitch completed with documented findings"
+      validation: "Theme selection documented with rationale for the choice"
+    - id: apply_piss_off_and_apologize
+      action: "Use when you want to provoke a strong reaction and then redirect it."
+      input: "Piss Off & Apologize"
+      output: "Step 11 deliverable: Piss Off and Apologize completed with documented findings"
+      validation: "Theme selection documented with rationale for the choice"
+  error_handling:
+    - error: "Choosing a theme based on personal preference rather than prospect fit"
+      resolution: "Score each theme against prospect knowledge from Phase 1; choose highest fit"
+    - error: "Using Star-Story-Solution without a real star and real story"
+      resolution: "The star must be a real person with a real, verifiable transformation"
+    - error: "Using the Grabber theme without a relevant physical object"
+      resolution: "The grabber must have a direct metaphorical connection to the product message"
+    - error: "Defaulting to Straight Pitch for cold audiences"
+      resolution: "Reserve Straight Pitch for warm and hot lists; use story-based themes for cold"
+  quality_gate:
+    criteria:
+      - "Theme selected matches prospect relationship stage (cold, warm, customer)"
+      - "Theme aligns with the product type and offer structure"
+      - "Theme has not been overused in recent promotions to the same list"
+      - "Theme complements the hook discovered in Phase 1 investigation"
+      - "Theme selection documented with rationale for the choice"
+    pass_threshold: "All 5 criteria met"

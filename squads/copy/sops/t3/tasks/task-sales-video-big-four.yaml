@@ -1,0 +1,75 @@
+sop:
+  id: task-sales-video-big-four
+  version: "1.0"
+  title: "Sales Video — Big Four Structure"
+  purpose: "Create sales video script using Big Four structure (Big Idea, Unpack, Path, First Move) with MHT/MHP scenes at each key shift"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: ry-schwartz
+    tier: T3
+
+  inputs:
+    - name: big_idea_output
+      type: object
+      required: true
+      description: "Big Idea System output (named idea, dimensions, Key Shifts, Blue Ocean)"
+    - name: mht_mhp_scenes
+      type: list
+      required: true
+      description: "MHT and MHP scenes for each Key Shift"
+
+  outputs:
+    - name: sales_video_script
+      type: document
+      description: "Complete sales video script in 4 parts"
+
+  steps:
+    - id: part_1
+      action: present_big_idea
+      description: "Open with aspirational identity/outcome title — the named Big Idea as destination"
+      critical: true
+
+    - id: part_2
+      action: unpack_dimensions
+      description: "Dimensionalize what living Big Idea looks, feels, gains like — contrast with current reality"
+
+    - id: part_3
+      action: present_path
+      description: "3-5 key shifts each with reframe, MHT (without), MHP (with), and action"
+      critical: true
+      per_shift:
+        - reframe
+        - mht_scene
+        - mhp_scene
+        - action
+
+    - id: part_4
+      action: deliver_first_move
+      description: "Honor prospect as already achieving Big Idea — purchase as acceleration not rescue"
+      critical: true
+      error_handling:
+        condition: "Close reads as hard sell"
+        action: "Rewrite as invitation to someone already becoming the Big Idea"
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "Opens with aspirational naming not product description"
+      - "Unpack includes multi-sensory details"
+      - "Each shift has distinct reframe, MHT, MHP, action"
+      - "MHT scenes create genuine tension"
+      - "First Move elevates prospect"
+      - "Video builds to offer as natural conclusion"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies:
+    - task-big-idea-system
+    - task-mht-exercise
+
+  related_sops:
+    - task-outcome-description-rewrite
+    - task-vsl-5-step

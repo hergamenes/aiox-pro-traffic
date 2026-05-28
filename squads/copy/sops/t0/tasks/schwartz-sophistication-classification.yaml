@@ -1,0 +1,99 @@
+sop:
+  id: schwartz-sophistication-classification
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Sophistication Stage Classification"
+  purpose: >
+    Classify market into one of Schwartz's 5 sophistication stages and prescribe
+    headline strategy. Determines whether promise, mechanism, or identification
+    should lead the headline.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: eugene-schwartz
+    artifact_type: task
+
+  steps:
+    - id: survey_competition
+      action: audit_competitive_landscape
+      description: "Collect competitor ads, count competing claims, document mechanisms, assess ad fatigue"
+      inputs:
+        - competitive_advertising_history
+        - competing_claims
+      critical: true
+      output: competitive_audit
+
+    - id: test_virgin
+      action: evaluate_stage_one
+      description: "Is this first product in category? Nobody else making this promise? → Stage 1: Direct claim"
+      depends_on: survey_competition
+      output: stage_1_result
+
+    - id: test_early_competition
+      action: evaluate_stage_two
+      description: "Are 2-3 competitors making similar claims? → Stage 2: Amplify/quantify the claim"
+      depends_on: test_virgin
+      output: stage_2_result
+
+    - id: test_promise_saturation
+      action: evaluate_stage_three
+      description: "Market saturated with promises? → Stage 3: NEW MECHANISM in headline (structural inversion)"
+      depends_on: test_early_competition
+      critical: true
+      output: stage_3_result
+
+    - id: test_mechanism_saturation
+      action: evaluate_stage_four
+      description: "Mechanisms also saturated? → Stage 4: Elaborate mechanism (faster, easier, proven)"
+      depends_on: test_promise_saturation
+      output: stage_4_result
+
+    - id: test_exhausted
+      action: evaluate_stage_five
+      description: "Market completely exhausted? → Stage 5: IDENTIFICATION (who uses it, not what it does)"
+      depends_on: test_mechanism_saturation
+      output: stage_5_result
+
+    - id: document_inversion
+      action: record_structural_shift
+      description: "At Stage 3+: document that mechanism moves INTO headline and claim becomes shorthand"
+      depends_on: test_promise_saturation
+      output: structural_inversion_note
+
+  error_handling:
+    - error: stage_1_in_mature_market
+      symptom: "Direct claim gets zero traction"
+      resolution: "Count competitors; if >3 make similar claims, it is Stage 2+"
+    - error: promise_in_stage_3
+      symptom: "Promise headline sounds like everyone else"
+      resolution: "Introduce mechanism; make it the headline, not body copy"
+    - error: fake_mechanism
+      symptom: "Prospect recognizes mechanism as marketing fluff"
+      resolution: "Mechanism must be real, explainable, and believable"
+    - error: premature_stage_5
+      symptom: "Using identity approach when mechanism would still work"
+      resolution: "Test if novel mechanism could cut through first"
+
+  quality_gate:
+    criteria:
+      - "Competitive landscape surveyed with examples"
+      - "Each stage tested sequentially"
+      - "Only ONE stage assigned"
+      - "Strategy matches the stage"
+      - "Structural inversion documented if Stage 3+"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: sophistication_stage
+      format: classification
+      description: "Stage 1-5 with name"
+    - name: strategy_prescription
+      format: prescription
+      description: "Headline strategy with reasoning and example"
+    - name: structural_notes
+      format: documentation
+      description: "Structural inversion documentation if applicable"

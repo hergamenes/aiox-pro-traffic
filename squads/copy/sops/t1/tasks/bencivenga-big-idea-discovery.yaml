@@ -1,0 +1,85 @@
+sop:
+  id: bencivenga-big-idea-discovery
+  version: "1.0"
+  title: "Big Idea Discovery Process"
+  purpose: "Systematically generate, score, and select a Big Idea that is Unexpected, True, and Relevant (min 7/10 each) to anchor the entire promotion"
+  classification:
+    domain: copywriting
+    category: master
+    tier: T1
+    source_agent: gary-bencivenga
+
+  inputs:
+    - name: product_knowledge
+      type: document
+      required: true
+    - name: market_research
+      type: document
+      required: true
+    - name: competitive_analysis
+      type: document
+      required: true
+
+  outputs:
+    - name: validated_big_idea
+      type: document
+      description: "Big Idea with Unexpected/True/Relevant scores (each 7+) and selection rationale"
+    - name: supporting_angles
+      type: list
+      description: "3 angles reinforcing the Big Idea from different perspectives"
+
+  steps:
+    - id: step_01
+      action: analyze_market_sophistication
+      description: "Assess Schwartz sophistication level (1-5) with specific market evidence"
+      critical: true
+      error_handling:
+        condition: "sophistication_level_not_assessed"
+        action: "complete_assessment_before_generating_ideas"
+
+    - id: step_02
+      action: define_real_value_proposition
+      description: "Write 10 answers to 'What are we REALLY selling?' going beyond product to emotional transformation"
+      critical: true
+      error_handling:
+        condition: "answers_stay_at_product_level"
+        action: "push_deeper_into_emotional_identity_transformation_level"
+
+    - id: step_03
+      action: generate_big_idea_candidates
+      description: "Create 3-5 complete Big Idea insights (not headlines) from research and value proposition answers"
+      critical: false
+      error_handling:
+        condition: "fewer_than_3_candidates"
+        action: "continue_generating_until_minimum_3_achieved"
+
+    - id: step_04
+      action: score_candidates
+      description: "Rate each on Unexpected (1-10), True (1-10), Relevant (1-10) — minimum 7 on each required"
+      critical: true
+      error_handling:
+        condition: "no_candidate_scores_7_on_all_three"
+        action: "return_to_step_02_generate_new_candidates"
+
+    - id: step_05
+      action: select_winner
+      description: "Choose highest combined score with documented rationale tied to market sophistication"
+      critical: true
+      error_handling:
+        condition: "selecting_sub_7_candidate"
+        action: "block_selection_return_to_generation"
+
+    - id: step_06
+      action: identify_supporting_angles
+      description: "Develop 3 angles reinforcing Big Idea from different perspectives as structural pillars"
+      critical: false
+
+  quality_gate:
+    min_criteria_met: 5
+    criteria:
+      - "sophistication_level_assessed_with_evidence"
+      - "10_answers_to_what_are_we_really_selling"
+      - "minimum_3_big_idea_candidates_generated"
+      - "winner_scores_7_plus_on_all_three_criteria"
+      - "selection_rationale_documented"
+      - "3_supporting_angles_connected_to_big_idea"

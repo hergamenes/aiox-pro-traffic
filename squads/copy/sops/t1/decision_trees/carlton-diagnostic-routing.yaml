@@ -1,0 +1,113 @@
+sop:
+  id: carlton-diagnostic-routing
+  version: "1.0"
+  title: "Carlton Input Classification and Routing"
+  purpose: >
+    Classify incoming requests (copy review vs. new copy) and route to appropriate
+    Carlton methodology. Includes BS Detection, Sales Detective Gate, and ad lifecycle
+    management rules.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: john-carlton
+    tier: T1
+
+  steps:
+    - step: 1
+      name: "Classify Input Type"
+      decision_point:
+        condition: "What type of input was received?"
+        branches:
+          - if: "COPY REVIEW"
+            action: "Route to BS Detection process."
+            next_step: 2
+          - if: "NEW COPY"
+            action: "Route to Sales Detective Gate."
+            next_step: 3
+
+    - step: 2
+      name: "BS Detection (Copy Review)"
+      decision_point:
+        condition: "Run BS Detection scoring"
+        branches:
+          - if: "BS detected (jargon, fails bar test)"
+            action: "Score BS level, flag jargon, rewrite flagged sections."
+            next_step: 4
+          - if: "Copy passes bar test"
+            action: "Proceed to prevention/cure check."
+            next_step: 4
+
+    - step: 3
+      name: "Sales Detective Gate (New Copy)"
+      decision_point:
+        condition: "Has investigation been completed?"
+        branches:
+          - if: "Investigation not done"
+            action: "BLOCK writing. Investigation mandatory before any copy."
+            terminal: true
+          - if: "Investigation complete"
+            action: "Proceed to prevention/cure check."
+            next_step: 4
+
+    - step: 4
+      name: "Prevention vs Cure Check"
+      decision_point:
+        condition: "Is the product selling prevention?"
+        branches:
+          - if: "Selling prevention"
+            action: "Pivot to CURE framing. Nobody pays to prevent; they empty accounts to fix."
+            next_step: 5
+          - if: "Selling cure/solution"
+            action: "Continue with standard approach."
+            next_step: 5
+
+    - step: 5
+      name: "Ad Lifecycle Decision"
+      decision_point:
+        condition: "What is the ad performance status?"
+        branches:
+          - if: "Ad failed"
+            action: "Write another version. Keep iterating. Carlton wrote 17 versions; 17th made $800K/week."
+            next_step: 6
+          - if: "Ad working well"
+            action: "Don't stop. Run until break-even. Expect ~50% drop per 3-week cycle."
+            next_step: 6
+          - if: "New ad (no data yet)"
+            action: "Proceed to market targeting."
+            next_step: 6
+
+    - step: 6
+      name: "Market Targeting"
+      decision_point:
+        condition: "Narrow passionate vs broad generic market?"
+        branches:
+          - if: "Choosing between narrow and broad"
+            action: "ALWAYS fish deep in narrow with multiple promotions."
+            next_step: 7
+
+    - step: 7
+      name: "First Draft Edit"
+      decision_point:
+        condition: "First paragraph written?"
+        branches:
+          - if: "First paragraph exists"
+            action: "Cut it. Probably throat-clearing. Real pitch starts on page 2."
+            terminal: true
+
+  error_handling:
+    - error: "New copy written without Sales Detective investigation"
+      recovery: "Stop writing. Complete full investigation before any further copy."
+    - error: "Prevention framing used instead of cure"
+      recovery: "Reframe all prevention language as cure/fix language."
+    - error: "Ad killed after 1-2 failed versions"
+      recovery: "Resume iteration. Plan for at least 5+ versions before abandoning concept."
+
+  quality_gate:
+    min_criteria: 5
+    checks:
+      - "Input correctly classified (review vs. new copy)"
+      - "BS Detection completed for reviews"
+      - "Sales Detective investigation done before new copy"
+      - "Prevention reframed as cure"
+      - "First paragraph evaluated for throat-clearing"
+      - "Market targeting is narrow-deep"

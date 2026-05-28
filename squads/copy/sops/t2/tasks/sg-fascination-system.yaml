@@ -1,0 +1,96 @@
+sop:
+  id: "sg-fascination-system"
+  version: "1.0.0"
+  title: "Alpha-Omega Fascination System"
+  purpose: "Write strategically positioned fascination bullets — Alpha (lead, keep reading) and Omega (close, drive purchase) — using 11 bullet types and the Bass Fishing Model"
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    risk_level: "low"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "When writing long-form copy that needs curiosity hooks in the lead and desire amplifiers in the close section"
+  context:
+    input:
+      - name: "research_document"
+        type: "object"
+        required: true
+        description: "RMBC research document with prospect language, pain points, desires, and fears"
+      - name: "mechanism"
+        type: "object"
+        required: true
+        description: "Defined mechanism including UMP, UMS, and Named Oddity from RMBC Phase M"
+  steps:
+    - id: "S001"
+      name: "Write Alpha fascinations"
+      action: "create_alpha_bullets"
+      description: "Write 5-7+ fascination bullets for the lead section. Purpose: create curiosity itches that can only be scratched by continuing to read. Each bullet creates a specific curiosity gap without revealing the answer."
+      performer: "copywriter"
+      critical: true
+      on_success: "S002"
+      on_failure: "retry"
+    - id: "S002"
+      name: "Write Omega fascinations"
+      action: "create_omega_bullets"
+      description: "Write fascination bullets for the close section. Purpose: create desire itches that can only be scratched by buying. Each bullet connects a product component to a specific transformation, partially revealing enough to create desire."
+      performer: "copywriter"
+      critical: true
+      on_success: "S003"
+      on_failure: "retry"
+    - id: "S003"
+      name: "Apply Bass Fishing Model"
+      action: "map_hook_architecture"
+      description: "Map Big Hook (headline/main promise) and Mini Hooks (individual fascinations) across the copy. Place Mini Hooks at natural reader drop-off points. Each Mini Hook must work independently."
+      performer: "copywriter"
+      critical: false
+      on_success: "S004"
+      on_failure: "retry"
+    - id: "S004"
+      name: "Apply 11 bullet types"
+      action: "diversify_bullet_types"
+      description: "Ensure fascinations use variety from 11 types: WHY, HOW, WHEN, WHAT, SECRET, LIST, NEVER, CONTRARIAN, NAMED ODDITY, SPEEDY, PLUS. Use minimum 3 different types to prevent monotony."
+      performer: "copywriter"
+      critical: false
+      on_success: "S005"
+      on_failure: "retry"
+    - id: "S005"
+      name: "Validate Alpha count and quality"
+      action: "validate_alpha_fascinations"
+      description: "Confirm minimum 5-7 Alpha fascinations in lead section, using at least 3 different bullet types, building momentum without repetition. Test: would a prospect read just these bullets and feel compelled to continue?"
+      performer: "copywriter"
+      critical: true
+      on_success: "END"
+      on_failure: "S001"
+  error_handling:
+    global_timeout: "PT3H"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "alpha_count_minimum_5"
+        type: "numeric"
+        target: 5
+        weight: 0.2
+      - name: "omega_fascinations_present"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "bullet_type_variety"
+        type: "numeric"
+        target: 3
+        weight: 0.2
+      - name: "alpha_creates_curiosity"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "omega_drives_purchase"
+        type: "boolean"
+        target: true
+        weight: 0.2
+    pass_threshold: 0.85
+  outputs:
+    artifacts:
+      - name: "fascination_bullets"
+        type: "file"
+        format: "md"
+        description: "Alpha fascinations for lead, Omega fascinations for close, with Bass Fishing Model mapping and bullet type annotations"

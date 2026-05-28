@@ -1,0 +1,136 @@
+sop:
+  id: ah-decision-heuristics
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+
+  title: "Alex Hormozi Decision Heuristics"
+  purpose: "Systematic decision checkpoints based on Alex Hormozi's $100M Offers philosophy to enforce offer-first copywriting — validating the offer is irresistible before any copy, creative, or funnel work begins."
+
+  classification:
+    domain: copywriting
+    subdomain: offer-creation
+    source_agent: alex-hormozi
+    artifact_type: decision_tree
+    tier: t2
+
+  steps:
+    - id: AH_H01
+      name: offer_first
+      decision_point: "Before copy, funnel, or campaign work"
+      branches:
+        - condition: "Offer is irresistible (prospects don't need to think)"
+          goto: AH_H02
+        - condition: "Offer requires convincing or explanation"
+          goto: AH_H01_FIX
+          action: "STOP. Fix the offer BEFORE writing copy. Better copy on weak offer is wasted effort."
+
+    - id: AH_H01_FIX
+      name: offer_improvement
+      action: "Redesign offer using Value Equation until it passes the No Brainer Test."
+      goto: AH_H01
+
+    - id: AH_H02
+      name: denominator_first
+      decision_point: "Offer doesn't convert"
+      branches:
+        - condition: "Denominator is too high (time too long, effort too much)"
+          goto: AH_H02_FIX
+          action: "Reduce time delay and/or effort FIRST. This is almost always the bottleneck."
+        - condition: "Denominator is already low"
+          goto: AH_H03
+          action: "Look at numerator (Dream Outcome and Perceived Likelihood)."
+
+    - id: AH_H02_FIX
+      name: reduce_denominator
+      action: "Compress timeline and reduce customer effort. Make it faster and easier to get the result."
+      goto: AH_H03
+
+    - id: AH_H03
+      name: starving_crowd_validation
+      decision_point: "Before building an offer"
+      branches:
+        - condition: "All 4 criteria pass: massive pain, buying power, reachability, growth"
+          goto: AH_H04
+        - condition: "Any criterion fails"
+          goto: HALT
+          action: "STOP. Choose different market or redefine audience. Missing criterion blocks success."
+
+    - id: AH_H04
+      name: no_brainer_test
+      decision_point: "Evaluating finished offer"
+      branches:
+        - condition: "Ideal prospect would feel stupid saying no"
+          goto: AH_H05
+          action: "Offer passes. Proceed to copy and creative."
+        - condition: "Offer requires thinking, qualifiers, or explanation"
+          goto: AH_H04_FIX
+          action: "Offer NOT good enough. Improve until instant yes."
+
+    - id: AH_H04_FIX
+      name: improve_offer
+      action: "Add value, remove friction, strengthen guarantee until No Brainer threshold is met."
+      goto: AH_H04
+
+    - id: AH_H05
+      name: risk_reversal_priority
+      decision_point: "Designing guarantees"
+      branches:
+        - condition: "Guarantee reverses the prospect's biggest SPECIFIC fear"
+          goto: AH_H06
+        - condition: "Guarantee is generic (money-back, no questions asked)"
+          goto: AH_H05_FIX
+          action: "Generic guarantees don't address specific fears. Redesign for specificity."
+
+    - id: AH_H05_FIX
+      name: specific_guarantee_design
+      action: "Identify the prospect's #1 specific fear and design guarantee that directly reverses it."
+      goto: AH_H05
+
+    - id: AH_H06
+      name: premium_pricing
+      decision_point: "Setting price"
+      branches:
+        - condition: "Price based on value delivered, creates category of one"
+          goto: COMPLETE
+        - condition: "Price based on competitive benchmarking or undercutting"
+          goto: AH_H06_FIX
+          action: "STOP. Higher price signals higher value. Price on VALUE, not competition."
+
+    - id: AH_H06_FIX
+      name: value_based_pricing
+      action: "Ignore market average. Set price based on value delivered. Premium positioning creates category of one."
+      goto: COMPLETE
+
+  error_handling:
+    - error: "writing_copy_before_offer"
+      symptom: "Great copy but low conversions; prospects hesitate"
+      resolution: "Return to AH_H01. Fix the offer first."
+
+    - error: "optimizing_numerator_when_denominator_is_problem"
+      symptom: "Bigger promises and proof but still low conversions"
+      resolution: "Return to AH_H02. Check time delay and effort first."
+
+    - error: "building_for_wrong_market"
+      symptom: "Interest but no purchases; audience can't afford solution"
+      resolution: "Return to AH_H03. Validate all four Starving Crowd criteria."
+
+    - error: "generic_guarantee"
+      symptom: "Guarantee doesn't affect conversion rate"
+      resolution: "Return to AH_H05. Design guarantee targeting the specific fear."
+
+    - error: "underpricing"
+      symptom: "Commoditized positioning, race to the bottom"
+      resolution: "Return to AH_H06. Price based on value, not competition."
+
+  quality_gate:
+    criteria:
+      - "Offer validated BEFORE copy was written"
+      - "Value Equation applied with denominator checked first"
+      - "Starving Crowd validated (massive pain, buying power, reachability, growth)"
+      - "No Brainer Test passed (instant yes)"
+      - "Guarantee reverses SPECIFIC fear"
+      - "Price set on value, not competitive benchmarking"
+    pass_threshold: "6/6 criteria met"

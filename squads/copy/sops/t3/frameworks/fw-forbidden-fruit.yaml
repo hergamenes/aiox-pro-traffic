@@ -1,0 +1,80 @@
+sop:
+  id: fw-forbidden-fruit
+  version: "1.0"
+  title: "Forbidden Fruit Click-Through Secret"
+  purpose: "Maximize email click-through rates by building tension and momentum that forces the click"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: ben-settle
+    tier: t3
+  steps:
+    - id: apply_build_tension
+      name: "Build Tension Within Email"
+      description: "Create escalating tension through open loops, story gaps, and rising stakes"
+      inputs:
+        - story_hook
+        - information_gap
+      outputs:
+        - tension_arc
+      validation:
+        - tension_escalates: true
+        - open_loops_present: true
+    - id: apply_overcome_objections
+      name: "Overcome Objections Before CTA"
+      description: "Address click-preventing objections within the email narrative"
+      inputs:
+        - primary_objections
+        - email_narrative
+      outputs:
+        - objection_handled_narrative
+      validation:
+        - objections_addressed: ">=1"
+        - woven_into_story: true
+        - not_explicit_blocks: true
+    - id: apply_relevant_curiosity
+      name: "Curiosity + Relevance"
+      description: "Tie curiosity to reader's specific pain or desire; never use blind curiosity"
+      inputs:
+        - reader_pain_points
+        - curiosity_hooks
+      outputs:
+        - relevant_curiosity_elements
+      validation:
+        - relevance_linked: true
+        - no_blind_clickbait: true
+    - id: apply_force_click
+      name: "Force Click Through Momentum"
+      description: "Position CTA as natural release of built-up tension"
+      inputs:
+        - tension_arc
+        - objection_handled_narrative
+        - relevant_curiosity_elements
+        - destination_url
+      outputs:
+        - complete_email_with_cta
+      validation:
+        - single_cta: true
+        - cta_feels_natural: true
+        - reading_without_clicking_feels_incomplete: true
+  error_handling:
+    - error: premature_cta
+      condition: "CTA appears before tension peaks"
+      action: "Move CTA after tension peak and objection handling"
+    - error: blind_curiosity
+      condition: "Curiosity hooks not connected to reader's situation"
+      action: "Tie each hook to specific pain or desire"
+    - error: tension_resolved_in_email
+      condition: "Payoff delivered before click; no reason to click"
+      action: "Keep resolution behind the click; email is setup only"
+    - error: multiple_ctas
+      condition: "More than one link destination diluting momentum"
+      action: "Reduce to single CTA; all momentum to one destination"
+  quality_gate:
+    min_sections: 4
+    required_elements:
+      - escalating_tension
+      - pre_cta_objection_handling
+      - relevant_curiosity
+      - momentum_release_cta
+    pass_threshold: "all 4 elements present; CTA feels inevitable"

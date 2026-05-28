@@ -1,0 +1,53 @@
+sop:
+  id: rutz-frame-setting-bullets
+  version: "1.0"
+  title: "Frame-Setting Bullet System"
+  purpose: "Apply Jim Rutz's Frame-Setting Bullet System to create fascinations that go beyond simple curiosity teasers. Standard bullets withhold information. Frame-setting bullets establish an emotional or logi"
+  classification:
+    domain: copywriting
+    category: master
+    tier: t1
+    source_agent: jim-rutz
+  steps:
+    - id: apply_set_the_frame
+      action: "Establish an emotional or logical context before teasing the information."
+      input: "Frame: establish emotional/logical context"
+      output: "Step 1 deliverable: Set the Frame completed with documented findings"
+      validation: "Every bullet has all 5 elements: frame, tension, twist, gap, page reference"
+    - id: apply_build_tension
+      action: "After the frame, introduce conflict or light concern that raises the stakes."
+      input: "Tension: conflict or light concern"
+      output: "Step 2 deliverable: Build Tension completed with documented findings"
+      validation: "Frames are specific to the prospect's situation, not generic"
+    - id: apply_insert_the_twist
+      action: "Add an unexpected qualifier that violates the reader's expectation within the established frame."
+      input: "Twist: unexpected qualifier"
+      output: "Step 3 deliverable: Insert the Twist completed with documented findings"
+      validation: "Twists genuinely violate the reader's expectation"
+    - id: apply_create_the_curiosity_gap
+      action: "Withhold the resolution -- what IS the damage? What ARE the 3 foods? The gap should be specific enough that the reade..."
+      input: "Curiosity Gap: withhold resolution"
+      output: "Step 4 deliverable: Create the Curiosity Gap completed with documented findings"
+      validation: "Curiosity gaps are specific enough to define the question but not answerable without reading"
+    - id: apply_direct_to_action
+      action: "Include a page reference or action directive: '."
+      input: "Page Reference: direct to action"
+      output: "Step 5 deliverable: Direct to Action completed with documented findings"
+      validation: "Page references match actual content locations"
+  error_handling:
+    - error: "Writing standard tease bullets without frames"
+      resolution: "Every bullet must open with a frame that contextualizes the tease"
+    - error: "Frames that are too long and bury the tease"
+      resolution: "Frame should be 1-2 sentences maximum; the tease must arrive quickly"
+    - error: "Twists that are arbitrary rather than genuinely unexpected"
+      resolution: "The twist must follow logically from the frame while violating expectations"
+    - error: "Curiosity gaps with predictable answers"
+      resolution: "Test each bullet: can a knowledgeable reader guess the answer? If yes, tighten the gap"
+  quality_gate:
+    criteria:
+      - "Every bullet has all 5 elements: frame, tension, twist, gap, page reference"
+      - "Frames are specific to the prospect's situation, not generic"
+      - "Twists genuinely violate the reader's expectation"
+      - "Curiosity gaps are specific enough to define the question but not answerable without reading"
+      - "Page references match actual content locations"
+    pass_threshold: "All 5 criteria met"

@@ -1,0 +1,78 @@
+sop:
+  id: halbert-diagnostic-flow
+  version: "1.0"
+  title: "Halbert Copy Diagnostic Flow"
+  purpose: "Diagnose marketing problems using List > Offer > Copy hierarchy to identify weakest link and prescribe correct fix"
+  classification:
+    domain: copywriting
+    category: master
+    tier: T1
+    source_agent: gary-halbert
+
+  inputs:
+    - name: copy_draft_or_brief
+      type: text
+      required: true
+
+  outputs:
+    - name: diagnosis_with_action_plan
+      type: document
+      description: "Prioritized action plan addressing root cause in List > Offer > Copy hierarchy"
+
+  steps:
+    - id: step_01
+      action: classify_input
+      description: "Determine type: NEW COPY, EXISTING COPY, or MARKET DIAGNOSTIC"
+      critical: true
+      error_handling:
+        condition: "blending_diagnostic_paths"
+        action: "force_single_classification_follow_that_path_exclusively"
+
+    - id: step_02
+      action: evaluate_market_viability
+      description: "If MARKET DIAGNOSTIC: assess list via RFU, check active competitors, evaluate sophistication level"
+      critical: false
+      error_handling:
+        condition: "ignoring_competitor_signals"
+        action: "verify_competitors_spending_consistently_as_market_proof"
+
+    - id: step_03
+      action: evaluate_copy_elements
+      description: "If COPY: check A-pile vs B-pile, headline grab, proof stack, specific numbers"
+      critical: false
+
+    - id: step_04
+      action: apply_hierarchy_assessment
+      description: "Rank List > Offer > Copy, identify weakest link with specific evidence"
+      critical: true
+      error_handling:
+        condition: "defaulting_to_copy_is_the_problem"
+        action: "evaluate_list_and_offer_first_copy_is_last_resort"
+
+    - id: step_05
+      action: fix_weak_list
+      description: "If LIST weakest: pivot market, find hotter list before any writing"
+      critical: false
+      error_handling:
+        condition: "writing_copy_for_dead_list"
+        action: "block_copy_work_until_list_passes_rfu_criteria"
+
+    - id: step_06
+      action: fix_weak_offer
+      description: "If OFFER weakest: add bonuses, lower price, extend guarantee, create urgency"
+      critical: false
+
+    - id: step_07
+      action: fix_weak_copy
+      description: "If COPY weakest: execute The Suck research, generate Nugget Notes, rewrite with proof stack"
+      critical: false
+
+  quality_gate:
+    min_criteria_met: 4
+    criteria:
+      - "input_correctly_classified"
+      - "hierarchy_assessment_completed"
+      - "weakest_link_identified_with_evidence"
+      - "prescribed_action_matches_weakest_link"
+      - "market_viability_confirmed_before_copy_work"
+      - "specific_metrics_support_diagnosis"

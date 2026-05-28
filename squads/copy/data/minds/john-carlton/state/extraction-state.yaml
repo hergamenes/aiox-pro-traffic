@@ -1,0 +1,29 @@
+# Extraction State - John Carlton
+# Auto-generated: 2026-03-19
+
+extraction:
+  status: "completed"
+  started: "2026-01-26"
+  completed: "2026-01-26"
+
+sources:
+  total: 1
+  tier_1_estimated: 1
+  types_detected: ["books", "articles"]
+
+voice_dna:
+  extracted: true
+  power_words: 14
+  signature_phrases: 12
+  anti_patterns: 8
+  quality_estimate: "high"
+
+thinking_dna:
+  extracted: true
+  frameworks: 9
+  heuristics: 10
+  quality_estimate: "high"
+
+overall:
+  fidelity_estimate: "65%"
+  needs_improvement: ["source material limited"]

@@ -1,0 +1,130 @@
+sop:
+  id: sg-veto-conditions
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Stefan Georgi Veto Conditions"
+  purpose: >
+    Define hard-stop conditions for the stefan-georgi agent that enforce RMBC
+    sequential methodology. Prevents copy without research, missing mechanisms,
+    generic language, and incomplete offer structures.
+  classification:
+    domain: copywriting
+    category: systematizer
+    subcategory: veto-conditions
+    source_agent: stefan-georgi
+    tier: T2
+  status: ACTIVE
+
+  trigger:
+    event: task_intake
+    conditions:
+      - agent == "stefan-georgi"
+      - task_type in ["copy-request", "vsl-script", "sales-page", "brief-review", "mechanism-review"]
+
+  context:
+    input:
+      - task_brief: string
+      - copy_draft: string | null
+      - research_document: string | null
+      - problem_mechanism: string | null
+      - solution_mechanism: string | null
+      - named_oddity: string | null
+      - offer_packages: list | null
+    required_knowledge:
+      - stefan-georgi/thinking_dna.yaml
+
+  steps:
+    - id: step_01
+      action: validate_research_exists
+      description: "SG_V01: Verify documented Research exists before copy"
+      check: "research_document is not null AND has prospect_language"
+      on_success: continue
+      on_failure:
+        action: block
+        severity: critical
+        message: "BLOCK — No documented research. Go back to R of RMBC."
+
+    - id: step_02
+      action: validate_dual_mechanism
+      description: "SG_V02: Verify both Problem + Solution Mechanism present"
+      check: "problem_mechanism is not null AND solution_mechanism is not null"
+      on_success: continue
+      on_failure:
+        action: block
+        severity: critical
+        message: "BLOCK — Missing mechanism. Go back to M of RMBC."
+
+    - id: step_03
+      action: validate_market_language
+      description: "SG_V03: Verify copy uses real market language, not generic"
+      check: "language_source == 'research' NOT 'writer_generic'"
+      on_success: continue
+      on_failure:
+        action: redo
+        severity: high
+        message: "REDO — Generic language. Rewrite with exact prospect words from Research."
+
+    - id: step_04
+      action: validate_no_throat_clearing
+      description: "SG_V04: Verify lead engages within 2 paragraphs"
+      check: "paragraphs_before_engagement <= 2"
+      on_success: continue
+      on_failure:
+        action: cut
+        severity: high
+        message: "CUT — Throat clearing in lead. Remove opening paragraphs, start hot."
+
+    - id: step_05
+      action: validate_brief_format
+      description: "SG_V05: Verify brief is narrative format, not bullet points"
+      check: "brief_format == 'narrative' NOT 'bullet_list'"
+      on_success: continue
+      on_failure:
+        action: redo
+        severity: medium
+        message: "REDO — Brief in bullet points. Rewrite as narrative copy format."
+
+    - id: step_06
+      action: validate_named_oddity
+      description: "SG_V06: Verify Named Oddity is original, not generic or copied"
+      check: "named_oddity is proprietary AND not generic_descriptor AND not copied_from_other_market"
+      on_success: continue
+      on_failure:
+        action: redo
+        severity: high
+        message: "REDO — Generic or copied Named Oddity. Create original proprietary name."
+
+    - id: step_07
+      action: validate_money_close
+      description: "SG_V07: If multi-package, verify dedicated Money Close per package"
+      check: "if offer_packages.length > 1 then each_package has money_close_section"
+      on_success: continue
+      on_failure:
+        action: add
+        severity: medium
+        message: "ADD — Multi-package missing Money Close. Add 2-page section per larger package."
+      condition: "offer_packages is not null AND offer_packages.length > 1"
+
+  error_handling:
+    max_retries: 0
+    on_any_failure: block_task
+    fallback: return_veto_report_with_rmbc_phase
+
+  quality_gate:
+    min_pass_rate: 1.0
+    min_steps_passed: 7
+    critical_steps: [step_01, step_02]
+    verdict_map:
+      all_pass: PROCEED
+      any_block: BLOCKED_RETURN_TO_RMBC
+      redo_or_cut: REWORK_REQUIRED
+      add_only: PROCEED_WITH_ADDITIONS
+
+  outputs:
+    - veto_verdict: enum[PROCEED, BLOCKED_RETURN_TO_RMBC, REWORK_REQUIRED, PROCEED_WITH_ADDITIONS]
+    - triggered_vetos: list
+    - rmbc_phase_to_revisit: enum[R, M, B, C] | null
+    - remediation_instructions: list

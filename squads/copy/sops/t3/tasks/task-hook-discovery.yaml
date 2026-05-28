@@ -1,0 +1,79 @@
+sop:
+  id: task-hook-discovery
+  version: "1.0"
+  title: "Simple Hook Formula (Mind Map Method)"
+  purpose: "Generate multiple named hook candidates through audience surveying, four-quadrant organization, lateral association, and cross-branch combination"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: jon-benson
+    tier: T3
+
+  inputs:
+    - name: audience_survey_data
+      type: dataset
+      required: true
+      description: "Responses to 3 questions: pressing issue, greatest fear, biggest dream"
+    - name: target_niche
+      type: string
+      required: true
+      description: "Target niche and product definition"
+
+  outputs:
+    - name: hook_candidates
+      type: list
+      description: "Multiple hook candidates (minimum 10)"
+    - name: named_hooks
+      type: list
+      description: "Top named hooks (e.g., 'The Skinny Switch')"
+
+  steps:
+    - id: step_1
+      action: survey_audience
+      description: "Collect responses to 3 questions: pressing issue, greatest fear, biggest dream"
+      min_responses: 20
+
+    - id: step_2
+      action: organize_four_quadrants
+      description: "Sort responses into Wants, Fears, Pleasures, Needs quadrants with 5-10 keywords each"
+      critical: true
+      error_handling:
+        condition: "Quadrant has fewer than 5 keywords"
+        action: "Collect additional survey responses or extract deeper from existing data"
+
+    - id: step_3
+      action: generate_lateral_associations
+      description: "For each keyword ask 'What ELSE is [word]?' and 'Related to?' to find cross-domain associations"
+
+    - id: step_4
+      action: construct_mind_map
+      description: "Connect association branches visually, identify quadrant intersection nodes"
+
+    - id: step_5
+      action: combine_cross_branch
+      description: "Combine words from DIFFERENT branches into 2-3 word hook phrases"
+      critical: true
+      error_handling:
+        condition: "Hooks combine same-branch words"
+        action: "Discard and force combination from different quadrant branches"
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "Minimum 20 survey responses collected"
+      - "All four quadrants have 5+ keywords"
+      - "Lateral associations cross domain boundaries"
+      - "At least 10 hook candidates generated"
+      - "Top 3 hooks are 2-3 words, memorable, ownable"
+      - "No hook is generic enough for competitor to claim"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies: []
+
+  related_sops:
+    - task-negative-positive-hook-system
+    - task-vsl-5-step
+    - task-alpha-omega-optimization

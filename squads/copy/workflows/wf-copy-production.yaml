@@ -1,0 +1,126 @@
+# --- document metadata ---
+version: "1.0"
+date: "2026-03-09"
+author:
+  agent: "squad-chief"
+  squad: "copy"
+aiox: true
+project: "opb-corp"
+
+# Workflow: Copy Production Pipeline
+# Main workflow — used for ALL copy production in CopywriterOS.
+
+workflow:
+  name: wf-copy-production
+  display: "Copy Production Pipeline"
+  description: >
+    7-phase workflow from briefing to delivery. Follows the CopywriterOS
+    execution flow: Briefing → Diagnostic → Routing → Creation → Review → QA → Delivery.
+  entry_agent: copy-chief
+  version: "1.0"
+
+phases:
+
+  - id: briefing
+    name: "Phase 1: Briefing"
+    agent: copy-chief
+    task: briefing.md
+    elicit: true
+    mandatory: true
+    output: "Structured briefing YAML"
+    checkpoint:
+      gate: "Briefing has product, ICP, channel, objective"
+      veto: "Missing product OR ICP OR channel → BLOCK"
+
+  - id: diagnostic
+    name: "Phase 2: Tier 0 Diagnostic"
+    agent: [claude-hopkins, eugene-schwartz, robert-collier]
+    task: diagnose.md
+    parallel: true
+    mandatory: true
+    output: "Diagnostic Report (awareness, sophistication, conversation entry)"
+    checkpoint:
+      gate: "3 diagnostics produced and consolidated"
+      veto: "Less than 3 diagnostics → BLOCK"
+    depends_on: [briefing]
+
+  - id: routing
+    name: "Phase 3: Routing Decision"
+    agent: copy-chief
+    task: null  # Inline — Copy Chief selects agents based on diagnostic + routing-matrix
+    mandatory: true
+    output: "Selected 1-3 agents + rationale"
+    checkpoint:
+      gate: "Agent selection justified by diagnostic data"
+      veto: "Selection without diagnostic rationale → BLOCK"
+    depends_on: [diagnostic]
+
+  - id: creation
+    name: "Phase 4: Copy Creation"
+    agent: "{selected from routing}"
+    task: write-copy.md
+    mandatory: true
+    output: "Draft copy in channel format"
+    checkpoint:
+      gate: "Copy reflects agent methodology + considers diagnostic"
+      veto: "Generic copy without agent DNA → BLOCK"
+    depends_on: [routing]
+
+  - id: review
+    name: "Phase 5: Cross-Review"
+    agent: "{second agent — selected by Copy Chief}"
+    task: review-copy.md
+    mandatory: false
+    condition: "stakes = high OR stakes = critical"
+    output: "Review notes + improvement suggestions"
+    checkpoint:
+      gate: "Reviewer provides specific framework-based suggestions"
+      veto: "Rewriting instead of reviewing → BLOCK"
+    depends_on: [creation]
+
+  - id: qa_gate
+    name: "Phase 6: QA Gate — Sugarman 30 Triggers"
+    agent: joe-sugarman
+    task: qa-gate.md
+    mandatory: true
+    skip_condition: "NEVER — always runs"
+    output: "Score X/30, verdict (PASS/REVISE/FAIL)"
+    checkpoint:
+      gate: "Score >= 20 for PASS"
+      veto: "Score < 20 without revision cycle → BLOCK delivery"
+    depends_on: [creation, review]
+    on_revise:
+      action: "Return to creation phase with QA feedback"
+      max_iterations: 3
+    on_fail:
+      action: "Re-route to different agent via routing phase"
+
+  - id: delivery
+    name: "Phase 7: Delivery"
+    agent: copy-chief
+    task: deliver.md
+    mandatory: true
+    output: "Delivery package (copy + metadata + diagnostic + QA score)"
+    checkpoint:
+      gate: "Complete delivery package with all metadata"
+      veto: "Delivery without QA PASS → BLOCK"
+    depends_on: [qa_gate]
+
+# Flow Control
+flow_control:
+  direction: unidirectional
+  exceptions:
+    - from: qa_gate
+      to: creation
+      condition: "verdict = REVISE"
+      max_loops: 3
+    - from: qa_gate
+      to: routing
+      condition: "verdict = FAIL"
+      max_loops: 1
+
+# Activation
+activation:
+  command: "*copy"
+  alias_ptbr: "*escrever"
+  description: "Start a copy production project"

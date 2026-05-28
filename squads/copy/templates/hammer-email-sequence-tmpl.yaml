@@ -1,0 +1,595 @@
+# Hammer Email Sequence Template
+# Framework: Jeremy Haynes "6 Emails Per Day" System
+# Purpose: Pre-call email sequence that increases show rate by 20-40%
+
+metadata:
+  name: "Hammer Email Sequence"
+  version: "1.0"
+  source: "Jeremy Haynes - Hammer Them Strategy"
+  result_benchmark: "Show rate improvement from 30-50% to 70-80%"
+
+# =============================================================================
+# INPUTS REQUIRED
+# =============================================================================
+inputs:
+  required:
+    offer_name: "[Nome do produto/programa]"
+    price: "[Preço principal]"
+    payment_options: "[À vista, parcelado, etc.]"
+    target_avatar: "[Descrição do cliente ideal]"
+    call_duration: "[Quanto tempo dura a call]"
+    time_to_call: "[24h | 48h | 72h]"
+    transformation: "[Resultado específico prometido]"
+
+  from_sales_team:
+    top_5_questions: |
+      1. [Pergunta mais frequente]
+      2. [Segunda mais frequente]
+      3. [Terceira mais frequente]
+      4. [Quarta mais frequente]
+      5. [Quinta mais frequente]
+
+    top_3_objections: |
+      1. [Objeção #1 - geralmente preço]
+      2. [Objeção #2 - geralmente tempo]
+      3. [Objeção #3 - geralmente dúvida]
+
+    common_misconceptions: "[O que leads pensam errado]"
+
+  optional:
+    case_study_name: "[Nome do case study principal]"
+    case_study_result: "[Resultado específico]"
+    video_testimonial_link: "[Link se tiver]"
+    vsl_link: "[Link do VSL se tiver]"
+    faq_link: "[Link do FAQ se tiver]"
+
+# =============================================================================
+# THE 4 PILLARS (Content Categories)
+# =============================================================================
+pillars:
+  pillar_1_objections:
+    code: "OBJ"
+    focus: "Objeções que surgem na sales call"
+    examples:
+      - "É muito caro / Não tenho dinheiro"
+      - "Não tenho tempo"
+      - "Já tentei antes e não funcionou"
+      - "Preciso falar com meu sócio/cônjuge"
+      - "Não é o momento certo"
+    email_approach: "Abordar proativamente, com exemplos e reframes"
+
+  pillar_2_questions:
+    code: "QUEST"
+    focus: "Perguntas gerais sobre a oferta"
+    examples:
+      - "Como funciona?"
+      - "Para quem é isso?"
+      - "Quanto custa?"
+      - "Quanto tempo leva para ver resultados?"
+      - "O que está incluso?"
+    email_approach: "Responder de forma educacional e detalhada"
+
+  pillar_3_questions_from_questions:
+    code: "QUEST2"
+    focus: "Follow-ups naturais das respostas anteriores"
+    examples:
+      - "Você disse X, mas e se Y?"
+      - "Ok, mas como isso funciona para [minha situação]?"
+      - "Quais são as opções de pagamento?"
+      - "E se eu não conseguir [resultado] no tempo prometido?"
+    email_approach: "Antecipar objeções derivadas"
+
+  pillar_4_expectations:
+    code: "EXPECT"
+    focus: "O que esperar do processo e resultados"
+    examples:
+      - "Quanto tempo até ver resultados?"
+      - "O que eu preciso fazer da minha parte?"
+      - "Qual o comprometimento necessário?"
+      - "O que acontece depois que eu compro?"
+      - "Como é o suporte?"
+    email_approach: "Definir expectativas realistas"
+
+# =============================================================================
+# EMAIL ANATOMY (Structure for all emails)
+# =============================================================================
+email_anatomy:
+  subject_line:
+    style: "Casual, lowercase, como se fosse pessoal"
+    max_length: 50
+    examples:
+      - "pergunta rápida"
+      - "sobre sua call amanhã"
+      - "isso é importante"
+      - "esqueci de mencionar"
+      - "uma coisa"
+    avoid:
+      - "URGENTE!!!"
+      - "ÚLTIMAS HORAS!!!"
+      - "Oferta imperdível"
+      - "Emojis excessivos"
+
+  body:
+    opening_style: "Direto, sem enrolação"
+    length: "200-400 palavras"
+    format: "Parágrafos curtos (1-3 linhas)"
+    rule: "UM email = UMA pergunta/objeção"
+
+  closing:
+    style: "Soft, sem pressão"
+    examples:
+      - "Nos vemos na call!"
+      - "Qualquer dúvida, responde aqui."
+      - "Te vejo [dia] às [hora]."
+
+  signature:
+    format: |
+      - [Primeiro nome]
+
+      PS: [Teaser ou lembrete útil]
+
+# =============================================================================
+# 72-HOUR SEQUENCE (18 emails)
+# =============================================================================
+sequence_72h:
+  day_1:
+    description: "Dia do agendamento - 6 emails"
+
+    email_01:
+      timing: "Imediatamente após agendamento"
+      pillar: "EXPECT"
+      subject: "sua call está confirmada"
+      content_template: |
+        Oi {{nome}},
+
+        Sua call está confirmada para {{data}} às {{hora}}.
+
+        Aqui está o que vamos cobrir:
+        - [Tópico 1 que vão discutir]
+        - [Tópico 2 que vão discutir]
+        - [Tópico 3 que vão discutir]
+
+        A call dura aproximadamente {{duracao}}.
+
+        Vem preparado com suas perguntas - vamos responder todas.
+
+        - {{seu_nome}}
+
+        PS: Adiciona no calendário para não esquecer.
+
+    email_02:
+      timing: "+2 horas"
+      pillar: "QUEST"
+      subject: "como funciona {{oferta}}"
+      content_template: |
+        {{nome}},
+
+        Antes da nossa call, queria explicar rapidamente
+        como {{oferta}} funciona.
+
+        [Explicação em 3-5 bullet points do processo]
+
+        Isso significa que você vai conseguir [RESULTADO]
+        sem [DOR/OBSTÁCULO que eles têm].
+
+        Vou explicar mais detalhes na call, mas essa é a essência.
+
+        - {{seu_nome}}
+
+    email_03:
+      timing: "+4 horas"
+      pillar: "QUEST"
+      subject: "para quem é (e para quem não é)"
+      content_template: |
+        {{nome}},
+
+        Uma coisa importante antes da nossa conversa.
+
+        {{oferta}} é IDEAL para quem:
+        ✅ [Característica 1]
+        ✅ [Característica 2]
+        ✅ [Característica 3]
+
+        {{oferta}} NÃO é para quem:
+        ❌ [Desqualificador 1]
+        ❌ [Desqualificador 2]
+
+        Se você se encaixa no primeiro grupo, nossa call
+        vai ser muito produtiva.
+
+        - {{seu_nome}}
+
+    email_04:
+      timing: "+6 horas"
+      pillar: "OBJ"
+      subject: "sobre o investimento"
+      content_template: |
+        {{nome}},
+
+        Vou ser direto.
+
+        O investimento em {{oferta}} é {{preco}}.
+
+        Por que esse valor?
+
+        [Explicação do valor - ROI, comparação, etc.]
+
+        {{opcoes_pagamento}}
+
+        Não quero que você chegue na call sem saber disso.
+        Transparência é importante para mim.
+
+        - {{seu_nome}}
+
+        PS: Na call, posso explicar as opções em mais detalhes.
+
+    email_05:
+      timing: "+8 horas"
+      pillar: "QUEST2"
+      subject: "e se eu não tiver [objeção comum]?"
+      content_template: |
+        {{nome}},
+
+        Uma pergunta que muita gente faz depois de saber
+        sobre {{oferta}}:
+
+        "E se eu não tiver [RECURSO/CONDIÇÃO comum]?"
+
+        A resposta é:
+
+        [Resposta que remove a objeção]
+
+        Inclusive, [NOME DO CASE] estava na mesma situação
+        e conseguiu [RESULTADO].
+
+        - {{seu_nome}}
+
+    email_06:
+      timing: "+10 horas"
+      pillar: "EXPECT"
+      subject: "quanto tempo até ver resultados?"
+      content_template: |
+        {{nome}},
+
+        Última coisa por hoje.
+
+        "Quanto tempo até eu ver resultados?"
+
+        A resposta honesta:
+
+        [Timeline realista com marcos]
+
+        Isso depende de:
+        - [Fator 1]
+        - [Fator 2]
+        - [Fator 3]
+
+        Na call, posso te dar uma estimativa mais
+        específica para sua situação.
+
+        Descansa bem. Amanhã continuamos.
+
+        - {{seu_nome}}
+
+  day_2:
+    description: "Segundo dia - 6 emails"
+
+    email_07:
+      timing: "Manhã"
+      pillar: "OBJ"
+      subject: "já tentei outras coisas..."
+      content_template: |
+        Bom dia {{nome}},
+
+        Se você já tentou [SOLUÇÕES ALTERNATIVAS] antes
+        e não funcionou, você não está sozinho.
+
+        Aqui está por que essas coisas geralmente falham:
+
+        [Razão 1]
+        [Razão 2]
+        [Razão 3]
+
+        {{oferta}} é diferente porque:
+
+        [Diferenciador 1]
+        [Diferenciador 2]
+
+        [NOME DO CASE] também tinha tentado de tudo.
+        Depois de {{oferta}}, [RESULTADO].
+
+        - {{seu_nome}}
+
+    email_08:
+      timing: "+2 horas"
+      pillar: "QUEST"
+      subject: "o que eu preciso fazer?"
+      content_template: |
+        {{nome}},
+
+        Uma pergunta justa: "O que eu preciso fazer da minha parte?"
+
+        Aqui está o comprometimento necessário:
+
+        ⏰ Tempo: [X horas por semana]
+        📚 O que você faz: [Responsabilidades deles]
+        🤝 O que nós fazemos: [Responsabilidades suas]
+
+        Não vou mentir - exige [NÍVEL] de esforço.
+        Mas não estou pedindo para você fazer sozinho.
+
+        - {{seu_nome}}
+
+    email_09:
+      timing: "+4 horas"
+      pillar: "EXPECT"
+      subject: "case study: {{nome_case}}"
+      content_template: |
+        {{nome}},
+
+        Deixa eu te contar sobre {{nome_case}}.
+
+        ANTES:
+        - [Situação 1]
+        - [Situação 2]
+        - [Situação 3]
+
+        O QUE FEZ:
+        [Brevemente o que fez com você]
+
+        DEPOIS:
+        - [Resultado 1 - com número específico]
+        - [Resultado 2 - com número específico]
+        - [Resultado 3 - com número específico]
+
+        TEMPO: [Quanto tempo levou]
+
+        Isso é possível para você também.
+
+        - {{seu_nome}}
+
+    email_10:
+      timing: "+6 horas"
+      pillar: "OBJ"
+      subject: "não tenho tempo..."
+      content_template: |
+        {{nome}},
+
+        "Não tenho tempo."
+
+        Essa é provavelmente a objeção mais comum que ouço.
+        E é totalmente válida.
+
+        Mas deixa eu te fazer uma pergunta:
+
+        [Reframe sobre tempo - investir tempo agora vs. continuar perdendo tempo]
+
+        {{oferta}} foi desenhado para pessoas ocupadas:
+
+        - [Como economiza tempo]
+        - [Quanto tempo realmente exige]
+        - [Como se encaixa na rotina]
+
+        Na call, posso te mostrar exatamente como funciona.
+
+        - {{seu_nome}}
+
+    email_11:
+      timing: "+8 horas"
+      pillar: "QUEST2"
+      subject: "e a garantia?"
+      content_template: |
+        {{nome}},
+
+        "E se não funcionar para mim?"
+
+        Pergunta justa. Aqui está nossa garantia:
+
+        [Detalhes da garantia]
+
+        Por que oferecemos isso:
+
+        [Razão - demonstra confiança]
+
+        Isso significa que o risco é [ZERO/MÍNIMO] para você.
+
+        - {{seu_nome}}
+
+    email_12:
+      timing: "+10 horas"
+      pillar: "EXPECT"
+      subject: "amanhã é o dia"
+      content_template: |
+        {{nome}},
+
+        Amanhã é o dia da nossa call.
+
+        📅 Data: {{data}}
+        ⏰ Horário: {{hora}}
+        📍 Link: {{link_da_call}}
+
+        Como se preparar:
+        1. [Preparação 1]
+        2. [Preparação 2]
+        3. Venha com suas perguntas
+
+        Animado para conversar.
+
+        - {{seu_nome}}
+
+        PS: Adiciona no calendário se ainda não fez.
+
+  day_3:
+    description: "Dia da call - 6 emails"
+
+    email_13:
+      timing: "Manhã cedo (7-8h)"
+      pillar: "EXPECT"
+      subject: "hoje é o dia"
+      content_template: |
+        Bom dia {{nome}},
+
+        Hoje é o dia.
+
+        📅 Sua call é HOJE
+        ⏰ {{hora}}
+        📍 {{link_da_call}}
+
+        Estou animado para conversar e responder
+        todas as suas perguntas.
+
+        Te vejo em algumas horas.
+
+        - {{seu_nome}}
+
+    email_14:
+      timing: "+2 horas"
+      pillar: "OBJ"
+      subject: "última coisa antes da call"
+      content_template: |
+        {{nome}},
+
+        Uma última coisa antes de nos falarmos.
+
+        Muita gente chega na call preocupada com:
+
+        "[ÚLTIMA OBJEÇÃO COMUM]"
+
+        Aqui está como eu penso sobre isso:
+
+        [Resposta/reframe]
+
+        Podemos aprofundar na call se fizer sentido.
+
+        - {{seu_nome}}
+
+    email_15:
+      timing: "2 horas antes"
+      pillar: "EXPECT"
+      subject: "em 2 horas"
+      content_template: |
+        {{nome}},
+
+        Nossa call começa em 2 horas.
+
+        ⏰ {{hora}}
+        📍 {{link_da_call}}
+
+        Esteja em um lugar quieto onde possa conversar.
+
+        Te vejo em breve.
+
+        - {{seu_nome}}
+
+    email_16:
+      timing: "1 hora antes"
+      pillar: "QUEST"
+      subject: "última chance de perguntas"
+      content_template: |
+        {{nome}},
+
+        Falta 1 hora.
+
+        Alguma pergunta que você quer que eu responda na call?
+
+        Responde esse email - vou ler antes de começarmos.
+
+        - {{seu_nome}}
+
+    email_17:
+      timing: "30 minutos antes"
+      pillar: "EXPECT"
+      subject: "30 minutos"
+      content_template: |
+        {{nome}},
+
+        30 minutos.
+
+        📍 {{link_da_call}}
+
+        Te vejo lá.
+
+        - {{seu_nome}}
+
+    email_18:
+      timing: "No horário exato"
+      pillar: "EXPECT"
+      subject: "estamos ao vivo"
+      content_template: |
+        {{nome}},
+
+        Estou te esperando.
+
+        👉 {{link_da_call}}
+
+        Clica agora.
+
+        - {{seu_nome}}
+
+# =============================================================================
+# 48-HOUR ADAPTATION (12 emails)
+# =============================================================================
+sequence_48h:
+  day_1: "emails 1-6 (todos do day_1 da versão 72h)"
+  day_2: "emails 7, 9, 10, 11, 15, 16, 17, 18 (seleção)"
+
+  priority_order:
+    1: "Confirmação + expectativas"
+    2: "Como funciona"
+    3: "Preço e ROI"
+    4: "Para quem é/não é"
+    5: "Case study"
+    6: "Objeção preço"
+    7: "Objeção tempo"
+    8: "Garantia"
+    9: "Lembretes (2h, 1h, 30min, agora)"
+
+# =============================================================================
+# 24-HOUR ADAPTATION (6 emails)
+# =============================================================================
+sequence_24h:
+  emails:
+    - pillar: "OBJ"
+      focus: "Preço - mais crítico"
+    - pillar: "QUEST"
+      focus: "Como funciona"
+    - pillar: "EXPECT"
+      focus: "Timeline/resultados"
+    - pillar: "OBJ"
+      focus: "Segunda objeção mais comum"
+    - pillar: "QUEST2"
+      focus: "Follow-up natural"
+    - pillar: "EXPECT"
+      focus: "Lembrete final + link"
+
+# =============================================================================
+# IMPLEMENTATION NOTES
+# =============================================================================
+implementation:
+  technical:
+    - "Configurar automação no CRM/ESP"
+    - "Usar merge tags para personalização"
+    - "Testar todos os links antes de ativar"
+    - "Configurar timing baseado no horário do agendamento"
+
+  metrics_to_track:
+    - "Open rate por email (benchmark: 45%+)"
+    - "Reply rate (especialmente no email de perguntas)"
+    - "Show rate antes vs depois"
+    - "Close rate na call"
+    - "Tempo médio de call"
+
+  common_mistakes:
+    - "Enviar emails genéricos de lembrete em vez de educacionais"
+    - "Ter medo de enviar muitos emails"
+    - "Tom corporativo em vez de pessoal"
+    - "Múltiplos tópicos em um email"
+    - "Não mencionar preço até a call"
+
+# =============================================================================
+# VERSION HISTORY
+# =============================================================================
+version_history:
+  - version: "1.0"
+    date: "2025-01-24"
+    changes: "Initial template based on Jeremy Haynes system"

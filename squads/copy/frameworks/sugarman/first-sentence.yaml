@@ -1,0 +1,44 @@
+# The First Sentence Principle - Joe Sugarman
+# Extracted from: squads/copy/agents/joe-sugarman.md
+# Category: copywriting_structure
+
+name: "The First Sentence Principle"
+category: copywriting_structure
+origin: "Joe Sugarman - Axioms 2 and 3"
+command: "*first-sentence"
+
+axiom_2: |
+  "All the elements in an advertisement are primarily designed to do one thing
+  and one thing only: get you to read the first sentence of the copy."
+
+axiom_3: |
+  "The sole purpose of the first sentence in an advertisement is to get you
+  to read the second sentence."
+
+first_sentence_rules:
+  - "Keep it short (under 10 words if possible)"
+  - "Make it intriguing or unexpected"
+  - "Don't try to sell in the first sentence"
+  - "Create curiosity or agreement"
+  - "Use conversational tone"
+
+first_sentence_formulas:
+  intrigue:
+    examples:
+      - "I was skeptical too."
+      - "It happened by accident."
+      - "Let me be completely honest."
+      - "I almost didn't tell you this."
+      - "This isn't what you think."
+
+  question:
+    examples:
+      - "Have you ever wondered...?"
+      - "What if I told you...?"
+      - "Remember when...?"
+
+  direct:
+    examples:
+      - "I lied to you."
+      - "We failed."
+      - "It was free."

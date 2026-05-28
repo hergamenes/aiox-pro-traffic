@@ -1,0 +1,52 @@
+sop:
+  id: checklist-sugarman-context-weighting
+  version: "1.0"
+  title: "Sugarman Context Weighting -- Critical Triggers by Copy Type"
+  purpose: "Define which of the 30 Psychological Triggers are critical must-activate for each copy format"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: joe-sugarman
+    type: quality_gate
+  steps:
+    - id: step-01
+      action: "Classify copy type"
+      criteria: "Determine if copy is sales_page, email, vsl, or social_post"
+      required: true
+    - id: step-02
+      action: "Apply Sales Page weighting"
+      criteria: "MUST activate 12 triggers: #1, #4, #5, #6, #9, #15, #16, #19, #22, #23, #25, #27"
+      applies_to: sales_page
+    - id: step-03
+      action: "Apply Email weighting"
+      criteria: "MUST activate 6 triggers: #15, #21, #22, #23, #25, #28"
+      applies_to: email
+    - id: step-04
+      action: "Apply VSL weighting"
+      criteria: "MUST activate 8 triggers: #1, #15, #16, #17, #22, #25, #27, #28"
+      applies_to: vsl
+    - id: step-05
+      action: "Apply Social Post weighting"
+      criteria: "MUST activate 3 triggers: #15, #25, #28"
+      applies_to: social_post
+  error_handling:
+    - condition: "critical_trigger_inactive"
+      action: "blocking_finding"
+    - condition: "wrong_type_classification"
+      action: "reclassify_before_evaluation"
+  quality_gate:
+    mode: context_weighting
+    foundation_always_required: [7, 14, 30]
+    copy_type_weights:
+      sales_page:
+        critical: [1, 4, 5, 6, 9, 15, 16, 19, 22, 23, 25, 27]
+        count: 12
+      email:
+        critical: [15, 21, 22, 23, 25, 28]
+        count: 6
+      vsl:
+        critical: [1, 15, 16, 17, 22, 25, 27, 28]
+        count: 8
+      social_post:
+        critical: [15, 25, 28]
+        count: 3

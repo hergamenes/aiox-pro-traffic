@@ -1,0 +1,121 @@
+# Managed by materialize-map.py
+# Source: outputs/sinkra-squad/copy/map/20260328-065841-gemini-gemini-3.1-pro-preview/infrastructure_connections.yaml
+# Category: governance
+
+infrastructure:
+  clickup:
+    service_ref: "services/clickup/"
+    spaces:
+      - space_id: "90070344542"
+        space_name: "campanhas"
+        status: "existing"
+        justification: "Reutilizado para gerenciar a produção das copys"
+    lists:
+      - list_id: "901303868897"
+        list_name: "projetos"
+        status: "existing"
+        task_ids:
+          - "atm_validar_briefing"
+          - "atm_pesquisa_dores"
+          - "atm_gerar_draft"
+          - "atm_aplicar_tom"
+          - "atm_revisar_checklist"
+          - "atm_aprovacao_final"
+        justification: "Reaproveitado o track de projetos/campanhas"
+    custom_fields:
+      - field_name: "executor_type"
+        field_type: "dropdown"
+        task_ids:
+          - "atm_validar_briefing"
+          - "atm_pesquisa_dores"
+          - "atm_gerar_draft"
+          - "atm_aplicar_tom"
+          - "atm_revisar_checklist"
+          - "atm_aprovacao_final"
+        status: "existing"
+        justification: "Campo obrigatório SINKRA mapeado no infrastructure-map"
+      - field_name: "quality_gate_result"
+        field_type: "dropdown"
+        task_ids:
+          - "atm_revisar_checklist"
+        status: "existing"
+        justification: "Campo obrigatório SINKRA mapeado no infrastructure-map"
+      - field_name: "checklist_score"
+        field_type: "number"
+        task_ids:
+          - "atm_revisar_checklist"
+          - "atm_aprovacao_final"
+        status: "new"
+        justification: "Score numérico gerado pelo agente revisor, não existe no setup base SINKRA. Crucial para o QG."
+      - field_name: "copy_status"
+        field_type: "dropdown"
+        task_ids:
+          - "atm_aprovacao_final"
+        status: "new"
+        justification: "Tracking específico se a copy foi APROVADA ou REJEITADA ao final do pipeline."
+
+  supabase:
+    service_ref: "services/supabase/"
+    tables:
+      - table_name: "projects"
+        task_ids:
+          - "atm_validar_briefing"
+        status: "existing"
+        justification: "Reutilizada para extrair o link/URL do briefing inicial"
+      - table_name: "copy_assets"
+        task_ids:
+          - "atm_pesquisa_dores"
+          - "atm_gerar_draft"
+          - "atm_aplicar_tom"
+          - "atm_revisar_checklist"
+        status: "new"
+        justification: "Necessário para armazenar dossiês longos (JSON), drafts intermediários e o texto final, pois 'projects' não deve ser sobrecarregada com payloads imensos e versionamento de textos."
+
+  n8n:
+    service_catalog: "infrastructure/automation/n8n-catalog.yaml"
+    workflows:
+      - workflow_name: "copy_lendaria_orchestrator"
+        task_ids:
+          - "atm_validar_briefing"
+          - "atm_pesquisa_dores"
+          - "atm_gerar_draft"
+          - "atm_aplicar_tom"
+          - "atm_revisar_checklist"
+        trigger: "ClickUp Webhook (Status = Briefing Recebido)"
+        status: "new"
+        justification: "Automação sequencial SINKRA para acionar sucessivamente os agentes não listada nos known_workflows."
+
+  agents_gateway:
+    openclaw_gateway:
+      - model_tier: "standard"
+        task_ids:
+          - "atm_validar_briefing"
+          - "atm_pesquisa_dores"
+        status: "existing"
+        justification: "Reaproveitado tier Standard (Sonnet/GPT-4o-mini) do gateway OpenClaw"
+      - model_tier: "quality"
+        task_ids:
+          - "atm_gerar_draft"
+          - "atm_revisar_checklist"
+        status: "existing"
+        justification: "Reaproveitado tier Quality (Opus/GPT-4o) do gateway OpenClaw"
+      - model_tier: "premium"
+        specialty: "Clone Engine"
+        task_ids:
+          - "atm_aplicar_tom"
+        status: "new"
+        justification: "A aplicação do Clone requer setup específico de prompts/RAG ou uso de tier Premium/Opus Extendido que valide as nuances semânticas de forma dedicada."
+
+  apis:
+    - api_name: "Web Fetch / Search MCP"
+      endpoint: "N/A"
+      task_ids:
+        - "atm_pesquisa_dores"
+      auth_type: "API Key"
+      status: "new"
+      justification: "Necessário expor capability de busca web para o agente compilar dores atualizadas. (Firecrawl ou nativo)"
+
+summary:
+  total_existing_reused: 6
+  total_new_proposed: 5
+  reuse_ratio: 0.54

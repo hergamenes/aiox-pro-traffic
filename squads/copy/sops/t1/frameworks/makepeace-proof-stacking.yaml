@@ -1,0 +1,60 @@
+sop:
+  id: makepeace-proof-stacking
+  version: "1.0"
+  title: "Proof Stacking Protocol (The Makepeace Avalanche)"
+  purpose: >
+    Build an overwhelming proof avalanche: 6 mandatory Bare Necessities,
+    Added Strategies for saturated markets, minimum 3 proof types per claim,
+    target 40 total elements, intercalated throughout (never clustered).
+    Documented 1,300% response increase.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: clayton-makepeace
+    tier: t1
+
+  steps:
+    - id: apply_bare_necessities
+      action: "Implement 6 mandatory proof types: reasons-why, specificity, logical progression, documentation, guarantee, testimonials"
+      output: "bare_necessities_checklist"
+      condition: "all_6_present == true"
+
+    - id: apply_added_strategies
+      action: "For saturated markets: add mechanism, vivid pictures, demos, authority, personality, track record, case histories, studies, media, sidebars"
+      condition: "market_saturation >= high"
+      output: "added_strategies_applied"
+
+    - id: apply_proof_density
+      action: "Ensure minimum 3 different proof types per main claim; target 40 total elements"
+      condition: "min_proof_per_claim >= 3 AND total_proof_elements >= 40"
+      output: "proof_density_report"
+
+    - id: apply_intercalation
+      action: "Distribute proof throughout copy: Claim -> Proof -> Story -> Claim -> Proof -> Data rhythm"
+      condition: "no_proof_clustering"
+      output: "proof_distribution_map"
+
+    - id: apply_audit
+      action: "Count all proof elements, mark positions, verify rhythm, fill gaps"
+      output: "proof_audit_report"
+
+  error_handling:
+    - error: "missing_bare_necessity"
+      severity: critical
+      action: "Add missing proof type from the 6 mandatory elements"
+    - error: "proof_clustering"
+      severity: high
+      action: "Redistribute: follow Claim -> Proof -> Story rhythm"
+    - error: "generic_testimonials"
+      severity: medium
+      action: "Replace with specific testimonials: name, location, result, timeline"
+    - error: "low_proof_density"
+      severity: high
+      action: "Add proof elements until minimum 3 per claim and 40 total reached"
+
+  quality_gate:
+    bare_necessities_complete: true
+    min_proof_per_claim: 3
+    target_proof_elements: 40
+    proof_intercalated: true
+    all_proof_specific: true

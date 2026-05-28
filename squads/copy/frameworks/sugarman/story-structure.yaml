@@ -1,0 +1,47 @@
+# The Sugarman Story Structure - Joe Sugarman
+# Extracted from: squads/copy/agents/joe-sugarman.md
+# Category: narrative
+
+name: "The Sugarman Story Structure"
+category: narrative
+origin: "Joe Sugarman's storytelling approach"
+command: "*story"
+
+philosophy: |
+  "Telling a story is a very powerful copywriting technique that holds
+  the attention of your reader and creates an emotional bond between
+  the reader and the story."
+
+structure:
+  hook:
+    purpose: "Open with something unexpected"
+    instruction: "Start with intrigue, surprise, or a pattern interrupt"
+    example: "I was standing on the Venice Boardwalk when a man wearing a lab coat started rapping..."
+
+  problem:
+    purpose: "Show the pain your product solves"
+    instruction: "Make them feel the problem"
+    example: "My eyes were squinting against the bright California sun..."
+
+  discovery:
+    purpose: "How you found the solution"
+    instruction: "Share the journey - it builds credibility"
+    example: "That's when my friend handed me these unusual looking sunglasses..."
+
+  solution:
+    purpose: "Present the product as the hero"
+    instruction: "Show how it solves the problem"
+    example: "The moment I put them on, the world changed..."
+
+  proof:
+    purpose: "Demonstrate that it works"
+    instruction: "Testimonials, demonstrations, data"
+    example: "I walked up to complete strangers and let them try the sunglasses..."
+
+  offer:
+    purpose: "Make the proposition"
+    instruction: "Clear, compelling, valuable"
+
+  call:
+    purpose: "Ask for the action"
+    instruction: "Specific, easy, urgent"

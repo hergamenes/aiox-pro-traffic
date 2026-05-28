@@ -1,0 +1,325 @@
+# Content Formats Knowledge Base - Product Launch Formula
+# Source: Launch (Jeff Walker) - Chapter 11 Live Launches + Chapter 12 Social
+# Version: 1.0
+
+metadata:
+  source: "Launch by Jeff Walker (Updated Edition 2021)"
+  validated: true
+  created: "2026-01-27"
+
+overview:
+  description: |
+    Matriz de formatos de conteudo para Pre-Launch Content e Open Cart,
+    incluindo video, texto, audio e formatos hibridos.
+  jeff_insight: |
+    "The format matters less than the value you deliver.
+    I've seen launches succeed with just emails.
+    I've seen launches succeed with elaborate video productions.
+    What matters is: does it connect with your audience?"
+
+format_matrix:
+  video:
+    types:
+      recorded_video:
+        name: "Video Gravado"
+        best_for:
+          - "PLCs principais"
+          - "Sales videos"
+          - "Evergreen launches"
+        pros:
+          - "Pode editar para perfeicao"
+          - "Reusavel em evergreen"
+          - "Qualidade consistente"
+        cons:
+          - "Menos engajamento que ao vivo"
+          - "Tempo de producao maior"
+          - "Pode parecer menos autentico"
+        production_levels:
+          minimum: "Smartphone + luz natural + audio decente"
+          standard: "Camera HD + ring light + mic lapela"
+          professional: "DSLR + 3-point lighting + shotgun mic"
+        duration_recommendations:
+          plc1: "15-30 minutos"
+          plc2: "20-40 minutos"
+          plc3: "25-45 minutos"
+
+      live_broadcast:
+        name: "Live Broadcast"
+        best_for:
+          - "Live Launches"
+          - "Q&A sessions"
+          - "Cart close"
+        pros:
+          - "Maior engajamento"
+          - "Interacao em tempo real"
+          - "Senso de evento"
+          - "Viewers ficam mais tempo"
+        cons:
+          - "Nao pode editar erros"
+          - "Depende de tech funcionando"
+          - "Horario fixo limita audiencia"
+        platforms:
+          - "Facebook Live"
+          - "Instagram Live"
+          - "YouTube Live"
+          - "Zoom Webinar"
+          - "StreamYard"
+        jeff_note: |
+          "Viewers stay longer on live vs recorded.
+          They know it's happening NOW and don't want to miss anything.
+          The sense of community watching together is powerful."
+
+      hybrid:
+        name: "Hibrido (Gravado + Live)"
+        best_for:
+          - "Lancamentos com escala"
+          - "Quando quer controle + interacao"
+        structure:
+          option_1: "Video gravado + Live Q&A depois"
+          option_2: "Intro ao vivo + Video + Outro ao vivo"
+          option_3: "Video gravado, Lives para suporte"
+        jeff_recommendation: |
+          "I like to do a hybrid. The main teaching is recorded
+          so it's tight and polished. But I do live Q&A sessions
+          where I can connect directly with people."
+
+  text:
+    types:
+      email_only:
+        name: "Launch por Email"
+        best_for:
+          - "Seed Launches"
+          - "Audiencias que preferem texto"
+          - "Produtos B2B"
+          - "Quando video nao e viavel"
+        pros:
+          - "Rapido de criar"
+          - "Funciona para qualquer nicho"
+          - "Pode ser muito pessoal"
+        cons:
+          - "Menos conexao visual"
+          - "Compete com inbox cheio"
+        structure:
+          plc1_email: "1500-2500 palavras"
+          plc2_email: "2000-3000 palavras"
+          plc3_email: "2000-3500 palavras"
+        jeff_note: |
+          "My first launches were email only. No video, no fancy pages.
+          Just emails to my little list. And they worked."
+
+      long_form_article:
+        name: "Artigo Long-Form"
+        best_for:
+          - "SEO"
+          - "Audiencias que gostam de ler"
+          - "Conteudo tecnico"
+        pros:
+          - "Pode incluir mais detalhes"
+          - "Fica indexado"
+          - "Facil de atualizar"
+        cons:
+          - "Taxa de consumo menor"
+          - "Menos emocional que video"
+        complement_with:
+          - "Audio version"
+          - "PDF download"
+          - "Summary bullets"
+
+  audio:
+    types:
+      podcast_style:
+        name: "Podcast/Audio-only"
+        best_for:
+          - "Audiencias de podcast"
+          - "Consumo em movimento"
+          - "Complemento ao video"
+        pros:
+          - "Consumo passivo (carro, academia)"
+          - "Intimidade da voz"
+          - "Facil de produzir"
+        cons:
+          - "Sem elemento visual"
+          - "Pode ser menos engajante"
+        implementation:
+          - "Extrair audio do video"
+          - "Gravar versao audio-only"
+          - "Disponibilizar como bonus"
+
+  webinar:
+    types:
+      live_webinar:
+        name: "Webinar Ao Vivo"
+        best_for:
+          - "Lancamentos de ticket medio-alto"
+          - "Demonstracoes de produto"
+          - "Q&A intensivo"
+        structure:
+          teaching: "40-60 minutos"
+          pitch: "15-20 minutos"
+          qa: "15-30 minutos"
+          total: "75-120 minutos"
+        conversion_rates: "5-15% tipicamente"
+
+      automated_webinar:
+        name: "Webinar Automatizado"
+        best_for:
+          - "Evergreen"
+          - "Escala sem presenca"
+        considerations:
+          - "Pode parecer enganoso se fingir ser ao vivo"
+          - "Funciona melhor quando transparente"
+
+plc_format_recommendations:
+  by_launch_type:
+    seed_launch:
+      primary: "Email"
+      secondary: "Simple video (smartphone)"
+      rationale: "Mantenha simples, valide primeiro"
+
+    internal_launch:
+      primary: "Video gravado"
+      secondary: "Email supporting"
+      rationale: "Balance qualidade e praticidade"
+
+    jv_launch:
+      primary: "Video profissional"
+      secondary: "Full email sequence"
+      rationale: "Parceiros esperam qualidade"
+
+    live_launch:
+      primary: "Live broadcast"
+      secondary: "Replays editados + emails"
+      rationale: "Maximize o senso de evento"
+
+  by_audience:
+    b2c_general:
+      preferred: "Video"
+      length: "Curto-medio (15-30 min)"
+      style: "Conversacional, storytelling"
+
+    b2b_professional:
+      preferred: "Video + Text version"
+      length: "Pode ser mais longo"
+      style: "Mais dados, menos hype"
+
+    tech_savvy:
+      preferred: "Video ou texto"
+      length: "Direto ao ponto"
+      style: "Menos floreios"
+
+    older_demographic:
+      preferred: "Video claro + texto"
+      length: "Pace mais lento"
+      style: "Tradicional, confiavel"
+
+live_launch_formats:
+  compressed_timing:
+    description: "Jeff's recent format for Live Launches"
+    structure:
+      day_1: "PLC #1 (Opportunity) - Live Broadcast"
+      day_2: "PLC #2 (Transformation) - Live Broadcast"
+      day_3: "PLC #3 (Ownership) - Live Broadcast"
+      day_4: "Open Cart (Enrollment) - Live Broadcast"
+
+    advantages:
+      - "Momentum intenso"
+      - "Menos tempo para prospects esquecerem"
+      - "Senso de evento concentrado"
+
+    challenges:
+      - "Producao de 4 lives em sequencia"
+      - "Menos tempo para consumir replays"
+      - "Demanda mais da audiencia"
+
+  expanded_open_cart:
+    description: "Extended Live Launch with 5-day Open Cart"
+    structure:
+      open_cart_day_1: "PLC #4 Live Broadcast (Enrollment)"
+      open_cart_day_2: "Sales Video"
+      open_cart_day_3: "FAQ Live Broadcast"
+      open_cart_day_4: "Case Study Live Broadcast"
+      open_cart_day_5: "Final, Closing Broadcast (Celebration + Q&A)"
+
+    advantages:
+      - "Mais touchpoints"
+      - "Constroi mais prova social em tempo real"
+      - "Responde objecoes ao vivo"
+
+social_media_formats:
+  in_launch:
+    instagram:
+      stories: "Diarios - behind scenes, countdowns"
+      posts: "Anuncios de PLC, testimonials"
+      lives: "Mini Q&As, updates"
+      reels: "Clips curtos dos PLCs"
+
+    facebook:
+      posts: "Conteudo dos PLCs, links"
+      groups: "Discussao, comunidade"
+      lives: "PLCs principais ou Q&As"
+
+    youtube:
+      main_videos: "PLCs completos"
+      shorts: "Teasers, clips"
+      community: "Updates, polls"
+
+    linkedin:
+      posts: "Para B2B launches"
+      articles: "Versao texto dos PLCs"
+
+  jeff_cardinal_rule: |
+    "Social media shouldn't be your list, but you should use it
+    to build your list. In the same way you wouldn't build your
+    dream home on rented land."
+
+content_repurposing:
+  from_video_plc:
+    - output: "Email (transcript editado)"
+      effort: "Baixo"
+    - output: "Blog post"
+      effort: "Medio"
+    - output: "Podcast episode"
+      effort: "Baixo"
+    - output: "Social clips (5-10 por video)"
+      effort: "Medio"
+    - output: "Quote graphics"
+      effort: "Baixo"
+    - output: "Carousel posts"
+      effort: "Medio"
+    - output: "Thread (Twitter/X)"
+      effort: "Medio"
+
+  multiplication_math: |
+    1 Video PLC de 30 min pode gerar:
+    - 1 Email (2000 palavras)
+    - 1 Blog post
+    - 1 Podcast episode
+    - 5-10 Social clips
+    - 10-15 Quote graphics
+    - 2-3 Carousels
+    - 1 Thread
+
+    = 20-30+ pecas de conteudo de 1 video
+
+format_decision_tree:
+  questions:
+    - question: "Sua audiencia consome mais video ou texto?"
+      if_video: "Priorize video PLCs"
+      if_text: "Considere email-heavy launch"
+
+    - question: "Voce tem conforto em frente a camera?"
+      if_yes: "Use video, considere lives"
+      if_no: "Comece com gravado, pratique"
+
+    - question: "E seu primeiro lancamento?"
+      if_yes: "Mantenha simples (email ou video basico)"
+      if_no: "Pode investir em producao"
+
+    - question: "Qual seu budget?"
+      if_low: "Smartphone + email"
+      if_medium: "Video gravado editado"
+      if_high: "Producao profissional + lives"
+
+    - question: "Quanto tempo ate o lancamento?"
+      if_short: "Simplificar formato"
+      if_long: "Pode produzir com qualidade"

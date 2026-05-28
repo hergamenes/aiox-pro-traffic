@@ -1,0 +1,40 @@
+sop:
+  id: schwartz-three-sentence-rules
+  version: "1.0"
+  title: "3 Regras da Frase Clara"
+  purpose: "Three rules governing sentence clarity — each image in ~10 words, no blocking, each pair connected."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: eugene-schwartz
+  steps:
+    - id: apply_rule_1_image_length
+      action: "Verify each image is completable in approximately 10 words"
+      input: "Draft sentence"
+      output: "Image word count per sentence; flagged images exceeding ~10 words"
+      validation: "No single image requires more than ~10 words to complete"
+    - id: apply_rule_2_no_blocking
+      action: "Verify no image interrupts another before completion"
+      input: "Draft sentence structure"
+      output: "Flagged blocking violations where nested clause interrupts main image"
+      validation: "Each image completes before the next begins; no nested interruptions"
+    - id: apply_rule_3_connector_present
+      action: "Verify each pair of adjacent images is linked by a connector"
+      input: "Sentence with multiple images"
+      output: "Connector audit: each image pair has explicit relationship word"
+      validation: "Every adjacent image pair connected by time, cause, contrast, or sequence word"
+  error_handling:
+    - error: "Image exceeds 10 words"
+      resolution: "Split into two smaller images or remove excess detail"
+    - error: "Blocking detected (nested clause)"
+      resolution: "Restructure: complete main image first, then add secondary image"
+    - error: "Missing connector between images"
+      resolution: "Add explicit connector showing relationship (and, because, but, then)"
+  quality_gate:
+    criteria:
+      - "No image exceeds ~10 words"
+      - "No image interrupts another"
+      - "Every image pair connected by explicit connector"
+      - "Read-aloud test confirms natural rhythm"
+    pass_threshold: "All 4 criteria met"

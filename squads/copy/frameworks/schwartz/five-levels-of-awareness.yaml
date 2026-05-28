@@ -1,0 +1,95 @@
+# Framework: 5 Levels of Market Awareness
+# Author: Eugene Schwartz
+# Source: Breakthrough Advertising (1966), Chapter 2
+# Command: *awareness
+
+name: "The 5 Levels of Market Awareness"
+category: "market_analysis"
+origin: "Eugene Schwartz - Breakthrough Advertising (1966)"
+frequency: "Core - usado em TODA analise de mercado"
+command: "*awareness"
+
+principle: |
+  O estado de consciencia do seu prospect determina completamente
+  sua abordagem de copy. O mesmo produto requer copy radicalmente
+  diferente dependendo de onde o mercado esta mentalmente.
+
+levels:
+  - level: 5
+    name: "Most Aware (Mais Consciente)"
+    definition: "Conhece o produto, sabe o que faz, quer comprar - so nao comprou ainda"
+    prospect_state: "Ja decidiu, precisa apenas de um empurrao final"
+    copy_approach:
+      - "Va direto a oferta, preco, termos"
+      - "Use nome do produto no headline"
+      - "Foco em urgencia e escassez"
+      - "Copy curta - minimo necessario"
+    headline_pattern: "[Nome do Produto] - [Oferta Especial]"
+    example: "MacBook Air - Agora $200 de Desconto"
+
+  - level: 4
+    name: "Product Aware (Consciente do Produto)"
+    definition: "Conhece seu produto, mas nao esta convencido de que e superior"
+    prospect_state: "Comparando opcoes, indeciso"
+    copy_approach:
+      - "Destaque diferencial unico"
+      - "Prova social e garantias"
+      - "Comparacao com alternativas"
+      - "Urgencia para decisao"
+    headline_pattern: "[Beneficio Unico] + [Diferenciacao]"
+    example: "A Unica Dieta Que Funciona Enquanto Voce Dorme"
+
+  - level: 3
+    name: "Solution Aware (Consciente da Solucao)"
+    definition: "Sabe que tipo de solucao quer, mas nao conhece seu produto especifico"
+    prospect_state: "Ja decidiu O QUE quer, busca QUEM entrega melhor"
+    copy_approach:
+      - "Lidere com a solucao prometida"
+      - "Conecte rapidamente ao seu produto"
+      - "Demonstre superioridade do mecanismo"
+      - "Evite discussao de preco inicial"
+    headline_pattern: "[Resultado Desejado] + [Como Alcancar]"
+    example: "Como Aprender Qualquer Idioma em 30 Dias Sem Memorizar Vocabulario"
+
+  - level: 2
+    name: "Problem Aware (Consciente do Problema)"
+    definition: "Sabe que tem um problema, mas nao sabe que existem solucoes"
+    prospect_state: "Sente a dor, nao conhece a cura"
+    copy_approach:
+      - "Agite o problema intensamente"
+      - "Pinte consequencias de nao resolver"
+      - "Introduza conceito de solucao"
+      - "Revele produto como materializacao"
+    headline_pattern: "[Problema] + [Promessa de Solucao]"
+    example: "Cansado de Acordar Mais Exausto do Que Deitou?"
+
+  - level: 1
+    name: "Unaware (Inconsciente)"
+    definition: "Nao sabe que tem um problema, ou esta em negacao"
+    prospect_state: "Completamente desconectado da necessidade"
+    copy_approach:
+      - "Entre por historia ou curiosidade"
+      - "Perguntas que revelam problemas ocultos"
+      - "Educacao sobre consequencias"
+      - "Gradualmente introduza necessidade"
+      - "Copy longa e educacional"
+    headline_pattern: "[Historia/Curiosidade que Leva ao Problema]"
+    example: "O Que Medicos Japoneses Centenarios Sabem Que Seu Medico Nao Conta"
+
+application: |
+  ANTES de escrever qualquer copy:
+  1. Identifique em qual dos 5 niveis seu mercado esta
+  2. Ajuste headline, estrutura e comprimento de acordo
+  3. NUNCA fale de oferta para inconscientes
+  4. NUNCA eduque quem ja esta pronto para comprar
+
+diagnosis_template: |
+  DIAGNOSTICO DE AWARENESS:
+
+  SEGMENTO 1: "[Nome do Segmento]" ([%] do mercado)
+  - Awareness: [LEVEL] (Level [1-5])
+  - Estado mental: [Descricao do estado]
+  - Headline approach: [Estrategia]
+  - Copy length: [CURTA/MEDIA/LONGA] ([justificativa])
+
+  RECOMENDACAO: [Qual abordagem seguir]

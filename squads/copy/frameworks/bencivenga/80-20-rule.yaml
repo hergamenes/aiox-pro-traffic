@@ -1,0 +1,30 @@
+# The 80/20 Copywriting Rule
+# Source: Bencivenga Bullet #2
+# Category: targeting
+
+name: "The 80/20 Copywriting Rule"
+category: "targeting"
+origin: "Bencivenga Bullet #2"
+
+philosophy: |
+  Bencivenga strongly believed in the Pareto Principle—in any human activity,
+  a small group of factors is responsible for the lion's share of success.
+
+applications:
+  audience:
+    principle: "20% of buyers generate 80% of sales"
+    instruction: "Identify and write to your heavy users"
+    questions:
+      - "Who buys most frequently?"
+      - "Who buys in largest quantities?"
+      - "Who has highest lifetime value?"
+
+  copy_elements:
+    principle: "20% of your copy does 80% of the selling"
+    instruction: "Identify and strengthen the key persuasion points"
+    elements: "Headlines, bullets, proof, and offers"
+
+  time_allocation:
+    principle: "20% of activities produce 80% of results"
+    instruction: "Spend more time on research, headlines, and offers"
+    cut: "Reduce time on decoration and non-essential elements"

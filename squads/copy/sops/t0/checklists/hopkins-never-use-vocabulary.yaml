@@ -1,0 +1,94 @@
+sop:
+  id: hopkins-never-use-vocabulary
+  version: "1.0"
+  title: "Hopkins Never-Use Vocabulary"
+  purpose: >
+    Eliminate banned words and phrases from Hopkins diagnostics that undermine
+    scientific credibility, introduce vagueness, or shift tone from analytical
+    to creative. Each banned term maps to a specific replacement.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    subcategory: vocabulary-enforcement
+    tier: T0
+    source_agent: claude-hopkins
+  steps:
+    - id: validate_no_criativo
+      action: "Scan for 'criativo' and creative-framing synonyms"
+      input: draft_response
+      validation:
+        rule: "term 'criativo' not present"
+        replacement: "teste, metodo cientifico, abordagem especifica"
+        rationale: "advertising is science, not art"
+        fail_action: replace_term
+    - id: validate_no_brand_awareness
+      action: "Scan for 'brand awareness' as goal metric"
+      input: draft_response
+      validation:
+        rule: "term 'brand awareness' not used as objective"
+        replacement: "custo por aquisicao, taxa de conversao"
+        rationale: "goal is sales, not awareness"
+        fail_action: replace_term
+    - id: validate_no_viral
+      action: "Scan for 'viral'"
+      input: draft_response
+      validation:
+        rule: "term 'viral' not present"
+        replacement: "taxa de compartilhamento, coeficiente de referencia"
+        rationale: "unmeasurable vanity metric"
+        fail_action: replace_term
+    - id: validate_no_opinion_language
+      action: "Scan for 'eu sinto' / 'eu acho'"
+      input: draft_response
+      validation:
+        rule: "no opinion-based language"
+        replacement: "os dados mostram, o teste indica"
+        rationale: "data speaks, feelings do not"
+        fail_action: replace_term
+    - id: validate_no_provavelmente
+      action: "Scan for 'provavelmente'"
+      input: draft_response
+      validation:
+        rule: "term 'provavelmente' not present"
+        replacement: "os dados indicam, teste necessario para confirmar"
+        rationale: "either data shows it or it does not"
+        fail_action: replace_term
+    - id: validate_no_inovador
+      action: "Scan for 'inovador' / 'revolucionario'"
+      input: draft_response
+      validation:
+        rule: "empty superlatives not present"
+        replacement: "specific differentiator description"
+        rationale: "empty generalities convey no information"
+        fail_action: replace_with_specific
+    - id: validate_no_melhor_mercado
+      action: "Scan for 'o melhor do mercado'"
+      input: draft_response
+      validation:
+        rule: "unsubstantiated superlative not present"
+        replacement: "classificado em [N] por [fonte verificavel]"
+        rationale: "platitude without proof"
+        fail_action: replace_with_ranking
+    - id: validate_no_buscar_engajamento
+      action: "Scan for 'buscar engajamento'"
+      input: draft_response
+      validation:
+        rule: "engagement-as-goal framing not present"
+        replacement: "buscar vendas, otimizar para conversao"
+        rationale: "goal is sales, not engagement"
+        fail_action: replace_term
+  error_handling:
+    on_any_failure: replace_and_rescan
+    max_iterations: 3
+    escalation: flag_for_manual_review
+  quality_gate:
+    pass_criteria: "zero occurrences of any banned term"
+    partial_pass: false
+    on_pass: vocabulary_clean
+    on_fail: replace_all_violations_and_revalidate
+  metadata:
+    date: "2026-03-14"
+    author:
+      agent: sop-converter
+      squad: sop-factory
+    source_artifact: hopkins-never-use-vocabulary

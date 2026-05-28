@@ -1,0 +1,158 @@
+# Ralph Progress Log
+
+> **AIOX Integration:** This log follows Dev Agent Record principles.
+> Patterns compound across iterations. File List tracks all changes.
+
+**Project:** CopywriterOS Agent Upgrade - Super Complete
+**Branch:** ralph/copywriter-agent-upgrade
+**Started:** 2026-01-17
+**Status:** In Progress
+
+---
+
+## Codebase Patterns (KEEP AT TOP)
+
+> **AIOX Principle:** Patterns discovered are shared across all iterations.
+> Ralph reads this section FIRST before implementing.
+
+### Architecture Patterns
+
+- **Agent Structure (Hormozi Standard):** Each copywriter is a markdown file with YAML block containing:
+  - `agent:` - Core definition (name, id, title, icon, era, customization)
+  - `persona:` - Role, style, identity, focus
+  - `core_principles:` - 5-10 guiding principles
+  - `commands:` - Agent commands (*framework, *phrase, etc)
+  - `operational_frameworks:` - 5-10 detailed frameworks with name, category, origin, definition, principle, steps, application, example, common_mistakes
+  - `communication_dna:` - Vocabulary (mandatory/forbidden), rhetorical devices, quick formulas
+  - `signature_phrases:` - 30-50 phrases organized by tier (core_mantras, canonical_terminology, executable_formulas)
+  - `authority_proof_arsenal:` - Crucible story, authority statistics, proof stack templates
+  - `objection_algorithms:` - 3+ algorithms for handling objections
+
+### Research Sources Priority
+
+1. **Minds (if available):** `outputs/minds/{slug}/` - Use analysis/, synthesis/, system_prompts/
+2. **WebSearch:** For frameworks, quotes, biography
+3. **Context7:** For library documentation if indexed
+4. **WebFetch:** For specific pages (archives, blog posts)
+5. **NO EXA:** Not configured
+
+### Code Conventions
+
+- Filenames: kebab-case (e.g., `dan-kennedy.md`)
+- Copywriter files: `{firstname}-{lastname}.md`
+- Agent file location: `squads/copy/agents/`
+
+### Testing Patterns
+
+- **Line Count:** No minimum but aim for Hormozi-level depth
+- **Activation Test:** Agent must respond with @{agent-name}
+- **Voice Consistency:** Output must match copywriter's documented style
+- **Hormozi Comparison:** Check all required sections present
+
+### Common Gotchas
+
+- (Will be populated as Ralph learns)
+
+---
+
+## Key Files Reference
+
+> Files frequently accessed or modified during this feature.
+
+| File | Purpose |
+|------|---------|
+| `agents/alex-hormozi.md` | Reference model (2330 lines) |
+| `outputs/minds/dan_kennedy/` | Mind data for Dan Kennedy |
+| `outputs/minds/eugene_schwartz/` | Mind data for Eugene Schwartz |
+| `outputs/minds/gary_halbert/` | Mind data for Gary Halbert |
+| `outputs/minds/jon_benson/` | Mind data for Jon Benson |
+
+---
+
+## File List (Cumulative)
+
+> **AIOX Principle:** Track ALL files created/modified/deleted.
+
+| File | Action | Story | Description |
+|------|--------|-------|-------------|
+| prd-agent-upgrade.md | Created | Setup | PRD document for agent upgrade |
+| prd.json | Modified | Setup | User stories for Ralph loop |
+| progress.txt | Modified | Setup | Reset for new sprint |
+
+**Legend:** Created | Modified | Deleted
+
+---
+
+## Quality Gates Status
+
+> Check each gate as it passes. Story not complete until ALL pass.
+
+### Pre-Implementation
+- [x] PRD approved
+- [x] prd.json created
+- [x] progress.txt created
+
+### Per-Story (Update each iteration)
+- [ ] All required sections present (per Hormozi standard)
+- [ ] Agent activates correctly
+- [ ] Output matches copywriter style
+- [ ] Comparison with Hormozi passes
+
+### Documentation
+- [ ] All 11 agents upgraded
+- [ ] Activation tested for each
+
+---
+
+## Stories Status
+
+| ID | Title | Status | Priority | Lines |
+|----|-------|--------|----------|-------|
+| US-001 | Upgrade Dan Kennedy | ⏳ Pending | 1 | 1484 |
+| US-002 | Upgrade Eugene Schwartz | ⏳ Pending | 2 | 118 |
+| US-003 | Upgrade Gary Halbert | ⏳ Pending | 3 | 121 |
+| US-004 | Upgrade Jon Benson | ⏳ Pending | 4 | 204 |
+| US-005 | Upgrade Gary Bencivenga | ⏳ Pending | 5 | 1107 |
+| US-006 | Upgrade Joe Sugarman | ⏳ Pending | 6 | 1080 |
+| US-007 | Upgrade Frank Kern | ⏳ Pending | 7 | 138 |
+| US-008 | Upgrade David Ogilvy | ⏳ Pending | 8 | 119 |
+| US-009 | Upgrade Claude Hopkins | ⏳ Pending | 9 | 116 |
+| US-010 | Upgrade Todd Brown | ⏳ Pending | 10 | 274 |
+| US-011 | Upgrade Ramit Sethi | ⏳ Pending | 11 | 292 |
+
+**Legend:** ✅ Complete | ⏳ Pending | 🔄 In Progress | ❌ Failed | ⏸️ Blocked
+
+---
+
+## Session Log
+
+> **AIOX Principle:** Each story completion is logged with full context.
+> Ralph APPENDS to this section after each story.
+
+---
+
+## 2026-01-17 - Project Setup
+
+**Status:** ✅ Complete
+
+### What was created
+- PRD document: prd-agent-upgrade.md
+- User stories: prd.json with 11 stories
+- Progress tracking: progress.txt (this file)
+
+### Research Sources Identified
+- 4 minds available: dan_kennedy, eugene_schwartz, gary_halbert, jon_benson
+- 7 agents require web research only
+
+### Priority Order
+1. **Priority 1-4:** Agents WITH minds (can extract from existing data)
+2. **Priority 5-6:** Partially complete agents (Bencivenga, Sugarman)
+3. **Priority 7-11:** Agents needing full web research
+
+### Notes
+Ready to start US-001 (Dan Kennedy) in next iteration.
+
+---
+
+*Last Updated: 2026-01-17*
+*Ralph Loop: Agent Upgrade Sprint*

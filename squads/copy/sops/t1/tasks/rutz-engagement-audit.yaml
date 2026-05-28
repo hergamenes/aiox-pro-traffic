@@ -1,0 +1,97 @@
+sop:
+  id: rutz-engagement-audit
+  version: "1.0"
+  title: "Magalog Engagement Audit"
+  purpose: "Evaluate magalog engagement page-by-page identifying dropout points, applying Unpredictability Protocol and Concept Inimitability test"
+  classification:
+    domain: copywriting
+    category: master
+    tier: T1
+    source_agent: jim-rutz
+
+  inputs:
+    - name: magalog_draft_or_brief
+      type: document
+      required: true
+
+  outputs:
+    - name: engagement_scores
+      type: document
+      description: "Page-by-page engagement ratings with dropout points identified"
+    - name: dropout_points
+      type: list
+      description: "Prioritized list of pages where readers most likely stop"
+    - name: fix_recommendations
+      type: document
+      description: "Specific improvements for each dropout point"
+
+  steps:
+    - id: step_01
+      action: classify_input
+      description: "Determine type: MAGALOG, SUBSCRIPTION, DIRECT MAIL, or REVIEW"
+      critical: false
+
+    - id: step_02
+      action: conduct_page_by_page_audit
+      description: "If REVIEW: score each page on opening hook, content value, selling integration, page-end pull (1-5), rate dropout risk"
+      critical: true
+      error_handling:
+        condition: "audit_skipped_or_batched"
+        action: "evaluate_every_page_individually"
+
+    - id: step_03
+      action: verify_prerequisites
+      description: "If NEW: confirm genuine product, sufficient editorial content (40%+), competitive swipe collected"
+      critical: false
+
+    - id: step_04
+      action: define_inimitable_concept
+      description: "Define central concept and verify competitors cannot easily replicate it"
+      critical: true
+      error_handling:
+        condition: "concept_easily_imitable"
+        action: "find_unique_research_access_perspective_or_mechanism"
+
+    - id: step_05
+      action: architect_with_page_turns
+      description: "Map 32 pages with planned page turn mechanism at every spread ending"
+      critical: true
+      error_handling:
+        condition: "page_turns_not_planned"
+        action: "design_specific_technique_at_each_spread_ending"
+
+    - id: step_06
+      action: write_with_unpredictability
+      description: "Apply Unpredictability Protocol: if reader can predict next sentence, rewrite"
+      critical: true
+      error_handling:
+        condition: "predictable_sentences_remain"
+        action: "additional_rewrite_pass_targeting_predictable_sentences"
+
+    - id: step_07
+      action: rewrite_for_surprise
+      description: "Multiple rewrite passes until every sentence surprises, informs, challenges, or provokes"
+      critical: true
+      error_handling:
+        condition: "only_one_rewrite_pass"
+        action: "commit_to_time_and_toil_multiple_passes"
+
+    - id: step_08
+      action: execute_final_page_turn_test
+      description: "Read complete magalog, verify every page ending compels reader to continue"
+      critical: true
+      error_handling:
+        condition: "page_ending_allows_comfortable_stopping"
+        action: "rewrite_page_ending_with_open_loop_or_cliffhanger"
+
+  quality_gate:
+    min_criteria_met: 6
+    criteria:
+      - "input_classified"
+      - "page_by_page_scores_recorded"
+      - "dropout_points_identified_and_prioritized"
+      - "concept_passes_inimitability_test"
+      - "page_turns_planned_at_every_spread"
+      - "unpredictability_protocol_applied"
+      - "multiple_rewrite_passes_completed"
+      - "final_page_turn_test_passed"

@@ -1,0 +1,190 @@
+sop:
+  id: fk-decision-heuristics
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+
+  title: "Frank Kern Decision Heuristics"
+  purpose: "Systematic decision checkpoints based on Frank Kern's Intent-Based Direct Marketing and goodwill-driven philosophy — enforcing goodwill-before-offer, results-in-advance content, intent-signal message routing, casual authority tone, and Revenue Equation diagnosis."
+
+  classification:
+    domain: copywriting
+    subdomain: intent-based-marketing
+    source_agent: frank-kern
+    artifact_type: decision_tree
+    tier: t2
+
+  steps:
+    - id: FK_H01
+      name: goodwill_check
+      decision_point: "Before making ANY offer to an audience"
+      branches:
+        - condition: "Goodwill is HIGH (generous value delivery, engaged audience)"
+          goto: FK_H02
+          action: "Audience is ready. Make the offer."
+        - condition: "Goodwill is LOW (too many offers, disengaged audience)"
+          goto: FK_H01_FIX
+          action: "STOP. Serve more before asking. Deliver free value."
+        - condition: "Goodwill is UNKNOWN"
+          goto: FK_H01_FIX
+          action: "Default to LOW. Safer to over-serve than over-ask."
+
+    - id: FK_H01_FIX
+      name: build_goodwill
+      action: "Deliver free value, helpful content, solve a problem at no cost. Build goodwill balance."
+      goto: FK_H01
+
+    - id: FK_H02
+      name: results_in_advance_test
+      decision_point: "Creating marketing content"
+      branches:
+        - condition: "Content delivers actual RESULT consumer can use immediately"
+          goto: FK_H03
+        - condition: "Content only PROMISES future results"
+          goto: FK_H02_FIX
+          action: "Rewrite. Content must deliver tangible result, not just promise."
+
+    - id: FK_H02_FIX
+      name: add_tangible_result
+      action: "Restructure content to deliver an immediate, usable result the consumer walks away with."
+      goto: FK_H02
+
+    - id: FK_H03
+      name: intent_signal_routing
+      decision_point: "Deciding what message to send to a prospect"
+      branches:
+        - condition: "Low intent (visited blog, read article, followed)"
+          goto: FK_H04
+          action: "Send more value, goodwill-building content."
+        - condition: "Medium intent (downloaded lead magnet, attended webinar)"
+          goto: FK_H04
+          action: "Send deeper engagement: case studies, proof."
+        - condition: "High intent (visited pricing, clicked checkout, requested demo)"
+          goto: FK_H04
+          action: "Send direct offer, urgency, close."
+        - condition: "High-intent message sent to low-intent prospect"
+          goto: FK_H03_FIX
+          action: "STOP. Pushing too hard. Match message to behavior."
+
+    - id: FK_H03_FIX
+      name: realign_messaging
+      action: "Match message intensity to demonstrated intent level. Low intent = more value; high intent = direct offer."
+      goto: FK_H03
+
+    - id: FK_H04
+      name: casual_authority_test
+      decision_point: "Reviewing any copy piece"
+      branches:
+        - condition: "Sounds like knowledgeable friend giving advice"
+          goto: FK_H05
+        - condition: "Sounds like salesperson reading script"
+          goto: FK_H04_FIX_CASUAL
+          action: "Rewrite. Kern's style: casual expertise, relaxed and friendly."
+        - condition: "Sounds too casual, no authority"
+          goto: FK_H04_FIX_AUTHORITY
+          action: "Add credibility markers (results, experience, proof) while keeping conversational tone."
+
+    - id: FK_H04_FIX_CASUAL
+      name: rewrite_casual
+      action: "Rewrite copy as if giving friendly advice. Authoritative but relaxed."
+      goto: FK_H04
+
+    - id: FK_H04_FIX_AUTHORITY
+      name: add_credibility
+      action: "Add results, experience, and proof markers. Maintain conversational tone."
+      goto: FK_H04
+
+    - id: FK_H05
+      name: revenue_equation_check
+      decision_point: "Revenue stagnant or below expected"
+      action: "R = Offers x Goodwill. Diagnose which variable is weak."
+      branches:
+        - condition: "Offers = 0 (not making offers)"
+          goto: FK_H05_OFFER
+          action: "Problem is obvious. You need to ASK for the sale."
+        - condition: "Goodwill = 0 (only selling, never giving)"
+          goto: FK_H01_FIX
+          action: "Audience doesn't trust you. Deliver value before asking again."
+        - condition: "Both positive but revenue low"
+          goto: FK_H06
+          action: "Optimize the offer itself."
+
+    - id: FK_H05_OFFER
+      name: start_offering
+      action: "Create and present offers. Goodwill without offers = zero revenue."
+      goto: FK_H06
+
+    - id: FK_H06
+      name: optimize_before_innovate
+      decision_point: "Tempted to create new product"
+      action: "Check Formula 5 vectors: Traffic, Conversion, Economics, Frequency, Referral."
+      branches:
+        - condition: "All 5 vectors optimized"
+          goto: FK_H07
+          action: "System is maxed. Proceed with new product creation."
+        - condition: "Any vector underoptimized"
+          goto: FK_H06_FIX
+          action: "Optimize that vector BEFORE creating anything new."
+
+    - id: FK_H06_FIX
+      name: optimize_weakest_vector
+      action: "Identify and optimize the weakest of the 5 Formula 5 vectors before innovating."
+      goto: FK_H06
+
+    - id: FK_H07
+      name: idt_vs_convince
+      decision_point: "Prospect resisting offer"
+      branches:
+        - condition: "Demonstrating result and letting them decide on their own"
+          goto: COMPLETE
+          action: "IDT approach active. Continue demonstrating."
+        - condition: "Trying to CONVINCE with pressure or manipulation"
+          goto: FK_H07_FIX
+          action: "STOP convincing. Convincing creates resistance. Demonstrate result instead."
+
+    - id: FK_H07_FIX
+      name: switch_to_idt
+      action: "Stop all pressure tactics. Demonstrate the result. Let prospect see outcome and decide for themselves."
+      goto: COMPLETE
+
+  error_handling:
+    - error: "offering_with_zero_goodwill"
+      symptom: "High unsubscribe rates, negative sentiment, poor conversion"
+      resolution: "Return to FK_H01. Serve and build goodwill before offering."
+
+    - error: "content_only_promises"
+      symptom: "Leads consume but don't engage further; no trust built"
+      resolution: "Return to FK_H02. Deliver tangible results the consumer can use."
+
+    - error: "mismatched_intent_messaging"
+      symptom: "High-pressure messages to cold prospects"
+      resolution: "Return to FK_H03. Route messages based on demonstrated behavior."
+
+    - error: "salesperson_tone"
+      symptom: "Copy feels pushy; prospects disengage"
+      resolution: "Return to FK_H04. Rewrite with casual authority."
+
+    - error: "zero_offers_high_goodwill"
+      symptom: "Audience loves you but revenue is zero"
+      resolution: "Return to FK_H05. You need to ASK for the sale."
+
+    - error: "creating_new_vs_optimizing"
+      symptom: "Product line grows but revenue doesn't"
+      resolution: "Return to FK_H06. Check 5 vectors before innovating."
+
+    - error: "convincing_instead_of_demonstrating"
+      symptom: "Prospect resistance increases with more pressure"
+      resolution: "Return to FK_H07. Stop convincing, start demonstrating (IDT)."
+
+  quality_gate:
+    criteria:
+      - "Goodwill balance checked before any offer"
+      - "All content delivers actual results, not just promises"
+      - "Messages match prospect's demonstrated intent level"
+      - "Copy passes Casual Authority Test"
+      - "Revenue Equation diagnosed (Offers vs Goodwill)"
+      - "5 Vectors checked before creating new products"
+      - "Selling approach demonstrates results, not convinces"
+    pass_threshold: "7/7 criteria met"

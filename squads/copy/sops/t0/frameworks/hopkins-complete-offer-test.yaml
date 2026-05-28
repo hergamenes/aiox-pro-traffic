@@ -1,0 +1,51 @@
+sop:
+  id: hopkins-complete-offer-test
+  version: "1.0"
+  title: "Complete Offer Test"
+  purpose: "Validate that every offer contains all 5 mandatory components — specificity, reason-why, action, urgency, and tracking."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: claude-hopkins
+  steps:
+    - id: apply_specificity
+      action: "Define exactly what the prospect receives"
+      input: "Product details, offer terms"
+      output: "Specific offer description with product, quantity, duration, inclusions"
+      validation: "Prospect can visualize exactly what arrives or what access they gain"
+    - id: apply_reason_why
+      action: "Provide believable reason for offer generosity"
+      input: "Business context, offer rationale"
+      output: "Reason-why statement explaining the offer's value"
+      validation: "Reason is credible and removes suspicion of trick"
+    - id: apply_immediate_action
+      action: "Specify exact action the prospect must take now"
+      input: "Response mechanism (form, button, phone, mail)"
+      output: "Single-step call-to-action with specific instruction"
+      validation: "Action is simple, single-step, and immediately executable"
+    - id: apply_deadline
+      action: "Set specific deadline or scarcity constraint"
+      input: "Campaign timeline, inventory constraints"
+      output: "Concrete deadline (date, quantity limit, or time window)"
+      validation: "Deadline is real, specific, and will be enforced"
+    - id: apply_keying
+      action: "Build tracking mechanism into the offer"
+      input: "Available tracking tools (codes, URLs, pixels)"
+      output: "Unique tracking identifier per ad variation and media channel"
+      validation: "Every response can be attributed to specific ad, media, and version"
+  error_handling:
+    - error: "Offer description is vague"
+      resolution: "Add specific product name, quantity, duration, and all inclusions"
+    - error: "No deadline present"
+      resolution: "Add real date or quantity limit; confirm enforcement plan"
+    - error: "No tracking mechanism"
+      resolution: "Add unique coupon code, URL, or department number before launch"
+  quality_gate:
+    criteria:
+      - "Offer specifies exactly what prospect receives"
+      - "Believable reason-why is present"
+      - "Call-to-action is specific and single-step"
+      - "Real deadline or scarcity constraint exists"
+      - "Tracking mechanism is built in"
+    pass_threshold: "All 5 criteria met"

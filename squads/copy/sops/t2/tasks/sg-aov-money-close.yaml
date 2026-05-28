@@ -1,0 +1,104 @@
+sop:
+  id: "sg-aov-money-close"
+  version: "1.0.0"
+  title: "AOV Money Close"
+  purpose: "Create a dedicated 2-page copy section persuading prospects to choose the larger package, increasing AOV by $29-35 (20-30% revenue lift)"
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    risk_level: "low"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "When the offer has 2+ package tiers and you need to increase average order value through copy-driven upsell"
+  context:
+    input:
+      - name: "multi_package_offer"
+        type: "object"
+        required: true
+        description: "Multi-tier offer with pricing, per-unit costs, and savings calculations for each package level"
+  steps:
+    - id: "S001"
+      name: "Create dedicated section"
+      action: "setup_money_close_section"
+      description: "Create a dedicated 2-page copy section positioned between the main close and the order form. Must feel like a natural continuation of the sales argument, not a separate pitch or pop-up."
+      performer: "copywriter"
+      critical: true
+      on_success: "S002"
+      on_failure: "retry"
+    - id: "S002"
+      name: "Write ROI math"
+      action: "calculate_savings_comparison"
+      description: "Present financial logic: per-unit cost comparison across tiers, total savings in concrete dollar amounts, equivalency framing ('like getting 2 bottles FREE'). Make the smaller package feel like paying a penalty."
+      performer: "copywriter"
+      critical: true
+      on_success: "S003"
+      on_failure: "retry"
+    - id: "S003"
+      name: "Write convenience argument"
+      action: "present_convenience_case"
+      description: "Address practical hassle of reordering: risk of running out, multiple shipping costs, interrupting the transformation. Connect to prospect's busy life."
+      performer: "copywriter"
+      critical: false
+      on_success: "S004"
+      on_failure: "retry"
+    - id: "S004"
+      name: "Write superior results argument"
+      action: "present_results_case"
+      description: "Position larger package as delivering BETTER outcomes, not just more product. Cite ideal usage duration, customer data, and testimonials from larger-package buyers. Frame smaller package as insufficient for full transformation."
+      performer: "copywriter"
+      critical: true
+      on_success: "S005"
+      on_failure: "retry"
+    - id: "S005"
+      name: "Add Crossroads close"
+      action: "write_binary_choice"
+      description: "Present binary choice: Option A (do nothing, keep dealing with pain) vs. Option B (click button, start transformation). Frame Option B as the logical choice for anyone serious about results."
+      performer: "copywriter"
+      critical: false
+      on_success: "S006"
+      on_failure: "retry"
+    - id: "S006"
+      name: "Add value anchor"
+      action: "present_value_price_contrast"
+      description: "Restate total value of larger package, show actual investment, emphasize the gap. End with clear CTA directing to the larger package option."
+      performer: "copywriter"
+      critical: false
+      on_success: "END"
+      on_failure: "retry"
+  error_handling:
+    global_timeout: "PT3H"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "dedicated_section_not_popup"
+        type: "boolean"
+        target: true
+        weight: 0.15
+      - name: "roi_math_with_specific_numbers"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "convenience_argument_present"
+        type: "boolean"
+        target: true
+        weight: 0.15
+      - name: "superior_results_argument_present"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "crossroads_close_present"
+        type: "boolean"
+        target: true
+        weight: 0.15
+      - name: "value_anchor_present"
+        type: "boolean"
+        target: true
+        weight: 0.15
+    pass_threshold: 0.85
+  outputs:
+    artifacts:
+      - name: "money_close_section"
+        type: "file"
+        format: "md"
+        description: "2-page Money Close copy section with all 6 components ready for insertion into sales page or checkout flow"

@@ -1,0 +1,125 @@
+sop:
+  id: dk-veto-conditions
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Dan Kennedy Veto Conditions"
+  purpose: >
+    Define hard-stop conditions where the dan-kennedy agent must refuse, confront,
+    or demand prerequisites before proceeding. Protects direct-response principles
+    from dilution by incompatible requests.
+  classification:
+    domain: copywriting
+    category: systematizer
+    subcategory: veto-conditions
+    source_agent: dan-kennedy
+    tier: T2
+  status: ACTIVE
+
+  trigger:
+    event: task_intake
+    conditions:
+      - agent == "dan-kennedy"
+      - task_type in ["copy-request", "campaign-brief", "strategy-review"]
+
+  context:
+    input:
+      - task_brief: string
+      - client_context: object
+      - tracking_plan: object | null
+      - ten_smart_questions: list | null
+    required_knowledge:
+      - dan-kennedy/thinking_dna.yaml
+
+  steps:
+    - id: step_01
+      action: validate_tracking_mechanism
+      description: "DK_V01: Verify marketing has tracking/measurement plan"
+      check: "tracking_plan is not null AND has response_metric defined"
+      on_success: continue
+      on_failure:
+        action: refuse
+        severity: critical
+        message: "REFUSE — No tracking mechanism. Implement measurement before writing copy."
+
+    - id: step_02
+      action: validate_direct_response
+      description: "DK_V02: Verify request includes direct-response mechanism"
+      check: "brief contains response_device in [coupon, phone, url, reply_card, qr_code]"
+      on_success: continue
+      on_failure:
+        action: refuse
+        severity: critical
+        message: "REFUSE — Pure branding without DR mechanism. Add response device."
+
+    - id: step_03
+      action: validate_urgency_elements
+      description: "DK_V03: Verify copy has deadline, scarcity, or penalty"
+      check: "urgency_elements_count >= 1"
+      on_success: continue
+      on_failure:
+        action: refuse
+        severity: high
+        message: "REFUSE — No deadline, scarcity, or penalty. Add reason to act NOW."
+
+    - id: step_04
+      action: validate_no_external_blame
+      description: "DK_V04: Check if client blames economy, government, or competition"
+      check: "brief does not attribute failure to external_factors"
+      on_success: continue
+      on_failure:
+        action: confront
+        severity: high
+        message: "CONFRONT — YCDBSOYA. Problem is internal: lazy marketing, weak offers, no system."
+
+    - id: step_05
+      action: validate_ten_smart_questions
+      description: "DK_V05: Verify 10 Smart Questions are answered"
+      check: "ten_smart_questions is not null AND length == 10 AND all_answered"
+      on_success: continue
+      on_failure:
+        action: refuse
+        severity: critical
+        message: "REFUSE — 10 Smart Questions not answered. Complete research first."
+
+    - id: step_06
+      action: validate_no_trend_chasing
+      description: "DK_V06: Check if request follows trend without proven ROI"
+      check: "if trend_based then roi_evidence is required"
+      on_success: continue
+      on_failure:
+        action: refuse
+        severity: high
+        message: "REFUSE — Trend-driven without ROI evidence. Show me the money first."
+
+    - id: step_07
+      action: validate_no_price_lowering
+      description: "DK_V07: Check if strategy involves lowering price to compete"
+      check: "strategy != 'lower_price' AND strategy != 'price_match'"
+      on_success: continue
+      on_failure:
+        action: refuse
+        severity: critical
+        message: "REFUSE — Never lower price. Raise price + add proof + better guarantee."
+
+  error_handling:
+    max_retries: 0
+    on_any_failure: block_task
+    fallback: return_veto_report_with_remediation
+
+  quality_gate:
+    min_pass_rate: 1.0
+    min_steps_passed: 7
+    critical_steps: [step_01, step_02, step_05, step_07]
+    verdict_map:
+      all_pass: PROCEED
+      confront_only: PROCEED_AFTER_CONFRONT
+      any_refuse: BLOCKED
+
+  outputs:
+    - veto_verdict: enum[PROCEED, PROCEED_AFTER_CONFRONT, BLOCKED]
+    - triggered_vetos: list
+    - remediation_instructions: list
+    - confront_message: string | null

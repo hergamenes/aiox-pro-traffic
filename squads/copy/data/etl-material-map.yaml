@@ -1,0 +1,444 @@
+# --- document metadata ---
+version: "1.0"
+date: "2026-03-08"
+author:
+  agent: "squad-chief"
+  squad: "squad-creator-pro"
+aiox: true
+project: "copy"
+
+# ETL Material Map — CopywriterOS
+# Fontes para enriquecimento futuro de cada agente via MMOS ETL pipeline.
+# Prioridade: ALTA = Tier 0 + Tier 1, MEDIA = Tier 2 + Tier 3
+
+materials:
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # ORCHESTRATOR
+  # ═══════════════════════════════════════════════════════════════════════════
+  copy-chief:
+    priority: n/a
+    notes: "Meta-agent. Knowledge comes from squad architecture, not books."
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # TIER 0 — DIAGNOSTIC
+  # ═══════════════════════════════════════════════════════════════════════════
+  claude-hopkins:
+    priority: ALTA
+    books:
+      - title: "Scientific Advertising"
+        year: 1923
+        isbn: "978-0486205830"
+        z_library: true
+        frameworks_to_extract:
+          - "Scientific testing method"
+          - "Coupon-based measurement"
+          - "Reason-why advertising"
+          - "Sampling as selling"
+      - title: "My Life in Advertising"
+        year: 1927
+        isbn: "978-0071329118"
+        z_library: true
+        frameworks_to_extract:
+          - "Career heuristics"
+          - "Client management principles"
+    supplementary:
+      - "David Ogilvy's commentary on Hopkins"
+
+  eugene-schwartz:
+    priority: ALTA
+    books:
+      - title: "Breakthrough Advertising"
+        year: 1966
+        isbn: "978-0887232985"
+        z_library: true
+        frameworks_to_extract:
+          - "5 Levels of Awareness"
+          - "Market Sophistication Scale (1-5)"
+          - "Mass Desire channeling"
+          - "Headline formulas by awareness level"
+      - title: "The Brilliance Breakthrough"
+        year: 1994
+        isbn: "978-0887232817"
+        z_library: true
+        frameworks_to_extract:
+          - "Writing methodology"
+          - "Creative process"
+    supplementary:
+      - "Brian Kurtz interviews about Schwartz"
+      - "Titans of Direct Response (Schwartz tribute)"
+
+  robert-collier:
+    priority: ALTA
+    books:
+      - title: "The Robert Collier Letter Book"
+        year: 1931
+        isbn: "978-9562914536"
+        z_library: true
+        frameworks_to_extract:
+          - "Enter the conversation already happening"
+          - "6 essentials of every letter"
+          - "Desire-based sequencing"
+          - "Appeal to self-interest"
+    supplementary:
+      - "The Secret of the Ages (Collier)"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # TIER 1 — MASTERS
+  # ═══════════════════════════════════════════════════════════════════════════
+  gary-halbert:
+    priority: ALTA
+    books:
+      - title: "The Boron Letters"
+        year: 2013
+        isbn: "978-1484825983"
+        z_library: true
+        frameworks_to_extract:
+          - "A-pile vs B-pile mail"
+          - "AIDA for direct mail"
+          - "Proof elements hierarchy"
+          - "Emotional hooks"
+    supplementary:
+      - "The Gary Halbert Letter (newsletter archive — thegaryhalbertletter.com)"
+      - "Halbert/Kennedy seminars (transcripts)"
+
+  gary-bencivenga:
+    priority: ALTA
+    books: []
+    primary_sources:
+      - title: "Bencivenga Bullets"
+        type: "newsletter"
+        issues: 100
+        source: "Archive — marketingbullets.com (no longer live)"
+        frameworks_to_extract:
+          - "Big Idea methodology"
+          - "Persuasion subtlety"
+          - "Sophistication handling"
+      - title: "Farewell Seminar (2005)"
+        type: "video/transcript"
+        frameworks_to_extract:
+          - "Career retrospective heuristics"
+          - "Testing philosophy"
+
+  david-ogilvy:
+    priority: ALTA
+    books:
+      - title: "Ogilvy on Advertising"
+        year: 1983
+        isbn: "978-0394729039"
+        z_library: true
+        frameworks_to_extract:
+          - "Research-first methodology"
+          - "Headline rules"
+          - "Brand image theory"
+          - "Long-copy philosophy"
+      - title: "Confessions of an Advertising Man"
+        year: 1963
+        isbn: "978-1904915379"
+        z_library: true
+        frameworks_to_extract:
+          - "How to write copy that sells"
+          - "Agency management principles"
+
+  clayton-makepeace:
+    priority: ALTA
+    books: []
+    primary_sources:
+      - title: "The Total Package (newsletter)"
+        type: "newsletter"
+        source: "Archive"
+        frameworks_to_extract:
+          - "Emotional selling proposition"
+          - "Health/supplement copy formulas"
+          - "Financial copy frameworks"
+      - title: "Controls (Boardroom, health)"
+        type: "sales letters"
+        frameworks_to_extract:
+          - "Long-form structure"
+          - "Proof stacking"
+
+  parris-lampropoulos:
+    priority: ALTA
+    books: []
+    primary_sources:
+      - title: "Interviews (AWAI, Copy Chief, A-list)"
+        type: "interviews/transcripts"
+        frameworks_to_extract:
+          - "Control-beating methodology"
+          - "Research process"
+          - "Lead types"
+      - title: "Controls (Boardroom/Agora)"
+        type: "sales letters"
+        frameworks_to_extract:
+          - "Supplement copy structure"
+          - "Financial copy structure"
+
+  john-carlton:
+    priority: ALTA
+    books:
+      - title: "Kick-Ass Copywriting Secrets of a Marketing Rebel"
+        year: 2003
+        z_library: true
+        frameworks_to_extract:
+          - "Simple Writing System (SWS)"
+          - "Sales Detective approach"
+          - "One-legged golfer methodology"
+    supplementary:
+      - "Carlton podcast episodes"
+      - "Marketing Rebel Rant newsletter"
+
+  jim-rutz:
+    priority: ALTA
+    books: []
+    primary_sources:
+      - title: "Magalogs (Agora, Phillips Publishing)"
+        type: "direct mail"
+        frameworks_to_extract:
+          - "Magalog structure"
+          - "Subscription copy"
+          - "Long-form direct mail"
+      - title: "Interviews and seminars"
+        type: "transcripts"
+        frameworks_to_extract:
+          - "Reader engagement techniques"
+          - "Story-driven selling"
+
+  david-deutsch:
+    priority: ALTA
+    books: []
+    primary_sources:
+      - title: "Infomercial scripts (As Seen on TV era)"
+        type: "scripts"
+        frameworks_to_extract:
+          - "Demonstration-based selling"
+          - "TV copy structure"
+          - "Direct response TV formulas"
+      - title: "Interviews and case studies"
+        type: "transcripts"
+        frameworks_to_extract:
+          - "Product demonstration hierarchy"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # TIER 2 — SYSTEMATIZERS
+  # ═══════════════════════════════════════════════════════════════════════════
+  dan-kennedy:
+    priority: ALTA
+    books:
+      - title: "The Ultimate Sales Letter"
+        year: 2011
+        isbn: "978-1440511417"
+        z_library: true
+        frameworks_to_extract:
+          - "28-step sales letter system"
+          - "Urgency/deadline frameworks"
+      - title: "No B.S. Direct Marketing"
+        year: 2013
+        isbn: "978-1599185453"
+        z_library: true
+        frameworks_to_extract:
+          - "No BS rules"
+          - "Direct marketing principles"
+      - title: "Magnetic Marketing"
+        year: 2018
+        isbn: "978-1946885371"
+        z_library: true
+        frameworks_to_extract:
+          - "3-step lead generation"
+          - "Magnetic messaging"
+
+  todd-brown:
+    priority: ALTA
+    primary_sources:
+      - title: "E5 Method (course)"
+        type: "course"
+        frameworks_to_extract:
+          - "E5 Campaign Method"
+          - "Unique Mechanism discovery"
+          - "Big Marketing Idea framework"
+      - title: "Marketing Funnel Automation"
+        type: "course"
+        frameworks_to_extract:
+          - "Funnel architecture"
+
+  jeff-walker:
+    priority: MEDIA
+    books:
+      - title: "Launch"
+        year: 2014
+        isbn: "978-1630470173"
+        z_library: true
+        frameworks_to_extract:
+          - "Product Launch Formula (PLF)"
+          - "Seed Launch"
+          - "Internal Launch"
+          - "JV Launch"
+          - "Sideways Sales Letter"
+
+  stefan-georgi:
+    priority: ALTA
+    primary_sources:
+      - title: "The RMBC Method (course)"
+        type: "course"
+        frameworks_to_extract:
+          - "Research phase"
+          - "Mechanism creation"
+          - "Brief structure"
+          - "Copy assembly"
+      - title: "Copy Accelerator materials"
+        type: "community/course"
+        frameworks_to_extract:
+          - "VSL frameworks"
+          - "Health copy patterns"
+
+  russell-brunson:
+    priority: MEDIA
+    books:
+      - title: "DotCom Secrets"
+        year: 2015
+        isbn: "978-1630474775"
+        z_library: true
+        frameworks_to_extract:
+          - "Value Ladder"
+          - "Attractive Character"
+          - "Soap Opera Sequence"
+          - "Seinfeld Sequence"
+      - title: "Expert Secrets"
+        year: 2017
+        isbn: "978-1683504580"
+        z_library: true
+        frameworks_to_extract:
+          - "Epiphany Bridge"
+          - "Perfect Webinar"
+          - "Stack and Close"
+      - title: "Traffic Secrets"
+        year: 2020
+        isbn: "978-1401957919"
+        z_library: true
+        frameworks_to_extract:
+          - "Dream 100"
+          - "Hook-Story-Offer"
+
+  frank-kern:
+    priority: MEDIA
+    primary_sources:
+      - title: "Intent-Based Branding (course)"
+        type: "course"
+        frameworks_to_extract:
+          - "Intent-Based Branding"
+          - "Results in Advance"
+      - title: "Mass Control (launch event)"
+        type: "launch/webinar"
+        frameworks_to_extract:
+          - "4-Day Cash Machine"
+          - "Relationship marketing"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # TIER 3 — SPECIALISTS
+  # ═══════════════════════════════════════════════════════════════════════════
+  jon-benson:
+    priority: MEDIA
+    primary_sources:
+      - title: "3X VSL Method"
+        type: "course/framework"
+        frameworks_to_extract:
+          - "VSL creation system"
+          - "Conversational copy"
+      - title: "Sellerator"
+        type: "tool/methodology"
+        frameworks_to_extract:
+          - "Automated VSL creation"
+          - "Email copy templates"
+
+  andre-chaperon:
+    priority: MEDIA
+    primary_sources:
+      - title: "Autoresponder Madness (ARM)"
+        type: "course"
+        frameworks_to_extract:
+          - "Soap Opera Sequences"
+          - "Story-based email marketing"
+          - "Segmentation strategies"
+      - title: "Sphere of Influence"
+        type: "course"
+        frameworks_to_extract:
+          - "Audience building"
+          - "Trust-based marketing"
+
+  ben-settle:
+    priority: MEDIA
+    books:
+      - title: "Persuasion Secrets of the World's Most Charismatic & Influential Villains"
+        z_library: true
+        frameworks_to_extract:
+          - "Villain persuasion tactics"
+          - "Anti-hero positioning"
+    primary_sources:
+      - title: "Email Players (newsletter)"
+        type: "newsletter"
+        frameworks_to_extract:
+          - "Daily email methodology"
+          - "Personality-driven copy"
+          - "Anti-guru positioning"
+          - "Infotainment"
+
+  ry-schwartz:
+    priority: MEDIA
+    primary_sources:
+      - title: "Cohort copy examples"
+        type: "real copy"
+        frameworks_to_extract:
+          - "Cohort launch copy"
+          - "Live course selling"
+          - "Workshop invitation copy"
+      - title: "Interviews and case studies"
+        type: "transcripts"
+        frameworks_to_extract:
+          - "$300M+ cohort selling methodology"
+
+  dan-koe:
+    priority: MEDIA
+    books:
+      - title: "The Art of Focus"
+        year: 2024
+        z_library: true
+        frameworks_to_extract:
+          - "One-person business model"
+          - "Creator economy principles"
+    primary_sources:
+      - title: "Modern Mastery (course)"
+        type: "course"
+        frameworks_to_extract:
+          - "Content creation system"
+          - "Social media copy frameworks"
+      - title: "Newsletters and threads"
+        type: "content"
+        frameworks_to_extract:
+          - "Thread writing methodology"
+          - "Newsletter structure"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # TOOL
+  # ═══════════════════════════════════════════════════════════════════════════
+  joe-sugarman:
+    priority: ALTA
+    books:
+      - title: "Triggers"
+        year: 1999
+        isbn: "978-1891686061"
+        z_library: true
+        frameworks_to_extract:
+          - "30 Psychological Triggers (complete)"
+      - title: "The Adweek Copywriting Handbook"
+        year: 2007
+        isbn: "978-0470051245"
+        z_library: true
+        frameworks_to_extract:
+          - "Axioms of copywriting"
+          - "Slippery Slide concept"
+          - "Seed of Curiosity"
+      - title: "Advertising Secrets of the Written Word"
+        year: 1998
+        z_library: true
+        frameworks_to_extract:
+          - "BluBlocker case study"
+          - "Print ad methodology"

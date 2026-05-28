@@ -1,0 +1,84 @@
+sop:
+  id: hopkins-specificity-transforms
+  version: "1.0"
+  title: "Hopkins Specificity Transform Rules"
+  purpose: >
+    Mandatory transformation rules converting vague, generic language into
+    specific, verifiable claims. Specificity is the most powerful persuasion
+    tool in Scientific Advertising — platitudes roll off, specific facts stick.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    subcategory: specificity-enforcement
+    tier: T0
+    source_agent: claude-hopkins
+  steps:
+    - id: validate_transform_o_melhor
+      action: "Transform 'o melhor' to verifiable ranking"
+      input: text_segment
+      validation:
+        rule: "vague term 'o melhor' replaced with ranking + source"
+        transform:
+          from: "o melhor"
+          to: "classificado em [N] por [metrica verificavel]"
+        fail_action: apply_transform
+    - id: validate_transform_muitos_clientes
+      action: "Transform 'muitos clientes' to exact number with date"
+      input: text_segment
+      validation:
+        rule: "vague quantity replaced with exact count + timeframe"
+        transform:
+          from: "muitos clientes"
+          to: "[numero exato] clientes desde [data]"
+        fail_action: apply_transform
+    - id: validate_transform_alta_qualidade
+      action: "Transform 'alta qualidade' to process description"
+      input: text_segment
+      validation:
+        rule: "quality adjective replaced with QC process details"
+        transform:
+          from: "alta qualidade"
+          to: "[N] etapas de controle, [N] testes por lote"
+        fail_action: apply_transform
+    - id: validate_transform_muito_eficaz
+      action: "Transform 'muito eficaz' to measurable improvement"
+      input: text_segment
+      validation:
+        rule: "efficacy claim replaced with metric + percentage + period"
+        transform:
+          from: "muito eficaz"
+          to: "[N]% de melhoria em [metrica] em [periodo]"
+        fail_action: apply_transform
+    - id: validate_transform_confiavel
+      action: "Transform 'confiavel' to repurchase rate"
+      input: text_segment
+      validation:
+        rule: "reliability claim replaced with behavioral metric"
+        transform:
+          from: "confiavel"
+          to: "[N]% de recompra em [periodo]"
+        fail_action: apply_transform
+    - id: validate_transform_puro
+      action: "Transform 'puro' to process description"
+      input: text_segment
+      validation:
+        rule: "purity claim replaced with manufacturing process details"
+        transform:
+          from: "puro"
+          to: "[processo: destilacao, filtracao, esterilizacao]"
+        fail_action: apply_transform
+  error_handling:
+    on_any_failure: flag_untransformed_terms
+    data_unavailable: prescribe_data_collection_method
+    escalation: route_to_research_agent
+  quality_gate:
+    pass_criteria: "all vague terms have completed transforms with real data"
+    verifiability: "third party can verify each transformed claim"
+    on_pass: text_specificity_validated
+    on_fail: collect_missing_data_and_retransform
+  metadata:
+    date: "2026-03-14"
+    author:
+      agent: sop-converter
+      squad: sop-factory
+    source_artifact: hopkins-specificity-transforms

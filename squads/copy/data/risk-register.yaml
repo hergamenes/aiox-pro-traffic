@@ -1,0 +1,75 @@
+# Risk Register — Copy Squad
+# Materialização RC-1: riscos operacionais do sistema de produção de copy
+# Referência: outputs/sinkra-squad/copy/compliance_score.yaml (Gestão de Riscos: 6.5)
+
+version: "1.0.0"
+created_at: "2026-03-28"
+process_slug: copy
+
+risks:
+  - id: "RISK-CP-001"
+    title: "Clone drift — degradação silenciosa da fidelidade dos 24 mind clones"
+    category: quality
+    score: high
+    probability: medium
+    impact: high
+    owner: "Content Lead"
+    affected_agents: ["gary-halbert", "eugene-schwartz", "dan-kennedy", "gary-bencivenga"]
+    contingency: "Review periódico (trimestral) de output samples contra voice_dna. Recalibrar via /clone-mind se fidelidade < 80%."
+    detection: "Score de fidelidade no quality gate de revisão editorial."
+
+  - id: "RISK-CP-002"
+    title: "SPOF do copy-chief — orquestrador único para 27 agents e 14 workflows"
+    category: availability
+    score: high
+    probability: low
+    impact: critical
+    owner: "Tech Lead"
+    contingency: "Workflows individuais podem ser ativados diretamente sem copy-chief. Cada workflow define sua sequência de agents."
+    detection: "Copy-chief não responde em 2 tentativas consecutivas."
+
+  - id: "RISK-CP-003"
+    title: "Indisponibilidade de Claude — impacta todos os 24 Agent/Clone executors"
+    category: availability
+    score: high
+    probability: low
+    impact: critical
+    owner: "Tech Lead"
+    contingency: "Workflows batch podem ser roteados para Gemini Pro via model override. Quality gate thresholds se mantêm."
+    detection: "Runtime error ou timeout em 3 tentativas consecutivas."
+
+  - id: "RISK-CP-004"
+    title: "Briefing incompleto — copy produzido sem ICP, offer ou brand voice definidos"
+    category: quality
+    score: medium
+    probability: medium
+    impact: high
+    owner: "Content Lead"
+    contingency: "Quality gate QG-CP-001 (briefing validation) bloqueia pipeline se campos obrigatórios ausentes."
+    detection: "Gate preventivo na entrada do pipeline."
+
+  - id: "RISK-CP-005"
+    title: "Conflito de voz entre clones no mesmo workflow — Halbert vs Schwartz em sequência"
+    category: quality
+    score: medium
+    probability: medium
+    impact: medium
+    owner: "Content Lead"
+    contingency: "Tier system garante sequência diagnóstico→estratégia→execução. Clone de revisão (Tier 0) normaliza tom."
+    detection: "Revisão editorial detecta inconsistência de voz."
+
+  - id: "RISK-CP-006"
+    title: "Workspace data stale — ICP, offerbook ou brand voice desatualizados"
+    category: data
+    score: medium
+    probability: medium
+    impact: medium
+    owner: "Business Owner"
+    contingency: "TTL check no briefing. Se workspace docs > 90 dias sem update, avisar e prosseguir com flag."
+    detection: "TTL validation no workflow de briefing."
+
+continuity_plan:
+  claude_down: "Redirecionar para Gemini Pro. Quality gates se mantêm."
+  workspace_stale: "Flag no briefing + notificação ao Business Owner."
+  clone_drift: "Recalibrar via /clone-mind com samples recentes."
+  briefing_incomplete: "Gate QG-CP-001 bloqueia. Retornar ao requester com campos faltantes."

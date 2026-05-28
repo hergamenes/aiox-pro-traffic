@@ -1,0 +1,28 @@
+sop:
+  id: tree-benson-format-selection
+  version: "1.0"
+  title: "Benson Format Selection"
+  purpose: "Determine optimal VSL format and duration based on product category and emotional complexity"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: jon-benson
+  steps:
+    - id: route-01
+      condition: "product_category == 'emotional' (health, dating)"
+      action: "VSL 20-60min"
+    - id: route-02
+      condition: "product_category == 'B2B'"
+      action: "VSL 5-20min"
+    - id: route-universal
+      condition: "any format selected"
+      action: "Add 90s smartphone intro"
+      required: true
+  error_handling:
+    - condition: "emotional_vsl_too_short"
+      action: "extend_to_minimum_20min"
+    - condition: "b2b_vsl_too_long"
+      action: "tighten_to_maximum_20min"
+  quality_gate:
+    mode: format_selection
+    smartphone_intro_mandatory: true

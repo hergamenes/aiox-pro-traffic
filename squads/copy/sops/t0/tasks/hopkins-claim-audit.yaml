@@ -1,0 +1,85 @@
+sop:
+  id: hopkins-claim-audit
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Claim Audit (Line-by-Line)"
+  purpose: >
+    Perform forensic line-by-line analysis of every claim in copy,
+    assigning structured verdicts (VAGO/ESPECIFICO/FRACO) and specific
+    prescriptions with replacement text.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: claude-hopkins
+    artifact_type: task
+
+  steps:
+    - id: identify_claims
+      action: extract_all_claims
+      description: "Isolate every assertion, promise, benefit, implied superiority, and factual declaration; number sequentially"
+      inputs:
+        - copy_text
+      critical: true
+      output: numbered_claim_list
+
+    - id: apply_audit_template
+      action: audit_each_claim
+      description: "For each claim, complete audit template: tipo, prova, especificidade, veredicto, prescricao"
+      depends_on: identify_claims
+      output: audit_entries
+
+    - id: assign_verdict
+      action: classify_claim_verdict
+      description: "Assign VAGO (no evidence), ESPECIFICO (number/fact/proof), or FRACO (partial support) to each claim"
+      depends_on: apply_audit_template
+      critical: true
+      output: claim_verdicts
+
+    - id: write_prescriptions
+      action: prescribe_claim_replacement
+      description: "Write specific replacement text with real numbers/facts for every VAGO and FRACO claim"
+      depends_on: assign_verdict
+      output: claim_prescriptions
+
+    - id: compile_summary
+      action: summarize_audit_results
+      description: "Compile total claims, verdict distribution, priority prescriptions, and copy health score"
+      depends_on:
+        - assign_verdict
+        - write_prescriptions
+      output: audit_summary
+
+  error_handling:
+    - error: missing_implicit_claims
+      symptom: "Only explicit promises audited; implied claims missed"
+      resolution: "Re-read for implications, comparisons, and omissions"
+    - error: paraphrased_claims
+      symptom: "Audit uses reworded text instead of exact original"
+      resolution: "Copy-paste exact original text in quotes"
+    - error: verdict_without_prescription
+      symptom: "Claim marked VAGO but no replacement provided"
+      resolution: "Every non-ESPECIFICO verdict requires specific replacement text"
+
+  quality_gate:
+    criteria:
+      - "Every claim identified and numbered"
+      - "Each claim uses exact original text"
+      - "All claims have verdict assigned"
+      - "All VAGO/FRACO claims have prescription with replacement text"
+      - "Summary includes verdict distribution"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: audit_report
+      format: structured_report
+      description: "Line-by-line audit with numbered claims and verdicts"
+    - name: prescriptions
+      format: actionable_list
+      description: "Specific replacement text per flagged claim"
+    - name: summary
+      format: summary_report
+      description: "Verdict distribution and copy health score"

@@ -1,0 +1,76 @@
+sop:
+  id: task-open-loop-architecture
+  version: "1.0"
+  title: "Open Loop Architecture Design"
+  purpose: "Design structured loop management for multi-email sequences with macro loops spanning emails and micro loops within emails, ensuring continuous reader engagement"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: andre-chaperon
+    tier: T3
+
+  inputs:
+    - name: email_sequence_outline
+      type: document
+      required: true
+      description: "Sequence outline with subject lines and key points per email"
+    - name: tension_points
+      type: list
+      required: true
+      description: "Key narrative tension points"
+
+  outputs:
+    - name: loop_map
+      type: document
+      description: "Loop map with open/close markers per email"
+
+  steps:
+    - id: step_1
+      action: define_campaign_macro_loop
+      description: "Create overarching loop opened in email 1, closed only with offer presentation"
+      critical: true
+
+    - id: step_2
+      action: distribute_macro_loops
+      description: "Create secondary macro loops opening in one email and closing in non-adjacent later email"
+      target_active_at_midpoint: 3
+
+    - id: step_3
+      action: add_micro_loops
+      description: "Insert within-email loops that open and close within 2-3 paragraphs"
+
+    - id: step_4
+      action: apply_golden_rule
+      description: "Ensure new loops always open BEFORE old loops close"
+      critical: true
+      error_handling:
+        condition: "Old loop closes without new loop opened first"
+        action: "Insert new loop opening before the closure point"
+
+    - id: step_5
+      action: validate_loop_inventory
+      description: "Verify at least 1 macro loop remains open at end of every email except final"
+      error_handling:
+        condition: "Email ends with zero open macro loops"
+        action: "Add a macro loop opening before email conclusion"
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "Campaign-level macro loop opens in email 1"
+      - "Campaign-level macro loop closes only with offer"
+      - "2-3 macro loops active at midpoint"
+      - "Micro loops present in each email"
+      - "New loops open before old loops close"
+      - "At least 1 macro loop open at end of every non-final email"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies: []
+
+  related_sops:
+    - task-soap-opera-sequence
+    - task-email-engine-setup
+    - task-vsl-5-step

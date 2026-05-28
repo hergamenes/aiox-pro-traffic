@@ -1,0 +1,87 @@
+sop:
+  id: bencivenga-diagnostic-flow
+  version: "1.0"
+  title: "Bencivenga Diagnostic & Writing Flow"
+  purpose: "Complete diagnostic-to-delivery pipeline using BPE scoring (Belief/Proof/Emotion, 25pts each), Big Idea validation, and layered copy with Yeah-Sure audit"
+  classification:
+    domain: copywriting
+    category: master
+    tier: T1
+    source_agent: gary-bencivenga
+
+  inputs:
+    - name: briefing_or_existing_copy
+      type: text
+      required: true
+
+  outputs:
+    - name: bpe_scored_copy
+      type: document
+      description: "Copy with BPE score 75+, validated Big Idea, layered persuasion, and Yeah-Sure audit"
+
+  steps:
+    - id: step_01
+      action: classify_input
+      description: "Determine type: NEW BRIEFING, COPY REVIEW, or BIG IDEA REQUEST"
+      critical: true
+      error_handling:
+        condition: "misclassification"
+        action: "reclassify_before_proceeding"
+
+    - id: step_02
+      action: assess_icp_sophistication
+      description: "Evaluate prospect sophistication on Schwartz scale (1-5) with market evidence"
+      critical: false
+
+    - id: step_03
+      action: map_four_pillars
+      description: "Document urgent problem, unique promise, available proof, and offer structure"
+      critical: false
+
+    - id: step_04
+      action: calculate_bpe_score
+      description: "Score Belief (0-25), Proof (0-25), Emotion (0-25), Offer (0-25) for total max 100"
+      critical: true
+      error_handling:
+        condition: "total_score_below_75"
+        action: "block_writing_rework_weakest_component"
+
+    - id: step_05
+      action: identify_weakest_component
+      description: "Find lowest-scoring BPE component and document specific improvement path"
+      critical: false
+
+    - id: step_06
+      action: rework_below_threshold
+      description: "If BPE < 75, improve weakest components until threshold reached"
+      critical: true
+      error_handling:
+        condition: "proceeding_with_sub_75_score"
+        action: "block_writing_return_to_rework"
+
+    - id: step_07
+      action: find_big_idea
+      description: "Generate 3-5 candidates, score Unexpected x True x Relevant (min 7 each), select winner"
+      critical: true
+      error_handling:
+        condition: "no_candidate_scores_7_on_all_three"
+        action: "deepen_research_generate_new_candidates"
+
+    - id: step_08
+      action: execute_writing_sequence
+      description: "Research confirm -> Big Idea anchor -> 30-50 headlines -> layered copy -> Yeah-Sure audit"
+      critical: false
+      error_handling:
+        condition: "fewer_than_30_headlines"
+        action: "continue_generating_until_30_minimum"
+
+  quality_gate:
+    min_criteria_met: 6
+    criteria:
+      - "input_correctly_classified"
+      - "icp_sophistication_assessed"
+      - "four_pillars_mapped"
+      - "bpe_score_75_plus"
+      - "big_idea_scores_7_plus_all_criteria"
+      - "minimum_30_headline_variations"
+      - "yeah_sure_audit_completed"

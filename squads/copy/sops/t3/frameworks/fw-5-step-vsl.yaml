@@ -1,0 +1,101 @@
+sop:
+  id: fw-5-step-vsl
+  version: "1.0"
+  title: "5-Step VSL Formula"
+  purpose: "Create Video Sales Letters from scratch using a 5-step momentum-building structure"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: jon-benson
+    tier: t3
+  steps:
+    - id: apply_snap_suggestion
+      name: "SNAP Suggestion"
+      description: "Create 7-15 second pattern interrupt with embedded command"
+      inputs:
+        - avatar_pain_points
+        - contrarian_angle
+      outputs:
+        - snap_script_segment
+      validation:
+        - duration_seconds: "7-15"
+        - contains_embedded_command: true
+    - id: apply_vital_connection
+      name: "Vital Connection"
+      description: "Modest intro followed by nightmare story and hope transition"
+      inputs:
+        - personal_story
+        - avatar_current_situation
+      outputs:
+        - connection_script_segment
+      validation:
+        - has_modest_intro: true
+        - has_nightmare_story: true
+        - has_transition: true
+    - id: apply_big_problem
+      name: "Big Problem"
+      description: "Reveal conspiracy, absolve blame, deliver the big truth"
+      inputs:
+        - market_misconceptions
+        - big_truth_angle
+      outputs:
+        - problem_script_segment
+      validation:
+        - has_conspiracy_element: true
+        - has_not_your_fault: true
+        - has_big_truth: true
+    - id: apply_big_solution
+      name: "Big Solution"
+      description: "Positive hook, 3 tips, 4 comparisons, authority shift"
+      inputs:
+        - expertise_proof
+        - comparison_points
+      outputs:
+        - solution_script_segment
+      validation:
+        - tip_count: 3
+        - comparison_count: 4
+        - has_authority_shift: true
+    - id: apply_big_offer
+      name: "Big Offer"
+      description: "Features as benefits, testimonial flip, price dropdown, guarantee, crossroads close"
+      inputs:
+        - product_features
+        - testimonials
+        - pricing_structure
+        - guarantee_terms
+      outputs:
+        - offer_script_segment
+        - complete_vsl_script
+      validation:
+        - features_reframed_as_benefits: true
+        - has_testimonial_flip: true
+        - price_anchor_count: ">=2"
+        - has_positive_guarantee: true
+        - has_crossroads_close: true
+  error_handling:
+    - error: snap_too_long
+      condition: "duration > 15 seconds"
+      action: "Trim to core pattern interrupt; remove preamble"
+    - error: generic_nightmare_story
+      condition: "story lacks sensory details or specific events"
+      action: "Add real details and sensory specifics"
+    - error: missing_absolution
+      condition: "no 'not your fault' element"
+      action: "Insert blame-shift before big truth reveal"
+    - error: weak_guarantee
+      condition: "guarantee is standard money-back only"
+      action: "Strengthen until it feels risky for the seller"
+  quality_gate:
+    min_sections: 5
+    required_elements:
+      - snap_under_15s
+      - nightmare_story
+      - big_truth
+      - three_tips
+      - four_comparisons
+      - benefit_framed_features
+      - price_dropdown
+      - positive_guarantee
+      - crossroads_close
+    pass_threshold: "all required_elements present"

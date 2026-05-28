@@ -1,0 +1,1157 @@
+# COPYWRITING CLONES FRAMEWORK v2.1
+# AI Reference Document - Structured Metadata for Workflow Execution
+# Source: AI-Optimized Framework Docs (01-08) + Historical Accuracy Corrections
+# Last Updated: 2026-01-23
+# Sync: docs/frameworks/*-AI-OPTIMIZED.md
+
+metadata:
+  version: "2.1"
+  purpose: "Structured clone reference for YOLO mode workflow execution"
+  accuracy_note: "~95% after historical corrections"
+  total_clones: 17
+  total_tiers: 4
+  support_tools: 1
+  validation_method: "13 web searches + historical correlation research"
+  removed_clones: []
+  reactivated_clones: ["Alex Hormozi", "Dan Koe"]
+  removed_reason: "No active removals in v4.0; Hormozi and Koe were reactivated as specialist clones"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# TIER SYSTEM OVERVIEW (CORRECTED)
+# ═══════════════════════════════════════════════════════════════════════════════
+tier_system:
+  tier_0_foundation:
+    name: "Foundation & Diagnosis"
+    count: 3
+    purpose: "Diagnostic and framework layer - ALWAYS execute first"
+    clones: ["claude-hopkins", "robert-collier", "eugene-schwartz"]
+    outputs:
+      - "Awareness level diagnosis"
+      - "Market sophistication stage"
+      - "Mental conversation entry point"
+      - "Measurement framework"
+      - "Testing criteria"
+    rule: "NEVER skip. Without awareness diagnosis, mechanism framing, and testing setup, all execution is guesswork."
+    sequence: ["schwartz", "collier", "hopkins"]
+
+  tier_1_masters:
+    name: "Documented Masters ($500M+)"
+    count: 6
+    qualification: "$500M+ documented sales"
+    purpose: "Proven execution excellence at massive scale"
+    clones: ["gary-bencivenga", "gary-halbert", "clayton-makepeace", "jim-rutz", "parris-lampropoulos", "david-deutsch"]
+    outputs:
+      - "Sales letters"
+      - "VSL scripts"
+      - "Bullets/fascinations"
+      - "Emotional amplification"
+      - "Direct mail packages"
+    when_to_use: "To WRITE high-conversion copy after Tier 0 diagnosis"
+
+  tier_2_systematizers:
+    name: "Modern Systematizers"
+    count: 4
+    purpose: "Teachable systems and replicable frameworks"
+    clones: ["dan-kennedy", "todd-brown", "stefan-georgi", "john-carlton"]
+    outputs:
+      - "Avatar development"
+      - "Unique mechanism"
+      - "Production systems"
+      - "Scalable processes"
+    when_to_use: "To STRUCTURE process and train teams"
+
+  tier_3_specialists:
+    name: "Format Specialists"
+    count: 4
+    purpose: "Masters of specific formats"
+    clones: ["jon-benson", "ben-settle", "andre-chaperon", "david-ogilvy"]
+    outputs:
+      - "VSL (Benson)"
+      - "Daily email (Settle)"
+      - "Automated sequences (Chaperon)"
+      - "Premium/B2B (Ogilvy)"
+    when_to_use: "When OUTPUT TYPE is defined"
+
+  support_tool:
+    name: "Support Tool"
+    count: 1
+    tool: "joe-sugarman"
+    specialty: "30 Psychological Triggers"
+    purpose: "Enhancement checklist"
+    when_to_use: "Final pass on completed copy"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# EXECUTION LOGIC (UNIVERSAL)
+# ═══════════════════════════════════════════════════════════════════════════════
+universal_execution:
+  rule: "Always execute Tier 0 before Tiers 1-3"
+
+  step_1:
+    tier: 0
+    clone: "schwartz"
+    actions:
+      - "Diagnose awareness level (1-5)"
+      - "Diagnose sophistication stage (1-5)"
+    output: "Copy length, tone, approach defined"
+
+  step_2:
+    tier: 0
+    clone: "collier"
+    actions:
+      - "Identify mental conversation"
+      - "Map active prime motives"
+    output: "Entry angle defined"
+
+  step_3:
+    tier: 0
+    clone: "hopkins"
+    actions:
+      - "Establish success metrics"
+      - "Define testing variables"
+    output: "Measurement framework ready"
+
+  step_4:
+    tier: "1-3"
+    action: "Select clones based on output type and awareness"
+    rule: "Match clone specialty to project need"
+
+  step_5:
+    tier: "support"
+    clone: "sugarman"
+    action: "Enhancement pass with 30 triggers"
+    rule: "Add 5-10 naturally, max 15-20 total"
+
+  step_6:
+    tier: 0
+    clone: "hopkins"
+    actions:
+      - "Final audit"
+      - "A/B test setup"
+    output: "Ready for deployment"
+
+  common_error:
+    description: "Skipping Tier 0 and going directly to execution"
+    result: "Technically good copy that doesn't convert"
+    causes:
+      - "Wrong awareness level addressed"
+      - "Wrong mental conversation entered"
+      - "No measurement framework"
+      - "No testing criteria"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# CLONE DETAILED METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+clones:
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # TIER 0 - Foundation & Diagnosis (ALWAYS FIRST)
+  # ─────────────────────────────────────────────────────────────────────────────
+  claude-hopkins:
+    id: "CH01"
+    tier: 0
+    full_name: "Claude C. Hopkins"
+    era: "1866-1932"
+    title: "Father of Scientific Advertising"
+    status: "INVENTOR of direct response marketing"
+    compensation:
+      year: 1907
+      salary: "$185,000/year"
+      modern_equivalent: "$5-6 million/year"
+    inventions:
+      - "Split testing"
+      - "Coupon tracking"
+      - "Test marketing"
+      - "Sampling"
+      - "Reason-why advertising"
+    signature_works:
+      - "Scientific Advertising (1923)"
+      - "My Life in Advertising (1927)"
+    copies_sold: "8+ million"
+    authority_endorsement:
+      source: "David Ogilvy"
+      quote: "Nobody should be allowed to have anything to do with advertising until he has read this book seven times."
+    key_principles:
+      - "Salesmanship in print - same rules as face-to-face"
+      - "Test everything - data > opinion"
+      - "Reason why - specificity creates believability"
+      - "Results only - no 'beautiful' copy that doesn't sell"
+      - "Tell full story - the more you tell, the more you sell"
+    audit_checklist:
+      headline: ["Promises specific benefit?", "Selects right audience?", "Creates curiosity?"]
+      body: ["Uses specificity vs generalities?", "Has proof for each claim?", "Answers objections?"]
+      offer: ["Clear and simple?", "High perceived value?", "Real urgency?", "Guarantee removes risk?"]
+      cta: ["One clear action?", "Easy to execute?"]
+      general: ["Passes 'salesman test'?", "Each element testable?", "Results measurable?"]
+    agent_file: "agents/claude-hopkins.md"
+    tasks: ["audit-copy-hopkins", "setup-split-test"]
+    workflows: ["wf-1", "wf-2", "wf-3", "wf-4", "wf-5", "wf-6", "wf-7"]
+    use_cases:
+      - "ALWAYS as final audit"
+      - "Before scaling any campaign"
+      - "When results below expected"
+      - "A/B test setup"
+      - "Measurement framework creation"
+
+  robert-collier:
+    id: "RC02"
+    tier: 0
+    full_name: "Robert Collier"
+    era: "1885-1950"
+    title: "Master of Sales Letters"
+    status: "FOUNDATIONAL - cited by virtually everyone"
+    signature_works:
+      - "The Robert Collier Letter Book (1931)"
+    note: "Used copies sold for $200+ before reprints"
+    results:
+      achievement: "$2+ million in sales of O. Henry books via direct mail"
+      context: "In 1920s dollars"
+    endorsements:
+      gary_halbert: "Best book on copywriting ever printed"
+      cited_by: ["Halbert", "Schwartz", "Kennedy", "Carlton"]
+    core_principle:
+      statement: "Always enter the conversation already taking place in the customer's mind"
+      meaning:
+        - "Don't start from zero"
+        - "Discover what prospect is already thinking, fearing, desiring"
+        - "Enter THAT conversation"
+        - "You join, not initiate"
+    six_prime_motives:
+      description: "All copy must appeal to at least one. More motives = more power."
+      motives:
+        love:
+          definition: "Relationships, family, romance, connection"
+          triggers: ["partner", "children", "belonging", "acceptance"]
+        gain:
+          definition: "Money, possessions, advantages, accumulation"
+          triggers: ["wealth", "savings", "profit", "getting more"]
+        duty:
+          definition: "Obligation, responsibility, what's right"
+          triggers: ["should", "must", "responsibility", "obligation"]
+        pride:
+          definition: "Status, recognition, ego, achievement"
+          triggers: ["respect", "admiration", "standing out", "being best"]
+        self_indulgence:
+          definition: "Pleasure, comfort, enjoyment, ease"
+          triggers: ["enjoy", "relax", "treat yourself", "deserve"]
+        self_preservation:
+          definition: "Safety, health, security, fear avoidance"
+          triggers: ["protect", "survive", "avoid pain", "stay safe"]
+      application_rule: "Identify which motive(s) are ALREADY active in prospect's mind. Don't create - tap into."
+    letter_structure:
+      opening_hook:
+        purpose: "Enter the mental conversation"
+        test: "Would they say 'this person gets me'?"
+      desire_development:
+        purpose: "Paint the desired outcome"
+        test: "Can they visualize and feel it?"
+      proof_credibility:
+        purpose: "Remove doubt"
+        test: "Would a skeptic believe this?"
+      call_to_action:
+        purpose: "Drive immediate action"
+        test: "Is the next step obvious and simple?"
+    agent_file: "agents/robert-collier.md"
+    tasks: ["analyze-mental-conversation"]
+    workflows: ["wf-1", "wf-4", "wf-7"]
+    use_cases:
+      - "Start of ANY project - identify mental conversation"
+      - "Long-form sales letters"
+      - "Email sequences"
+      - "Deep emotional connection needed"
+      - "Headline/hook development"
+
+  eugene-schwartz:
+    id: "ES03"
+    tier: 0
+    full_name: "Eugene M. Schwartz"
+    era: "1927-1995"
+    title: "Greatest Copywriting Theorist"
+    status: "MASTER DIAGNOSTICIAN"
+    signature_works:
+      - "Breakthrough Advertising (1966)"
+    note: "Original copies sold for $500+, now reprinted"
+    method:
+      writing_sessions: "33:33 minute blocks"
+      philosophy: "Copy doesn't create desire, it channels existing desire"
+    results:
+      clients: ["Rodale", "Boardroom"]
+      achievement: "Multiple long-running controls"
+    core_principle:
+      statement: "Copy cannot create desire. It can only take hopes, dreams, fears and desires that already exist in the hearts of millions of people, and focus those already-existing desires onto a particular product."
+      implication:
+        wrong: "Create desire for your product"
+        right: "Channel existing desire toward your product"
+    five_awareness_levels:
+      description: "Determines copy LENGTH, APPROACH, and LEAD TYPE"
+      golden_rule: "The LESS aware the market, the MORE copy you need. The MORE aware, the LESS copy needed."
+      levels:
+        level_1_unaware:
+          name: "Unaware"
+          prospect_state: "Doesn't know they have a problem"
+          copy_approach: "Start with story or identification, not product"
+          copy_length: "Very long (5000+ words)"
+          lead_type: "Indirect - story, problem identification, big idea"
+          example_opening: "You probably don't realize this, but 73% of people..."
+          recommended_clone: "gary-halbert"
+        level_2_problem_aware:
+          name: "Problem Aware"
+          prospect_state: "Knows problem, doesn't know solutions exist"
+          copy_approach: "Agitate pain, show consequences, introduce solution category"
+          copy_length: "Long (3000-5000 words)"
+          lead_type: "Problem agitation"
+          example_opening: "Tired of waking up exhausted every single day?"
+          recommended_clone: "clayton-makepeace"
+        level_3_solution_aware:
+          name: "Solution Aware"
+          prospect_state: "Knows solutions exist, doesn't know your product"
+          copy_approach: "Differentiate with unique mechanism"
+          copy_length: "Medium (1500-3000 words)"
+          lead_type: "Mechanism/differentiation"
+          example_opening: "There's a new method that works differently..."
+          recommended_clone: "todd-brown"
+        level_4_product_aware:
+          name: "Product Aware"
+          prospect_state: "Knows your product, hasn't bought yet"
+          copy_approach: "Break objections, stack value, add proof"
+          copy_length: "Medium-short (800-1500 words)"
+          lead_type: "Proof and offer enhancement"
+          example_opening: "Here's what changed in version 2.0..."
+          recommended_clone: "gary-bencivenga"
+        level_5_most_aware:
+          name: "Most Aware"
+          prospect_state: "Knows everything, just needs offer/push"
+          copy_approach: "Direct offer, urgency, deal"
+          copy_length: "Short (300-800 words)"
+          lead_type: "Direct offer"
+          example_opening: "50% off today only. Click here."
+          recommended_clone: "john-carlton"
+    five_sophistication_stages:
+      description: "Determines WHAT TYPE of claim will work"
+      stages:
+        stage_1: {name: "Virgin Market", strategy: "Be first. Make direct claim.", example: "Lose weight!"}
+        stage_2: {name: "Competition Enters", strategy: "Amplify claim. Be more specific.", example: "Lose 10kg in 30 days!"}
+        stage_3: {name: "Saturated Claims", strategy: "Introduce UNIQUE MECHANISM.", example: "The X Method that melts fat while you sleep", note: "Todd Brown's work applies here"}
+        stage_4: {name: "Mechanisms Exhausted", strategy: "Amplify mechanism. Make more specific/scientific.", example: "The XYZ enzyme discovered at Harvard..."}
+        stage_5: {name: "Skeptical Market", strategy: "Identification > Promise. Focus on THEM.", example: "If you're like me, you've tried everything..."}
+      application_rule: "Diagnose sophistication BEFORE writing claims. Wrong stage = wrong approach = failure."
+    agent_file: "agents/eugene-schwartz.md"
+    tasks: ["diagnose-awareness-level", "diagnose-market-sophistication"]
+    workflows: ["wf-1", "wf-2", "wf-3", "wf-4", "wf-5", "wf-6", "wf-7"]
+    use_cases:
+      - "ALWAYS FIRST - without diagnosis, everything else is guesswork"
+      - "Initial campaign diagnosis"
+      - "Defining copy length and tone"
+      - "Choosing headline type"
+      - "Structuring VSL or sales page"
+      - "Segmenting email list"
+      - "Deciding if unique mechanism needed"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # TIER 1 - Documented Masters ($500M+)
+  # ─────────────────────────────────────────────────────────────────────────────
+  gary-bencivenga:
+    id: "GB04"
+    tier: 1
+    full_name: "Gary Bencivenga"
+    status: "Greatest Living Copywriter (industry consensus)"
+    specialty: "Fascinations/bullets, objection breaking"
+    training_lineage:
+      step_1: "John Caples at BBDO"
+      step_2: "David Ogilvy at Ogilvy & Mather"
+    results:
+      unique_achievement: "NEVER lost a split-run test at Rodale"
+      record_promotion: "$50 million (New Choices in Natural Healing)"
+      bullet_count_single_promo: 174
+    endorsements:
+      gary_halbert: "Many people think Gary Bencivenga is the best copywriter on earth. And, believe it or not, it's hard for even me to dispute that."
+      gene_schwartz: "There are only four or five 'A-level' direct response copywriters in the country...Gary Bencivenga is on the short list."
+    fascination_types:
+      contrarian: {pattern: "Why [common belief] is completely wrong", use: "Challenge assumptions"}
+      specific_benefit: {pattern: "How to [result] in [time] without [sacrifice]", use: "Clear value proposition"}
+      curiosity_gap: {pattern: "The [interesting person]'s technique for [benefit]", use: "Borrow authority + intrigue"}
+      fear_based: {pattern: "The warning sign of [problem] that [%] ignore", use: "Activate self-preservation"}
+      proof_based: {pattern: "[Institution] study reveals [discovery]", use: "Authority + news"}
+    objection_method:
+      step_1: "LIST all possible objections"
+      step_2: "RANK by frequency and importance"
+      step_3: "ANTICIPATE in copy (before reader thinks it)"
+      step_4: "NEUTRALIZE with logic or proof"
+      step_5: "TRANSFORM objection into benefit"
+    agent_file: "agents/gary-bencivenga.md"
+    tasks: ["write-lampropoulos-bullets", "create-bullets"]
+    workflows: ["wf-1", "wf-2", "wf-3", "wf-6", "wf-7"]
+    proven_combination: "parris-lampropoulos (bullet power)"
+
+  gary-halbert:
+    id: "GH05"
+    tier: 1
+    full_name: "Gary C. Halbert"
+    era: "1938-2007"
+    status: "The Prince of Print"
+    signature_works: ["The Boron Letters", "The Gary Halbert Letter"]
+    specialty: "Personal sales letters, storytelling"
+    iconic_result:
+      name: "Family Crest Letter"
+      pieces_mailed: "600 MILLION"
+    relationship_correction:
+      wrong: "Carlton was Halbert's student"
+      correct: "20-year partnership as peers"
+      proof: "Co-created Key West Seminars, invented Hot Seat method together"
+    starving_crowd:
+      statement: "If you have a hamburger, you don't need the best hamburger. You need a starving crowd."
+      implication: "Market > Product. Find people DESPERATE for the solution."
+    formatting_rules:
+      paragraphs: "2-3 lines max"
+      margins: "Wide (easy to read)"
+      whitespace: "Abundant"
+      emphasis: "Underline (not bold)"
+      vocabulary: "5th grade level"
+      ps: "Powerful (often read first)"
+    sales_letter_structure:
+      1: "headline - Stops the reader"
+      2: "opening - Personal ('Dear friend...')"
+      3: "story - Creates identification"
+      4: "problem - Agitated with emotion"
+      5: "solution - Presented as discovery"
+      6: "benefits - Sensory language"
+      7: "proof - Social and logical"
+      8: "offer - With real urgency"
+      9: "guarantee - Removes risk"
+      10: "cta - Clear and direct"
+      11: "ps - Summarizes or adds urgency"
+    agent_file: "agents/gary-halbert.md"
+    tasks: ["create-sales-page", "create-headlines", "create-landing-page"]
+    workflows: ["wf-1", "wf-2", "wf-3", "wf-4", "wf-7"]
+    avoid_combination: "john-carlton (same piece) - style conflict"
+    use_cases:
+      - "Long-form sales letters"
+      - "Relationship emails"
+      - "Story-driven launches"
+      - "Copy needing emotional connection"
+      - "Unaware audience (Schwartz Level 1)"
+
+  clayton-makepeace:
+    id: "CM06"
+    tier: 1
+    full_name: "Clayton Makepeace"
+    era: "1955-2022"
+    status: "World's Highest Paid Copywriter"
+    specialty: "Emotional/visceral copy - Health, Financial"
+    results:
+      total_sales: "$1.5 BILLION over 45 years"
+    legacy:
+      created: "The Makepeace Mafia (trained Lampropoulos, Deutsch, etc.)"
+      newsletter: "The Total Package (industry reference)"
+    approach: "White hat - truth-based, deep research"
+    core_concept:
+      name: "Dominant Resident Emotion (DRE)"
+      definition: "The PRIMARY emotion prospect feels about the topic"
+      rule: "Copy must MATCH and AMPLIFY this emotion"
+    techniques:
+      vivid_sensory_language:
+        weak: "You'll have more energy"
+        strong: "Imagine waking at 6am feeling that wave of vitality surge through your body, like you're 20 again"
+      pain_agitation:
+        weak: "Financial problems are stressful"
+        strong: "That knot in your stomach when you see the credit card bill. The cold sweat thinking about retirement."
+      future_pacing:
+        template: "90 days from now, you'll look in the mirror and not recognize the person staring back..."
+    agent_file: "agents/clayton-makepeace.md"
+    tasks: ["write-visceral-copy"]
+    workflows: ["wf-1", "wf-3"]
+    avoid_combination: "david-ogilvy (tone conflict - elegant vs visceral)"
+    use_cases:
+      - "Health/supplement markets"
+      - "Financial/investment markets"
+      - "Any copy needing deep emotion"
+      - "High-conversion VSLs"
+      - "Problem Aware audience (Schwartz Level 2)"
+
+  jim-rutz:
+    id: "JR07"
+    tier: 1
+    full_name: "Jim Rutz"
+    era: "1940-2014"
+    status: "Inventor of the Magalog"
+    specialty: "High-volume direct mail"
+    results:
+      boardroom_alone: "20-30 MILLION pieces mailed"
+    recognition:
+      brian_kurtz: "Mount Rushmore of Copywriters (pre-1995)"
+    business_model:
+      note: "Worked on royalties only - total confidence in own copy"
+    invention:
+      name: "Magalog"
+      created_with: "Designer Ed Elliott"
+      definition: "Magazine + Catalog hybrid"
+    magalog_system:
+      why_it_works:
+        - "Looks like content, not advertising"
+        - "Delivers value before asking"
+        - "Editorial format = more credibility"
+        - "Longer reading = more persuasion"
+      formats_created:
+        magalog: {pages: "16-32", style: "Magazine editorial"}
+        bookalog: {pages: "32+", style: "Book format, highest perceived value"}
+        tabloid: {style: "Newspaper format"}
+    agent_file: "agents/jim-rutz.md"
+    tasks: ["create-magalog"]
+    workflows: ["wf-7"]
+    proven_combination: "david-deutsch (direct mail volume)"
+
+  parris-lampropoulos:
+    id: "PL08"
+    tier: 1
+    full_name: "Parris Lampropoulos"
+    status: "The Master of Bullets"
+    specialty: "Fascinations, health magalogs"
+    iconic_result:
+      publication: "Bottom Line Health"
+      duration: "12 YEARS as control (2003-2015)"
+      performance: "250% better than previous control"
+      circulation_growth: "35,000 → 300,000+ subscribers"
+      headline: "How Doctors Stay Well While Treating Sick Patients All Day"
+    recognition:
+      brian_kurtz: "Mount Rushmore of Boardroom Copywriters (post-1995)"
+    earnings: "$1M+/year in royalties"
+    philosophy:
+      statement: "Bullets can actually SELL the product"
+      training_method: "Makes copy cubs write bullets before anything else"
+      technique: "Torture copy until one tweak makes it sell"
+    amplification_techniques:
+      - {technique: "Add specific numbers", example: "The 3 warning signs that predict heart attack 6 months in advance"}
+      - {technique: "Include page numbers", example: "See page 47"}
+      - {technique: "Name drop when relevant", example: "What Harvard cardiologists do differently"}
+      - {technique: "Parenthetical intrigue", example: "(hint: it's not what you think)"}
+    stanislavsky_method: "Feel what the prospect is feeling - the more in common, the easier to sell"
+    agent_file: "agents/parris-lampropoulos.md"
+    tasks: ["write-lampropoulos-bullets"]
+    workflows: ["wf-1", "wf-6", "wf-7"]
+    proven_combination: "gary-bencivenga (bullet power)"
+
+  david-deutsch:
+    id: "DD09"
+    tier: 1
+    full_name: "David Deutsch"
+    status: "$1 BILLION in documented sales"
+    specialty: "Multi-control dominance"
+    unique_achievement:
+      description: "6 SIMULTANEOUS CONTROLS at Boardroom"
+      significance: "Competing with himself - and winning. No other copywriter in history achieved this."
+    training_lineage:
+      ogilvy_mather: "David Ogilvy personally reviewed his copy"
+      mentor: "Jim Rutz"
+    clients: ["Agora", "Boardroom", "Phillips"]
+    recognition:
+      brian_kurtz: "Mount Rushmore of Boardroom Copywriters (post-1995)"
+    philosophy: "Out-think, not out-write"
+    agent_file: "agents/david-deutsch.md"
+    tasks: ["setup-split-test"]
+    workflows: ["wf-6", "wf-7"]
+    proven_combination: "jim-rutz (direct mail volume)"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # TIER 2 - Modern Systematizers
+  # ─────────────────────────────────────────────────────────────────────────────
+  dan-kennedy:
+    id: "DK10"
+    tier: 2
+    full_name: "Dan S. Kennedy"
+    status: "Emperor of Modern Direct Response"
+    signature_works: ["No B.S. Series (13+ books)", "Magnetic Marketing"]
+    specialty: "High-ticket, direct marketing systems"
+    company:
+      name: "GKIC"
+      sold_to: "Russell Brunson (2021)"
+    framework_correction:
+      wrong: "4Ms Framework"
+      correct: "3Ms - Message-Market-Media Triangle"
+      source_quote: "There are basically three components to marketing: a message, a media to deliver it, and a market to receive and respond to it."
+    three_ms:
+      market:
+        definition: "High-probability target - those most likely to respond"
+        questions: ["Who exactly is your ideal customer?", "Where is the 'starving crowd'?", "What have they already tried?"]
+      message:
+        definition: "Compelling, preferably irresistible marketing message"
+        questions: ["What's the urgent problem?", "What's your USP?", "What's the unique mechanism?"]
+      media:
+        definition: "Most appropriate, effective combination to deliver message"
+        questions: ["Where does your market consume content?", "Which channel has best ROI?"]
+    avatar_questions:
+      pain_points: ["What keeps this person awake at night?", "What are they afraid of that nobody knows?"]
+      blame: ["Who do they BLAME for their problems?", "Who are they angry at?"]
+      hidden_desires: ["What do they secretly want but are ashamed to admit?"]
+      identity: ["How do they want to be seen by others?", "What past failures haunt them?"]
+      purchase_psychology: ["What have they tried before?", "Why did those solutions fail?"]
+    agent_file: "agents/dan-kennedy.md"
+    tasks: ["avatar-research", "create-call-script"]
+    workflows: ["wf-1", "wf-2", "wf-3", "wf-7"]
+    proven_combination: "todd-brown (avatar + differentiation)"
+    use_cases:
+      - "High-ticket sales ($5,000+)"
+      - "B2B businesses"
+      - "Deep avatar development"
+      - "Long email sequences"
+      - "Sales call scripts"
+
+  todd-brown:
+    id: "TB11"
+    tier: 2
+    full_name: "Todd Brown"
+    status: "Systematizer of Unique Mechanism"
+    signature_works: ["E5 Method", "E5 CAMP"]
+    specialty: "Big Marketing Idea, differentiation in saturated markets"
+    lineage: "Schwartz → Kennedy → Mark Ford/Agora → Todd Brown"
+    company: "Marketing Funnel Automation (MFA)"
+    clients: ["Russell Brunson", "Ryan Levesque", "Jeff Walker"]
+    core_problem:
+      question: "How do you sell when everyone promises the same benefits?"
+      traditional_usp:
+        approach: "We're faster/cheaper/better"
+        weakness: "Anyone can copy or make same promise"
+      unique_mechanism:
+        approach: "Different HOW, not just different WHAT"
+        advantage: "Creates own category, impossible to compare"
+    two_mechanisms:
+      problem_mechanism:
+        definition: "Why the problem exists and why previous solutions failed"
+        template: "The reason [common approach] doesn't work is because [hidden cause]..."
+        goal: "Make them think 'THAT'S why nothing worked!'"
+      solution_mechanism:
+        definition: "Why your solution works when others don't"
+        template: "What makes [your solution] different is [mechanism]..."
+        goal: "Logical but not obvious explanation"
+    e5_method:
+      e1_examine: "Analyze market (Schwartz awareness), sophistication stage, opportunity gap"
+      e2_establish: "Define Big Marketing Idea, create Problem + Solution Mechanisms"
+      e3_engineer: "Structure complete funnel, conversion sequence"
+      e4_execute: "Write copy, create assets, implement"
+      e5_evaluate: "Test, measure, optimize"
+    big_marketing_idea:
+      formula: "Intellectually Interesting + Emotionally Compelling + Specific + Exclusive"
+      test: "Can you describe it in ONE sentence?"
+    agent_file: "agents/todd-brown.md"
+    tasks: ["create-unique-mechanism", "create-big-idea", "rmbc-method"]
+    workflows: ["wf-1", "wf-2", "wf-3", "wf-5", "wf-6"]
+    proven_combinations: ["stefan-georgi (mechanism + production)", "dan-kennedy (avatar + differentiation)"]
+    use_cases:
+      - "Saturated market with many competitors"
+      - "Product similar to others"
+      - "Need new campaign angle"
+      - "Want to create 'category of one'"
+      - "Stage 3-4 sophistication markets"
+
+  stefan-georgi:
+    id: "SG12"
+    tier: 2
+    full_name: "Stefan Georgi"
+    status: "Master of Scaled Production"
+    signature_works: ["RMBC Method", "RMBC II"]
+    specialty: "Copy production system at scale"
+    results:
+      sales: "$700M+ documented"
+      hit_rate: "80% (vs 30-40% industry average)"
+      capacity: "12 sales letters per month while maintaining quality"
+    innovation: "Transformed copywriting from 'art' to 'assembly line'"
+    training: "Studied Clayton Makepeace's Screaming Eagle Newsletter"
+    rmbc_method:
+      overview: "Research → Mechanism → Brief → Copy"
+      principle: "Never write from blank page"
+      r_research:
+        time_allocation: "40% of total project time"
+        what_to_research: ["Exact language market uses", "Specific pains", "Solutions already tried", "Why those failed", "Secret desires", "Objections"]
+        where_to_research: ["Amazon reviews", "Forums", "YouTube comments", "Social media", "Customer interviews"]
+        output: "Research document with direct market quotes"
+      m_mechanism:
+        two_parts: ["Problem mechanism - why did previous solutions fail?", "Solution mechanism - how does yours work differently?"]
+        output: "Clear explanation of why they failed before + why they'll succeed now"
+      b_brief:
+        instruction: "Answer in COPY FORMAT (not bullet points)"
+        output: "Multiple pre-written copy chunks"
+      c_copy:
+        approach: "ASSEMBLE from brief, not write from scratch"
+        standard_structure: ["Lead (intro)", "Background story", "Problem mechanism", "Solution mechanism", "Product reveal", "Offer + stack + guarantee + CTA"]
+    agent_file: "agents/stefan-georgi.md"
+    tasks: ["rmbc-method"]
+    workflows: ["wf-1", "wf-3"]
+    proven_combination: "todd-brown (mechanism + production)"
+
+  john-carlton:
+    id: "JC13"
+    tier: 2
+    full_name: "John Carlton"
+    status: "The Most Ripped-Off Copywriter"
+    signature_works: ["Kick-Ass Copywriting Secrets", "Simple Writing System"]
+    specialty: "Aggressive, direct, no-fluff copy"
+    iconic_headline: "One-Legged Golfer"
+    innovation: "Hot Seat Consulting (co-created with Halbert)"
+    relationship_correction:
+      wrong: "Carlton was Halbert's student"
+      correct: "20-year partnership as peers"
+      proof: ["Carlton left $1M corporate career to be 'the man behind the throne' for Halbert", "Co-created Key West Seminars", "Invented Hot Seat method together"]
+    style_characteristics:
+      - "Direct to point (no rambling)"
+      - "Aggressive language (when appropriate)"
+      - "Bold promises (but deliverable)"
+      - "Zero intellectual flourishes"
+      - "Speaks like market speaks"
+    one_legged_golfer_headline:
+      text: "Amazing Secret Discovered by One-Legged Golfer Adds 50 Yards to Your Drives, Eliminates Hooks and Slices... And Can Slash Up to 10 Strokes From Your Game Almost Overnight!"
+      why_it_works:
+        specificity: "50 yards, 10 strokes"
+        curiosity: "One-legged?"
+        clear_benefit: "Better golf game"
+        timeframe: "Almost overnight"
+    simple_writing_system:
+      rule_1: "ONE idea per sentence"
+      rule_2: "ONE idea per paragraph"
+      rule_3: "NO unnecessary words"
+      rule_4: "SPEAK to lizard brain (primitive first, logic after)"
+    headline_templates:
+      - "How to [achieve result] in [timeframe] without [obstacle]"
+      - "The [adjective] way to [benefit] that [authorities] don't want you to know"
+      - "Warning: Don't even THINK about [action] until you read this"
+    agent_file: "agents/john-carlton.md"
+    tasks: ["create-headlines", "create-ad-copy"]
+    workflows: ["wf-2", "wf-4"]
+    avoid_combination: "gary-halbert (same piece) - dominant voices conflict"
+    use_cases:
+      - "Competitive/aggressive markets"
+      - "Copy for men (fitness, business)"
+      - "When directness needed"
+      - "High-impact headlines"
+      - "Most Aware audience (Schwartz Level 5)"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # TIER 3 - Format Specialists
+  # ─────────────────────────────────────────────────────────────────────────────
+  jon-benson:
+    id: "JB14"
+    tier: 3
+    full_name: "Jon Benson"
+    status: "Inventor of the VSL (Video Sales Letter)"
+    specialty: "Video sales scripts"
+    invention:
+      year: 2006
+      attribution: "$12 BILLION in sales via VSL format"
+    origin_story:
+      context: "Benson was producing expensive fitness videos"
+      accident: "Got lazy, put text on slides with voiceover instead"
+      result: "The 'ugly' format converted 600% MORE than professional videos"
+    validation: "Brian Kurtz (Boardroom) organized private workshops with him"
+    paradigm_shift:
+      before_benson: "Video was for branding"
+      after_benson: "Video became a sales machine"
+    vsl_formula:
+      step_1_snap_suggestion: {timing: "0-15 seconds", purpose: "Strong pattern interrupt", template: "In the next 12 minutes, I'll reveal..."}
+      step_2_usp_mention: {timing: "15-60 seconds", purpose: "Why this video is different", template: "This is different from anything you've ever seen..."}
+      step_3_story: {timing: "1-5 minutes", purpose: "Create connection and credibility"}
+      step_4_education: {timing: "5-15 minutes", purpose: "Deliver real value", note: "Content must be genuinely valuable"}
+      step_5_pitch: {timing: "15-30 minutes", purpose: "Convert viewer to buyer"}
+    production_rules:
+      slide_rule: "ONE SLIDE = ONE IDEA"
+      timing: "1-2 seconds per slide (fast)"
+      viewer_control: "NO viewer control - don't allow skip/accelerate"
+    agent_file: "agents/jon-benson.md"
+    tasks: ["vsl-script"]
+    workflows: ["wf-1", "wf-3"]
+    use_cases:
+      - "Direct sale VSLs"
+      - "Video ads for paid traffic"
+      - "YouTube Ads"
+      - "Webinar pitches"
+
+  ben-settle:
+    id: "BS15"
+    tier: 3
+    full_name: "Ben Settle"
+    status: "King of Daily Email"
+    signature_works: ["Email Players Newsletter ($97/month physical)"]
+    specialty: "Infotainment - information + entertainment"
+    model: "Email every day + monthly physical newsletter"
+    philosophy: "3X Personality - amplify your personality by 3"
+    endorsements: ["Gary Bencivenga", "Dan Kennedy", "David Deutsch", "Perry Marshall"]
+    infotainment:
+      definition: "Information + Entertainment"
+      is_not: ["Boring corporate newsletter", "Pure promotion", "Content without personality"]
+      is: ["Email that feels like from a friend", "Strong opinion without fear", "Story + lesson + pitch"]
+    principles:
+      daily_email: "Email every day - consistency creates expectation"
+      three_x_personality: "Take your personality, multiply by 3 - be MORE you"
+      polarization: "No fear of polarizing - clear opinion attracts and repels"
+      always_sell: "Always sell (but with style) - every email has CTA"
+      write_like_talk: "Write exactly like you speak"
+    email_structure:
+      1: "subject - Curious/controversial"
+      2: "opening - Story or hook"
+      3: "body - Entertainment + lesson"
+      4: "transition - To product"
+      5: "pitch - Short (3-5 lines)"
+      6: "cta - Simple"
+    agent_file: "agents/ben-settle.md"
+    tasks: ["create-email-sequence"]
+    workflows: ["wf-4", "wf-5"]
+    avoid_combination: "andre-chaperon (same list simultaneously) - confusing"
+    proven_combination: "andre-chaperon (hybrid email strategy - automation + broadcast)"
+    use_cases:
+      - "Daily email marketing"
+      - "List monetization"
+      - "Brand personality creation"
+      - "Warm list monetization"
+
+  andre-chaperon:
+    id: "AC16"
+    tier: 3
+    full_name: "Andre Chaperon"
+    status: "Master of Automated Sequences"
+    signature_works: ["Autoresponder Madness (ARM) - launched 2009"]
+    specialty: "Soap Opera Sequences, serialized storytelling"
+    result: "$10-50 per subscriber (vs $1 industry average)"
+    philosophy: "Preeminence (from Jay Abraham) - deliver value before asking"
+    soap_opera_sequence:
+      concept:
+        description: "Emails that tell story in parts"
+        mechanism: "Each email opens a 'loop' (curiosity)"
+        effect: "Next email closes loop and opens another"
+        result: "Reader NEEDS to open next email"
+        analogy: "Like Lost, Breaking Bad - addictive series"
+      psychological_basis:
+        name: "Zeigarnik Effect"
+        definition: "Mind cannot forget incomplete tasks"
+        application: "Open loop creates 'mental itch'"
+    sos_structure:
+      email_1: {name: "Set the Stage", purpose: "Introduction and promise", closing: "Tomorrow I'll tell you how..."}
+      email_2: {name: "High Drama", purpose: "Develop story and tension", action: "Close loop 1, open loop 2"}
+      email_3: {name: "Epiphany", purpose: "The turning point", action: "Close loop 2, open loop 3"}
+      email_4: {name: "Hidden Benefits", purpose: "Reveal unexpected value", action: "Close loop 3, open loop 4"}
+      email_5: {name: "Urgency + CTA", purpose: "Drive action", action: "Close all loops"}
+    agent_file: "agents/andre-chaperon.md"
+    tasks: ["create-soap-opera-sequence"]
+    workflows: ["wf-1", "wf-3", "wf-5"]
+    avoid_combination: "ben-settle (same list simultaneously) - confusing"
+    proven_combination: "ben-settle (hybrid email strategy)"
+    use_cases:
+      - "New lead onboarding"
+      - "Post opt-in sequence"
+      - "Structured launches"
+      - "Evergreen funnels"
+      - "Cold traffic conversion"
+
+  david-ogilvy:
+    id: "DO17"
+    tier: 3
+    full_name: "David Ogilvy"
+    era: "1911-1999"
+    status: "Father of Advertising"
+    signature_works: ["Confessions of an Advertising Man (1963)", "Ogilvy on Advertising"]
+    specialty: "Premium copy, sophisticated, factual"
+    agency: "Ogilvy & Mather (founded 1948)"
+    note: "Hybrid between agency and direct response"
+    mentored: "Gary Bencivenga (worked under him at O&M)"
+    iconic_headline:
+      text: "At 60 miles an hour, the loudest noise in the new Rolls-Royce comes from the electric clock."
+      analysis:
+        specific: "60 mph"
+        factual: "Not opinion"
+        demonstrates_benefit: "Silence"
+        elegant: "No hyperbole"
+      research_note: "Ogilvy spent 3 WEEKS researching before writing this headline"
+    principles:
+      facts_not_adjectives:
+        weak: "The best car in the world"
+        strong: "11 of the 13 Rolls-Royces produced in 1964 are still running today"
+      long_copy_sells: "Long headlines sell more. Long body copy sells more."
+      the_big_idea: "Without Big Idea, campaign goes unnoticed. Must be describable in 1 sentence."
+      research_before_writing: "Weeks of research for one headline"
+      creativity_serves_sales: "If it doesn't sell, it isn't creative"
+    premium_copy_structure:
+      1: "headline - Specific benefit + proof"
+      2: "subheadline - Expands the promise"
+      3: "lead - Interesting fact"
+      4: "body - Rich in information"
+      5: "proof - Factual (numbers, studies, data)"
+      6: "cta - Elegant (not desperate)"
+    agent_file: "agents/david-ogilvy.md"
+    tasks: ["avatar-research", "copysearch"]
+    workflows: ["wf-1", "wf-4"]
+    avoid_combination: "clayton-makepeace (tone conflict - elegant vs visceral)"
+    use_cases:
+      - "Premium/luxury products"
+      - "Sophisticated B2B"
+      - "Highly educated audience"
+      - "Brands needing credibility"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # SUPPORT TOOL
+  # ─────────────────────────────────────────────────────────────────────────────
+  joe-sugarman:
+    id: "JS00"
+    tier: "support"
+    type: "tool"
+    full_name: "Joseph Sugarman"
+    era: "1938-2022"
+    specialty: "Psychological Triggers"
+    signature_works: ["Triggers (2013)", "AdWeek Copywriting Handbook"]
+    company: "BluBlocker Sunglasses ($300M+ in sales)"
+    innovation: "Pioneer of direct response TV (infomercials)"
+    historical_correction: "30 triggers, NOT 31"
+    usage_note: "This is NOT a clone for writing. It's a CHECKLIST to enhance copy."
+    how_to_use:
+      step_1: "Write copy using appropriate clone"
+      step_2: "Open this checklist"
+      step_3: "Pass through each trigger"
+      step_4: "Identify where can inject"
+      step_5: "Add 5-10 relevant triggers"
+      step_6: "DON'T force all - only natural ones"
+    thirty_triggers:
+      block_1_connection:
+        name: "Connection & Involvement (1-6)"
+        triggers:
+          1: {name: "Feeling of Involvement/Ownership", use: "Make reader imagine using"}
+          2: {name: "Honesty", use: "Admit product weaknesses"}
+          3: {name: "Integrity", use: "Keep promises made"}
+          4: {name: "Credibility", use: "Proofs of authority"}
+          5: {name: "Value and Proof of Value", use: "Show worth vs cost"}
+          6: {name: "Justify the Purchase", use: "Give logical reasons for emotional decision"}
+      block_2_motivators:
+        name: "Primary Motivators (7-12)"
+        triggers:
+          7: {name: "Greed", use: "More for less"}
+          8: {name: "Establish Authority", use: "Position as expert"}
+          9: {name: "Satisfaction Conviction", use: "Strong guarantee"}
+          10: {name: "Nature of Product", use: "Explain clearly, no jargon"}
+          11: {name: "Nature of Prospect", use: "Speak their language"}
+          12: {name: "Current Fads", use: "Connect to trends"}
+      block_3_urgency:
+        name: "Urgency & Action (13-18)"
+        triggers:
+          13: {name: "Timing", use: "Real urgency"}
+          14: {name: "Linking", use: "Connect to something familiar"}
+          15: {name: "Consistency", use: "People want to be consistent"}
+          16: {name: "Harmonize", use: "Align with existing beliefs"}
+          17: {name: "Desire to Belong", use: "Community of users"}
+          18: {name: "Desire to Collect", use: "Part of larger series"}
+      block_4_curiosity:
+        name: "Curiosity & Emotion (19-24)"
+        triggers:
+          19: {name: "Curiosity", use: "Create knowledge gaps"}
+          20: {name: "Sense of Urgency", use: "Real scarcity"}
+          21: {name: "Instant Gratification", use: "Quick result"}
+          22: {name: "Exclusivity/Rarity", use: "Not available to all"}
+          23: {name: "Simplicity", use: "Easy to understand, use, buy"}
+          24: {name: "Human Relationships", use: "People buy from people"}
+      block_5_narrative:
+        name: "Narrative & Specificity (25-30)"
+        triggers:
+          25: {name: "Storytelling", use: "Engaging narrative"}
+          26: {name: "Mental Engagement", use: "Make them think"}
+          27: {name: "Guilt", use: "Reciprocity after giving value"}
+          28: {name: "Specificity", use: "Exact numbers, precise details"}
+          29: {name: "Familiarity", use: "Popular references"}
+          30: {name: "Hope", use: "Better future possible"}
+    triggers_by_context:
+      cold_traffic: ["#19 Curiosity", "#28 Specificity", "#2 Honesty"]
+      warm_traffic: ["#17 Belong", "#20 Urgency", "#9 Satisfaction"]
+      high_ticket: ["#6 Justify", "#5 Value", "#8 Authority"]
+      ecommerce: ["#7 Greed", "#21 Instant", "#20 Urgency"]
+      info_product: ["#25 Storytelling", "#30 Hope", "#1 Involvement"]
+    warning: "5-10 triggers well applied > 30 triggers forced. If it seems artificial, reader notices."
+    quick_checklist:
+      - "Involvement/mental ownership active?"
+      - "Admitted some limitation? (Honesty)"
+      - "Authority proofs included?"
+      - "Value justified vs price?"
+      - "Logical reasons for purchase?"
+      - "Strong guarantee present?"
+      - "Real urgency (not fake)?"
+      - "Curiosity created?"
+      - "Specificity in numbers?"
+      - "Story told?"
+      - "Simplicity maintained?"
+    scoring: "Less than 6: revise. 6-8: solid. 9+: strong"
+    agent_file: "agents/joe-sugarman.md"
+    tasks: ["apply-sugarman-triggers"]
+    workflows: ["wf-1", "wf-5", "wf-6"]
+    proven_combination: "claude-hopkins (testing + triggers)"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# HISTORICAL LINEAGES (MENTOR CHAINS)
+# ═══════════════════════════════════════════════════════════════════════════════
+historical_lineages:
+  mentor_chains:
+    hopkins_ogilvy_bencivenga:
+      chain: "Hopkins → Ogilvy → Bencivenga"
+      proof:
+        hopkins_ogilvy: "Ogilvy: 'read Scientific Advertising seven times'"
+        ogilvy_bencivenga: "Bencivenga worked at Ogilvy & Mather under Ogilvy"
+    bencivenga_makepeace:
+      chain: "Bencivenga → Makepeace"
+      proof: "Makepeace served as Copy Chief under Bencivenga (1983)"
+    rutz_deutsch:
+      chain: "Rutz → Deutsch"
+      proof: "Brian Kurtz documentation, Deutsch interviews"
+    halbert_carlton:
+      relationship: "20-year partnership as peers"
+      correction: "NOT student-teacher"
+      proof: "Co-created Key West Seminars, invented Hot Seat method together"
+    makepeace_georgi:
+      chain: "Makepeace → Georgi"
+      proof: "Georgi credits Makepeace's Screaming Eagle Newsletter"
+
+  mount_rushmore:
+    source: "Brian Kurtz (Boardroom executive)"
+    pre_1995: ["Eugene Schwartz", "Gary Bencivenga", "Jim Rutz", "Mel Martin"]
+    post_1995: ["Parris Lampropoulos", "David Deutsch", "David Betuel", "Arthur Johnson"]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SELECTION MATRICES
+# ═══════════════════════════════════════════════════════════════════════════════
+selection_matrices:
+
+  by_awareness_level:
+    unaware: {primary: "gary-halbert", extension: "Long", tone: "Narrative"}
+    problem_aware: {primary: "clayton-makepeace", extension: "Medium-Long", tone: "Emotional"}
+    solution_aware: {primary: ["todd-brown", "gary-bencivenga"], extension: "Medium", tone: "Educational"}
+    product_aware: {primary: ["gary-bencivenga", "stack"], extension: "Medium-Short", tone: "Persuasive"}
+    most_aware: {primary: "john-carlton", extension: "Short", tone: "Direct"}
+
+  by_product_type:
+    online_course: {tier_0: "schwartz", tier_1: "bencivenga", tier_2: "todd-brown", tier_3: "jon-benson"}
+    mentoring: {tier_0: "schwartz", tier_1: ["makepeace", "halbert"], tier_2: "kennedy", tier_3: "chaperon"}
+    saas: {tier_0: "schwartz", tier_1: "bencivenga", tier_2: "todd-brown", tier_3: "ogilvy"}
+    ecommerce: {tier_0: "schwartz", tier_1: "carlton", tier_3: "settle"}
+    supplement: {tier_0: "schwartz", tier_1: ["makepeace", "lampropoulos"], tier_2: "todd-brown", tier_3: "benson"}
+    financial: {tier_0: "schwartz", tier_1: ["makepeace", "deutsch"], tier_2: "kennedy", tier_3: "chaperon"}
+    personal_brand: {tier_0: "schwartz", tier_1: "halbert", tier_2: "todd-brown", tier_3: "settle"}
+    direct_mail: {tier_0: "schwartz", tier_1: ["rutz", "lampropoulos"], tier_2: "georgi"}
+
+  by_output_format:
+    vsl: {primary: "jon-benson", support: ["todd-brown", "makepeace"]}
+    sales_letter: {primary: "gary-halbert", support: ["bencivenga", "lampropoulos"]}
+    email_sequence: {primary: "andre-chaperon", support: ["settle"]}
+    ad_creative: {primary: "john-carlton", support: ["kennedy"]}
+    direct_mail: {primary: ["jim-rutz", "lampropoulos"], support: ["deutsch"]}
+    premium_b2b: {primary: "david-ogilvy"}
+    daily_email: {primary: "ben-settle"}
+
+  by_need:
+    bullets_fascinations: ["bencivenga", "lampropoulos"]
+    storytelling_connection: "halbert"
+    visceral_emotion: "makepeace"
+    direct_mail_volume: ["rutz", "deutsch"]
+    health_copy: ["makepeace", "lampropoulos"]
+    financial_copy: ["makepeace", "deutsch"]
+    objection_handling: "bencivenga"
+    multiple_controls: "deutsch"
+    editorial_format: "rutz"
+    avatar_development: "kennedy"
+    differentiation: "todd-brown"
+    production_scale: "georgi"
+    aggressive_copy: "carlton"
+    high_ticket: "kennedy"
+    saturated_market: "todd-brown"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# CLONE COMBINATIONS
+# ═══════════════════════════════════════════════════════════════════════════════
+combinations:
+  proven:
+    - {combo: ["schwartz", "*"], reason: "Always diagnose awareness first", when: "PHASE-1 of any workflow"}
+    - {combo: ["todd-brown", "georgi"], reason: "Mechanism + production", when: "Strategy phases"}
+    - {combo: ["halbert", "makepeace"], reason: "Story + emotion", when: "Long-form copy"}
+    - {combo: ["chaperon", "settle"], reason: "Hybrid email (auto + broadcast)", when: "Email marketing setup"}
+    - {combo: ["bencivenga", "lampropoulos"], reason: "Bullet power", when: "Fascinations, sales pages"}
+    - {combo: ["kennedy", "todd-brown"], reason: "Avatar + differentiation", when: "Market positioning"}
+    - {combo: ["hopkins", "sugarman"], reason: "Testing + triggers", when: "Optimization phases"}
+    - {combo: ["rutz", "deutsch"], reason: "Direct mail volume", when: "Magalogs, mailers"}
+
+  avoid:
+    - {combo: ["halbert", "carlton"], context: "Same piece", reason: "Style conflict - both dominant voices"}
+    - {combo: ["ogilvy", "makepeace"], context: "Same piece", reason: "Tone conflict - elegant vs visceral"}
+    - {combo: ["sugarman", "all_30_triggers"], context: "Single copy", reason: "Overkill - creates distrust (use 15-20 max)"}
+    - {combo: ["settle", "chaperon"], context: "Same list simultaneously", reason: "Confusing - daily vs automated"}
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# REDUNDANCY WARNINGS
+# ═══════════════════════════════════════════════════════════════════════════════
+redundancy_warnings:
+  schwartz_plus_todd_brown:
+    warning: "Todd Brown already incorporates Schwartz"
+    recommendation: "Use ONE for diagnosis, not both"
+  kennedy_plus_todd_brown:
+    warning: "Significant overlap in strategy"
+    recommendation:
+      kennedy_when: "Primary problem is avatar/high-ticket"
+      todd_brown_when: "Primary problem is mechanism/differentiation"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# DECISION FLOW
+# ═══════════════════════════════════════════════════════════════════════════════
+decision_flow:
+  step_1: {question: "What awareness level?", defines: "Extension and tone"}
+  step_2: {question: "What product type?", defines: "Clone team"}
+  step_3: {question: "What output needed?", defines: "Format specialist"}
+  step_4: {question: "Need extra emotion?", action: "Add Makepeace"}
+  step_5: {question: "Need bullets?", action: "Add Bencivenga/Lampropoulos"}
+  step_6: {question: "What email type?", action: "Chaperon (auto) or Settle (manual)"}
+  step_7: {question: "Copy ready?", action: "Hopkins audit + Sugarman triggers"}
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# HISTORICAL CORRECTIONS (v1 → v2)
+# ═══════════════════════════════════════════════════════════════════════════════
+historical_corrections:
+  - {clone: "claude-hopkins", from: "Tier 3", to: "Tier 0", reason: "Hopkins methodology is diagnostic, must come first"}
+  - {clone: "dan-kennedy", from: "4Ms", to: "3Ms", reason: "All primary sources confirm 3 elements only"}
+  - {clone: "joe-sugarman", from: "31 triggers", to: "30 triggers", reason: "Book contains 30 triggers"}
+  - {clone: "john-carlton", from: "Halbert student", to: "20-year partnership as peers", reason: "Co-created Key West Seminars, invented Hot Seat together"}
+  - {clone: "robert-collier", from: "absent", to: "Tier 0", reason: "Foundational text cited by Halbert, Kennedy, Carlton"}
+  - {clone: "jim-rutz", from: "absent", to: "Tier 1", reason: "Invented magalog, Mount Rushmore pre-1995"}
+  - {clone: "parris-lampropoulos", from: "absent", to: "Tier 1", reason: "12-year control, Mount Rushmore post-1995"}
+  - {clone: "david-deutsch", from: "absent", to: "Tier 1", reason: "$1B sales, 6 simultaneous controls"}
+  - {clone: "alex-hormozi", from: "historically removed", to: "Tier 2", reason: "Reactivated in Copy Squad v4.0 as offer-creation specialist complementary to direct-response execution."}
+  - {clone: "dan-koe", from: "historically removed", to: "Tier 3", reason: "Reactivated in Copy Squad v4.0 as digital-writing specialist for creator-led content systems."}
+  - {clone: "john-carlton", from: "Tier 1", to: "Tier 2", reason: "Better classified as systematizer (Simple Writing System)"}
+  - {clone: "david-ogilvy", from: "Tier 1", to: "Tier 3", reason: "Better classified as format specialist (Premium/B2B)"}
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# WORKFLOW TRIGGERS
+# ═══════════════════════════════════════════════════════════════════════════════
+workflow_triggers:
+  wf-1-full-launch: {trigger: "New product, complete funnel needed", core_clones: ["hopkins", "schwartz", "todd-brown", "halbert", "chaperon"], phases: 5}
+  wf-2-paid-traffic: {trigger: "Quick ads, existing product", core_clones: ["schwartz", "carlton", "kennedy"], phases: 3}
+  wf-3-high-ticket: {trigger: "Premium offer $5k+", core_clones: ["kennedy", "todd-brown", "chaperon", "makepeace"], phases: 4}
+  wf-4-organic-content: {trigger: "Brand building, long-term", core_clones: ["collier", "ogilvy", "halbert", "settle"], phases: 6}
+  wf-5-email-marketing: {trigger: "Email infrastructure setup", core_clones: ["chaperon", "settle", "sugarman"], phases: 4}
+  wf-6-funnel-optimization: {trigger: "Underperforming funnel", core_clones: ["hopkins", "sugarman", "bencivenga"], phases: 4}
+  wf-7-direct-mail: {trigger: "Physical mail campaign", core_clones: ["rutz", "lampropoulos", "deutsch", "kennedy"], phases: 4}
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# GOLDEN RULE
+# ═══════════════════════════════════════════════════════════════════════════════
+golden_rule:
+  statement: "NEVER skip Tier 0"
+  explanation: |
+    Without awareness diagnosis (Schwartz),
+    without mental conversation entry (Collier),
+    without testing framework (Hopkins)...
+    ...everything else is guesswork.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# VALIDATION SOURCES
+# ═══════════════════════════════════════════════════════════════════════════════
+validation_sources:
+  primary_sources:
+    - "Scientific Advertising - Claude Hopkins (1923)"
+    - "Breakthrough Advertising - Eugene Schwartz (1966)"
+    - "The Robert Collier Letter Book (1931)"
+    - "The Boron Letters - Gary Halbert"
+    - "Bencivenga Bullets newsletter"
+    - "No B.S. Series - Dan Kennedy"
+    - "Autoresponder Madness - Andre Chaperon"
+    - "Email Players - Ben Settle"
+  secondary_sources:
+    - "Brian Kurtz - Boardroom executive, documented lineages"
+    - "AWAI interviews and documentation"
+    - "Direct Response industry publications"
+  web_searches_conducted: 13
+  validation_date: "2025-01"

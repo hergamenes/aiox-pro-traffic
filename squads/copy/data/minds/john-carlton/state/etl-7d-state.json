@@ -1,0 +1,43 @@
+{
+  "pipeline_id": "7d-john-carlton",
+  "mind": "john-carlton",
+  "tier": "T1",
+  "token_budget": 5000,
+  "max_lines": 800,
+  "created_at": "2026-03-11T06:54:33.806933",
+  "source_validation": {
+    "score": 4,
+    "source_count": 2,
+    "has_frameworks_inventory": true,
+    "has_agent_file": true,
+    "total_words": 111133
+  },
+  "phases": {
+    "0": {
+      "name": "Init + Validate",
+      "status": "complete"
+    },
+    "4": {
+      "name": "Text Extraction (Haiku)",
+      "status": "complete"
+    },
+    "6": {
+      "name": "7D Extraction (Opus)",
+      "status": "complete"
+    },
+    "7": {
+      "name": "DNA Synthesis (Opus)",
+      "status": "complete"
+    }
+  },
+  "outputs": {
+    "source_text": "",
+    "7d_raw": "",
+    "voice_dna": "",
+    "thinking_dna": "",
+    "quality_gate": "",
+    "cases": ""
+  },
+  "evidence_score": 0.0,
+  "curadoria_score": 0.0
+}

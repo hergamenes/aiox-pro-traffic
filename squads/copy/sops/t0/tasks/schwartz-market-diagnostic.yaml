@@ -1,0 +1,100 @@
+sop:
+  id: schwartz-market-diagnostic
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Triade Diagnostica de Mercado (Full Protocol)"
+  purpose: >
+    Execute complete market diagnostic using Schwartz's three-question framework.
+    Determines mass desire, awareness level (1-5), and sophistication stage (1-5)
+    to prescribe headline type, copy length, angle, and techniques.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: eugene-schwartz
+    artifact_type: task
+
+  steps:
+    - id: receive_briefing
+      action: collect_market_briefing
+      description: "Collect product details, market description, advertising history, and competitive landscape"
+      inputs:
+        - product_description
+        - target_market
+        - advertising_history
+        - competitive_landscape
+      output: market_briefing
+
+    - id: identify_mass_desire
+      action: diagnose_mass_desire
+      description: "Identify pre-existing mass desire using equation: (Urgency) x (Market Size) x (Acceptability). Express in prospect's language."
+      depends_on: receive_briefing
+      critical: true
+      output: mass_desire_analysis
+
+    - id: classify_awareness
+      action: classify_awareness_level
+      description: "Classify prospect into 5 awareness levels: Most Aware (1) to Completely Unaware (5). Prescribe headline type and copy length."
+      depends_on: receive_briefing
+      critical: true
+      output: awareness_classification
+
+    - id: classify_sophistication
+      action: classify_sophistication_stage
+      description: "Classify market into 5 sophistication stages: Virgem (1) to Exausto (5). Prescribe headline strategy."
+      depends_on: receive_briefing
+      critical: true
+      output: sophistication_classification
+
+    - id: issue_prescription
+      action: prescribe_copy_strategy
+      description: "Based on all three answers, prescribe headline type, copy length, strategy, angle, techniques, and recommended CopywriterOS agent"
+      depends_on:
+        - identify_mass_desire
+        - classify_awareness
+        - classify_sophistication
+      output: copy_strategy_prescription
+
+    - id: architect_body_copy
+      action: design_copy_architecture
+      description: "Prescribe body copy structure: opening device, belief blocks, shift points, credibility devices, close type"
+      depends_on: issue_prescription
+      output: body_copy_architecture
+
+  error_handling:
+    - error: features_vs_desires
+      symptom: "Mass Desire describes product features instead of prospect wants"
+      resolution: "Reframe: what does the prospect WANT, not what the product does"
+    - error: wrong_awareness_level
+      symptom: "Copy talks about product to unaware audience or over-explains to aware audience"
+      resolution: "Verify with real data (surveys, behavior), not assumptions"
+    - error: wrong_sophistication_stage
+      symptom: "Using Stage 1 tactics in a Stage 4 market"
+      resolution: "Count competing ads/claims; evidence-based classification"
+    - error: misaligned_headline
+      symptom: "Headline type contradicts prescribed awareness level"
+      resolution: "Follow prescription table strictly; each level has ONE correct type"
+
+  quality_gate:
+    criteria:
+      - "Mass Desire in prospect's language with equation scored"
+      - "Awareness Level classified with reasoning"
+      - "Sophistication Stage classified with competitive evidence"
+      - "Headline type and copy length prescribed consistently"
+      - "Body copy architecture specified"
+      - "Recommended CopywriterOS agent named"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: market_diagnostic
+      format: structured_report
+      description: "Three-question diagnostic with Mass Desire, Awareness Level, Sophistication Stage"
+    - name: copy_strategy
+      format: prescription
+      description: "Headline type, copy length, angle, techniques, recommended writer"
+    - name: body_architecture
+      format: blueprint
+      description: "Body copy structure with blocks, shift points, and credibility devices"

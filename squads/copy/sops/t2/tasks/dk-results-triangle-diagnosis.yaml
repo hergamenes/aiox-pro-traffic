@@ -1,0 +1,104 @@
+sop:
+  id: "dk-results-triangle-diagnosis"
+  version: "1.0.0"
+  title: "Results Triangle Marketing Diagnosis"
+  purpose: "Diagnose underperforming marketing by evaluating which of the three legs (Message, Market, Media) is broken and prescribing a targeted fix"
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    sub_category: "diagnosis"
+    risk_level: "low"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "When marketing is underperforming, before investing in new creative, or as quarterly health check"
+  context:
+    input:
+      - name: "marketing_materials"
+        type: "object"
+        required: true
+        description: "Current ads, letters, emails, or landing pages being used"
+      - name: "market_definition"
+        type: "string"
+        required: true
+        description: "Who exactly is being targeted — demographics and psychographics"
+      - name: "media_channels"
+        type: "list"
+        required: true
+        description: "Where and how the marketing is being distributed"
+  steps:
+    - id: "S001"
+      name: "Check Message Leg"
+      action: "evaluate_message"
+      description: "Is the message irresistible for THIS market? Check specificity of promise, use of market language, offer clarity, urgency, differentiation. Score: STRONG / ADEQUATE / WEAK."
+      performer: "copywriter"
+      critical: true
+      on_success: "S002"
+      on_failure: "retry"
+    - id: "S002"
+      name: "Check Market Leg"
+      action: "evaluate_market"
+      description: "Is the market defined with precision? Is it a starving crowd with urgent pain and purchasing power? Are you reaching decision-makers? Score: STRONG / ADEQUATE / WEAK."
+      performer: "copywriter"
+      critical: true
+      on_success: "S003"
+      on_failure: "retry"
+    - id: "S003"
+      name: "Check Media Leg"
+      action: "evaluate_media"
+      description: "Does the media reach the defined market? Does it allow direct response? Is the context conducive to the message? Score: STRONG / ADEQUATE / WEAK."
+      performer: "copywriter"
+      critical: true
+      on_success: "S004"
+      on_failure: "retry"
+    - id: "S004"
+      name: "Identify Wrong Combination"
+      action: "classify_failure_pattern"
+      description: "Based on three scores, identify which of 7 wrong combinations is in play from the diagnostic matrix."
+      performer: "copywriter"
+      critical: false
+      on_success: "S005"
+      on_failure: "retry"
+    - id: "S005"
+      name: "Prescribe Fix"
+      action: "prescribe_weakest_leg_fix"
+      description: "Focus 100% on fixing the single weakest leg first. Document specific action items and timeline. Do not attempt to fix all three simultaneously."
+      performer: "copywriter"
+      critical: true
+      on_success: "END"
+      on_failure: "retry"
+  error_handling:
+    global_timeout: "PT2H"
+    retry_policy:
+      max_retries: 1
+      backoff: "linear"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "all_three_legs_scored"
+        type: "boolean"
+        target: true
+        weight: 0.3
+      - name: "evidence_based_scores"
+        type: "boolean"
+        target: true
+        weight: 0.25
+      - name: "correct_combination_identified"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "fix_targets_weakest_leg"
+        type: "boolean"
+        target: true
+        weight: 0.15
+      - name: "action_items_specified"
+        type: "boolean"
+        target: true
+        weight: 0.1
+    pass_threshold: 0.85
+  outputs:
+    artifacts:
+      - name: "diagnosis_report"
+        type: "file"
+        format: "md"
+        description: "Diagnosis with scores per leg, wrong combination identified, and prescribed fix with action items"

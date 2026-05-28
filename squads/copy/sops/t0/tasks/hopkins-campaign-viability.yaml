@@ -1,0 +1,96 @@
+sop:
+  id: hopkins-campaign-viability
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Campaign Viability Assessment"
+  purpose: >
+    Determine financial viability of advertising campaigns by comparing
+    customer acquisition cost (CPC) to customer lifetime value (LTV).
+    Issues verdict: ESCALAR, OTIMIZAR, or ABANDONAR.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: claude-hopkins
+    artifact_type: task
+
+  steps:
+    - id: calculate_cpc
+      action: compute_cost_per_customer
+      description: "Calculate total campaign costs divided by customers acquired (media + creative + fulfillment + overhead)"
+      inputs:
+        - campaign_costs
+        - customers_acquired
+      critical: true
+      output: cost_per_customer
+
+    - id: calculate_ltv
+      action: compute_lifetime_value
+      description: "Calculate (avg order x frequency x lifespan) x margin for average customer"
+      inputs:
+        - average_order_value
+        - purchase_frequency
+        - customer_lifespan
+        - gross_margin
+      critical: true
+      output: customer_ltv
+
+    - id: compare_cpc_ltv
+      action: evaluate_viability_ratio
+      description: "Compare CPC to LTV: CPC < LTV = ESCALAR, CPC ~ LTV = OTIMIZAR, CPC > LTV = ABANDONAR"
+      depends_on:
+        - calculate_cpc
+        - calculate_ltv
+      output: viability_verdict
+
+    - id: adjust_dealer_costs
+      action: calculate_dealer_discount_impact
+      description: "If dealer discounts exist, adjust CPC upward and re-evaluate (e.g., 1 free/10 = +10% breakeven)"
+      depends_on: compare_cpc_ltv
+      output: adjusted_verdict
+
+    - id: document_optimization
+      action: prescribe_optimization_targets
+      description: "If OTIMIZAR: specify CPC reduction target, LTV increase target, and recommended A/B tests"
+      depends_on: adjusted_verdict
+      output: optimization_recommendations
+
+    - id: set_reevaluation
+      action: define_reevaluation_timeline
+      description: "Set re-evaluation schedule: ESCALAR=monthly, OTIMIZAR=2-4 weeks, ABANDONAR=only if fundamentals change"
+      depends_on: adjusted_verdict
+      output: reevaluation_schedule
+
+  error_handling:
+    - error: hidden_costs_excluded
+      symptom: "CPC looks profitable but campaign actually loses money"
+      resolution: "Include creative, fulfillment, overhead, and dealer costs in CPC"
+    - error: overestimated_ltv
+      symptom: "LTV based on best-case customer, not average"
+      resolution: "Use median customer data; exclude outliers"
+    - error: premature_scaling
+      symptom: "Costs explode before optimization is complete"
+      resolution: "Optimize first, prove improved unit economics, then scale"
+
+  quality_gate:
+    criteria:
+      - "CPC includes ALL cost components"
+      - "LTV uses actual data, not projections"
+      - "Dealer costs accounted for if applicable"
+      - "Verdict matches the numbers"
+      - "Optimization targets are specific numbers"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: viability_verdict
+      format: verdict
+      description: "ESCALAR / OTIMIZAR / ABANDONAR with supporting rationale"
+    - name: financial_analysis
+      format: calculation
+      description: "CPC and LTV with all components detailed"
+    - name: optimization_plan
+      format: actionable_list
+      description: "Specific targets and tests for OTIMIZAR verdict"

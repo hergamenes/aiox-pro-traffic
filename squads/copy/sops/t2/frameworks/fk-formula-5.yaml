@@ -1,0 +1,127 @@
+sop:
+  id: fk-formula-5
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Formula 5 -- 5 Profit Vectors"
+  purpose: >
+    Identify and optimize five profit vectors. 15% improvement in each
+    compounds to approximately doubling the business. Shifts focus from
+    acquisition-only (20% of potential) to full customer lifecycle.
+  classification:
+    domain: copywriting
+    subdomain: revenue-optimization
+    complexity: intermediate
+    source_agent: frank-kern
+
+  steps:
+    - id: step_1
+      name: audit_vector_1
+      action: apply_acquisition_audit
+      description: >
+        Audit current acquisition copy: ads, landing pages, sales pages.
+        Improve conversion through headlines, hooks, proof, risk reversal.
+        Represents only 20% of revenue potential. Do not over-invest here.
+      inputs:
+        - current_acquisition_copy
+        - conversion_metrics
+      outputs:
+        - acquisition_audit
+        - improved_acquisition_copy
+      validation: acquisition_conversion_rate_benchmarked
+
+    - id: step_2
+      name: create_vector_2
+      action: apply_upsell_system
+      description: >
+        Write upsell copy presented immediately after purchase. Must
+        complement, not compete with initial purchase. Target 30-50%
+        increase in average order value.
+      inputs:
+        - initial_product
+        - complementary_offers
+      outputs:
+        - upsell_copy
+        - upsell_page
+      validation: upsell_triggered_after_every_purchase
+
+    - id: step_3
+      name: build_vector_3
+      action: apply_resell_automation
+      description: >
+        Write automated resell sequences bringing customers back.
+        Post-purchase emails, replenishment reminders, upgrade offers.
+        Reference previous purchase. Repeat customers 5-10x cheaper.
+      inputs:
+        - purchase_history_data
+        - product_lifecycle
+      outputs:
+        - resell_email_sequences
+        - replenishment_reminders
+      validation: automated_sequences_active_for_all_products
+
+    - id: step_4
+      name: develop_vector_4
+      action: apply_cross_sell_copy
+      description: >
+        Write copy introducing customers to different product categories.
+        Connect original purchase to new offer. Use purchase data to
+        identify natural cross-sell opportunities.
+      inputs:
+        - product_portfolio
+        - purchase_correlation_data
+      outputs:
+        - cross_sell_copy
+        - cross_sell_triggers
+      validation: cross_sell_opportunities_identified_and_copy_written
+
+    - id: step_5
+      name: apply_vector_5
+      action: apply_conversion_optimization
+      description: >
+        Write and test improved versions of existing copy at every journey
+        point. Better subject lines, headlines, CTAs, value propositions.
+        15% improvement compounds dramatically. Most overlooked vector.
+      inputs:
+        - existing_copy_assets
+        - current_conversion_rates
+      outputs:
+        - optimization_variants
+        - test_plan
+      validation: test_variants_created_for_key_touchpoints
+
+  error_handling:
+    - error: only_vector_1
+      symptom: "High acquisition cost, stagnant growth"
+      resolution: "Audit V2-V5. Most untapped revenue in existing customers."
+    - error: no_upsell
+      symptom: "Static average order value"
+      resolution: "Write upsell page copy. Install immediately after purchase."
+    - error: no_resell_system
+      symptom: "Customers buy once and disappear"
+      resolution: "Build automated resell email sequence for every product."
+    - error: innovation_over_optimization
+      symptom: "Constantly launching new, ignoring existing"
+      resolution: "Optimize existing copy first. Innovation is expensive growth."
+
+  quality_gate:
+    criteria:
+      - all_5_vectors_audited
+      - upsell_copy_exists_and_automated
+      - resell_sequences_automated
+      - cross_sell_opportunities_covered
+      - optimization_tests_running
+    min_pass: 4
+
+  outputs:
+    - type: revenue_audit
+      format: 5_vector_analysis
+      description: "Weakest vector identified with highest-ROI opportunity"
+    - type: copy_suite
+      format: per_vector_copy
+      description: "Copy for acquisition, upsell, resell, cross-sell, optimization"
+    - type: priority_list
+      format: ranked_actions
+      description: "Implementation priorities by potential revenue impact"

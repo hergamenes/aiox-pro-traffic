@@ -1,0 +1,80 @@
+sop:
+  id: task-soap-opera-sequence
+  version: "1.0"
+  title: "Soap Opera Sequence (SOS) Creation"
+  purpose: "Create a 5-12 email narrative sequence using serialized storytelling with cliffhangers, culminating in a CTA as natural story conclusion"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: andre-chaperon
+    tier: T3
+
+  inputs:
+    - name: narrative_arc
+      type: object
+      required: true
+      description: "Defined arc from pain state to transformation"
+    - name: frank_matt_archetypes
+      type: object
+      required: true
+      description: "Frank (current state) and Matt (transformed state) character definitions"
+    - name: product_details
+      type: object
+      required: true
+      description: "Product/offer with transformation promise"
+
+  outputs:
+    - name: email_sequence
+      type: list
+      description: "5-12 email sequence with narrative arc and cliffhangers"
+
+  steps:
+    - id: step_1
+      action: write_setup_email
+      description: "Introduce protagonist, establish conflict mirroring reader, build identification, end with cliffhanger"
+      critical: true
+
+    - id: step_2
+      action: write_backstory_email
+      description: "Deepen context, show how protagonist got here, amplify consequences, end with cliffhanger"
+
+    - id: step_3
+      action: write_epiphany_email
+      description: "Turning point — protagonist discovers mechanism, partial reveal only, end with cliffhanger"
+      critical: true
+      error_handling:
+        condition: "Mechanism fully revealed"
+        action: "Pull back to reveal the what but not the how — maintain open loop"
+
+    - id: step_4
+      action: write_hidden_benefits_email
+      description: "Reveal unexpected benefits, introduce social proof, future pace the transformation"
+
+    - id: step_5
+      action: write_call_email
+      description: "CTA as natural story conclusion — offer is the next chapter, no hard sell"
+      error_handling:
+        condition: "CTA feels disconnected from narrative"
+        action: "Rewrite so CTA is the obvious next step in protagonist's journey"
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "Each email ends with genuine cliffhanger"
+      - "Protagonist mirrors reader situation"
+      - "Epiphany partially reveals mechanism"
+      - "Social proof feels organic to story"
+      - "CTA is natural story conclusion"
+      - "Emotional intensity varies across sequence"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies:
+    - task-frank-matt-archetype
+    - task-open-loop-architecture
+
+  related_sops:
+    - task-email-engine-setup
+    - task-behavioral-segmentation

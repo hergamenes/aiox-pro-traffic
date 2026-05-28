@@ -1,0 +1,88 @@
+sop:
+  id: ogilvy-creative-decision-tree
+  version: "1.0"
+  title: "Creative Decision Tree"
+  purpose: "Select optimal creative direction by evaluating product assets in priority order: News > Demonstration > Differentiation > Emotion, always including rational excuse"
+  classification:
+    domain: copywriting
+    category: master
+    tier: T1
+    source_agent: david-ogilvy
+
+  inputs:
+    - name: product_facts
+      type: document
+      required: true
+    - name: demonstration_availability
+      type: boolean
+      required: true
+    - name: differentiation_analysis
+      type: document
+      required: true
+
+  outputs:
+    - name: creative_direction
+      type: text
+      description: "Selected direction: news, demonstration (problem-solution), reason-why, or emotion with rational excuse"
+
+  steps:
+    - id: step_01
+      action: check_for_news
+      description: "Ask: is there genuine NEWS about the product? New discovery, formulation, study, endorsement?"
+      critical: true
+      error_handling:
+        condition: "trivial_update_claimed_as_news"
+        action: "verify_news_is_genuinely_new_and_significant"
+
+    - id: step_02
+      action: lead_with_news
+      description: "If NEWS exists: build campaign around news element in headline and demonstration"
+      critical: false
+
+    - id: step_03
+      action: check_for_demonstration
+      description: "If no news: can the product be shown working in visually compelling, conclusive way?"
+      critical: false
+
+    - id: step_04
+      action: lead_with_problem_solution
+      description: "If DEMONSTRATION exists: problem-solution structure featuring demonstration (4x more effective)"
+      critical: true
+      error_handling:
+        condition: "describing_instead_of_showing"
+        action: "restructure_to_visual_proof_in_action"
+
+    - id: step_05
+      action: check_for_differentiation
+      description: "If no demonstration: is there genuine factual provable difference from competitors?"
+      critical: false
+
+    - id: step_06
+      action: lead_with_reason_why
+      description: "If DIFFERENTIATION exists: specific facts proving uniqueness with numbers and processes"
+      critical: false
+
+    - id: step_07
+      action: lead_with_emotion
+      description: "If no differentiation: use emotion (nostalgia, aspiration, belonging) with rational excuse"
+      critical: false
+      error_handling:
+        condition: "emotion_without_rational_excuse"
+        action: "add_logical_justification_for_emotional_decision"
+
+    - id: step_08
+      action: include_rational_excuse
+      description: "Regardless of path: include rational justification as permission structure for purchase"
+      critical: true
+      error_handling:
+        condition: "no_rational_excuse_included"
+        action: "add_logical_scaffolding_for_purchase_defense"
+
+  quality_gate:
+    min_criteria_met: 4
+    criteria:
+      - "all_four_questions_asked_in_order"
+      - "yes_answers_based_on_genuine_evidence"
+      - "direction_matches_strongest_asset"
+      - "rational_excuse_included"
+      - "direction_not_duplicating_competitor_approach"

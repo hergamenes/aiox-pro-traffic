@@ -1,0 +1,54 @@
+sop:
+  id: checklist-benson-voice-validation
+  version: "1.0"
+  title: "Benson Voice Validation Checklist"
+  purpose: "Validate copy output matches Jon Benson's distinctive voice patterns — fragmented, rhythmic, vulnerability-first writing with embedded NLP techniques"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: jon-benson
+    type: validation
+  steps:
+    - id: step-01
+      action: "Check word syllable count"
+      criteria: "Predominantemente palavras de 1-2 silabas"
+      required: true
+    - id: step-02
+      action: "Check sentence structure"
+      criteria: "Fragmentos como padrao (nao excecao)"
+      required: true
+    - id: step-03
+      action: "Check emoji usage"
+      criteria: "Zero emojis"
+      required: true
+    - id: step-04
+      action: "Check rhythm tools"
+      criteria: "Ellipses (...) e colons (:) como ferramentas de ritmo"
+      required: true
+    - id: step-05
+      action: "Check vulnerability-first opening"
+      criteria: "Lidera com vulnerabilidade antes de autoridade"
+      required: true
+    - id: step-06
+      action: "Check NLP embedding"
+      criteria: "NLP embutido naturalmente (presupposition, open loops)"
+      required: true
+    - id: step-07
+      action: "Sonic authenticity test"
+      criteria: "Soaria como Benson explicando copy num podcast casual"
+      required: true
+  error_handling:
+    - condition: "score < 5/7"
+      action: "rewrite_from_scratch"
+    - condition: "score == 5/7"
+      action: "revise_and_reevaluate"
+    - condition: "emoji_detected"
+      action: "remove_all_emojis"
+  quality_gate:
+    min_pass: 6
+    max_items: 7
+    threshold_pct: 85
+    verdict_options:
+      - APPROVED
+      - REVISE
+      - REWRITE

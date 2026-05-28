@@ -1,0 +1,114 @@
+sop:
+  id: checklist-sugarman-30-triggers
+  version: "1.0"
+  title: "30 Psychological Triggers Checklist"
+  purpose: "Evaluate copy against Joe Sugarman's 30 Psychological Triggers — the definitive QA framework for purchasing decision mechanisms"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: joe-sugarman
+    type: quality_gate
+  steps:
+    - id: trigger-01
+      action: "Evaluate Consistency"
+      criteria: "Prospect faz micro-compromissos que levam a compra"
+    - id: trigger-02
+      action: "Evaluate Product Nature"
+      criteria: "Natureza do produto comunicada claramente"
+    - id: trigger-03
+      action: "Evaluate Prospect Nature"
+      criteria: "Motivacoes emocionais do prospect enderecadas"
+    - id: trigger-04
+      action: "Evaluate Objection Raising"
+      criteria: "Falhas/limitacoes levantadas ANTES do prospect pensar"
+    - id: trigger-05
+      action: "Evaluate Objection Resolution"
+      criteria: "Objecoes resolvidas criativamente (girando fraqueza em forca)"
+    - id: trigger-06
+      action: "Evaluate Involvement/Ownership"
+      criteria: "Prospect se sente ja possuindo/usando o produto"
+    - id: trigger-07
+      action: "Evaluate Integrity"
+      criteria: "Integridade demonstrada"
+      foundation: true
+    - id: trigger-08
+      action: "Evaluate Storytelling"
+      criteria: "Historia pessoal/de cliente como veiculo de informacao"
+    - id: trigger-09
+      action: "Evaluate Authority"
+      criteria: "Autoridade ou expertise comunicada"
+    - id: trigger-10
+      action: "Evaluate Proof of Value"
+      criteria: "Prova de valor (dados, testemunhos, resultados)"
+    - id: trigger-11
+      action: "Evaluate Emotion"
+      criteria: "Emocao antes de logica? Palavras com impacto emocional"
+    - id: trigger-12
+      action: "Evaluate Justify with Logic"
+      criteria: "Justificativa logica APOS apelo emocional"
+    - id: trigger-13
+      action: "Evaluate Greed"
+      criteria: "Oferta que parece valer muito mais do que custa"
+    - id: trigger-14
+      action: "Evaluate Credibility"
+      criteria: "Credibilidade estabelecida (fontes, dados, historico)"
+      foundation: true
+    - id: trigger-15
+      action: "Evaluate Satisfaction Conviction"
+      criteria: "Garantia tao forte que prospect pensa 'vao ser roubados'"
+    - id: trigger-16
+      action: "Evaluate Linking"
+      criteria: "Conecta produto a algo familiar (brand, celebridade, tendencia)"
+    - id: trigger-17
+      action: "Evaluate Desire to Belong"
+      criteria: "Comunidade ou grupo aspiracional"
+    - id: trigger-18
+      action: "Evaluate Desire to Collect"
+      criteria: "Produto faz parte de colecao/set/sistema"
+    - id: trigger-19
+      action: "Evaluate Sense of Urgency"
+      criteria: "Urgencia REAL (nao fabricada)"
+    - id: trigger-20
+      action: "Evaluate Exclusivity"
+      criteria: "Oferta exclusiva/restrita a grupo seleto"
+    - id: trigger-21
+      action: "Evaluate Simplicity"
+      criteria: "Oferta simples, uma opcao clara"
+    - id: trigger-22
+      action: "Evaluate Guilt/Reciprocity"
+      criteria: "Valor dado antes — obrigacao de reciprocar"
+    - id: trigger-23
+      action: "Evaluate Specificity"
+      criteria: "Numeros especificos, detalhes concretos"
+    - id: trigger-24
+      action: "Evaluate Familiarity"
+      criteria: "Termos/conceitos familiares ao prospect"
+    - id: trigger-25
+      action: "Evaluate Patterning"
+      criteria: "Segue padroes mentais conhecidos"
+    - id: trigger-26
+      action: "Evaluate Hope"
+      criteria: "Esperanca de resultado futuro"
+    - id: trigger-27
+      action: "Evaluate Curiosity"
+      criteria: "Curiosidade que compele leitura continua"
+    - id: trigger-28
+      action: "Evaluate Harmonize"
+      criteria: "Tom harmonizado com estado emocional do prospect"
+    - id: trigger-29
+      action: "Evaluate Mental Engagement"
+      criteria: "Estimula participacao mental ativa"
+    - id: trigger-30
+      action: "Evaluate Honesty"
+      criteria: "Transparente e honesto em toda comunicacao"
+      foundation: true
+  error_handling:
+    - condition: "foundation_triggers_inactive"
+      action: "establish_integrity_credibility_honesty_first"
+    - condition: "critical_triggers_for_type_inactive"
+      action: "activate_before_approval"
+  quality_gate:
+    total_triggers: 30
+    foundation_required: ["trigger-07", "trigger-14", "trigger-30"]
+    scoring: activation_count
+    context_weighting_required: true

@@ -1,0 +1,274 @@
+# Email Sequence Template
+# CopywriterOS - Template para Sequências de Email
+
+template:
+  id: email-sequence-template-v1
+  name: "Email Sequence Template"
+  version: "1.0"
+  output:
+    format: markdown
+    filename: "email-sequence-{{sequence_name}}.md"
+
+# Variáveis de Input
+variables:
+  required:
+    - sequence_type: "welcome | launch | nurture | sales | abandoned"
+    - product_name: "Produto sendo promovido"
+    - num_emails: "Número de emails (3-12)"
+  optional:
+    - sender_name: "Nome do remetente"
+    - brand_voice: "Tom da marca"
+    - urgency: "Se há deadline"
+
+# Estrutura de Email Individual
+email_template:
+  structure:
+    - subject_line
+    - preview_text
+    - opening_hook
+    - body
+    - cta
+    - ps
+    - signature
+
+  template: |
+    ---
+    ## Email {{email_number}}: {{email_name}}
+
+    **Enviar:** {{send_timing}}
+    **Objetivo:** {{email_goal}}
+
+    ---
+
+    **Subject:** {{subject_line}}
+    **Preview:** {{preview_text}}
+
+    ---
+
+    {{opening_hook}}
+
+    {{body_paragraph_1}}
+
+    {{body_paragraph_2}}
+
+    {{body_paragraph_3}}
+
+    {{cta_block}}
+
+    {{signature}}
+
+    {{#if ps}}
+    PS: {{ps}}
+    {{/if}}
+
+    ---
+
+# Sequence Templates por Tipo
+
+sequences:
+  welcome:
+    name: "Welcome Sequence"
+    duration: "7 dias"
+    emails:
+      - day: 0
+        name: "Entrega + Boas-vindas"
+        goal: "Entregar lead magnet, apresentar-se"
+        template: |
+          Subject: Seu {{lead_magnet}} chegou! 🎁
+          Preview: Acesse agora + uma surpresa
+
+          {{name}},
+
+          Bem-vindo! Seu {{lead_magnet}} está aqui:
+
+          👉 [LINK DE ACESSO]
+
+          Enquanto você explora, deixa eu me apresentar...
+
+          {{brief_intro}}
+
+          Nos próximos dias, vou compartilhar {{what_to_expect}}.
+
+          Qualquer dúvida, é só responder este email.
+
+          {{signature}}
+
+          PS: Amanhã vou te contar {{teaser_next_email}}.
+
+      - day: 1
+        name: "Minha História"
+        goal: "Criar conexão, ser relatável"
+        template: |
+          Subject: Minha história com {{topic}}
+          Preview: Por que faço o que faço
+
+          {{name}},
+
+          Ontem prometi te contar {{teaser}}.
+
+          {{story_before}}
+
+          {{story_turning_point}}
+
+          {{story_after}}
+
+          {{lesson_learned}}
+
+          {{signature}}
+
+          PS: Amanhã, {{teaser_next}}.
+
+      - day: 3
+        name: "Valor Puro"
+        goal: "Ensinar algo útil"
+        template: |
+          Subject: {{valuable_tip_headline}}
+          Preview: Isso mudou meus resultados
+
+          {{name}},
+
+          Hoje quero compartilhar {{tip_intro}}.
+
+          {{tip_content}}
+
+          {{tip_application}}
+
+          {{signature}}
+
+      - day: 5
+        name: "Case Study"
+        goal: "Mostrar resultados"
+        template: |
+          Subject: Como {{client_name}} conseguiu {{result}}
+          Preview: De {{before}} para {{after}}
+
+          {{name}},
+
+          {{case_study_intro}}
+
+          {{case_study_details}}
+
+          {{case_study_results}}
+
+          {{soft_cta}}
+
+          {{signature}}
+
+      - day: 7
+        name: "Oferta"
+        goal: "Fazer primeira oferta"
+        template: |
+          Subject: Você está pronto para {{next_level}}?
+          Preview: Uma proposta para você
+
+          {{name}},
+
+          {{recap_value_delivered}}
+
+          {{offer_transition}}
+
+          {{offer_details}}
+
+          {{cta}}
+
+          {{signature}}
+
+  launch:
+    name: "Launch Sequence"
+    duration: "10-14 dias"
+    emails:
+      - day: -7
+        name: "Teaser"
+        goal: "Criar expectativa"
+      - day: -5
+        name: "Reveal"
+        goal: "Revelar o que vem"
+      - day: -3
+        name: "Valor"
+        goal: "Entregar conteúdo gratuito"
+      - day: 0
+        name: "Cart Open"
+        goal: "Abrir vendas"
+      - day: 1
+        name: "Early Bird"
+        goal: "Urgência do bônus"
+      - day: 3
+        name: "Case Study"
+        goal: "Prova social"
+      - day: 5
+        name: "FAQ"
+        goal: "Superar objeções"
+      - day: 6
+        name: "Última Chance"
+        goal: "Urgência 24h"
+      - day: 7
+        name: "Fechamento"
+        goal: "Urgência final"
+
+  sales:
+    name: "Sales Sequence"
+    duration: "5 dias"
+    emails:
+      - day: 1
+        name: "Problema"
+        goal: "Agitar a dor"
+      - day: 2
+        name: "Solução"
+        goal: "Apresentar produto"
+      - day: 3
+        name: "Prova"
+        goal: "Cases e testimonials"
+      - day: 4
+        name: "Oferta"
+        goal: "Detalhes + urgência"
+      - day: 5
+        name: "Última Chamada"
+        goal: "Fechar"
+
+  abandoned:
+    name: "Abandoned Cart Sequence"
+    duration: "48h"
+    emails:
+      - hour: 1
+        name: "Esqueceu Algo?"
+        goal: "Lembrete simples"
+      - hour: 24
+        name: "Incentivo"
+        goal: "Bônus ou desconto"
+      - hour: 48
+        name: "Urgência Final"
+        goal: "Última chamada"
+
+# Subject Line Patterns
+subject_patterns:
+  curiosity:
+    - "Isso é estranho..."
+    - "Você não vai acreditar..."
+    - "A verdade sobre {{topic}}"
+  benefit:
+    - "Como {{result}} em {{time}}"
+    - "{{number}} maneiras de {{benefit}}"
+  urgency:
+    - "{{hours}} horas restantes"
+    - "Última chance: {{offer}}"
+  personal:
+    - "Uma pergunta rápida"
+    - "Você está aí?"
+  story:
+    - "Eu quase desisti quando..."
+    - "O dia que tudo mudou"
+
+# Quality Validation
+validation:
+  per_email:
+    - "Subject line <60 caracteres?"
+    - "Preview text <90 caracteres?"
+    - "Opening hook prende em 5 segundos?"
+    - "Parágrafos curtos (1-3 linhas)?"
+    - "CTA claro e único?"
+    - "PS agrega valor?"
+  sequence:
+    - "Progressão lógica?"
+    - "Mix de valor e pitch?"
+    - "Urgência genuína?"
+    - "Personalização presente?"

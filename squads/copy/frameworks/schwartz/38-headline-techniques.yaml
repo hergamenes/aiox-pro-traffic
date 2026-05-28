@@ -1,0 +1,90 @@
+# Framework: 38 Headline Amplification Techniques
+# Author: Eugene Schwartz
+# Source: Breakthrough Advertising (1966), Chapter 4
+# Command: *headlines
+
+name: "38 Headline Amplification Techniques"
+category: "headlines"
+origin: "Eugene Schwartz - Breakthrough Advertising"
+command: "*headlines"
+
+principle: |
+  "De-me uma semana e eu te dou 5 a 10 palavras."
+  Um headline pode fazer ou quebrar uma campanha inteira.
+
+core_techniques:
+  - technique: "Medir o Tamanho"
+    before: "Emagreca"
+    after: "Perca 10 quilos"
+  - technique: "Medir a Velocidade"
+    before: "Emagreca"
+    after: "Emagreca em 30 dias"
+  - technique: "Comparar"
+    before: "Emagreca"
+    after: "Emagreca mais que atletas olimpicos"
+  - technique: "Metaforizar"
+    before: "Emagreca"
+    after: "Derreta a gordura como gelo no sol"
+  - technique: "Sensitizar"
+    before: "Emagreca"
+    after: "Sinta suas roupas deslizando em um corpo novo"
+  - technique: "Demonstrar"
+    before: "Emagreca"
+    after: "Como Maria perdeu 15 quilos sem academia"
+  - technique: "Dramatizar"
+    before: "Emagreca"
+    after: "Ela chorou quando viu a balanca - de alegria"
+  - technique: "Criar Paradoxo"
+    before: "Emagreca"
+    after: "Emagreca comendo mais!"
+  - technique: "Remover Limitacoes"
+    before: "Emagreca"
+    after: "Emagreca sem exercicios, sem dieta, sem sofrimento"
+  - technique: "Associar Autoridade"
+    before: "Emagreca"
+    after: "Medico de Harvard revela segredo de emagrecimento"
+
+complete_38_techniques:
+  1: "Measure the size of the claim"
+  2: "Measure the speed of the claim"
+  3: "Compare the claim"
+  4: "Metaphorize the claim"
+  5: "Sensitize the claim (feel, smell, touch, see, hear)"
+  6: "Demonstrate the claim with a prime example"
+  7: "Dramatize the claim or its result"
+  8: "State the claim as a paradox"
+  9: "Remove limitations from the claim"
+  10: "Associate claim with authority figures"
+  11: "Show how much work the claim does in detail"
+  12: "State the claim as a question"
+  13: "Offer information about how to accomplish the claim"
+  14: "Tie authority into the claim"
+  15: "Before-and-after the claim"
+  16: "Stress the newness of the claim"
+  17: "Stress the exclusivity of the claim"
+  18: "Turn the claim into a challenge for the reader"
+  19: "State the claim as a case-history quotation"
+  20: "Condense the claim (interchange product and what it replaces)"
+  21: "Symbolize the claim (replace with parallel reality)"
+  22: "Connect the mechanism to the claim in the headline"
+  23: "Contradict how the mechanism should work"
+  24: "Connect the need and the claim in the headline"
+  25: "Offer information in the ad itself"
+  26: "Turn the claim or need into a case history"
+  27: "Give a name to the problem or need"
+  28: "Warn about pitfalls if prospect doesn't use product"
+  29: "Emphasize claim by breaking into two sentences or repeating"
+  30: "Show how easy by imposing universally-overcome limitation"
+  31: "State the difference in the headline"
+  32: "Surprise reader that former limitations are overcome"
+  33: "Address people who can't buy your product"
+  34: "Address your prospect directly"
+  35: "Dramatize how hard it was to produce the claim"
+  36: "Accuse the claim of being too good"
+  37: "Challenge the prospect's present limiting beliefs"
+  38: "Turn the claim into a question and answer"
+
+selection_criteria: |
+  Avalie cada headline por:
+  Credibilidade x Interesse x Especificidade
+  Teste com pequenos grupos antes de escalar.

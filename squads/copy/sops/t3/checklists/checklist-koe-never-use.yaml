@@ -1,0 +1,50 @@
+sop:
+  id: checklist-koe-never-use
+  version: "1.0"
+  title: "Koe Vocabulary Veto List"
+  purpose: "Enforce vocabulary constraints for Dan Koe content — prohibit hustle culture language, replace with systems-thinking and identity-based alternatives"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: dan-koe
+    type: validation
+  steps:
+    - id: step-01
+      action: "Scan for 'hustle / grind / crush it'"
+      criteria: "Must not appear"
+      replacement: "leverage, foco, sistemas"
+      required: true
+    - id: step-02
+      action: "Scan for 'growth hacking / hack'"
+      criteria: "Must not appear"
+      replacement: "sistemas que compoundam"
+      required: true
+    - id: step-03
+      action: "Scan for '10x / scale fast'"
+      criteria: "Must not appear"
+      replacement: "qualidade de vida, compound"
+      required: true
+    - id: step-04
+      action: "Scan for 'pick a niche'"
+      criteria: "Must not appear"
+      replacement: "you ARE the niche, Identity Stack"
+      required: true
+    - id: step-05
+      action: "Scan for 'content is king'"
+      criteria: "Must not appear"
+      replacement: "thinking is king, conteudo e delivery"
+      required: true
+    - id: step-06
+      action: "Scan for 'mindset'"
+      criteria: "Must not appear as standalone concept"
+      replacement: "identidade, clarity, frameworks"
+      required: true
+  error_handling:
+    - condition: "prohibited_phrase_found"
+      action: "replace_with_approved_alternative"
+    - condition: "hustle_culture_dogwhistle"
+      action: "replace_with_systems_language"
+  quality_gate:
+    mode: vocabulary_scan
+    zero_tolerance: true
+    requires_full_text_search: true

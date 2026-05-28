@@ -1,0 +1,43 @@
+sop:
+  id: deutsch-big-idea-validation
+  version: "1.0"
+  title: "Big Idea Validation Test (Deutsch)"
+  purpose: "Apply David Deutsch's Big Idea Validation Test to evaluate whether a creative concept qualifies as a genuine Big Idea or is merely a clever headline. A Big Idea is not a tagline -- it is a strategic c"
+  classification:
+    domain: copywriting
+    category: master
+    tier: t1
+    source_agent: david-deutsch
+  steps:
+    - id: apply_wow_factor_test
+      action: "Present the idea to someone unfamiliar with the project and observe their reaction."
+      input: "WOW Factor: would someone say 'wow' seeing it?"
+      output: "Step 1 deliverable: WOW Factor Test completed with documented findings"
+      validation: "WOW Factor tested with at least 3 people; 2+ said 'wow'"
+    - id: apply_emotional_component_test
+      action: "Does the idea carry palpable emotion? Not intellectual interest -- actual feeling."
+      input: "Emotional Component: has palpable emotion? (vindication, fear, hope, curiosity)"
+      output: "Step 2 deliverable: Emotional Component Test completed with documented findings"
+      validation: "Emotional component identified as one of the 4 qualifying emotions"
+    - id: apply_carrying_power_test
+      action: "Can this idea sustain an ENTIRE PROMOTION -- not just a headline? A Big Idea must generate enough material for: a com..."
+      input: "Carrying Power: sustains an ENTIRE PROMOTION? (not just a clever headline)"
+      output: "Step 3 deliverable: Carrying Power Test completed with documented findings"
+      validation: "Carrying power confirmed: full promotion outline flows naturally from the idea alone"
+  error_handling:
+    - error: "Accepting a clever headline as a Big Idea"
+      resolution: "Apply the carrying power test: can you outline an entire promotion from this idea?"
+    - error: "Confusing intellectual interest with emotional component"
+      resolution: "Test for visceral reaction, not intellectual appreciation"
+    - error: "Testing WOW Factor with people who are too close to the project"
+      resolution: "Test with people who have zero context on the product or campaign"
+    - error: "Settling for 2 out of 3 criteria"
+      resolution: "All 3 criteria are mandatory; 2 out of 3 is a NO-GO"
+  quality_gate:
+    criteria:
+      - "WOW Factor tested with at least 3 people; 2+ said 'wow'"
+      - "Emotional component identified as one of the 4 qualifying emotions"
+      - "Carrying power confirmed: full promotion outline flows naturally from the idea alone"
+      - "All 3 criteria passed -- if ANY is zero, the idea is rejected"
+      - "Rejected ideas documented with the specific criterion they failed"
+    pass_threshold: "All 5 criteria met"

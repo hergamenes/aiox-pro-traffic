@@ -1,0 +1,96 @@
+sop:
+  id: "rb-epiphany-bridge-story"
+  version: "1.0.0"
+  title: "Epiphany Bridge Story Construction"
+  purpose: "Construct a 5-part narrative that transfers the seller's emotional aha moment to the prospect, making the purchase feel like a self-directed decision"
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    risk_level: "low"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "When writing any sales copy needing a story component, introducing a new concept, or building the Story element of Hook-Story-Offer"
+  context:
+    input:
+      - name: "personal_brand_backstory"
+        type: "string"
+        required: true
+        description: "The genuine backstory of where the seller/brand was BEFORE the discovery, including struggles and failed attempts"
+      - name: "product_origin_story"
+        type: "object"
+        required: true
+        description: "The specific discovery or aha moment that led to creating the product, including concrete results that followed"
+  steps:
+    - id: "S001"
+      name: "Write BACKSTORY"
+      action: "establish_identification"
+      description: "Describe the situation BEFORE the discovery in vivid detail. Include the same struggles, frustrations, and failed attempts the prospect is experiencing. Use prospect's language. Be vulnerable. Include sensory details: dates, locations, emotions. Do NOT start with success."
+      performer: "copywriter"
+      critical: true
+      on_success: "S002"
+      on_failure: "retry"
+    - id: "S002"
+      name: "Write JOURNEY"
+      action: "build_narrative_tension"
+      description: "Describe events leading toward the discovery with tension and conflict. Include at least one failure or setback. Show internal doubt and external naysayers. Build stakes toward the turning point. Use dialogue where possible."
+      performer: "copywriter"
+      critical: false
+      on_success: "S003"
+      on_failure: "retry"
+    - id: "S003"
+      name: "Write EPIPHANY"
+      action: "capture_aha_moment"
+      description: "Describe the exact moment of discovery: when, where, what triggered it. Make it concrete and specific. Must feel surprising or counterintuitive. Emotional charge is more important than logical explanation. Reader should think: 'Why didn't I see that?'"
+      performer: "copywriter"
+      critical: true
+      on_success: "S004"
+      on_failure: "retry"
+    - id: "S004"
+      name: "Write TRANSFORMATION"
+      action: "show_concrete_results"
+      description: "Show tangible, measurable results: specific numbers, timelines, before-vs-after contrast. Include both tangible outcomes (revenue, time, metrics) and emotional transformation. Do not exaggerate — credible numbers build trust."
+      performer: "copywriter"
+      critical: true
+      on_success: "S005"
+      on_failure: "retry"
+    - id: "S005"
+      name: "Write BRIDGE"
+      action: "connect_epiphany_to_product"
+      description: "Connect the discovery to the product: 'That's why I created [product].' Position product as the systematized version of the epiphany. Must feel organic, not salesy. Prospect should feel buying is the natural next step they arrived at themselves."
+      performer: "copywriter"
+      critical: true
+      on_success: "END"
+      on_failure: "retry"
+  error_handling:
+    global_timeout: "PT3H"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "backstory_creates_identification"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "journey_has_tension"
+        type: "boolean"
+        target: true
+        weight: 0.15
+      - name: "epiphany_is_specific_and_emotional"
+        type: "boolean"
+        target: true
+        weight: 0.25
+      - name: "transformation_has_concrete_numbers"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "bridge_feels_organic"
+        type: "boolean"
+        target: true
+        weight: 0.2
+    pass_threshold: 0.85
+  outputs:
+    artifacts:
+      - name: "epiphany_bridge_story"
+        type: "file"
+        format: "md"
+        description: "Complete 5-part Epiphany Bridge story (Backstory, Journey, Epiphany, Transformation, Bridge) ready for sales copy integration"

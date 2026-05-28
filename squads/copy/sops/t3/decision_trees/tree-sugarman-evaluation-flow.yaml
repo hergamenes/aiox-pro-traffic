@@ -1,0 +1,59 @@
+sop:
+  id: tree-sugarman-evaluation-flow
+  version: "1.0"
+  title: "Sugarman QA Evaluation Flow"
+  purpose: "Define the complete decision flow for evaluating copy using joe-sugarman QA agent — from classification through triggers, slide, and verdict"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: joe-sugarman
+  steps:
+    - id: step-01
+      condition: "Copy received"
+      action: "Classify type (sales page, email, VSL, social, landing page)"
+    - id: step-02
+      condition: "Type classified"
+      action: "Apply context weighting (critical triggers for type)"
+    - id: step-03
+      condition: "type == 'sales_page'"
+      action: "MUST activate 12 critical triggers (#1,#4,#5,#6,#9,#15,#16,#19,#22,#23,#25,#27)"
+    - id: step-04
+      condition: "type == 'email'"
+      action: "MUST activate 6 critical triggers (#15,#21,#22,#23,#25,#28)"
+    - id: step-05
+      condition: "type == 'vsl'"
+      action: "MUST activate 8 critical triggers (#1,#15,#16,#17,#22,#25,#27,#28)"
+    - id: step-06
+      condition: "type == 'social_post'"
+      action: "MUST activate 3 critical triggers (#15,#25,#28)"
+    - id: step-07
+      condition: "type in ['sales_page', 'vsl'] (long-form)"
+      action: "Avaliar Slippery Slide PRIMEIRO. Se BROKEN, triggers irrelevantes"
+    - id: step-08
+      condition: "score alto + Slippery Slide BROKEN"
+      action: "OVERRIDE score. Slide quebrado = copy falha"
+    - id: step-09
+      condition: "preco > R$500"
+      action: "Falta de Satisfaction Conviction = GAP CRITICO (pode dobrar conversao)"
+    - id: step-10
+      condition: "oferta com multiplas opcoes"
+      action: "1 opcao = 3x vendas vs 9 opcoes. Excesso paralisa"
+    - id: step-11
+      condition: "copy online/mail order"
+      action: "Curiosidade = fator #1"
+    - id: step-12
+      condition: "logica/features antes de emocao"
+      action: "Ordem INVERTIDA. Invertida MATA a venda"
+    - id: step-13
+      condition: "resolucao sem levantar objecao"
+      action: "Desperdicio. DEVE levantar ANTES"
+  error_handling:
+    - condition: "type_not_classified"
+      action: "block_evaluation_classify_first"
+    - condition: "slide_not_checked_for_longform"
+      action: "check_slide_before_triggers"
+  quality_gate:
+    mode: sequential_evaluation
+    classification_first: true
+    slide_before_triggers: true
+    score_override_on_broken_slide: true

@@ -1,0 +1,416 @@
+workflow:
+  id: wf-evaluate-cpls-batch
+  name: "Evaluate CPLs Batch"
+  type: evaluation-batch
+  description: >-
+    Workflow para avaliar um conjunto completo de CPLs de um lançamento e
+    consolidar um relatório com visão sistêmica da narrativa e da performance.
+  operational_roles:
+    orchestrator: copy-chief
+    human_review_agent: launch-owner
+    delivery_agent: copy-ops-worker
+  state_machine:
+    states: [init, batch-context, batch-scoring, narrative-review, consolidated-report, complete, failed]
+    transitions:
+      - { trigger: start, source: init, dest: batch-context }
+      - { trigger: batch-context_complete, source: batch-context, dest: batch-scoring }
+      - { trigger: batch-scoring_complete, source: batch-scoring, dest: narrative-review }
+      - { trigger: narrative-review_complete, source: narrative-review, dest: consolidated-report }
+      - { trigger: consolidated-report_complete, source: consolidated-report, dest: complete }
+      - { trigger: fail, source: "*", dest: failed }
+  quality_gate_refs: [QG-CP-1.1, QG-CP-6.1, QG-CP-4.1, QG-CP-5.1]
+  sequence:
+    - phase: batch-context
+      id: batch-context
+      agent: copy-chief
+      task_ref: tasks/load-workspace-context.md
+      action: "Descobrir o lote de CPLs e preparar o contexto do lançamento"
+      creates: cpl-batch-context
+      on_complete: { trigger: batch-context_complete }
+    - phase: batch-scoring
+      id: batch-scoring
+      agent: jeff-walker
+      task_ref: tasks/plf/evaluate-cpl.md
+      requires: cpl-batch-context
+      action: "Avaliar cada CPL do lote com critérios PLF e scoring consistente"
+      creates: cpl-batch-scores
+      on_complete: { trigger: batch-scoring_complete }
+    - phase: narrative-review
+      id: narrative-review
+      agent: eugene-schwartz
+      task_ref: tasks/analyze-mental-conversation.md
+      requires: cpl-batch-scores
+      action: "Comparar narrativa, awareness e progressão entre os CPLs"
+      creates: cpl-batch-insights
+      on_complete: { trigger: narrative-review_complete }
+    - phase: consolidated-report
+      id: consolidated-report
+      agent: copy-chief
+      task_ref: tasks/plf/evaluate-cpl.md
+      requires: cpl-batch-insights
+      action: "Consolidar o parecer final do batch de CPLs"
+      creates: cpl-batch-report
+      on_complete: { trigger: consolidated-report_complete }
+
+  handoff_prompts:
+    default: "Entregue o artefato criado, decisões tomadas, riscos abertos e o critério exato para o próximo agente continuar sem reinterpretar o contexto."
+
+name: evaluate-cpls-batch
+description: |
+  Workflow para avaliar um conjunto completo de CPLs de um lançamento.
+  Pode ser executado em paralelo (múltiplas janelas) ou sequencial.
+  Gera relatório consolidado com visão geral do lançamento.
+
+version: "1.0"
+author: Copy Squad
+framework: Product Launch Formula (Jeff Walker)
+
+trigger:
+  command: "*evaluate-cpls"
+  agent: "@copy-chief"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# INPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+inputs:
+  required:
+    cpls_folder:
+      description: "Pasta contendo os arquivos de transcrição dos CPLs"
+      example: "outputs/copy/nome-lancamento/"
+
+    launch_context:
+      product_name:
+        description: "Nome do produto sendo lançado"
+        example: "Comunidade Subido"
+      creator_name:
+        description: "Nome do expert/criador"
+        example: "Pedro Sobral"
+      avatar:
+        description: "Breve descrição do público-alvo"
+        example: "Empreendedores que querem aprender gestão de tráfego"
+      launch_format:
+        description: "Formato do lançamento"
+        options: ["challenge", "webinar", "plc_classic", "live_launch"]
+        example: "challenge"
+
+  optional:
+    parallel_execution:
+      description: "Se true, gera prompts para execução em janelas paralelas"
+      default: true
+    output_format:
+      description: "Formato do relatório"
+      options: ["whatsapp", "markdown", "yaml"]
+      default: "whatsapp"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASES
+# ═══════════════════════════════════════════════════════════════════════════════
+phases:
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # FASE 1: Discovery
+  # ─────────────────────────────────────────────────────────────────────────────
+  - name: discovery
+    description: "Identificar CPLs disponíveis na pasta"
+    steps:
+      - action: list_files
+        path: "{{cpls_folder}}"
+        pattern: "*.txt"
+        output: cpl_files
+
+      - action: identify_cpls
+        description: |
+          Para cada arquivo, identificar qual CPL é baseado em:
+          - Nome do arquivo (cpl1, cpl2, etc)
+          - Conteúdo inicial (primeiras 100 linhas)
+        output: cpl_mapping
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # FASE 2: Context Setup
+  # ─────────────────────────────────────────────────────────────────────────────
+  - name: context_setup
+    description: "Preparar contexto para avaliação"
+    steps:
+      - action: load_checklists
+        files:
+          - squads/copy/checklists/plf/plc-quality.md
+          - squads/copy/checklists/plf/mental-triggers-activation.md
+        output: evaluation_criteria
+
+      - action: determine_expectations
+        description: |
+          Baseado no formato do lançamento, ajustar expectativas:
+          - Challenge: 4-5 CPLs, foco em entrega prática
+          - Webinar: 1-3 CPLs antes do webinar
+          - PLC Classic: 3 CPLs tradicionais
+          - Live Launch: 3-4 CPLs comprimidos
+        output: format_expectations
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # FASE 3: Evaluation (Parallel ou Sequential)
+  # ─────────────────────────────────────────────────────────────────────────────
+  - name: evaluation
+    description: "Avaliar cada CPL"
+
+    parallel_mode:
+      description: "Gera prompts para múltiplas janelas Claude"
+      generate_prompts: true
+      prompt_template: |
+        Você é Jeff Walker, criador do Product Launch Formula.
+
+        MISSÃO: Avaliar COMPLETAMENTE este CPL usando a metodologia PLF.
+
+        CONTEXTO DO LANÇAMENTO:
+        - Produto: {{product_name}}
+        - Criador: {{creator_name}}
+        - Avatar: {{avatar}}
+        - Formato: {{launch_format}}
+        - Este é o CPL{{cpl_number}} de {{total_cpls}}
+
+        ARQUIVO PARA ANALISAR:
+        {{cpl_file}}
+
+        INSTRUÇÕES:
+        1. Leia o arquivo COMPLETO (use offset/limit se necessário)
+        2. Siga a task: squads/copy/tasks/plf/evaluate-cpl.md
+        3. Aplique os checklists:
+           - squads/copy/checklists/plf/plc-quality.md
+           - squads/copy/checklists/plf/mental-triggers-activation.md
+        4. Gere o relatório no formato WhatsApp (sem markdown)
+
+        EXPECTATIVAS PARA CPL{{cpl_number}}:
+        {{cpl_expectations}}
+
+        Comece lendo o arquivo completo agora.
+
+    sequential_mode:
+      description: "Executa todas as avaliações na mesma janela"
+      steps:
+        - for_each: cpl_files
+          execute: tasks/plf/evaluate-cpl.md
+          with:
+            cpl_file: "{{item}}"
+            cpl_number: "{{index + 1}}"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # FASE 4: Consolidation
+  # ─────────────────────────────────────────────────────────────────────────────
+  - name: consolidation
+    description: "Consolidar relatórios individuais em visão geral"
+    requires: "Todos os relatórios individuais de CPL"
+    steps:
+      - action: collect_reports
+        description: "Coletar os relatórios de cada CPL"
+
+      - action: calculate_overall_score
+        formula: "(cpl1_score + cpl2_score + cpl3_score + cpl4_score) / num_cpls"
+
+      - action: identify_patterns
+        description: |
+          Identificar padrões que aparecem em múltiplos CPLs:
+          - Triggers consistentemente fortes
+          - Triggers consistentemente fracos
+          - Gaps recorrentes
+          - Pontos fortes recorrentes
+
+      - action: map_trigger_journey
+        description: |
+          Mapear como cada trigger evolui através dos CPLs:
+          - Authority: CPL1 → CPL2 → CPL3 → CPL4
+          - Reciprocity: ...
+          - etc
+
+      - action: prioritize_improvements
+        description: |
+          Priorizar melhorias baseado em:
+          - Impacto na conversão
+          - Facilidade de implementação
+          - Gaps críticos vs. nice-to-have
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # FASE 5: Report Generation
+  # ─────────────────────────────────────────────────────────────────────────────
+  - name: report_generation
+    description: "Gerar relatório consolidado final"
+    output_file: "{{cpls_folder}}/evaluation-report-{{date}}.md"
+
+    sections:
+      - executive_summary:
+          content: |
+            Score geral do lançamento
+            Classificação (Pronto/Precisa ajustes/Requer revisão)
+            Top 3 pontos fortes
+            Top 3 gaps críticos
+
+      - cpl_scores:
+          content: |
+            CPL1: XX/100 - [status]
+            CPL2: XX/100 - [status]
+            CPL3: XX/100 - [status]
+            CPL4: XX/100 - [status]
+            MÉDIA: XX/100
+
+      - trigger_analysis:
+          content: |
+            Para cada trigger:
+            - Score médio
+            - Evolução através dos CPLs
+            - Gaps identificados
+            - Recomendações
+
+      - structural_analysis:
+          content: |
+            Fluxo narrativo entre CPLs
+            Transições
+            Progressão de valor
+            Setup para oferta
+
+      - improvement_roadmap:
+          content: |
+            Prioridade 1 (Crítico): [lista]
+            Prioridade 2 (Importante): [lista]
+            Prioridade 3 (Nice-to-have): [lista]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# CPL EXPECTATIONS BY NUMBER
+# ═══════════════════════════════════════════════════════════════════════════════
+cpl_expectations:
+  cpl1:
+    name: "The Opportunity"
+    primary_goal: "Estabelecer autoridade e mostrar a oportunidade"
+    must_have:
+      - Hook forte nos primeiros 30 segundos
+      - Origin story com vulnerabilidade
+      - Oportunidade claramente revelada
+      - Primeiro ensino com valor real
+      - Antecipação forte para CPL2
+    primary_triggers:
+      - Authority (estabelecer)
+      - Reciprocity (iniciar)
+      - Anticipation (criar)
+      - Likability (conectar)
+    success_metrics:
+      - Prospect entende a oportunidade
+      - Prospect confia no expert
+      - Prospect quer ver CPL2
+
+  cpl2:
+    name: "The Transformation"
+    primary_goal: "Provar que a transformação é possível"
+    must_have:
+      - Recap claro do CPL1
+      - Case study principal detalhado
+      - 2-3 cases adicionais diversos
+      - Ensino mais profundo
+      - Objeções principais tratadas
+      - Antecipação para CPL3
+    primary_triggers:
+      - Social Proof (empilhar)
+      - Trust (construir)
+      - Reciprocity (continuar)
+      - Community (iniciar)
+    success_metrics:
+      - Prospect acredita que funciona
+      - Prospect se vê nos cases
+      - Objeções diminuídas
+
+  cpl3:
+    name: "The Ownership"
+    primary_goal: "Fazer o prospect se sentir dono da solução"
+    must_have:
+      - Recap da jornada completa
+      - Visão de ownership (future pacing)
+      - Day-in-the-life pintado
+      - Ensino final que completa o quadro
+      - Bridge natural para oferta
+      - Preview do produto
+      - Setup de escassez real
+    primary_triggers:
+      - Anticipation (maximizar)
+      - Events (criar)
+      - Scarcity (introduzir)
+      - Community (fortalecer)
+    success_metrics:
+      - Prospect deseja a transformação
+      - Prospect está pronto para comprar
+      - Urgência criada
+
+  cpl4:
+    name: "Pivot to Offer (Challenge Format)"
+    primary_goal: "Transicionar para a venda de forma natural"
+    must_have:
+      - Recap de todo conhecimento entregue
+      - Ensino final prático (vendas/implementação)
+      - Gap claramente estabelecido
+      - Produto como ponte para o gap
+      - Mecanismo de engajamento (quiz, prova)
+      - Setup completo de escassez
+      - Antecipação para abertura do carrinho
+    primary_triggers:
+      - Scarcity (estabelecer)
+      - Events (aula final como evento)
+      - Social Proof (últimos cases)
+      - Anticipation (carrinho abrindo)
+    success_metrics:
+      - Prospect sabe que precisa do produto
+      - Prospect está ansioso para comprar
+      - Escassez é real e clara
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SCORING SYSTEM
+# ═══════════════════════════════════════════════════════════════════════════════
+scoring:
+  per_cpl:
+    structure: 25
+    mental_triggers: 45
+    content_quality: 15
+    storytelling: 10
+    transition: 5
+    total: 100
+
+  launch_overall:
+    individual_cpls: 70%  # Média dos scores individuais
+    trigger_journey: 15%  # Evolução dos triggers através dos CPLs
+    structural_flow: 15%  # Fluxo narrativo entre CPLs
+
+  grades:
+    90-100: "Excelente - Lançamento pronto"
+    80-89: "Bom - Pequenos ajustes antes de lançar"
+    70-79: "Adequado - Melhorias recomendadas"
+    60-69: "Precisa trabalho - Gaps significativos a resolver"
+    below_60: "Requer revisão completa antes de lançar"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# EXECUTION MODES
+# ═══════════════════════════════════════════════════════════════════════════════
+execution_modes:
+  parallel_windows:
+    description: "Executar em 4 janelas Claude simultaneamente"
+    steps:
+      1: "Rodar *evaluate-cpls na janela principal"
+      2: "Receber 4 prompts (um por CPL)"
+      3: "Abrir 4 janelas Claude"
+      4: "Colar cada prompt em uma janela"
+      5: "Aguardar conclusão de todas"
+      6: "Colar relatórios de volta na janela principal"
+      7: "Rodar consolidação"
+
+  sequential:
+    description: "Executar tudo em uma única janela"
+    steps:
+      1: "Rodar *evaluate-cpls"
+      2: "Avaliar CPL1 completo"
+      3: "Avaliar CPL2 completo"
+      4: "Avaliar CPL3 completo"
+      5: "Avaliar CPL4 completo"
+      6: "Consolidar automaticamente"
+    note: "Mais lento, mas não requer múltiplas janelas"
+
+  background_agents:
+    description: "Usar Task tool com run_in_background"
+    steps:
+      1: "Spawn 4 agentes em background"
+      2: "Cada agente avalia um CPL"
+      3: "Coletar resultados quando prontos"
+      4: "Consolidar"
+    note: "Mais eficiente se o sistema suportar"

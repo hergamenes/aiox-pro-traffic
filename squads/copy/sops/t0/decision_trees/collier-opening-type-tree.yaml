@@ -1,0 +1,79 @@
+sop:
+  id: collier-opening-type-tree
+  version: '1.0'
+  title: Opening Type Decision Tree (4 Types)
+  purpose: Codify Robert Collier's decision logic for opening type decision tree (4 types) into a machine-executable diagnostic
+    procedure for copywriting analysis and recommendation.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: robert-collier
+    artifact_type: decision_tree
+  metadata:
+    date: '2026-03-14'
+    author:
+      agent: sop-converter
+      squad: sop-factory
+  steps:
+  - step: 1
+    decision_point: true
+    condition: Prospect knows and WANTS the product
+    branches:
+    - match: true
+      action: Offer Direct — e.g. 'I am going to send you a topcoat within the next few days.'
+    - match: false
+      action: Continue to next decision point
+  - step: 2
+    decision_point: true
+    condition: Prospect has PROBLEM product solves
+    branches:
+    - match: true
+      action: Problem/Fear — e.g. 'Exposed! The Wall Street pool operators...'
+    - match: false
+      action: Continue to next decision point
+  - step: 3
+    decision_point: true
+    condition: Prospect doesn't know product, needs education
+    branches:
+    - match: true
+      action: Story/Curiosity — e.g. Foch at the Marne → product analogy
+    - match: false
+      action: Continue to next decision point
+  - step: 4
+    decision_point: true
+    condition: Prospect is indifferent/saturated
+    branches:
+    - match: true
+      action: Identification — describe prospect's exact situation so they recognize themselves
+    - match: false
+      action: Continue to next decision point
+  - step: 5
+    decision_point: true
+    condition: None of the 4 work
+    branches:
+    - match: true
+      action: RETURN to desire diagnosis (Phase 1) — the problem is upstream
+    - match: false
+      action: Continue to next decision point
+  error_handling:
+  - error: no_condition_match
+    description: None of the defined conditions match the input context
+    action: Return to upstream diagnostic; re-classify the situation
+    severity: warning
+  - error: ambiguous_condition
+    description: Multiple conditions appear to match simultaneously
+    action: Select the most specific match; document ambiguity for review
+    severity: warning
+  - error: missing_context
+    description: Insufficient data to evaluate conditions
+    action: Request additional context before proceeding; do not guess
+    severity: error
+  quality_gate:
+    min_confidence: 0.85
+    requires_human_review: false
+    metrics:
+      condition_coverage: 1.0
+      branch_traceability: true
+      action_specificity: high
+      source_fidelity: verified

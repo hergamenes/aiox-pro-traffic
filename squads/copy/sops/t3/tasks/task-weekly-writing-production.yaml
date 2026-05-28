@@ -1,0 +1,76 @@
+sop:
+  id: task-weekly-writing-production
+  version: "1.0"
+  title: "Weekly Writing Production (Kortex Method)"
+  purpose: "Produce one long-form newsletter and multiple social posts per week using structured 5-day production cycle"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: dan-koe
+    tier: T3
+
+  inputs:
+    - name: topic
+      type: string
+      required: true
+      description: "Topic from idea bank"
+    - name: core_notes
+      type: object
+      required: true
+      description: "Core Notes for reference material"
+
+  outputs:
+    - name: newsletter
+      type: document
+      description: "1 long-form newsletter fully drafted and edited"
+    - name: social_posts
+      type: list
+      description: "Multiple social posts extracted from outline"
+
+  steps:
+    - id: day_1_2
+      action: create_meta_document
+      description: "Brain dump: research, highlights, connections, questions — no editing, just raw material"
+      days: "1-2"
+
+    - id: day_2_3
+      action: flesh_out_elements
+      description: "Structure into 5 elements: problem, goal, example, process, big idea"
+      critical: true
+      elements: ["problem", "goal", "example", "process", "big_idea"]
+
+    - id: day_3_4
+      action: write_draft
+      description: "Draft side-by-side with outline, check off key points — write fast, edit later"
+      days: "3-4"
+
+    - id: day_5
+      action: polish_and_extract
+      description: "Craft hook LAST, edit full piece, extract social posts from outline points"
+      critical: true
+      activities:
+        - craft_hook
+        - edit_piece
+        - extract_social_posts
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "Meta document has multi-source material"
+      - "All 5 elements fleshed out"
+      - "Draft covers every outline point"
+      - "Hook written on Day 5"
+      - "Social posts extracted from newsletter"
+      - "5-day cycle complete without skipping"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies:
+    - task-core-notes
+
+  related_sops:
+    - task-apag-newsletter
+    - task-hook-architecture
+    - task-content-repurposing

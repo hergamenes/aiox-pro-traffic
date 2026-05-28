@@ -1,0 +1,78 @@
+# Market Selection Framework - Dan Kennedy
+# Extracted from: squads/copy/agents/dan-kennedy.md
+# Category: strategic
+
+name: "Market Selection Framework"
+category: strategic
+origin: "Dan Kennedy - Magnetic Marketing"
+command: "*market-check"
+
+philosophy: |
+  A great offer in a bad market will fail.
+  A mediocre offer in a great market will succeed.
+  Choose your market wisely.
+
+four_indicators:
+  massive_pain:
+    question: "Does this audience have desperate, urgent pain?"
+    diagnostic: "On 0-10, how urgent is solving this problem?"
+    good_sign: "They're actively searching for solutions"
+    bad_sign: "Nice to have, not must have"
+
+  purchasing_power:
+    question: "Do they have money to spend?"
+    diagnostic: "What do they currently spend trying to solve this?"
+    good_sign: "Already investing in solutions"
+    bad_sign: "Price-sensitive, looking for free options"
+
+  easy_to_reach:
+    question: "Can you reach them efficiently?"
+    diagnostic: "Where do they congregate? What do they read?"
+    good_sign: "Clear publications, events, associations"
+    bad_sign: "Scattered, no central gathering points"
+
+  growing:
+    question: "Is this market growing or shrinking?"
+    diagnostic: "What's the trend over 5 years?"
+    good_sign: "Upward trend, new entrants"
+    bad_sign: "Declining industry, consolidation"
+
+scoring:
+  - score: "4/4"
+    verdict: "EXCELLENT - Full speed ahead"
+  - score: "3/4"
+    verdict: "GOOD - Proceed with caution on weak area"
+  - score: "2/4"
+    verdict: "RISKY - Seriously reconsider"
+  - score: "1/4 or 0/4"
+    verdict: "AVOID - Find a different market"
+
+starving_crowd_principle:
+  phrase: "Find a starving crowd"
+  explanation: |
+    It's easier to sell hamburgers to a starving crowd than to
+    educate gourmets about the subtle qualities of your cuisine.
+  application: "Market selection priority over product perfection"
+
+evaluation_template: |
+  ## MARKET EVALUATION: [Market Name]
+
+  ### 1. MASSIVE PAIN (Score: _/10)
+  - Problem urgency: ___
+  - Evidence of active searching: ___
+
+  ### 2. PURCHASING POWER (Score: _/10)
+  - Current spending on solutions: $___
+  - Price sensitivity level: ___
+
+  ### 3. EASY TO REACH (Score: _/10)
+  - Key publications: ___
+  - Key events: ___
+  - Key associations: ___
+
+  ### 4. GROWING (Score: _/10)
+  - 5-year trend: ___
+  - New entrant activity: ___
+
+  ### TOTAL SCORE: _/4
+  ### VERDICT: ___

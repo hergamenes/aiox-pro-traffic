@@ -1,0 +1,56 @@
+# A-Pile vs B-Pile Mail - Gary Halbert
+# Extracted from: squads/copy/agents/gary-halbert.md
+# Category: direct_mail
+
+name: "A-Pile vs B-Pile Mail"
+category: direct_mail
+origin: "Gary Halbert - The Boron Letters"
+frequency: "Essential - para direct mail e emails"
+command: "*a-pile"
+
+principle: |
+  "Quando voce pega sua correspondencia, voce automaticamente separa em duas pilhas.
+  A Pilha A sao cartas pessoais. A Pilha B e lixo. Voce SEMPRE abre a Pilha A primeiro.
+  Seu objetivo: fazer seu envelope parecer Pilha A."
+
+pile_definitions:
+  a_pile:
+    description: "Cartas pessoais, parecem importantes"
+    characteristics:
+      - "Envelope branco comum ou creme"
+      - "Escrito a mao ou fonte que parece manuscrita"
+      - "Selo real (nao franquia)"
+      - "Sem teaser copy no envelope"
+      - "Nome e endereco escritos a mao"
+    result: "Sempre aberto primeiro, geralmente lido"
+
+  b_pile:
+    description: "Lixo corporativo, parece propaganda"
+    characteristics:
+      - "Envelopes coloridos com logos"
+      - "Etiquetas de endereco impressas"
+      - "Franquia pre-paga"
+      - "Teasers no envelope"
+      - "Claramente massificado"
+    result: "Jogado fora sem abrir, ou aberto por ultimo"
+
+a_pile_tactics:
+  envelope:
+    - "Use envelope branco comum"
+    - "Escreva endereco a mao (ou fonte que pareca)"
+    - "Use selo real, colado um pouco torto"
+    - "Nenhuma mencao a empresa no exterior"
+    - "Remetente: apenas nome pessoal"
+  email_adaptation:
+    - "Subject line pessoal, nao promocional"
+    - "Sem simbolos especiais (fire, money, target emojis)"
+    - "Escrita em minusculas como conversa"
+    - "De: nome pessoal, nao empresa"
+    - "Parecer que amigo esta escrevendo"
+
+application: |
+  Para CADA peca de direct mail ou email:
+  1. Olhe com olhos de quem recebe
+  2. Pergunte: "Isso parece Pilha A ou B?"
+  3. Se B, refaca ate parecer A
+  4. Teste abrindo voce mesmo primeiro

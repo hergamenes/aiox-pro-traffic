@@ -1,0 +1,134 @@
+sop:
+  id: schwartz-headline-verbalization
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Headline Verbalization (38 Techniques)"
+  purpose: >
+    Strengthen headline after finding the basic idea using 10 core verbalization
+    lenses from Schwartz's 38 techniques. Transforms flat headlines into
+    compelling variations for A/B testing.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: eugene-schwartz
+    artifact_type: task
+
+  steps:
+    - id: start_basic_idea
+      action: document_basic_headline
+      description: "Write headline in simplest, most direct form as raw material"
+      inputs:
+        - basic_headline_idea
+        - awareness_level
+        - sophistication_stage
+      output: basic_headline
+
+    - id: lens_size
+      action: amplify_claim_scale
+      description: "Lens 1: Measure SIZE — amplify scale (how big, how many, how much)"
+      depends_on: start_basic_idea
+      output: size_variation
+
+    - id: lens_speed
+      action: add_velocity
+      description: "Lens 2: Measure SPEED — add velocity to the claim (how fast)"
+      depends_on: start_basic_idea
+      output: speed_variation
+
+    - id: lens_metaphor
+      action: metaphorize_claim
+      description: "Lens 3: METAPHORIZE — replace literal claim with vivid metaphor"
+      depends_on: start_basic_idea
+      output: metaphor_variation
+
+    - id: lens_sensory
+      action: sensorialize_result
+      description: "Lens 4: SENSORIALIZE — make reader see, smell, touch, taste, or hear the result"
+      depends_on: start_basic_idea
+      output: sensory_variation
+
+    - id: lens_demonstrate
+      action: demonstrate_with_example
+      description: "Lens 5: DEMONSTRATE — show claim through prime example or case study"
+      depends_on: start_basic_idea
+      output: demonstration_variation
+
+    - id: lens_dramatize
+      action: dramatize_result
+      description: "Lens 6: DRAMATIZE — take result to dramatic extreme"
+      depends_on: start_basic_idea
+      output: drama_variation
+
+    - id: lens_paradox
+      action: declare_as_paradox
+      description: "Lens 7: PARADOX — state claim as something seemingly impossible or contradictory"
+      depends_on: start_basic_idea
+      critical: true
+      output: paradox_variation
+
+    - id: lens_remove_limitations
+      action: eliminate_objections
+      description: "Lens 8: REMOVE LIMITATIONS — eliminate biggest objection in headline itself"
+      depends_on: start_basic_idea
+      output: limitation_free_variation
+
+    - id: lens_mechanism
+      action: connect_mechanism_to_claim
+      description: "Lens 9: Connect MECHANISM — link the HOW directly to claim in headline"
+      depends_on: start_basic_idea
+      output: mechanism_variation
+
+    - id: lens_contradict
+      action: contradict_expected_mechanism
+      description: "Lens 10: CONTRADICT — propose mechanism opposite to market expectation"
+      depends_on: start_basic_idea
+      output: contradiction_variation
+
+    - id: select_strongest
+      action: evaluate_and_select_winners
+      description: "Review all 10 variations; select 2-3 strongest matching awareness, sophistication, and Hopkins 4 Filters"
+      depends_on:
+        - lens_size
+        - lens_speed
+        - lens_metaphor
+        - lens_sensory
+        - lens_demonstrate
+        - lens_dramatize
+        - lens_paradox
+        - lens_remove_limitations
+        - lens_mechanism
+        - lens_contradict
+      critical: true
+      output: selected_headlines
+
+  error_handling:
+    - error: partial_lens_application
+      symptom: "Missing strongest variation because not all lenses explored"
+      resolution: "Force through all 10 lenses; best is often unexpected"
+    - error: cleverness_over_effectiveness
+      symptom: "Most creative variation selected instead of most effective"
+      resolution: "Apply Hopkins Salesman Test: would you say this face-to-face?"
+    - error: stage_mismatch
+      symptom: "Brilliant headline wrong for market stage"
+      resolution: "Cross-reference with awareness and sophistication levels"
+
+  quality_gate:
+    criteria:
+      - "All 10 lenses applied"
+      - "Each variation genuinely different"
+      - "Selected variations match awareness level"
+      - "Selected variations match sophistication stage"
+      - "At least 2-3 candidates for testing"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: headline_variations
+      format: variation_list
+      description: "10+ headline variations with lens notation"
+    - name: selected_winners
+      format: ranked_list
+      description: "2-3 strongest versions with reasoning"

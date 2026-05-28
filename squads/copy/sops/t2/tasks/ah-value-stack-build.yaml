@@ -1,0 +1,96 @@
+sop:
+  id: "ah-value-stack-build"
+  version: "1.0.0"
+  title: "Value Stack Construction"
+  purpose: "Build a structured value stack that presents offer components individually named and valued in ascending order to create overwhelming perceived value before price reveal"
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    sub_category: "offer-presentation"
+    risk_level: "low"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "When presenting an offer in copy that has multiple components needing value-building presentation"
+  context:
+    input:
+      - name: "offer_components"
+        type: "list"
+        required: true
+        description: "All elements of the offer: core product, bonuses, tools, templates, support, access, guarantees"
+  steps:
+    - id: "S001"
+      name: "Decompose Offer"
+      action: "separate_components"
+      description: "List every component as a standalone item. Unbundle anything currently grouped. Remove components without clear independent benefit."
+      performer: "copywriter"
+      critical: false
+      on_success: "S002"
+      on_failure: "retry"
+    - id: "S002"
+      name: "Name Each Component"
+      action: "create_benefit_driven_names"
+      description: "Give each component a unique, benefit-driven name implying the result it delivers. Apply MAGIC naming formula. Must sound worth purchasing independently."
+      performer: "copywriter"
+      critical: true
+      on_success: "S003"
+      on_failure: "retry"
+    - id: "S003"
+      name: "Assign Values"
+      action: "value_each_component"
+      description: "Assign specific, credible monetary value using replacement cost, market comparison, or result-based valuation. Use specific numbers (e.g., $1,497 not $1,500). Must pass standalone purchase test."
+      performer: "copywriter"
+      critical: true
+      on_success: "S004"
+      on_failure: "retry"
+    - id: "S004"
+      name: "Sequence by Value"
+      action: "order_smallest_to_largest"
+      description: "Arrange components from smallest to largest value to create crescendo effect. Each successive addition increases perceived impact."
+      performer: "copywriter"
+      critical: true
+      on_success: "S005"
+      on_failure: "retry"
+    - id: "S005"
+      name: "Totalize and Price Reveal"
+      action: "build_running_total_and_reveal"
+      description: "Show running total after each component. State total stacked value with emphasis. Reveal actual price as dramatic contrast. Minimum 10x gap between value and price."
+      performer: "copywriter"
+      critical: true
+      on_success: "END"
+      on_failure: "retry"
+  error_handling:
+    global_timeout: "PT2H"
+    retry_policy:
+      max_retries: 1
+      backoff: "linear"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "minimum_5_components"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "all_components_benefit_named"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "all_values_credible_and_specific"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "smallest_to_largest_order"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "value_price_gap_10x_plus"
+        type: "boolean"
+        target: true
+        weight: 0.2
+    pass_threshold: 1.0
+  outputs:
+    artifacts:
+      - name: "value_stack"
+        type: "file"
+        format: "md"
+        description: "5-7+ individually named and valued components sequenced smallest-to-largest with running totals and price reveal copy"

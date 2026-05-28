@@ -1,0 +1,188 @@
+sop:
+  id: fk-diagnostic-flow
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+
+  title: "Frank Kern Diagnostic Flow"
+  purpose: "Structured diagnostic workflow for classifying and solving marketing requests using Frank Kern's Intent-Based Direct Marketing — goodwill assessment, Revenue Equation diagnosis, 4-Day Cash Machine for quick revenue, Results in Advance for trust rebuilding, Formula 5 for scaling, and Mass Control for launches."
+
+  classification:
+    domain: copywriting
+    subdomain: diagnostic-workflow
+    source_agent: frank-kern
+    artifact_type: decision_tree
+    tier: t2
+
+  steps:
+    - id: FK_DIAG_01
+      name: request_classification
+      decision_point: "New request received"
+      branches:
+        - condition: "Need money now, existing audience available"
+          goto: FK_DIAG_02
+          label: QUICK_REVENUE
+        - condition: "Business works but revenue plateauing"
+          goto: FK_DIAG_02
+          label: SCALE_EXISTING
+        - condition: "New product or offer being introduced"
+          goto: FK_DIAG_02
+          label: LAUNCH
+        - condition: "Content strategy or audience building"
+          goto: FK_DIAG_02
+          label: CONTENT
+        - condition: "Ambiguous request"
+          goto: FK_DIAG_02
+          action: "Ask: Is primary goal revenue now, revenue growth, or audience building?"
+
+    - id: FK_DIAG_02
+      name: goodwill_assessment
+      decision_point: "Assess goodwill balance with target audience"
+      action: "Evaluate: recent value delivered vs. asks made, audience sentiment, engagement trends."
+      branches:
+        - condition: "Goodwill HIGH (generous giving, engaged audience)"
+          goto: FK_DIAG_03
+          action: "Audience is receptive. Proceed to Revenue Equation."
+        - condition: "Goodwill LOW (too many offers, disengaged)"
+          goto: FK_DIAG_05
+          action: "Must rebuild trust. Go to Results in Advance."
+        - condition: "Goodwill UNKNOWN"
+          goto: FK_DIAG_05
+          action: "Default to LOW. Safer to over-serve."
+
+    - id: FK_DIAG_03
+      name: revenue_equation_diagnosis
+      decision_point: "Revenue = Offers x Goodwill — which variable is weak?"
+      branches:
+        - condition: "Offers = 0 (not making offers despite goodwill)"
+          goto: FK_DIAG_04A
+          action: "Deploy 4-Day Cash Machine or daily IBB."
+        - condition: "Goodwill = 0 (making offers but no trust)"
+          goto: FK_DIAG_05
+          action: "Results in Advance before any offer."
+        - condition: "Both positive but revenue below expectations"
+          goto: FK_DIAG_06
+          action: "Formula 5 optimization."
+        - condition: "Launch scenario"
+          goto: FK_DIAG_07
+          action: "Mass Control deployment."
+
+    - id: FK_DIAG_04A
+      name: four_day_cash_machine
+      decision_point: "Quick revenue — 4-Day Cash Machine"
+      action: "Day 1: unexpected gift. Day 2: value + soft mention. Day 3: offer with story and proof. Day 4: last chance, deadline."
+      branches:
+        - condition: "Revenue generated after 4 days"
+          goto: COMPLETE
+          action: "Cash Machine worked. Consider recurring IBB."
+        - condition: "Revenue still flat after 4 days"
+          goto: FK_DIAG_06
+          action: "Offer may be weak. Proceed to Formula 5 optimization."
+
+    - id: FK_DIAG_04B
+      name: intent_based_broadcasts
+      decision_point: "Ongoing revenue via IBB"
+      action: "Daily emails that deliver value AND track behavior. Segment by intent signals."
+      branches:
+        - condition: "Generating high-intent signals from audience"
+          goto: COMPLETE
+          action: "Route high-intent to offers, low-intent to more value."
+        - condition: "Not generating enough high-intent signals"
+          goto: FK_DIAG_05
+          action: "Content quality needs improvement. Return to Results in Advance."
+
+    - id: FK_DIAG_05
+      name: results_in_advance
+      decision_point: "Goodwill is low — deliver results before offering"
+      action: "Create content that gives audience a tangible WIN. Solve real problem for free. Demonstrate expertise."
+      branches:
+        - condition: "Engagement improves after RIA campaign"
+          goto: FK_DIAG_03
+          action: "Goodwill rebuilding. Return to Revenue Equation."
+        - condition: "Engagement does not improve"
+          goto: HALT
+          action: "Audience may be wrong. Re-evaluate target market."
+
+    - id: FK_DIAG_06
+      name: formula_5_optimization
+      decision_point: "Both Offers and Goodwill positive but revenue plateaus"
+      action: "Optimize 5 Vectors: Traffic, Conversion, Economics, Frequency, Referral."
+      branches:
+        - condition: "Traffic is weakest vector"
+          goto: FK_DIAG_06_FIX
+          action: "Not enough of the RIGHT people seeing the offer."
+        - condition: "Conversion is weakest vector"
+          goto: FK_DIAG_06_FIX
+          action: "Visitors not becoming buyers at acceptable rates."
+        - condition: "Economics is weakest vector"
+          goto: FK_DIAG_06_FIX
+          action: "Unit economics not working (CAC >= LTV)."
+        - condition: "Frequency is weakest vector"
+          goto: FK_DIAG_06_FIX
+          action: "Customers not buying again (no repeat purchase)."
+        - condition: "Referral is weakest vector"
+          goto: FK_DIAG_06_FIX
+          action: "Customers not referring others."
+        - condition: "All 5 vectors optimized"
+          goto: COMPLETE
+          action: "System is maxed. Now consider new products/offers."
+
+    - id: FK_DIAG_06_FIX
+      name: optimize_vector
+      action: "Optimize the identified weakest vector before touching any other."
+      goto: FK_DIAG_06
+
+    - id: FK_DIAG_07
+      name: mass_control_launch
+      decision_point: "Launch scenario — deploy Mass Control"
+      action: "Phase 1: anticipation (RIA content). Phase 2: goodwill accumulation. Phase 3: offer via IDT. Phase 4: deadline close."
+      branches:
+        - condition: "Launch performs well"
+          goto: COMPLETE
+        - condition: "Launch underperforms"
+          goto: FK_DIAG_07_DIAG
+          action: "Check: was goodwill accumulated sufficiently pre-launch?"
+
+    - id: FK_DIAG_07_DIAG
+      name: launch_failure_diagnosis
+      decision_point: "Launch underperformed — diagnose"
+      branches:
+        - condition: "Insufficient goodwill pre-launch"
+          goto: FK_DIAG_05
+          action: "Most launch failures = insufficient goodwill. Return to RIA."
+        - condition: "Goodwill was sufficient but offer didn't convert"
+          goto: FK_DIAG_06
+          action: "Offer or funnel issue. Apply Formula 5."
+
+  error_handling:
+    - error: "offering_with_zero_goodwill"
+      symptom: "High unsubscribe, negative replies, low conversion"
+      resolution: "Complete FK_DIAG_05 (Results in Advance) before any monetization."
+
+    - error: "not_making_offers"
+      symptom: "Audience loves you but revenue is zero"
+      resolution: "Apply FK_DIAG_04A or FK_DIAG_04B to monetize existing goodwill."
+
+    - error: "skipping_revenue_equation"
+      symptom: "Applying wrong solution to wrong problem"
+      resolution: "Always complete FK_DIAG_03 to identify which variable is weak."
+
+    - error: "new_products_before_optimization"
+      symptom: "Product line grows but total revenue stays flat"
+      resolution: "Apply FK_DIAG_06 to find and fix weakest vector first."
+
+    - error: "launch_without_goodwill"
+      symptom: "Launch fails despite great product"
+      resolution: "Mass Control requires pre-launch goodwill. Return to FK_DIAG_05."
+
+  quality_gate:
+    criteria:
+      - "Request classified into one category"
+      - "Goodwill balance assessed before monetization"
+      - "Revenue Equation diagnosed"
+      - "Correct system prescribed (Cash Machine, IBB, RIA, Formula 5, or Mass Control)"
+      - "Results in Advance delivered when goodwill was low"
+      - "Formula 5 vectors checked before creating new products"
+    pass_threshold: "6/6 criteria met"

@@ -1,0 +1,87 @@
+sop:
+  id: halbert-hierarchy-decision
+  version: "1.0"
+  title: "List > Offer > Copy Diagnostic Tree"
+  purpose: >
+    Systematic diagnostic framework for identifying root cause of campaign failure
+    using Halbert's hierarchy: List > Offer > Copy. Ensures correct diagnosis order.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: gary-halbert
+    tier: T1
+
+  steps:
+    - step: 1
+      name: "Evaluate List Quality"
+      decision_point:
+        condition: "Campaign failed or underperforming"
+        branches:
+          - if: "List is weak or wrong market"
+            action: "Pivot market. Find starving crowd first."
+            terminal: true
+          - if: "Researching market"
+            action: "Observe BEHAVIOR, not words. Deduce from wallet usage."
+            terminal: false
+          - if: "List is strong"
+            action: "Proceed to Step 2"
+            next_step: 2
+
+    - step: 2
+      name: "Evaluate Offer Strength"
+      decision_point:
+        condition: "List confirmed strong but results still poor"
+        branches:
+          - if: "Offer is weak or undifferentiated"
+            action: "Strengthen offer before touching copy."
+            terminal: true
+          - if: "Offer is strong"
+            action: "Proceed to Step 3"
+            next_step: 3
+
+    - step: 3
+      name: "Evaluate Copy Quality"
+      decision_point:
+        condition: "List and offer confirmed strong but results poor"
+        branches:
+          - if: "Copy is the weakest link"
+            action: "Apply The Suck -> Nugget Notes -> Rewrite with proof stack."
+            terminal: true
+
+    - step: 4
+      name: "Pre-Decision Market Check"
+      decision_point:
+        condition: "Before ANY marketing decision"
+        branches:
+          - if: "No starving crowd identified"
+            action: "Find starving crowd FIRST. Product after. Cannot multiply zeros."
+            terminal: true
+          - if: "Starving crowd confirmed"
+            action: "Proceed with hierarchy evaluation at Step 1"
+            next_step: 1
+
+    - step: 5
+      name: "Effort Prioritization"
+      decision_point:
+        condition: "Deciding where to allocate effort"
+        branches:
+          - if: "Choosing between message quality vs market quality"
+            action: "Mediocre message to excellent market ALWAYS beats excellent message to mediocre market."
+            terminal: true
+
+  error_handling:
+    - error: "Jumped to copy rewrite without checking list"
+      recovery: "Stop. Return to Step 1 and validate list first."
+    - error: "Used survey data instead of behavioral data"
+      recovery: "Discard survey inputs. Gather behavioral/transactional evidence."
+    - error: "Copy rewrite attempted with weak offer"
+      recovery: "Pause copy work. Return to Step 2 and strengthen offer."
+
+  quality_gate:
+    min_criteria: 4
+    checks:
+      - "List evaluated before offer and copy"
+      - "Market behavior used as primary evidence"
+      - "Offer strengthened before copy rewrite"
+      - "Proof stack present in final copy"
+      - "Starving crowd criterion validated"

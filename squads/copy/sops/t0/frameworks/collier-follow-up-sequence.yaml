@@ -1,0 +1,92 @@
+sop:
+  id: collier-follow-up-sequence
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Follow-Up Sequence Protocol"
+  purpose: >
+    Plan multi-touch sales sequence maximizing total response through varied angles
+    and escalating urgency. 5-letter sequence extracts maximum response by approaching
+    prospect from different angles. Beyond 5 letters is rarely profitable.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: robert-collier
+    artifact_type: framework
+
+  steps:
+    - id: apply_letter_1
+      action: apply_strongest_angle
+      description: "Letter 1: Strongest angle. Enter at most urgent desire/fear. Best proof. Strongest offer. ~3-4% response."
+      critical: true
+      inputs:
+        - mental_conversation_map
+        - all_proof_elements
+        - offer_details
+      output: letter_1_draft
+
+    - id: apply_letter_2
+      action: apply_different_angle
+      description: "Letter 2: Completely different benefit, proof, or motive. NOT Letter 1 repeated. ~2.5% response."
+      depends_on: apply_letter_1
+      output: letter_2_draft
+
+    - id: apply_letter_3
+      action: apply_third_angle
+      description: "Letter 3: Third distinct angle. New motive or framing. Tight — limited patience at this point. ~1.5% response."
+      depends_on: apply_letter_2
+      output: letter_3_draft
+
+    - id: apply_letter_4
+      action: apply_urgency_scarcity
+      description: "Letter 4: Shift to urgency. Time limits, quantity limits, price increases. Short and direct. ~1% response."
+      depends_on: apply_letter_3
+      output: letter_4_draft
+
+    - id: apply_letter_5
+      action: apply_exhaustive_recap
+      description: "Letter 5: LONG mopping-up. Recap ALL benefits, proof, angles from previous letters. Often spikes to ~2% response."
+      depends_on: apply_letter_4
+      critical: true
+      output: letter_5_draft
+
+  error_handling:
+    - error: same_angle_repeated
+      symptom: "Letters feel like nagging; unsubscribe rate rises"
+      resolution: "Each letter must present genuinely different argument"
+    - error: strongest_saved_for_later
+      symptom: "Letter 1 underperforms; sequence starts weak"
+      resolution: "Always lead with strongest angle first"
+    - error: letter_5_too_short
+      symptom: "Final letter misses recap opportunity"
+      resolution: "Letter 5 should be longest; recaps everything exhaustively"
+    - error: no_urgency_letter_4
+      symptom: "Convinced prospects keep procrastinating"
+      resolution: "Letter 4 must give concrete reason to act NOW"
+    - error: exceeds_five_letters
+      symptom: "Sequence unprofitable; audience fatigued"
+      resolution: "Cap at 5; beyond this, prospect is not buying"
+
+  quality_gate:
+    criteria:
+      - "Each letter uses genuinely different angle"
+      - "Letter 1 uses absolute strongest angle"
+      - "Maximum 5 letters in sequence"
+      - "Letter 4 focuses on urgency/scarcity"
+      - "Letter 5 recaps ALL previous angles"
+      - "Response tracking per letter in place"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: sequence_plan
+      format: five_letter_plan
+      description: "5-letter sequence with distinct angle per letter"
+    - name: angle_mapping
+      format: matrix
+      description: "Benefit, motive, proof element per letter"
+    - name: response_benchmarks
+      format: expected_rates
+      description: "Expected response per letter (3-4%, 2.5%, 1.5%, 1%, 2%)"

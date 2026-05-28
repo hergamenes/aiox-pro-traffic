@@ -1,0 +1,698 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# WF-1: FULL PRODUCT LAUNCH (5-7 Days)
+# ═══════════════════════════════════════════════════════════════════════════════
+# Best for: Course launches, membership openings, new product releases
+# Team: Foundation (Tier 0) + Masters (Tier 1) + Systematizers (Tier 2) + Specialists (Tier 3)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+workflow:
+  id: wf-1-full-launch
+  name: "Full Product Launch"
+  type: launch
+  version: "2.0"
+  duration: "5-7 days"
+  description: |
+    Complete end-to-end workflow for product launches. Combines 15+ steps across
+    6 phases using Foundation, Masters, Systematizers, and Specialists clones.
+
+    Best suited for:
+    - Course launches
+    - Membership openings
+    - New product releases
+    - Relaunch campaigns
+  operational_roles:
+    orchestrator: copy-chief
+    human_review_agent: launch-owner
+    delivery_agent: copy-ops-worker
+  state_machine:
+    states: [init, foundation, strategy, execution-assets, email-system, final-review, complete, failed]
+    transitions:
+      - { trigger: start, source: init, dest: foundation }
+      - { trigger: foundation_complete, source: foundation, dest: strategy }
+      - { trigger: strategy_complete, source: strategy, dest: execution-assets }
+      - { trigger: execution-assets_complete, source: execution-assets, dest: email-system }
+      - { trigger: email-system_complete, source: email-system, dest: final-review }
+      - { trigger: final-review_complete, source: final-review, dest: complete }
+      - { trigger: fail, source: "*", dest: failed }
+  quality_gate_refs: [QG-CP-1.1, QG-CP-2.1, QG-CP-3.1, QG-CP-4.1, QG-CP-5.1]
+
+  prerequisites:
+    required:
+      - "Product/offer defined"
+      - "Basic avatar understanding"
+      - "Price point decided"
+    recommended:
+      - "Existing email list"
+      - "Traffic sources identified"
+      - "Testimonials/case studies available"
+
+  decision_matrix_defaults:
+    awareness_level: "problem_aware_to_solution_aware"
+    market_sophistication: "stage_3_to_4"
+    price_point: "mid_to_high"
+    traffic_temperature: "warm_to_cold"
+    primary_output: "vsl_or_sales_letter"
+
+  sequence:
+    - phase: foundation
+      id: foundation
+      agent: robert-collier
+      task_ref: tasks/analyze-mental-conversation.md
+      action: "Mapear consciência, conversa mental e base estratégica do lançamento"
+      creates: launch-foundation
+      on_complete: { trigger: foundation_complete }
+    - phase: strategy
+      id: strategy
+      agent: todd-brown
+      task_ref: tasks/create-unique-mechanism.md
+      requires: launch-foundation
+      action: "Definir mecanismo, big idea e posicionamento do lançamento"
+      creates: launch-strategy
+      on_complete: { trigger: strategy_complete }
+    - phase: execution-assets
+      id: execution-assets
+      agent: gary-halbert
+      task_ref: tasks/vsl-script.md
+      requires: launch-strategy
+      action: "Produzir os ativos centrais de copy para a oferta e a página"
+      creates: launch-assets
+      on_complete: { trigger: execution-assets_complete }
+    - phase: email-system
+      id: email-system
+      agent: andre-chaperon
+      task_ref: tasks/create-soap-opera-sequence.md
+      requires: launch-assets
+      action: "Montar sequências de e-mail e follow-up do lançamento"
+      creates: launch-email-system
+      on_complete: { trigger: email-system_complete }
+    - phase: final-review
+      id: final-review
+      agent: copy-chief
+      task_ref: tasks/simple-writing-audit.md
+      requires: launch-email-system
+      action: "Validar o pacote completo e preparar o handoff de execução"
+      creates: full-launch-package
+      on_complete: { trigger: final-review_complete }
+
+  handoff_prompts:
+    default: "Entregue o artefato criado, decisões tomadas, riscos abertos e o critério exato para o próximo agente continuar sem reinterpretar o contexto."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 1: FOUNDATION (Day 1)
+# ═══════════════════════════════════════════════════════════════════════════════
+# Clone Focus: Tier 0 (Hopkins, Schwartz, Collier)
+# Purpose: Establish scientific foundation, diagnose awareness, enter conversation
+# ═══════════════════════════════════════════════════════════════════════════════
+
+phases:
+  - id: PHASE-1
+    name: "Foundation"
+    day: 1
+    tier: 0
+    description: "Scientific foundation, awareness diagnosis, mental conversation entry"
+
+    tasks:
+      - id: "T-1.1"
+        name: "Scientific Testing Setup"
+        task_file: audit-copy-hopkins.md
+        agent: claude-hopkins
+        required: true
+        description: |
+          Establish scientific advertising principles:
+          - Define measurable outcomes
+          - Set up tracking framework
+          - Document baseline metrics
+          - Create testing hypothesis
+        outputs:
+          - "scientific-foundation.md"
+          - "testing-framework.md"
+
+      - id: "T-1.2"
+        name: "Awareness Level Diagnosis"
+        task_file: diagnose-awareness-level.md
+        agent: eugene-schwartz
+        required: true
+        description: |
+          Diagnose prospect awareness using Schwartz's 5 levels:
+          - Unaware: Don't know they have a problem
+          - Problem Aware: Know problem, not solutions
+          - Solution Aware: Know solutions exist, not yours
+          - Product Aware: Know your product, not convinced
+          - Most Aware: Know and trust, need offer
+        outputs:
+          - "awareness-diagnosis.md"
+          - "headline-direction.md"
+
+      - id: "T-1.3"
+        name: "Mental Conversation Entry"
+        task_file: analyze-mental-conversation.md
+        agent: robert-collier
+        required: true
+        description: |
+          Enter the conversation already happening in prospect's mind:
+          - Current thoughts and concerns
+          - Emotional state right now
+          - Language patterns they use
+          - Entry point for copy
+        outputs:
+          - "mental-conversation.md"
+          - "entry-strategy.md"
+
+    checkpoint:
+      criteria:
+        - "awareness_level SET"
+        - "mental_conversation DOCUMENTED"
+        - "scientific_foundation ESTABLISHED"
+      human_review: false
+      next_phase: "PHASE-2"
+      message: "Foundation complete. Awareness: {{awareness_level}}. Ready for Strategy."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 2: STRATEGY (Day 2)
+# ═══════════════════════════════════════════════════════════════════════════════
+# Clone Focus: Tier 2 (Kennedy, Todd Brown, Georgi)
+# Purpose: Avatar deep-dive, mechanism creation, production structure
+# ═══════════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-2
+    name: "Strategy"
+    day: 2
+    tier: 2
+    description: "Avatar research, mechanism creation, production structure"
+    depends_on:
+      - "PHASE-1"
+
+    tasks:
+      - id: "T-2.1"
+        name: "3Ms Avatar Research"
+        task_file: avatar-research.md
+        agent: dan-kennedy
+        required: true
+        description: |
+          Deep avatar research using Kennedy's 3Ms Triangle:
+          - Message: What resonates with them
+          - Market: Who exactly are they (specifics, not demographics)
+          - Media: Where do they consume content
+
+          Also: Starving crowd identification, urgency mapping
+        outputs:
+          - "avatar-profile.md"
+          - "3ms-analysis.md"
+          - "urgency-drivers.md"
+
+      - id: "T-2.2"
+        name: "Unique Mechanism Creation"
+        task_file: create-unique-mechanism.md
+        agent: todd-brown
+        required: true
+        depends_on:
+          - "T-2.1"
+        description: |
+          Create unique mechanism using E5 Method:
+          - Problem Mechanism: Why they've failed before
+          - Solution Mechanism: Why yours works differently
+          - Big Marketing Idea: One sentence that captures everything
+
+          Criteria: Intellectually interesting, Emotionally compelling,
+          Impossible to ignore, Single-minded
+        outputs:
+          - "problem-mechanism.md"
+          - "solution-mechanism.md"
+          - "big-idea.md"
+
+      - id: "T-2.3"
+        name: "RMBC Production Structure"
+        task_file: rmbc-method.md
+        agent: stefan-georgi
+        required: true
+        depends_on:
+          - "T-2.1"
+          - "T-2.2"
+        description: |
+          Structure copy production using RMBC Method:
+          - Research: Compile all inputs from Phase 1 & 2.1-2.2
+          - Mechanism: Incorporate Todd Brown's mechanism
+          - Brief: Create production brief for execution phase
+          - Copy: Outline structure for Day 3-4
+        outputs:
+          - "rmbc-brief.md"
+          - "copy-outline.md"
+
+    checkpoint:
+      criteria:
+        - "avatar_profile COMPLETE"
+        - "unique_mechanism DEFINED"
+        - "rmbc_brief READY"
+      human_review: true
+      review_focus:
+        - "Does the Big Idea pass the ONE sentence test?"
+        - "Is the mechanism genuinely unique?"
+        - "Does avatar research feel specific (not generic)?"
+      next_phase: "PHASE-3"
+      message: |
+        Strategy complete. Big Idea: {{big_idea_headline}}
+
+        REVIEW REQUIRED before execution:
+        - Mechanism uniqueness
+        - Avatar specificity
+        - Big Idea clarity
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 3: EXECUTION (Days 3-4)
+# ═══════════════════════════════════════════════════════════════════════════════
+# Clone Focus: Tier 1 + Tier 3 (Halbert/Carlton, Benson, Bencivenga, Makepeace)
+# Purpose: Core asset creation - Headlines, VSL/Sales Letter, Bullets, Emotion
+# ═══════════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-3
+    name: "Execution"
+    day: "3-4"
+    tier: "1+3"
+    description: "Core asset creation - Headlines, VSL/Sales Letter, Bullets, Emotional amplification"
+    depends_on:
+      - "PHASE-2"
+
+    tasks:
+      - id: "T-3.1"
+        name: "Headlines Creation (Multi-Clone)"
+        task_file: create-headlines.md
+        agent: gary-halbert
+        secondary_agents:
+          - john-carlton
+          - david-ogilvy
+        required: true
+        parallel: false
+        description: |
+          Create headline variations using multiple masters:
+
+          Gary Halbert: Story-driven, curiosity headlines
+          John Carlton: Direct benefit, SWS format
+          David Ogilvy: Research-backed, long-form
+
+          Generate:
+          - 10 Halbert-style headlines
+          - 10 Carlton-style headlines
+          - 10 Ogilvy-style headlines
+          - Top 5 for testing
+        outputs:
+          - "headlines-halbert.md"
+          - "headlines-carlton.md"
+          - "headlines-ogilvy.md"
+          - "headlines-top5.md"
+
+      - id: "T-3.2"
+        name: "VSL Script OR Sales Letter"
+        task_file: vsl-script.md
+        alternate_task: create-sales-page.md
+        agent: jon-benson
+        alternate_agent: gary-halbert
+        required: true
+        depends_on:
+          - "T-3.1"
+        decision_logic: |
+          Use VSL (Benson) if:
+          - Video platform available
+          - Product is demonstrable
+          - Audience consumes video
+
+          Use Sales Letter (Halbert) if:
+          - Text-only delivery
+          - Complex explanation needed
+          - Direct mail component
+        description: |
+          Create main sales asset:
+
+          VSL (Benson 5-Step):
+          1. Snap Suggestion Opening
+          2. Problem Amplification
+          3. Reluctant Hero Story
+          4. Solution Preview
+          5. Offer & Ethical Close
+
+          Sales Letter (Halbert AIDA):
+          1. Attention (headline)
+          2. Interest (story lead)
+          3. Desire (benefits)
+          4. Action (close)
+        outputs:
+          - "vsl-script.md"
+          - "sales-letter.md"
+
+      - id: "T-3.3"
+        name: "Fascination Bullets"
+        task_file: create-bullets.md
+        agent: gary-bencivenga
+        secondary_agents:
+          - parris-lampropoulos
+        required: true
+        depends_on:
+          - "T-3.2"
+        description: |
+          Create hypnotic bullets using Bencivenga + Lampropoulos:
+
+          Bencivenga: Fascination-style, curiosity-driven
+          Lampropoulos: High-volume, pattern variety
+
+          Generate:
+          - 30 fascination bullets (Bencivenga style)
+          - 20 benefit bullets (Lampropoulos style)
+          - Top 15 for sales asset
+          - Top 5 for ads
+        outputs:
+          - "bullets-fascinations.md"
+          - "bullets-benefits.md"
+          - "bullets-selected.md"
+
+      - id: "T-3.4"
+        name: "Emotional Amplification"
+        task_file: write-visceral-copy.md
+        agent: clayton-makepeace
+        required: true
+        depends_on:
+          - "T-3.2"
+          - "T-3.3"
+        description: |
+          Amplify emotional resonance using Makepeace:
+
+          - Identify dominant resident emotion
+          - Dimensionalize benefits (vivid pictures)
+          - Agitate pain (visceral language)
+          - Future pace victory (sensory detail)
+          - Raise stakes (cost of inaction)
+        outputs:
+          - "emotion-audit.md"
+          - "copy-amplified.md"
+
+    checkpoint:
+      criteria:
+        - "headlines CREATED (30+)"
+        - "vsl_or_sales_letter COMPLETE"
+        - "bullets CREATED (50+)"
+        - "emotional_amplification APPLIED"
+      human_review: true
+      review_focus:
+        - "Does headline pass Halbert's 'starving crowd' test?"
+        - "Does VSL/Letter follow structure?"
+        - "Are bullets genuinely fascinating (not just features)?"
+        - "Is copy visceral or cerebral?"
+      next_phase: "PHASE-4"
+      message: |
+        Execution complete. Core assets created:
+        - {{headline_count}} headlines
+        - {{asset_type}}: {{asset_name}}
+        - {{bullet_count}} bullets
+
+        REVIEW emotional resonance before email phase.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 4: EMAIL SEQUENCES (Day 5)
+# ═══════════════════════════════════════════════════════════════════════════════
+# Clone Focus: Tier 3 (Chaperon, Sugarman, Settle)
+# Purpose: SOS sequences, cart abandonment, trigger injection
+# ═══════════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-4
+    name: "Email Sequences"
+    day: 5
+    tier: 3
+    description: "Soap Opera Sequences, cart abandonment, psychological trigger injection"
+    depends_on:
+      - "PHASE-3"
+
+    tasks:
+      - id: "T-4.1"
+        name: "Soap Opera Sequence (Launch)"
+        task_file: create-soap-opera-sequence.md
+        agent: andre-chaperon
+        required: true
+        description: |
+          Create 5-email Soap Opera Sequence for launch:
+
+          Email 1: Set the Stage (character, situation, hint conflict)
+          Email 2: High Drama (intensify conflict, feel the pain)
+          Email 3: Epiphany (the aha moment, discovery)
+          Email 4: Hidden Benefits (transformation, unexpected wins)
+          Email 5: Urgency (close the loop, present offer)
+
+          Each email ends with cliffhanger for next.
+        outputs:
+          - "sos-launch-sequence.md"
+          - "email-subject-lines.md"
+
+      - id: "T-4.2"
+        name: "Cart Abandonment Sequence"
+        task_file: create-abandoned-cart.md
+        agent: joe-sugarman
+        required: true
+        depends_on:
+          - "T-4.1"
+        description: |
+          Create cart abandonment sequence with Sugarman triggers:
+
+          Email 1 (1 hour): Soft reminder + #5 Reason Why
+          Email 2 (24 hours): Story + #14 Storytelling + #7 Honesty
+          Email 3 (48 hours): Urgency + #11 Guilt + #26 Hope
+          Email 4 (72 hours): Final + #17 Fear + #29 Sense of Urgency
+
+          Inject 3-5 triggers naturally per email.
+        outputs:
+          - "cart-abandonment-sequence.md"
+          - "triggers-applied.md"
+
+      - id: "T-4.3"
+        name: "Post-Purchase Sequence"
+        task_file: create-email-sequence.md
+        agent: ben-settle
+        required: false
+        depends_on:
+          - "T-4.1"
+        description: |
+          Create post-purchase nurture sequence (optional):
+
+          Email 1: Welcome + next steps
+          Email 2: Quick win tutorial
+          Email 3: Community invitation
+          Email 4: Cross-sell soft mention
+          Email 5: Referral request
+
+          Settle style: conversational, infotainment.
+        outputs:
+          - "post-purchase-sequence.md"
+
+    checkpoint:
+      criteria:
+        - "sos_sequence COMPLETE (5 emails)"
+        - "cart_abandonment COMPLETE (4 emails)"
+        - "triggers_applied DOCUMENTED"
+      human_review: false
+      next_phase: "PHASE-5"
+      message: |
+        Email sequences complete:
+        - Launch SOS: 5 emails
+        - Cart abandonment: 4 emails
+        - Triggers applied: {{trigger_count}}
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 5: OPTIMIZATION (Days 6-7)
+# ═══════════════════════════════════════════════════════════════════════════════
+# Clone Focus: Tier 0 (Hopkins) + Tier 3 (Sugarman)
+# Purpose: Scientific audit, trigger injection, final QC
+# ═══════════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-5
+    name: "Optimization"
+    day: "6-7"
+    tier: "0+3"
+    description: "Scientific audit, psychological trigger injection, final quality control"
+    depends_on:
+      - "PHASE-4"
+
+    tasks:
+      - id: "T-5.1"
+        name: "Scientific Copy Audit"
+        task_file: audit-copy-hopkins.md
+        agent: claude-hopkins
+        required: true
+        description: |
+          Audit all copy against Hopkins principles:
+
+          - Specific claims (not vague)
+          - Measurable promises
+          - Reason-why copy
+          - Tested assumptions
+          - No waste words
+
+          Generate:
+          - Audit report with scores
+          - Specific improvement recommendations
+          - A/B test suggestions
+        outputs:
+          - "audit-report.md"
+          - "ab-test-recommendations.md"
+
+      - id: "T-5.2"
+        name: "Sugarman Trigger Injection"
+        task_file: apply-sugarman-triggers.md
+        agent: joe-sugarman
+        required: true
+        depends_on:
+          - "T-5.1"
+        description: |
+          Apply Sugarman's 30 psychological triggers:
+
+          Commonly missed (prioritize):
+          - #5 Reason Why
+          - #7 Honesty
+          - #14 Storytelling
+          - #16 Specificity
+          - #26 Hope
+
+          Warning: Natural integration (15-20 triggers).
+          30 triggers = overkill, breaks trust.
+        outputs:
+          - "triggers-audit.md"
+          - "copy-with-triggers.md"
+
+      - id: "T-5.3"
+        name: "Final Quality Control"
+        task_file: audit-landing-page.md
+        agent: claude-hopkins
+        secondary_agents:
+          - eugene-schwartz
+          - robert-collier
+        required: true
+        depends_on:
+          - "T-5.1"
+          - "T-5.2"
+        description: |
+          Final QC with Foundation clones:
+
+          Hopkins: Scientific soundness
+          Schwartz: Awareness match
+          Collier: Entry point validity
+
+          Checklist:
+          - [ ] Headlines match awareness level
+          - [ ] Mechanism is unique and clear
+          - [ ] Bullets are fascinating (not feature lists)
+          - [ ] Emotion is visceral (not cerebral)
+          - [ ] CTAs are clear and urgent
+          - [ ] Triggers integrated naturally
+        outputs:
+          - "final-qc-report.md"
+          - "launch-ready-assets.md"
+
+    checkpoint:
+      criteria:
+        - "audit COMPLETE"
+        - "triggers INJECTED (15-20)"
+        - "qc PASSED"
+      human_review: true
+      review_focus:
+        - "Are all Hopkins audit items addressed?"
+        - "Do triggers feel natural (not forced)?"
+        - "Is copy ready for launch?"
+      next_phase: "COMPLETE"
+      message: |
+        Optimization complete. Launch ready.
+
+        Final Status:
+        - Audit score: {{audit_score}}/100
+        - Triggers applied: {{trigger_count}}
+        - QC status: {{qc_status}}
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# COMPLETION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+completion:
+  signal: "<promise>COMPLETE</promise>"
+
+  deliverables:
+    foundation:
+      - "scientific-foundation.md"
+      - "awareness-diagnosis.md"
+      - "mental-conversation.md"
+    strategy:
+      - "avatar-profile.md"
+      - "3ms-analysis.md"
+      - "problem-mechanism.md"
+      - "solution-mechanism.md"
+      - "big-idea.md"
+      - "rmbc-brief.md"
+    execution:
+      - "headlines-top5.md"
+      - "vsl-script.md OR sales-letter.md"
+      - "bullets-selected.md"
+      - "copy-amplified.md"
+    email:
+      - "sos-launch-sequence.md"
+      - "cart-abandonment-sequence.md"
+      - "post-purchase-sequence.md (optional)"
+    optimization:
+      - "audit-report.md"
+      - "copy-with-triggers.md"
+      - "final-qc-report.md"
+      - "launch-ready-assets.md"
+
+  clone_combinations_used:
+    foundation:
+      - "Hopkins + Schwartz + Collier (Tier 0 diagnostic)"
+    strategy:
+      - "Kennedy + Todd Brown (avatar + mechanism)"
+      - "Todd Brown + Georgi (mechanism + production)"
+    execution:
+      - "Halbert + Carlton + Ogilvy (headline mastery)"
+      - "Benson OR Halbert (VSL vs Letter)"
+      - "Bencivenga + Lampropoulos (bullet power)"
+      - "Makepeace (emotional amplification)"
+    email:
+      - "Chaperon + Sugarman (SOS + triggers)"
+      - "Settle (post-purchase optional)"
+    optimization:
+      - "Hopkins + Sugarman (testing + triggers)"
+
+  success_metrics:
+    - "15+ steps completed across 6 days"
+    - "30+ headlines generated"
+    - "50+ bullets created"
+    - "15-20 Sugarman triggers applied"
+    - "All QC items passed"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SIGNALS & CONTROL
+# ═══════════════════════════════════════════════════════════════════════════════
+
+signals:
+  checkpoint: "<promise>CHECKPOINT:PHASE-{{phase_id}}</promise>"
+  blocked: "<promise>BLOCKED:{{task_id}}</promise>"
+  complete: "<promise>COMPLETE</promise>"
+
+  phase_complete_pattern: |
+    When all tasks in a phase pass their criteria:
+    1. Log phase completion to progress.txt
+    2. Update copy-state.json with phase status
+    3. Emit checkpoint signal if human_review: true
+    4. Auto-advance if human_review: false
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  created: "2026-01-23"
+  version: "2.0"
+  author: "Copy Expansion Pack"
+  source: "Enhanced Workflows Framework v2.0"
+
+  historical_notes:
+    - "Hopkins moved to Tier 0 (Foundation) - scientific testing first"
+    - "Dan Kennedy uses 3Ms (not 4Ms)"
+    - "Benson 5-Step VSL vs Halbert AIDA Letter as decision point"
+    - "Sugarman has 30 triggers (not 31)"
+    - "Carlton and Halbert were partners (not student/teacher)"
+
+  compatible_with:
+    - "copy.sh v1.0+"
+    - "Ralph parallel execution"
+    - "MMOS cognitive clones (enhanced mode)"

@@ -1,0 +1,112 @@
+sop:
+  id: tb-mechanism-strength-test
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Unique Mechanism Strength Test"
+  purpose: >
+    Evaluate the strength and viability of a Unique Mechanism before it enters
+    copy or campaign production. Prevents weak, generic, or disconnected mechanisms
+    from reaching production using Todd Brown's 5-dimension test.
+  classification:
+    domain: copywriting
+    category: systematizer
+    subcategory: quality-gate
+    source_agent: todd-brown
+    tier: T2
+  status: ACTIVE
+
+  trigger:
+    event: mechanism_candidate_ready
+    conditions:
+      - agent == "todd-brown"
+      - phase in ["big-idea-development", "e5-planning", "mechanism-review"]
+
+  context:
+    input:
+      - mechanism_statement: string
+      - product_description: string
+      - competitor_mechanisms: list
+      - problem_mechanism: string
+      - market_awareness_level: enum[unaware, problem_aware, solution_aware, product_aware, most_aware]
+    required_knowledge:
+      - todd-brown/thinking_dna.yaml
+
+  steps:
+    - id: step_01
+      action: validate_substitution
+      description: "Swap product for competitor — does copy still work the same?"
+      check: "mechanism is NOT interchangeable with competitor product"
+      scoring: "pass = STRONG | fail = WEAK"
+      on_success: continue
+      on_failure:
+        action: flag
+        severity: critical
+        message: "WEAK — Mechanism is interchangeable. Find unique differentiator."
+
+    - id: step_02
+      action: validate_specificity
+      description: "Does the mechanism have its own proprietary name?"
+      check: "proprietary_name is not null AND is not generic_descriptor"
+      scoring: "pass = SPECIFIC | fail = GENERIC"
+      on_success: continue
+      on_failure:
+        action: flag
+        severity: high
+        message: "GENERIC — Create proprietary name that captures differentiator."
+
+    - id: step_03
+      action: validate_novelty
+      description: "Has the market already heard this mechanism?"
+      check: "mechanism not in competitor_mechanisms AND not market_saturated"
+      scoring: "pass = NOVEL | fail = needs Mechanism 2.0 reframe"
+      on_success: continue
+      on_failure:
+        action: flag
+        severity: high
+        message: "SATURATED — Needs Mechanism 2.0 reframe with new angle."
+
+    - id: step_04
+      action: validate_clarity
+      description: "Can a 12-year-old understand the mechanism?"
+      check: "explanation_complexity <= grade_6_reading_level"
+      scoring: "pass = CLEAR | fail = TOO COMPLEX"
+      on_success: continue
+      on_failure:
+        action: flag
+        severity: medium
+        message: "TOO COMPLEX — Simplify to one clear sentence."
+
+    - id: step_05
+      action: validate_connection
+      description: "Does solution mechanism directly counter the problem mechanism?"
+      check: "solution_mechanism addresses root_cause of problem_mechanism"
+      scoring: "pass = CONNECTED | fail = DISCONNECTED"
+      on_success: continue
+      on_failure:
+        action: flag
+        severity: critical
+        message: "DISCONNECTED — Solution doesn't address why previous solutions failed."
+
+  error_handling:
+    max_retries: 3
+    on_max_retries: escalate_to_copy_chief
+    fallback: return_scorecard_with_rework_instructions
+
+  quality_gate:
+    min_pass_rate: 1.0
+    min_steps_passed: 5
+    critical_steps: [step_01, step_05]
+    verdict_map:
+      5_pass: STRONG
+      3_4_pass: NEEDS_WORK
+      0_2_pass: WEAK
+
+  outputs:
+    - mechanism_scorecard: object
+    - overall_verdict: enum[STRONG, NEEDS_WORK, WEAK]
+    - failed_dimensions: list
+    - rework_instructions: list
+    - approved_mechanism_statement: string | null

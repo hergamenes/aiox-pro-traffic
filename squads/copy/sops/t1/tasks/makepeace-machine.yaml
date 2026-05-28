@@ -1,0 +1,88 @@
+sop:
+  id: makepeace-machine
+  version: "1.0"
+  title: "The Makepeace Machine (5-Phase Health/Finance Formula)"
+  purpose: "Execute 5-phase long-form copy formula producing 5000-8500 words with 40+ proof elements for health/finance markets"
+  classification:
+    domain: copywriting
+    category: master
+    tier: T1
+    source_agent: clayton-makepeace
+
+  inputs:
+    - name: esp_statement
+      type: text
+      required: true
+    - name: product_research
+      type: document
+      required: true
+    - name: clinical_studies
+      type: collection
+      required: true
+    - name: testimonials
+      type: collection
+      required: true
+    - name: expert_endorsements
+      type: collection
+      required: true
+
+  outputs:
+    - name: complete_long_form_copy
+      type: document
+      description: "5000-8500 word copy in 5 phases with ESP thread"
+    - name: proof_elements
+      type: list
+      description: "40+ cataloged proof elements integrated into copy"
+
+  steps:
+    - id: phase_01
+      action: write_wake_up_call
+      description: "Shock prospect with alarming reality (500-1000 words): scary data, catastrophic story, or confrontational question"
+      critical: true
+      error_handling:
+        condition: "phase_too_mild"
+        action: "intensify_with_specific_data_real_stories_personal_stakes"
+
+    - id: phase_02
+      action: reveal_hidden_enemy
+      description: "Identify villain/root cause mainstream ignores (800-1500 words): demonize enemy, create us-vs-them alliance"
+      critical: true
+      error_handling:
+        condition: "enemy_vague_or_unnamed"
+        action: "name_specific_villain_with_specific_evidence"
+
+    - id: phase_03
+      action: present_breakthrough
+      description: "Introduce solution as discovery (1000-2000 words): simple mechanism, discoverer credentials, clinical proof with numbers"
+      critical: true
+      error_handling:
+        condition: "mechanism_too_complex"
+        action: "simplify_until_12_year_old_could_understand"
+
+    - id: phase_04
+      action: stack_proof_avalanche
+      description: "Bury objections with 40+ proof elements (1500-3000 words): testimonials, studies, endorsements, before/after"
+      critical: true
+      error_handling:
+        condition: "fewer_than_40_proof_elements"
+        action: "add_proof_elements_until_40_minimum_reached"
+
+    - id: phase_05
+      action: execute_inevitable_close
+      description: "Make NOT-buying riskier than buying (500-1000 words): risk reversal, negative future pacing, ESP at max, 3+ CTAs"
+      critical: true
+      error_handling:
+        condition: "close_focuses_on_features_not_risk"
+        action: "lead_with_guarantee_and_negative_future_pacing"
+
+  quality_gate:
+    min_criteria_met: 6
+    criteria:
+      - "phase_1_creates_genuine_alarm_500_1000_words"
+      - "phase_2_names_specific_villain_800_1500_words"
+      - "phase_3_mechanism_understandable_by_12_year_old"
+      - "phase_4_contains_40_plus_proof_elements"
+      - "phase_5_includes_risk_reversal_and_negative_pacing"
+      - "total_word_count_5000_to_8500"
+      - "esp_thread_runs_through_all_phases"
+      - "phases_complete_in_order_no_blending"

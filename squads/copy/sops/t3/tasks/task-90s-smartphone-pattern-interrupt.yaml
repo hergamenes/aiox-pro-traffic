@@ -1,0 +1,71 @@
+sop:
+  id: task-90s-smartphone-pattern-interrupt
+  version: "1.0"
+  title: "90-Second Smartphone Pattern Interrupt"
+  purpose: "Create a 90-second smartphone video for sales page headers that captures attention and bridges to the full sales content below"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: jon-benson
+    tier: T3
+
+  inputs:
+    - name: existing_sales_page
+      type: document
+      required: true
+      description: "Sales page where video will be placed"
+    - name: equipment
+      type: object
+      required: true
+      description: "Smartphone, lavalier mic, teleprompter app"
+
+  outputs:
+    - name: video_script
+      type: document
+      description: "90-second video script formatted for teleprompter"
+
+  steps:
+    - id: step_1
+      action: write_opening_hook
+      description: "Special Time in History + Primary Goal + 2 Benefits + Hook (under 20 seconds)"
+      critical: true
+      max_duration_seconds: 20
+
+    - id: step_2
+      action: create_testimonial_montage
+      description: "Rapid testimonial clips/quotes followed by counterintuitive approach reveal"
+      max_duration_seconds: 20
+
+    - id: step_3
+      action: present_results_range
+      description: "Show results from small to big, name the shortcut/system"
+
+    - id: step_4
+      action: create_open_loop
+      description: "Explicit open loop + modest intro (first name only)"
+
+    - id: step_5
+      action: write_close
+      description: "Acknowledge challenge + reverse to optimism + scarcity + single CTA"
+      critical: true
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "Total video length is 85-95 seconds"
+      - "Hook delivered within first 10 seconds"
+      - "Results show range from small to large"
+      - "Named shortcut creates curiosity"
+      - "CTA is singular and clear"
+      - "Video feels authentic not overproduced"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies: []
+
+  related_sops:
+    - task-vsl-5-step
+    - task-alpha-omega-optimization
+    - task-testimonial-flip

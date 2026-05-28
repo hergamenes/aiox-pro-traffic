@@ -1,0 +1,487 @@
+# COPYWRITERS FRAMEWORKS CONSOLIDATED
+# Extraido dos livros originais + frameworks existentes no squad
+# Data: 2026-01-23
+
+# ============================================================================
+# EUGENE SCHWARTZ - BREAKTHROUGH ADVERTISING
+# ============================================================================
+
+schwartz:
+  meta:
+    book: "Breakthrough Advertising"
+    status: "Bible of Copywriting"
+    core_principle: "Mass Desire cannot be created, only channeled"
+    amplification_effect: "$1 in advertising can create $50-$100 in sales when exploiting existing desire"
+
+  # ---------------------------------------------------------------------------
+  # 5 NIVEIS DE AWARENESS (do prospect)
+  # ---------------------------------------------------------------------------
+  awareness_levels:
+    overview: "How much does your prospect know about your product?"
+    rule: "Awareness level determines headline strategy"
+
+    level_1_most_aware:
+      description: "Knows product, wants it, just needs price/deal"
+      headline_strategy: "Name product + price directly"
+      example: "ZIPPO LIGHTER - YOURS FOR $6"
+      when_to_use: "Strong brand, returning customers, known product"
+
+    level_2_product_aware:
+      description: "Knows product but not convinced/wants it yet"
+      headline_strategy: "Strengthen desire with proof/benefits"
+      example: "NEW GREASELESS WAY TO REMOVE DANDRUFF - starts working instantly"
+      when_to_use: "Competitive market, need to stand out"
+
+    level_3_solution_aware:
+      description: "Wants what product does but doesn't know product exists"
+      headline_strategy: "Lead with benefit/solution, then reveal product"
+      example: "HOW TO WIN FRIENDS AND INFLUENCE PEOPLE"
+      when_to_use: "New product in established category"
+
+    level_4_problem_aware:
+      description: "Has need but doesn't realize connection to product"
+      headline_strategy: "Start with problem, agitate, then solution"
+      example: "DO YOU MAKE THESE MISTAKES IN ENGLISH?"
+      when_to_use: "Prospect knows pain but not that solution exists"
+
+    level_5_completely_unaware:
+      description: "Not aware of desire/need, won't admit it, or too vague"
+      headline_strategy: "IDENTIFICATION - cannot mention product, price, function, or desire"
+      examples:
+        - "THE UNIVERSITY OF THE NIGHT"
+        - "WHY MEN CRACK..."
+        - "THEY LAUGHED WHEN I SAT DOWN AT THE PIANO"
+        - "OFTEN A BRIDESMAID BUT NEVER A BRIDE"
+      when_to_use: "Saturated market, exhausted claims, taboo topics"
+      warning: "Most difficult - easy to miss the mark"
+
+  # ---------------------------------------------------------------------------
+  # 5 ESTAGIOS DE SOFISTICACAO DO MERCADO
+  # ---------------------------------------------------------------------------
+  sophistication_stages:
+    overview: "How many similar products have they been told about before?"
+    rule: "Sophistication stage determines claim strategy"
+
+    stage_1_first_in_market:
+      description: "No sophistication - never received info about such product"
+      strategy: "Be simple. Be direct. Name need or claim - nothing more"
+      example: "NOW! LOSE UGLY FAT!"
+      advantages:
+        - "Prospect more enthusiastic"
+        - "Believes more of what you say"
+        - "Buys more readily"
+        - "Story is brand-new to them"
+
+    stage_2_second_in_market:
+      description: "Direct claim is working - copy it but enlarge"
+      strategy: "Copy successful claim but AMPLIFY to the limit"
+      examples:
+        - "LOSE UP TO 47 POUNDS IN 4 WEEKS—OR RECEIVE $40 BACK!"
+        - "I AM 61 POUNDS LIGHTER...NEVER A HUNGRY MINUTE"
+        - "WHO EVER HEARD OF 17,000 BLOOMS FROM A SINGLE PLANT?"
+      warning: "Eventually pushes out of believability"
+
+    stage_3_mechanism_emerges:
+      description: "Market heard all claims in all extremes - skeptical"
+      strategy: "NEW MECHANISM - new way to make old promise work"
+      shift: "Emphasis from WHAT product does to HOW it works"
+      examples:
+        - "FLOATS FAT RIGHT OUT OF YOUR BODY!"
+        - "FIRST WONDER DRUG FOR REDUCING!"
+      structure: "Mechanism in headline, claim abbreviated or in subhead"
+
+    stage_4_mechanism_elaboration:
+      description: "Competitors copied your mechanism"
+      strategy: "Elaborate/enlarge the MECHANISM (not the promise)"
+      examples:
+        - "FIRST NO-DIET REDUCING WONDER DRUG!"
+        - "PHILIP MORRIS—ALL THE HARSHNESS BAKED OUT!"
+      warning: "Eventually pushes mechanism out of believability too"
+
+    stage_5_market_exhausted:
+      description: "Market no longer believes advertising"
+      strategy: "IDENTIFICATION - emphasis shifts to prospect himself"
+      examples:
+        - "WHY MEN CRACK... (Postum)"
+        - "Marlboro Virile Men visual ads"
+        - "BLOW SOME MY WAY (cigarettes for women)"
+      technique: "No mechanisms or claims - just strong visual/emotional identification"
+
+  # ---------------------------------------------------------------------------
+  # 38 WAYS TO STRENGTHEN HEADLINES
+  # ---------------------------------------------------------------------------
+  headline_strengthening:
+    purpose: "Verbalization - increase impact by HOW claim is stated"
+
+    techniques:
+      1_measure_size: "20,000 FILTER TRAPS IN VICEROY!"
+      2_measure_speed: "IN TWO SECONDS, BAYER ASPIRIN BEGINS TO DISSOLVE"
+      3_compare: "SIX TIMES WHITER WASHES!"
+      4_metaphorize: "MELTS AWAY UGLY FAT!"
+      5_sensitize: "TASTES LIKE YOU JUST PICKED IT!"
+      6_demonstrate_example: "AT 60 MILES AN HOUR, THE LOUDEST NOISE IS THE ELECTRIC CLOCK"
+      7_dramatize_result: "THEY LAUGHED WHEN I SAT DOWN AT THE PIANO"
+      8_state_paradox: "HOW A BALD-HEADED BARBER SAVED MY HAIR!"
+      9_remove_limitations: "SHRINKS HEMORRHOIDS WITHOUT SURGERY!"
+      10_associate_values: "9 OUT OF 10 DECORATORS USE WUNDAWEAVE CARPETS"
+      11_show_detailed_work: "RELIEVES CONGESTION IN ALL 7 NASAL PASSAGES"
+      12_state_as_question: "WHO ELSE WANTS A WHITER WASH—WITH NO HARD WORK?"
+      13_offer_information: "HOW TO WIN FRIENDS AND INFLUENCE PEOPLE"
+      14_tie_authority: "BOSS MECHANIC SHOWS HOW TO AVOID ENGINE REPAIR BILLS"
+      15_before_and_after: "BEFORE COLDENE...5 DAYS OF ACHING. WITH COLDENE...5 DAYS"
+      16_stress_newness: "ANNOUNCING! GUIDED MISSILE SPARK PLUGS!"
+      17_stress_exclusivity: "ONLY GLEEM HAS GL-70"
+      18_turn_into_challenge: "WHICH TWIN HAS THE TONI?"
+      19_case_history_quotation: "LOOK, MOM—NO CAVITIES!"
+      20_condense_interchange: "POUR YOURSELF A NEW ENGINE!"
+      21_symbolize: "THE ATLANTIC OCEAN BECOMES ONLY ONE-FIFTH AS LONG!"
+      22_connect_mechanism_to_claim: "FLOATS FAT RIGHT OUT OF YOUR BODY!"
+      23_contradict_expectation: "HIT HELL OUT OF THE BALL WITH YOUR RIGHT HAND"
+      24_connect_need_and_claim: "THERE IS ONLY ONE SOLUTION TO AN ADVERTISING PROBLEM"
+      25_offer_info_in_ad: "WHAT EVERYBODY OUGHT TO KNOW ABOUT THIS STOCK"
+      26_turn_into_case_history: "AGAIN SHE ORDERS—A CHICKEN SALAD, PLEASE"
+      27_name_the_problem: "WHEN YOU'RE WEARY WITH DAY-TIME FATIGUE"
+      28_warn_about_pitfalls: "DON'T INVEST UNTIL YOU CHECK THIS GUIDE!"
+      29_emphasize_by_phrasing: "NOBODY BUT NOBODY UNDERSELLS GIMBEL'S!"
+      30_show_easy_with_limitation: "IF YOU CAN COUNT TO ELEVEN..."
+      31_state_the_difference: "THE DIFFERENCE IS RIGHT IN THE ADDITIVES!"
+      32_surprise_limitations_overcome: "SEE WHAT HAPPENS WHEN YOU CRUSH IT? NOTHING!"
+      33_address_non_buyers: "IF YOU'VE ALREADY TAKEN YOUR VACATION, DON'T READ THIS"
+      34_address_directly: "TO THE MAN WHO WILL SETTLE FOR NOTHING LESS"
+      35_dramatize_production_difficulty: "WE HAD TO INVENT A WHOLE NEW KIND OF CANDLE"
+      36_accuse_of_being_too_good: "IS IT IMMORAL TO MAKE MONEY THIS EASILY?"
+      37_challenge_limiting_beliefs: "YOU ARE TWICE AS SMART AS YOU THINK"
+      38_question_and_answer: "YOU DON'T KNOW WHAT'S UNDER THE HOOD...WHO SHOULD YOU SEE?"
+
+  # ---------------------------------------------------------------------------
+  # 3 DIMENSOES DA MENTE DO PROSPECT
+  # ---------------------------------------------------------------------------
+  mind_dimensions:
+    overview: "Three dimensions that determine ad length, structure, style and pace"
+
+    desires:
+      definition: "Wants, needs, cravings, thirsts, hungers, lusts"
+      types: [physical, material, sensual]
+      rule: "Cannot create, diminish, or battle - only expand, sharpen, channel"
+      task: "Make prospect WANT - sharpen desire, picture fulfillment"
+      technique: "Intensification"
+
+    identifications:
+      definition: "Roles prospect wants to play, personality traits to build/project"
+      examples: [prestige, success, status, youthful image]
+      rule: "Each purchase serves double duty - functional + identity"
+      task: "Show prestigious group he joins, picture people in product's world"
+      technique: "Chapter 8 - Identification"
+
+    beliefs:
+      definition: "Opinions, attitudes, prejudices, conceptions of reality"
+      rule: "Advertising cannot argue with them - must work with them"
+      task: "Build conviction using THEIR logic, not yours"
+      technique: "Chapters 9-10 - Graduation and Redefinition"
+
+  # ---------------------------------------------------------------------------
+  # 13 TECNICAS DE INTENSIFICACAO
+  # ---------------------------------------------------------------------------
+  intensification_techniques:
+    overview: "First mechanism of persuasion - building desire through fresh images"
+
+    1_present_directly:
+      description: "Thorough, detailed description of appearance/results"
+      when: "First presentation of claims"
+
+    2_put_in_action:
+      description: "Show HOW product works, not just what it gives"
+      when: "After main description"
+
+    3_bring_in_reader:
+      description: "Put reader in middle of product-in-action story"
+      technique: "Verbal demonstration of first day owning product"
+
+    4_show_how_to_test:
+      description: "Let reader visualize proving performance"
+      technique: "Turn demonstration into test they can do"
+
+    5_stretch_in_time:
+      description: "Show product at work over weeks and months"
+      technique: "Extend vision further into time - continuous flow of benefits"
+
+    6_bring_in_audience:
+      description: "Other actors provide fresh perspective"
+      types: [celebrities, ordinary people, testimonials, case histories]
+
+    7_show_experts_approving:
+      description: "Expert astonishment - nothing so astounding as expert amazement"
+      elements: [surprise, competition, discovery]
+
+    8_compare_contrast:
+      description: "Lay disadvantages of old beside advantages of new"
+      technique: "Sharp relief through side-by-side comparison"
+
+    9_picture_black_side:
+      description: "Heaven-Or-Hell approach"
+      technique: "Irritate wound, then apply salve that heals"
+      power: "Two currents - repulsion from problem + attraction to solution"
+
+    10_show_how_easy:
+      description: "Ease of application vs tremendous benefits"
+      technique: "30 seconds work = 8 different improvements"
+
+    11_use_metaphor:
+      description: "Imagination, analogy, personification"
+      examples:
+        - "First he whispers, then he shouts (Big Ben)"
+        - "The Glory of the Upward Path (Alexander Hamilton)"
+
+    12_summarize_catalog:
+      description: "Condensed listing of all benefits/applications"
+      types:
+        horizontal: "Ever-enlarging groups of applications"
+        vertical: "Deepening/magnifying desire"
+      purpose: "Shotgun approach after rifle precision"
+
+    13_guarantee_as_climax:
+      description: "Turn guarantee into final summary"
+      technique: "Restate benefits reinforced by guarantee at every step"
+
+  # ---------------------------------------------------------------------------
+  # CORE QUOTES
+  # ---------------------------------------------------------------------------
+  core_quotes:
+    mass_desire: "You cannot create desire. You can only take the hopes, dreams, fears and desires that already exist and focus those existing desires onto a particular product."
+    physical_vs_functional: "Physical product = what it IS. Functional product = what it DOES."
+    headline_job: "The job of the headline is not to sell - but simply to get them to read the first paragraph."
+    copy_length: "Copy can never be too long, only too boring."
+    creativity: "The solution to the unique lies only in itself."
+
+# ============================================================================
+# TIER 1 - MASTERS CONSOLIDADOS (dos frameworks existentes)
+# ============================================================================
+
+tier_1_masters:
+  overview:
+    qualification: "$500M+ documented sales"
+    when_to_use: "To WRITE high-conversion copy after Tier 0 diagnosis"
+
+  bencivenga:
+    id: "GB04"
+    specialty: "Fascinations/bullets, objection breaking"
+    unique: "NEVER lost a split-run test at Rodale"
+    fascination_formula: ["Specific benefit", "Curiosity gap", "Specificity"]
+    objection_method:
+      - "LIST all possible objections"
+      - "RANK by frequency and importance"
+      - "ANTICIPATE in copy (before reader thinks it)"
+      - "NEUTRALIZE with logic or proof"
+      - "TRANSFORM objection into benefit"
+
+  halbert:
+    id: "GH05"
+    specialty: "Personal sales letters, storytelling"
+    iconic: "Family Crest Letter - 600 MILLION mailed"
+    principles:
+      starving_crowd: "Market > Product. Find people DESPERATE for solution."
+      slippery_slide: "Each sentence makes you read the next. No exit points."
+      formatting:
+        - "2-3 line paragraphs max"
+        - "Wide margins (easy to read)"
+        - "Underline (not bold)"
+        - "5th grade vocabulary"
+        - "Powerful PS (often read first)"
+
+  makepeace:
+    id: "CM06"
+    specialty: "Emotional/visceral copy - Health, Financial"
+    results: "$1.5 BILLION over 45 years"
+    core_concept:
+      name: "Dominant Resident Emotion (DRE)"
+      definition: "The PRIMARY emotion prospect feels about topic"
+      rule: "Copy must MATCH and AMPLIFY this emotion"
+    techniques:
+      vivid_sensory: "Weak: 'more energy' → Strong: 'wave of vitality surge through your body'"
+      pain_agitation: "Knot in stomach, cold sweat, fear in children's eyes"
+      future_pacing: "90 days from now, you'll look in the mirror and..."
+
+  lampropoulos:
+    id: "PL08"
+    specialty: "Fascinations, health magalogs"
+    iconic:
+      publication: "Bottom Line Health"
+      duration: "12 YEARS as control"
+      performance: "250% better than previous control"
+    bullet_techniques:
+      - "Extreme specificity (numbers, pages)"
+      - "Impossible-to-ignore curiosity"
+      - "Benefit implied in the mystery"
+      - "Proof embedded in formulation"
+
+# ============================================================================
+# TIER 2 - SYSTEMATIZERS CONSOLIDADOS
+# ============================================================================
+
+tier_2_systematizers:
+  overview:
+    purpose: "Teachable systems and replicable frameworks"
+    when_to_use: "To STRUCTURE process and train teams"
+
+  kennedy:
+    id: "DK10"
+    specialty: "High-ticket, direct marketing systems"
+    framework:
+      name: "3Ms Triangle"
+      components:
+        market: "High-probability target - those most likely to respond"
+        message: "Compelling, irresistible marketing message"
+        media: "Most effective combination to deliver message"
+      rule: "All 3 must align. Failure in any = campaign fails."
+    avatar_questions:
+      pain: "What keeps this person awake at night?"
+      blame: "Who do they BLAME for their problems?"
+      hidden_desires: "What do they secretly want but are ashamed to admit?"
+      identity: "How do they want to be seen by others?"
+
+  todd_brown:
+    id: "TB11"
+    specialty: "Big Marketing Idea, differentiation in saturated markets"
+    core_problem: "How do you sell when everyone promises same benefits?"
+    two_mechanisms:
+      problem_mechanism:
+        definition: "Why problem exists and why previous solutions failed"
+        template: "The reason [common approach] doesn't work is because [hidden cause]..."
+        goal: "Make them think 'THAT'S why nothing worked!'"
+      solution_mechanism:
+        definition: "Why your solution works when others don't"
+        template: "What makes [your solution] different is [mechanism]..."
+    big_marketing_idea:
+      formula: "Intellectually Interesting + Emotionally Compelling + Specific + Exclusive"
+      test: "Can you describe it in ONE sentence?"
+
+  georgi:
+    id: "SG12"
+    specialty: "Copy production system at scale"
+    results:
+      sales: "$700M+ documented"
+      hit_rate: "80% (vs 30-40% industry average)"
+    rmbc_method:
+      R_research:
+        allocation: "40% of total project time"
+        sources: ["Amazon reviews", "Forums", "YouTube comments", "Customer interviews"]
+      M_mechanism:
+        problem_mechanism: "Why problem exists, why solutions failed"
+        solution_mechanism: "How product solves differently"
+      B_brief:
+        rule: "Answer in COPY FORMAT (not bullet points)"
+        output: "Multiple pre-written copy chunks"
+      C_copy:
+        approach: "ASSEMBLE from brief, not write from scratch"
+        structure: ["Lead", "Background story", "Problem mechanism", "Solution mechanism", "Product build-up", "Offer + CTA"]
+
+  carlton:
+    id: "JC13"
+    specialty: "Aggressive, direct, no-fluff copy"
+    iconic: "One-Legged Golfer headline"
+    simple_writing_system:
+      rule_1: "ONE idea per sentence"
+      rule_2: "ONE idea per paragraph"
+      rule_3: "NO unnecessary words"
+      rule_4: "SPEAK to lizard brain - primitive instincts first, logic after"
+
+# ============================================================================
+# TIER 3 - FORMAT SPECIALISTS CONSOLIDADOS
+# ============================================================================
+
+tier_3_specialists:
+  overview:
+    purpose: "Masters of specific formats"
+    when_to_use: "When output format is already determined"
+
+  benson:
+    id: "JB14"
+    specialty: "Video Sales Letters (VSL)"
+    invention: "Created VSL format in 2006"
+    attribution: "$12 BILLION in sales via VSL format"
+    vsl_formula:
+      step_1_snap: "0-15 sec - Strong pattern interrupt, specific promise"
+      step_2_usp: "15-60 sec - Why this video is different"
+      step_3_story: "1-5 min - Origin story, problem, discovery"
+      step_4_education: "5-15 min - Deliver real value, teach core concept"
+      step_5_pitch: "15-30 min - Value stack, guarantee, CTA"
+    production_rules:
+      - "ONE SLIDE = ONE IDEA"
+      - "1-2 seconds per slide"
+      - "NO viewer control (no skip/accelerate)"
+
+  settle:
+    id: "BS15"
+    specialty: "Daily Email, Infotainment"
+    model: "Email every day + monthly physical newsletter"
+    infotainment:
+      definition: "Information + Entertainment"
+      is: "Email that feels like from a friend, strong opinion, story + lesson + pitch"
+      is_not: "Boring corporate newsletter, pure promotion"
+    principles:
+      daily_email: "Email every day - consistency creates expectation"
+      three_x_personality: "Take your personality, multiply by 3"
+      polarization: "No fear of polarizing - clear opinion attracts and repels"
+      always_sell: "Every email has CTA, but sale embedded in value"
+
+  chaperon:
+    id: "AC16"
+    specialty: "Soap Opera Sequences, automated sequences"
+    result: "$10-50 per subscriber (vs $1 industry average)"
+    soap_opera_sequence:
+      concept: "Emails that tell story in parts - each opens a 'loop'"
+      psychological_basis:
+        name: "Zeigarnik Effect"
+        definition: "Mind cannot forget incomplete tasks"
+        application: "Open loop creates 'mental itch'"
+      structure:
+        email_1: "Set the stage - introduction, promise, open first loop"
+        email_2: "High drama - develop story, increase tension"
+        email_3: "Epiphany - the turning point, connect to product"
+        email_4: "Hidden benefits - unexpected value, social proof"
+        email_5: "Urgency/scarcity - close all loops, CTA"
+
+  ogilvy:
+    id: "DO17"
+    specialty: "Premium copy, sophisticated, factual"
+    principles:
+      facts_not_adjectives: "Weak: 'best car' → Strong: '11 of 13 still running today'"
+      long_copy_sells: "Long headlines sell more, long body copy sells more"
+      the_big_idea: "Without Big Idea, campaign goes unnoticed. Must be describable in 1 sentence."
+      research_before_writing: "Weeks of research for one headline"
+    iconic_headline: "At 60 miles an hour, the loudest noise in the new Rolls-Royce comes from the electric clock."
+
+# ============================================================================
+# SELECTION MATRICES
+# ============================================================================
+
+selection_by_need:
+  bullets_fascinations: ["Bencivenga", "Lampropoulos"]
+  storytelling_connection: "Halbert"
+  visceral_emotion: "Makepeace"
+  direct_mail_volume: ["Rutz", "Deutsch"]
+  health_copy: ["Makepeace", "Lampropoulos"]
+  financial_copy: ["Makepeace", "Deutsch"]
+  objection_handling: "Bencivenga"
+  avatar_development: "Kennedy"
+  differentiation: "Todd Brown"
+  production_scale: "Georgi"
+  aggressive_copy: "Carlton"
+  vsl_video: "Jon Benson"
+  daily_email: "Ben Settle"
+  automated_sequences: "Andre Chaperon"
+  premium_b2b: "David Ogilvy"
+
+selection_by_awareness_level:
+  level_1_most_aware: "Carlton (direct, no fluff)"
+  level_2_product_aware: "Bencivenga (bullets strengthen desire)"
+  level_3_solution_aware: "Georgi (RMBC method)"
+  level_4_problem_aware: "Makepeace (DRE + visceral emotion)"
+  level_5_completely_unaware: "Halbert (story/identification)"
+
+selection_by_sophistication_stage:
+  stage_1_first: "Simple claim - any copywriter"
+  stage_2_second: "Amplified claim - Lampropoulos bullets"
+  stage_3_mechanism: "Todd Brown (Unique Mechanism)"
+  stage_4_elaboration: "Todd Brown (E5 Method)"
+  stage_5_exhausted: "Halbert/Ogilvy (identification)"

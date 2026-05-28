@@ -1,0 +1,104 @@
+sop:
+  id: makepeace-awareness-routing
+  version: "1.0"
+  title: "Makepeace Awareness-Based Lead Selection"
+  purpose: >
+    Select optimal lead type and copy strategy based on prospect awareness level (1-5),
+    market saturation, vertical, and prospect history. Uses DRE (Dominant Resident Emotion)
+    framework for emotional calibration.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: clayton-makepeace
+    tier: T1
+
+  steps:
+    - step: 1
+      name: "Assess Awareness Level"
+      decision_point:
+        condition: "What is the prospect awareness level?"
+        branches:
+          - if: "Level 1 (Most Aware)"
+            action: "Direct offer, price, risk reversal."
+            next_step: 6
+          - if: "Level 2 (Product Aware)"
+            action: "Differentiation, USP, mechanism."
+            next_step: 6
+          - if: "Level 3 (Solution Aware)"
+            action: "Delay benefit, mechanism BEFORE benefit, conspiracy lead."
+            next_step: 6
+          - if: "Level 4 (Problem Aware)"
+            action: "Problem-solution, DRE headline, verbalize the pain."
+            next_step: 6
+          - if: "Level 5 (Unaware)"
+            action: "Story lead, curiosity, narrative hook."
+            next_step: 6
+
+    - step: 6
+      name: "Market Saturation Check"
+      decision_point:
+        condition: "Is the market super saturated?"
+        branches:
+          - if: "Super saturated"
+            action: "Use fear/conspiracy lead with heavy proof."
+            next_step: 7
+          - if: "Normal saturation"
+            action: "Proceed with awareness-based lead."
+            next_step: 7
+
+    - step: 7
+      name: "Prospect History Check"
+      decision_point:
+        condition: "Is the prospect burned/skeptical?"
+        branches:
+          - if: "Burned prospect"
+            action: "More proof, less promise. Acknowledge skepticism in copy."
+            next_step: 8
+          - if: "Fresh prospect"
+            action: "Standard proof levels."
+            next_step: 8
+
+    - step: 8
+      name: "Vertical-Specific DRE"
+      decision_point:
+        condition: "What vertical is the product in?"
+        branches:
+          - if: "Health market"
+            action: "DRE = Fear of consequence + hope of reversal. Clinical proof MANDATORY."
+            next_step: 9
+          - if: "Finance market"
+            action: "DRE = Fear of loss + greed. Anti-establishment tone effective."
+            next_step: 9
+          - if: "Other vertical"
+            action: "Identify DRE from prospect research."
+            next_step: 9
+
+    - step: 9
+      name: "Price-to-Proof Calibration"
+      decision_point:
+        condition: "What is the product price point?"
+        branches:
+          - if: "High price product"
+            action: "Long-form mandatory. Each dollar of price requires paragraphs of proof."
+            terminal: true
+          - if: "Standard price"
+            action: "Standard proof volume."
+            terminal: true
+
+  error_handling:
+    - error: "Direct offer sent to unaware prospect"
+      recovery: "Reclassify awareness level. Use story/curiosity lead instead."
+    - error: "Health copy missing clinical proof"
+      recovery: "Stop distribution. Add clinical proof before any further exposure."
+    - error: "Burned prospect not acknowledged"
+      recovery: "Add skepticism acknowledgment section. Increase proof density."
+
+  quality_gate:
+    min_criteria: 5
+    checks:
+      - "Awareness level correctly assessed (1-5)"
+      - "Lead type matches awareness level"
+      - "DRE identified and calibrated to vertical"
+      - "Market saturation factored into approach"
+      - "Proof volume proportional to price point"
+      - "Burned prospect skepticism addressed if applicable"

@@ -1,0 +1,371 @@
+# Mental Triggers Knowledge Base - Product Launch Formula
+# Source: Launch (Jeff Walker) - Chapter 5: "Tools of Mass Influence"
+# Version: 1.0
+
+metadata:
+  source: "Launch by Jeff Walker (Original + Updated Edition 2021)"
+  chapter: "Chapter 5 - Tools of Mass Influence"
+  validated: true
+  created: "2026-01-27"
+
+overview:
+  description: |
+    Os 9 Mental Triggers sao gatilhos psicologicos fundamentais que,
+    quando ativados corretamente, criam desejo irresistivel de compra.
+    Esses gatilhos estao enraizados na psicologia humana ha milhares de anos.
+  principle: |
+    "These triggers are hard-wired into our brains. They worked for our
+    ancestors on the savannah, and they work just as well in the digital age."
+
+triggers:
+  - id: authority
+    name: "Authority (Autoridade)"
+    rank: 1
+    definition: "Seguimos pessoas que demonstram expertise e credibilidade"
+    psychology: |
+      Nossa mente evoluiu para confiar em especialistas como atalho cognitivo.
+      Quando alguem demonstra conhecimento profundo, assumimos que suas
+      recomendacoes sao confiaveis.
+    how_to_activate:
+      - "Compartilhe credenciais relevantes (nao invente)"
+      - "Mostre resultados que voce conseguiu"
+      - "Cite experts que validam sua abordagem"
+      - "Demonstre conhecimento profundo do assunto"
+      - "Conte sua origin story com humildade"
+      - "Use dados e estatisticas especificos"
+    plf_application:
+      phase: "PLC1 - The Opportunity"
+      how: |
+        Estabeleca autoridade logo no PLC1 atraves da sua historia de origem.
+        Nao seja arrogante - conte como voce descobriu a solucao, incluindo
+        suas falhas e aprendizados.
+    examples:
+      - "Nos ultimos 10 anos, ajudei 500+ alunos a..."
+      - "Quando comecei em 1996, enviei meu primeiro email para 19 pessoas..."
+      - "Estudei diretamente com [expert reconhecido]..."
+    pitfalls:
+      - "Nao invente credenciais"
+      - "Evite parecer arrogante"
+      - "Nao exagere resultados"
+
+  - id: reciprocity
+    name: "Reciprocity (Reciprocidade)"
+    rank: 2
+    definition: "Quando alguem nos da algo de valor, sentimos necessidade de retribuir"
+    psychology: |
+      A reciprocidade e uma das forcas sociais mais poderosas.
+      Somos programados para retribuir favores, mesmo que nao tenhamos pedido.
+    how_to_activate:
+      - "Entregue valor REAL no prelaunch content"
+      - "De ferramentas, templates, insights acionaveis"
+      - "Responda perguntas sem pedir nada em troca"
+      - "Surpreenda com bonus inesperados"
+      - "Faca o prospect pensar: 'se isso e gratis, imagina o pago'"
+    plf_application:
+      phase: "Todos os PLCs"
+      how: |
+        Cada PLC deve entregar algo tao valioso que o prospect se sinta
+        em debito. Nao e teaser vazio - e ensino real e acionavel.
+    examples:
+      - "Aqui esta o framework completo que uso..."
+      - "Baixe este template que criei para voce..."
+      - "Vou te dar o mesmo processo que cobro $5.000 em consultoria..."
+    pitfalls:
+      - "Nao entregue conteudo superficial"
+      - "Nao faca teasers vazios"
+      - "Evite 'dar para tirar'"
+
+  - id: trust
+    name: "Trust (Confianca)"
+    rank: 3
+    definition: "Compramos de pessoas em quem confiamos"
+    psychology: |
+      Confianca e construida atraves de consistencia, vulnerabilidade
+      e cumprimento de promessas ao longo do tempo.
+    how_to_activate:
+      - "Seja transparente sobre limitacoes"
+      - "Cumpra o que promete"
+      - "Mostre vulnerabilidade genuina"
+      - "Mantenha consistencia na comunicacao"
+      - "Admita quando nao souber algo"
+      - "Conte sobre seus fracassos tambem"
+    plf_application:
+      phase: "Sequencia toda"
+      how: |
+        A sequencia de PLCs constroi confianca gradualmente atraves de
+        valor entregue repetidamente. Cada promessa cumprida aumenta a confianca.
+    examples:
+      - "Vou ser honesto - isso nao funciona para todo mundo..."
+      - "Eu mesmo fracassei 3 vezes antes de..."
+      - "Se voce esta esperando resultados sem esforco, isso nao e para voce..."
+    pitfalls:
+      - "Nao faca promessas que nao pode cumprir"
+      - "Evite parecer perfeito demais"
+      - "Nao mude de posicionamento constantemente"
+
+  - id: anticipation
+    name: "Anticipation (Antecipacao)"
+    rank: 4
+    definition: "A espera por algo bom pode ser tao prazerosa quanto a coisa em si"
+    psychology: |
+      Dopamina e liberada nao apenas quando recebemos algo bom,
+      mas tambem quando ANTECIPAMOS receber. A espera e parte do prazer.
+    how_to_activate:
+      - "Crie teasers sobre o que vem a seguir"
+      - "Use countdowns para datas importantes"
+      - "Revele informacoes gradualmente"
+      - "Faca o prospect imaginar o futuro"
+      - "Termine cada PLC criando curiosidade para o proximo"
+    plf_application:
+      phase: "Final de cada PLC"
+      how: |
+        Cada PLC termina criando antecipacao para o proximo.
+        O Open Cart e o apice da antecipacao construida.
+    examples:
+      jeff_quote: |
+        "Think of Apple launching a new iPhone - weeks of rumors and anticipation.
+        By the time the product is available, people are ready to camp outside stores."
+      scripts:
+        - "No proximo video, vou revelar o framework que mudou tudo..."
+        - "Em 3 dias, voce vai descobrir..."
+        - "O que vou compartilhar quinta-feira vai mudar como voce pensa sobre..."
+    pitfalls:
+      - "Nao crie antecipacao para algo que nao entrega"
+      - "Evite teasers vazios demais"
+      - "Nao estenda demais a espera"
+
+  - id: likability
+    name: "Likability (Afinidade)"
+    rank: 5
+    definition: "Compramos de pessoas de quem gostamos"
+    psychology: |
+      Somos mais influenciados por pessoas que gostamos, que sao similares a nos,
+      ou que nos elogiam genuinamente.
+    how_to_activate:
+      - "Seja genuino e autentico"
+      - "Mostre sua personalidade"
+      - "Compartilhe historias pessoais"
+      - "Encontre pontos em comum com a audiencia"
+      - "Use humor quando apropriado"
+      - "Seja humano, nao corporativo"
+    plf_application:
+      phase: "Todos os PLCs"
+      how: |
+        Use storytelling pessoal em cada PLC para criar conexao emocional.
+        Nao seja um personagem - seja voce mesmo.
+    examples:
+      - "Quando meu filho nasceu, eu percebi que..."
+      - "Assim como voce, eu tambem ja pensei que..."
+      - "Confesso que no inicio eu tinha medo de..."
+    pitfalls:
+      - "Nao force amizade"
+      - "Evite parecer falso"
+      - "Nao copie a personalidade de outros"
+
+  - id: events
+    name: "Events (Eventos)"
+    rank: 6
+    definition: "Eventos criam urgencia natural e sensacao de 'acontecendo agora'"
+    psychology: |
+      Eventos criam um senso de momento unico. Algo que acontece agora
+      e nao pode ser perdido cria urgencia natural.
+    how_to_activate:
+      - "Transforme o lancamento em um EVENTO"
+      - "Crie datas especificas que importam"
+      - "Use live streams e webinars"
+      - "Faca parecer que algo unico esta acontecendo"
+      - "Envolva a comunidade no momento"
+    plf_application:
+      phase: "Lancamento inteiro"
+      how: |
+        O lancamento nao e so uma oferta - e um EVENTO que a comunidade
+        participa junto. Crie a sensacao de "acontecendo agora".
+    examples:
+      - "Estamos ao vivo neste momento..."
+      - "Hoje, as 20h, algo especial vai acontecer..."
+      - "Pela primeira vez em 3 anos, estamos abrindo..."
+    pitfalls:
+      - "Nao crie eventos falsos"
+      - "Evite eventos demais (fadiga)"
+      - "O evento deve ter substancia"
+
+  - id: community
+    name: "Community (Comunidade)"
+    rank: 7
+    definition: "Somos influenciados pelo comportamento do grupo ao qual pertencemos"
+    psychology: |
+      Humanos sao animais sociais. Queremos pertencer a tribos e somos
+      fortemente influenciados pelo que nosso grupo faz.
+    how_to_activate:
+      - "Crie senso de pertencimento"
+      - "Mostre outros como eles tendo sucesso"
+      - "Use grupos privados e discussoes"
+      - "Faca parecer um movimento"
+      - "Celebre a comunidade publicamente"
+    plf_application:
+      phase: "Engajamento nos PLCs"
+      how: |
+        Os comentarios nos PLCs criam comunidade.
+        Compradores se tornam parte de algo maior.
+    examples:
+      - "Voce faz parte de um grupo seleto que..."
+      - "Nossa comunidade de [X] pessoas esta..."
+      - "Juntos, vamos..."
+    pitfalls:
+      - "Nao finja comunidade que nao existe"
+      - "Evite exclusividade arrogante"
+      - "Construa comunidade real, nao artificial"
+
+  - id: social_proof
+    name: "Social Proof (Prova Social)"
+    rank: 8
+    definition: "Seguimos o que outros estao fazendo, especialmente pessoas similares a nos"
+    psychology: |
+      Quando nao sabemos o que fazer, olhamos para o que outros estao fazendo.
+      Especialmente pessoas que parecem similares a nos.
+    how_to_activate:
+      - "Mostre testimonials de pessoas 'normais'"
+      - "Compartilhe numeros (X pessoas ja compraram)"
+      - "Destaque comentarios positivos"
+      - "Use case studies detalhados"
+      - "Mostre compradores em tempo real durante Open Cart"
+    plf_application:
+      phase: "PLC2 + Open Cart"
+      how: |
+        PLC2 e onde voce empilha prova social com cases e transformacoes.
+        Durante Open Cart, mostre compradores em tempo real.
+    examples:
+      - "[Nome] conseguiu [resultado especifico] em [tempo]..."
+      - "Mais de 500 pessoas ja garantiram acesso..."
+      - "Olha o que [similar ao prospect] comentou..."
+    proof_hierarchy:
+      - level: 1
+        type: "Resultado especifico com numeros"
+        example: "Faturou R$47.000 em 30 dias"
+      - level: 2
+        type: "Transformacao com antes/depois"
+        example: "Saiu de 0 para 10.000 seguidores"
+      - level: 3
+        type: "Testimonial generico"
+        example: "Mudou minha vida"
+    pitfalls:
+      - "NUNCA use testimonials falsos"
+      - "Evite apenas casos extremos"
+      - "Mostre pessoas similares ao prospect"
+
+  - id: scarcity
+    name: "Scarcity (Escassez)"
+    rank: 9
+    definition: "Valorizamos mais o que e raro ou limitado"
+    psychology: |
+      Quando algo e escasso, nosso cerebro automaticamente atribui
+      mais valor a ele. FOMO (Fear Of Missing Out) e um mecanismo real.
+    how_to_activate:
+      - "Crie deadlines REAIS (cart close)"
+      - "Limite vagas se aplicavel"
+      - "Ofereca bonus por tempo limitado"
+      - "NUNCA use escassez falsa"
+    plf_application:
+      phase: "Close Cart"
+      how: |
+        Open/Close Cart e escassez real. O carrinho fecha e nao tem como
+        comprar depois. Essa e a forma mais poderosa e etica de escassez.
+    three_types:
+      - type: "Preco sobe"
+        description: "Preco aumenta apos deadline"
+        example: "O preco sobe de R$997 para R$1.497 apos sexta"
+      - type: "Remover bonus"
+        description: "Bonus expira antes do carrinho fechar"
+        example: "Este bonus expira em 48 horas"
+      - type: "Oferta vai embora"
+        description: "Carrinho fecha completamente"
+        example: "O carrinho fecha sexta as 23:59 e nao reabre por 6 meses"
+    jeff_warning: |
+      "Fake scarcity destroys trust. Always be 100% honest about limitations.
+      If you say the cart closes, IT CLOSES. If you say there are limited spots,
+      there ARE limited spots. Never, ever lie about scarcity."
+    pitfalls:
+      - "NUNCA use escassez falsa"
+      - "Se disse que fecha, FECHA"
+      - "Nao reabra carrinho sem razao legitima"
+      - "Nao crie urgencia artificial"
+
+trigger_mapping_by_phase:
+  pre_prelaunch:
+    primary: ["anticipation", "community"]
+    secondary: ["trust"]
+    notes: "Comece a construir antecipacao e senso de comunidade"
+
+  plc1_opportunity:
+    primary: ["authority", "anticipation"]
+    secondary: ["social_proof", "likability"]
+    notes: "Estabeleca credibilidade e crie curiosidade"
+
+  plc2_transformation:
+    primary: ["social_proof", "reciprocity"]
+    secondary: ["trust", "community"]
+    notes: "Empilhe provas e entregue valor massivo"
+
+  plc3_ownership:
+    primary: ["anticipation", "community"]
+    secondary: ["events", "likability"]
+    notes: "Prepare para o Open Cart, crie senso de pertencimento"
+
+  open_cart_day1:
+    primary: ["events", "social_proof"]
+    secondary: ["anticipation", "community"]
+    notes: "E um EVENTO! Mostre momentum"
+
+  mid_launch:
+    primary: ["social_proof", "reciprocity"]
+    secondary: ["trust", "authority"]
+    notes: "Continue entregando valor, mostre compradores"
+
+  close_cart:
+    primary: ["scarcity", "social_proof"]
+    secondary: ["events", "anticipation"]
+    notes: "Urgencia real, ultimas chances"
+
+activation_checklist:
+  - trigger: "Authority"
+    question: "O prospect sabe POR QUE deve me ouvir?"
+    check_in: ["PLC1", "Sales Page"]
+
+  - trigger: "Reciprocity"
+    question: "Entreguei valor REAL antes de pedir algo?"
+    check_in: ["Todos os PLCs"]
+
+  - trigger: "Trust"
+    question: "Fui consistente e transparente?"
+    check_in: ["Toda a sequencia"]
+
+  - trigger: "Anticipation"
+    question: "O prospect esta ANSIOSO pelo proximo passo?"
+    check_in: ["Final de cada PLC"]
+
+  - trigger: "Likability"
+    question: "O prospect sente conexao comigo como pessoa?"
+    check_in: ["Storytelling em PLCs"]
+
+  - trigger: "Events"
+    question: "Isso parece um EVENTO ou so uma oferta?"
+    check_in: ["Lancamento todo"]
+
+  - trigger: "Community"
+    question: "O prospect sente que fara parte de algo maior?"
+    check_in: ["PLCs", "Open Cart"]
+
+  - trigger: "Social Proof"
+    question: "Mostrei outros COMO ELE tendo sucesso?"
+    check_in: ["PLC2", "Open Cart"]
+
+  - trigger: "Scarcity"
+    question: "A urgencia e REAL e comunicada claramente?"
+    check_in: ["Close Cart"]
+
+validation_rules:
+  - rule: "Cada trigger deve ser ativado pelo menos uma vez na sequencia"
+  - rule: "Scarcity so deve ser usada quando for 100% verdadeira"
+  - rule: "Authority deve vir antes de pedir qualquer coisa"
+  - rule: "Reciprocity requer VALOR REAL, nao teasers"
+  - rule: "Social proof deve mostrar pessoas SIMILARES ao prospect"

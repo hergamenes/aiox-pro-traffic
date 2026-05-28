@@ -1,0 +1,101 @@
+sop:
+  id: "fk-results-in-advance"
+  version: "1.0.0"
+  title: "Results in Advance System"
+  purpose: "Deliver a genuine, tangible quick win to prospects within 24-48 hours before any ask, building deep trust and creating a natural bridge to the paid offer."
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    risk_level: "low"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "When designing top-of-funnel experiences, lead magnets, or first-touch interactions where trust must be established before any commercial offer."
+  context:
+    input:
+      - name: "expertise_area"
+        type: "string"
+        required: true
+        description: "The specific domain of expertise from which a quick win can be extracted."
+      - name: "prospect_pain_point"
+        type: "string"
+        required: true
+        description: "The prospect's primary pain point or most urgent desired outcome."
+      - name: "paid_offer"
+        type: "object"
+        required: true
+        description: "The complete paid product/service that the quick win naturally bridges to."
+  steps:
+    - id: "S001"
+      name: "Identify Quick Win"
+      action: "extract_quick_win_from_expertise"
+      description: "Audit expertise to find the smallest standalone piece that produces a visible, tangible, measurable result within 24-48 hours. Must be implementable by a beginner in under 2 hours. Must address prospect's #1 pain point."
+      performer: "copywriter"
+      critical: true
+      on_success: "S002"
+      on_failure: "retry"
+    - id: "S002"
+      name: "Package Quick Win Content"
+      action: "create_delivery_material"
+      description: "Document the quick win in clear step-by-step instructions assuming zero prior knowledge. Include all tools, templates, examples, and free resources needed. Quality must exceed typical paid content."
+      performer: "copywriter"
+      critical: true
+      on_success: "S003"
+      on_failure: "retry"
+    - id: "S003"
+      name: "Deliver Generously"
+      action: "deliver_without_conditions"
+      description: "Deliver the quick win as an unconditional gift. Zero CTAs, zero gates, zero paywalls, zero asks. The prospect receives the complete result-producing content with no strings attached."
+      performer: "copywriter"
+      critical: true
+      on_success: "S004"
+      on_failure: "retry"
+    - id: "S004"
+      name: "Wait for Implementation"
+      action: "allow_result_window"
+      description: "Wait minimum 24-48 hours for the prospect to implement the quick win and experience the result. Do not contact during this window."
+      performer: "copywriter"
+      critical: false
+      on_success: "S005"
+      on_failure: "retry"
+    - id: "S005"
+      name: "Present Natural Bridge"
+      action: "connect_result_to_offer"
+      description: "After the result window, present the natural bridge using the framing: 'You saw how [result] worked. The complete system does [this at scale].' No pressure, urgency, or scarcity. Let the result sell."
+      performer: "copywriter"
+      critical: true
+      on_success: "DONE"
+      on_failure: "retry"
+  error_handling:
+    global_timeout: "PT3H"
+    retry_policy: "max 2 retries per step before escalation"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "visible_tangible_result"
+        type: "boolean"
+        target: true
+        weight: 1.0
+      - name: "implementable_in_2_hours"
+        type: "boolean"
+        target: true
+        weight: 0.9
+      - name: "zero_gates_or_paywalls"
+        type: "boolean"
+        target: true
+        weight: 1.0
+      - name: "bridge_feels_natural"
+        type: "boolean"
+        target: true
+        weight: 0.8
+      - name: "quality_exceeds_paid_content"
+        type: "boolean"
+        target: true
+        weight: 0.6
+    pass_threshold: 0.85
+  outputs:
+    artifacts:
+      - name: "quick_win_deliverable"
+        type: "file"
+        format: "md"
+        description: "Complete quick win package with step-by-step instructions, supporting resources, and natural bridge statement to paid offer."

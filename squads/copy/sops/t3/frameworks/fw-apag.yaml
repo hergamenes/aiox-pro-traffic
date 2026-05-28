@@ -1,0 +1,88 @@
+sop:
+  id: fw-apag
+  version: "1.0"
+  title: "APAG Persuasive Writing Framework"
+  purpose: "Structure newsletters, scripts, and landing pages that convert using Attention-Perspective-Advantage-Gamify"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: dan-koe
+    tier: t3
+  steps:
+    - id: apply_perspective
+      name: "P (Perspective) — Paint the Enemy"
+      description: "Introduce the enemy/wrong view with personal stories and amplified pains"
+      inputs:
+        - enemy_or_misconception
+        - personal_experience
+        - audience_pains
+      outputs:
+        - perspective_section
+      validation:
+        - enemy_clearly_defined: true
+        - includes_personal_story: true
+        - pains_amplified: true
+      execution_order: 1
+    - id: apply_advantage
+      name: "A2 (Advantage) — Show the Better Way"
+      description: "Present benefits, transformation, and step-by-step solution"
+      inputs:
+        - solution_details
+        - transformation_proof
+        - step_by_step_process
+      outputs:
+        - advantage_section
+      validation:
+        - specific_benefits: true
+        - has_process: true
+        - feels_achievable: true
+      execution_order: 2
+    - id: apply_gamify
+      name: "G (Gamify) — Make Action Easy"
+      description: "Close with frictionless CTA that feels natural and rewarding"
+      inputs:
+        - cta_destination
+        - action_description
+      outputs:
+        - gamify_section
+      validation:
+        - single_cta: true
+        - frictionless: true
+        - feels_like_small_win: true
+      execution_order: 3
+    - id: apply_attention
+      name: "A (Attention) — Hook (Write LAST)"
+      description: "Craft hook from strongest element: problem, benefit, idea, transformation, or timeframe"
+      inputs:
+        - perspective_section
+        - advantage_section
+        - gamify_section
+      outputs:
+        - attention_hook
+        - complete_apag_content
+      validation:
+        - written_last: true
+        - uses_strongest_angle: true
+        - hook_type_identified: true
+      execution_order: 4
+  error_handling:
+    - error: hook_written_first
+      condition: "Attention section drafted before other sections"
+      action: "Delete hook; write P, A2, G first; then craft hook from strongest element"
+    - error: perspective_without_story
+      condition: "Enemy painted without personal experience"
+      action: "Add personal story showing you once held the wrong view"
+    - error: vague_advantage
+      condition: "Solution is abstract without concrete steps"
+      action: "Add specific process, numbers, or actionable steps"
+    - error: complex_cta
+      condition: "Multiple actions or decisions required"
+      action: "Reduce to ONE action, ONE link, ZERO confusion"
+  quality_gate:
+    min_sections: 4
+    required_elements:
+      - hook_written_last
+      - enemy_defined
+      - solution_with_process
+      - frictionless_cta
+    pass_threshold: "all 4 APAG sections present as cohesive narrative"

@@ -1,0 +1,114 @@
+# The Fascinations Technique
+# Source: Mel Martin (inventor), refined by Bencivenga
+# Category: bullet_writing
+# Command: *fascinations
+
+name: "The Fascinations Technique"
+category: "bullet_writing"
+origin: "Mel Martin (inventor), refined by Bencivenga"
+command: "*fascinations"
+
+philosophy: |
+  Copywriter Mel Martin invented fascinations in the 60s, and elite marketers
+  including Gary Bencivenga have used them to create irresistible direct-response
+  copy. The famous "Sampler" ad using fascinations sold over $50 million worth
+  of one book, making it one of the most successful promotions ever written.
+
+definition: |
+  A fascination is a bullet that creates irresistible curiosity by promising
+  a specific, valuable piece of information without revealing it.
+
+structure:
+  opening: "Promise revelation of a secret, fact, or technique"
+  specificity: "Include a specific number, name, or detail"
+  page_reference: "Optionally include 'see page X' for credibility"
+  cliffhanger: "End without revealing the actual answer"
+
+patterns:
+  pattern_1:
+    structure: "The [number] [noun] that [benefit]"
+    example: "The 3-minute ritual that can add 10 years to your life"
+
+  pattern_2:
+    structure: "Why [common belief] is wrong—and what to do instead"
+    example: "Why 'buy and hold' is destroying your portfolio—and what to do instead"
+
+  pattern_3:
+    structure: "The secret [authority] uses to [result]"
+    example: "The secret Warren Buffett uses to identify stocks that will double"
+
+  pattern_4:
+    structure: "[Number] signs that [problem]—and how to fix it"
+    example: "7 signs your financial advisor is costing you thousands"
+
+  pattern_5:
+    structure: "The [adjective] mistake that [consequence]"
+    example: "The common tax mistake that costs retirees $4,700 per year"
+
+rules:
+  - "Each fascination must make a specific, compelling promise"
+  - "Never reveal the answer—that's what the product delivers"
+  - "Use numbers whenever possible"
+  - "Test fascinations relentlessly—they're crucial to response"
+
+# 20 Bullet Templates
+bullet_templates:
+  - template: "The [number] [noun] that [unexpected benefit]"
+    example: "The 3-minute morning ritual that can add 10 years to your life"
+
+  - template: "Why [common practice] is [negative] — and what to do instead"
+    example: "Why 'buy and hold' is destroying your retirement—and what to do instead"
+
+  - template: "The secret [authority] uses to [achieve result]"
+    example: "The secret Warren Buffett uses to identify stocks before they double"
+
+  - template: "[Number] warning signs that [problem]—and how to fix it"
+    example: "7 warning signs your financial advisor is costing you thousands"
+
+  - template: "The [adjective] mistake that [consequence]"
+    example: "The common tax mistake that costs retirees $4,700 per year"
+
+  - template: "How to [achieve result] without [common obstacle]"
+    example: "How to lose weight without giving up your favorite foods"
+
+  - template: "What [experts/they] don't want you to know about [topic]"
+    example: "What your doctor won't tell you about cholesterol drugs"
+
+  - template: "The [number]-word phrase that [powerful result]"
+    example: "The 7-word phrase that can save your marriage"
+
+  - template: "Why [counterintuitive fact]—page [X]"
+    example: "Why the healthiest people rarely exercise—page 47"
+
+  - template: "The [surprising source] secret to [desired result]"
+    example: "The Amish secret to living disease-free past 90"
+
+  - template: "A simple test that reveals [important information] (page [X])"
+    example: "A simple test that reveals if you'll have a heart attack—page 23"
+
+  - template: "The [number] foods you should never eat after [age/condition]"
+    example: "The 5 foods you should never eat after 50"
+
+  - template: "How a [unlikely person] discovered [valuable secret]"
+    example: "How a retired schoolteacher discovered the stock market's biggest loophole"
+
+  - template: "The [time period] trick that [impressive result]"
+    example: "The 11-second trick that can lower your blood pressure naturally"
+
+  - template: "[Number] lies [authority] tells about [topic]"
+    example: "8 lies Wall Street tells about mutual funds"
+
+  - template: "The hidden [noun] in [common item] that [consequence]"
+    example: "The hidden toxin in your toothpaste that's destroying your teeth"
+
+  - template: "Why [thing people do] actually [negative effect]"
+    example: "Why brushing your teeth right after eating actually damages enamel"
+
+  - template: "The [nationality/source] method for [desired result]"
+    example: "The Japanese method for eliminating belly fat while you sleep"
+
+  - template: "[Number] symptoms of [condition] that [common mistake]"
+    example: "6 symptoms of diabetes that doctors often miss"
+
+  - template: "How to turn [common thing] into [unexpected benefit]"
+    example: "How to turn your morning coffee into a fat-burning machine"

@@ -1,0 +1,78 @@
+sop:
+  id: task-identity-stack
+  version: "1.0"
+  title: "Identity Stack Definition"
+  purpose: "Define unique positioning through intersection of interests, skills, experience, and philosophy to create Niche of One"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: dan-koe
+    tier: T3
+
+  inputs:
+    - name: self_assessment
+      type: document
+      required: true
+      description: "Honest self-assessment of traits and background"
+    - name: track_record
+      type: document
+      required: true
+      description: "Evidence of experience and demonstrated skills"
+
+  outputs:
+    - name: identity_stack
+      type: document
+      description: "Identity Stack with 4 layers and intersection (Niche of One)"
+    - name: niche_definition
+      type: string
+      description: "Niche of One definition statement"
+
+  steps:
+    - id: step_1
+      action: list_interests
+      description: "3-5 topics of genuine fascination — what you explore without commercial incentive"
+      count: "3-5"
+
+    - id: step_2
+      action: list_skills
+      description: "3-5 demonstrated capabilities with evidence — not aspirational"
+      count: "3-5"
+
+    - id: step_3
+      action: document_experience
+      description: "Unique background: career path, failures, unconventional choices, industries"
+
+    - id: step_4
+      action: define_philosophy
+      description: "Worldview, contrarian takes, non-negotiable principles — beliefs that differentiate"
+      critical: true
+
+    - id: step_5
+      action: find_intersection
+      description: "Map overlap of all 4 layers — intersection IS the niche, unique to this person"
+      critical: true
+      error_handling:
+        condition: "Layers do not naturally overlap"
+        action: "Adjust one layer at a time until genuine intersection emerges"
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "Interests are genuine not strategic"
+      - "Skills are demonstrated not aspirational"
+      - "Experience is specific and unique"
+      - "Philosophy includes contrarian belief"
+      - "Intersection clearly articulated"
+      - "Niche cannot be replicated"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies: []
+
+  related_sops:
+    - task-apag-newsletter
+    - task-contrarian-content
+    - task-3x-personality-method
+    - task-core-notes

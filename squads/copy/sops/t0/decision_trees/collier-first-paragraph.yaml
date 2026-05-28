@@ -1,0 +1,47 @@
+sop:
+  id: collier-first-paragraph
+  version: '1.0'
+  title: First Paragraph Priority (RC_H04)
+  purpose: Codify Robert Collier's decision logic for first paragraph priority (rc_h04) into a machine-executable diagnostic
+    procedure for copywriting analysis and recommendation.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: robert-collier
+    artifact_type: decision_tree
+  metadata:
+    date: '2026-03-14'
+    author:
+      agent: sop-converter
+      squad: sop-factory
+  steps:
+  - step: 1
+    decision_point: true
+    condition: Writing/reviewing openings
+    branches:
+    - match: true
+      action: Invest 50% of creative effort in first 3-5 paragraphs. If opening fails, entire letter dies unread.
+    - match: false
+      action: Continue to next decision point
+  error_handling:
+  - error: no_condition_match
+    description: None of the defined conditions match the input context
+    action: Return to upstream diagnostic; re-classify the situation
+    severity: warning
+  - error: ambiguous_condition
+    description: Multiple conditions appear to match simultaneously
+    action: Select the most specific match; document ambiguity for review
+    severity: warning
+  - error: missing_context
+    description: Insufficient data to evaluate conditions
+    action: Request additional context before proceeding; do not guess
+    severity: error
+  quality_gate:
+    min_confidence: 0.85
+    requires_human_review: false
+    metrics:
+      condition_coverage: 1.0
+      branch_traceability: true
+      action_specificity: high
+      source_fidelity: verified

@@ -1,0 +1,150 @@
+sop:
+  id: ah-value-equation
+  version: "1.0"
+  title: "Value Equation"
+  purpose: >
+    Evaluate and maximize perceived value of any offer using four variables.
+    Numerator (Dream Outcome + Perceived Likelihood) maximized, denominator
+    (Time Delay + Effort and Sacrifice) minimized. Greatest leverage is in
+    the denominator.
+  classification:
+    domain: copywriting
+    subdomain: offer-design
+    tier: t2
+    source_agent: alex-hormozi
+    artifact_type: framework
+
+  steps:
+    - id: step_1_dream_outcome
+      action: apply_dream_outcome_maximization
+      label: "Maximize Dream Outcome (Numerator)"
+      description: >
+        Define the prospect's dream outcome in status-based terms. People buy
+        status transformations. Must be vivid, specific, and paintable in
+        sensory and social language.
+      inputs:
+        - target_prospect_profile
+        - current_situation
+      outputs:
+        - dream_outcome_statement
+        - dream_outcome_score
+      validation:
+        - field: dream_outcome_statement
+          rule: is_status_based
+        - field: dream_outcome_score
+          rule: minimum_7
+
+    - id: step_2_perceived_likelihood
+      action: apply_perceived_likelihood_maximization
+      label: "Maximize Perceived Likelihood (Numerator)"
+      description: >
+        Layer proof so the prospect believes it will work FOR THEM specifically.
+        Use risk reversal, segmented social proof, damaging admissions, and
+        demonstrations. Address the 'but it won't work for me' objection.
+      inputs:
+        - proof_elements
+        - testimonials_segmented
+        - guarantee_terms
+      outputs:
+        - perceived_likelihood_score
+        - proof_stack
+      validation:
+        - field: perceived_likelihood_score
+          rule: minimum_7
+        - field: proof_stack
+          rule: min_3_proof_types
+
+    - id: step_3_time_delay
+      action: apply_time_delay_minimization
+      label: "Minimize Time Delay (Denominator)"
+      description: >
+        Reduce the gap between purchase and first meaningful result. Engineer
+        quick wins achievable in 24-48 hours. Communicate speed explicitly.
+        Fast beats free.
+      inputs:
+        - product_structure
+        - onboarding_process
+      outputs:
+        - time_delay_score
+        - quick_win_definition
+      validation:
+        - field: time_delay_score
+          rule: maximum_5
+        - field: quick_win_definition
+          rule: achievable_in_48h
+
+    - id: step_4_effort_sacrifice
+      action: apply_effort_sacrifice_minimization
+      label: "Minimize Effort and Sacrifice (Denominator)"
+      description: >
+        Map the DIY to DWY to DFY spectrum. Remove every friction point.
+        Provide tools, templates, checklists. Minimize what the prospect must
+        give up. The less they think, the higher the value.
+      inputs:
+        - product_delivery_model
+        - friction_points
+      outputs:
+        - effort_sacrifice_score
+        - friction_audit
+        - dfy_elements
+      validation:
+        - field: effort_sacrifice_score
+          rule: maximum_5
+        - field: dfy_elements
+          rule: not_empty
+
+    - id: step_5_calculate_optimize
+      action: apply_value_equation_calculation
+      label: "Calculate and Optimize"
+      description: >
+        Combine scores into the equation. Identify weakest variable. Bias
+        toward fixing denominator first. Redesign offer and re-score.
+      inputs:
+        - dream_outcome_score
+        - perceived_likelihood_score
+        - time_delay_score
+        - effort_sacrifice_score
+      outputs:
+        - value_equation_scorecard
+        - weakest_variable
+        - optimization_plan
+      validation:
+        - field: weakest_variable
+          rule: not_empty
+        - field: optimization_plan
+          rule: denominator_bias
+
+  error_handling:
+    - error: vague_dream_outcome
+      symptom: "Prospect not excited about the promise"
+      resolution: "Redefine in status-based sensory terms they can visualize"
+    - error: no_quick_wins
+      symptom: "Prospect feels results are too far away"
+      resolution: "Engineer a meaningful result achievable in 24-48 hours"
+    - error: high_effort_unaddressed
+      symptom: "Prospect sees solution as more work"
+      resolution: "Move toward DWY/DFY, add tools and templates"
+    - error: only_optimizing_numerator
+      symptom: "Competing on bigger promises, race to the top"
+      resolution: "Shift focus to denominator — reduce delay and effort"
+
+  quality_gate:
+    min_score: 7
+    criteria:
+      - "Dream Outcome is status-based and vivid"
+      - "Perceived Likelihood supported by 3+ proof types"
+      - "Quick win for first 24-48 hours defined"
+      - "Effort minimized with tools/templates/DFY"
+      - "All four variables scored"
+      - "Denominator optimized before numerator"
+
+  outputs:
+    - type: value_equation_scorecard
+      format: table
+      fields: [dream_outcome, perceived_likelihood, time_delay, effort_sacrifice, perceived_value]
+    - type: quick_win_definition
+      format: text
+    - type: offer_redesign
+      format: markdown
+    - type: friction_audit
+      format: checklist

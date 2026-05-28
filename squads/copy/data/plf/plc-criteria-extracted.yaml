@@ -1,0 +1,1319 @@
+# =============================================================================
+# PLF - PRELAUNCH CONTENT CRITERIA
+# Extracted from: Launch by Jeff Walker (Original + Updated 2021 Edition)
+# =============================================================================
+# This document contains ALL criteria, checklists, and mandatory elements
+# for each PLC (Pre-Launch Content) as described by Jeff Walker.
+# =============================================================================
+
+metadata:
+  source_books:
+    - title: "Launch: An Internet Millionaire's Secret Formula"
+      edition: "Original"
+      file: "outputs/books/launch_jeff_walker.txt"
+    - title: "Launch: How to Sell Almost Anything Online"
+      edition: "Updated 2021"
+      file: "outputs/books/launch_jeff_walker_updated.txt"
+  extracted_date: "2026-02-01"
+  purpose: "Base for creating PLC evaluation checklists"
+
+# =============================================================================
+# OVERVIEW - THE SIDEWAYS SALES LETTER
+# =============================================================================
+overview:
+  concept: |
+    Instead of a 10-page sales letter, use a 10-day sequence.
+    Instead of pages, use days.
+    Instead of one super-long letter, split it into a series of contacts.
+    These contacts are called "Prelaunch Content" or "PLC".
+
+  core_structure:
+    total_plc_pieces: 3
+    metaphor: "Three-act play with beginning, middle, and end"
+    story_arc:
+      act_1: "Opportunity/Journey (Why)"
+      act_2: "Transformation (What)"
+      act_3: "Ownership Experience (How)"
+      act_4: "Open Cart/Enrollment (Buy)"
+
+  key_principle: |
+    Each piece of PLC has a specific job. Each one needs to stand alone,
+    but all three tie together into one big story arc. Avoid throwing out
+    three pieces of unrelated content.
+
+  critical_success_factor: |
+    Deliver REAL VALUE to prospects. Don't just tease them - give them
+    substance. The greater the value of your Prelaunch Content, the
+    greater the reciprocity imbalance that leads to sales.
+
+# =============================================================================
+# PRE-PRELAUNCH (Shot Across the Bow)
+# =============================================================================
+pre_prelaunch:
+  name: "Shot Across the Bow"
+  alternative_name: "Pre-Pre"
+
+  core_purpose: |
+    The whole idea of the pre-prelaunch is to begin to activate your tribe—or start
+    building a tribe if you don't have one yet. You're testing the market's level of
+    interest in your product idea, surfacing potential objections so you can answer
+    them during your prelaunch, and gathering information to help finalize your
+    product offer—all while setting the stage for your Prelaunch Sequence.
+
+    "I like to call your pre-prelaunch the 'Shot Across the Bow,' which is a naval
+    term for a warning shot fired toward another ship. The whole idea is to get the
+    other ship's attention without resorting to an overt attack."
+
+  ten_strategic_questions:
+    question_1:
+      text: "How can I let people know something is coming without having it feel like I'm trying to sell them something?"
+      purpose: "Build anticipation without being salesy"
+
+    question_2:
+      text: "How can I awaken their curiosity?"
+      purpose: "Create intrigue and desire to know more"
+
+    question_3:
+      text: "How can I get their help in creating the product? How do I make it collaborative?"
+      purpose: "Involve prospects in creation, build ownership"
+
+    question_4:
+      text: "How can I discover their objections to the product?"
+      purpose: "Surface objections early to address in prelaunch"
+
+    question_5:
+      text: "How can I start a dialogue with my prospects and avoid the 'corporate speak' that kills launches?"
+      purpose: "Create conversation, not monologue"
+
+    question_6:
+      text: "How can I make this fun and humorous and even exciting?"
+      purpose: "Build engagement and energy"
+
+    question_7:
+      text: "How can I stand out in a crowded market? How can I be different?"
+      purpose: "Differentiation strategy"
+
+    question_8:
+      text: "How can I discover how my market wants to be sold?"
+      purpose: "Learn their buying preferences"
+
+    question_9:
+      text: "How can I define my exact offer? (the 'crushing offer')"
+      purpose: "Refine offer based on feedback"
+
+    question_10:
+      text: "How can this naturally lead into my Prelaunch Sequence?"
+      purpose: "Seamless transition to PLC"
+
+  favorite_strategy:
+    name: "Top Two Questions Survey"
+    format: "1-2 simple emails + short survey"
+
+    email_example:
+      subject: "Quick announcement and a favor..."
+      content: |
+        "Hey, I'm working on a new [topic] project. Before I finish it, I wanted
+        to get your input on what should be in it. I set up a real quick survey—
+        it will only take a minute. Would you do me a favor and fill it out?"
+      word_count: "~80 words"
+
+    survey_questions:
+      - "What are your two top questions about [topic] that we absolutely NEED to answer?"
+
+    why_it_works:
+      - "Lets them know something is coming without any pitch"
+      - "Gets prospects invested in the creation process"
+      - "Surfaces objections and desires"
+      - "Uses their exact language for your copy"
+      - "Creates collaboration, not sales"
+
+  timing:
+    before_plc1: "Days to weeks before PLC #1"
+    typical_length: "1-2 emails over a few days"
+
+  format:
+    primary: "Simple email + survey"
+    alternatives:
+      - "Social media posts"
+      - "Video announcement"
+      - "Blog post"
+
+# =============================================================================
+# PLC #1: THE OPPORTUNITY (OR THE JOURNEY)
+# =============================================================================
+plc1:
+  name: "The Opportunity"
+  alternative_name: "The Journey"
+  theme: "WHY"
+
+  core_purpose: |
+    Grab your prospects' attention and draw them in. It must be compelling
+    and answer the all-important question "Why?"
+    - Why should your prospect care?
+    - Why should they spend their precious time paying attention to you?
+    - Why should they listen to you?
+    - What can you do for them?
+
+  mandatory_structure:
+    1_show_opportunity:
+      description: "Show/tell how their life is going to change with your product"
+      notes: "Paint the picture of the transformation/change available to them"
+
+    2_position_authority:
+      description: "Show/tell why they should listen to you"
+      notes: "Establish credibility without empty bragging - tie it to helping them"
+      example: |
+        Barry Friedman mentioned The Tonight Show and White House performances
+        within the context of wanting to help his clients, not as bragging.
+
+    3_teach:
+      description: "Deliver real value - don't just go on about the opportunity"
+      notes: "Go beyond the opportunity. Teach real content people can actually use."
+      critical: true
+
+    4_raise_objections:
+      description: "Raise objections and either answer them or promise to answer in upcoming videos"
+      notes: "No matter what your offer is, there will be objections. Face them head on."
+
+    5_foreshadow_plc2:
+      description: "Let them know there's another video coming"
+      notes: "Spark their desire by revealing some of the cool stuff they'll learn in PLC #2"
+
+    6_call_to_action:
+      description: "Ask for a comment on your launch blog or in social media"
+      notes: "This starts the Launch Conversation and builds community"
+
+  mental_triggers_to_activate:
+    - name: "Authority"
+      how: "Position yourself as someone worth listening to"
+    - name: "Reciprocity"
+      how: "Give valuable content freely"
+    - name: "Anticipation"
+      how: "Foreshadow what's coming in PLC #2"
+    - name: "Community"
+      how: "Engage with comments and questions"
+
+  duration:
+    typical_video_length: "15-25 minutes"
+    edited_video_example: "~20 minutes (tightly scripted and edited)"
+    live_broadcast_example: "~40 minutes (same content delivered live)"
+    teaching_segment: "5-10 minutes of actionable content"
+
+  what_not_to_do:
+    - "Don't sell or pitch anything"
+    - "Don't hint at a sales message or offer"
+    - "Don't be salesy or use corporate speak"
+    - "Don't skimp on teaching - give real value"
+    - "Don't assume prospects know who you are"
+    - "Don't brag without context of helping"
+
+  examples_from_book:
+    barry_friedman:
+      context: "Entertainer teaching other entertainers to get high-paying gigs"
+      approach: |
+        1. Built rapport by showing he understood their pain (he had lived it)
+        2. Showed prospects he had same hopes, dreams, and fears as they did
+        3. Painted the opportunity to build serious business with existing skills
+        4. Shared his story: told by guidance counselor he'd fail, then performed on Tonight Show
+        5. NO hint of sales message or offer
+      theme_message: |
+        "I'm a lot like you. I found a passion for juggling when I was a kid but was
+        told I couldn't do it for a living. My high school guidance counselor said
+        I would be broke and homeless. I proved him wrong."
+      result: "Generated huge engagement and set up authority"
+
+# =============================================================================
+# PLC #2: THE TRANSFORMATION
+# =============================================================================
+plc2:
+  name: "The Transformation"
+  theme: "WHAT"
+
+  core_purpose: |
+    Show WHAT this transformation or opportunity is and how it's going to
+    change or transform your prospects' lives. This is more about teaching -
+    teach some type of tip or trick that is truly valuable.
+
+  key_goal: |
+    If PLC #2 can get your prospect to SEE THEMSELVES having the transformation
+    that you promised in PLC #1, then you've done your job.
+
+  mandatory_structure:
+    1_thanks_and_recap:
+      description: "Thank people for their comments and questions from PLC #1"
+      follow_with: "Give a quick recap of PLC #1"
+
+    2_recap_opportunity:
+      description: "Quickly recap the opportunity"
+      notes: |
+        Don't spend as much time as in PLC #1, but you need to quickly recap.
+        NEVER assume prospects saw or paid attention to or remembered PLC #1.
+        They have busy lives - your launch isn't nearly as important to them as to you.
+
+    3_recap_positioning:
+      description: "Remind them who you are and why they should listen"
+      notes: "Don't take too long - do it quickly"
+
+    4_case_study_or_teaching:
+      description: "Present a Case Study or do some REAL teaching"
+      notes: "Deliver real value - teach one (or more) cool things they can put to use quickly"
+      critical: true
+
+    5_crush_objections:
+      description: "Talk about the top 2-3 objections and answer them"
+      notes: "Go after prospects' big objections to the change/transformation you're promising"
+
+    6_foreshadow_plc3:
+      description: "Let them know you have another video coming soon"
+      notes: "Build anticipation by telling them a little about what you'll teach"
+
+    7_call_to_action:
+      description: "Ask for a comment on your launch blog or in social media"
+
+  mental_triggers_to_activate:
+    - name: "Authority"
+      how: "Demonstrate expertise through teaching"
+    - name: "Reciprocity"
+      how: "Give massive value that creates obligation"
+    - name: "Trust"
+      how: "Build relationship through repeated interaction"
+    - name: "Social Proof"
+      how: "Comments and engagement from other viewers"
+    - name: "Anticipation"
+      how: "Foreshadow PLC #3"
+
+  duration:
+    typical_video_length: "15-25 minutes"
+    teaching_segment: "5-10 minutes minimum of teachable content"
+    jeff_walker_example: "~18 minutes teaching the Seed Launch"
+
+  what_not_to_do:
+    - "Don't sell or pitch anything"
+    - "Don't hint at a sales message or offer"
+    - "Don't assume they watched PLC #1"
+    - "Don't skimp on teaching - give actionable value"
+    - "Don't worry about giving away too much"
+    - "Don't use corporate speak"
+
+  examples_from_book:
+    barry_friedman:
+      approach: |
+        1. Revisited the potential pain of failing at the business
+        2. Focused heavily on teaching
+        3. Gave fundamental principles of marketing for entertainers
+        4. No hint of a sale - just solid, great content
+      theme_message: |
+        "What if this all falls apart and your parents were right? What if you can't
+        make it as an entertainer? If you want to succeed in this business, you need
+        to treat it like a business. You've spent hundreds of hours working on your
+        craft, but that's only part of the equation. It's not [enough]..."
+
+    jeff_walker_plf:
+      approach: |
+        Taught the entire Seed Launch concept in ~18 minutes.
+        People successfully did Seed Launches just from this free video.
+
+  common_mistake: |
+    Worrying about giving away too much of the "good stuff" during Prelaunch.
+    This is rarely a problem. The mistake seen far more often is NOT giving
+    away enough high-quality content.
+
+# =============================================================================
+# PLC #3: THE OWNERSHIP EXPERIENCE
+# =============================================================================
+plc3:
+  name: "The Ownership Experience"
+  theme: "HOW"
+
+  core_purpose: |
+    Start to answer the "HOW" question. You've shown the potential transformation
+    or change, but they still don't see how they're really going to have that change.
+    PLC #3 is about them taking OWNERSHIP of that future change - feeling and
+    understanding they can have that transformation.
+
+  critical_element: |
+    This is where you make the PIVOT to the sale. By the end of PLC #3, you will
+    have started to show them the answer (buy your product) and prepare them
+    for the upcoming offer.
+
+  mandatory_structure:
+    1_thanks_and_excitement:
+      description: "Thank viewers for their comments and questions from PLC #2"
+      add: "Tell them how excited you are and how excited all viewers are"
+      notes: "If you did a good job in PLC #1 and #2, viewers WILL be getting excited"
+
+    2_quick_recap:
+      description: "Quickly recap the opportunity and your positioning"
+      notes: |
+        Don't assume they remember or even saw your first two videos.
+        Briefly describe the opportunity, remind them who you are.
+        Don't take too long - move through it quickly.
+
+    3_short_case_study:
+      description: "Possibly present a short Case Study"
+      notes: "Optional but powerful if you have one"
+
+    4_answer_top_questions:
+      description: "Answer the top questions you've been getting"
+      notes: |
+        You're answering the top objections. Do this even if you've already
+        raised and answered them in earlier PLC. People raise the same objections
+        in different ways by asking different questions.
+
+    5_explain_big_view:
+      description: "Explain the big view and how to make it happen"
+      notes: |
+        Step back and look at what's really possible. What's the ultimate
+        transformation or change they can have if they buy? Look at it from
+        all angles and project out into their future.
+
+    6_pivot_to_offer:
+      description: "Pivot to your offer and create a soft landing"
+      timing: "Do this in the LAST 10% (or 25% in original edition) of PLC #3"
+      critical: true
+      details: |
+        By now prospects have fallen in love with you because you've given
+        them huge value. It's time to start preparing them for the offer -
+        that's the "soft landing."
+
+        You don't want to go from being their best friend in one video to a
+        used-car salesman in the next. Tell them that in your next video
+        you're going to have an offer for them, and they need to watch if
+        they're ready to take their transformation to the next level.
+
+    7_seed_scarcity:
+      description: "Seed the scarcity of your launch offer"
+      notes: |
+        Make some mention of scarcity near the end.
+        Don't hit them over the head with it - they haven't seen your offer yet.
+        Mention they should be on the lookout for your next email because
+        it's going to be a limited offer.
+
+    8_call_to_action:
+      description: "Ask for a comment on your launch blog or in social media"
+
+  mental_triggers_to_activate:
+    - name: "Authority"
+      how: "Continue demonstrating expertise"
+    - name: "Reciprocity"
+      how: "Culmination of value given"
+    - name: "Trust"
+      how: "Built through entire sequence"
+    - name: "Anticipation"
+      how: "Build toward launch day"
+    - name: "Scarcity"
+      how: "Seed the limited nature of offer"
+    - name: "Events/Ritual"
+      how: "Launch date becomes an event"
+    - name: "Community"
+      how: "Strong launch conversation"
+
+  duration:
+    typical_video_length: "15-30 minutes"
+    pivot_timing: "Last 10% of video (updated edition) or 25% (original)"
+
+  what_not_to_do:
+    - "Don't skip the pivot to the sale - this is a CRITICAL mistake"
+    - "Don't go from friend to salesman abruptly"
+    - "Don't oversell the scarcity before showing the offer"
+    - "Don't forget to build excitement/tension throughout"
+    - "Don't assume they remember previous PLCs"
+
+  common_mistake: |
+    Leaving out the pivot to the sale. People get so caught up in delivering
+    great content that they don't want to talk about the sale in the final
+    Prelaunch video. This is a mistake a lot of people make.
+
+  examples_from_book:
+    barry_friedman:
+      approach: |
+        1. Reviewed his launch story
+        2. Stepped up the teaching even more
+        3. Reviewed websites of various entertainers, showed their mistakes
+        4. Showed how those mistakes could be easily fixed
+        5. THEN made the pivot: talked about personally guiding 15 people
+           through his Showbiz Blueprint (first mention of upcoming product)
+      pivot_moment: |
+        "He talked about how he was going to personally guide 15 people through
+        his Showbiz Blueprint, which was the exact promotional system that helped
+        land the highest-paying gigs in the industry, including Johnny Carson and
+        The White House. This was the first mention of an upcoming product, the
+        first hint that there was a sale coming."
+      result: |
+        Barry didn't want to put the pivot in - he was loving the teaching and
+        didn't want to mess with the good vibes. But he followed PLF and included
+        it. The launch succeeded.
+
+# =============================================================================
+# BUILDING EXCITEMENT AND RISING ACTION
+# =============================================================================
+rising_action:
+  principle: |
+    Throughout your Prelaunch Sequence, build excitement and tension. Think of
+    it like a movie or novel - the "rising action" where the story is clearly
+    building and moving toward a climax.
+
+  application: |
+    As you move through each piece of PLC, keep building your level of pacing
+    and excitement. The sequence should feel like it's building toward something.
+
+# =============================================================================
+# TIMING AND SCHEDULE
+# =============================================================================
+timing:
+  total_prelaunch_duration:
+    minimum: "3 days"
+    maximum: "27 days"
+    recommended_starting: "7-10 days"
+    notes: "Measured from PLC #1 release until Open Cart"
+
+  price_based_guidance:
+    low_price_products:
+      example: "$27 ebook"
+      recommendation: "7 days or possibly 5 days"
+    high_price_products:
+      example: "$297 training course"
+      recommendation: "10 days"
+
+  sample_7_day_sequence:
+    day_1: "Release PLC #1"
+    day_3: "Release PLC #2"
+    day_5: "Release PLC #3"
+    day_7: "Open Cart"
+
+  sample_10_day_sequence:
+    day_1: "Release PLC #1"
+    day_5: "Release PLC #2"
+    day_8: "Release PLC #3"
+    day_10: "Open Cart"
+
+  live_launch_compressed:
+    description: "More compressed schedule for live launches"
+    sample_sequence:
+      day_1: "PLC #1 (Opportunity)"
+      day_2: "PLC #2 (Transformation)"
+      day_3: "PLC #3 (Ownership)"
+      day_4: "Open Cart (Enrollment)"
+    notes: "Gives the feeling of taking part in an event"
+
+  live_launch_traditional:
+    sample_sequence:
+      day_1: "PLC #1 (Opportunity)"
+      day_4: "PLC #2 (Transformation)"
+      day_7: "PLC #3 (Ownership)"
+      day_9: "Open Cart (Enrollment)"
+
+  hybrid_approach:
+    description: "Videos with live Q&A broadcasts"
+    sample_sequence:
+      day_1: "Video - PLC #1 (Opportunity)"
+      day_2: "Live Broadcast - Questions and Answers"
+      day_3: "Video - PLC #2 (Transformation)"
+      day_4: "Live Broadcast - Questions and Answers"
+      day_5: "PLC #3 (Ownership)"
+      day_6: "Live Broadcast - Questions and Answers"
+      day_7: "Video - Open Cart (Enrollment)"
+
+  key_insight: |
+    The timing isn't nearly as important as the Prelaunch Content itself.
+    Deliver real value, follow the formula, and you'll be fine.
+
+# =============================================================================
+# FORMATS
+# =============================================================================
+formats:
+  supported_formats:
+    - video_recorded: "Most common and recommended"
+    - video_live: "Live broadcasts (YouTube, Facebook)"
+    - email: "Plain text or formatted emails"
+    - pdf_reports: "Written PDF documents"
+    - blog_posts: "Published on blog with comments"
+    - podcasts: "Audio content"
+    - webinars: "Interactive presentations"
+
+  video_types:
+    screen_capture:
+      description: "Recording of computer screen with voiceover"
+      best_for: "People not comfortable on camera"
+
+    full_motion:
+      description: "Traditional video shot with camera"
+      best_for: "Those who know their material - less prep, just record"
+
+  predominant_format: "Video has become the predominant format for Prelaunch Content"
+
+  key_insight: |
+    You don't need to use video. Plenty of great launches have been done
+    using nothing more sophisticated than email.
+
+# =============================================================================
+# MENTAL TRIGGERS - COMPLETE LIST
+# =============================================================================
+mental_triggers:
+  overview: |
+    Mental triggers directly influence how we act and make decisions. They're
+    incredibly powerful and act on a subconscious level. These triggers have
+    roots that go back thousands of years. When you layer them on top of each
+    other, you're not dependent on any one trigger but combining them for
+    powerfully influential messaging.
+
+  1_authority:
+    description: |
+      People tend to follow others in positions of authority. We often look
+      for others to help guide our decisions. Following authority is how our
+      brain evolved to make decisions more efficiently.
+    how_to_activate: |
+      Share high-quality content during Prelaunch. Mention relevant credentials
+      or accomplishments within context of helping (not bragging).
+    example: |
+      A flashlight was enough to create authority to direct traffic.
+      Barry mentioning Tonight Show created instant authority.
+    in_plf: "Created almost automatically by sharing quality content"
+
+  2_reciprocity:
+    description: |
+      If someone gives something to us, we feel obligation to give something
+      back. This is the basis from which humans created commerce and trade.
+      When you receive a gift and can't reciprocate, it triggers deep desire
+      to "make it right."
+    how_to_activate: |
+      Spend entire Prelaunch giving value. Create reciprocity imbalance through
+      great free content. The greater the value, the greater the imbalance.
+    in_plf: "Activated throughout entire launch by giving great content"
+
+  3_trust:
+    description: |
+      The ultimate shortcut to becoming influential. We believe things from
+      trusted sources that we wouldn't believe from strangers.
+    how_to_activate: |
+      Time and repeated interaction build trust. PLF gives you luxury of time
+      compared to "drive by" advertising.
+    in_plf: "Built through repeated interaction during Prelaunch Sequence"
+
+  4_anticipation:
+    description: |
+      Allows you to cut through marketing fog and grab market's attention.
+      Think of how children anticipate birthdays or Christmas - we're all
+      still big kids who anticipate special days.
+    how_to_activate: |
+      Foreshadow upcoming content and launch date. Make launch day feel like
+      mixing birthday and summer vacation together.
+    in_plf: "Cornerstone of PLF - originally called 'anticipation marketing'"
+
+  5_likability:
+    description: |
+      We enjoy doing business with people we know, like, and trust. We are
+      more influenced by people we like.
+    how_to_activate: |
+      Be gracious, kind, generous, and honest. Give great free content, interact
+      with prospects, respond to questions and comments.
+    in_plf: "Built through engagement and delivering value"
+
+  6_events_and_ritual:
+    description: |
+      When you turn marketing into an event, you make it truly magnetic.
+      People love events and feel part of something bigger than themselves.
+      Modern Western world is starved for rituals.
+    how_to_activate: |
+      Frame launch as a special event. Create shared experience with launch
+      date as the climax.
+    in_plf: "Taking prospects through sequence together creates shared experience"
+
+  7_community:
+    description: |
+      We act in accordance with how we think people in our community act.
+      Community norms are powerful within the community.
+    how_to_activate: |
+      Build online community during launch through interaction. Create community
+      norms like commenting, sharing, and eventually buying.
+    in_plf: "Created through Launch Conversation and comments"
+
+  8_scarcity:
+    description: |
+      One of the most powerful triggers. When there is less of something,
+      we want it more. It's the perception of scarcity that motivates.
+      Examples: diamonds, gold, Rolexes, Ferraris.
+    how_to_activate: |
+      Seed scarcity near end of PLC #3. Use limited quantity, limited time,
+      or limited bonuses in your offer.
+    in_plf: "Hit as Prelaunch nears end and during Open Cart"
+    warning: "Must be REAL scarcity - fake scarcity destroys trust"
+
+  9_social_proof:
+    description: |
+      We look to others to help determine what we should do. If many people
+      are doing something, it must be right.
+    how_to_activate: |
+      Showcase comments and engagement. Feature people excited about launch.
+      Use case studies and testimonials.
+    in_plf: "Created through comments on Prelaunch Content"
+
+  layering_sequence: |
+    PLC #1: Authority (positioning), Reciprocity (giving), Anticipation (foreshadow)
+    PLC #2: Authority (teaching), Reciprocity (more giving), Trust (repeated interaction),
+            Social Proof (comments), Anticipation (foreshadow)
+    PLC #3: All triggers building, plus Scarcity seed, Events/Ritual (launch coming)
+    Open Cart: Full Scarcity activated, all triggers at peak
+
+# =============================================================================
+# THE LAUNCH CONVERSATION
+# =============================================================================
+launch_conversation:
+  definition: |
+    The interaction between you and your prospects (and among your prospects)
+    that naturally occurs during your Prelaunch Sequence.
+
+  importance: |
+    - Gives enormous insight into your market
+    - Reveals big objections to your offer
+    - Shows what messaging is resonating
+    - Changes monologue into conversation
+    - Creates community
+    - Builds social proof
+
+  how_to_create:
+    - Post PLC on blog/page with comments enabled
+    - Ask for comments at end of each PLC
+    - Respond to questions and comments
+    - Engage with prospects in discussion
+    - Use insights to improve subsequent PLC and offer
+
+  example: |
+    Barry answered questions and engaged with his prospects. When you do that,
+    you begin to change your launch from a monologue into a conversation,
+    and conversations are almost always more interesting than monologues.
+
+# =============================================================================
+# COMMON MISTAKES AND WHAT NOT TO DO
+# =============================================================================
+common_mistakes:
+  1_skipping_pivot:
+    description: "Not making the pivot to the sale in PLC #3"
+    why_it_happens: "People get caught up in delivering great content"
+    consequence: "Prospects aren't prepared for the offer"
+    solution: "Follow the formula - include the pivot in last 10% of PLC #3"
+
+  2_not_enough_value:
+    description: "Not giving away enough high-quality content"
+    why_it_happens: "Fear of revealing too much"
+    consequence: "Insufficient reciprocity and authority"
+    solution: "Give massive value - people who succeed from free content become buyers"
+
+  3_assuming_memory:
+    description: "Assuming prospects watched/remember previous PLCs"
+    why_it_happens: "Your launch is more important to you than to them"
+    consequence: "Prospects get lost or confused"
+    solution: "Always recap opportunity and positioning in each PLC"
+
+  4_unrelated_content:
+    description: "Throwing out three pieces of unrelated content"
+    why_it_happens: "Not following the story arc structure"
+    consequence: "No building momentum, poor results"
+    solution: "Each PLC must tie together into one big story arc"
+
+  5_too_salesy_too_early:
+    description: "Selling or pitching before PLC #3 pivot"
+    why_it_happens: "Eagerness to make the sale"
+    consequence: "Destroys trust and reciprocity"
+    solution: "No hint of sales message until PLC #3 pivot"
+
+  6_abrupt_transition:
+    description: "Going from best friend to used-car salesman"
+    why_it_happens: "Not using soft landing"
+    consequence: "Prospects feel betrayed"
+    solution: "Create soft landing, prepare them for the offer"
+
+  7_corporate_speak:
+    description: "Using stiff, corporate language"
+    why_it_happens: "Defaulting to formal business communication"
+    consequence: "Kills engagement before it starts"
+    solution: "Be conversational, personal, and engaging"
+
+  8_no_call_to_action:
+    description: "Not asking for comments/engagement"
+    why_it_happens: "Forgetting or being shy"
+    consequence: "No Launch Conversation, no social proof"
+    solution: "End every PLC with clear call to action for comments"
+
+# =============================================================================
+# CASE STUDY CAUTION (LEGAL)
+# =============================================================================
+case_study_caution:
+  context: "FTC guidelines on results-based testimonials"
+  warning: |
+    The FTC has gotten more strict about results-based claims. The old
+    disclaimer "results were not typical" is no longer enough.
+  recommendation: |
+    If you're in doubt about case studies or results claims and you plan
+    to sell in the United States, consult an attorney for FTC compliance.
+
+# =============================================================================
+# QUALITY CHECKLIST FOR EACH PLC
+# =============================================================================
+evaluation_checklist:
+  plc1_checklist:
+    mandatory_elements:
+      - "Shows clear opportunity/transformation available"
+      - "Establishes authority/credibility"
+      - "Delivers real teaching value (not just teasing)"
+      - "Raises and addresses objections"
+      - "Foreshadows PLC #2 content"
+      - "Includes call to action for comments"
+    must_not_have:
+      - "Any sales pitch or hint of offer"
+      - "Corporate/stiff language"
+      - "Empty bragging without context"
+    mental_triggers_present:
+      - "Authority"
+      - "Reciprocity"
+      - "Anticipation"
+
+  plc2_checklist:
+    mandatory_elements:
+      - "Thanks viewers for PLC #1 engagement"
+      - "Recaps opportunity (don't assume they watched)"
+      - "Recaps positioning/authority"
+      - "Delivers substantial teaching or case study"
+      - "Crushes top 2-3 objections"
+      - "Foreshadows PLC #3 content"
+      - "Includes call to action for comments"
+    must_not_have:
+      - "Any sales pitch or hint of offer"
+      - "Assumption that prospects watched PLC #1"
+      - "Skimpy teaching (must give real value)"
+    mental_triggers_present:
+      - "Authority"
+      - "Reciprocity"
+      - "Trust"
+      - "Social Proof"
+      - "Anticipation"
+
+  plc3_checklist:
+    mandatory_elements:
+      - "Thanks viewers and expresses excitement"
+      - "Quick recap of opportunity and positioning"
+      - "Case study (if available)"
+      - "Answers top questions/objections"
+      - "Explains big-picture transformation"
+      - "PIVOT TO OFFER (last 10% of content)"
+      - "Soft landing - prepares them for sales video"
+      - "Seeds scarcity of upcoming offer"
+      - "Includes call to action for comments"
+    must_not_have:
+      - "Abrupt transition to sales mode"
+      - "Heavy-handed scarcity (offer not revealed yet)"
+      - "Missing pivot (critical mistake)"
+    mental_triggers_present:
+      - "Authority"
+      - "Reciprocity"
+      - "Trust"
+      - "Anticipation"
+      - "Scarcity (seeded)"
+      - "Events/Ritual"
+      - "Community"
+
+# =============================================================================
+# OPEN CART (PLC #4 / ENROLLMENT)
+# =============================================================================
+open_cart:
+  name: "Enrollment"
+  theme: "BUY/ENROLL"
+
+  overview: |
+    The entire sequence looks like:
+    - PLC #1: Opportunity
+    - PLC #2: Transformation
+    - PLC #3: Ownership
+    - PLC #4 (Open Cart): Enrollment
+
+    By enrollment, you're asking prospects to enroll in their future -
+    to take the action that will give them the transformation.
+
+  prerequisites: |
+    By Open Cart, if you've followed the formula:
+    - PLC has connected with people on your list
+    - Mental triggers have created authority, social proof, community
+    - Scarcity trigger has been seeded
+    - Prospects know an offer is coming
+    - Final PLC had strong pivot foreshadowing offer
+    - Prelaunch has completed most heavy-lifting for the sale
+
+  email_sequence:
+    description: |
+      "It's critical that you don't let up during your open cart period.
+      I've seen some of my students make this mistake, and they end up
+      leaving a lot of money on the table. You need to keep mailing your
+      launch list each day your cart is open."
+
+    five_day_example:
+      day_1_open_cart:
+        emails: 2
+        email_1:
+          timing: "When you open the cart"
+          type: "Open Cart announcement"
+          content: "Short, direct, with link. Get right to the point."
+          example: |
+            "Okay, I just opened up registration for [Product]. We're now live:
+            [LINK]"
+        email_2:
+          timing: "~4 hours after first email"
+          type: "Confirmation"
+          content: "Let them know everything is up and running"
+
+      day_2:
+        emails: 1
+        type: "Social Proof email"
+        content: "Talk about the great response to your launch"
+        purpose: "Build momentum with early buyer stories"
+
+      day_3:
+        emails: 1
+        type: "Q&A / FAQ email"
+        content: |
+          "Longer email that answers many of the top questions about the product.
+          As with all your emails during your open cart period, include at least
+          one link to your sales page."
+        purpose: "Address objections, answer questions"
+
+      day_4:
+        emails: 1
+        type: "Scarcity warning"
+        content: |
+          "The message shifts to scarcity. You are basically giving a 24-hour
+          warning ahead of your close. You should be absolutely clear about when
+          you'll close and what your prospects stand to lose if they don't act
+          before the launch offer closes down."
+        purpose: "Create urgency, final warning"
+
+      day_5_close_cart:
+        emails: "2-3"
+        email_1:
+          timing: "Early morning"
+          content: "Reiterate that you're going to be closing that day"
+        email_2:
+          timing: "6-8 hours before close"
+          content: |
+            "This is a day that will be filled with fireworks and a massive rush
+            of orders—provided you follow this plan."
+        email_3:
+          timing: "Optional - closer to deadline"
+          content: "Final reminder"
+
+        critical_warning: |
+          "Unfortunately, I've seen lots of people make the mistake of letting up
+          on the last day. Either they don't mail their list at all or they just
+          mail once. That's bad thinking. Don't make that mistake. You need to
+          send more than one email on closing day. Trust me... doing so makes a
+          big difference. Many of your prospects have a big procrastination streak,
+          and they'll wait until the last minute."
+
+  scarcity_types:
+    - type: "Price increase"
+      description: "The price goes up after the launch"
+    - type: "Bonus removal"
+      description: "Bonuses are removed after deadline"
+    - type: "Offer disappears"
+      description: "The offer goes away completely"
+
+  cardinal_rule: |
+    "One absolute, cardinal rule for creating a successful launch is setting a
+    definitive close for your launch. And there must be some negative consequence
+    if people don't buy during that limited open cart window. Make it clear that
+    something bad will happen if they don't buy before your launch ends—that your
+    prospects will miss out on something."
+
+  sales_pattern:
+    description: "Expected distribution of sales during Open Cart"
+    day_1_open: "25% of total sales"
+    days_2_to_4_middle: "25% of total sales"
+    day_5_close: "50% of total sales"
+    key_insight: "25% on day one, 50% on the last day"
+
+# =============================================================================
+# KEY QUOTES FROM JEFF WALKER
+# =============================================================================
+key_quotes:
+  on_value:
+    quote: |
+      "I want to emphasize that part about VALUABLE content—this isn't just
+      about taking a sales pitch and stretching it out over a couple of weeks.
+      That's not going to grab and hold anyone's attention. Through this process
+      you deliver real value to your prospects."
+    context: "Describing the Sideways Sales Letter"
+
+  on_pivot_mistake:
+    quote: |
+      "Making the pivot to the sale in the final piece of Prelaunch Content
+      is critical, and leaving out that pivot is a mistake a lot of people make."
+    context: "Describing PLC #3"
+
+  on_giving_value:
+    quote: |
+      "The mistake I see far more often is not giving away enough high-quality
+      content."
+    context: "Addressing fears about revealing too much"
+
+  on_transformation:
+    quote: |
+      "If PLC #2 can get your prospect to see themselves having the transformation
+      that you promised in PLC #1, then you've done your job."
+    context: "Core goal of PLC #2"
+
+  on_timing:
+    quote: |
+      "The important thing to remember is that the timing isn't nearly as important
+      as the Prelaunch Content. Deliver real value, follow the formula, and you'll
+      be fine."
+    context: "Addressing timing concerns"
+
+# =============================================================================
+# THE 4 REASONS PEOPLE DON'T BUY
+# =============================================================================
+four_reasons_people_dont_buy:
+  description: |
+    CPL #1 is designed to attack reasons 3 and 4. The first two are outside
+    of PLF's scope - you need the right product for the right market.
+
+  reason_1:
+    text: "They're not interested in what you're selling"
+    plf_solution: "PLF doesn't solve this - need product-market fit"
+
+  reason_2:
+    text: "They don't have the money"
+    plf_solution: "PLF doesn't solve this - target the right market"
+
+  reason_3:
+    text: "They don't believe in YOU"
+    detail: "Don't trust your ethics or competence"
+    plf_solution: "CPL #1 attacks this through authority and credibility"
+
+  reason_4:
+    text: "They believe in the product but don't believe it works FOR THEM"
+    detail: "I've tried 15 times already - why would this be different?"
+    plf_solution: "CPL #1 begins attacking this, CPL #2 completes it with case studies"
+
+# =============================================================================
+# POST-LAUNCH
+# =============================================================================
+post_launch:
+  description: |
+    What happens after the cart closes is just as important as the launch itself.
+    You have two distinct audiences to serve.
+
+  for_buyers:
+    principle: "Over-deliver - give more than you promised"
+
+    actions:
+      - description: "Surprise bonuses"
+        detail: |
+          Have extra bonuses that were NEVER mentioned during the launch.
+          Start sending these right after cart close.
+          In a world where we're constantly disappointed post-purchase,
+          unexpected extras make you stand out.
+
+      - description: "World-class customer service"
+        detail: |
+          This is NOT a cost center - it's a business building strategy.
+          Invest heavily here.
+
+      - description: "Solid follow-up process"
+        detail: "Automated onboarding sequence for new customers"
+
+  for_non_buyers:
+    principle: "Don't abandon these prospects - you invested considerable energy in the romance"
+
+    actions:
+      - description: "Continue the relationship"
+        detail: |
+          Even without buying now, they're excellent prospects for future offers.
+          Don't let the romance go cold.
+
+      - description: "Send more content"
+        detail: |
+          In the days after close, send valuable content.
+          They'll be primed for a follow-up offer or your next launch.
+
+      - description: "Set up next launch"
+        detail: |
+          Post-launch begins preparing the ground for the next launch.
+          The relationship doesn't end - it evolves.
+
+# =============================================================================
+# SEED LAUNCH (Starting from Zero)
+# =============================================================================
+seed_launch:
+  name: "Seed Launch™"
+  description: |
+    The variant of PLF for people starting from scratch with no list and no product.
+    You get PAID before creating the product.
+
+  when_to_use:
+    - "No list and no product"
+    - "New idea you want to test before investing heavily"
+    - "Want to be paid BEFORE creating the product"
+
+  two_little_known_principles:
+    principle_1:
+      text: "Smaller lists are proportionally MORE responsive than larger lists"
+      detail: "And MUCH more - not just a little"
+
+    principle_2:
+      text: "Every list has 'hyper-responsives'"
+      detail: "Fans who open every email, buy everything, comment first"
+
+  step_by_step:
+    step_1:
+      action: "Build a micro-list (30-300 people)"
+      how: "Via social media + personal contacts"
+
+    step_2:
+      action: "Run a classic pre-pre"
+      how: "'Top 2 questions' survey"
+
+    step_3:
+      action: "Follow-up email"
+      content: |
+        Share discoveries from survey + your transformation journey +
+        mention the upcoming offer
+
+    step_4:
+      action: "Offer email"
+      content: |
+        Sales letter/video - doesn't need to oversell.
+        The list is warm and personal.
+
+    step_5:
+      action: "Goal: 30 buyers (60 would be better)"
+      note: "If you don't hit it, invite people for free to reach critical mass"
+
+    step_6:
+      action: "Product = series of 3-5 weekly teleseminars/webinars"
+      note: "Teach live, record everything"
+
+    step_7:
+      action: "Before EACH call, survey"
+      question: "What are your 2 biggest questions about [next topic]?"
+
+    step_8:
+      action: "Organize responses"
+      process: |
+        Organize into themes → rewrite as good questions →
+        sequence logically → present on the call
+
+    step_9:
+      action: "After each call, survey again"
+      questions:
+        - "Questions about what was covered"
+        - "Questions about next topic"
+
+    step_10:
+      action: "Record everything"
+      result: "Transcribe → audio + ebook = ready multimedia product"
+
+    step_11:
+      action: "Focus on generating results"
+      purpose: "Future case studies for the bigger launch"
+
+  pricing:
+    range: "$50 to $3,000"
+    depends_on: "Market and offer"
+
+# =============================================================================
+# MENTAL TRIGGERS MAPPING BY PHASE
+# =============================================================================
+mental_triggers_by_phase:
+  description: |
+    How each mental trigger is activated and builds across the launch sequence.
+    Stars indicate intensity level.
+
+  mapping:
+    authority:
+      pre_pre: "Subtle"
+      cpl1: "★★★ Automatic when publishing quality content"
+      cpl2: "★★★★ Deepened by real teaching"
+      cpl3: "★★★★★ Consolidated"
+      open_cart: "Referenced in sales page"
+
+    reciprocity:
+      pre_pre: "Subtle (asking opinion = giving attention)"
+      cpl1: "★★★ Free valuable content"
+      cpl2: "★★★★ More content"
+      cpl3: "★★★★★ Maximum - huge imbalance created"
+      open_cart: "Time to 'collect'"
+
+    trust:
+      pre_pre: "Begins"
+      cpl1: "Grows"
+      cpl2: "Grows more"
+      cpl3: "Solidified"
+      open_cart: "Base of the decision"
+
+    anticipation:
+      pre_pre: "★★ Something is coming"
+      cpl1: "★★★ Foreshadow CPL #2"
+      cpl2: "★★★★ Foreshadow CPL #3"
+      cpl3: "★★★★★ Foreshadow offer"
+      open_cart: "Release of accumulated tension"
+
+    likability:
+      pre_pre: "Conversational, personal"
+      cpl1: "Generous, accessible"
+      cpl2: "Interactive, responds to comments"
+      cpl3: "Excited, transparent"
+      open_cart: "Human, not 'salesy'"
+
+    events_ritual:
+      pre_pre: "Preparation"
+      cpl1: "Begins"
+      cpl2: "Grows"
+      cpl3: "★★★★ Strong"
+      open_cart: "★★★★★ The 'big day'"
+
+    community:
+      pre_pre: "-"
+      cpl1: "First comments"
+      cpl2: "Conversation grows"
+      cpl3: "★★★★ Active community"
+      open_cart: "'Everyone is buying'"
+
+    scarcity:
+      pre_pre: "-"
+      cpl1: "-"
+      cpl2: "-"
+      cpl3: "★★ Seeded"
+      open_cart: "★★★★★ Maximum at close"
+
+    social_proof:
+      pre_pre: "-"
+      cpl1: "First comments"
+      cpl2: "Comments grow"
+      cpl3: "★★★★ Enthusiastic comments"
+      open_cart: "Buyer testimonials"
+
+# =============================================================================
+# FUNDAMENTAL PRINCIPLES
+# =============================================================================
+fundamental_principles:
+  the_secret_that_makes_it_work:
+    title: "What REALLY makes PLF work"
+    principle: |
+      It's not psychological tricks - it's DELIVERING MASSIVE VALUE.
+
+      - Don't give everything away for free or cater to freebie-seekers
+      - Give real content that creates real value for people
+      - Don't just provoke - give substance
+      - Teach about the opportunity in CPL #1, but go BEYOND the opportunity
+      - Each CPL should deliver content people can actually use
+
+    quote: |
+      "Your success will be directly proportional to the amount of value
+      you create in the world."
+
+  the_process_is_the_equalizer:
+    principle: |
+      "Success doesn't depend on you being a talented copywriter or master
+      salesman. PLF is something like an equalizer in the marketing world.
+      It's the process that allows people who are NOT ninja marketers to
+      build a super-effective sales process."
+
+  launch_conversation:
+    principle: |
+      Each CPL should be posted on a blog with space for comments.
+      By asking for comments and responding:
+      - Monologue → dialogue
+      - Real-time insight about objections
+      - Social proof (others seeing the excitement)
+      - Instant community
+      - Allows adjusting messaging in real time
+      - Walker uses exact language from comments in subsequent CPLs
+
+  the_fear_of_giving_too_much:
+    myth: "If I give too much away, they won't need to buy"
+    reality: |
+      "The mistake I see far more often is NOT giving away enough
+      high-quality content."
+
+      If you sell in the premium segment (like Barry, charging $2,000),
+      the best way to attract high-end clients is to deliver MASSIVE
+      free value upfront.
+
+      Walker taught the ENTIRE Seed Launch concept in ~18 minutes in
+      CPL #2. People actually DID Seed Launches from that free video.
+      And they STILL bought the full program.
+
+# =============================================================================
+# COMPLETE LAUNCH CHECKLIST
+# =============================================================================
+complete_launch_checklist:
+  pre_prelaunch:
+    - "[ ] 10 strategic questions answered"
+    - "[ ] Survey created ('top 2 questions')"
+    - "[ ] Email written (~80 words, conversational)"
+    - "[ ] Follow-up email planned"
+
+  cpl1_opportunity:
+    - "[ ] Shows opportunity/transformation"
+    - "[ ] Positions authority"
+    - "[ ] Teaches real value"
+    - "[ ] Raises objections"
+    - "[ ] Foreshadows CPL #2"
+    - "[ ] Call to action for comments"
+    - "[ ] NO sales pitch"
+
+  cpl2_transformation:
+    - "[ ] Thanks and recaps CPL #1"
+    - "[ ] Recaps opportunity (don't assume they watched)"
+    - "[ ] Recaps positioning"
+    - "[ ] Case study OR real teaching"
+    - "[ ] Crushes top 2-3 objections"
+    - "[ ] Foreshadows CPL #3"
+    - "[ ] Call to action for comments"
+    - "[ ] NO sales pitch"
+
+  cpl3_ownership:
+    - "[ ] Thanks and expresses excitement"
+    - "[ ] Quick recap of opportunity and positioning"
+    - "[ ] Brief case study (optional)"
+    - "[ ] Answers top questions/objections"
+    - "[ ] Explains big-picture transformation"
+    - "[ ] PIVOT TO OFFER (last 10-25%)"
+    - "[ ] Soft landing - prepares for sales"
+    - "[ ] Seeds scarcity"
+    - "[ ] Call to action for comments"
+
+  pre_open_cart:
+    - "[ ] Sales page live and tested"
+    - "[ ] All links working"
+    - "[ ] Order form working"
+    - "[ ] Complete test purchase done"
+    - "[ ] Thank you page working"
+    - "[ ] Confirmation email working"
+    - "[ ] Merchant account warned about volume"
+
+  open_cart_day_1:
+    - "[ ] Email 1: Cart open (short, direct)"
+    - "[ ] Email 2: 4 hours later confirmation"
+
+  open_cart_day_2:
+    - "[ ] Social proof email"
+
+  open_cart_day_3:
+    - "[ ] FAQ/objections email (longer)"
+
+  open_cart_day_4:
+    - "[ ] Scarcity warning (24h)"
+
+  open_cart_day_5_close:
+    - "[ ] Email 1: Morning - closing today"
+    - "[ ] Email 2: 6-8h before close"
+    - "[ ] Email 3: Optional final reminder"
+
+  post_launch_buyers:
+    - "[ ] Surprise bonuses sent"
+    - "[ ] Onboarding sequence active"
+    - "[ ] Customer service ready"
+
+  post_launch_non_buyers:
+    - "[ ] Follow-up content sent"
+    - "[ ] Relationship maintained"
+    - "[ ] Prep for next launch"

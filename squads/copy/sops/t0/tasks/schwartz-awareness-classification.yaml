@@ -1,0 +1,100 @@
+sop:
+  id: schwartz-awareness-classification
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Awareness Level Classification"
+  purpose: >
+    Classify target market into one of Schwartz's 5 awareness stages and prescribe
+    corresponding headline type and copy length. Awareness level determines
+    HOW to write the headline.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: eugene-schwartz
+    artifact_type: task
+
+  steps:
+    - id: gather_knowledge_data
+      action: collect_prospect_knowledge
+      description: "Collect data about prospect's current knowledge: surveys, search data, sales intelligence, market research"
+      inputs:
+        - market_description
+        - product_knowledge_data
+      output: prospect_knowledge_profile
+
+    - id: test_most_aware
+      action: evaluate_level_one
+      description: "Does prospect know product AND want it? Just looking for deal? → Level 1: OFERTA headline, 100-500 words"
+      depends_on: gather_knowledge_data
+      output: level_1_result
+
+    - id: test_product_aware
+      action: evaluate_level_two
+      description: "Does prospect know product but is not convinced? → Level 2: PRODUTO headline, 500-1000 words"
+      depends_on: test_most_aware
+      output: level_2_result
+
+    - id: test_solution_aware
+      action: evaluate_level_three
+      description: "Does prospect want result but not know your product? → Level 3: DESEJO headline, 800-1500 words"
+      depends_on: test_product_aware
+      output: level_3_result
+
+    - id: test_problem_aware
+      action: evaluate_level_four
+      description: "Does prospect recognize problem but not connect to solution? → Level 4: NECESSIDADE headline, 1500-3000 words"
+      depends_on: test_solution_aware
+      output: level_4_result
+
+    - id: test_unaware
+      action: evaluate_level_five
+      description: "Is prospect completely unaware of need, problem, and product? → Level 5: IDENTIFICACAO headline, 2000-4000+ words"
+      depends_on: test_problem_aware
+      critical: true
+      output: level_5_result
+
+    - id: prescribe_classification
+      action: emit_awareness_prescription
+      description: "Issue level number, name, headline type, copy length, and example headline"
+      depends_on:
+        - test_most_aware
+        - test_product_aware
+        - test_solution_aware
+        - test_problem_aware
+        - test_unaware
+      output: awareness_prescription
+
+  error_handling:
+    - error: default_level_3
+      symptom: "Every headline leads with desire without checking awareness"
+      resolution: "Test Levels 1-2 first; many markets are more aware than assumed"
+    - error: level_5_vs_level_4
+      symptom: "Problem Aware treated as Completely Unaware"
+      resolution: "If they know they have a problem, it is Level 4, not Level 5"
+    - error: desire_for_most_aware
+      symptom: "Overcomplicating copy for prospects ready to buy"
+      resolution: "Level 1 needs an offer, not persuasion"
+
+  quality_gate:
+    criteria:
+      - "Classification based on data or documented assumptions"
+      - "Each level tested sequentially"
+      - "Only ONE level assigned"
+      - "Headline type matches level"
+      - "Copy length matches level"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: awareness_level
+      format: classification
+      description: "Level 1-5 with name"
+    - name: headline_prescription
+      format: prescription
+      description: "Headline type with reasoning and example"
+    - name: copy_length
+      format: range
+      description: "Word count range for the classified level"

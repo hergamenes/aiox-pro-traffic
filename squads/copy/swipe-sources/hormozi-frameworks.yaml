@@ -1,0 +1,902 @@
+# =============================================================================
+# ALEX HORMOZI - MASTER FRAMEWORKS CONSOLIDATION
+# =============================================================================
+# Source: outputs/minds/alex_hormozi/ (238 files, 165MB)
+# Extracted: 2026-01-23
+# Categories: offers, leads, pricing, launch, naming, guarantees, hooks, ads
+# =============================================================================
+
+metadata:
+  source: "alex_hormozi"
+  books: ["$100M Offers", "$100M Leads"]
+  playbooks: ["$100M Hooks", "$100M Ads", "$100M Pricing", "$100M Launch"]
+  total_documented_sales: "$500M+"
+  extraction_date: "2026-01-23"
+
+# =============================================================================
+# 1. VALUE EQUATION (Foundation of Everything)
+# =============================================================================
+value_equation:
+  formula: "(Dream Outcome × Perceived Likelihood) / (Time Delay × Effort & Sacrifice)"
+
+  components:
+    dream_outcome:
+      goal: "INCREASE"
+      description: "What the person really wants (not what they ask for)"
+      tip: "Frame benefits in terms of STATUS gained from others' perspective"
+      example: "Don't sell gym membership, sell 'being perceived as attractive'"
+
+    perceived_likelihood:
+      goal: "INCREASE"
+      description: "How likely they believe they'll achieve the result"
+      tip: "Use social proof, guarantees, credentials, case studies"
+      example: "10,000th surgery patient vs 1st (same service, 100x price difference)"
+
+    time_delay:
+      goal: "DECREASE"
+      description: "Time between purchase and receiving the benefit"
+      tip: "Create quick wins early to build momentum"
+      quote: "Fast beats free - people will pay for speed"
+
+    effort_sacrifice:
+      goal: "DECREASE"
+      description: "What they have to give up or endure"
+      tip: "DFY > DWY > DIY in perceived value"
+      example: "Liposuction vs gym membership (same outcome, 100x price difference)"
+
+  key_insight: "If you can reduce Time Delay and Effort to ZERO, value becomes INFINITE"
+
+  comparison_examples:
+    - context: "Relaxation/Anxiety Relief"
+      option_a: {name: "Meditation", value_score: "1/4", reason: "High effort, slow results"}
+      option_b: {name: "Xanax", value_score: "4/4", reason: "Zero effort, instant results"}
+
+    - context: "Weight Loss"
+      option_a: {name: "Gym membership", value_score: "1/4", reason: "High effort, slow results"}
+      option_b: {name: "Liposuction", value_score: "4/4", reason: "One afternoon, done"}
+
+# =============================================================================
+# 2. GRAND SLAM OFFER ARCHITECTURE
+# =============================================================================
+grand_slam_offer:
+  core_principle: "Make people an offer so good they would feel stupid saying no"
+
+  four_pillars:
+    - pillar: "Anti-Commoditization"
+      quote: "If a prospect compares your product to another and thinks 'these are pretty much the same', they commoditized you"
+
+    - pillar: "Premium Pricing"
+      quote: "There is no strategic benefit to being the second cheapest in the marketplace, but there is for being the most expensive"
+
+    - pillar: "Value Stacking"
+      quote: "A single offer is less valuable than the same offer broken into its component parts and stacked as bonuses"
+
+    - pillar: "Risk Reversal"
+      quote: "The single greatest objection for any product or service being sold is RISK"
+
+  virtuous_cycle_of_price: |
+    High prices → Greater emotional investment → Higher perceived value →
+    Better results → Attracts better clients → More margin for excellence →
+    Even higher prices
+
+# =============================================================================
+# 3. MARKET SELECTION (4 Criteria)
+# =============================================================================
+market_selection:
+  acronym: "M-P-E-G"
+  criteria:
+    massive_pain:
+      description: "The problem must cause real and urgent pain"
+      test: "Would they pay to make this problem go away TODAY?"
+
+    purchasing_power:
+      description: "Prospects must have money to pay your premium price"
+      test: "Can they afford 10x what competitors charge?"
+
+    easy_to_target:
+      description: "Clear way to reach them (groups, lists, associations)"
+      test: "Can you find 1000 of them in 48 hours?"
+
+    growing:
+      description: "Market in growth or at minimum stable"
+      test: "Is the market bigger today than 5 years ago?"
+
+  starving_crowd_principle: "If you have a hamburger, you don't need the best hamburger. You need a starving crowd."
+
+# =============================================================================
+# 4. PROBLEM-SOLUTION FRAMEWORK
+# =============================================================================
+problem_solution_framework:
+  step_1_identify_dream_outcome:
+    instruction: "Define what the client REALLY wants (not what they ask for)"
+    example: "They don't want a gym membership, they want to lose 20 pounds"
+    tip: "Focus on the destination, not the flight"
+
+  step_2_list_all_problems:
+    instruction: "For each stage of customer journey, list problems in 4 dimensions"
+    dimensions:
+      - "This won't be worth it financially (Dream Outcome)"
+      - "It won't work for me (Likelihood of Achievement)"
+      - "It will be too hard/confusing (Effort & Sacrifice)"
+      - "It will take too long/I don't have time (Time Delay)"
+    example: |
+      Weight Loss Journey:
+      - Buying healthy food (16 sub-problems)
+      - Cooking healthy food (16 sub-problems)
+      - Eating healthy food (16 sub-problems)
+      - Exercising regularly (16 sub-problems)
+      Total: 64 problems identified
+
+  step_3_transform_to_solutions:
+    format: "How to [inverse of problem] even if [objection]"
+    example:
+      problem: "Buying healthy food is expensive"
+      solution: "How to buy healthy food for less than your current grocery bill"
+
+  step_4_create_delivery_vehicles:
+    delivery_cube:
+      what: ["1-on-1", "Small Group", "One-to-Many"]
+      how: ["Done For You (DFY)", "Done With You (DWY)", "Do It Yourself (DIY)"]
+      medium: ["In-person", "Phone", "Email", "Video", "Written"]
+
+    test_10x_0.1x:
+      question_1: "If you charged 10x more, what would you include?"
+      question_2: "If you charged 1/10, how would you still generate results?"
+
+  step_5_trim_and_stack:
+    decision_matrix:
+      high_value_high_cost: "Keep (with premium price)"
+      high_value_low_cost: "GOLD - Always keep"
+      low_value_high_cost: "Eliminate first"
+      low_value_low_cost: "Eliminate second"
+
+# =============================================================================
+# 5. MAGIC NAMING FORMULA
+# =============================================================================
+naming_formula:
+  acronym: "M-A-G-I-C"
+  components:
+    M_magnet:
+      description: "What grabs attention"
+      examples: ["Free", "88% Off", "Limited", "Exclusive"]
+
+    A_avatar:
+      description: "Who it's for"
+      examples: ["Lakeway Moms", "Brooklyn Executives", "SaaS Founders"]
+
+    G_goal:
+      description: "What they want"
+      examples: ["Bikini Body", "Pain Free", "6-Figure Launch"]
+
+    I_interval:
+      description: "Time frame"
+      examples: ["6-Week", "42-Day", "90-Day"]
+
+    C_container:
+      description: "What type of thing it is"
+      examples: ["Challenge", "Fast Track", "Masterclass", "System"]
+
+  examples:
+    - "Free + Lakeway Moms + Bikini Body + 6-Week + Challenge"
+    - "88% Off + Brooklyn Executives + Pain Free + 42-Day + Fast Track"
+
+# =============================================================================
+# 6. BONUS STACKING SYSTEM
+# =============================================================================
+bonus_system:
+  core_principle: "A single offer is less valuable than the same offer broken into components and stacked as bonuses"
+
+  presentation_rules:
+    one_on_one:
+      sequence: "Ask for sale FIRST, then reveal bonuses after they buy (creates wow) OR if they say no, present bonus matching their objection"
+
+    group_selling:
+      sequence: "Present all bonuses during pitch"
+
+  bonus_bullets_checklist:
+    - "Always offer them"
+    - "Give special name with benefit in title"
+    - "Explain: How it relates to their problem"
+    - "Explain: What it is"
+    - "Explain: How you discovered/created it"
+    - "Explain: How it improves their life (faster, easier, less effort)"
+    - "Provide proof (statistic, previous client, personal experience)"
+    - "Paint vivid mental picture of life after using it"
+    - "Assign price and justify it"
+    - "Tools and checklists > additional trainings (less effort = more value)"
+    - "Each should address specific concern/obstacle"
+    - "Total bonus value should ECLIPSE core offer value"
+
+  advanced_technique_partner_bonuses:
+    description: "Get other businesses to give you their services as bonuses"
+    benefits:
+      - "Free marketing for them"
+      - "High-value products for you at zero cost"
+      - "Can negotiate affiliate commissions too"
+    example: |
+      Pain clinic could get:
+      - Chiropractor: 2 free adjustments ($100)
+      - Low-inflammation food company: discounts ($50)
+      - Orthotic company: discounts ($150)
+      - Local gym: free personal training + pool access ($100)
+      Result: $400+ in bonuses that cost you $0
+
+# =============================================================================
+# 7. GUARANTEE TYPES
+# =============================================================================
+guarantees:
+  math_principle: |
+    If you close 130% more people and refunds double from 5% to 10%:
+    Before: 100 sales - 5 refunds = 95 net
+    After: 130 sales - 13 refunds = 117 net
+    Result: 23% MORE revenue
+
+  types:
+    unconditional:
+      description: "No questions asked refund"
+      examples:
+        - "30-day no questions asked"
+        - "Full refund"
+        - "Refund + competitor's program paid for"
+        - "Refund + $1000 additional"
+      best_for: "Maximizing conversions"
+      risk: "Highest refund rate but usually still net positive"
+
+    conditional:
+      description: "Refund if they meet specific conditions"
+      examples:
+        - "Get 20 clients in 30 days or money back + ad spend reimbursed"
+        - "Increase sales 30% in 90 days or 2x money back"
+        - "I'll work with you FREE until you get [result]"
+        - "I'll personally fly to your office and work with you until it works"
+      best_for: "Creating commitment and ensuring client action"
+      tip: "Make conditions = actions that guarantee success"
+
+    anti_guarantee:
+      description: "All sales are final - with compelling reason why"
+      examples:
+        - "Consumables (can't return used vitamins)"
+        - "Revenue share deals (you invest nothing upfront)"
+        - "High-value services (my time is too valuable)"
+      best_for: "High-touch services, consumables, rev-share"
+
+    implied:
+      description: "Performance-based pricing"
+      examples:
+        - "I only get paid when you get paid"
+        - "Revenue share only"
+        - "Pay per result"
+      best_for: "Creating maximum trust and alignment"
+
+  naming_tip: "Instead of 'Satisfaction Guarantee', use vivid language like 'Shark-Infested Waters Guarantee' or 'Beat-a-Baby-Seal Guarantee'"
+
+  stacking_guarantees:
+    example: "30-day unconditional NO questions + 90-day conditional TRIPLE your money"
+
+# =============================================================================
+# 8. SCARCITY & URGENCY
+# =============================================================================
+scarcity_urgency:
+  scarcity_types:
+    total_business_cap: "I only accept X clients total"
+    growth_rate_cap: "I only accept Y per week"
+    cohort_cap: "I only accept Z per class"
+    honest_scarcity: "We're at 81% capacity"
+
+  urgency_types:
+    rolling_cohorts: "Next class starts Monday"
+    rolling_seasonal: "New Year promo ends January 30th"
+    pricing_urgency: "Price goes up next week"
+    exploding_opportunity: "Window closes soon"
+
+  ethical_approach: |
+    Use REAL scarcity from your business limitations:
+    - Can't handle more than 5 clients/week? Say that.
+    - Limited inventory? Say that.
+    - Running a live event? Has a real deadline.
+
+# =============================================================================
+# 9. LEAD MAGNET FRAMEWORK (7 Steps)
+# =============================================================================
+lead_magnet:
+  definition: "A complete solution to a specific problem that, once solved, reveals another problem your main offer solves"
+
+  analogy: "Like salty pretzels at a bar - solve hunger, create thirst, sell drinks"
+
+  seven_steps:
+    step_1_problem:
+      action: "Identify the specific problem to solve and for whom"
+      tip: "Choose narrow and significant - solving it should reveal your main offer"
+
+    step_2_solution_type:
+      types:
+        reveal_problems: "Diagnose - show them a problem they didn't know they had"
+        samples_trials: "Give full but brief access to your main offer"
+        one_step: "Give one step of a multi-step process"
+
+    step_3_delivery_method:
+      options:
+        software: "Spreadsheet, calculator, small tool"
+        information: "Course, lessons, interviews, presentations"
+        services: "Free work (audit, adjustment, etc.)"
+        physical: "Something they can hold"
+      tip: "3 types × 4 methods = 12 possible lead magnets for ONE problem"
+
+    step_4_naming:
+      importance: "5x more people read headline than anything else"
+      test_order: ["Title", "Image(s)", "Subtitle"]
+      tip: "Test with polls - small changes can 10x engagement"
+
+    step_5_easy_consumption:
+      software: "Multiple formats (mobile, desktop)"
+      information: "Video, text, audio - offer ALL"
+      services: "More times, more ways to book"
+      physical: "Easy to order, fast delivery, simple instructions"
+
+    step_6_quality:
+      principle: "Give away the secrets, sell the implementation"
+      quote: "99% won't buy, but they will create or destroy your reputation based on free stuff quality"
+
+    step_7_cta:
+      components:
+        what_to_do: "Clear, simple action (call, click, schedule)"
+        reasons_to_act:
+          scarcity: "Limited quantity"
+          urgency: "Limited time"
+          frat_party: "Any reason (even silly ones increase action)"
+
+# =============================================================================
+# 10. CORE FOUR (4 Ways to Get Leads)
+# =============================================================================
+core_four:
+  overview:
+    warm_outreach: "1-to-1 to people who know you"
+    post_content: "1-to-many to people who know you"
+    cold_outreach: "1-to-1 to strangers"
+    paid_ads: "1-to-many to strangers"
+
+  warm_outreach:
+    description: "Reaching out to your existing contacts"
+
+    ten_steps:
+      - "Get your list (phone, email, social = your first 1000 leads)"
+      - "Pick platform with most contacts"
+      - "Personalize greeting with something you know about them"
+      - "Reach 100 people per day"
+      - "Use ACA framework: Acknowledge, Compliment, Ask"
+      - "Offer free value first (5 free case studies)"
+      - "Make it easy to say yes - START FREE"
+      - "Start from top when you finish"
+      - "Start charging after referrals start (80% off → 60% → 40% → full price)"
+      - "Keep list warm with regular value"
+
+    benchmarks:
+      response_rate: "20% (1 in 5 contacts respond)"
+      acceptance_rate: "20% of responders accept free offer"
+      conversion_rate: "25% of free users become paying"
+      math: "100 reach outs → 20 responses → 4 accept free → 1 paying customer"
+
+    nine_word_email:
+      template: "Are you still looking to [4-word desire]?"
+      examples:
+        - "Are you still looking to buy your dream home?"
+        - "Are you still looking to get more sales leads?"
+        - "Are you still looking to tone your arms?"
+
+# =============================================================================
+# 11. PRICING PLAYS (+26-63% Revenue)
+# =============================================================================
+pricing_plays:
+  math_insight: |
+    If you have 20% margins:
+    - Doubling customers = 3.5x profit
+    - Halving churn = 3.5x profit
+    - Doubling price = 6x profit
+    PRICE IS THE BIGGEST LEVER
+
+  ten_plays:
+    - name: "28-Day Cycles Instead of Monthly"
+      increase: "8.3%"
+      math: "13 billing cycles/year instead of 12"
+
+    - name: "Pass CC Fees to Customer"
+      increase: "3-4%"
+      method: "Multi-payment options, add fee for credit card"
+
+    - name: "Add Sales Tax"
+      increase: "0-10%"
+      method: "Depends on jurisdiction"
+
+    - name: "Annual CPI Increases"
+      increase: "3-10%"
+      method: "Built into contract, automatic yearly increase"
+
+    - name: "Longer Duration Billing Options"
+      increase: "10-15%"
+      method: "Annual billing at higher effective rate"
+
+    - name: "Round Up"
+      increase: "1-3%"
+      method: "$97 → $99, $997 → $1000"
+
+    - name: "Annual Renewal Fee Beyond Monthly"
+      increase: "10%"
+      method: "Yearly fee in addition to monthly"
+
+    - name: "Auto-Continuity / Continued Access"
+      increase: "10%"
+      method: "Automatic renewal, subscription model"
+
+    - name: "Ultra-High Anchor Option"
+      increase: "10-15%"
+      method: "Add premium tier to make standard seem reasonable"
+
+    - name: "Priced Warranty / Extended Guarantee"
+      increase: "5-20%"
+      method: "Sell extended protection as add-on"
+
+  total_potential: "26.8% to 63.8% revenue increase"
+
+# =============================================================================
+# 12. LAUNCH FRAMEWORK (EVENTO)
+# =============================================================================
+launch_framework:
+  acronym: "EVENTO"
+  components:
+    E_escassez:
+      description: "Scarcity - limited availability"
+      tactics: ["Limited spots", "Limited time", "First-come basis"]
+
+    V_valor_empilhado:
+      description: "Stacked value - bonuses on bonuses"
+      tactics: ["Break offer into components", "Name each bonus", "Price each bonus"]
+
+    E_escada_compromisso:
+      description: "Commitment ladder - small yeses lead to big yes"
+      tactics: ["Free content", "Low-ticket", "High-ticket"]
+
+    N_network_effect:
+      description: "Social proof snowball"
+      tactics: ["Testimonials", "Live results", "Community momentum"]
+
+    T_tensao_narrativa:
+      description: "Story tension - keep them hooked"
+      tactics: ["Open loops", "Cliffhangers", "Anticipation building"]
+
+    O_oferta_irrecusavel:
+      description: "Irresistible offer - stupid to say no"
+      tactics: ["Value stack", "Guarantee", "Urgency"]
+
+  six_phases:
+    phase_1: "Architecture of Desire - Build want before offering"
+    phase_2: "Invisible Army - Affiliates and partners aligned"
+    phase_3: "Attention Tsunami - Massive awareness push"
+    phase_4: "Catalyst Event - The launch moment"
+    phase_5: "Conversion Machine - Sales process activated"
+    phase_6: "Post-Sale Amplification - Maximize after the sale"
+
+# =============================================================================
+# 13. HOOKS FORMULA (Video/Ad Openers)
+# =============================================================================
+hooks:
+  purpose: "Stop the scroll in first 3 seconds"
+
+  hook_types:
+    contrarian: "Why [common belief] is completely wrong"
+    story: "I was [relatable struggle] until [discovery]"
+    curiosity: "The [adjective] secret that [authority] doesn't want you to know"
+    challenge: "I bet you can't [achievable but intriguing challenge]"
+    specific_result: "[Exact number] in [timeframe] using [method]"
+    question: "What if you could [desirable outcome] without [common sacrifice]?"
+
+  pattern_interrupt_techniques:
+    visual: "Unexpected image/movement"
+    verbal: "Controversial statement"
+    emotional: "Trigger strong feeling immediately"
+
+# =============================================================================
+# 14. KEY QUOTES (Swipe-Ready)
+# =============================================================================
+key_quotes:
+  offers:
+    - "Make people an offer so good they would feel stupid saying no"
+    - "The pain is the pitch - if you articulate the pain with precision, the sale is made"
+    - "Price is what you pay. Value is what you get."
+    - "Those who pay the most, pay the most attention"
+    - "Create flow. Monetize flow. Then add friction."
+    - "The longer you delay the ask, the bigger the ask you can make"
+
+  leads:
+    - "A lead is simply a person you can contact"
+    - "Leads alone aren't enough - you need ENGAGED leads"
+    - "Give away the secrets, sell the implementation"
+    - "Fast beats free - people will pay for speed"
+    - "Yeses give me opportunity. Nos give me feedback. Either way, I win."
+
+  pricing:
+    - "There is no strategic benefit to being the second cheapest"
+    - "If margins are 20% and you add 10% to price, you DOUBLE profit"
+    - "Price is the biggest lever in your business"
+
+  mindset:
+    - "We are not trying to get the most customers. We are trying to make the most money."
+    - "You can be right or you can be rich. This book is about getting rich."
+    - "The world belongs to those who can keep doing without seeing the result of their doing."
+
+# =============================================================================
+# 15. FAST CASH PLAYBOOK
+# =============================================================================
+fast_cash_playbook:
+  core_rule:
+    name: "10x Os 10%"
+    formula: "Se 10% dos seus clientes pagarem 10x o preço = você dobra sua receita"
+    insight: "Você já tem clientes quentes que pagariam mais por ofertas premium"
+
+  fast_cash_plays:
+    definition: "Ofertas limitadas, de alto valor, para audiências quentes"
+    frequency: "Quarterly (4x por ano)"
+    target_audience: "Lista existente, clientes ativos, audiência engajada"
+
+  seven_day_sequence:
+    day_1: "Anúncio da oferta + urgência real"
+    day_2: "Case study / prova social"
+    day_3: "FAQ + objeções respondidas"
+    day_4: "Depoimento em vídeo"
+    day_5: "Última chance + escassez"
+    day_6: "Extensão surpresa (opcional)"
+    day_7: "Fechamento final"
+
+  examples:
+    b2b:
+      name: "Fique Famoso"
+      price: "$50,000/ano"
+      includes: ["PR placement", "Media training", "Content creation"]
+
+    b2c:
+      name: "Transformação Total"
+      price: "$10,000"
+      includes: ["Personal training", "Nutrition", "Supplements", "1-on-1 coaching"]
+
+  roi_benchmark: "Pode quadruplicar o lucro com jogadas trimestrais bem executadas"
+
+# =============================================================================
+# 16. PRICE RAISE FRAMEWORK (RAISE)
+# =============================================================================
+price_raise_framework:
+  acronym: "RAISE"
+  components:
+    R_remember:
+      description: "Lembre-os do valor que receberam"
+      example: "Nos últimos 6 meses, você conquistou X, Y, Z..."
+
+    A_address:
+      description: "Anuncie a mudança de preço claramente"
+      example: "Estamos ajustando nossos preços a partir de [data]..."
+
+    I_invest:
+      description: "Explique onde o dinheiro vai"
+      example: "Esse aumento nos permite investir em [melhorias específicas]..."
+
+    S_soften:
+      description: "Ofereça desconto de lealdade"
+      example: "Como cliente atual, você mantém [desconto]% por [período]..."
+
+    E_explain:
+      description: "Esclareça os próximos passos"
+      example: "Seu próximo pagamento em [data] será de [valor]..."
+
+  pricing_cycles:
+    virtuous:
+      flow: "Preços altos → Melhores clientes → Mais margem para investir → Melhores resultados → Preços ainda mais altos"
+      outcome: "Crescimento sustentável"
+
+    vicious:
+      flow: "Preços baixos → Clientes problemáticos → Menos margem → Piores resultados → Precisa baixar mais"
+      outcome: "Corrida para o fundo"
+
+  testing_strategy:
+    step_1: "Teste aumento com NOVOS clientes primeiro"
+    step_2: "Se conversão se mantém, aplique aos atuais"
+    step_3: "Aumente em 10% mensalmente até conversão cair"
+
+  warren_buffet_quote: "Se você tem que fazer uma sessão de oração antes de aumentar o preço em um décimo de centavo, então você tem um negócio terrível."
+
+# =============================================================================
+# 17. WORKSHOP FRAMEWORK (7 Blocos + 1600 Slides)
+# =============================================================================
+workshop_framework:
+  overview:
+    duration: "3-4 horas"
+    expected_conversion: "10-30% da audiência ao vivo"
+    roi_target: "5-20x do investimento em ads no primeiro dia"
+
+  seven_blocks:
+    block_1_hook:
+      duration: "10 min"
+      purpose: "Promessa específica e mensurável + prova ao vivo"
+      template: "Nos próximos [TEMPO], vou mostrar exatamente como [RESULTADO ESPECÍFICO] sem [OBJEÇÃO 1], sem [OBJEÇÃO 2]..."
+
+    block_2_origin:
+      duration: "15 min"
+      purpose: "Conexão - ponto de partida pior que a audiência"
+      elements: ["Momento de fundo do poço", "Descoberta", "Primeira transformação"]
+
+    block_3_education:
+      duration: "60 min"
+      purpose: "Framework proprietário + demonstração prática"
+      elements: ["3 insights contra-intuitivos", "Demo ao vivo"]
+
+    block_4_cases:
+      duration: "30 min"
+      purpose: "Cascata de provas"
+      elements: ["Caso pessoal detalhado", "3-5 casos de clientes", "Caso ao vivo se possível"]
+
+    block_5_stack:
+      duration: "20 min"
+      purpose: "Construção de valor"
+      elements: ["Âncora alta", "Reduções", "Mínimo 5 componentes"]
+
+    block_6_risk_reversal:
+      duration: "10 min"
+      purpose: "Inversão total de risco"
+      elements: ["Garantia expandida", "Bônus de ação rápida", "Penalidade por não agir"]
+
+    block_7_demo:
+      duration: "30 min"
+      purpose: "Fechamento"
+      elements: ["Q&A ao vivo", "Consultoria demonstrativa", "Urgência real"]
+
+  slides_system:
+    total: 1600
+    distribution:
+      abertura_gancho: "Slides 1-150 (15-20 min)"
+      problema_agitacao: "Slides 151-350 (20-25 min)"
+      solucao_framework: "Slides 351-800 (45-60 min)"
+      implementacao: "Slides 801-1000 (20-30 min)"
+      oferta_stack: "Slides 1001-1400 (30-40 min)"
+      fechamento_acao: "Slides 1401-1600 (15-20 min)"
+
+    slide_rate: "6-10 slides/minuto mantém atenção"
+    types:
+      texto: "40% (640 slides) - máximo 7 palavras"
+      dados: "20% (320 slides) - gráficos simplificados"
+      imagem: "20% (320 slides) - screenshots reais"
+      transicao: "10% (160 slides) - títulos de seção"
+      mistos: "10% (160 slides) - texto sobre imagem"
+
+  production_timeline:
+    d_30_to_21: "Fundação - oferta, framework, provas"
+    d_20_to_11: "Produção - vídeos, slides, demonstrações"
+    d_10_to_4: "Tráfego - ads, afiliados, emails"
+    d_3_to_0: "Execução - ensaio, teste tech, briefing"
+
+  kpis:
+    retencao_1h: {ruim: "<40%", ok: "40-60%", otimo: ">60%"}
+    retencao_2h: {ruim: "<25%", ok: "25-40%", otimo: ">40%"}
+    engajamento_chat: {ruim: "<10%", ok: "10-20%", otimo: ">20%"}
+    taxa_clique: {ruim: "<5%", ok: "5-15%", otimo: ">15%"}
+
+# =============================================================================
+# 18. UPSELL BLUEPRINT (17 Elements)
+# =============================================================================
+upsell_blueprint:
+  core_insight:
+    name: "Janela de Ouro"
+    description: "Você tem 3-7 segundos após a compra antes da dopamina começar a cair"
+    principle: "Peak-End Rule - experiência é lembrada pelo pico e pelo final"
+
+  seventeen_elements:
+    - "Congratulação imediata pela compra"
+    - "Reforço da decisão tomada"
+    - "Revelação do 'gap' que o upsell preenche"
+    - "VSL curto (2-4 min máximo)"
+    - "Demonstração do resultado adicional"
+    - "Stack de valor rápido"
+    - "Prova social específica"
+    - "Urgência vinculada à compra recente"
+    - "CTA one-click (mesmo cartão)"
+    - "Preço ancorado no valor"
+    - "Garantia consistente com principal"
+    - "Botão de recusa visível"
+    - "Escassez real"
+    - "Design limpo, sem distrações"
+    - "Loading rápido"
+    - "Mobile-first"
+    - "Tracking completo"
+
+  vsl_structure:
+    timing:
+      "0-10s": "Parabenizar e validar compra"
+      "10-30s": "Revelar o 'gap' que o upsell preenche"
+      "30-90s": "Demonstrar o resultado adicional"
+      "90-180s": "Stack de valor rápido"
+      "180-240s": "CTA com urgência"
+
+  upsell_progression:
+    upsell_1: "30-50% do preço do produto principal"
+    upsell_2_if_refused: "15-25% (downsell)"
+    upsell_3_if_accepted: "50-100% (escalada)"
+
+  one_click_advantage:
+    description: "Usa token do primeiro pagamento - sem re-checkout"
+    conversion_increase: "40-60% vs re-inserir cartão"
+
+  metrics:
+    take_rate_target: ">25%"
+    aov_multiplier: "1.8-2.5x"
+
+# =============================================================================
+# 19. SALES PAGE BLUEPRINT (17 Elements)
+# =============================================================================
+sales_page_blueprint:
+  critical_insight: "Você tem 3 segundos above the fold para manter o visitante"
+
+  seventeen_elements:
+    above_fold:
+      - "Headline magnética (resultado + timeframe + sem dor)"
+      - "Subheadline de credibilidade"
+      - "CTA principal impossível de ignorar"
+      - "Prova social imediata"
+      - "Indicador de urgência real"
+
+    structure:
+      - "VSL ou imagem hero"
+      - "Bullets de benefícios (5-7 máximo)"
+      - "Seção 'Para quem é'"
+      - "Seção 'Para quem NÃO é'"
+      - "FAQ das 5 maiores objeções"
+      - "Stack de valor visual"
+      - "Comparação de preço (ancoragem)"
+      - "Garantia destacada"
+      - "Sobre o criador/autoridade"
+      - "Cases e depoimentos estratégicos"
+      - "Múltiplos CTAs estratégicos"
+      - "Selos de segurança"
+
+  headline_template: "Como [RESULTADO ESPECÍFICO] em [TIMEFRAME] Sem [DOR #1] ou [DOR #2]"
+
+  stack_visual:
+    format: |
+      COMPONENTE #1 ........................ Valor R$ 2.000
+      COMPONENTE #2 ........................ Valor R$ 1.500
+      BÔNUS #1 ............................. Valor R$ 997
+                          VALOR TOTAL: R$ 6.997
+                          SEU INVESTIMENTO: R$ 997
+
+  five_universal_objections:
+    - "Funciona pra mim?"
+    - "Quanto tempo demora?"
+    - "E se não funcionar?"
+    - "Preciso de X para funcionar?"
+    - "Como é o suporte?"
+
+  value_equation_application:
+    dream_outcome_increase: "Headlines, benefícios, cases"
+    probabilidade_increase: "Prova social, garantias, autoridade"
+    time_delay_decrease: "Promessas de velocidade, vitórias rápidas"
+    effort_sacrifice_decrease: "UX simples, suporte visível, checkout fácil"
+
+  benchmarks:
+    scroll_rate: ">40%"
+    conversion_cold: ">3%"
+    conversion_warm: ">8%"
+    checkout_abandonment: "<25%"
+
+  five_fatal_errors:
+    - error: "Vender recursos em vez de resultados"
+      fix: "Para cada feature, complete: '...para que você possa [RESULTADO EMOCIONAL]'"
+
+    - error: "Múltiplas ofertas na mesma página"
+      fix: "Uma página = uma oferta = uma decisão"
+
+    - error: "Garantia fraca ou inexistente"
+      fix: "Garantia específica, condicional e até 'unfair' para o cliente"
+
+    - error: "Preço sem contexto"
+      fix: "Sempre apresente após valor, junto com comparações, acompanhado de garantia"
+
+    - error: "Copy genérico de nicho"
+      fix: "Use a linguagem EXATA que seu avatar usa"
+
+# =============================================================================
+# 20. OFFER CREATION CHECKLIST
+# =============================================================================
+offer_checklist:
+  phase_1_diagnostico:
+    reality_check:
+      - "Custo de entrega calculado (exato)"
+      - "Margem mínima: 80%"
+      - "CAC atual documentado"
+      - "LTGP atual medido"
+      - "Churn rate conhecido"
+
+    pesquisa_dor:
+      - "100 comentários de clientes lidos"
+      - "10 ligações de vendas ouvidas"
+      - "Top 3 objeções mapeadas"
+      - "Linguagem exata do cliente coletada"
+
+  phase_2_grand_slam:
+    value_equation:
+      aumentar_numerador:
+        - "Resultado sonhado definido (específico + mensurável)"
+        - "Certeza de sucesso >80% (com garantia)"
+      zerar_denominador:
+        - "Tempo para resultado <30 dias"
+        - "Esforço do cliente minimizado"
+
+    naming:
+      - "Resultado no nome"
+      - "Tempo especificado"
+      - "Avatar identificado"
+      - "Diferente de TUDO no mercado"
+
+  phase_3_stack:
+    core_offer:
+      - "Solução principal clara"
+      - "Entrega em <7 dias"
+      - "Resultado em <30 dias"
+      - "Preço 10x custo de entrega"
+
+    bonus_stack:
+      - "Bônus 1: Resolve objeção #1 (velocidade)"
+      - "Bônus 2: Resolve objeção #2 (dificuldade)"
+      - "Bônus 3: Resolve objeção #3 (suporte)"
+      - "Bônus 4: Acelera resultado 2x"
+      - "Bônus 5: Insurance policy"
+
+    rule: "Valor dos bônus = 5-10x preço total"
+
+  phase_4_pricing:
+    structure:
+      - "Preço âncora mostrado (3x seu preço)"
+      - "Seu preço (10x custo)"
+      - "Pagamento facilitado (3-12x)"
+      - "Desconto à vista (10-20%)"
+
+  phase_5_garantias:
+    hierarchy:
+      - level: "Fraco"
+        example: "Garantia de 7 dias"
+      - level: "Ok"
+        example: "Garantia de 30 dias"
+      - level: "Bom"
+        example: "Garantia de resultado"
+      - level: "Ótimo"
+        example: "Garantia condicional"
+      - level: "Insano"
+        example: "Melhor que Grátis"
+
+    killer_example: "Teste por 90 dias. Se não tiver 10 clientes novos, devolvemos 100% + pagamos suas ads dos próximos 30 dias."
+
+  phase_6_teste:
+    mvp:
+      - "10 prospects apresentados"
+      - "3+ vendas fechadas (30% conversão)"
+      - "Feedback coletado"
+      - "Objeções documentadas"
+
+    metricas_sucesso:
+      conversao_frio: ">10%"
+      conversao_morno: ">30%"
+      conversao_quente: ">50%"
+      refund: "<5%"
+
+  red_flags:
+    - "'Preciso pensar' >50% = Valor baixo"
+    - "'Muito caro' frequente = Valor não comunicado"
+    - "Comparação com concorrente = Commodity"
+    - "'Não é pra mim' = Avatar errado"
+    - "Ghost após proposta = Trust quebrado"
+
+  final_checklist:
+    - "Oferta passa no 'teste da mãe'?"
+    - "Você compraria por 2x o preço?"
+    - "Garantia te dá frio na barriga?"
+    - "Resultado é específico e mensurável?"
+    - "Stack value >10x preço?"
+    - "Nome comunica transformação?"
+    - "Urgência é real e ética?"
+    - "Cliente não pode perder?"
+
+  brutal_truth: "Oferta boa vende com copy ruim. Oferta ruim não vende nem com copy do Ogilvy."

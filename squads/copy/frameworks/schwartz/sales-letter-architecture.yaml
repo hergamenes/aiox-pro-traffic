@@ -1,0 +1,69 @@
+# Framework: Sales Letter Architecture
+# Author: Eugene Schwartz
+# Source: Breakthrough Advertising
+# Command: *sales-letter
+
+name: "Sales Letter Architecture"
+category: "copy_structure"
+origin: "Eugene Schwartz"
+
+structure:
+  opening:
+    description: "Baseada em Nivel de Consciencia"
+    by_awareness:
+      unaware: "Historia ou pergunta provocativa"
+      problem_aware: "Agitacao do problema"
+      solution_aware: "Promessa da solucao"
+      product_aware: "Diferenciacao direta"
+      most_aware: "Oferta e urgencia"
+
+  development:
+    description: "Graduacao de Crencas"
+    flow: "Crenca Atual -> Expansao -> Nova Perspectiva -> Possibilidade -> Prova -> Inevitabilidade"
+
+  mechanism:
+    description: "Demonstracao de COMO funciona"
+    elements:
+      - "Como funciona especificamente"
+      - "Por que e diferente/superior"
+      - "Prova de funcionamento"
+      - "Casos de sucesso"
+
+  intensification:
+    description: "Amplificacao de Beneficios"
+    layers:
+      - "Beneficios primarios (resolver problema principal)"
+      - "Beneficios secundarios (vantagens adicionais)"
+      - "Beneficios terciarios (status, admiracao)"
+
+  proof:
+    description: "Credibilidade"
+    types:
+      - "Autoridade (credenciais, endossos)"
+      - "Demonstracao (estudos, dados)"
+      - "Social (testemunhos, numeros)"
+      - "Logica (explicacao cientifica)"
+
+  offer:
+    description: "Oferta e Garantia"
+    elements:
+      - "Preco contextualizado (comparacao de valor)"
+      - "Bonus que amplificam desejo principal"
+      - "Garantia que elimina risco"
+      - "Escassez/Urgencia genuinas"
+
+  cta:
+    description: "Call to Action"
+    requirements:
+      - "Especifico e claro"
+      - "Proximo passo unico"
+      - "Facilitacao maxima"
+      - "Reforco de urgencia"
+
+  ps:
+    description: "P.S. Estrategico"
+    purposes:
+      - "Reafirmacao do beneficio principal"
+      - "Elemento de urgencia final"
+      - "Bonus surpresa"
+      - "Garantia reforcada"

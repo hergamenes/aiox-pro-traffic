@@ -1,0 +1,935 @@
+# =============================================================================
+# PRODUCT LAUNCH FORMULA - COPY SCRIPTS EXTRACTION
+# =============================================================================
+# Source: Launch by Jeff Walker (Original 2014 + Updated 2021)
+# Extracted: All copy criteria, scripts, phrases, and language guidelines
+# =============================================================================
+
+metadata:
+  source_books:
+    - title: "Launch: An Internet Millionaire's Secret Formula"
+      author: "Jeff Walker"
+      edition: "Original (2014)"
+      file: "launch_jeff_walker.txt"
+    - title: "Launch: How to Sell Almost Anything Online"
+      author: "Jeff Walker"
+      edition: "Updated (2021)"
+      file: "launch_jeff_walker_updated.txt"
+  extraction_date: "2024"
+  purpose: "Complete copy/script extraction for PLF implementation"
+
+# =============================================================================
+# SIDEWAYS SALES LETTER - CORE CONCEPT
+# =============================================================================
+sideways_sales_letter:
+  definition: |
+    Instead of taking 8, 12, or 20 pages to tell the story in a long, vertical
+    sales letter, flip the sales process on its side.
+    - Instead of pages, use days
+    - Instead of a 10-page sales letter, use a 10-day sequence
+    - Instead of one super-long letter, split it into a series of contacts (PLC)
+    - Instead of a monologue, turn it into a conversation
+    - Instead of one point of contact, use multiple "touches"
+
+  core_principle: |
+    Use great sequential content and the power of story to pull the prospect
+    into your sales message. Turn the whole process into a Launch Conversation.
+
+  typical_structure:
+    - Three pieces of Prelaunch Content (PLC)
+    - Delivered over 5-12 days
+    - Followed by sales message
+    - End with Open Cart
+
+  key_differentiator: |
+    This isn't about taking a sales pitch and stretching it out. You deliver
+    REAL VALUE to your prospects throughout the process.
+
+# =============================================================================
+# PRE-PRELAUNCH COPY
+# =============================================================================
+pre_prelaunch:
+  purpose:
+    - Build anticipation among loyal fans
+    - Surface potential objections early
+    - Start engaging prospects in conversation
+    - Gather data and language from market
+    - Test interest for your offer
+
+  format: "Simple email or social media post"
+
+  example_email:
+    subject_line: "Quick announcement and a favor..."
+    body: |
+      Hi,
+
+      I've got something I've been working on, and I'd love your input.
+
+      [Brief description of what's coming]
+
+      Could you take 30 seconds and answer two quick questions for me?
+
+      [Survey link]
+
+      Thanks!
+      [Name]
+
+    notes:
+      - Keep it conversational, not corporate
+      - Ask for a favor (builds engagement)
+      - Super short - 80 words or less
+      - Include link to simple survey
+
+  survey_questions:
+    question_1: "What's your #1 question about [topic]?"
+    question_2: "What's holding you back from [desired outcome]?"
+    purpose:
+      - Surface objections (disguised as "questions")
+      - Gather exact language of prospects
+      - Build curiosity and anticipation
+
+  what_to_accomplish:
+    - "Why should I pay attention to you?"
+    - "Why should I care about this topic?"
+    - "How can I figure out what their objections are?"
+    - "How can I start to engage my prospects in a conversation?"
+    - "How can I stand out?"
+
+# =============================================================================
+# PLC #1 - THE OPPORTUNITY (OR THE JOURNEY)
+# =============================================================================
+plc_1:
+  theme: "The WHY"
+  duration: "15-20 minutes video (20-40 min if live)"
+
+  core_question_to_answer: |
+    "Why should your prospect care? Why should they spend their precious time
+    paying attention to you? Why should they listen to you? What can you do for them?"
+
+  structure:
+    step_1_show_opportunity:
+      description: "Show/tell how their life is going to change with your product"
+      focus: "End benefit, transformation, or change"
+      principle: |
+        At the heart of every product is some opportunity for transformation.
+        You're either taking away pain or delivering pleasure.
+        "You're not selling drills - you're selling holes in wood."
+        "You're selling the destination, not the transportation."
+
+    step_2_position_authority:
+      description: "Show/tell why they should listen to you"
+      techniques:
+        - Share credentials (but don't brag)
+        - Tell your story (relatable journey)
+        - Show results/experience
+        - Reference notable accomplishments
+      example_phrase: |
+        "I'm a lot like you. I found a passion for [X] when I was [age], but
+        was told I couldn't do it for a living. [Story of overcoming]...
+        And you can do that too! In this free training, I'm going to show you how."
+
+    step_3_teach:
+      description: "Deliver real value - don't just talk about opportunity"
+      warning: "Don't just go on and on about the opportunity"
+      principle: "Give them something they can use NOW"
+
+    step_4_raise_objections:
+      description: "Either answer objections or promise to answer in upcoming videos"
+      note: "No matter what your offer is, there will be objections. Face them head on."
+
+    step_5_foreshadow_plc2:
+      description: "Let them know there's another video coming"
+      technique: "Spark desire by revealing cool stuff they'll learn"
+      example_phrase: |
+        "In the next video, I'm going to show you exactly how to [specific benefit]..."
+
+    step_6_call_to_action:
+      description: "Ask for a comment on your launch blog or social media"
+      why: "Creates Launch Conversation and builds Community trigger"
+
+  what_NOT_to_do:
+    - No sales pitch
+    - No mention of product yet
+    - Don't be arrogant about credentials
+    - Don't overwhelm with information
+    - Don't skip the "positioning" step
+
+  example_script_framework:
+    opening: |
+      "I'm about to share something that could completely change
+      [specific outcome] for you..."
+
+    connection: |
+      "I'm a lot like you. I [relatable struggle]. But then I discovered..."
+
+    opportunity: |
+      "What if you could [transformation]? What would that mean for your
+      [life/business/health]?"
+
+    credibility: |
+      "[Brief credential without bragging] - and more importantly, I've helped
+      [number] people achieve [result]."
+
+    teaching_preview: |
+      "In fact, let me share [one tip/insight] right now that you can use today..."
+
+    objection_acknowledge: |
+      "Now, I know what you might be thinking: '[common objection].'
+      I'll address that in our next video, but for now..."
+
+    foreshadow: |
+      "Speaking of which, in [day], I'm going to share [specific valuable thing].
+      Make sure you don't miss it."
+
+    cta: |
+      "Before you go, leave me a comment below. Tell me: [specific question
+      related to their situation]."
+
+# =============================================================================
+# PLC #2 - THE TRANSFORMATION
+# =============================================================================
+plc_2:
+  theme: "The WHAT"
+  duration: "15-20 minutes video (can be longer)"
+
+  core_question_to_answer: |
+    "What is this transformation or opportunity and how is it going to change
+    or transform your prospects' lives?"
+
+  key_goal: |
+    Get your prospect to SEE THEMSELVES having the transformation
+    that you promised in PLC #1. Create the "ownership experience" mentally.
+
+  structure:
+    step_1_thanks_and_recap:
+      description: "Thank people for comments and questions from PLC #1"
+      purpose: "Shows you're listening, builds community"
+      example_phrase: |
+        "Wow, the response to our first video has been incredible! I've been
+        reading through your comments, and [mention specific insight or question]..."
+      then: "Give quick restatement of PLC #1"
+
+    step_2_recap_opportunity:
+      description: "Quickly reiterate the opportunity"
+      warning: |
+        "Don't ever assume that your prospect has seen or paid attention to or
+        remembered PLC #1. They've got busy lives, and your launch isn't nearly
+        as important to them as it is to you."
+      keep_brief: true
+
+    step_3_recap_positioning:
+      description: "Remind them who you are and why they should listen"
+      note: "Don't take too long - do it quickly"
+
+    step_4_teach_or_case_study:
+      description: "Deliver REAL value - teach something they can use quickly"
+      principle: |
+        What can you teach in 5-10 minutes that will make an impact?
+        How can you start to create that transformation NOW?
+        It doesn't have to be huge - just get them MOVING.
+      example: |
+        In PLF launches, PLC #2 often teaches the "Seed Launch" - giving enough
+        training so prospects can at least SEE THEMSELVES doing it.
+
+    step_5_objection_crushing:
+      description: "Talk about top 2-3 objections and answer them"
+      focus: "Go after prospects' BIG objections to the transformation"
+
+    step_6_foreshadow_plc3:
+      description: "Let them know another video is coming soon"
+      technique: "Build anticipation by revealing what you'll teach"
+
+    step_7_call_to_action:
+      description: "Ask for comment or share on social media"
+
+  what_NOT_to_do:
+    - No hint of a sale yet
+    - Don't give away "too much" (rarely a real problem)
+    - Don't skip the teaching
+    - Don't make it all theory - give actionable content
+
+  example_teaching_frame:
+    setup: |
+      "Let me show you exactly what I did to [achieve result]..."
+
+    demonstration: |
+      "Here's what works and what doesn't work. If you're making these
+      common mistakes, here's how you fix them..."
+
+    bridge_to_transformation: |
+      "Imagine what your [life/business] would look like if you had this
+      [skill/result]..."
+
+# =============================================================================
+# PLC #3 - THE OWNERSHIP EXPERIENCE
+# =============================================================================
+plc_3:
+  theme: "The HOW"
+  duration: "20-30 minutes video"
+
+  core_question_to_answer: |
+    "How are they really going to have that change in their lives?"
+    The ultimate answer is to buy your product - and by the end of PLC #3,
+    they're going to start seeing that answer.
+
+  critical_element: "THE PIVOT TO YOUR OFFER"
+  pivot_timing:
+    original_book: "Last 25% of PLC #3"
+    updated_book: "Last 10% of PLC #3"
+    recommendation: "10-25% depending on video length and offer"
+
+  structure:
+    step_1_express_thanks_and_excitement:
+      description: "Thank viewers for comments/questions from PLC #2"
+      add: "Tell them how excited you are and how excited viewers are"
+      example_phrase: |
+        "The energy around this has been incredible! I've been reading your
+        comments, and so many of you are ready to take this to the next level..."
+
+    step_2_quick_recap:
+      description: "Briefly describe opportunity and remind who you are"
+      warning: "Don't assume they remember or even saw first two videos"
+      note: "Move through it quickly"
+
+    step_3_possibly_case_study:
+      description: "Present a short case study if you have one"
+      note: "If you don't have one yet, that's fine - you'll have one after this launch"
+
+    step_4_answer_top_questions:
+      description: "Answer top objections"
+      important: |
+        "Do this even if you've already raised and answered those objections
+        in earlier PLC. People raise the same objections in different ways."
+      source: "Questions that keep popping up in comments"
+
+    step_5_explain_big_view:
+      description: "Step back and look at what's really possible"
+      questions_to_address:
+        - "What's the ultimate transformation they can have?"
+        - "Look at it from all angles"
+        - "Project out into their future"
+
+    step_6_pivot_to_offer:
+      timing: "Last 10-25% of video"
+      description: |
+        "Start preparing them for the offer - the 'soft landing.'
+        You don't want to go from being their best friend in one video
+        to a used-car salesman in the next."
+
+      what_to_say:
+        - "Tell them you're going to have an offer in next video"
+        - "They need to watch if they're ready to take transformation to next level"
+        - "Don't hit them over the head - they still haven't seen your offer"
+
+      example_pivot_phrases:
+        gentle_transition: |
+          "Now, I've been giving you a lot of free content, and I'm going to
+          continue doing that. But I also have something special coming up
+          that I want to tell you about..."
+
+        ownership_bridge: |
+          "If you're serious about [transformation], and you want me to
+          personally guide you through this process, I'm going to share
+          exactly how you can do that in my next video..."
+
+        limited_offer_hint: |
+          "I'm going to be working with a small group of people to help them
+          [achieve transformation]. It's going to be limited because [real reason]..."
+
+    step_7_seed_scarcity:
+      description: "Mention scarcity without hitting over the head"
+      example_phrases:
+        - "Make sure you watch for my next email - this is going to be a limited offer"
+        - "There are only going to be [X] spots available"
+        - "This opportunity will only be available for a short time"
+      warning: |
+        "You're not looking to hit them over the head with it,
+        because they still haven't seen your offer."
+
+    step_8_call_to_action:
+      description: "Ask for comment on launch blog or social media"
+
+  common_mistake:
+    problem: |
+      People get so caught up in delivering great content that they don't
+      want to talk about the sale in that final prelaunch video.
+    quote_from_student: |
+      "I was loving the teaching, and my prospects were loving me for all
+      the great content. I didn't want to mess with all those good vibes
+      by talking about my upcoming product. But I decided to just follow PLF,
+      and you told me to put that in there, so I did and the formula worked."
+
+# =============================================================================
+# PLC #4 / OPEN CART - ENROLLMENT
+# =============================================================================
+plc_4_enrollment:
+  theme: "ENROLLMENT"
+  context: |
+    This is the message shift from teaching to guiding people to a decision.
+    You're asking your prospect to enroll in their future - to take the action
+    that will give them that future.
+
+  narrative_arc:
+    plc_1: "Opportunity - showed possibility of change"
+    plc_2: "Transformation - showed how life would be transformed"
+    plc_3: "Ownership - showed what it would be like to truly own that change"
+    plc_4: "Enrollment - asking them to enroll in that future"
+
+  key_insight: |
+    "For someone to buy from you means they are enrolling in the future change
+    that they will get if they buy your product."
+
+# =============================================================================
+# OPEN CART EMAIL SCRIPTS
+# =============================================================================
+open_cart_emails:
+
+  email_1_launch_email:
+    timing: "Day 1 - Cart Opens"
+    style: "Short, simple, direct to the point"
+
+    example:
+      subject: "[Product Name] is LIVE"
+      body: |
+        Okay, I just opened up registration for [Product Name]. We're now live:
+
+        CLICK HERE for [Product Name]
+        [Link]
+
+        (I opened it up a bit early to avoid any bottlenecks and spread the load on the server.)
+
+        Best regards,
+        [Name]
+
+        P.S. Remember... you don't need to panic. I don't expect to sell out immediately.
+        However, if you want one of those spots at [specific benefit/bonus], then please
+        don't delay. They're going to go fast.
+
+        Here's the link:
+        CLICK HERE for [Product Name]
+        [Link]
+
+    notes:
+      - "One sentence before the link"
+      - "P.S. is often the most-read part - use it for scarcity"
+      - "Link should appear at least twice"
+
+  email_2_confirmation:
+    timing: "Day 1 - About 4 hours after launch"
+    purpose: "Let list know everything is up and running"
+    content_focus:
+      - "Confirm cart is open"
+      - "Early results/response (social proof)"
+      - "Remind of offer"
+
+  email_3_social_proof:
+    timing: "Day 2"
+    purpose: "Talk about great response to launch"
+    content_elements:
+      - "Number of people who have joined"
+      - "Comments/excitement from buyers"
+      - "Any early results/testimonials"
+    must_include: "Link to sales page"
+
+  email_4_faq:
+    timing: "Day 3"
+    style: "Longer email"
+    purpose: "Answer top questions about the product"
+    structure:
+      - "Acknowledge questions coming in"
+      - "Answer 3-5 top questions"
+      - "Each answer should address an objection"
+    must_include: "Link to sales page"
+
+  email_5_scarcity_warning:
+    timing: "Day 4"
+    purpose: "24-hour warning before close"
+    tone_shift: "Message shifts to scarcity"
+    must_include:
+      - "Exact date and time of close"
+      - "What prospects stand to lose"
+      - "Link to sales page"
+
+    example_phrases:
+      - "In 24 hours, this offer will be gone"
+      - "Tomorrow at [time], I'm closing the doors"
+      - "If you've been on the fence, now is the time to decide"
+
+  email_6_closing_day_morning:
+    timing: "Day 5 - Early morning"
+    purpose: "Reiterate closing today"
+    content:
+      - "Today's the last day"
+      - "Exact closing time"
+      - "What they'll miss"
+
+  email_7_closing_day_afternoon:
+    timing: "Day 5 - 6-8 hours before close"
+    purpose: "Second reminder"
+    content:
+      - "Final hours"
+      - "Last chance emphasis"
+      - "Clear deadline"
+
+  email_8_final_reminder:
+    timing: "Day 5 - 2-3 hours before close"
+    purpose: "Final courtesy reminder"
+    style: "Very short, urgent"
+
+    example:
+      subject: "Final hours - [Product] closes at [time]"
+      body: |
+        This is your final reminder.
+
+        [Product] closes in [X] hours at [exact time].
+
+        If you've been thinking about this, now is the time.
+
+        [Link]
+
+        After [time], this offer is gone.
+
+        [Name]
+
+  critical_rules:
+    - "Send at least 2 emails on closing day - consider 3"
+    - "Include link to sales page in EVERY email during Open Cart"
+    - "Don't let up - your prospects are procrastinators"
+    - "Most people order right up until the last minute"
+
+# =============================================================================
+# SALES PAGE / SALES VIDEO COPY
+# =============================================================================
+sales_page_copy:
+
+  purpose: |
+    Even though people who went through your Launch Sequence have been pre-sold,
+    don't skimp on your sales message. You have to tell the entire story of your offer.
+
+  essential_elements:
+
+    element_1_opportunity:
+      description: "Start with the opportunity"
+      connect_to: "What you established in PLC #1"
+
+    element_2_transformation:
+      description: "Paint the transformation clearly"
+      questions_to_answer:
+        - "What change will they experience?"
+        - "How will their life be different?"
+
+    element_3_offer_details:
+      description: "Tell the entire story of your offer"
+      include:
+        - "Exactly what they're going to get"
+        - "What they can expect with every step"
+        - "All components of the offer"
+        - "Bonuses (if any)"
+
+    element_4_price:
+      description: "How much the product costs"
+      include:
+        - "Full price"
+        - "Payment plan options (if available)"
+        - "Value comparison"
+
+    element_5_guarantee:
+      description: "What your guarantee is"
+      purpose: "Remove risk"
+
+    element_6_scarcity:
+      description: "Why they need to act now"
+      types:
+        - "Price goes up"
+        - "Bonuses removed"
+        - "Offer goes away completely"
+
+    element_7_call_to_action:
+      description: "Clear, simple buying process"
+      note: "Is your buying process simple and understandable?"
+
+  sales_video_specifics:
+    typical_length: "15-30 minutes"
+    key_principle: |
+      "Sales video will always be shorter and tighter than a live broadcast replay."
+
+    structure:
+      - "Hook/Opening"
+      - "Story/Journey"
+      - "Transformation promise"
+      - "Social proof"
+      - "What's included"
+      - "Bonuses"
+      - "Price reveal"
+      - "Guarantee"
+      - "Final CTA"
+
+# =============================================================================
+# SCARCITY COPY
+# =============================================================================
+scarcity_copy:
+
+  importance: |
+    "IMPORTANT: Lots of people avoid creating real scarcity at the end of their launch.
+    Don't make that mistake or you will CRIPPLE your results. In fact, you will cut
+    your sales in half. Put some real teeth into the end of your launch, and you
+    will DOUBLE your results."
+
+  three_types:
+
+    type_1_price_increase:
+      description: "Special price during launch"
+      strength: "Good but not the most powerful"
+      example_phrases:
+        - "After midnight, the price goes up to $X"
+        - "Launch-only pricing ends tonight"
+        - "Save $X when you join during launch week"
+
+    type_2_bonus_removal:
+      description: "Bonuses go away after launch"
+      strength: "Can be stronger than price increase"
+      example_phrases:
+        - "The [bonus name] is only available during this launch"
+        - "After tonight, [bonus] will no longer be included"
+        - "Join by [time] to get [bonus]"
+
+    type_3_offer_goes_away:
+      description: "Product not available at all after launch"
+      strength: "Strongest form - usually much stronger than price increase"
+      limitation: "Doesn't fit well for all offers"
+      works_for: "Online programs, coaching groups, cohort-based courses"
+      example_phrases:
+        - "Registration closes at midnight and won't reopen"
+        - "This is the only time this year you can join"
+        - "Once the doors close, there's no way to get in"
+
+  layering_strategy: |
+    "You can combine these three forms of scarcity and layer them on top of each other.
+    If you can have the price go up AND bonuses go away at the end of your launch,
+    then you've just created more scarcity and a more powerful launch."
+
+  critical_rule: |
+    "The scarcity has to be REAL. Using these types of scarcity is not about manipulation."
+
+  typical_results: |
+    "You'll get about 25% of your orders on the first day and about 50% on the final day."
+
+# =============================================================================
+# MENTAL TRIGGERS IN COPY
+# =============================================================================
+mental_triggers_copy:
+
+  how_to_use: |
+    "Layer these mental triggers, one on top of another, so you're not dependent
+    on any single trigger to influence your prospects."
+
+  trigger_1_authority:
+    definition: "People follow others in positions of authority"
+    how_plf_activates: |
+      "As you share high-quality content with prospects, you create authority
+      almost automatically."
+    copy_techniques:
+      - "Share credentials naturally (not bragging)"
+      - "Reference notable achievements/clients"
+      - "Demonstrate expertise through teaching"
+      - "Tell your journey/story"
+
+  trigger_2_reciprocity:
+    definition: "If someone gives something to us, we feel obligation to give back"
+    how_plf_activates: |
+      "When you give out valuable content, you're creating a large reciprocity imbalance."
+    copy_techniques:
+      - "Give real value in every piece of content"
+      - "Don't hold back the 'good stuff'"
+      - "Multiple cycles of giving before asking"
+
+  trigger_3_trust:
+    how_plf_activates: "Naturally builds as you move through the launch"
+    copy_techniques:
+      - "Be authentic and consistent"
+      - "Follow through on promises"
+      - "Engage in Launch Conversation"
+
+  trigger_4_anticipation:
+    definition: "One of the cornerstones of PLF"
+    how_plf_activates: |
+      "Closely related to scarcity. If you use anticipation right, people will
+      be lined up ahead of your product release."
+    copy_techniques:
+      - "Foreshadow what's coming"
+      - "Create countdown/timeline"
+      - "Tease future content/offers"
+      - "Build toward a specific date"
+
+  trigger_5_likability:
+    copy_techniques:
+      - "Be conversational, not corporate"
+      - "Share personal stories"
+      - "Show vulnerability"
+      - "Engage with comments/questions"
+
+  trigger_6_community:
+    definition: "We act in accordance with how we think the community acts"
+    how_plf_activates: "Launch Conversation creates instant community"
+    copy_techniques:
+      - "Encourage comments and discussion"
+      - "Reference community excitement"
+      - "Show others taking action"
+
+  trigger_7_events_ritual:
+    how_plf_activates: |
+      "Since you're taking prospects through this entire sequence together,
+      it becomes a shared experience."
+    copy_techniques:
+      - "Frame the launch as an event"
+      - "Create specific dates/times"
+      - "Build toward a climax"
+
+  trigger_8_scarcity:
+    definition: "When there's less of something, we want it more"
+    note: "See detailed scarcity section above"
+
+  trigger_9_social_proof:
+    definition: "If we see other people taking action, we'll be inclined to take action"
+    how_plf_activates: |
+      "When someone new sees others making comments - saying how excited they
+      are about your launch and how they can't wait to buy - that is social
+      proof in action, and it's incredibly powerful."
+    copy_techniques:
+      - "Share testimonials/case studies"
+      - "Reference number of comments/engagement"
+      - "Highlight others who have bought"
+      - "Show results of previous customers"
+
+  sequencing_principle: |
+    "Mental triggers are more powerful when you sequence them. You're not trying
+    to hit all the triggers at once. Instead, layer in the triggers over the
+    course of your entire launch."
+
+# =============================================================================
+# OBJECTION HANDLING IN COPY
+# =============================================================================
+objection_handling:
+
+  principle: |
+    "You can't sell to people until you overcome their objections to the sale.
+    You can't overcome those objections until you discover what they are."
+
+  how_to_discover:
+    - "Survey in Pre-Prelaunch (ask 'top two questions')"
+    - "Comments on PLC videos"
+    - "Direct questions from prospects"
+    - "Social media conversations"
+
+  where_to_address:
+    plc_1: "Raise objections and promise to answer"
+    plc_2: "Answer top 2-3 objections"
+    plc_3: "Answer again, even if already answered"
+    open_cart: "FAQ email addresses remaining objections"
+
+  key_insight: |
+    "People raise the same objections in different ways by asking different questions.
+    Go ahead and answer those questions that keep popping up."
+
+  common_objections_to_address:
+    - "Will this work for me?"
+    - "Can I afford it?"
+    - "Do I have time?"
+    - "Is this the right time?"
+    - "What if it doesn't work?"
+
+# =============================================================================
+# LAUNCH CONVERSATION COPY
+# =============================================================================
+launch_conversation:
+
+  definition: |
+    "One really important part of the Sideways Sales Letter is what I call the
+    'Launch Conversation' - when you post your Prelaunch Content on a blog or
+    website where there's a place to leave comments."
+
+  how_to_create:
+    - "Ask for comments at end of every video"
+    - "Respond to questions and engage"
+    - "Reference comments in subsequent videos"
+    - "Thank people for their input"
+
+  benefits:
+    - "Turns monologue into conversation"
+    - "Gives insight into prospects' thinking"
+    - "Helps identify biggest objections"
+    - "Creates instant community"
+    - "Builds social proof"
+
+  call_to_action_examples:
+    plc_1: "Leave me a comment below. Tell me: [specific question about their situation]"
+    plc_2: "What's your biggest takeaway from today? Share in the comments."
+    plc_3: "Are you ready to [take action]? Let me know in the comments."
+
+# =============================================================================
+# TIMING GUIDELINES
+# =============================================================================
+timing:
+
+  standard_sequence_7_days:
+    day_1: "Release PLC #1"
+    day_3: "Release PLC #2"
+    day_5: "Release PLC #3"
+    day_7: "Open Cart"
+
+  standard_sequence_10_days:
+    day_1: "Release PLC #1"
+    day_5: "Release PLC #2"
+    day_8: "Release PLC #3"
+    day_10: "Open Cart"
+
+  compressed_live_launch:
+    day_1: "PLC #1 (Opportunity)"
+    day_2: "PLC #2 (Transformation)"
+    day_3: "PLC #3 (Ownership)"
+    day_4: "Open Cart (Enrollment)"
+
+  open_cart_duration:
+    recommended: "5-7 days"
+    minimum: "4 days"
+    warning: |
+      "You could go shorter, but that's a move only for the most experienced.
+      Don't go longer or your Open Cart turns into a beg-a-thon."
+
+  advanced_open_cart_sequence:
+    day_1: "Open Cart email + confirmation email + social media"
+    day_2: "Additional PLC video or live broadcast"
+    day_3: "FAQ page or live Q&A"
+    day_4: "Case studies (24-hour warning to close)"
+    day_5: "Closing day - 3 emails + social media"
+
+# =============================================================================
+# LIVE LAUNCH SPECIFICS
+# =============================================================================
+live_launch_copy:
+
+  key_differences:
+    - "Delivery will never be as tight as edited video"
+    - "Viewers are more forgiving - they understand you're live"
+    - "You can react to questions/comments in moment"
+    - "Typically twice as long as equivalent edited video"
+
+  broadcast_structure:
+    plc_1_live: "Opportunity - same framework as video"
+    plc_2_live: "Transformation - same framework as video"
+    plc_3_live: "Ownership - same framework as video"
+    plc_4_live: "Enrollment - this is where you make your offer"
+
+  live_open_cart_sequence:
+    day_1: "PLC #4 Live Broadcast (Enrollment) - make offer, start taking orders"
+    day_2: "Sales Video (optional - tighter than live replay)"
+    day_3: "FAQ Live Broadcast"
+    day_4: "Case Study Live Broadcast"
+    day_5: "Final Closing Broadcast (Celebration + Final Q&A)"
+
+  teaching_aids:
+    - "Flip chart to stay focused"
+    - "Notes on desk or computer (be open about consulting them)"
+    - "Don't pretend to be perfect"
+
+  replay_considerations: |
+    "Many people will NOT attend live. Put real thought into creating a great
+    experience for replay viewers. Edit the slow start, consider giving video
+    controls."
+
+# =============================================================================
+# WHAT NEVER TO SAY / DO
+# =============================================================================
+what_never_to_do:
+
+  in_prelaunch:
+    - "Never make a sales pitch in PLC #1 or #2"
+    - "Never skip the pivot in PLC #3"
+    - "Never be arrogant about credentials"
+    - "Never overwhelm with too much information at once"
+    - "Never forget to ask for engagement (comments)"
+    - "Never assume they saw/remember previous content"
+
+  in_open_cart:
+    - "Never let up on messaging during Open Cart"
+    - "Never send only one email on closing day"
+    - "Never skip the scarcity trigger"
+    - "Never make scarcity fake/manipulative"
+    - "Never forget to include link to sales page in every email"
+
+  in_sales_copy:
+    - "Never make buying process confusing"
+    - "Never hide the price"
+    - "Never skip the guarantee"
+    - "Never forget to clearly state what they get"
+
+# =============================================================================
+# EXAMPLE PHRASES AND TEMPLATES
+# =============================================================================
+example_phrases:
+
+  opening_hooks:
+    - "I'm about to share something that could completely change [X] for you..."
+    - "What if you could [transformation]?"
+    - "In the next [X] minutes, I'm going to show you exactly how..."
+    - "I'm a lot like you. I [relatable struggle]..."
+
+  credibility_builders:
+    - "I've helped [number] people achieve [result]..."
+    - "After [X] years of [experience]..."
+    - "What I'm about to share has generated [result]..."
+    - "I've personally [achievement]..."
+
+  teaching_transitions:
+    - "Let me show you exactly what I did..."
+    - "Here's what works and what doesn't..."
+    - "The first thing you need to understand is..."
+    - "Let me give you an example..."
+
+  foreshadowing:
+    - "In the next video, I'm going to show you..."
+    - "Make sure you don't miss what's coming next..."
+    - "I've got something special coming up..."
+    - "In [X] days, I'll reveal..."
+
+  pivot_phrases:
+    - "Now, I've been giving you a lot of free content..."
+    - "If you're serious about [transformation]..."
+    - "I'm going to be working with a small group of people..."
+    - "In my next video, I'm going to tell you exactly how you can..."
+
+  scarcity_phrases:
+    - "This offer closes at [time]..."
+    - "After [time], [consequence]..."
+    - "There are only [X] spots available..."
+    - "This is the only time this year..."
+    - "If you've been on the fence, now is the time..."
+
+  call_to_action_phrases:
+    - "Leave me a comment below..."
+    - "Tell me: [specific question]..."
+    - "Click the link below to..."
+    - "Here's what I want you to do right now..."
+
+# =============================================================================
+# KEY METRICS AND EXPECTATIONS
+# =============================================================================
+metrics:
+
+  typical_results:
+    first_day_orders: "~25% of total"
+    final_day_orders: "~50% of total"
+    middle_days: "~25% of total"
+
+  prelaunch_video_length:
+    edited_video: "15-20 minutes"
+    live_broadcast: "30-60 minutes"
+
+  sales_video_length: "15-30 minutes"
+
+  email_open_rate_expectation: "Super-responsive = 60%+, Dismal = <1%"
+
+  key_insight: |
+    "In almost all launches the vast majority of prospects won't buy.
+    That's just the way the math works. However, the ones who do buy
+    make all the difference."

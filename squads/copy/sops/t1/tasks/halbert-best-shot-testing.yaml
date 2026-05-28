@@ -1,0 +1,78 @@
+sop:
+  id: halbert-best-shot-testing
+  version: "1.0"
+  title: "Best Shot Testing Method"
+  purpose: "Validate business viability by testing under most favorable conditions — hottest list, lowest price, strongest offer — for binary Go/No-Go verdict"
+  classification:
+    domain: copywriting
+    category: master
+    tier: T1
+    source_agent: gary-halbert
+
+  inputs:
+    - name: product_concept
+      type: text
+      required: true
+    - name: hot_mailing_list
+      type: dataset
+      required: true
+    - name: offer_components
+      type: document
+      required: true
+
+  outputs:
+    - name: go_nogo_verdict
+      type: decision
+      description: "Binary verdict: concept viable (optimize) or concept dead (abandon)"
+
+  steps:
+    - id: step_01
+      action: select_hottest_list
+      description: "Choose single best list: hotline names, multi-buyers, recent, high-dollar"
+      critical: true
+      error_handling:
+        condition: "using_good_list_not_best"
+        action: "verify_list_is_hotline_multibuyer_recent_before_proceeding"
+
+    - id: step_02
+      action: set_floor_price
+      description: "Calculate minimum profitable price after all costs, set price at this floor"
+      critical: true
+      error_handling:
+        condition: "price_set_at_aspirational_level"
+        action: "recalculate_to_true_minimum_profitable_price"
+
+    - id: step_03
+      action: craft_irresistible_offer
+      description: "Stack 30-day+ guarantee, bonuses, free shipping, full risk reversal"
+      critical: true
+      error_handling:
+        condition: "weak_guarantee_or_missing_risk_reversal"
+        action: "add_risk_reversal_until_no_is_harder_than_yes"
+
+    - id: step_04
+      action: execute_test_mailing
+      description: "Mail 5K pieces first class with best copy, A-pile envelope, key-coded tracking"
+      critical: true
+      error_handling:
+        condition: "volume_below_5000_or_bulk_mail"
+        action: "increase_to_5000_minimum_use_first_class_only"
+
+    - id: step_05
+      action: render_verdict
+      description: "Analyze response data: fail = concept dead (abandon), success = optimize from baseline"
+      critical: true
+      error_handling:
+        condition: "attempting_to_revive_failed_test"
+        action: "accept_verdict_redirect_resources_to_new_concept"
+
+  quality_gate:
+    min_criteria_met: 5
+    criteria:
+      - "list_is_hotline_multibuyer_recent"
+      - "price_at_profitable_floor"
+      - "offer_includes_guarantee_bonuses_risk_reversal"
+      - "minimum_5000_pieces_mailed"
+      - "first_class_postage_used"
+      - "all_responses_key_coded"
+      - "verdict_based_on_data_not_hope"

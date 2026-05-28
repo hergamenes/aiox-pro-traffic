@@ -1,0 +1,170 @@
+{
+  "project_slug": "",
+  "product_name": "",
+  "workflow": "full-launch",
+  "workflow_name": "Full Product Launch",
+  "workflow_duration": "5-7 days",
+  "status": "initialized",
+  "started_at": "",
+  "completed_at": "",
+  "current_phase": 1,
+  "phases": {
+    "1_tier0_foundation": {
+      "status": "pending",
+      "description": "TIER 0 Foundation - Schwartz/Collier/Hopkins",
+      "tasks": [
+        {
+          "task": "diagnose-awareness-level.md",
+          "status": "pending",
+          "artifact": "diagnosis/awareness.yaml",
+          "agent": "eugene-schwartz",
+          "description": "Diagnose prospect awareness level (1-5)"
+        },
+        {
+          "task": "diagnose-market-sophistication.md",
+          "status": "pending",
+          "artifact": "diagnosis/sophistication.yaml",
+          "agent": "eugene-schwartz",
+          "description": "Diagnose market sophistication stage (1-5)"
+        },
+        {
+          "task": "analyze-mental-conversation.md",
+          "status": "pending",
+          "artifact": "diagnosis/mental-conversation.md",
+          "agent": "robert-collier",
+          "description": "Map the conversation already in prospect's mind"
+        }
+      ]
+    },
+    "2_tier2_strategy": {
+      "status": "pending",
+      "description": "TIER 2 Strategy - Kennedy/Todd Brown/RMBC",
+      "tasks": [
+        {
+          "task": "avatar-research.md",
+          "status": "pending",
+          "artifact": "research/avatar.md",
+          "agent": "dan-kennedy",
+          "description": "Deep avatar research with 3Ms"
+        },
+        {
+          "task": "rmbc-method.md",
+          "status": "pending",
+          "artifact": "foundation/rmbc-brief.md",
+          "agent": "stefan-georgi",
+          "description": "Research-Mechanism-Brief-Copy framework"
+        }
+      ]
+    },
+    "3a_headlines": {
+      "status": "pending",
+      "parallel": true,
+      "description": "Headlines - Halbert/Schwartz/Bencivenga",
+      "tasks": [
+        {
+          "task": "create-headlines.md",
+          "status": "pending",
+          "artifact": "copy/headlines.md",
+          "agent": "gary-halbert",
+          "description": "Generate 25+ headlines with multiple formulas"
+        }
+      ]
+    },
+    "3b_bullets": {
+      "status": "pending",
+      "parallel": true,
+      "description": "Bullets/Fascinations - Bencivenga/Lampropoulos",
+      "tasks": [
+        {
+          "task": "create-bullets.md",
+          "status": "pending",
+          "artifact": "copy/bullets.md",
+          "agent": "gary-bencivenga",
+          "description": "Generate 50+ fascinations/bullets"
+        }
+      ]
+    },
+    "4_offer": {
+      "status": "pending",
+      "description": "Offer Stack - Kennedy/Hormozi",
+      "tasks": [
+        {
+          "task": "create-offer.md",
+          "status": "pending",
+          "artifact": "offer/offer-stack.md",
+          "agent": "dan-kennedy",
+          "description": "Create irresistible offer stack"
+        }
+      ]
+    },
+    "5_copy_execution": {
+      "status": "pending",
+      "description": "Copy Execution - Benson/Makepeace",
+      "tasks": [
+        {
+          "task": "vsl-script.md",
+          "status": "pending",
+          "artifact": "copy/vsl-script.md",
+          "agent": "jon-benson",
+          "description": "Create VSL script"
+        },
+        {
+          "task": "write-visceral-copy.md",
+          "status": "pending",
+          "artifact": "copy/visceral-sections.md",
+          "agent": "clayton-makepeace",
+          "description": "Inject emotional visceral copy"
+        }
+      ]
+    },
+    "6_email_sequences": {
+      "status": "pending",
+      "description": "Email Sequences - Chaperon/Sugarman",
+      "tasks": [
+        {
+          "task": "create-soap-opera-sequence.md",
+          "status": "pending",
+          "artifact": "email/soap-opera.md",
+          "agent": "andre-chaperon",
+          "description": "Create Soap Opera Sequence"
+        },
+        {
+          "task": "create-abandoned-cart.md",
+          "status": "pending",
+          "artifact": "email/abandoned-cart.md",
+          "agent": "joe-sugarman",
+          "description": "Create abandoned cart sequence"
+        }
+      ]
+    },
+    "7_optimization": {
+      "status": "pending",
+      "description": "Optimization - Hopkins Scientific Audit",
+      "tasks": [
+        {
+          "task": "audit-copy-hopkins.md",
+          "status": "pending",
+          "artifact": "testing/hopkins-audit.md",
+          "agent": "claude-hopkins",
+          "description": "Scientific advertising audit"
+        }
+      ]
+    }
+  },
+  "completed_tasks": [],
+  "artifacts": [],
+  "master_decision_matrix": {
+    "awareness_level": null,
+    "awareness_name": null,
+    "sophistication_stage": null,
+    "sophistication_name": null,
+    "price_point": null,
+    "traffic_temperature": null,
+    "primary_output": null
+  },
+  "metrics": {
+    "headlines_generated": 0,
+    "bullets_generated": 0
+  },
+  "clone_combos_used": []
+}

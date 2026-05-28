@@ -1,0 +1,56 @@
+sop:
+  id: bencivenga-yeah-sure
+  version: "1.0"
+  title: "Yeah-Sure Alarm Framework"
+  purpose: >
+    Detect and neutralize copy claims that trigger the prospect's built-in
+    skepticism response. Uses hostile-reader testing and IF...THEN bypass
+    construction to pass the skeptic's filter in a 4,000-ads-per-day environment.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: gary-bencivenga
+    tier: t1
+
+  steps:
+    - id: apply_hostile_mindset
+      action: "Read every sentence as a burned, skeptical prospect who assumes all claims are exaggerated"
+      input: "copy_draft"
+      output: "hostile_reading_perspective"
+
+    - id: apply_test_claims
+      action: "Test each headline and major claim aloud; mark any that trigger 'Yeah, sure' response"
+      input: "headlines, major_claims"
+      output: "flagged_claims_list"
+
+    - id: apply_proof_ratio
+      action: "Ensure no claim is bigger than available proof; claim-to-proof ratio must favor proof"
+      condition: "proof_strength >= claim_strength"
+      output: "proof_ratio_validation"
+
+    - id: apply_if_then_bypass
+      action: "Restructure bold claims as 'IF [easy requirement], THEN [strong promise]' to bypass alarm"
+      condition: "claim_is_bold AND if_condition_is_easy"
+      output: "if_then_claims"
+
+    - id: apply_iterate
+      action: "Continue testing until zero 'Yeah, sure' responses remain in the copy"
+      condition: "flagged_claims_count == 0"
+      output: "cleaned_copy"
+
+  error_handling:
+    - error: "writer_perspective_testing"
+      severity: high
+      action: "Test from hostile prospect mindset, never from writer's perspective"
+    - error: "claim_exceeds_proof"
+      severity: high
+      action: "Add proof or use IF...THEN construction; never publish unsupported bold claims"
+    - error: "difficult_if_condition"
+      severity: medium
+      action: "Ensure IF condition is genuinely easy for the prospect"
+
+  quality_gate:
+    all_claims_tested: true
+    zero_yeah_sure_triggers: true
+    proof_ratio_favorable: true
+    independent_reviewer: true

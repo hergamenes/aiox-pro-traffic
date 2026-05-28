@@ -1,0 +1,111 @@
+sop:
+  id: ah-scarcity-urgency
+  version: "1.0"
+  title: "Scarcity and Urgency Framework"
+  purpose: >
+    Apply genuine scarcity (quantity limits) and urgency (time limits) to any
+    offer. Both must be 100% genuine. Fabricated scarcity or urgency destroys
+    trust permanently and cannot be recovered.
+  classification:
+    domain: copywriting
+    subdomain: offer-closing
+    tier: t2
+    source_agent: alex-hormozi
+    artifact_type: framework
+
+  steps:
+    - id: step_1_genuine_scarcity
+      action: apply_genuine_scarcity
+      label: "Apply Genuine Scarcity"
+      description: >
+        Three types: Limited spots (real capacity), physical bonus (real stock),
+        exclusive access (N clients forever). Each must be verifiable and pass
+        the journalist investigation test.
+      inputs:
+        - capacity_data
+        - physical_bonus_inventory
+        - exclusivity_cap
+      outputs:
+        - scarcity_element
+        - scarcity_justification
+      validation:
+        - field: scarcity_element
+          rule: is_genuine_and_verifiable
+        - field: scarcity_justification
+          rule: explains_why_limit_exists
+
+    - id: step_2_genuine_urgency
+      action: apply_genuine_urgency
+      label: "Apply Genuine Urgency"
+      description: >
+        Three types: Real deadline (cohort/cycle), scheduled price increase
+        (with reason-why), time-limited bonus (genuinely valuable). Each must
+        be enforceable. Late prospects must be turned away.
+      inputs:
+        - cohort_dates
+        - pricing_strategy
+        - bonus_assets
+      outputs:
+        - urgency_element
+        - enforcement_plan
+      validation:
+        - field: urgency_element
+          rule: has_specific_date_time
+        - field: enforcement_plan
+          rule: will_turn_away_late_buyers
+
+    - id: step_3_combine
+      action: apply_scarcity_urgency_combination
+      label: "Combine Scarcity + Urgency"
+      description: >
+        Stack one scarcity element with one urgency element. Present after
+        value is established. Use matter-of-fact language with zero hype.
+      inputs:
+        - scarcity_element
+        - urgency_element
+        - value_stack
+      outputs:
+        - combined_statement
+        - copy_block
+      validation:
+        - field: combined_statement
+          rule: value_before_limits
+        - field: copy_block
+          rule: matter_of_fact_tone
+
+  error_handling:
+    - error: fake_scarcity
+      symptom: "Audience distrust, lower conversion over time"
+      resolution: "Only claim scarcity based on real constraints"
+    - error: deadline_not_enforced
+      symptom: "Audience learns deadlines are meaningless"
+      resolution: "Turn away late buyers without exception"
+    - error: scarcity_before_value
+      symptom: "Prospect feels pressured not compelled"
+      resolution: "Present full value stack before introducing limits"
+    - error: excessive_stacking
+      symptom: "Prospect feels manipulated"
+      resolution: "Use 1 scarcity + 1 urgency, not 5 of each"
+    - error: no_reason_why
+      symptom: "Prospect suspicious of arbitrary constraint"
+      resolution: "Explain why the limit exists"
+
+  quality_gate:
+    min_score: 7
+    criteria:
+      - "Every scarcity claim genuine and verifiable"
+      - "Every urgency claim enforceable"
+      - "Stated after value is established"
+      - "Enforcement systems in place"
+      - "Matter-of-fact language"
+      - "Passes journalist investigation test"
+
+  outputs:
+    - type: scarcity_element
+      format: text
+    - type: urgency_element
+      format: text
+    - type: combined_copy_block
+      format: text
+    - type: enforcement_checklist
+      format: checklist

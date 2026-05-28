@@ -1,0 +1,29 @@
+# Extraction State - Dan Kennedy
+# Auto-generated: 2026-03-19
+
+extraction:
+  status: "completed"
+  started: "2026-01-26"
+  completed: "2026-01-26"
+
+sources:
+  total: 3
+  tier_1_estimated: 2
+  types_detected: ["books", "interviews", "articles"]
+
+voice_dna:
+  extracted: true
+  power_words: 19
+  signature_phrases: 13
+  anti_patterns: 8
+  quality_estimate: "high"
+
+thinking_dna:
+  extracted: true
+  frameworks: 10
+  heuristics: 8
+  quality_estimate: "high"
+
+overall:
+  fidelity_estimate: "75%"
+  needs_improvement: []

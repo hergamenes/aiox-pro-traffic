@@ -1,0 +1,380 @@
+# Collier Letter Structure Template
+# Based on Robert Collier's 4-Part Letter Framework
+#
+# PURPOSE: Provide a fill-in structure for writing persuasive copy
+# USAGE: Fill in each section following the prompts
+# REFERENCE: checklists/collier-letter-checklist.md for validation
+
+template_info:
+  name: Collier 4-Part Letter Structure
+  version: "1.0"
+  author: Based on Robert Collier's "The Robert Collier Letter Book" (1931)
+  tier: 0  # Foundation - Always use this structure
+
+# ═══════════════════════════════════════════════════════════════════════════
+# PRE-WRITING ANALYSIS (Complete before writing)
+# ═══════════════════════════════════════════════════════════════════════════
+
+pre_writing:
+  mental_conversation:
+    # From analyze-mental-conversation.md
+    currently_thinking: "[What is your prospect thinking right now?]"
+    worried_about: "[What keeps them up at night?]"
+    hoping_for: "[What do they secretly want?]"
+    afraid_of: "[What do they fear?]"
+    triggered_by: "[What recent event made them aware of this?]"
+
+  primary_motive:
+    # From map-6-primary-motives.md
+    dominant: "[Love | Gain | Duty | Pride | Self-Indulgence | Self-Preservation]"
+    secondary: "[Second strongest motive]"
+    appeal_angle: "[How will you appeal to this motive?]"
+
+  product_context:
+    product_name: "[Your product/service name]"
+    core_benefit: "[The ONE main benefit]"
+    transformation: "[Before state → After state]"
+    unique_mechanism: "[What makes this work?]"
+    price_point: "[Price or investment]"
+
+# ═══════════════════════════════════════════════════════════════════════════
+# PART 1: THE HOOK (10-15% of copy)
+# Purpose: Enter the conversation already taking place in their mind
+# ═══════════════════════════════════════════════════════════════════════════
+
+part_1_hook:
+  purpose: "Get attention by addressing what's already on their mind"
+  key_question: "Why should I pay attention?"
+  answer: "Because this is about YOU and YOUR situation"
+
+  # Opening line (CRITICAL - must enter their conversation)
+  opening_line:
+    template: "If you've ever [specific situation they relate to]..."
+    your_version: "[Write your opening line - must feel like you're reading their mind]"
+
+  # Situation acknowledgment
+  situation_acknowledgment:
+    template: "You know that feeling when [describe their current frustration]..."
+    your_version: "[Acknowledge their current state with empathy]"
+
+  # Curiosity element
+  curiosity_hook:
+    template: "What I'm about to share with you [creates intrigue]..."
+    your_version: "[Create an open loop that compels them to keep reading]"
+
+  # Transition to desire section
+  bridge_to_desire:
+    template: "Here's what I discovered that changed everything..."
+    your_version: "[Natural transition from their problem to your solution]"
+
+  # Validation checklist
+  checklist:
+    - "[ ] Uses 'you' or 'your' in first sentence"
+    - "[ ] Enters existing mental conversation (not starting new)"
+    - "[ ] Shows understanding of their situation"
+    - "[ ] No product mention yet"
+    - "[ ] Creates curiosity to continue"
+
+# ═══════════════════════════════════════════════════════════════════════════
+# PART 2: THE DESIRE (30-35% of copy)
+# Purpose: Paint the picture of transformation so vividly they MUST have it
+# ═══════════════════════════════════════════════════════════════════════════
+
+part_2_desire:
+  purpose: "Make them want what you're offering by showing the transformation"
+  key_question: "What will I get?"
+  answer: "You'll get [transformation] and feel [emotion]"
+
+  # The transformation picture
+  transformation_painting:
+    before_state: "[Describe where they are now - pain, frustration, limitation]"
+    after_state: "[Describe where they'll be - outcome, feeling, result]"
+    sensory_description: "[What will they see, feel, hear, experience?]"
+
+  # Benefit stack (3-7 benefits, escalating)
+  benefit_stack:
+    benefit_1:
+      headline: "[First benefit - immediate and tangible]"
+      description: "[Why this matters to them]"
+    benefit_2:
+      headline: "[Second benefit - builds on first]"
+      description: "[Why this matters to them]"
+    benefit_3:
+      headline: "[Third benefit - emotional/lifestyle]"
+      description: "[Why this matters to them]"
+    benefit_4:
+      headline: "[Fourth benefit - unexpected bonus]"
+      description: "[Why this matters to them]"
+    benefit_5:
+      headline: "[Fifth benefit - biggest/most important]"
+      description: "[Why this matters to them]"
+
+  # Future pacing (imagine having achieved it)
+  future_pacing:
+    template: "Imagine waking up tomorrow and [specific positive scenario]..."
+    your_version: "[Paint them into the successful future]"
+
+  # Loss aversion element
+  loss_aversion:
+    what_they_avoid: "[What pain/problem/loss do they escape?]"
+    cost_of_inaction: "[What happens if they don't act?]"
+
+  # Introduce the solution
+  solution_reveal:
+    template: "That's exactly why I created [product name]..."
+    your_version: "[Natural introduction of your solution]"
+
+  # Mechanism explanation
+  unique_mechanism:
+    what_it_is: "[How does your solution work?]"
+    why_it_works: "[Why is this approach effective?]"
+    what_makes_it_different: "[How is this unlike other options?]"
+
+  # Validation checklist
+  checklist:
+    - "[ ] Shows clear before/after transformation"
+    - "[ ] Uses sensory language (see, feel, experience)"
+    - "[ ] Stacks 3+ distinct benefits"
+    - "[ ] Creates emotional resonance"
+    - "[ ] Future pacing present"
+
+# ═══════════════════════════════════════════════════════════════════════════
+# PART 3: THE PROOF (35-40% of copy)
+# Purpose: Remove all doubt so they believe it's possible for THEM
+# ═══════════════════════════════════════════════════════════════════════════
+
+part_3_proof:
+  purpose: "Prove your claims so they believe it's possible for THEM"
+  key_question: "Why should I believe you?"
+  answer: "Because [testimonials], [stats], [guarantee]"
+
+  # Testimonials (minimum 2, ideally 3-5)
+  testimonials:
+    testimonial_1:
+      name: "[Name and credential if applicable]"
+      quote: "[Specific result or transformation they experienced]"
+      context: "[Their situation before, what changed]"
+    testimonial_2:
+      name: "[Name and credential]"
+      quote: "[Specific, believable result]"
+      context: "[Why this person is relatable to prospect]"
+    testimonial_3:
+      name: "[Name and credential]"
+      quote: "[Addresses a common objection]"
+      context: "[Overcame skepticism, now believer]"
+
+  # Statistics and data
+  statistics:
+    stat_1: "[Specific number that proves effectiveness]"
+    stat_2: "[Data point that builds credibility]"
+    source: "[Where these numbers come from]"
+
+  # Authority and credentials
+  authority:
+    your_credentials: "[Why you're qualified to offer this]"
+    experience: "[How long, how many helped, what achieved]"
+    recognition: "[Awards, media mentions, certifications]"
+
+  # Demonstrations or examples
+  demonstration:
+    case_study: "[Detailed example of success]"
+    before_after: "[Concrete before/after comparison]"
+    proof_element: "[Visual, screenshot, documentation]"
+
+  # Objection handling
+  objections:
+    price_objection:
+      objection: "It's too expensive"
+      response: "[Value comparison, ROI, payment options]"
+    skepticism_objection:
+      objection: "This won't work for me"
+      response: "[Why it works for people like them]"
+    trust_objection:
+      objection: "Why should I trust you?"
+      response: "[Guarantee, track record, social proof]"
+    time_objection:
+      objection: "I don't have time"
+      response: "[How it saves time or fits their schedule]"
+
+  # Risk reversal (guarantee)
+  guarantee:
+    type: "[Money-back | Results-based | Satisfaction | Hybrid]"
+    duration: "[30 days | 60 days | Lifetime | etc.]"
+    specifics: "[Exactly what's covered and how to claim]"
+    language: "[Your guarantee statement]"
+
+  # Validation checklist
+  checklist:
+    - "[ ] At least 2-3 testimonials with specific results"
+    - "[ ] At least 1 compelling statistic"
+    - "[ ] Authority/credentials established"
+    - "[ ] Major objections addressed"
+    - "[ ] Strong guarantee present"
+
+# ═══════════════════════════════════════════════════════════════════════════
+# PART 4: THE CLOSE (15-20% of copy)
+# Purpose: Tell them exactly what to do and remove all barriers to action
+# ═══════════════════════════════════════════════════════════════════════════
+
+part_4_close:
+  purpose: "Tell them exactly what to do and remove all barriers"
+  key_question: "What do I do now?"
+  answer: "Do [specific action] right now because [urgency]"
+
+  # Urgency element
+  urgency:
+    type: "[Deadline | Limited quantity | Price increase | Seasonal]"
+    reason: "[Why they need to act now - must be believable]"
+    deadline: "[Specific date/time if applicable]"
+    language: "[Your urgency statement]"
+
+  # Scarcity element (if applicable)
+  scarcity:
+    type: "[Limited spots | Limited inventory | Exclusive access]"
+    specific_limit: "[Exact number if applicable]"
+    reason: "[Why it's limited - must be believable]"
+    language: "[Your scarcity statement]"
+
+  # The offer summary
+  offer_summary:
+    what_they_get:
+      - "[Main product/service]"
+      - "[Bonus 1]"
+      - "[Bonus 2]"
+      - "[Bonus 3]"
+    total_value: "[Combined value of everything]"
+    price: "[What they actually pay]"
+    savings: "[How much they save vs. value]"
+
+  # Call to action (ONE clear action)
+  call_to_action:
+    primary_cta:
+      action: "[Click | Buy | Sign Up | Call | Order]"
+      button_text: "[Exact text on button/link]"
+      url_or_method: "[Where they go / what they do]"
+    secondary_cta_locations:
+      - "[After guarantee]"
+      - "[After bonuses]"
+      - "[At very end]"
+
+  # Friction removal
+  friction_removal:
+    payment_options: "[Credit card | PayPal | Payment plan | etc.]"
+    delivery_method: "[Instant access | Shipped | Scheduled | etc.]"
+    support_available: "[Email | Phone | Chat | etc.]"
+    what_happens_next: "[After they buy, then what?]"
+
+  # Guarantee restatement (close with confidence)
+  guarantee_restatement:
+    template: "Remember, you're completely protected by our [guarantee]..."
+    your_version: "[Restate the guarantee to reduce final hesitation]"
+
+  # Final push (last sentence before CTA)
+  final_push:
+    template: "Don't wait another day to [get benefit]. Click the button below to [start transformation]."
+    your_version: "[Your final compelling statement]"
+
+  # P.S. (optional but powerful)
+  postscript:
+    ps_1: "[Restate biggest benefit or urgency]"
+    ps_2: "[Address lingering objection or add bonus]"
+
+  # Validation checklist
+  checklist:
+    - "[ ] Single, clear call to action"
+    - "[ ] Urgency element present and believable"
+    - "[ ] Guarantee restated"
+    - "[ ] Easy to complete the action"
+    - "[ ] What happens next is clear"
+
+# ═══════════════════════════════════════════════════════════════════════════
+# ASSEMBLY GUIDE
+# ═══════════════════════════════════════════════════════════════════════════
+
+assembly:
+  instructions: |
+    1. Complete the pre_writing section FIRST
+    2. Fill in each part (Hook → Desire → Proof → Close) in order
+    3. Use the templates as starting points, then customize
+    4. Check each section against its checklist
+    5. Run the complete copy through checklists/collier-letter-checklist.md
+    6. Follow with Hopkins Audit and Sugarman 30 Triggers
+
+  length_guidelines:
+    sales_letter:
+      hook: "10-15%"
+      desire: "30-35%"
+      proof: "35-40%"
+      close: "15-20%"
+    email:
+      hook: "20-25%"
+      desire: "25-30%"
+      proof: "25-30%"
+      close: "20-25%"
+    short_form_ad:
+      hook: "25-30%"
+      desire: "30-35%"
+      proof: "20-25%"
+      close: "15-20%"
+
+  transition_phrases:
+    hook_to_desire:
+      - "Here's what I discovered..."
+      - "That's when I realized..."
+      - "But then everything changed..."
+    desire_to_proof:
+      - "But don't just take my word for it..."
+      - "Here's proof that this works..."
+      - "Let me show you what's possible..."
+    proof_to_close:
+      - "So here's what I want you to do..."
+      - "If you're ready to [benefit], here's how..."
+      - "It's time to decide..."
+
+# ═══════════════════════════════════════════════════════════════════════════
+# VALIDATION
+# ═══════════════════════════════════════════════════════════════════════════
+
+validation:
+  pre_writing_complete:
+    - "[ ] Mental conversation analyzed"
+    - "[ ] Primary motive identified"
+    - "[ ] Product context defined"
+
+  structure_complete:
+    - "[ ] Hook section completed"
+    - "[ ] Desire section completed"
+    - "[ ] Proof section completed"
+    - "[ ] Close section completed"
+
+  quality_checks:
+    - "[ ] All checklists within sections pass"
+    - "[ ] Transitions are smooth"
+    - "[ ] Tone is consistent throughout"
+    - "[ ] No sections out of order"
+
+  next_steps:
+    - "Run through checklists/collier-letter-checklist.md"
+    - "Run through checklists/hopkins-audit-checklist.md"
+    - "Run through checklists/sugarman-30-triggers.md"
+    - "Ready to publish"
+
+# ═══════════════════════════════════════════════════════════════════════════
+# INTEGRATION
+# ═══════════════════════════════════════════════════════════════════════════
+
+integration:
+  precedes:
+    - "All persuasive copy"
+    - "Sales letters"
+    - "Email sequences"
+    - "Landing pages"
+    - "Ads"
+  follows:
+    - "tasks/analyze-mental-conversation.md"
+    - "tasks/map-6-primary-motives.md"
+  validates_with:
+    - "checklists/collier-letter-checklist.md"
+    - "checklists/hopkins-audit-checklist.md"
+    - "checklists/sugarman-30-triggers.md"
+  agent: "@robert-collier (Tier 0 - Conversation Master)"

@@ -1,0 +1,78 @@
+sop:
+  id: collier-ideal-letter-method
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Ideal Letter Method"
+  purpose: >
+    Write the most powerful truthful letter by first writing the ideal
+    (unrestricted) version, then editing for truth. Captures full emotional
+    power before trimming to fact — result is stronger than conservative copy.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: robert-collier
+    artifact_type: task
+
+  steps:
+    - id: write_ideal
+      action: compose_unrestricted_letter
+      description: "Write the letter you WISH you could send — every benefit, every result, no self-censorship, maximum energy"
+      inputs:
+        - product_details
+        - all_possible_benefits
+      critical: true
+      output: ideal_letter
+
+    - id: cool_period
+      action: observe_cooling_period
+      description: "Set aside for minimum 4 hours (ideal: 24 hours). Do NOT re-read during cooling."
+      depends_on: write_ideal
+      output: cooled_confirmation
+
+    - id: edit_for_truth
+      action: remove_unverifiable_claims
+      description: "Re-read with critical eye: KEEP truthful claims, REWRITE exaggerations to truth kernels, CROSS OUT fabrications"
+      depends_on: cool_period
+      critical: true
+      output: truthful_letter
+
+    - id: evaluate_result
+      action: assess_final_letter_power
+      description: "Verify final letter is powerful, truthful, aspirational, and specific. If too little remains, recommend Product Story Diagnostic."
+      depends_on: edit_for_truth
+      output: final_evaluation
+
+  error_handling:
+    - error: self_censored_ideal
+      symptom: "Ideal version is conservative and cautious"
+      resolution: "Write as if no rules exist; editing comes later"
+    - error: skipped_cooling
+      symptom: "Cannot be objective about the ideal version"
+      resolution: "Force minimum 4-hour wait; work on something else"
+    - error: false_claims_kept
+      symptom: "Exciting but unverifiable claims survive editing"
+      resolution: "Apply strict test: 'Can I prove this in court?'"
+    - error: energy_lost
+      symptom: "Final version truthful but flat and boring"
+      resolution: "Preserve TONE and ENERGY when crossing out claims"
+
+  quality_gate:
+    criteria:
+      - "Ideal version written without self-censorship"
+      - "Cooling period observed (minimum 4 hours)"
+      - "Every surviving claim is verifiable"
+      - "Final version retains emotional power"
+      - "No false claims in final output"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: truthful_letter
+      format: copy_text
+      description: "Powerful, truthful letter combining aspiration with fact"
+    - name: removed_claims
+      format: list
+      description: "Claims removed during truth edit (useful for product development)"

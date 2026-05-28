@@ -1,0 +1,56 @@
+sop:
+  id: schwartz-awareness-rule
+  version: "1.0"
+  title: "Awareness Level Rule (ES_H01)"
+  purpose: "Diagnosticar estagio de consciencia do prospect ANTES de qualquer prescricao. Determina tom, extensao, abertura, angulo e writer."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: eugene-schwartz
+  steps:
+    - step: 1
+      action: "Diagnosticar estagio de consciencia do prospect"
+      decision_point:
+        condition: "Qual dos 5 estagios de consciencia?"
+        branches:
+          - if: "Most Aware (sabe do produto, quer comprar)"
+            then: "Copy direta, oferta, preco, CTA forte"
+          - if: "Product Aware (conhece produto, nao convencido)"
+            then: "Copy de conversao, provas, depoimentos, comparacoes"
+          - if: "Solution Aware (sabe que solucao existe, nao conhece produto)"
+            then: "Copy de conexao solucao→produto, mecanismo, reason-why"
+          - if: "Problem Aware (sente problema, nao sabe que ha solucao)"
+            then: "Copy de amplificacao do problema + revelacao da solucao"
+          - if: "Unaware (nem sabe que tem o problema)"
+            then: "Copy de identificacao, historia, editorial — longo, indireto"
+    - step: 2
+      action: "Mapear parametros a partir do estagio diagnosticado"
+      decision_point:
+        condition: "Estagio determina:"
+        branches:
+          - if: "Tom"
+            then: "Direto (Most Aware) a Editorial (Unaware)"
+          - if: "Extensao"
+            then: "Curto (Most Aware) a Longo (Unaware)"
+          - if: "Abertura"
+            then: "Oferta (Most Aware) a Historia/Identificacao (Unaware)"
+          - if: "Writer"
+            then: "Selecionar agente mais adequado ao estagio"
+  error_handling:
+    - error: "Diagnostico pulado — copy escrita sem estagio"
+      severity: critical
+      action: "Gate obrigatorio: diagnosticar ANTES de escrever"
+    - error: "Estagio assumido sem pesquisa"
+      severity: critical
+      action: "Pesquisar audiencia antes de diagnosticar"
+    - error: "Todos tratados como Most Aware"
+      severity: critical
+      action: "Diagnosticar segmento por segmento"
+  quality_gate:
+    criteria:
+      - "Estagio diagnosticado ANTES de escrita"
+      - "Diagnostico baseado em dados"
+      - "Tom, extensao e abertura condizentes"
+      - "Writer adequado ao estagio"
+    pass_threshold: "Todos os criterios atendidos"

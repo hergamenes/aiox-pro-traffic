@@ -1,0 +1,53 @@
+sop:
+  id: bencivenga-credo-technique
+  version: "1.0"
+  title: "The Credo Technique"
+  purpose: >
+    Declare core beliefs boldly to act as a magnetic filter: attract 'kindred
+    spirits' and repel non-fits. Polarization is the mechanism, not the side
+    effect. Template: 'I believe [X]. If you share these beliefs, [CTA].'
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: gary-bencivenga
+    tier: t1
+
+  steps:
+    - id: apply_identify_beliefs
+      action: "List 5-10 genuine core beliefs about industry, customers, or worldview"
+      input: "brand_values, creator_convictions"
+      output: "beliefs_inventory"
+      condition: "beliefs_are_genuine == true"
+
+    - id: apply_select_polarizing
+      action: "Select 3-5 most polarizing beliefs where reasonable people can disagree"
+      input: "beliefs_inventory"
+      output: "selected_credo_beliefs"
+      condition: "polarization_score >= high"
+
+    - id: apply_construct_credo
+      action: "Build credo using 'I believe [X]' repeating structure with crescendo, ending with CTA"
+      input: "selected_credo_beliefs"
+      output: "credo_statement"
+
+    - id: apply_position_strategically
+      action: "Place credo at relationship start (landing page, first email) or decision points (sales page)"
+      output: "credo_placement_plan"
+
+  error_handling:
+    - error: "generic_beliefs"
+      severity: high
+      action: "Replace with beliefs that would repel at least 30% of general audience"
+    - error: "manufactured_beliefs"
+      severity: critical
+      action: "Use only genuine beliefs; prospects detect inauthenticity"
+    - error: "no_cta_after_credo"
+      severity: medium
+      action: "Add clear action step that flows from the belief system"
+
+  quality_gate:
+    beliefs_genuine: true
+    min_polarizing_beliefs: 3
+    credo_template_used: true
+    cta_follows_naturally: true
+    no_hedging_language: true

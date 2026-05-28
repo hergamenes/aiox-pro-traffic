@@ -1,0 +1,98 @@
+sop:
+  id: fk-intent-based-branding
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Intent-Based Branding (IBB)"
+  purpose: >
+    Build marketing system based on demonstrated intent rather than interruption.
+    Combines organic content, content asset compounding, and paid amplification
+    to convert at $0.88 vs $13.33 per engaged consumer.
+  classification:
+    domain: copywriting
+    subdomain: content-strategy
+    complexity: intermediate
+    source_agent: frank-kern
+
+  steps:
+    - id: step_1
+      name: execute_organic_posts
+      action: apply_daily_organic_posting
+      description: >
+        Create and publish organic content daily (30 min/day). Every post
+        must contain VALUE + GOODWILL + OFFER. Use IBB Offer Structures
+        to weave offer naturally. Focus on depth over polish.
+      inputs:
+        - offer_details
+        - platform_accounts
+        - posting_schedule
+      outputs:
+        - daily_content_calendar
+        - post_templates
+      validation: every_post_contains_value_goodwill_offer
+
+    - id: step_2
+      name: execute_content_compounding
+      action: apply_content_repurposing
+      description: >
+        Take one core content piece and repurpose into 25-35 pieces across
+        platforms. Video becomes clips, quotes, blog, newsletter, social
+        posts, email snippets. Each derivative includes offer CTA.
+      inputs:
+        - core_content_piece
+        - platform_list
+      outputs:
+        - derivative_content_batch
+        - repurposing_workflow
+      validation: minimum_25_derivatives_per_core_piece
+
+    - id: step_3
+      name: execute_paid_amplification
+      action: apply_boost_winners
+      description: >
+        Boost organic posts already performing well. Start with $200/day.
+        Retarget engaged non-converters. Track cost per engaged consumer
+        (target below $1.00). Never boost underperformers.
+      inputs:
+        - organic_performance_data
+        - daily_ad_budget
+      outputs:
+        - boost_criteria
+        - retargeting_audiences
+        - cost_per_engaged_report
+      validation: cost_per_engaged_consumer_below_1_dollar
+
+  error_handling:
+    - error: value_without_offer
+      symptom: "Large following, zero revenue"
+      resolution: "Add offer to every post using IBB Offer Structures."
+    - error: boosting_underperformers
+      symptom: "High ad spend, low engagement per dollar"
+      resolution: "Only boost posts with proven organic engagement."
+    - error: over_production
+      symptom: "Content takes hours per day, unsustainable"
+      resolution: "Cap at 30 minutes. Authenticity over production value."
+    - error: no_compounding_system
+      symptom: "Each post is one-and-done"
+      resolution: "Build repurposing workflow. 1 piece = 25-35 derivatives."
+
+  quality_gate:
+    criteria:
+      - every_post_has_value_goodwill_offer
+      - compounding_produces_25_plus_pieces
+      - only_organic_winners_boosted
+      - cost_per_engaged_below_1_dollar
+    min_pass: 3
+
+  outputs:
+    - type: content_calendar
+      format: daily_schedule
+      description: "Daily organic content with VALUE + GOODWILL + OFFER"
+    - type: compounding_workflow
+      format: process_document
+      description: "System turning 1 piece into 25-35 derivatives"
+    - type: amplification_plan
+      format: budget_allocation
+      description: "Criteria and budget for boosting organic winners"

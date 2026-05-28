@@ -1,0 +1,122 @@
+sop:
+  id: rb-attractive-character
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "Attractive Character"
+  purpose: >
+    Build a magnetic public persona that attracts the ideal market. Defines
+    five elements that make a personal brand irresistible and provides
+    building blocks for consistent brand voice across all copy.
+  classification:
+    domain: copywriting
+    subdomain: brand-building
+    complexity: intermediate
+    source_agent: russell-brunson
+
+  steps:
+    - id: step_1
+      name: mine_backstory
+      action: apply_backstory_mining
+      description: >
+        Identify the real, vulnerable origin story. Find struggle, failure,
+        the moment of being lost or stuck. Write in first person with specific
+        details. Audience must think 'they were just like me.'
+      inputs:
+        - personal_history_interview
+        - target_market_profile
+      outputs:
+        - backstory_narrative
+      validation: backstory_is_real_and_relatable
+
+    - id: step_2
+      name: collect_parables
+      action: apply_parable_cataloging
+      description: >
+        Build library of 20-50 day-to-day micro-stories that illustrate
+        business lessons. Each has setup, twist, and lesson. Organize
+        by theme in a parable bank for ongoing content fuel.
+      inputs:
+        - daily_life_stories
+        - business_principles
+      outputs:
+        - parable_bank
+      validation: minimum_20_parables_documented
+
+    - id: step_3
+      name: identify_character_flaws
+      action: apply_flaw_identification
+      description: >
+        List 5-10 real weaknesses, quirks, imperfections. Frame as endearing,
+        evidence of passion, or lessons learned. No humble-brags. Flaws
+        create trust and relatability.
+      inputs:
+        - honest_self_assessment
+      outputs:
+        - flaw_catalog
+      validation: flaws_are_genuine_not_humble_brags
+
+    - id: step_4
+      name: establish_polarity
+      action: apply_polarizing_positions
+      description: >
+        Define 3-5 strong, non-negotiable opinions. Must be genuine beliefs.
+        Format: 'I believe [X] because [reason].' Polarity repels wrong
+        audience and attracts right one.
+      inputs:
+        - core_beliefs
+        - industry_controversies
+      outputs:
+        - polarity_manifesto
+      validation: minimum_3_genuine_polarizing_positions
+
+    - id: step_5
+      name: select_identity_type
+      action: apply_identity_archetype
+      description: >
+        Choose primary identity: Leader (been there), Adventurer (discovers
+        and shares), Reporter (curates wisdom), or Reluctant Hero (forced
+        by circumstances). Write all copy through this lens.
+      inputs:
+        - personality_assessment
+        - market_expectations
+      outputs:
+        - identity_type_selection
+        - voice_guide
+      validation: one_primary_identity_consistently_applied
+
+  error_handling:
+    - error: fabricated_backstory
+      symptom: "Audience senses inauthenticity, engagement drops"
+      resolution: "Use only real stories. Find genuine struggle, however small."
+    - error: humble_brag_flaws
+      symptom: "Audience rolls eyes at 'I work too hard' type flaws"
+      resolution: "List real flaws. If not slightly uncomfortable to share, not real."
+    - error: no_polarity
+      symptom: "Brand is nice but forgettable, no loyal fans"
+      resolution: "Take strong stance on genuine belief. Repelling some is the goal."
+    - error: mixed_identity_types
+      symptom: "Inconsistent voice, audience confused"
+      resolution: "Pick ONE primary type. Write 90% through that lens."
+
+  quality_gate:
+    criteria:
+      - backstory_real_and_specific
+      - minimum_20_parables
+      - flaws_are_genuine
+      - minimum_3_polarizing_positions
+      - one_identity_type_chosen
+    min_pass: 4
+
+  outputs:
+    - type: character_profile
+      format: structured_document
+      description: "Complete Attractive Character profile with all five elements"
+    - type: parable_bank
+      format: categorized_stories
+      description: "20+ micro-stories organized by theme"
+    - type: brand_voice_guide
+      format: guidelines
+      description: "Voice guide derived from character elements"

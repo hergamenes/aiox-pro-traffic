@@ -1,0 +1,52 @@
+# The BluBlocker Infomercial Formula - Joe Sugarman
+# Extracted from: squads/copy/agents/joe-sugarman.md
+# Category: video_sales
+
+name: "The BluBlocker Infomercial Formula"
+category: video_sales
+origin: "Joe Sugarman - BluBlocker campaign (1986-1992)"
+command: "*infomercial"
+
+philosophy: |
+  "Instead of actors reading scripts, I went to Venice Beach and let
+  real people try the sunglasses. Their genuine reactions were more
+  powerful than any script I could write."
+
+historical_context: |
+  The famous 1992 Venice Boardwalk shoot that changed infomercials forever.
+  "There was never a plan. It was literally a guy with a camera, a sound guy, and my dad."
+  - April Sugarman
+
+structure:
+  man_on_the_street:
+    description: "Real people, real reactions"
+    technique: "Approach strangers, let them try the product"
+    power: "Authenticity beats rehearsed testimonials"
+    famous_moment: "Dr. Geek, a street performer, improvised a freestyle rap about BluBlockers"
+
+  demonstration:
+    description: "Show, don't tell"
+    technique: "Let the product prove itself"
+    example: "Put on these sunglasses and look at the sky..."
+
+  genuine_reactions:
+    description: "Capture the 'wow' moment"
+    technique: "Keep cameras rolling for authentic responses"
+    example: "Oh wow, the colors are incredible!"
+
+  problem_solution:
+    description: "Show the before and after"
+    technique: "Demonstrate the transformation"
+
+  offer_stack:
+    description: "Build value with bonuses"
+    technique: "Add items to increase perceived value"
+
+  guarantee:
+    description: "Remove all risk"
+    technique: "Offer strong money-back guarantee"
+
+  call_to_action:
+    description: "Make ordering easy"
+    technique: "Clear phone number, simple instructions"
+    innovation: "First to popularize 1-800 credit card orders"

@@ -1,0 +1,39 @@
+sop:
+  id: schwartz-channeling-rule
+  version: "1.0"
+  title: "Channeling Rule (ES_H03)"
+  purpose: "NUNCA criar desejo novo. Identificar desejos de massa pre-existentes e canalizar para o produto."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: eugene-schwartz
+  steps:
+    - step: 1
+      action: "Identificar desejos de massa pre-existentes do prospect"
+      decision_point:
+        condition: "Desejo de massa encontrado?"
+        branches:
+          - if: "Desejo de massa encontrado"
+            then: "Canalizar desejo existente para o produto — copy e a ponte"
+          - if: "Tentando CRIAR desejo novo"
+            then: "BLOQUEAR — desejos nao se criam. Retornar a pesquisa de desejos existentes"
+          - if: "Desejo existe mas e fraco/latente"
+            then: "Amplificar desejo existente (nao criar novo) — ver schwartz-bigger-rats"
+  error_handling:
+    - error: "Tentativa de criar desejo novo"
+      severity: critical
+      action: "Bloquear e retornar a pesquisa de desejos existentes"
+    - error: "Conexao produto-desejo irrelevante"
+      severity: warning
+      action: "Conexao deve ser logica e direta"
+    - error: "Feature confundida com desejo"
+      severity: warning
+      action: "Features servem desejos — nao sao desejos"
+  quality_gate:
+    criteria:
+      - "Copy canaliza desejo pre-existente"
+      - "Desejo e de massa (nao ultra-nicho)"
+      - "Conexao desejo→produto clara"
+      - "Pesquisa de desejos realizada antes"
+    pass_threshold: "Todos os criterios atendidos"

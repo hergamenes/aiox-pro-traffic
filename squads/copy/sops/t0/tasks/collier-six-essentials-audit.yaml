@@ -1,0 +1,107 @@
+sop:
+  id: collier-six-essentials-audit
+  version: "1.0"
+  date: "2026-03-14"
+  author:
+    agent: sop-converter
+    squad: sop-factory
+  title: "6 Essentials Audit"
+  purpose: >
+    Audit any sales letter against Collier's 6 mandatory structural elements:
+    Opening, Description, Motive, Proof, Snapper (urgency), and Close.
+    A missing element destabilizes the entire structure.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: T0
+    source_agent: robert-collier
+    artifact_type: task
+
+  steps:
+    - id: audit_opening
+      action: evaluate_opening_element
+      description: "Does opening capture attention by entering reader's train of thought? About READER, not product?"
+      inputs:
+        - sales_letter
+      critical: true
+      output: opening_rating
+
+    - id: audit_description
+      action: evaluate_description_element
+      description: "Does it paint vivid word picture? Can reader SEE themselves with the result? Sensory language?"
+      depends_on: audit_opening
+      output: description_rating
+
+    - id: audit_motive
+      action: evaluate_motive_element
+      description: "Does it give logical reason to act connected to dominant desire? Why NOW?"
+      depends_on: audit_description
+      output: motive_rating
+
+    - id: audit_proof
+      action: evaluate_proof_element
+      description: "Testimonials, stats, authority, guarantee? Risk reversed? Proof specific or generic?"
+      depends_on: audit_motive
+      output: proof_rating
+
+    - id: audit_snapper
+      action: evaluate_urgency_element
+      description: "Urgency/potential loss? Deadline, scarcity, penalty? Specific or vague?"
+      depends_on: audit_proof
+      critical: true
+      output: snapper_rating
+
+    - id: audit_close
+      action: evaluate_close_element
+      description: "Tells exactly what to do? Easy action? ONE clear CTA? Low friction?"
+      depends_on: audit_snapper
+      output: close_rating
+
+    - id: issue_verdict
+      action: compile_six_element_verdict
+      description: "Count PRESENTE elements: 6/6=strong, 4-5=gaps, 2-3=major rewrite, 0-1=start over"
+      depends_on:
+        - audit_opening
+        - audit_description
+        - audit_motive
+        - audit_proof
+        - audit_snapper
+        - audit_close
+      output: overall_verdict
+
+    - id: prescribe_fixes
+      action: write_element_prescriptions
+      description: "For each AUSENTE/FRACO element: specific fix with example text, prioritized"
+      depends_on: issue_verdict
+      output: fix_prescriptions
+
+  error_handling:
+    - error: generous_rating
+      symptom: "FRACO rated as PRESENTE because 'it is sort of there'"
+      resolution: "Apply strict criteria: does it clearly achieve its purpose?"
+    - error: snapper_deferred
+      symptom: "Urgency not evaluated because 'we will add it later'"
+      resolution: "Urgency is structural, not cosmetic; evaluate now"
+    - error: generic_prescriptions
+      symptom: "'Add more proof' without specifying what kind"
+      resolution: "Prescribe exact type of proof with example text"
+
+  quality_gate:
+    criteria:
+      - "All 6 elements explicitly evaluated"
+      - "Each rated PRESENTE/AUSENTE/FRACO with reasoning"
+      - "Overall score calculated"
+      - "AUSENTE elements have specific fix prescriptions"
+      - "FRACO elements have strengthening prescriptions"
+    pass_threshold: "All criteria met"
+
+  outputs:
+    - name: audit_report
+      format: structured_report
+      description: "6-element audit with ratings per element"
+    - name: overall_score
+      format: score
+      description: "X/6 elements present"
+    - name: prescriptions
+      format: actionable_list
+      description: "Fixes for AUSENTE and FRACO elements with example text"

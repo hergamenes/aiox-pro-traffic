@@ -1,0 +1,173 @@
+sop:
+  id: bencivenga-12rs-motivation
+  version: "1.0"
+  title: The 12 Rs of Powerful Motivation (Research Checklist)
+  purpose: >
+    Evaluate copy against Bencivenga's 12 Rs framework to ensure activation of
+    deep human motivational drivers. Identifies which Rs are present and which
+    should be activated based on ICP analysis.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: gary-bencivenga
+    artifact_type: validation
+    tier: t1
+
+  steps:
+    - action: validate_recognition
+      r_index: 1
+      description: "Recognition: fame, status, exclusivity"
+      input: full_copy_text
+      markers:
+        - social_status_elevation
+        - exclusivity_framing
+        - expert_recognition
+        - select_group_membership
+      on_fail: consider_adding_if_icp_relevant
+
+    - action: validate_refreshment
+      r_index: 2
+      description: "Refreshment: leisure, freedom, more time"
+      input: full_copy_text
+      markers:
+        - time_freedom
+        - reduced_stress
+        - lifestyle_improvement
+        - leisure_visualization
+      on_fail: consider_adding_if_icp_relevant
+
+    - action: validate_regrets
+      r_index: 3
+      description: "Regrets: regrets avoided by acting"
+      input: full_copy_text
+      markers:
+        - future_self_perspective
+        - inaction_consequences
+        - missed_opportunity_framing
+      note: NOT fear-mongering; sophisticated self-awareness appeal
+      on_fail: consider_adding_if_icp_relevant
+
+    - action: validate_rejuvenation
+      r_index: 4
+      description: "Rejuvenation: youthfulness, health, energy"
+      input: full_copy_text
+      markers:
+        - vitality_restoration
+        - energy_increase
+        - youthful_appearance
+        - health_improvement
+      on_fail: consider_adding_if_icp_relevant
+
+    - action: validate_relief
+      r_index: 5
+      description: "Relief: from pain, shame, guilt"
+      input: full_copy_text
+      markers:
+        - pain_elimination
+        - shame_release
+        - guilt_resolution
+        - embarrassment_escape
+      note: Relief often outperforms gain-based copy
+      on_fail: consider_adding_if_icp_relevant
+
+    - action: validate_religion
+      r_index: 6
+      description: "Religion: passionately held beliefs (not limited to spiritual)"
+      input: full_copy_text
+      markers:
+        - belief_system_alignment
+        - tribal_affinity
+        - ideological_consistency
+        - value_alignment
+      on_fail: consider_adding_if_icp_relevant
+
+    - action: validate_remuneration
+      r_index: 7
+      description: "Remuneration: money, career"
+      input: full_copy_text
+      markers:
+        - specific_financial_gain
+        - career_advancement
+        - income_growth
+        - competitive_advantage
+      on_fail: consider_adding_if_icp_relevant
+
+    - action: validate_respect
+      r_index: 8
+      description: "Respect: image before others"
+      input: full_copy_text
+      markers:
+        - peer_perception
+        - family_impression
+        - colleague_admiration
+        - professional_image
+      note: Different from Recognition (fame) -- Respect is about people who matter
+      on_fail: consider_adding_if_icp_relevant
+
+    - action: validate_results
+      r_index: 9
+      description: "Results: specific, measurable improvements"
+      input: full_copy_text
+      markers:
+        - specific_numbers
+        - measurable_outcomes
+        - defined_timelines
+        - verifiable_benchmarks
+      rule: results_are_specific_and_provable == true
+      on_fail: add_specific_measurable_outcomes
+
+    - action: validate_revenge
+      r_index: 10
+      description: "Revenge: prove them wrong (Caples piano headline archetype)"
+      input: full_copy_text
+      markers:
+        - prove_doubters_wrong
+        - quiet_undeniable_success
+        - overcoming_skepticism
+      caution: use_subtly_never_mean_spirited
+      on_fail: consider_adding_if_icp_relevant
+
+    - action: validate_role_performance
+      r_index: 11
+      description: "Role Performance: better spouse, parent, leader"
+      input: full_copy_text
+      markers:
+        - identity_role_improvement
+        - parenting_excellence
+        - leadership_confidence
+        - provider_capability
+      on_fail: consider_adding_if_icp_relevant
+
+    - action: validate_romance
+      r_index: 12
+      description: "Romance: attraction, adventure, stimulus"
+      input: full_copy_text
+      markers:
+        - excitement_desire
+        - adventure_pull
+        - attractiveness_improvement
+        - stimulating_life
+      on_fail: consider_adding_if_icp_relevant
+
+  error_handling:
+    - error: fewer_than_3_rs_active
+      severity: high
+      action: identify_and_activate_relevant_rs
+    - error: rs_dont_match_icp
+      severity: high
+      action: research_icp_motivations_first
+    - error: rs_listed_mechanically
+      severity: medium
+      action: reweave_naturally_into_narrative
+    - error: only_logical_rs_active
+      severity: medium
+      action: add_emotional_rs_for_depth
+
+  quality_gate:
+    minimum_rs_active: 3
+    maximum_rs_recommended: 5
+    total_rs: 12
+    mandatory_analysis:
+      - validate_results
+    rule: active_rs >= 3 AND rs_match_icp == true
+    verdict_on_fail: RESEARCH_NEEDED

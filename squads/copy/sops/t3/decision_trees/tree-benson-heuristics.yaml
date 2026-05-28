@@ -1,0 +1,66 @@
+sop:
+  id: tree-benson-heuristics
+  version: "1.0"
+  title: "Benson Decision Heuristics"
+  purpose: "Quick-reference decision rules for common situations in Jon Benson copy production with severity levels"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: jon-benson
+  steps:
+    - id: heur-01
+      condition: "Iniciar qualquer VSL"
+      action: "Pattern interrupt nos primeiros 7s — sem SNAP = perdeu TUDO"
+      severity: BLOCKING
+    - id: heur-02
+      condition: "Definir USP"
+      action: "Se nao cabe em 20 palavras, complexo demais"
+      severity: HIGH
+    - id: heur-03
+      condition: "Validar hook"
+      action: "Prospect diria isso ao acordar? Nao = hook errado"
+      severity: HIGH
+    - id: heur-04
+      condition: "Tentado a produzir bonito"
+      action: "Copy convertendo PRIMEIRO. Slides feios > producao cara"
+      severity: BLOCKING
+    - id: heur-05
+      condition: "VSL nao converte"
+      action: "Reescrever Lead + Close ANTES de tocar no meio"
+      severity: HIGH
+    - id: heur-06
+      condition: "Iniciar projeto"
+      action: "Big Idea -> Sales Page -> Produto. Maioria faz ao contrario"
+      severity: BLOCKING
+    - id: heur-07
+      condition: "Story section"
+      action: "NUNCA comece como genio. Comece como o publico E hoje"
+      severity: HIGH
+    - id: heur-08
+      condition: "Escrever benefits"
+      action: "Dimensional benefits: especifico > generico"
+      severity: HIGH
+    - id: heur-09
+      condition: "Precificar premium"
+      action: "Nunca descontar. Lamborghini nunca faz sale"
+      severity: MEDIUM
+    - id: heur-10
+      condition: "Gravar narracao"
+      action: "Varie velocidade. Fast, slow, punch, whisper"
+      severity: HIGH
+    - id: heur-11
+      condition: "Encontrar objecao"
+      action: "Concordar PRIMEIRO, redirecionar DEPOIS (Aikido)"
+      severity: HIGH
+    - id: heur-12
+      condition: "Apos pitch"
+      action: "NAO pare. FAQ e P.S. convertem tanto quanto o pitch"
+      severity: HIGH
+  error_handling:
+    - condition: "blocking_heuristic_violated"
+      action: "immediate_fix_required"
+    - condition: "multiple_heuristics_apply"
+      action: "follow_highest_severity_first"
+  quality_gate:
+    mode: heuristic_application
+    severity_levels: [BLOCKING, HIGH, MEDIUM]

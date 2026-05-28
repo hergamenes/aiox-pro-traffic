@@ -1,0 +1,149 @@
+sop:
+  id: sg-vssl-length-taxonomy
+  version: "1.0"
+  title: "VSSL Length Taxonomy"
+  purpose: >
+    Select the correct Video Sales Letter format based on four length
+    categories. Critical distinction is in-feed (social scroll) vs on-page
+    (landing page) — fundamentally different viewer mindsets.
+  classification:
+    domain: copywriting
+    subdomain: video-sales
+    tier: t2
+    source_agent: stefan-georgi
+    artifact_type: framework
+
+  steps:
+    - id: step_1_long_vssl
+      action: apply_long_vssl_evaluation
+      label: "Long VSSL (20-60 min)"
+      description: >
+        On-page only. High-ticket ($997+), complex products requiring extensive
+        education. Full RMBC argument with complete proof stack and detailed offer.
+      inputs:
+        - offer_complexity
+        - ticket_price
+        - placement_context
+      outputs:
+        - format_viability_score
+        - suitability_assessment
+      validation:
+        - field: placement_context
+          rule: must_be_on_page
+        - field: ticket_price
+          rule: minimum_997
+
+    - id: step_2_medium_vssl
+      action: apply_medium_vssl_evaluation
+      label: "Medium VSSL (6-18 min)"
+      description: >
+        Versatile — works in-feed and on-page. Mid-ticket ($97-$997). Condensed
+        argument with key proofs. Mechanism naming in first 2 minutes. Most
+        flexible format — start here when in doubt.
+      inputs:
+        - offer_complexity
+        - ticket_price
+        - placement_context
+      outputs:
+        - format_viability_score
+        - suitability_assessment
+      validation:
+        - field: ticket_price
+          rule: range_97_to_997
+
+    - id: step_3_adhd_hook_vssl
+      action: apply_adhd_hook_evaluation
+      label: "ADHD Hook VSSL (3-7 min)"
+      description: >
+        In-feed on Meta. Low to mid-ticket ($27-$297). Hook-heavy with first
+        15 seconds stopping the scroll. Multiple pattern interrupts. Currently
+        trending format with highest performance potential.
+      inputs:
+        - offer_complexity
+        - ticket_price
+        - placement_context
+      outputs:
+        - format_viability_score
+        - hook_requirements
+      validation:
+        - field: placement_context
+          rule: must_be_in_feed
+        - field: ticket_price
+          rule: range_27_to_297
+
+    - id: step_4_short_vssl
+      action: apply_short_vssl_evaluation
+      label: "Short VSSL (1-2 min)"
+      description: >
+        In-feed video ads. Very simple offers, retargeting warm audiences,
+        low-ticket ($7-$47). One hook, one benefit, one proof, one CTA.
+        Works when audience is warm or product sells visually.
+      inputs:
+        - offer_complexity
+        - ticket_price
+        - audience_temperature
+      outputs:
+        - format_viability_score
+        - suitability_assessment
+      validation:
+        - field: ticket_price
+          rule: range_7_to_47
+        - field: offer_complexity
+          rule: is_simple
+
+    - id: step_5_select_validate
+      action: apply_format_selection
+      label: "Select Format and Validate"
+      description: >
+        Match offer to format using ticket price, placement, complexity, and
+        audience temperature matrix. If between categories, test both with
+        same argument. In-feed vs on-page is the most important distinction.
+      inputs:
+        - all_format_scores
+        - offer_details
+        - placement_context
+      outputs:
+        - selected_format
+        - format_rationale
+        - test_plan
+      validation:
+        - field: selected_format
+          rule: matches_placement_context
+        - field: test_plan
+          rule: defined_if_between_categories
+
+  error_handling:
+    - error: long_vssl_in_feed
+      symptom: "Low view-through rate, high cost per view"
+      resolution: "Switch to ADHD Hook or Medium format for in-feed placement"
+    - error: short_vssl_on_page
+      symptom: "Prospect feels information is missing"
+      resolution: "Switch to Long or Medium format for on-page placement"
+    - error: weak_first_15_seconds
+      symptom: "Scroll-past rate above 70%"
+      resolution: "Rewrite opening with stronger hook or visual disruption"
+    - error: same_format_all_offers
+      symptom: "Inconsistent performance across different offers"
+      resolution: "Match format to ticket price, complexity, and placement"
+
+  quality_gate:
+    min_score: 7
+    criteria:
+      - "Format matched to offer complexity and ticket"
+      - "Placement context confirmed"
+      - "Argument fits chosen duration"
+      - "Hook optimized for first 15 seconds"
+      - "Mechanism named within first 2 minutes"
+      - "No format-placement mismatch"
+
+  outputs:
+    - type: format_selection
+      format: text
+      includes: [format, rationale, duration, placement]
+    - type: adapted_script
+      format: markdown
+    - type: hook_variants
+      format: list
+      min_count: 3
+    - type: test_plan
+      format: document

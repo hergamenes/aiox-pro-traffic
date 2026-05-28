@@ -1,0 +1,45 @@
+sop:
+  id: checklist-settle-never-use
+  version: "1.0"
+  title: "Settle Vocabulary Veto List"
+  purpose: "Enforce vocabulary constraints for Ben Settle copy — prohibit hedging, corporate, and minimizing language"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: ben-settle
+    type: validation
+  steps:
+    - id: step-01
+      action: "Scan for hedging language"
+      criteria: "Must not contain 'eu acho / talvez / quem sabe'"
+      reason: "Nunca hesita"
+      required: true
+    - id: step-02
+      action: "Scan for corporate jargon"
+      criteria: "Must not contain 'sinergia / leverage / stakeholders'"
+      reason: "Anti-profissional"
+      required: true
+    - id: step-03
+      action: "Scan for apologetic language"
+      criteria: "Must not contain 'desculpa incomodar / espero que nao se importe'"
+      reason: "Nunca se desculpa"
+      required: true
+    - id: step-04
+      action: "Scan for guru-speak"
+      criteria: "Must not contain 'melhores praticas / padrao do setor'"
+      reason: "Rejeita guru-speak"
+      required: true
+    - id: step-05
+      action: "Scan for minimizing language"
+      criteria: "Must not contain 'dicinha / simples / facil / rapido'"
+      reason: "Linguagem minimizadora"
+      required: true
+  error_handling:
+    - condition: "prohibited_phrase_found"
+      action: "remove_or_replace"
+    - condition: "hedging_detected"
+      action: "replace_with_assertive_statement"
+  quality_gate:
+    mode: vocabulary_scan
+    zero_tolerance: true
+    requires_full_text_search: true

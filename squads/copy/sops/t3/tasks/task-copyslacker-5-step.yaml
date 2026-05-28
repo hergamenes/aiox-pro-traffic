@@ -1,0 +1,76 @@
+sop:
+  id: task-copyslacker-5-step
+  version: "1.0"
+  title: "CopySlacker 5-Step Sales Letter Formula"
+  purpose: "Write complete sales letter using 5-step formula: Headline (11 triggers), Lead (drama/identification/controversy), Story (5 structures), Bullets (12 persuasion methods), Close (single CTA)"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: ben-settle
+    tier: T3
+
+  inputs:
+    - name: product_offer
+      type: object
+      required: true
+      description: "Product/offer to sell"
+    - name: criminal_profiling_research
+      type: document
+      required: true
+      description: "Criminal Profiling Research defining WHAT to say"
+
+  outputs:
+    - name: sales_letter
+      type: document
+      description: "Complete sales letter: Headline + Lead + Story + Bullets + Close"
+
+  steps:
+    - id: step_1
+      action: write_headline
+      description: "Choose from 11 psychological trigger templates matching offer type and audience emotion"
+      critical: true
+      templates_available: 11
+
+    - id: step_2
+      action: write_lead
+      description: "Open with drama, identification, or controversy — commit to ONE approach"
+      approaches: ["drama", "identification", "controversy"]
+
+    - id: step_3
+      action: write_story
+      description: "Choose from 5 narrative structures: origin, transformation, against-odds, behind-scenes, cautionary"
+      structures: ["origin", "transformation", "against_odds", "behind_scenes", "cautionary"]
+
+    - id: step_4
+      action: write_bullets
+      description: "Write bullets using 12 embedded persuasion methods — each bullet communicates benefit + persuasion technique"
+      critical: true
+      methods_available: 12
+
+    - id: step_5
+      action: write_close
+      description: "Single CTA — one link, one button, one instruction, no competing actions"
+      error_handling:
+        condition: "Multiple CTAs present"
+        action: "Remove all except primary CTA"
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "Headline uses one of 11 trigger templates"
+      - "Lead uses one of 3 approaches"
+      - "Story follows one of 5 structures"
+      - "Bullets use embedded persuasion not plain features"
+      - "Single CTA in close"
+      - "Flow from headline to close has no dead zones"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies: []
+
+  related_sops:
+    - task-infotainment-email
+    - task-subject-line-micro-riddle
+    - task-ghost-story-technique

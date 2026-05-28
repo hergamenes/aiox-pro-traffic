@@ -1,0 +1,43 @@
+sop:
+  id: lampropoulos-3-deep
+  version: "1.0"
+  title: "3-Deep Benefit Excavation"
+  purpose: "Execute Parris Lampropoulos's 3-Deep Benefit Excavation to convert surface-level features into identity-level transformations. Bad copy sells features. Good copy sells benefits. Great copy sells TRANS"
+  classification:
+    domain: copywriting
+    category: master
+    tier: t1
+    source_agent: parris-lampropoulos
+  steps:
+    - id: apply_level_1_feature_claim_surface
+      action: "List every feature and factual claim about the product."
+      input: "Level 1: Feature/Claim (surface) — 'So what does that mean?'"
+      output: "Step 1 deliverable: Level 1: Feature/Claim (Surface) completed with documented findings"
+      validation: "Every feature has been excavated through all 3 levels"
+    - id: apply_level_2_direct_benefit
+      action: "For each Level 1 feature, answer the excavation question with a concrete, tangible benefit the prospect receives."
+      input: "Level 2: Direct Benefit — 'And what does THAT really mean for their life?'"
+      output: "Step 2 deliverable: Level 2: Direct Benefit completed with documented findings"
+      validation: "Level 3 statements reference identity or emotional transformation, not just practical benefit"
+    - id: apply_level_3_emotional_identity_transformation
+      action: "For each Level 2 benefit, answer the deeper question with the emotional or identity transformation it enables."
+      input: "Level 3: Emotional/Identity Transformation — USE THIS IN COPY"
+      output: "Step 3 deliverable: Level 3: Emotional/Identity Transformation completed with documented findings"
+      validation: "Copy uses Level 3 language, not Level 1 features or Level 2 basic benefits"
+  error_handling:
+    - error: "Stopping at Level 2 and calling it done"
+      resolution: "Always ask 'and what does THAT really mean for their life?' one more time"
+    - error: "Writing generic Level 3 statements"
+      resolution: "Level 3 must be SPECIFIC to the prospect's identity: who they become, how others see them"
+    - error: "Using Level 1 features in the copy body"
+      resolution: "Features belong only in a specs sidebar; body copy uses Level 3 exclusively"
+    - error: "Same Level 3 transformation for every feature"
+      resolution: "Each feature should reach a DIFFERENT aspect of the prospect's identity transformation"
+  quality_gate:
+    criteria:
+      - "Every feature has been excavated through all 3 levels"
+      - "Level 3 statements reference identity or emotional transformation, not just practical benefit"
+      - "Copy uses Level 3 language, not Level 1 features or Level 2 basic benefits"
+      - "Each 3-Deep excavation is specific to the target prospect, not generic"
+      - "At least the top 5 benefits reach genuine Level 3 transformation depth"
+    pass_threshold: "All 5 criteria met"

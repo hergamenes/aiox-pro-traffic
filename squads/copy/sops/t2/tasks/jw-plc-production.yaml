@@ -1,0 +1,97 @@
+sop:
+  id: jw-plc-production
+  version: 1.0.0
+  title: Prelaunch Content (PLC) Production
+  purpose: 'Create the 3 Prelaunch Content pieces: PLC1 (Opportunity), PLC2 (Transformation), PLC3 (Ownership Experience)'
+  classification:
+    domain: copywriting
+    category: systematizer
+    source_agent: jeff-walker
+    artifact_type: task
+    tier: t2
+  status: ACTIVE
+  trigger:
+    type: manual
+    description: When preparing content for any PLF launch type (Internal or JV)
+  context:
+    input:
+    - name: product_details
+      type: object
+      required: true
+      description: Product features, benefits, mechanism
+    - name: top_objections
+      type: list
+      required: true
+      description: Top 5 objections from market research
+    - name: transformation_stories
+      type: list
+      required: true
+      description: Customer success stories and case studies
+  steps:
+  - id: S001
+    name: Choose format
+    action: execute_step_1
+    description: video (screen-capture or full-motion), email, blog post, PDF report, audio
+    performer: copywriter
+    critical: true
+    on_success: S002
+    on_failure: retry
+  - id: S002
+    name: 'PLC #1 Recipe'
+    action: execute_step_2
+    description: '(1) Show opportunity/transformation, (2) Position yourself, (3) Teach real content, (4) Raise objections
+      + answer or promise to answer, (5) Foreshadow PLC #2, (6) CTA for comments'
+    performer: copywriter
+    critical: true
+    on_success: S003
+    on_failure: retry
+  - id: S003
+    name: 'PLC #2 Recipe'
+    action: execute_step_3
+    description: '(1) Thank + recap PLC #1, (2) Recap opportunity, (3) Recap positioning, (4) Case Study or real teaching,
+      (5) Crush top 2-3 objections, (6) Foreshadow PLC #3, (7) CTA'
+    performer: copywriter
+    critical: true
+    on_success: S004
+    on_failure: retry
+  - id: S004
+    name: 'PLC #3 Recipe'
+    action: execute_step_4
+    description: (1) Express thanks + excitement, (2) Quick recap opportunity + positioning, (3) Optional Case Study, (4)
+      Answer top recurring questions, (5) Big-view projection of transformation, (6) Pivot to offer i
+    performer: copywriter
+    critical: false
+    on_success: S005
+    on_failure: retry
+  - id: S005
+    name: Step 5
+    action: execute_step_5
+    description: Post each PLC on blog with comment section for Launch Conversation
+    performer: copywriter
+    critical: false
+    on_success: S006
+    on_failure: retry
+  - id: S006
+    name: Step 6
+    action: execute_step_6
+    description: Actively respond to comments — turn monologue into conversation
+    performer: copywriter
+    critical: false
+    on_success: S007
+    on_failure: retry
+  - id: S007
+    name: Step 7
+    action: execute_step_7
+    description: Use comments to identify objections and refine subsequent PLC
+    performer: copywriter
+    critical: false
+    on_success: COMPLETE
+    on_failure: retry
+  quality_gate:
+    pass_threshold: 7
+    total_checks: 7
+    mandatory_passes:
+    - S001
+    - S002
+    - S003
+    verdict_on_fail: BLOCK

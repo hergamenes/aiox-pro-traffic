@@ -1,0 +1,35 @@
+# Extraction State - Jeff Walker
+# Auto-generated: 2026-03-19
+# Updated: 2026-03-20
+
+extraction:
+  status: "completed"
+  started: "2026-01-26"
+  completed: "2026-03-20"
+
+sources:
+  total: 1
+  tier_1_estimated: 1
+  types_detected: ["books", "articles"]
+
+voice_dna:
+  extracted: true
+  power_words: 12
+  signature_phrases: 15
+  anti_patterns: 10
+  stories: 5
+  quality_estimate: "high"
+  file: "squads/copy/data/minds/jeff-walker/voice_dna.yaml"
+
+thinking_dna:
+  extracted: true
+  frameworks: 8
+  heuristics: 10
+  veto_conditions: 7
+  handoff_triggers: 5
+  quality_estimate: "high"
+  file: "squads/copy/data/minds/jeff-walker/thinking_dna.yaml"
+
+overall:
+  fidelity_estimate: "85%"
+  needs_improvement: ["source-text/ directory empty — no raw book extractions available", "7d-extraction-raw.md not found — extracted from agent file only"]

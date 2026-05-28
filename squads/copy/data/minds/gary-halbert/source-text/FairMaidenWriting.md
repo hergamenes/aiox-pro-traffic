@@ -1,0 +1,352 @@
+## THE GARY HALBERT LETTER
+
+Suite 905-467 3101 S.W. 34th Ave. Ocala, FL 34474-7447
+
+From: Miami Beach, FL Friday, 7:47 a.m. September 26
+
+Dear Friend &amp; Subscriber,
+
+You should put a lot of thought into everything you write... right?
+
+Wrong.
+
+Phone (305) 534-7577
+
+Fax (352) 861-1665
+
+The very best writing involves almost no thought whatsoever. In truth, to the extent it is possible, you should strive to make your writing an almost 100% "thoughtless" endeavor. I know this seems absolutely wrong to you right now. But, I promise, by the end of this letter, you will completely understand why "thoughtless" writing is the very best writing... and... equally important, you will understand why this is true.
+
+And, along the way, you are going to learn something of almost priceless value which, to my knowledge, has never been revealed before.
+
+Listen, I've got this demented slimeball of a friend/client out in Phoenix, Arizona named Joe Polish. As far as I'm concerned, Joe is borderline valueless but, since his checks don't bounce, I continue to work for him from timeto-time. In some ways, he reminds me of me when (back in 1908) I was his age. What I'm talking about is, he has a thirst for marketing info that makes Lestat's hunger for human blood seem like nothing more than a mild urge.
+
+Anyway, Joe has paid me (a ridiculously small amount) to come visit him three times this year and, every time I go he sucks my mind so dry... that... by the time I get on the plane to fly back to Miami, I sit there in my seat like some kind of zombie who yearns to get back to the peace of his coffin.
+
+In fact, it got so bad the last time that when the stewardess came up to me and asked, "Coffee, tea or milk?" I snarled at her and said...
+
+"Don't you ever ask me something like that again... If this airline thinks I'm going to give them free consulting to questions like that so they can obtain a higher retention of their customers, they are sadly mistaken!"
+
+"Gee, I didn't mean to offend you," the stewardess replied, "is there anything I can get you?"
+
+"Yeah," I said, "get me some pure heroin and something to inject it with!"
+
+"Oh," she said, "you've been out to see Joe Polish, haven't you?"
+
+I must admit, after that, the flight did go a bit better.
+
+Anyway, here's what it's like to work for a freak like Joe Polish: He always picks me up at the airport; he's always waiting for me right at the damn gate.
+
+"Gary," he says, "we just did an A/B split on yellow order coupons versus green ones and we're thinking of
+
+doing another test on eliminating the phone order option and we need to know what you think about blah, blah, blah, etc."
+
+No "hello." No "How's Theresa? Are your kids OK?"
+
+Nothing like that. Just question after question on how to improve his marketing. I'd say, on average, he usually sucks about $30,000 worth of info outta me before we're even outta the airport. It continues in his car during the drive to his office. It continues when we get to his office. It continues when he drives me to my hotel room. It continues in my hotel room. It continues at dinner at his house. And on and on and on.
+
+Joe's gonna be a new father by the time you read this (the doctor says it's a boy) and, I'm giving eight to five this little sucker comes out of the womb with a copy of Scientific Advertising in one hand and all the back issues of The Gary Halbert Letter in the other. When the doctor whacks him on the ass to start his breathing, the little shit's first words will probably be something like, "Hey Doc... do you send an 'upsell letter' to all the new mothers within 48-hours of when you deliver their new kid? You know, if the kid's a boy like me, maybe you could attach a condom to the first page of the letter as a 'grabber' and, if it's a girl maybe you could attach a birth control pill... or... etc., etc."
+
+Don't laugh. This may happen.
+
+Monsters do beget monsters.
+
+And so it came to pass, on my last visit, I end up one evening sitting at Joe's kitchen table while he interviews me for this "Mickey Mouse" "Tape-Of-The-Month Club" he has for all his best subscribers. Also present at that taping is Brian Kay, a guy who markets marketing info to certified financial planners and insurance agents; R.D. "Ardy" Skinner, a pretty blonde lady I was going to ask for a date until I learned she prefers roaches to men (literally, she's a niche marketer to people in the pest control business); and Pat Rivera, my efficient, frigid, Peruvian/American assistant who considers me so stupid and dysfunctional, she treats me like I'm some kind of damn paraplegic.
+
+Whatever. That was the set-up. I was tired, irritable and surrounded by the "Roach Lady," the "Peruvian Ice Goddess," an emotionally flat humanoid who thinks insurance agents and financial planners are interesting, and rabid Joe Polish himself who immediately starts a machine-gun flow of questions... which... of course... I am compelled (he's paying me) to answer.
+
+As the questions keep coming, I get more and more pissed off. After a while, I'm thinking, "Hey, you really wanna know the truth? OK, fine, if you can handle it, I'll give you the real scoop on how to turn your marketing endeavors into a virtual 'Operation Moneysuck.'"
+
+And so I did.
+
+It wasn't "pretty" but, during that interview, I just said to hell with it and truly let it all hang out.
+
+Later, Joe asks me if he can sell the tape. "No," I says, "that wasn't part of our deal. Only to your Tape-Of-TheMonth Club members," I reminded him.
+
+"So, can I give them away?" he wonders.
+
+"Nah, don't do that," I told him. "If you give it away free, people won't give it the value it deserves. Instead, why don't you make people who want the tape make a donation to the Phoenix Children's Hospital? That way, the people who get the tape will value it more because they had to pay for it even though they didn't pay you."
+
+Well, that's what Joe did and, that tape is being raved about by so many people, Joe has raised thousands for the hospital.
+
+Unfortunately, part of our deal is I had to write the damn sales letter about the tape... and so... I stayed up all
+
+night writing that sucker. (I truly was highly motivated. You see, if I got the job done by morning, it meant I could fly back home right away and not have to spend any more time with all these freaked-out, obsessive, info-sucking vampires.)
+
+As it turns out, that sales letter is, I believe, one of the very best I've ever written. Here it is. Judge for yourself.
+
+From: Joe Polish in Tempe, Arizona Friday, August 29 2:47 p.m.
+
+Dear Friend &amp; Subscriber,
+
+Remember in the last issue of my newsletter where I said, "Wait till next month because I've got something that will blow your socks off?" Well, I'm going to hold true to that promise right here and now.
+
+For a number of years now, I've been a subscriber to another newsletter writer. I'm not quite ready to divulge his name but he has numerous nicknames like... the "Prince of Print"... "Ace of Space... "Marketing Guru"... and... "The World's Greatest Copywriter".
+
+This man has charged almost $7,000 per attendee at some of his infamous seminars. How can he possibly charge so much? Because he doesn't just teach marketing. No. He teaches what he likes to call "Killer Advertising" which is so powerful... it almost forces people to buy whatever you are selling!
+
+His clients have included the likes of Ernest and Tova Borgnine, Robert G. Allen (author of Nothing Down ), Geoff Scott of Dynasty, Vikki LaMotta (once married to boxer Jake LaMotta), and and George Zangas (a world famous power lifter), just to name a few.
+
+While Blade Thomas was Advertising Director of Entrepreneur Magazine he hired this "guru" as an outside consultant. Even though Blade met and worked with some of the smartest businessmen and marketing experts on earth, he said, "(Mystery Man) stood head and shoulders above them all. When I first talked with him, his ideas seemed a bit unusual. However, I decided to at least test some of these suggestions... and Thank God I did! Within days he taught me how to multiply sales, cut refunds to almost zero and how to enormously increase our bottom-line profits."
+
+With all the marketing miracles he has under his belt, this master copywriter has a real attitude about just giving away his information. But... I've worked out a slamming deal with him and that's what will blow your socks off!
+
+I had to get down on my hands and knees to get this mastermind to come to Arizona for two days and share his genius with me. He was bellowing out such amazing secrets one after the other, my hand got writer's cramp! Fortunately for me... and for you... I audio taped a killer interview with him. To the best of my knowledge I am the first person that has ever interviewed this man on tape.
+
+Just who is this mystery man I've been ranting and raving about? And just what did he talk about? I'm glad you asked.
+
+He's none other than Gary Halbert. And any one of these topics he divulged in detail on the tape could be worth a fortune to you:
+
+- ! Why competing on price alone will put you out of business in a New York minute!
+- ! How to increase the believability of every ad or sales letter you ever write!
+- ! What to do on a $500 budget!
+- ! What is the most important component of an ad... and... how to use it to up your results by 500%!
+
+- ! What word one company used to double their sales! (This one will blow your mind.)
+- ! How to write a sales letter that will pull 100 times better than any copywriter will ever write for you... even if you've never written a single word of copy in your life!
+- ! Two "magic words" that will put you light years ahead of your competition!
+- ! What key ingredient separates the winners from the losers!
+- ! The single biggest mistake most people make when writing copy... and... how to avoid it!
+- ! How to capture yourself in "concert pitch" and convert it into a million dollar sales letter!
+- ! How to virtually GUARANTEE all of your letters get delivered... and opened!
+- ! 5 key advantages of direct mail over any other marketing method!
+- ! The best day of the week to drop your mail!
+- ! How to roll-out a direct mail campaign to the tune of millions of letters... without borrowing  a dime!
+- ! How to find and rent the best mailing lists on the market for your product or service!
+- ! A secret technique to find out who is using a mailing list and who continues to rent it! (This information can save you thousands.)
+- ! A little-known strategy for gathering valuable information on your competitors ... without them even knowing about it!
+- ! How to prevent yourself from getting ripped off by unethical list brokers! (This one secret will save you a fortune.)
+- ! Why you should create your own competition... and... how to use this strategy to make a fortune!
+- ! 3 little-known reasons why people don't buy from you! (Once you discover these reasons, you will be able to sell virtually every prospect you see.)
+- ! Why you MUST tell your full story in every ad or sales letter you run!
+- ! Why you can never mail too often!
+- ! The best way to take the "fear" out of customers buying from you!
+- ! Which option pulls best - telephone, mail, or fax? (You'll never guess which option pulls far more replies.)
+- ! How to hire "Love Boat" celebrities to increase the credibility and response of your next promotion... and... at bargain basement prices!
+- ! A sneaky but ethical technique for getting your satisfied customers to agree to take phone calls from skeptical prospects!
+- ! A secret technique for getting unlimited referrals from clients and prospects!
+- ! Why people would rather die than move out of their "comfort zone"!
+
+## ! The importance of "bonding"... and... how to use it to astonish your customers!
+
+Well, that's just a small portion of the cash-generating secrets you will learn when you hear this taped interview. But let me forewarn you... this taped interview is blunt and to the point. But don't let that scare you off. You need this kind of hard-nosed info. It is not a luxury. If you truly want to make some fast, serious money, this kind of information is imperative!
+
+I told Gary my Piranha Marketing subscribers are smart people and I wanted to send them the tape free. He didn't quite agree with me 100%.
+
+He said he was sure a good percentage of my subscribers know and appreciate all of the valuable information I share with them every month... but... there would also be another percentage who consist of nothing but a bunch of "lazy sloths" (his words, not mine). He said these are the types of people who call up and bitch about how I charge too much for my newsletter and marketing program. Or that these are the types of people who complain every month that all I ever do is sell them more stuff. They look at my information as a cost, not an investment.
+
+## Unfortunately, I Had To Agree With Him!
+
+I tried to explain some of my subscribers just hadn't taken the time to implement some of my newsletter strategies... or to really understand the value of my newsletter. It was right then and there he made me realize...
+
+## The Information I Share With My Subscribers Can Bring Them A 10 To 1 Return On An Ad... Or... Double Their Business... Or... Increase Their Personal Income By 300% Overnight!
+
+Gary said he would be insulted if I sent this priceless taped interview to any of my subscribers who didn't pony up at least a few bucks to hear it. He said, "If someone is too stupid or too cheap to pay for this tape, they shouldn't have it." Who was I to argue? This is the man who's made hundreds of millions of dollars in this business in the last 30 years!
+
+Finally, after what seemed like a lifetime...
+
+## We Reached A Settlement!
+
+So, if you want a copy of this "killer" interview with Gary Halbert, all you have to do is write a check in the amount of $20 and make the check payable to the "Phoenix Children's Hospital" of Phoenix. Send the check to me, Joe Polish, here at Piranha Marketing. As soon as I receive your check, I will immediately forward it to the Children's Hospital (it's located here in Phoenix at 1300 N. 12 th Street, Suite 404)... and... I will immediately send you a copy of this amazing tape.
+
+That's all there is to it. If you are willing to make a lousy $20 donation to this very deserving children's hospital, you will receive an audio cassette jam packed with information that will help you make as much money as your greedy little heart could ever desire.
+
+Sincerely,
+
+## Joe Polish
+
+- PS My supply of these tapes is extremely limited. So, if you are interested, please let me know right away. I've enclosed an envelope for you to send the check in. So do it right away.
+- PPS I forgot to mention, I will also include the handy transcripts of this tape so you can read along and highlight or underline any of the dozens of killer secrets that Gary reveals on this tape. Quite a deal for making a donation to a very worthy cause. And remember, it's me that has to
+
+come out of pocket to cover duplication, printing and shipping charges to put this tape into your hands. All the money I receive will go straight to the Children's Hospital.
+
+PPPS If you would prefer to pay by credit card then fax in the form with your credit card and please allow me to charge $21.00 to your card so I can have $1.00 to cover my merchant card charges and give the remaining $20 to the Children's Hospital.
+
+PPPPS If you're already a Tape Of The Month subscriber, you will be getting a copy of this priceless interview in the mail. But, if you're still interested in making a charitable donation to the Children's Hospital, any contribution will be appreciated.
+
+That's a bitch of a sales letter, ain't it? But, I didn't stop there. I was so desperate to get away from Piranha Joe, I wrote an order coupon to go with the letter just to make certain there was no reason these fiends could reasonably ask me to stay in Phoenix (yes, it is 157 o but, it's a dry heat) goddamn Arizona even a moment longer. And, I must say, the order coupon is brilliant also. Check it out:
+
+<!-- image -->
+
+<!-- image -->
+
+For The Fastest Service Use Your Visa, MasterCard, American Express or Discover Card And Fax 1-602-858-0004 24-Hours A Day; 7-Days A Week
+
+## For Mail Service
+
+Use Your Credit Card Or Write A Check Or Money Order And Mail This Coupon To: 1801 S. Jen Tilly, Suite C-20
+
+Piranha Marketing, Inc. Tempe, AZ 85281
+
+- [ ] " YES! I want a FREE copy of the killer taped interview you had with the "Marketing Guru" Gary Halbert wherein I can learn how to make as much money as my greedy little heart could ever desire on topics such as:
+
+- ! Why competing on price  alone  will  put  me  out  of business in a New York minute!
+
+- ! How to write a sales letter that will pull 100 times better than any copywriter will ever write for me... even if I've never written a single word of copy in my life!
+
+- ! What to do on a $500 budget!
+
+- ! How  to  hire  "Love  Boat" celebrities  to  increase  the credibility  and  response of my next promotion... and... at bargain basement prices!
+
+- ! The  best  way  to  take  the  "fear"  out  of  customers buying from me!
+
+- ! How  to  virtually  GUARANTEE all  of  my  letters  get delivered... and opened!
+
+- ! 3-little  known  reasons  why  people  don't  buy  from me!
+
+I  think  it's  commendable  you're  eating  all  the  costs  of duplication,  printing  and  shipping  to  put  this  tape  and transcripts into my hands FREE... and... all I have to do is write  a donation check  to  "The  Children's  Hospital  of Phoenix" in the amount of $20.00. I understand you will not keep any of this money. On that basis, here is my order.
+
+- [ ] " YES! I'm not interested in the tapes or the transcripts but feel  very  strongly  about  what  you  are  trying  to  do  for  the Children's Hospital. I am simply enclosing my check in the amount  of  $20.00  or  you  can  bill  my  credit  card  in  the amount of $21.00 and I expect nothing in return.
+
+#
+
+$
+
+- [ ] " Enclosed is my check or money order for $20.00 made payable to "The Children's Hospital of  Phoenix"... or...
+
+- [ ] " Bill my
+
+- [ ] " Visa
+
+- [ ] " MasterCard
+
+- [ ] " Am Exp
+
+- [ ] " Discover
+
+in the amount of $21.00
+
+Card No \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_  Exp\_\_\_\_
+
+Signature\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+Name  \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+Address  \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+City  \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_  State \_\_\_\_\_\_\_\_\_
+
+ZIP \_\_\_\_\_\_\_\_\_\_\_\_\_ Country \_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+Now, that sales letter and that order coupon are truly pure genius, are they not? Truthfully, I'm more proud of this work than anything else I've written in years. And, even though you think you are so damn smart, I bet you don't even have a "clue" as to "why." You see, in the last half of this letter, I've been lying to you! The real truth is...
+
+## I Didn't Write A Single Word Of That Sales Letter Or That Order Coupon!
+
+In fact, I didn't even "proof-read" it or add a single change.
+
+Who did write it? None other than my trusty Assistant, Theresa, who has been with me through thick and thin for eight years now. Not only did she write it... she did so at blinding speed... even though... she is NOT a copywriter. She didn't have to think about it, "struggle" with it, "ponder" on it or nothing. She just plain sat down at her PC and knocked it out.
+
+How can this be? The answer is simple.
+
+You see, over the last eight years, Theresa has typed almost every word I've written. If there is such a thing as a "Halbert style" of writing, it is embedded in Theresa's neurology. In fact, she can probably write more like Halbert than Halbert. It's like driving a car: After you've been doing it for thousands of miles, you don't have to think about it anymore. You literally do it on "autopilot."
+
+In other words, once you're good at it, you do it thoughtlessly.
+
+So it is with writing. And, to help you understand that, I want you to think about another form of communication which is called... talking . When you are in a relaxed conversation about some subject about which you really have your shit wrapped tight, you don't think about talking, do you?
+
+Of course not. There's no need. After all, like driving a car, you've been doing it for years. Talking is easy. It requires no thought whatsoever. Neither does great writing; it's both thoughtless and automatic.
+
+But wait! Those things are true only if you know what you are talking or writing about. You see, when it comes to communicating, almost all of your thinking...
+
+## Should Be Concerned With The Content Of What You Want To Communicate!
+
+Great writing requires two elements: (1) You must know your subject cold and (2) there must be almost no obstructions in the neural pathways from your brain to your hands. No mental clots. No inhibitions. No censoring of thoughts. If you've really got this writing stuff down, it will flow from your brain to the written page as easily as lies flow from the lips of a lawyer.
+
+Achieving that kind of uninhibited flow is very hard for most people... when... it comes to writing. But, not for Theresa... because... it ain't her that writes all that stuff. She's not inhibited in that area because... it's not her that's writing... it's her embedded "Halbert Neurology" that is... to blame.
+
+In other words...
+
+## The Devil Made Her Do It!
+
+So, are you getting a "clue" as to what I mean when I always say, "The key to writing is writing" ? Or, why I'm always telling you to mindlessly copy in your own handwriting all those great ads or sales letters you have in your swipe file?
+
+Rowing a boat is easy. Rowing the boat to the right destination is what needs to be thought about.
+
+Capice?
+
+Oh, hell with it. If you don't understand what I'm trying to say by now, you're hopeless. Crack open another
+
+beer, sit your fat ass back down on the couch and turn on the tube. Maybe you'll catch that new commercial Marv Albert's doing for Victoria's Secrets.
+
+Sincerely,
+
+Gary C. Halbert
+
+- P.S. That interview I did with Joe Polish may be the best one I've ever done. I can't sell it to you 'cause Joe owns it. However, if you are willing to shell out a $20.00 charitable contribution (just like Joe's subscribers had to do) you too can have a copy of this remarkable tape. However, I've made a deal with Joe that all the $20.00 contributions from my subscribers go to a different "charity."
+
+Here's why: You know that irreplaceable assistant of mine, Theresa, whose evil neurology wrote that great sales letter and order coupon? Well, she's had a little bad luck lately. Her daughter had to be admitted to a Florida hospital recently because of a severe asthma attack. Actually, it was so bad, she had to say in the hospital an entire week and then, required extensive homebound care for an additional week.
+
+In short, all this has left Theresa with horrendous medical bills... and... I'd like to see her get some relief.
+
+So, the bottom-line is, if you, as one of my subscribers, wants a copy of this tape, your $20.00 will go into a little fund I've had my buddy Joe Polish set up that will help pay off the medical bills Theresa has because of her daughter's illness. Joe and I have decided to call it simply the "Theresa Fund" and so... here's the order coupon you should use if you are a Gary Halbert newsletter subscriber. Thanks.
+
+<!-- image -->
+
+<!-- image -->
+
+## For The Fastest Service
+
+Use Your Visa, MasterCard, American Express or Discover Card
+
+And Fax 1-602-858-0004 24-Hours A Day; 7-Days A Week
+
+## For Mail Service
+
+Use Your Credit Card Or Write A Check Or Money Order And Mail This Coupon To: Piranha Marketing, Inc. 1801 S. Jen Tilly, Suite C-20 Tempe, AZ 85281
+
+## Dear Joe Polish,
+
+" YES! I want a FREE copy of the killer taped interview you did with the "Marketing Guru" Gary Halbert wherein I can learn  how  to  make  as  much  money  as  my  greedy little heart could ever desire on topics such as:
+
+- % Why competing on price alone will put me out of business in a New York minute!
+
+- % How  to  write  a  sales  letter  that  will  pull  100  times better  than  any  copywriter  will  ever  write  for  me... even if I've never written a single word of copy in my life!
+
+- % What to do on a $500 budget!
+
+- % How  to  hire  "Love  Boat" celebrities  to  increase  the credibility and response of my next promotion... and... at bargain basement prices!
+
+- % The best way to take the "fear" out of customers buying from me!
+
+- % How  to  virtually  GUARANTEE all  of  my  letters  get delivered... and opened!
+
+- % 3-little known reasons why people don't buy from me!
+
+I  think  it's  commendable  you're  eating  all  the  costs  of duplication,  printing  and  shipping  to  put  this  tape  and transcripts into my hands FREE... and... all I have to do is  write  a donation check  to  "Theresa's  Fund"  in  the amount of $20.00. I understand you and/or Gary will not keep any of this money. On that basis, here is my order.
+
+#
+
+$
+
+- [ ] " Enclosed is my check or money order for $20.00 made payable to "Theresa's Fund"... or...
+
+- [ ] " Bill my
+
+- [ ] " Visa
+
+- [ ] " MasterCard
+
+- [ ] " Am Exp
+
+- [ ] " Discover
+
+in the amount of $21.00
+
+Card No \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_  Exp\_\_\_\_
+
+Signature\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+Name  \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+Address  \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+City  \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_  State \_\_\_\_\_\_\_\_\_
+
+ZIP \_\_\_\_\_\_\_\_\_\_\_\_\_ Country \_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+## Important Note:
+
+What you just read was written several years ago. The purpose of sharing that issue of my newsletter is NOT to sell you Joe Polish's interview with me (I don't even know if he has any left). The purpose of giving you this newsletter is NOT to get any donations for Theresa's daughter's medical bills (they've all since been paid off).
+
+The purpose of sending you this issue IS to show  you  a  true  life  example  that...  if  a "mere secretary" who has absolutely no desire  to  be  a  copywriter can  write  sales letters  and  order  coupons...  than  it  just goes to prove...
+
+## You Can Do It Too!

@@ -1,0 +1,119 @@
+sop:
+  id: dk-results-triangle
+  version: "1.0"
+  title: "Results Triangle (Kennedy Marketing Triangle)"
+  purpose: >
+    Diagnose any marketing failure by evaluating three interdependent elements:
+    Message, Market, and Media. Identify which leg is broken and fix it first.
+  classification:
+    domain: copywriting
+    subdomain: marketing-diagnostics
+    tier: t2
+    source_agent: dan-kennedy
+    artifact_type: framework
+
+  steps:
+    - id: step_1_evaluate_message
+      action: apply_message_evaluation
+      label: "Evaluate the Message"
+      description: >
+        Assess whether the core message is irresistible to the specific target
+        market. Test with 5 real prospects — if fewer than 4 want to hear more,
+        the message is broken. Verify differentiation from competitors.
+      inputs:
+        - campaign_copy_assets
+        - competitor_messages
+      outputs:
+        - message_score
+        - message_diagnosis
+      validation:
+        - field: message_score
+          rule: range_1_to_10
+        - field: message_diagnosis
+          rule: includes_differentiation_check
+
+    - id: step_2_evaluate_market
+      action: apply_market_evaluation
+      label: "Evaluate the Market"
+      description: >
+        Define the market with precision including demographics, psychographics,
+        buying behavior, and current pain points. Verify ability and willingness
+        to pay. Check list quality (recency/frequency/monetary).
+      inputs:
+        - target_market_profile
+        - list_data
+      outputs:
+        - market_score
+        - market_diagnosis
+      validation:
+        - field: market_score
+          rule: range_1_to_10
+        - field: target_market_profile
+          rule: not_generic
+
+    - id: step_3_evaluate_media
+      action: apply_media_evaluation
+      label: "Evaluate the Media"
+      description: >
+        List all media channels in use. Verify each channel reaches the defined
+        market and allows direct response with trackable CTA. Assess cost per
+        reach and cost per response.
+      inputs:
+        - media_channel_list
+        - channel_performance_data
+      outputs:
+        - media_score
+        - media_diagnosis
+      validation:
+        - field: media_score
+          rule: range_1_to_10
+        - field: media_channel_list
+          rule: all_channels_allow_direct_response
+
+    - id: step_4_identify_broken_leg
+      action: apply_diagnostic_conclusion
+      label: "Identify the Broken Leg"
+      description: >
+        Compare scores across all three legs. The lowest score is the primary
+        constraint. If two are low, fix Market first. Generate specific fix plan
+        for the weakest element.
+      inputs:
+        - message_score
+        - market_score
+        - media_score
+      outputs:
+        - triangle_scorecard
+        - broken_leg_id
+        - fix_plan
+      validation:
+        - field: broken_leg_id
+          rule: one_of_message_market_media
+
+  error_handling:
+    - error: blame_copy_wrong_market
+      symptom: "Great copy producing zero conversions"
+      resolution: "Re-evaluate target market before rewriting copy"
+    - error: brand_media_for_dr
+      symptom: "High impressions but no trackable leads"
+      resolution: "Switch to media channels that allow CTA + tracking"
+    - error: vague_market
+      symptom: "Target defined as everyone or business owners"
+      resolution: "Narrow to one specific avatar with named pain points"
+
+  quality_gate:
+    min_score: 7
+    criteria:
+      - "All three legs evaluated with evidence"
+      - "Market defined with specificity"
+      - "Message tested with target market members"
+      - "Media channels verified for reach and DR capability"
+      - "Lowest-scoring leg identified with fix plan"
+
+  outputs:
+    - type: triangle_scorecard
+      format: table
+      fields: [message_score, market_score, media_score]
+    - type: broken_leg_diagnosis
+      format: text
+    - type: fix_plan
+      format: markdown

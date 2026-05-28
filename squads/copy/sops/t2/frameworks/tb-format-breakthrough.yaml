@@ -1,0 +1,168 @@
+sop:
+  id: tb-format-breakthrough
+  version: "1.0"
+  title: "Format Breakthrough Cycle"
+  purpose: >
+    When the message is right but results are flat, change FORMAT not copy.
+    Each format carries inherent resistance levels. A new format resets
+    resistance to zero. Six sequential format options to test.
+  classification:
+    domain: copywriting
+    subdomain: campaign-format
+    tier: t2
+    source_agent: todd-brown
+    artifact_type: framework
+
+  steps:
+    - id: step_1_long_form_letter
+      action: apply_format_evaluation_long_form
+      label: "Evaluate Long-Form Letter"
+      description: >
+        Classic 2,000-8,000+ word sales letter. Best for complex offers,
+        high-ticket, reading audiences, direct mail. Assess market saturation.
+      inputs:
+        - market_format_history
+        - offer_complexity
+      outputs:
+        - format_viability_score
+        - saturation_assessment
+      validation:
+        - field: saturation_assessment
+          rule: evidence_based
+
+    - id: step_2_magalog
+      action: apply_format_evaluation_magalog
+      label: "Evaluate Magalog"
+      description: >
+        Hybrid magazine/catalog disguising selling as editorial. Best for
+        markets resisting overt sales copy and premium positioning.
+      inputs:
+        - market_format_history
+        - brand_positioning
+      outputs:
+        - format_viability_score
+        - saturation_assessment
+      validation:
+        - field: saturation_assessment
+          rule: evidence_based
+
+    - id: step_3_slim_jim
+      action: apply_format_evaluation_slim_jim
+      label: "Evaluate Slim Jim"
+      description: >
+        Compact narrow-format mailer standing out in standard mailboxes.
+        Best for physical direct mail and high-volume mail markets.
+      inputs:
+        - market_format_history
+        - mail_channel_data
+      outputs:
+        - format_viability_score
+        - saturation_assessment
+      validation:
+        - field: saturation_assessment
+          rule: evidence_based
+
+    - id: step_4_vsl
+      action: apply_format_evaluation_vsl
+      label: "Evaluate VSL"
+      description: >
+        Video sales letter with slides or on-camera. 3-60+ minutes depending
+        on complexity. Best for digital audiences and demonstration products.
+      inputs:
+        - market_format_history
+        - offer_complexity
+        - audience_media_preference
+      outputs:
+        - format_viability_score
+        - recommended_length
+      validation:
+        - field: recommended_length
+          rule: matches_offer_complexity
+
+    - id: step_5_webinar
+      action: apply_format_evaluation_webinar
+      label: "Evaluate Webinar"
+      description: >
+        Live or automated structured presentation. Best for mid to high-ticket
+        with education requirement. Allows real-time objection handling.
+      inputs:
+        - market_format_history
+        - ticket_price
+        - education_requirement
+      outputs:
+        - format_viability_score
+        - webinar_type_recommendation
+      validation:
+        - field: format_viability_score
+          rule: accounts_for_fatigue
+
+    - id: step_6_selling_saga
+      action: apply_format_evaluation_saga
+      label: "Evaluate Simple Selling Saga"
+      description: >
+        Multi-email narrative sequence (3-7 emails) with serialized story and
+        cliffhangers. Best for warm lists, storytelling markets, reactivation.
+      inputs:
+        - market_format_history
+        - list_engagement_data
+      outputs:
+        - format_viability_score
+        - saga_length_recommendation
+      validation:
+        - field: saga_length_recommendation
+          rule: range_3_to_7_emails
+
+    - id: step_7_select_deploy
+      action: apply_format_selection
+      label: "Select and Deploy"
+      description: >
+        Choose the format most unfamiliar to the market. Adapt validated
+        message to new format without rewriting the argument. Test with
+        segment before full deployment.
+      inputs:
+        - all_format_scores
+        - validated_argument
+      outputs:
+        - selected_format
+        - adapted_campaign
+        - test_plan
+      validation:
+        - field: selected_format
+          rule: lowest_market_saturation
+        - field: adapted_campaign
+          rule: preserves_original_argument
+
+  error_handling:
+    - error: changing_copy_not_format
+      symptom: "Endless rewrites with same declining results"
+      resolution: "Validate message first; if strong, change format only"
+    - error: familiar_format_chosen
+      symptom: "No breakthrough effect after format change"
+      resolution: "Research competitor formats and choose the opposite"
+    - error: argument_rewritten
+      symptom: "Losing validated persuasion structure in new format"
+      resolution: "Adapt format, preserve argument exactly"
+    - error: no_test_segment
+      symptom: "Full deployment of untested format"
+      resolution: "Always test with 10-20% of list first"
+
+  quality_gate:
+    min_score: 7
+    criteria:
+      - "Message validated before format change"
+      - "Market saturation assessed for current format"
+      - "Selected format genuinely unfamiliar to market"
+      - "Core argument preserved in new format"
+      - "Test segment defined"
+      - "Response tracking in place"
+
+  outputs:
+    - type: format_recommendation
+      format: text
+    - type: saturation_analysis
+      format: table
+      fields: [format, saturation_level, viability_score]
+    - type: adapted_campaign
+      format: markdown
+    - type: ab_test_plan
+      format: document

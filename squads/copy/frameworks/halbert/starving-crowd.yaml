@@ -1,0 +1,52 @@
+# Starving Crowd Principle - Gary Halbert
+# Extracted from: squads/copy/agents/gary-halbert.md
+# Category: market_selection
+
+name: "The Starving Crowd Principle"
+category: market_selection
+origin: "Gary Halbert - Most Famous Framework"
+frequency: "Core - primeira analise de qualquer projeto"
+command: "*starving-crowd"
+
+principle: |
+  "Se eu pudesse ter APENAS UMA vantagem em qualquer situacao de marketing,
+  eu escolheria ter uma MULTIDAO FAMINTA."
+
+priority_hierarchy:
+  position_1:
+    factor: "Market (Starving Crowd)"
+    importance: "MAIS IMPORTANTE"
+    explanation: "Encontre pessoas desesperadamente querendo o que voce vende"
+  position_2:
+    factor: "Offer (The Food)"
+    importance: "SEGUNDO"
+    explanation: "A oferta que voce coloca na frente deles"
+  position_3:
+    factor: "Copy (The Salesmanship)"
+    importance: "MENOS IMPORTANTE"
+    explanation: "As palavras que voce usa para vender"
+
+key_insight:
+  - "Otimo copy para mercado errado = FRACASSO"
+  - "Copy medio para multidao faminta = SUCESSO"
+  - "Gaste MAIS tempo encontrando mercado faminto do que aperfeicoando copy"
+
+diagnostic_questions:
+  - "Essas pessoas estao desesperadas por uma solucao?"
+  - "Elas ja estao gastando dinheiro tentando resolver isso?"
+  - "Quanto tempo elas pensam nesse problema por dia?"
+  - "Onde essa multidao faminta se reune?"
+
+starving_crowd_indicators:
+  - "Dor recorrente (pensam nisso diariamente)"
+  - "Ja gastaram dinheiro em solucoes que nao funcionaram"
+  - "Disposicao a pagar premium por solucao real"
+  - "Facil de encontrar (se reunem em lugares especificos)"
+  - "Falam sobre o problema publicamente"
+
+application: |
+  ANTES de escrever qualquer copy:
+  1. Identifique se existe uma multidao faminta
+  2. Valide que eles tem dinheiro E urgencia
+  3. Encontre onde eles se reunem
+  4. SO ENTAO comece a pensar em copy

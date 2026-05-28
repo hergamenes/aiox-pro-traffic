@@ -1,0 +1,84 @@
+sop:
+  id: "dk-magnetic-marketing-3step"
+  version: "1.0.0"
+  title: "Magnetic Marketing 3-Step Lead Gen System"
+  purpose: "Build an attraction-based lead generation system that replaces cold outreach with lead magnets, conversion sequences, and customer maximization"
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    sub_category: "lead-generation"
+    risk_level: "low"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "When building a new lead generation system or replacing cold outreach with inbound attraction"
+  context:
+    input:
+      - name: "starving_crowd"
+        type: "object"
+        required: true
+        description: "Clearly defined market segment with urgent problems and purchasing power"
+      - name: "expertise_assets"
+        type: "object"
+        required: true
+        description: "Existing knowledge, frameworks, case studies that can be packaged as a lead magnet"
+  steps:
+    - id: "S001"
+      name: "Create Lead Magnet"
+      action: "design_lead_magnet"
+      description: "Create free report/video/toolkit that demonstrates expertise AND pre-sells simultaneously. Must deliver genuine value while positioning paid offer as the logical next step."
+      performer: "copywriter"
+      critical: true
+      on_success: "S002"
+      on_failure: "retry"
+    - id: "S002"
+      name: "Build Conversion Sequence"
+      action: "design_touchpoint_sequence"
+      description: "Build 7-21 multimedia touchpoints with escalating urgency across email, video, SMS, direct mail, and retargeting ads."
+      performer: "copywriter"
+      critical: true
+      on_success: "S003"
+      on_failure: "retry"
+    - id: "S003"
+      name: "Implement Customer Maximization"
+      action: "build_revenue_maximization"
+      description: "Implement upsells (30% buy more on day 1), cross-sells, recurring revenue programs, and systematic referral generation."
+      performer: "copywriter"
+      critical: true
+      on_success: "END"
+      on_failure: "retry"
+  error_handling:
+    global_timeout: "PT4H"
+    retry_policy:
+      max_retries: 2
+      backoff: "linear"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "lead_magnet_sells_and_teaches"
+        type: "boolean"
+        target: true
+        weight: 0.3
+      - name: "sequence_has_7_plus_touchpoints"
+        type: "boolean"
+        target: true
+        weight: 0.25
+      - name: "urgency_escalates"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "day1_upsells_present"
+        type: "boolean"
+        target: true
+        weight: 0.15
+      - name: "referral_system_structured"
+        type: "boolean"
+        target: true
+        weight: 0.1
+    pass_threshold: 0.85
+  outputs:
+    artifacts:
+      - name: "lead_generation_system"
+        type: "system"
+        format: "multi-component"
+        description: "Lead magnet + 7-21 touchpoint conversion sequence + customer maximization system"

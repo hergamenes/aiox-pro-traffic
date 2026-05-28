@@ -1,0 +1,57 @@
+sop:
+  id: bencivenga-adversity-seed
+  version: "1.0"
+  title: "Adversity Seed Principle"
+  purpose: >
+    Transform product defects or test failures into persuasive advantages by
+    finding the 'seed of equal or greater benefit' within every adversity.
+    Reframe flaws as proof of quality rather than hiding them.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: gary-bencivenga
+    tier: t1
+
+  steps:
+    - id: apply_identify_adversity
+      action: "Name the flaw, limitation, or failure honestly without minimizing"
+      input: "product_assessment"
+      output: "adversity_identified"
+
+    - id: apply_find_seed
+      action: "Ask 'why does this flaw exist?' — find the quality choice behind it"
+      input: "adversity_identified"
+      output: "benefit_seed"
+
+    - id: apply_reframe
+      action: "Convert flaw into selling point: defect as evidence of quality commitment"
+      input: "benefit_seed"
+      output: "reframed_adversity"
+      condition: "reframe_is_credible == true"
+
+    - id: apply_test_failure_learning
+      action: "For split-run losses: analyze why it lost, extract market insight as seed"
+      input: "test_results"
+      output: "failure_learning"
+      condition: "test_result == 'loss'"
+
+    - id: apply_integrate
+      action: "Present reframed adversity confidently in copy — honesty over perfection claims"
+      output: "copy_with_reframe"
+
+  error_handling:
+    - error: "hiding_flaw"
+      severity: high
+      action: "Proactive acknowledgment beats discovery; reframe openly"
+    - error: "forced_reframe"
+      severity: medium
+      action: "Only reframe when connection to quality is genuine"
+    - error: "ignored_test_failure"
+      severity: medium
+      action: "Extract insight from every losing test before discarding"
+
+  quality_gate:
+    adversity_honest: true
+    seed_found: true
+    reframe_credible: true
+    test_failures_analyzed: true

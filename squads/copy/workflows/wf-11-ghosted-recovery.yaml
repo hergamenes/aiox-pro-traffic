@@ -1,0 +1,516 @@
+# Workflow 11: Ghosted Lead Recovery System
+# Framework: Jeremy Haynes Killer Follow-Up System
+# Purpose: Systematic recovery of leads who didn't convert
+
+workflow:
+  id: wf-11-ghosted-recovery
+  name: "Ghosted Lead Recovery System"
+  type: lead-recovery
+  description: >-
+    Sistema de recuperação de leads ghosted com segmentação, follow-up
+    sistemático, táticas de break-the-glass e nutrição de longo prazo.
+  operational_roles:
+    orchestrator: copy-chief
+    human_review_agent: launch-owner
+    delivery_agent: copy-ops-worker
+  state_machine:
+    states: [init, segmentation, systematic-recovery, boost-tactics, nurture-routes, final-system, complete, failed]
+    transitions:
+      - { trigger: start, source: init, dest: segmentation }
+      - { trigger: segmentation_complete, source: segmentation, dest: systematic-recovery }
+      - { trigger: systematic-recovery_complete, source: systematic-recovery, dest: boost-tactics }
+      - { trigger: boost-tactics_complete, source: boost-tactics, dest: nurture-routes }
+      - { trigger: nurture-routes_complete, source: nurture-routes, dest: final-system }
+      - { trigger: final-system_complete, source: final-system, dest: complete }
+      - { trigger: fail, source: "*", dest: failed }
+  quality_gate_refs: [QG-CP-1.1, QG-CP-2.1, QG-CP-3.1, QG-CP-4.1, QG-CP-5.1]
+  sequence:
+    - phase: segmentation
+      id: segmentation
+      agent: copy-chief
+      task_ref: tasks/create-decision-matrix.md
+      action: "Classificar leads ghosted por estágio, valor e temperatura"
+      creates: ghosted-lead-segments
+      on_complete: { trigger: segmentation_complete }
+    - phase: systematic-recovery
+      id: systematic-recovery
+      agent: ben-settle
+      task_ref: tasks/create-ghosted-lead-recovery.md
+      requires: ghosted-lead-segments
+      action: "Construir o sistema recorrente de recuperação e reengajamento"
+      creates: systematic-recovery-sequence
+      on_complete: { trigger: systematic-recovery_complete }
+    - phase: boost-tactics
+      id: boost-tactics
+      agent: frank-kern
+      task_ref: tasks/create-cold-email.md
+      requires: systematic-recovery-sequence
+      action: "Definir ações de break-the-glass e intervenções de alta urgência"
+      creates: recovery-boost-tactics
+      on_complete: { trigger: boost-tactics_complete }
+    - phase: nurture-routes
+      id: nurture-routes
+      agent: andre-chaperon
+      task_ref: tasks/create-email-sequence.md
+      requires: recovery-boost-tactics
+      action: "Roteirizar nurture, rotas alternativas e fallback de conversão"
+      creates: ghosted-nurture-system
+      on_complete: { trigger: nurture-routes_complete }
+    - phase: final-system
+      id: final-system
+      agent: copy-chief
+      task_ref: tasks/simple-writing-audit.md
+      requires: ghosted-nurture-system
+      action: "Consolidar o sistema final de recuperação de ghosted leads"
+      creates: ghosted-recovery-system
+      on_complete: { trigger: final-system_complete }
+
+  handoff_prompts:
+    default: "Entregue o artefato criado, decisões tomadas, riscos abertos e o critério exato para o próximo agente continuar sem reinterpretar o contexto."
+
+metadata:
+  name: "Ghosted Lead Recovery System"
+  code: "wf-11-ghosted-recovery"
+  version: "1.0"
+  source: "Jeremy Haynes - Killer Follow-Up System"
+  result_benchmark: "10-20% reactivation rate, low 6-figures/month additional"
+
+# =============================================================================
+# WORKFLOW OVERVIEW
+# =============================================================================
+overview:
+  description: |
+    Sistema completo para recuperar leads que não converteram.
+    Combina sistemas automáticos que rodam sempre com
+    táticas "break-the-glass" para boosts pontuais.
+
+  philosophy: |
+    "Seu funil é como um balde furado. A maioria da água
+    vaza pelo fundo. Você precisa de um sistema embaixo
+    para capturar essa receita perdida."
+
+  two_layers:
+    layer_1: "Systematic (sempre rodando)"
+    layer_2: "Break-the-Glass (quando precisa de boost)"
+
+  stages:
+    - "Stage 1: Lead Classification"
+    - "Stage 2: Systematic Recovery"
+    - "Stage 3: Break-the-Glass Tactics"
+    - "Stage 4: Alternative Funnels"
+    - "Stage 5: Long-term Nurture"
+
+# =============================================================================
+# STAGE 1: LEAD CLASSIFICATION
+# =============================================================================
+stage_1:
+  name: "Lead Classification"
+
+  purpose: |
+    Classificar leads ghosted por tipo para
+    aplicar a tática certa de recuperação.
+
+  categories:
+    category_1:
+      name: "No-Show Call"
+      description: "Agendou call, não apareceu"
+      interest_level: "Curiosidade → Interesse geral"
+      recovery_potential: "ALTO"
+      priority: 1
+
+    category_2:
+      name: "No-Close Call"
+      description: "Apareceu na call, não comprou"
+      interest_level: "Interesse geral → Muito interessado"
+      recovery_potential: "MUITO ALTO"
+      priority: 1
+
+    category_3:
+      name: "Webinar No-Show"
+      description: "Registrou no webinar, não apareceu"
+      interest_level: "Curiosidade"
+      recovery_potential: "MÉDIO"
+      priority: 2
+
+    category_4:
+      name: "Webinar No-Buy"
+      description: "Assistiu webinar, não comprou"
+      interest_level: "Interesse geral → Muito interessado"
+      recovery_potential: "ALTO"
+      priority: 1
+
+    category_5:
+      name: "Abandoned Checkout"
+      description: "Chegou no checkout, não finalizou"
+      interest_level: "Muito interessado → Quase convicto"
+      recovery_potential: "MUITO ALTO"
+      priority: 1
+
+    category_6:
+      name: "Long Dead"
+      description: "Leads antigos que esfriaram (30+ dias)"
+      interest_level: "Provavelmente zero"
+      recovery_potential: "BAIXO (mas volume compensa)"
+      priority: 3
+
+  classification_triggers:
+    - "No-show: 24h após call não realizada"
+    - "No-close: Imediatamente após call sem venda"
+    - "Long dead: 30 dias sem interação"
+    - "Abandoned: 1h após abandono de checkout"
+
+# =============================================================================
+# STAGE 2: SYSTEMATIC RECOVERY (Always Running)
+# =============================================================================
+stage_2:
+  name: "Systematic Recovery"
+
+  description: |
+    Sistemas automatizados que rodam continuamente
+    para recuperar leads sem esforço manual.
+
+  systems:
+    system_1_cleaner_role:
+      name: "Cleaner Role"
+      what: "Vendedor dedicado a leads frios"
+      trigger: "Lead sem atividade por 14+ dias"
+      responsibilities:
+        - "Receber leads que closers abandonaram"
+        - "Trabalhar lista de leads antigos"
+        - "Usar táticas break-the-glass"
+        - "Convidar para owner calls"
+        - "Rotear para funnels alternativos"
+      handoff_process: |
+        1. Lead fica 14 dias sem atividade
+        2. Sistema move para "cleaner queue"
+        3. Cleaner recebe com notas do closer original
+        4. Cleaner inicia contato com táticas específicas
+
+    system_2_owner_cleanup_call:
+      name: "Weekly Owner Cleanup Call"
+      what: "Mini webinar semanal do owner"
+      trigger: "Leads não convertidos 2-4 semanas"
+      format:
+        - "20 slides, 30-45 min"
+        - "Apresentação → Pitch → Q&A → Re-pitch → Q&A"
+      frequency: "1-2x por semana"
+      template: "owner-cleanup-call-tmpl.yaml"
+      result: "Low 6-figures/mês adicionais"
+
+    system_3_automated_sequences:
+      name: "Automated Recovery Sequences"
+      sequences:
+        no_show_sequence:
+          trigger: "24h após no-show"
+          emails:
+            - day_0: "Sentimos sua falta - reagendar?"
+            - day_2: "Ainda está interessado?"
+            - day_5: "Última tentativa de reagendamento"
+            - day_7: "Move para cleaner"
+
+        no_close_sequence:
+          trigger: "Imediatamente após call sem venda"
+          emails:
+            - hour_2: "Recap + resposta a última objeção"
+            - day_1: "Case study relevante"
+            - day_3: "Nova abordagem/ângulo"
+            - day_7: "Where did we lose you?"
+            - day_14: "Owner call invite"
+
+        webinar_no_buy_sequence:
+          trigger: "24h após webinar"
+          emails:
+            - day_1: "Replay + oferta"
+            - day_2: "Testimonial"
+            - day_3: "Objeção comum"
+            - day_5: "Call option"
+            - day_7: "Next webinar invite"
+
+    system_4_retargeting:
+      name: "Recovery Retargeting"
+      what: "Ads específicos para leads ghosted"
+      audiences:
+        - "No-show 7 dias"
+        - "No-close 14 dias"
+        - "Webinar no-buy 7 dias"
+        - "Abandoned checkout 3 dias"
+      creative_types:
+        - "Testimonials"
+        - "Objeção handling"
+        - "Limited offer"
+        - "Owner direct appeal"
+
+# =============================================================================
+# STAGE 3: BREAK-THE-GLASS TACTICS
+# =============================================================================
+stage_3:
+  name: "Break-the-Glass Tactics"
+
+  description: |
+    Táticas pontuais para criar spikes de revenue
+    quando precisa de boost rápido.
+
+  when_to_use:
+    - "Calendário dos vendedores está vazio"
+    - "Revenue está abaixo da meta"
+    - "Período tipicamente lento (férias, etc.)"
+    - "Precisa de cash injection rápido"
+
+  when_NOT_to_use:
+    - "Já tem muito momentum"
+    - "Sales team sobrecarregado"
+    - "Revenue está em alta"
+
+  tactics:
+    tactic_1_sent_from_iphone:
+      name: "Sent from iPhone Email"
+      result: "40,000+ respostas em 48h (caso Grant Cardone)"
+      template:
+        subject: "following up"
+        body: |
+          are you still interested in [product/topic]?
+
+          - [first name]
+
+          Sent from my iPhone
+      key_elements:
+        - "Subject: tudo minúsculo"
+        - "Body: uma linha, tudo minúsculo"
+        - "Assinatura: só primeiro nome com dash"
+        - "Footer: Sent from my iPhone"
+        - "Empurrar unsubscribe para bem embaixo"
+      warning: "Pode criar TSUNAMI de respostas. Tenha equipe pronta."
+
+    tactic_2_where_did_we_lose_you:
+      name: "Where Did We Lose You?"
+      result: "Maioria responde 'você não me perdeu!'"
+      template:
+        subject: "quick question"
+        body: |
+          Hey [nome],
+
+          Wondering if I could get a quick one-sentence feedback
+          from you on where we lost you.
+
+          Would really appreciate it.
+
+          - [seu nome]
+      expected_responses:
+        - "Feedback real (raro)"
+        - "'Você não me perdeu!' (comum) → reativa"
+        - "'Já comprei outra coisa' (fechamento)"
+
+    tactic_3_for_the_dogs:
+      name: "For the Dogs Sequence"
+      when: "Períodos mortos (férias, Black Friday, etc.)"
+      philosophy: |
+        Existe uma minoria de pessoas trabalhando
+        quando todos estão descansando.
+        Fale diretamente com elas.
+      template:
+        subject: "for the hungry ones"
+        body: |
+          [Nome],
+
+          Eu sei que a maioria das pessoas está descansando agora.
+
+          Mas você não é a maioria, é?
+
+          Se você é uma das poucas pessoas que está trabalhando
+          enquanto outros tiram folga...
+
+          Tenho uma oportunidade para você.
+
+          [OFERTA com deadline curto]
+
+          Para os outros: aproveitem as férias.
+          Para você: vamos conversar.
+
+          [CTA]
+
+    tactic_4_preferred_channel:
+      name: "Preferred Channel Discovery"
+      when: "Nada está funcionando"
+      approach: |
+        Blast em TODOS os canais com UMA mensagem:
+        - Email
+        - SMS
+        - DM Instagram
+        - DM LinkedIn
+        - DM Facebook
+        - WhatsApp
+      message: |
+        Oi [Nome],
+
+        Tentei contato algumas vezes sem sucesso.
+
+        Qual o melhor canal para falar com você?
+
+        - [Seu nome] da [Empresa]
+
+# =============================================================================
+# STAGE 4: ALTERNATIVE FUNNELS
+# =============================================================================
+stage_4:
+  name: "Alternative Funnels"
+
+  principle: |
+    "O mecanismo de conversão original FALHOU.
+    Tente um mecanismo diferente até encontrar o que funciona."
+    — Richard Bandler (VAK System adaptado)
+
+  rotation_logic:
+    if_came_from_call:
+      try:
+        - "Webinar (talvez prefira ver antes de falar)"
+        - "VSL longo (talvez precise mais info)"
+        - "Low ticket (talvez preço seja barreira)"
+        - "Oferta diferente (talvez produto errado)"
+
+    if_came_from_webinar:
+      try:
+        - "Call funnel (talvez prefira falar)"
+        - "Direct checkout (talvez não queira webinar)"
+        - "Owner call (talvez precise do owner)"
+        - "In-person event (talvez precise presença)"
+
+    if_price_issue:
+      try:
+        - "Drop sell (oferta menor)"
+        - "Payment plan (parcelamento)"
+        - "Financing (financiamento)"
+        - "Starter offer (versão básica)"
+
+    if_timing_issue:
+      try:
+        - "Nurture sequence longo"
+        - "Newsletter"
+        - "Retargeting longo prazo"
+        - "Future launch notification"
+
+# =============================================================================
+# STAGE 5: LONG-TERM NURTURE
+# =============================================================================
+stage_5:
+  name: "Long-term Nurture"
+
+  description: |
+    Para leads que não converteram com nenhuma tática,
+    manter relacionamento de longo prazo.
+
+  systems:
+    newsletter:
+      what: "Email periódico de valor"
+      frequency: "Semanal ou quinzenal"
+      content: "Educacional, não pitch-heavy"
+
+    retargeting:
+      what: "Ads de awareness/brand"
+      budget: "Baixo, longo prazo"
+      goal: "Manter top of mind"
+
+    seasonal_reactivation:
+      what: "Campanhas em momentos específicos"
+      timing:
+        - "Black Friday"
+        - "Ano Novo"
+        - "Aniversários"
+        - "Novos lançamentos"
+
+    future_invites:
+      what: "Convites para novos eventos/ofertas"
+      trigger: "Novos webinars, eventos, produtos"
+
+  graduation: |
+    Lead pode "graduar" de nurture para active pipeline
+    quando demonstrar novo interesse:
+    - Abrir múltiplos emails
+    - Clicar em link
+    - Visitar site
+    - Engajar com ad
+
+# =============================================================================
+# IMPLEMENTATION TIMELINE
+# =============================================================================
+implementation:
+  week_1:
+    name: "Quick Wins"
+    actions:
+      - "Configurar 'Where did we lose you' email"
+      - "Configurar 'Sent from iPhone' email"
+      - "Identificar lista de leads ghosted"
+      - "Enviar primeiro blast"
+    expected: "Spike imediato de reativações"
+
+  week_2_3:
+    name: "Systematic Setup"
+    actions:
+      - "Configurar Weekly Owner Call"
+      - "Criar slides para mini webinar"
+      - "Agendar primeiro call"
+      - "Configurar invite automation"
+    expected: "Sistema recorrente funcionando"
+
+  week_4_plus:
+    name: "Full System"
+    actions:
+      - "Definir cleaner role"
+      - "Configurar funnels alternativos"
+      - "Criar multi-channel sequences"
+      - "Estabelecer rotina de break-the-glass"
+    expected: "Sistema completo de recuperação"
+
+# =============================================================================
+# METRICS & BENCHMARKS
+# =============================================================================
+metrics:
+  reactivation_metrics:
+    - name: "Break-the-Glass Response Rate"
+      benchmark: "5-15%"
+
+    - name: "Reactivation to Close Rate"
+      benchmark: "10-20% of reactivated"
+
+    - name: "Revenue from Ghosted"
+      benchmark: "10-20% of total revenue"
+
+  owner_call_metrics:
+    - name: "Attendance Rate"
+      benchmark: "20-40%"
+
+    - name: "Conversion Rate"
+      benchmark: "15-25%"
+
+    - name: "Revenue per Call"
+      benchmark: "Track and improve"
+
+  cleaner_metrics:
+    - name: "Leads Processed Weekly"
+      benchmark: "Track capacity"
+
+    - name: "Reactivation Rate"
+      benchmark: "10-20%"
+
+    - name: "Revenue Generated"
+      benchmark: "Should justify role cost 3x+"
+
+# =============================================================================
+# TEMPLATES & RESOURCES
+# =============================================================================
+resources:
+  tasks:
+    - "create-ghosted-lead-recovery.md"
+
+  templates:
+    - "owner-cleanup-call-tmpl.yaml"
+
+  swipes:
+    - "break-the-glass-tactics.md"
+
+# =============================================================================
+# VERSION HISTORY
+# =============================================================================
+version_history:
+  - version: "1.0"
+    date: "2025-01-24"
+    changes: "Initial workflow based on Jeremy Haynes system"

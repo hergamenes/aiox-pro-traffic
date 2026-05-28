@@ -1,0 +1,17 @@
+# Ralph-7D Progress — todd-brown (Tier: T2)
+Started: 2026-03-11 07:13:51
+Token budget: 3000 | Max lines: 500
+
+---
+
+## Patterns Discovered
+
+> Claude reads this FIRST each iteration. Add learnings here.
+
+- (will be populated as pipeline runs)
+
+---
+
+## Phase Log
+
+---

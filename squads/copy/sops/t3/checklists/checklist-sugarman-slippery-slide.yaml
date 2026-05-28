@@ -1,0 +1,92 @@
+sop:
+  id: checklist-sugarman-slippery-slide
+  version: "1.0"
+  title: "Slippery Slide Evaluation Checklist"
+  purpose: "Evaluate the Slippery Slide mechanism in long-form copy — ensuring unbroken gravitational pull from headline to CTA"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: joe-sugarman
+    type: quality_gate
+  steps:
+    - id: layer1-01
+      layer: "gravitational_pull"
+      action: "Check headline brevity"
+      criteria: "Headline curto e provocativo"
+    - id: layer1-02
+      layer: "gravitational_pull"
+      action: "Check subheadline"
+      criteria: "Subheadline ~16 palavras, amplifica sem satisfazer"
+    - id: layer1-03
+      layer: "gravitational_pull"
+      action: "Check photo caption"
+      criteria: "Caption da foto funciona como terceiro hook"
+    - id: layer2-01
+      layer: "reducing_friction"
+      action: "Check first sentence length"
+      criteria: "Primeira frase curta (max 12 palavras)"
+    - id: layer2-02
+      layer: "reducing_friction"
+      action: "Check layout"
+      criteria: "Layout limpo, nao intimidante"
+    - id: layer2-03
+      layer: "reducing_friction"
+      action: "Check typography"
+      criteria: "Tipografia acessivel"
+    - id: layer3-01
+      layer: "building_agreement"
+      action: "Check truth declarations"
+      criteria: "Declaracoes verdadeiras que fazem leitor concordar"
+    - id: layer3-02
+      layer: "building_agreement"
+      action: "Check personal tone"
+      criteria: "Tom pessoal ('eu', 'voce', 'me') nos primeiros paragrafos"
+    - id: layer3-03
+      layer: "building_agreement"
+      action: "Check emotion-logic order"
+      criteria: "Emocao primeiro, logica depois"
+    - id: layer4-01
+      layer: "greasing"
+      action: "Check Seeds of Curiosity"
+      criteria: "Seeds of Curiosity presentes entre secoes"
+    - id: layer4-02
+      layer: "greasing"
+      action: "Check rhythm variation"
+      criteria: "Ritmo variado (curta, longa, media)"
+    - id: layer4-03
+      layer: "greasing"
+      action: "Check storytelling vehicle"
+      criteria: "Storytelling como veiculo de informacao"
+    - id: layer4-04
+      layer: "greasing"
+      action: "Check for dead zones"
+      criteria: "Sem dead zones onde leitor poderia parar"
+    - id: layer5-01
+      layer: "the_landing"
+      action: "Check offer summary"
+      criteria: "Resumo da oferta re-afirma beneficios"
+    - id: layer5-02
+      layer: "the_landing"
+      action: "Check Satisfaction Conviction"
+      criteria: "Satisfaction Conviction presente (NAO apenas trial period)"
+    - id: layer5-03
+      layer: "the_landing"
+      action: "Check CTA presence"
+      criteria: "CTA explicito"
+    - id: layer5-04
+      layer: "the_landing"
+      action: "Check urgency authenticity"
+      criteria: "Urgencia verdadeira (nao fabricada)"
+  error_handling:
+    - condition: "any_layer_majority_fail"
+      action: "slide_broken_fix_before_trigger_eval"
+    - condition: "layer1_failure"
+      action: "highest_priority_fix"
+    - condition: "layer4_dead_zones"
+      action: "add_seeds_of_curiosity"
+  quality_gate:
+    mode: layered_evaluation
+    layers: 5
+    total_items: 17
+    broken_slide_overrides_trigger_score: true
+    layer_priority: ["gravitational_pull", "greasing", "the_landing", "building_agreement", "reducing_friction"]

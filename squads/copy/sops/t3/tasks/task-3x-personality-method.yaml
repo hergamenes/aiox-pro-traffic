@@ -1,0 +1,64 @@
+sop:
+  id: task-3x-personality-method
+  version: "1.0"
+  title: "3X Personality Method"
+  purpose: "Amplify writer's natural personality traits by 3 notches to create distinctive email brand voice that stands out while remaining authentic"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: ben-settle
+    tier: T3
+
+  inputs:
+    - name: personality_traits
+      type: list
+      required: true
+      description: "Writer's natural personality traits (honest self-assessment)"
+
+  outputs:
+    - name: personality_profile
+      type: document
+      description: "Amplified personality profile with 3X voice guide"
+
+  steps:
+    - id: step_1
+      action: identify_dominant_traits
+      description: "List 3-5 dominant natural personality traits — real, not aspirational"
+      count: "3-5"
+
+    - id: step_2
+      action: ratchet_3x
+      description: "Amplify each trait 3 notches above normal — must be noticeably different from baseline"
+      critical: true
+
+    - id: step_3
+      action: check_constraint
+      description: "Verify amplified personality does not repel ideal customers — some unsubscribes OK, core audience must find it magnetic"
+      critical: true
+      error_handling:
+        condition: "Trait amplification drives away ideal customers"
+        action: "Dial back that specific trait while maintaining others at 3X"
+
+    - id: step_4
+      action: apply_enjoyment_test
+      description: "Validate: if writer enjoys writing it, readers will enjoy reading it — forced writing means wrong direction"
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "3-5 real traits identified"
+      - "Each trait amplified 3 notches"
+      - "No trait repulsive to ideal customer"
+      - "Writer enjoys the amplified voice"
+      - "Voice is unmistakably distinctive"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies: []
+
+  related_sops:
+    - task-infotainment-email
+    - task-daily-email-flywheel
+    - task-subject-line-micro-riddle

@@ -1,0 +1,161 @@
+sop:
+  id: tb-e5-method
+  version: "1.0"
+  title: "E5 Campaign Method"
+  purpose: >
+    Structure any marketing campaign using five sequential elements. 75% of
+    the campaign is marketing (changing beliefs) and 25% is selling. Prevents
+    the mistake of jumping straight to the pitch.
+  classification:
+    domain: copywriting
+    subdomain: campaign-architecture
+    tier: t2
+    source_agent: todd-brown
+    artifact_type: framework
+
+  steps:
+    - id: step_1_big_marketing_idea
+      action: apply_bmi_definition
+      label: "E1: Big Marketing Idea"
+      description: >
+        Define a fresh, unique, emotionally compelling, intellectually
+        interesting thesis. Not the product — the overarching perspective shift
+        that makes the product the logical conclusion. Must be contrarian and
+        statable in one sentence.
+      inputs:
+        - market_beliefs
+        - competitive_landscape
+        - product_mechanism
+      outputs:
+        - bmi_statement
+        - contrarian_angle
+      validation:
+        - field: bmi_statement
+          rule: max_one_sentence
+        - field: bmi_statement
+          rule: is_contrarian_to_market
+
+    - id: step_2_unique_mechanism
+      action: apply_unique_mechanism
+      label: "E2: Unique Mechanism"
+      description: >
+        Identify and name the proprietary mechanism that causes the result.
+        Must answer why this works when everything else has failed. Explainable
+        in 30 seconds. Bridges BMI to product.
+      inputs:
+        - product_mechanism_of_action
+        - competitor_approaches
+      outputs:
+        - mechanism_name
+        - mechanism_explanation
+      validation:
+        - field: mechanism_name
+          rule: is_named_and_unique
+        - field: mechanism_explanation
+          rule: max_30_seconds_spoken
+
+    - id: step_3_marketing_argument
+      action: apply_marketing_argument
+      label: "E3: Marketing Argument (75% of campaign)"
+      description: >
+        Build the belief-changing argument. Identify 3-5 beliefs the prospect
+        must hold before buying. Address each with proof. Structure as thesis
+        with evidence and counterarguments. Create buy-in on thesis, not product.
+      inputs:
+        - bmi_statement
+        - mechanism_name
+        - proof_elements
+        - prospect_beliefs
+      outputs:
+        - belief_chain
+        - argument_outline
+        - proof_plan
+      validation:
+        - field: belief_chain
+          rule: count_3_to_5
+        - field: argument_outline
+          rule: 75_percent_of_campaign
+        - field: proof_plan
+          rule: proof_at_each_belief_transition
+
+    - id: step_4_campaign_architecture
+      action: apply_campaign_architecture
+      label: "E4: Campaign Architecture"
+      description: >
+        Structure in three sections: Lead (350 words max with hook + BMI +
+        promise), Body (marketing argument with proofs), Transition to Sale
+        (bridge from argument to product as mechanism implementation).
+      inputs:
+        - bmi_statement
+        - argument_outline
+        - product_details
+      outputs:
+        - lead_section
+        - body_section
+        - transition_section
+      validation:
+        - field: lead_section
+          rule: max_350_words
+        - field: body_section
+          rule: feels_like_education
+        - field: transition_section
+          rule: seamless_not_abrupt
+
+    - id: step_5_sin_offer
+      action: apply_sin_offer
+      label: "E5: Sin Offer"
+      description: >
+        Craft an offer so good it would be a sin to refuse. Stack core product,
+        bonuses solving adjacent problems, bold guarantee, urgency, and
+        reason-why. Must make prospect feel like they are getting away with
+        something.
+      inputs:
+        - product_details
+        - bonus_assets
+        - guarantee_terms
+        - urgency_elements
+      outputs:
+        - offer_stack
+        - guarantee_statement
+        - urgency_elements_applied
+      validation:
+        - field: offer_stack
+          rule: perceived_value_exceeds_price_10x
+        - field: guarantee_statement
+          rule: is_bold_and_specific
+
+  error_handling:
+    - error: no_bmi
+      symptom: "Campaign feels like every other pitch in the market"
+      resolution: "Develop a contrarian thesis that makes the product the logical conclusion"
+    - error: unnamed_mechanism
+      symptom: "Prospect sees offer as commodity, no differentiation"
+      resolution: "Name the mechanism and explain why it works differently"
+    - error: argument_too_short
+      symptom: "Low conversion despite traffic — prospect not convinced"
+      resolution: "Expand argument to 75% of content, add proof at each belief transition"
+    - error: abrupt_transition
+      symptom: "Prospect feels bait-and-switched at the pitch"
+      resolution: "Build seamless bridge from accepted thesis to product"
+
+  quality_gate:
+    min_score: 7
+    criteria:
+      - "BMI is contrarian and one sentence"
+      - "Mechanism is named and 30-second explainable"
+      - "Marketing argument is 75% of campaign"
+      - "Belief chain has 3-5 beliefs with proof"
+      - "Lead under 350 words"
+      - "Transition is seamless"
+      - "Offer feels like getting away with something"
+
+  outputs:
+    - type: bmi_statement
+      format: text
+    - type: mechanism_brief
+      format: text
+    - type: campaign_document
+      format: markdown
+      sections: [lead, body, transition, offer]
+    - type: offer_stack
+      format: table

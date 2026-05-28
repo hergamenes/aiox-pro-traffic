@@ -1,0 +1,646 @@
+# WF-7: Direct Mail Campaign
+# Duration: 2-3 weeks
+# Best for: High-end B2B, premium consumer, physical product launches
+# Key Agents: Jim Rutz (Magalog), Parris Lampropoulos (Bullets), David Deutsch (Controls), Claude Hopkins (Testing)
+
+workflow:
+  id: wf-7-direct-mail
+  name: "Direct Mail Campaign"
+  type: direct-mail
+  duration: "2-3 weeks"
+  description: |
+    Complete direct mail campaign creation from list strategy to production testing.
+    Leverages the legendary Boardroom methodology - Jim Rutz invented the magalog,
+    Parris Lampropoulos perfected fascination bullets (12-year control!), and
+    David Deutsch held 6 simultaneous controls. Hopkins provides scientific testing.
+
+    This workflow produces physical mail pieces that generate response at scale.
+  operational_roles:
+    orchestrator: copy-chief
+    human_review_agent: launch-owner
+    delivery_agent: copy-ops-worker
+  state_machine:
+    states: [init, list-strategy, format-selection, copy-package, testing, complete, failed]
+    transitions:
+      - { trigger: start, source: init, dest: list-strategy }
+      - { trigger: list-strategy_complete, source: list-strategy, dest: format-selection }
+      - { trigger: format-selection_complete, source: format-selection, dest: copy-package }
+      - { trigger: copy-package_complete, source: copy-package, dest: testing }
+      - { trigger: testing_complete, source: testing, dest: complete }
+      - { trigger: fail, source: "*", dest: failed }
+  quality_gate_refs: [QG-CP-1.1, QG-CP-2.1, QG-CP-3.1, QG-CP-4.1, QG-CP-5.1]
+
+  best_for:
+    - "High-end B2B offers ($5K+)"
+    - "Premium consumer products"
+    - "Physical product launches"
+    - "Subscription newsletters (health, financial)"
+    - "High-ticket coaching/consulting"
+
+  decision_matrix_fit:
+    awareness: "Problem Aware to Product Aware"
+    sophistication: "Stage 3-5 (need mechanism + proof)"
+    price_point: "Mid to Premium ($100-$5000+)"
+    traffic_temp: "Cold to Warm (list rental/house list)"
+    primary_output: "Direct Mail (Magalog, Bookalog, Sales Letter)"
+
+  clone_combinations:
+    primary: "Rutz + Deutsch (direct mail volume)"
+    secondary:
+      - "Lampropoulos + Bencivenga (bullet power)"
+      - "Hopkins (scientific testing - 5000 pieces per cell)"
+      - "Kennedy (starving crowd list selection)"
+
+  sequence:
+    - phase: list-strategy
+      id: list-strategy
+      agent: dan-kennedy
+      task_ref: tasks/avatar-research.md
+      action: "Selecionar lista, mercado e recortes de mailing com starving crowd"
+      creates: direct-mail-list-strategy
+      on_complete: { trigger: list-strategy_complete }
+    - phase: format-selection
+      id: format-selection
+      agent: jim-rutz
+      task_ref: tasks/create-magalog.md
+      requires: direct-mail-list-strategy
+      action: "Definir o formato ideal de mala direta e arquitetura do pacote"
+      creates: direct-mail-format
+      on_complete: { trigger: format-selection_complete }
+    - phase: copy-package
+      id: copy-package
+      agent: david-deutsch
+      task_ref: tasks/create-sales-page.md
+      requires: direct-mail-format
+      action: "Produzir a copy principal e os ativos do pacote de direct mail"
+      creates: direct-mail-package
+      on_complete: { trigger: copy-package_complete }
+    - phase: testing
+      id: testing
+      agent: claude-hopkins
+      task_ref: tasks/setup-split-test.md
+      requires: direct-mail-package
+      action: "Preparar células de teste, hipóteses e rollout científico"
+      creates: direct-mail-test-plan
+      on_complete: { trigger: testing_complete }
+
+  handoff_prompts:
+    default: "Entregue o artefato criado, decisões tomadas, riscos abertos e o critério exato para o próximo agente continuar sem reinterpretar o contexto."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 1: LIST STRATEGY (Days 1-3)
+# ═══════════════════════════════════════════════════════════════════════════════
+phases:
+  - id: PHASE-1
+    name: "List Strategy & Selection"
+    days: "1-3"
+    tier: 0
+    description: |
+      "The list is everything" - Dan Kennedy. Wrong list = zero response.
+      Right list = money in the bank. Start with Kennedy's "starving crowd" concept.
+
+    tasks:
+      - task_file: avatar-research.md
+        agent: dan-kennedy
+        required: true
+        description: "Deep avatar research using Kennedy's 3Ms framework - find the STARVING crowd"
+        output: "avatar-profile.md"
+
+      - task_file: diagnose-awareness-level.md
+        agent: eugene-schwartz
+        required: true
+        description: "Diagnose list segments by awareness level"
+        output: "awareness-diagnosis.md"
+
+    list_strategy:
+      kennedy_starving_crowd:
+        principle: "Find people already desperately seeking what you sell"
+        questions:
+          - "Who has bought similar products before? (buyer lists)"
+          - "Who has demonstrated desperate need? (inquiry lists)"
+          - "Who has money AND problem? (affluent + pain)"
+          - "Who is already raising their hand? (subscribers, inquirers)"
+
+      rfm_criteria:
+        description: "Recency, Frequency, Monetary value scoring"
+        recency:
+          - "0-30 days: Hottest - test first"
+          - "31-90 days: Warm - good for rollout"
+          - "91-180 days: Cooling - needs stronger offer"
+          - "180+ days: Cold - reactivation only"
+        frequency:
+          - "Multi-buyers: Best responders"
+          - "Single buyers: Need more proof"
+        monetary:
+          - "High AOV: Can handle higher price points"
+          - "Low AOV: Need stronger value proposition"
+
+      list_sources:
+        house_list:
+          - "Current customers (best)"
+          - "Past customers"
+          - "Newsletter subscribers"
+          - "Inquirers/leads"
+        rental_lists:
+          - "Compiled (demographic) - cheapest, lowest response"
+          - "Response (have bought similar) - higher cost, better response"
+          - "Subscriber (read similar content) - medium cost/response"
+        merge_purge:
+          - "Remove duplicates across lists"
+          - "Suppress existing customers (unless upsell)"
+          - "Remove undeliverables"
+
+    checkpoint:
+      criteria:
+        - "avatar_profile COMPLETE"
+        - "list_sources IDENTIFIED"
+        - "rfm_scoring APPLIED"
+        - "test_quantities CALCULATED"
+      human_review: true
+      message: "Review list strategy before proceeding to format selection"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 2: FORMAT SELECTION (Days 4-5)
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: PHASE-2
+    name: "Format Selection"
+    days: "4-5"
+    tier: 1
+    description: |
+      Jim Rutz invented the magalog - magazine + catalog. David Deutsch mastered
+      multiple formats for 6 simultaneous controls. Choose format based on
+      offer complexity, price point, and list sophistication.
+
+    tasks:
+      - task_file: diagnose-market-sophistication.md
+        agent: eugene-schwartz
+        required: true
+        description: "Diagnose market sophistication to determine format complexity needed"
+        output: "sophistication-diagnosis.md"
+
+    format_options:
+      magalog:
+        agent: jim-rutz
+        description: "Magazine + Catalog hybrid (16-48 pages)"
+        best_for:
+          - "Complex offers requiring education"
+          - "Health/financial newsletters"
+          - "Sophisticated markets (Stage 4-5)"
+          - "Higher price points ($100+)"
+        structure:
+          - "Cover: Magazine-style masthead + headline + TOC teaser"
+          - "Page 2: Table of contents (builds curiosity)"
+          - "Pages 3-8: Main feature article (story-driven)"
+          - "Pages 9-14: Supporting articles (2-4 shorter pieces)"
+          - "Pages 15-16: Offer section + order form"
+          - "Back cover: Urgency + final CTA"
+        rutz_principles:
+          - "Editorial disguise - looks like magazine, sells like catalog"
+          - "Volume as proof - more pages = more perceived value"
+          - "Fascination density - 50-100+ bullets minimum"
+          - "If they can put it down, it's not good enough"
+
+      bookalog:
+        agent: jim-rutz
+        description: "Book + Catalog hybrid (32-64+ pages)"
+        best_for:
+          - "Even higher perceived value needed"
+          - "Complex mechanisms requiring deep explanation"
+          - "Premium price points ($500+)"
+          - "Authority positioning critical"
+        structure:
+          - "Book cover with title, author, endorsements"
+          - "Table of contents with chapter titles"
+          - "Chapters (not articles) - book styling"
+          - "About the Author section"
+          - "Order form for 'complete edition'"
+        psychology: "Books carry implicit authority"
+
+      sales_letter:
+        agent: gary-halbert
+        description: "Classic long-form letter (8-24 pages)"
+        best_for:
+          - "Direct offers without extensive education"
+          - "Mid-market sophistication (Stage 2-3)"
+          - "Price points $50-$500"
+          - "Personal, intimate positioning"
+        structure:
+          - "Johnson box / pre-headline"
+          - "Salutation (personalized if possible)"
+          - "Lead (story, problem, or news)"
+          - "Body with proof, benefits, mechanism"
+          - "Offer presentation"
+          - "Guarantee"
+          - "Close with P.S. (often most-read)"
+          - "Lift note optional"
+
+      postcard:
+        description: "Short-form for lead gen or traffic"
+        best_for:
+          - "Lead generation to longer-form follow-up"
+          - "Event invitations"
+          - "Simple offers"
+          - "Budget constraints"
+        structure:
+          - "Headline on front (single benefit)"
+          - "Curiosity image"
+          - "Back: Bullet points + CTA + URL/phone"
+        limitation: "Cannot close complex sales alone"
+
+      self_mailer:
+        description: "Folded piece, no envelope"
+        best_for:
+          - "Higher volume, lower cost"
+          - "Announcements and offers"
+          - "Follow-up pieces"
+        structure:
+          - "Outer panel: Teaser to open"
+          - "Inside: Full sales message"
+          - "Business reply card integrated"
+
+    checkpoint:
+      criteria:
+        - "format SELECTED"
+        - "page_count DETERMINED"
+        - "sophistication_level MATCHED"
+      human_review: true
+      message: "Confirm format selection before copy creation"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 3: COPY CREATION (Days 6-14)
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: PHASE-3
+    name: "Copy Creation"
+    days: "6-14"
+    tier: 2
+    description: |
+      The heart of the campaign. Use Lampropoulos' 700-to-100 bullet system,
+      Rutz's editorial-first approach, and Deutsch's multi-angle methodology.
+      Every piece must pass the "forehead-slapper" test.
+
+    tasks:
+      # Research & Strategy
+      - task_file: analyze-mental-conversation.md
+        agent: robert-collier
+        required: true
+        description: "Map the mental conversation - enter where they already are"
+        output: "mental-conversation-map.md"
+
+      # Bullets - Core of Every Promotion
+      - task_file: write-lampropoulos-bullets.md
+        agent: parris-lampropoulos
+        required: true
+        description: "Generate 700 bullets, select top 100 (Lampropoulos method)"
+        output: "fascination-bullets.md"
+        notes: |
+          CRITICAL: Bullets are 80% of promotion success.
+          Write 700 raw bullets from research.
+          Apply forehead-slapper test to each.
+          Select top 100 "cream of the crop."
+
+      - task_file: create-bullets.md
+        agent: gary-bencivenga
+        required: true
+        description: "Layer Bencivenga fascination techniques on top bullets"
+        output: "power-bullets.md"
+
+      # Headlines
+      - task_file: create-headlines.md
+        agent: david-deutsch
+        required: true
+        description: "Create 10+ headline variations for testing"
+        output: "headline-variations.md"
+        notes: "Headlines can change response by 500%+ - Hopkins"
+
+      # Main Copy
+      - task_file: create-magalog.md
+        agent: jim-rutz
+        required: false
+        condition: "format == magalog OR format == bookalog"
+        description: "Create full magalog/bookalog structure and copy"
+        output: "magalog-copy.md"
+
+      - task_file: create-sales-page.md
+        agent: gary-halbert
+        required: false
+        condition: "format == sales_letter"
+        description: "Create sales letter with story-driven lead"
+        output: "sales-letter-copy.md"
+
+      # Emotional Enhancement
+      - task_file: write-visceral-copy.md
+        agent: clayton-makepeace
+        required: true
+        description: "Add visceral emotional language throughout"
+        output: "visceral-enhanced-copy.md"
+
+    copy_structure:
+      envelope:
+        purpose: "Get it OPENED - without opening, nothing else matters"
+        elements:
+          teaser:
+            - "Curiosity-driven (don't give it all away)"
+            - "Benefit-driven (what's inside)"
+            - "Controversy/news (pattern interrupt)"
+            - "Official-looking (invoice, important)"
+          address_area:
+            - "Personalization if available"
+            - "Title/name accuracy critical"
+          return_address:
+            - "Credibility positioning"
+            - "Can be attention-getting"
+        rutz_test: "Would YOU open this?"
+
+      letter_opening:
+        purpose: "Hook them in first 50 words"
+        lead_types:
+          story_lead: "Once upon a time approach - Halbert specialty"
+          problem_lead: "Start with their pain"
+          news_lead: "Announcement format"
+          question_lead: "Engaging question"
+          if_then_lead: "If you [situation], then [promise]"
+        rutz_rule: "First 500 words must be impossible to put down"
+
+      body:
+        structure:
+          - section: "Problem agitation (why current solutions fail)"
+            agent: todd-brown
+
+          - section: "Mechanism reveal (unique solution)"
+            agent: todd-brown
+
+          - section: "Proof stack (testimonials, studies, credentials)"
+            agent: claude-hopkins
+
+          - section: "Benefit expansion with bullets"
+            agent: parris-lampropoulos
+
+          - section: "Objection handling"
+            agent: dan-kennedy
+
+      close:
+        purpose: "Drive action NOW"
+        elements:
+          - "Offer summary (what they get)"
+          - "Value stack (total worth)"
+          - "Price reveal (anchored against value)"
+          - "Guarantee (risk reversal)"
+          - "Urgency (deadline, scarcity)"
+          - "CTA (specific action)"
+
+      ps_section:
+        importance: "Often MOST-READ part of letter"
+        types:
+          - "Restate main benefit"
+          - "Add urgency/deadline"
+          - "Mention bonus"
+          - "Social proof"
+        rule: "Never waste the P.S."
+
+      lift_note:
+        description: "Separate slip in envelope - 'second opinion'"
+        purpose: "Adds credibility, handles objection, or reinforces key benefit"
+        formats:
+          - "Publisher's letter (editor endorsement)"
+          - "Testimonial letter (customer)"
+          - "Warning/deadline reminder"
+
+    checkpoint:
+      criteria:
+        - "bullets_generated >= 100"
+        - "headlines_generated >= 10"
+        - "main_copy COMPLETE"
+        - "all_sections WRITTEN"
+        - "forehead_slapper_test PASSED"
+      human_review: true
+      message: "Review complete copy package before production phase"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 4: PRODUCTION & TESTING (Days 15-21)
+# ═══════════════════════════════════════════════════════════════════════════════
+  - id: PHASE-4
+    name: "Production & Testing"
+    days: "15-21"
+    tier: 3
+    description: |
+      Hopkins scientific testing applied to direct mail. Test small (5000 pieces
+      per cell minimum for statistical significance), measure precisely, scale winners.
+      "Almost any question can be answered by a test campaign."
+
+    tasks:
+      - task_file: audit-copy-hopkins.md
+        agent: claude-hopkins
+        required: true
+        description: "Final scientific audit - all claims must have 'Reason Why'"
+        output: "hopkins-audit-report.md"
+
+      - task_file: setup-split-test.md
+        agent: claude-hopkins
+        required: true
+        description: "Design A/B test structure with proper cell sizes"
+        output: "split-test-plan.md"
+
+    production_elements:
+      design_specs:
+        paper:
+          - "Weight: 60# text for letters, 80# cover for magalogs"
+          - "Finish: Uncoated feels more personal, coated for premium"
+          - "Color: Match brand, consider cost (4-color vs 2-color)"
+        printing:
+          - "Offset for quality (5000+ pieces)"
+          - "Digital for small tests or personalization"
+          - "Variable data for personalization"
+        postage:
+          - "First class: Fastest, most expensive, best deliverability"
+          - "Standard/bulk: Slower, cheaper, higher postal requirements"
+          - "Nonprofit rate: If qualified"
+
+      personalization:
+        levels:
+          basic: "Name and address only"
+          intermediate: "Name in salutation and body"
+          advanced: "Personalized offers based on data"
+        ink_jet: "Lower cost, obvious personalization"
+        laser: "Higher quality, seamless look"
+
+      tracking_codes:
+        purpose: "Know exactly which piece, list, headline generated response"
+        implementation:
+          - "Unique department/source codes per test cell"
+          - "Different phone numbers per test"
+          - "Different URLs per test (vanity URLs)"
+          - "QR codes with UTM parameters"
+        hopkins_rule: "If you can't measure it, you can't improve it"
+
+    hopkins_testing_protocol:
+      minimum_test_quantity:
+        description: "5000 pieces per cell for statistical significance"
+        rationale: |
+          Hopkins: "We cannot go after thousands until we learn how to win one."
+          With typical 0.5-2% response rates, need 5000 per cell for valid results.
+
+      what_to_test:
+        priority_1_headlines:
+          impact: "Can change response by 500%+"
+          method: "Same package, different outer envelope teasers/headlines"
+          example: "Cell A: Benefit headline, Cell B: Curiosity headline"
+
+        priority_2_offers:
+          impact: "Can change response by 200-300%"
+          elements:
+            - "Price point"
+            - "Payment terms"
+            - "Bonuses"
+            - "Guarantee length"
+          method: "Same copy, different offer terms"
+
+        priority_3_format:
+          impact: "Can change response by 100-200%"
+          tests:
+            - "Magalog vs sales letter"
+            - "Page count variations"
+            - "With/without lift note"
+          method: "Full format A/B test"
+
+        priority_4_lists:
+          impact: "Variable, often dramatic"
+          method: "Same package to different list segments"
+
+      test_cell_structure:
+        example_test:
+          cell_a: "Control headline + Standard offer (5000 pieces)"
+          cell_b: "Test headline A + Standard offer (5000 pieces)"
+          cell_c: "Control headline + Test offer (5000 pieces)"
+          cell_d: "Test headline B + Standard offer (5000 pieces)"
+        tracking: "Unique source code per cell (A1, B1, C1, D1)"
+
+      metrics_to_track:
+        response_rate: "Total responses / Total mailed x 100"
+        conversion_rate: "Orders / Total responses x 100"
+        cost_per_response: "Total cost / Responses"
+        cost_per_order: "Total cost / Orders"
+        average_order_value: "Total revenue / Orders"
+        roi: "(Revenue - Cost) / Cost x 100"
+
+      statistical_significance:
+        confidence_level: "95% minimum"
+        sample_size_calculator: |
+          For 1% response rate with 95% confidence:
+          Need ~2500 pieces minimum per cell
+          For 0.5% response rate: Need ~5000 pieces per cell
+          For 2% response rate: Need ~1500 pieces per cell
+
+      rollout_decision:
+        winner_criteria:
+          - "Statistically significant lift (95%+ confidence)"
+          - "Positive ROI at scale"
+          - "Results consistent across list segments"
+        rollout_schedule:
+          - "Initial rollout: 10-25% of remaining list"
+          - "Full rollout: Based on initial rollout results"
+        continuation_testing: "Always be testing - winner becomes new control"
+
+    checkpoint:
+      criteria:
+        - "hopkins_audit PASSED"
+        - "test_cells DESIGNED"
+        - "tracking_codes ASSIGNED"
+        - "production_specs FINALIZED"
+        - "minimum_5000_per_cell CONFIRMED"
+      human_review: true
+      message: "Final review before print production and mailing"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# COMPLETION SIGNALS
+# ═══════════════════════════════════════════════════════════════════════════════
+completion_signal: "<promise>COMPLETE</promise>"
+checkpoint_signal: "<promise>CHECKPOINT:PHASE-X</promise>"
+blocked_signal: "<promise>BLOCKED:T-X.Y</promise>"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# OUTPUT ARTIFACTS
+# ═══════════════════════════════════════════════════════════════════════════════
+outputs:
+  research:
+    - "avatar-profile.md"
+    - "awareness-diagnosis.md"
+    - "sophistication-diagnosis.md"
+    - "mental-conversation-map.md"
+
+  copy:
+    - "fascination-bullets.md (100+ bullets)"
+    - "power-bullets.md (enhanced)"
+    - "headline-variations.md (10+ options)"
+    - "magalog-copy.md OR sales-letter-copy.md"
+    - "visceral-enhanced-copy.md"
+
+  production:
+    - "hopkins-audit-report.md"
+    - "split-test-plan.md"
+    - "production-specs.md"
+    - "tracking-codes.md"
+
+  final:
+    - "direct-mail-package/ (print-ready files)"
+    - "test-results.md (post-campaign)"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENT ASSIGNMENTS BY PHASE
+# ═══════════════════════════════════════════════════════════════════════════════
+agents_by_phase:
+  phase_1_list:
+    primary: "dan-kennedy (starving crowd)"
+    secondary: "eugene-schwartz (awareness)"
+
+  phase_2_format:
+    primary: "jim-rutz (magalog inventor)"
+    secondary: "eugene-schwartz (sophistication)"
+
+  phase_3_copy:
+    primary:
+      - "parris-lampropoulos (bullets - 80% of success)"
+      - "jim-rutz (editorial-first magalog)"
+      - "david-deutsch (multi-angle, controls)"
+    secondary:
+      - "robert-collier (mental conversation)"
+      - "gary-bencivenga (fascinations)"
+      - "gary-halbert (story leads)"
+      - "clayton-makepeace (visceral)"
+      - "todd-brown (mechanism)"
+
+  phase_4_testing:
+    primary: "claude-hopkins (scientific testing)"
+    secondary: "david-deutsch (control methodology)"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY CHECKLIST
+# ═══════════════════════════════════════════════════════════════════════════════
+quality_checklist:
+  list_strategy:
+    - "[ ] Starving crowd identified (Kennedy 3Ms)"
+    - "[ ] RFM criteria applied"
+    - "[ ] List sources prioritized"
+    - "[ ] Test quantities calculated"
+
+  format_selection:
+    - "[ ] Market sophistication diagnosed"
+    - "[ ] Format matches complexity"
+    - "[ ] Page count determined"
+
+  copy_creation:
+    - "[ ] 100+ fascination bullets written"
+    - "[ ] Forehead-slapper test passed"
+    - "[ ] 10+ headline variations created"
+    - "[ ] Envelope teaser compelling"
+    - "[ ] Opening hooks in first 50 words"
+    - "[ ] Proof stack comprehensive"
+    - "[ ] P.S. maximized"
+    - "[ ] Lift note included (if magalog/bookalog)"
+
+  production_testing:
+    - "[ ] Hopkins audit passed (all claims have Reason Why)"
+    - "[ ] 5000 pieces per test cell minimum"
+    - "[ ] Tracking codes unique per cell"
+    - "[ ] Metrics defined (response rate, CPA, ROI)"
+    - "[ ] 95% confidence threshold set"
+    - "[ ] Rollout criteria established"

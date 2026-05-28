@@ -1,0 +1,159 @@
+sop:
+  id: sg-rmbc-method
+  version: "1.0"
+  title: "RMBC Method"
+  purpose: >
+    Transform copywriting from art into engineering using four phases:
+    Research (40%), Mechanism (25%), Brief (15%), Copy (20%). The writing
+    phase is only 20% — copy writes itself when the first three phases
+    are done properly.
+  classification:
+    domain: copywriting
+    subdomain: copy-process
+    tier: t2
+    source_agent: stefan-georgi
+    artifact_type: framework
+
+  steps:
+    - id: step_1_research
+      action: apply_research_phase
+      label: "R — Research (40% of Total Effort)"
+      description: >
+        Create Unified Research Document with 20+ direct market quotes,
+        psychographic profile, specific pain points, all objections with
+        proof answers, and competitor copy analysis. Do NOT start writing
+        until URD is complete.
+      inputs:
+        - market_reviews
+        - forum_posts
+        - support_tickets
+        - competitor_copy
+        - product_documentation
+      outputs:
+        - unified_research_document
+        - direct_quotes_collection
+        - psychographic_profile
+        - objection_catalog
+      validation:
+        - field: direct_quotes_collection
+          rule: min_count_20
+        - field: psychographic_profile
+          rule: contains_specifics
+        - field: objection_catalog
+          rule: each_has_proof_answer
+
+    - id: step_2_mechanism
+      action: apply_mechanism_development
+      label: "M — Mechanism (25% of Total Effort)"
+      description: >
+        Identify UMP (what causes the result) and UMS (how it differs).
+        Name using Named Oddity principle. Pass Wife Test (30-second
+        explanation). Score on 4 dimensions, all must be 7+.
+      inputs:
+        - product_mechanism_of_action
+        - competitive_mechanisms
+      outputs:
+        - ump_definition
+        - ums_definition
+        - mechanism_name
+        - four_dimension_score
+      validation:
+        - field: mechanism_name
+          rule: is_named_oddity
+        - field: four_dimension_score
+          rule: all_dimensions_minimum_7
+        - field: mechanism_name
+          rule: passes_wife_test
+
+    - id: step_3_brief
+      action: apply_brief_creation
+      label: "B — Brief (15% of Total Effort)"
+      description: >
+        Create Brief 2.0 with 25 structured points covering big idea,
+        mechanism, avatar, promise, proof plan, offer, objections, and
+        emotional throughline. CRITICAL: Write as NARRATIVE not bullets.
+      inputs:
+        - unified_research_document
+        - mechanism_name
+        - offer_details
+      outputs:
+        - brief_document
+      validation:
+        - field: brief_document
+          rule: is_narrative_not_bullets
+        - field: brief_document
+          rule: contains_25_points
+        - field: brief_document
+          rule: is_compelling_standalone
+
+    - id: step_4_copy
+      action: apply_copy_writing
+      label: "C — Copy (20% of Total Effort)"
+      description: >
+        Write body FIRST, lead LAST. Create 3-5 micro-lead variants.
+        Apply Bar Stool Test (sounds conversational). Every claim must
+        trace to URD. Lead is strongest angle from the written argument.
+      inputs:
+        - brief_document
+        - unified_research_document
+      outputs:
+        - copy_body
+        - lead_variants
+        - final_copy
+        - research_trace_map
+      validation:
+        - field: copy_body
+          rule: written_before_lead
+        - field: lead_variants
+          rule: count_3_to_5
+        - field: final_copy
+          rule: passes_bar_stool_test
+        - field: research_trace_map
+          rule: every_claim_linked
+
+  error_handling:
+    - error: skipping_research
+      symptom: "Copy sounds generic with low conversion"
+      resolution: "Spend 40% of total project time on Research before writing"
+    - error: generic_mechanism
+      symptom: "Offer feels like a commodity"
+      resolution: "Apply Named Oddity, score 4 dimensions, rework until 7+"
+    - error: brief_as_bullets
+      symptom: "Copy lacks narrative flow and emotional arc"
+      resolution: "Rewrite Brief as narrative mini-story"
+    - error: lead_written_first
+      symptom: "Lead does not match strongest argument angle"
+      resolution: "Write body first, derive lead from strongest angle"
+    - error: copy_sounds_salesy
+      symptom: "Reader disengages, feels manipulated"
+      resolution: "Apply Bar Stool Test, rewrite until conversational"
+
+  quality_gate:
+    min_score: 7
+    criteria:
+      - "URD complete with 20+ direct quotes"
+      - "Psychographic profile with specifics"
+      - "Mechanism named with Named Oddity"
+      - "All 4 mechanism dimensions >= 7"
+      - "Wife Test passed"
+      - "Brief written as narrative"
+      - "Body before lead"
+      - "3-5 lead variants"
+      - "Bar Stool Test passed"
+      - "Every claim traces to URD"
+
+  outputs:
+    - type: unified_research_document
+      format: document
+      min_quotes: 20
+    - type: mechanism_brief
+      format: text
+      includes: [name, ump, ums, score]
+    - type: brief_2_0
+      format: narrative_document
+      points: 25
+    - type: final_copy
+      format: markdown
+      includes: [body, lead_variants]
+    - type: trace_map
+      format: table

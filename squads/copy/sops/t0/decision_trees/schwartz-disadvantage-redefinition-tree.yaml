@@ -1,0 +1,39 @@
+sop:
+  id: schwartz-disadvantage-redefinition-tree
+  version: "1.0"
+  title: "Disadvantage Redefinition Decision Tree"
+  purpose: "Transformar desvantagens percebidas em vantagens: SIMPLIFICACAO, ESCALACAO ou REDUCAO DE PRECO perceptual."
+  classification:
+    domain: copywriting
+    category: diagnostic
+    tier: t0
+    source_agent: eugene-schwartz
+  steps:
+    - step: 1
+      action: "Identificar tipo de desvantagem percebida pelo prospect"
+      decision_point:
+        condition: "Qual tipo de desvantagem percebida?"
+        branches:
+          - if: "Produto percebido como complexo/dificil"
+            then: "SIMPLIFICACAO — redefinir a acao em termos simples (ex: 'reparos' → 'ajustes nos controles')"
+          - if: "Produto percebido como sem importancia / apelo restrito"
+            then: "ESCALACAO — ampliar horizonte de beneficio, conectar beneficio local a impacto transformador"
+          - if: "Produto percebido como muito caro"
+            then: "REDUCAO DE PRECO perceptual — mudar padrao de comparacao, dividir por uso, mostrar custo da inacao"
+  error_handling:
+    - error: "Negar desvantagem em vez de redefinir"
+      severity: critical
+      action: "Reconhecer e redefinir — negacao gera desconfianca"
+    - error: "Tecnica errada para o tipo de desvantagem"
+      severity: critical
+      action: "Mapear tipo de desvantagem antes de escolher tecnica"
+    - error: "Redefinicao forçada sem credibilidade"
+      severity: warning
+      action: "Basear redefinicao em fatos reais e verificaveis"
+  quality_gate:
+    criteria:
+      - "Desvantagem corretamente identificada"
+      - "Tecnica de redefinicao adequada ao tipo"
+      - "Redefinicao credivel e nao forçada"
+      - "Prospect reconheceria nova perspectiva como valida"
+    pass_threshold: "Todos os criterios atendidos"

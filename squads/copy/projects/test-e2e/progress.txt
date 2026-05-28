@@ -1,0 +1,258 @@
+# Copy YOLO Progress Log
+
+> **AIOX Integration:** This log follows Copy YOLO Mode principles.
+> Patterns compound across phases. Artifacts track all generated copy.
+
+**Project:** {{PROJECT_NAME}}
+**Workflow:** {{WORKFLOW_ID}} - {{WORKFLOW_NAME}}
+**Started:** {{START_DATE}}
+**Status:** Planning | In Progress | Checkpoint | Complete
+
+---
+
+## Decision Matrix (SESSION START)
+
+> **AIOX Principle:** 5 questions answered BEFORE workflow execution.
+
+| Question | Answer |
+|----------|--------|
+| Q1: Awareness Level | {{AWARENESS_LEVEL}} |
+| Q2: Market Sophistication | {{MARKET_SOPHISTICATION}} |
+| Q3: Price Point | {{PRICE_POINT}} |
+| Q4: Traffic Temperature | {{TRAFFIC_TEMPERATURE}} |
+| Q5: Primary Output | {{PRIMARY_OUTPUT}} |
+
+**Recommended Workflow:** {{RECOMMENDED_WORKFLOW}}
+**Clone Combinations:** {{CLONE_COMBINATIONS}}
+
+---
+
+## Phase Progress
+
+> **AIOX Principle:** Track progress by PHASES, not stories.
+
+| Phase | Day | Status | Checkpoint |
+|-------|-----|--------|------------|
+| {{PHASE_1_NAME}} | {{PHASE_1_DAY}} | ⬜ Not Started | - |
+| {{PHASE_2_NAME}} | {{PHASE_2_DAY}} | ⬜ Not Started | - |
+| {{PHASE_3_NAME}} | {{PHASE_3_DAY}} | ⬜ Not Started | - |
+| {{PHASE_4_NAME}} | {{PHASE_4_DAY}} | ⬜ Not Started | - |
+| {{PHASE_5_NAME}} | {{PHASE_5_DAY}} | ⬜ Not Started | - |
+| {{PHASE_6_NAME}} | {{PHASE_6_DAY}} | ⬜ Not Started | - |
+
+**Legend:** ⬜ Not Started | 🔄 In Progress | ✅ Complete | ⏸️ Checkpoint | ❌ Blocked
+
+---
+
+## Clone Combinations Used
+
+> **AIOX Principle:** Track which master combinations were applied.
+
+### Proven Combinations (from workflow)
+| Combination | Phase | Applied | Notes |
+|-------------|-------|---------|-------|
+| | | | |
+
+### Caution Flags
+- (List any combination conflicts to avoid)
+
+---
+
+## Artifacts Generated
+
+> **AIOX Principle:** Track ALL copy artifacts by phase.
+
+### Phase 1: Foundation
+| Artifact | Agent | File | Status |
+|----------|-------|------|--------|
+| | | | |
+
+### Phase 2: Strategy
+| Artifact | Agent | File | Status |
+|----------|-------|------|--------|
+| | | | |
+
+### Phase 3: Execution
+| Artifact | Agent | File | Status |
+|----------|-------|------|--------|
+| | | | |
+
+### Phase 4: Email/Content
+| Artifact | Agent | File | Status |
+|----------|-------|------|--------|
+| | | | |
+
+### Phase 5: Optimization
+| Artifact | Agent | File | Status |
+|----------|-------|------|--------|
+| | | | |
+
+### Phase 6: Final QC
+| Artifact | Agent | File | Status |
+|----------|-------|------|--------|
+| | | | |
+
+---
+
+## Codebase Patterns (KEEP AT TOP)
+
+> **AIOX Principle:** Patterns discovered are shared across all iterations.
+> Copy.sh reads this section FIRST before implementing.
+
+### Copy Patterns
+- (Will be populated as system learns)
+
+### Agent Synergies
+- (Clone combinations that work well together)
+
+### Common Gotchas
+- (Issues encountered and solutions)
+
+---
+
+## Key Files Reference
+
+> Files frequently accessed or modified during this workflow.
+
+| File | Purpose |
+|------|---------|
+| `copy-state.json` | Runtime state and progress |
+| `outputs/` | Generated copy artifacts |
+| `handoff.md` | Context between phases |
+
+---
+
+## File List (Cumulative)
+
+> **AIOX Principle:** Track ALL files created/modified/deleted.
+
+| File | Action | Phase | Description |
+|------|--------|-------|-------------|
+| | | | |
+
+**Legend:** Created | Modified | Deleted
+
+---
+
+## Quality Gates Status
+
+> Check each gate as it passes. Phase not complete until ALL pass.
+
+### Pre-Workflow
+- [ ] Decision Matrix completed
+- [ ] Workflow selected
+- [ ] Clone combinations identified
+
+### Per-Phase Validation
+- [ ] YAML syntax valid (workflows)
+- [ ] JSON syntax valid (state)
+- [ ] Agent references valid
+- [ ] Task references valid
+
+### Output Quality
+- [ ] All artifacts generated
+- [ ] No placeholder text remaining
+- [ ] Sugarman triggers applied (15-20 natural)
+- [ ] Copy reviewed by relevant agent
+
+### Documentation
+- [ ] progress-copy.txt updated
+- [ ] handoff.md created
+- [ ] Artifacts organized in outputs/
+
+---
+
+## Session Log
+
+> **AIOX Principle:** Each phase completion is logged with full context.
+> Copy.sh APPENDS to this section after each phase.
+
+---
+
+### Template for each entry:
+
+```
+---
+## [Date] - Phase X: [Phase Name]
+
+**Status:** ✅ Complete | ❌ Failed | ⏸️ Checkpoint
+**Workflow:** [Workflow ID]
+**Day:** [Day X of Y]
+
+### Agents Used
+- [Agent 1]: [What they produced]
+- [Agent 2]: [What they produced]
+
+### Artifacts Generated
+| Artifact | File | Quality |
+|----------|------|---------|
+| `artifact-name` | `outputs/file.md` | ⭐⭐⭐⭐⭐ |
+
+### Clone Combinations Applied
+- [Combination 1]: [Result/Notes]
+
+### Learnings
+- **Pattern:** [Reusable pattern discovered]
+- **Gotcha:** [Issue encountered and solution]
+- **Synergy:** [Clone combination that worked well]
+
+### Validation
+- [x] Artifacts generated
+- [x] No placeholder text
+- [x] Agent feedback incorporated
+- [x] Ready for next phase
+
+### Notes
+[Any additional context for future iterations]
+
+---
+```
+
+---
+
+## Completion Summary
+
+> Filled when workflow COMPLETE signal received.
+
+### Final Statistics
+- **Workflow:** {{WORKFLOW_ID}}
+- **Total Phases:** X of Y
+- **Days Used:** Z
+- **Iterations:** N
+
+### Artifacts Produced
+| Type | Count | Location |
+|------|-------|----------|
+| Headlines | | `outputs/headlines/` |
+| Sales Copy | | `outputs/sales/` |
+| Email Sequences | | `outputs/email/` |
+| Ad Creative | | `outputs/ads/` |
+| Scripts | | `outputs/scripts/` |
+
+### Clone Combinations Summary
+1. (Most effective combination)
+2. (Second most effective)
+3. (Third)
+
+### Key Learnings
+1. (Most important pattern discovered)
+2. (Second most important)
+3. (Third)
+
+### Recommended Improvements
+- [Suggestion 1]
+- [Suggestion 2]
+
+---
+
+## Completion Signals Reference
+
+| Signal | Meaning |
+|--------|---------|
+| `<promise>COMPLETE</promise>` | Workflow finished successfully |
+| `<promise>CHECKPOINT:PHASE-X</promise>` | Pause for human review |
+| `<promise>BLOCKED:T-X.Y</promise>` | Task blocked, needs intervention |
+
+---
+
+*Last Updated: {{LAST_UPDATED}}*

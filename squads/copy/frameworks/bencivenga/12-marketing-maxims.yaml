@@ -1,0 +1,88 @@
+# The 12 Marketing Maxims
+# Source: Gary Bencivenga - Clayton Makepeace Tribute Event
+# Category: strategic_principles
+# Command: *maxims
+
+name: "The 12 Marketing Maxims"
+category: "strategic_principles"
+origin: "Gary Bencivenga - Clayton Makepeace Tribute Event"
+command: "*maxims"
+
+maxims:
+  maxim_1:
+    name: "Make Your Advertising Itself Valuable"
+    principle: "Always leave your prospect a little better off for reading your promo"
+    instruction: "Provide something of value, whether they order or not"
+    example: "Include a useful tip, checklist, or insight that stands alone"
+
+  maxim_2:
+    name: "Aim Headlines at Heavy Users"
+    principle: "20% of buyers generate 80% of sales"
+    instruction: "Know who your heavy users are and what they want most"
+    diagnostic: "Who are the 20% that drive 80% of revenue?"
+
+  maxim_3:
+    name: "The Two Most Powerful Words"
+    principle: "The two most powerful words aren't 'FREE' and 'NEW'"
+    instruction: "These overused words have become red flags. Find fresher angles."
+    alternative: "Focus on specific benefits and outcomes instead"
+
+  maxim_4:
+    name: "The Most Important Question"
+    principle: "'What are we really selling?'"
+    instruction: "This question forces you to think outside the box"
+    examples:
+      - "You're not selling grass seed, you're selling a greener lawn"
+      - "You're not selling boilers, you're selling cozier winter nights"
+      - "You're not selling insurance, you're selling peace of mind"
+
+  maxim_5:
+    name: "Advertising is Multiplied Salesmanship"
+    principle: "One promo can close thousands of sales simultaneously"
+    instruction: "Find clients who can scale your copy to big audiences"
+    implication: "Your copy's value = (conversions x volume x lifetime value)"
+
+  maxim_6:
+    name: "Great Ads Are Built on Great Research"
+    principle: "Dig, drill, and chip until you have carloads of ore"
+    instruction: "Gather at least 7 times more research than you think you'll need"
+    allocation: "Spend at least one-third of assignment time on research"
+
+  maxim_7:
+    name: "Develop a Process for Writing Copy"
+    principle: "Answer three questions from the prospect's perspective"
+    questions:
+      - "Why is this product superior to everything else?"
+      - "Why should I believe you?"
+      - "Why should I act now?"
+    instruction: "Don't begin writing until you can answer all three convincingly"
+
+  maxim_8:
+    name: "A Gifted Product is Mightier Than a Gifted Pen"
+    principle: "The magic is in the product, not the copywriter's pen"
+    instruction: "Advertising doesn't create advantage, it conveys it"
+    implication: "Fight for better offers and products when possible"
+
+  maxim_9:
+    name: "Find Out What People Want"
+    principle: "The NUMBER 1 secret for selling anything to anyone"
+    instruction: "Find out what others want and help them get it"
+    method: "Deep research, surveys, customer interviews"
+
+  maxim_10:
+    name: "Use Simple, Conversational Language"
+    principle: "Write as if you're speaking to a friend"
+    instruction: "Prioritize clarity over cleverness. Don't be wise. Be understood."
+    test: "Read it aloud. Does it sound like a real person talking?"
+
+  maxim_11:
+    name: "Master Transitions"
+    principle: "Long copy should flow like an informative editorial"
+    instruction: "No content should seem forced into the copy"
+    technique: "Each section should connect seamlessly to the next"
+
+  maxim_12:
+    name: "Take What You Want"
+    principle: "Don't just accept the offer the client gives you"
+    instruction: "Switch, rework, or add to the offer until it's ideal"
+    mindset: "Be a tough-guy about offers—they're the foundation of response"

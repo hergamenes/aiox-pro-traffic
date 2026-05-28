@@ -1,0 +1,636 @@
+# daily-email-tmpl.yaml
+# Template para criação de emails diários no estilo Ben Settle
+
+template:
+  name: Daily Email Template
+  id: daily-email-tmpl
+  version: "2.0"
+  category: email_marketing
+  primary_agent: ben-settle
+  usage: "Usar como estrutura base para emails diários de infotainment"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  description: |
+    Template para emails diários de infotainment.
+    Combina entretenimento + informação + vendas em cada email.
+    Baseado na metodologia Ben Settle de daily email marketing.
+
+  principles:
+    - "Todo email deve entreter"
+    - "Todo email deve informar"
+    - "Todo email deve vender"
+    - "Personalidade em 3X"
+    - "Parágrafos curtos"
+    - "CTA direto"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# EMAIL STRUCTURE
+# ═══════════════════════════════════════════════════════════════════════════════
+
+email_structure:
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # SUBJECT LINE
+  # ─────────────────────────────────────────────────────────────────────────────
+  subject_line:
+    max_length: 50
+    ideal_length: 30-40
+
+    types:
+      curiosity:
+        description: "Cria pergunta mental que precisa de resposta"
+        examples:
+          - "O erro de [PREJUÍZO_EVITÁVEL_EXEMPLO]"
+          - "O que achei no meu spam"
+          - "Ele disse não"
+          - "estranho"
+        template: "[Elemento intrigante sem revelar]"
+
+      controversy:
+        description: "Desafia crença comum"
+        examples:
+          - "Por que eu odeio templates"
+          - "Sua lista é grande demais"
+          - "O pior conselho que já ouvi"
+        template: "Por que [opinião contrária]"
+
+      story_tease:
+        description: "Promete história interessante"
+        examples:
+          - "A vez que quase fui preso"
+          - "Minha esposa acha que sou louco"
+          - "O que aconteceu no café"
+        template: "[Evento intrigante sem revelar]"
+
+      direct:
+        description: "Simples e direto"
+        examples:
+          - "pergunta rápida"
+          - "sobre seus emails"
+          - "importante"
+        template: "[Assunto direto em minúsculas]"
+
+      personal:
+        description: "Soa como email de amigo"
+        examples:
+          - "re: nossa conversa"
+          - "estava pensando em você"
+          - "isso me lembrou de você"
+        template: "[Tom casual de amigo]"
+
+    rules:
+      - "Minúsculas frequentemente performam melhor"
+      - "Sem clickbait puro - deve conectar ao conteúdo"
+      - "Máximo 1 emoji, preferencialmente nenhum"
+      - "Evitar palavras spam trigger"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PREVIEW TEXT (opcional)
+  # ─────────────────────────────────────────────────────────────────────────────
+  preview_text:
+    max_length: 90
+    purpose: "Complementar o assunto, não repetir"
+    tips:
+      - "Pode ser primeira linha do email"
+      - "Ou texto separado configurado na plataforma"
+      - "Deve aumentar curiosidade"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # HOOK (Primeiras 1-2 linhas)
+  # ─────────────────────────────────────────────────────────────────────────────
+  hook:
+    purpose: "Capturar atenção IMEDIATAMENTE"
+    max_lines: 2
+
+    types:
+      mid_action:
+        description: "Começa no meio da ação, sem setup"
+        bad_example: "Deixa eu te contar uma história. Ontem eu estava no mercado..."
+        good_example: "O segurança veio na minha direção e eu sabia que tinha problema..."
+        template: "[Ação acontecendo] e [reação/consequência]..."
+
+      curiosity:
+        description: "Cria pergunta que precisa de resposta"
+        bad_example: "Quero compartilhar algo importante com você..."
+        good_example: "O email que quase destruiu meu negócio..."
+        template: "[Elemento misterioso] que [resultado inesperado]..."
+
+      controversy:
+        description: "Desafia crença comum"
+        bad_example: "Muitos especialistas dizem que..."
+        good_example: "O pior conselho de marketing que já ouvi..."
+        template: "[Opinião forte contrária ao senso comum]..."
+
+      personal:
+        description: "Algo íntimo ou vulnerável"
+        bad_example: "Tive uma experiência interessante..."
+        good_example: "Minha esposa acha que eu sou louco..."
+        template: "[Pessoa próxima] [reação forte] sobre [algo que fiz]..."
+
+    forbidden_openings:
+      - "Olá! Tudo bem com você?"
+      - "Espero que este email te encontre bem"
+      - "Deixa eu te contar uma história..."
+      - "Quero compartilhar algo com você..."
+      - "Neste email vou falar sobre..."
+      - "Bom dia/boa tarde/boa noite!"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # STORY/CONTENT (Corpo)
+  # ─────────────────────────────────────────────────────────────────────────────
+  story:
+    purpose: "Entreter enquanto constrói para o pitch"
+    typical_length: "3-7 parágrafos curtos"
+
+    elements:
+      characters:
+        description: "Pessoas reais com nomes"
+        example: "Meu amigo João me ligou ontem..."
+
+      dialogue:
+        description: "Citações diretas tornam mais vívido"
+        example: 'Ele disse: "Você tá maluco?"'
+
+      sensory_details:
+        description: "O que você viu, ouviu, sentiu"
+        example: "O cheiro de café queimado invadiu a sala..."
+
+      tension:
+        description: "Problema, conflito ou desafio"
+        example: "E aí eu percebi que tinha mandado pro cliente errado..."
+
+      resolution:
+        description: "Como terminou (ou não terminou)"
+        example: "No final das contas, ele até gostou..."
+
+    formatting_rules:
+      paragraph_length: "1-3 frases máximo"
+      spacing: "Linha em branco entre parágrafos"
+      occasional_single_line: "Sim, para ênfase"
+      bullet_points: "Usar com moderação, se usar"
+
+    story_sources:
+      - category: "Vida Pessoal"
+        examples: ["Família", "hobbies", "viagens", "observações diárias"]
+        frequency: "Mais comum, mais relatable"
+
+      - category: "Vida Profissional"
+        examples: ["Clientes", "resultados", "erros", "lições"]
+        frequency: "Para autoridade e prova"
+
+      - category: "Pop Culture"
+        examples: ["Filmes", "séries", "notícias", "celebridades"]
+        frequency: "Para relevância e timing"
+
+      - category: "História"
+        examples: ["Figuras históricas", "eventos", "paralelos"]
+        frequency: "Para profundidade e credibilidade"
+
+      - category: "Observação"
+        examples: ["Coisas no dia a dia", "pessoas na rua", "situações"]
+        frequency: "Para originalidade"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # LESSON (Lição/Insight)
+  # ─────────────────────────────────────────────────────────────────────────────
+  lesson:
+    purpose: "Extrair insight ou lição da história"
+    typical_length: "1-2 parágrafos"
+
+    structure:
+      - "O que essa história significa"
+      - "O princípio ou insight"
+      - "Como isso se aplica ao leitor"
+
+    connection_requirement: |
+      A lição DEVE conectar ao que você está vendendo.
+      Se não conecta naturalmente, é a história errada.
+
+    transition_to_bridge: |
+      A lição deve fluir naturalmente para a transição.
+      O leitor não deve perceber que você está "pivotando".
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # BRIDGE (Transição)
+  # ─────────────────────────────────────────────────────────────────────────────
+  bridge:
+    purpose: "Transição natural da história para o pitch"
+    typical_length: "1-2 frases"
+
+    effective_phrases:
+      - "O que me leva ao ponto de hoje..."
+      - "E é exatamente isso que [Produto] faz..."
+      - "Essa é a razão pela qual criei..."
+      - "Se você quer [resultado da história]..."
+      - "Falando nisso..."
+      - "E é por isso que estou escrevendo..."
+      - "O que me faz pensar em..."
+
+    forbidden_phrases:
+      - "Mas chega de história..."
+      - "Mudando de assunto..."
+      - "Agora a parte comercial..."
+      - "Hora de falar do produto..."
+      - "Enfim, vamos ao que interessa..."
+
+    test: |
+      Se você precisa dizer "mas mudando de assunto",
+      sua história não conecta ao produto.
+      Encontre outra história.
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PITCH (Venda)
+  # ─────────────────────────────────────────────────────────────────────────────
+  pitch:
+    purpose: "Vender algo - TODO email deve vender"
+    typical_length: "2-4 frases"
+
+    required_elements:
+      what_it_is:
+        description: "Nome e descrição em uma frase"
+        example: "É por isso que criei o [Nome do Produto]."
+
+      why_now:
+        description: "Conexão com a história/lição"
+        example: "Ele te ensina exatamente como [benefício]..."
+
+      call_to_action:
+        description: "Exatamente o que fazer"
+        example: "Clica aqui pra ver: [link]"
+
+    tone:
+      - "Direto, não apologético"
+      - "Confiante, não desesperado"
+      - "Natural, não salesy"
+      - "Assertivo, não agressivo"
+
+    forbidden_language:
+      - phrase: "Se você tiver interesse..."
+        problem: "Fraco, dá opção de não ter interesse"
+        alternative: "Clica aqui..."
+
+      - phrase: "Sem pressão..."
+        problem: "Remove urgência"
+        alternative: "Só até [deadline]..."
+
+      - phrase: "Fique à vontade para..."
+        problem: "Muito passivo"
+        alternative: "Pega o teu aqui..."
+
+      - phrase: "Talvez você queira..."
+        problem: "Indeciso"
+        alternative: "Você vai querer..."
+
+      - phrase: "Apenas compartilhando..."
+        problem: "Diminui o valor"
+        alternative: "Veja isso..."
+
+    effective_ctas:
+      - "Clica aqui pra pegar o teu: [link]"
+      - "Pega aqui antes que feche: [link]"
+      - "Começa agora: [link]"
+      - "Veja tudo aqui: [link]"
+      - "Entra na lista: [link]"
+      - "Garante o teu: [link]"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # SIGN-OFF (Assinatura)
+  # ─────────────────────────────────────────────────────────────────────────────
+  sign_off:
+    purpose: "Terminar com personalidade"
+
+    examples:
+      - format: "Seu [adjetivo engraçado] amigo,\n[Nome]"
+        example: "Seu amigo anti-templates,\nBen"
+
+      - format: "[Despedida casual],\n[Nome]"
+        example: "Abraço,\nBen"
+
+      - format: "[Frase curta],\n[Nome]"
+        example: "Até amanhã,\nBen"
+
+      - format: "[Uma palavra],\n[Nome]"
+        example: "Fui,\nBen"
+
+    forbidden:
+      - "Atenciosamente"
+      - "Cordialmente"
+      - "Best regards"
+      - "A equipe [Empresa]"
+      - "Departamento de Marketing"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # P.S. (Post-Script)
+  # ─────────────────────────────────────────────────────────────────────────────
+  ps:
+    purpose: "Segunda parte mais lida do email"
+    recommended: true
+
+    types:
+      reinforcement:
+        description: "Reforça oferta ou deadline"
+        example: |
+          P.S. Lembrando que o preço sobe à meia-noite.
+          Depois disso, vai de [PREÇO_ATUAL] para [PREÇO_FUTURO].
+
+      social_proof:
+        description: "Adiciona credibilidade"
+        example: |
+          P.S. "Esse método me fez ganhar [RESULTADO_SEMANAL_EXEMPLO] em uma semana."
+          — João, aluno do [Produto]
+
+      bonus:
+        description: "Oferece algo extra"
+        example: |
+          P.S. Se você entrar hoje, ainda ganha [Bônus]
+          que não vou oferecer depois.
+
+      personal:
+        description: "Algo não relacionado à venda"
+        example: |
+          P.S. Terminei de assistir Breaking Bad ontem.
+          Entendo agora o hype.
+
+      teaser:
+        description: "Cria expectativa para amanhã"
+        example: |
+          P.S. Amanhã vou contar a história do email que me rendeu
+          [RESULTADO_EM_24H_EXEMPLO] em 24 horas. Não perde.
+
+    rules:
+      - "Pode ter P.S. e P.P.S. (máximo 2)"
+      - "Deve adicionar valor, não só repetir"
+      - "Mantém o tom do email"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# COMPLETE TEMPLATES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+complete_templates:
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # TEMPLATE 1: Story → Sale
+  # ─────────────────────────────────────────────────────────────────────────────
+  story_to_sale:
+    name: "História Pessoal → Venda"
+    description: "Formato mais comum: história do dia a dia que conecta ao produto"
+
+    structure: |
+      [ASSUNTO: elemento curioso da história]
+
+      [HOOK: 1-2 linhas, começa no meio da ação]
+
+      [HISTÓRIA: 3-5 parágrafos curtos]
+      - Contexto rápido
+      - Desenvolvimento com detalhes
+      - Resolução ou cliffhanger
+
+      [LIÇÃO: 1-2 parágrafos]
+      - O que isso significa
+      - Por que importa
+
+      [BRIDGE: 1-2 frases]
+      - Transição natural para pitch
+
+      [PITCH: 2-4 frases]
+      - O que é
+      - Por que agora
+      - CTA direto
+
+      [SIGN-OFF]
+      [Nome]
+
+      P.S. [Reforço ou teaser]
+
+    example: |
+      estranho
+
+      Minha esposa me olhou e perguntou:
+      "Você tá trabalhando... ou só mexendo no celular?"
+
+      Eu estava no sofá.
+      Laptop na mesa de centro.
+      Celular na mão.
+
+      E ela tinha razão.
+
+      Eu estava "trabalhando" há 3 horas.
+      Mas não tinha produzido nada.
+
+      Zero emails escritos.
+      Zero vendas.
+      Zero progresso.
+
+      Só scroll infinito disfarçado de "pesquisa".
+
+      Foi quando eu percebi:
+
+      Não existe "tempo de trabalho".
+      Só existe resultado de trabalho.
+
+      Você pode ficar 10 horas na frente do computador
+      e não produzir nada.
+
+      Ou pode ficar 30 minutos focado
+      e fazer mais que a maioria faz em uma semana.
+
+      É por isso que no [Produto],
+      eu ensino a escrever um email em 15-30 minutos.
+
+      Um email por dia.
+      Todo dia.
+      E pronto.
+
+      O resto do dia é seu.
+
+      Clica aqui pra ver como funciona: [link]
+
+      Fui,
+      Ben
+
+      P.S. Não é sobre trabalhar mais.
+      É sobre trabalhar no que importa.
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # TEMPLATE 2: Controversy → Sale
+  # ─────────────────────────────────────────────────────────────────────────────
+  controversy_to_sale:
+    name: "Controvérsia → Venda"
+    description: "Opinião forte que polariza e vende"
+
+    structure: |
+      [ASSUNTO: declaração controversa]
+
+      [HOOK: sua opinião forte]
+
+      [ARGUMENTO: 2-3 parágrafos]
+      - Por que você pensa assim
+      - O que os outros pensam (e por que estão errados)
+
+      [PROVA: 1-2 parágrafos]
+      - Exemplos ou dados
+      - Experiência pessoal
+
+      [BRIDGE: 1-2 frases]
+
+      [PITCH: 2-4 frases]
+      - Como seu produto resolve
+
+      [SIGN-OFF]
+
+      P.S.
+
+    example: |
+      sua lista é grande demais
+
+      Vou dizer algo que vai irritar muita gente:
+
+      Você não precisa de mais leads.
+
+      Na verdade, sua lista provavelmente é grande DEMAIS.
+
+      "Mas Ben, como assim? Todo mundo diz pra crescer a lista!"
+
+      E é exatamente por isso que a maioria não vende nada.
+
+      Eles têm listas de 10.000, 50.000, 100.000 pessoas.
+      E mal conseguem pagar as contas.
+
+      Enquanto isso, eu conheço gente com listas de 500 pessoas
+      faturando 6 dígitos por ano.
+
+      A diferença?
+
+      Uma lista é de freebie-seekers.
+      A outra é de compradores.
+
+      Quantidade é vaidade.
+      Qualidade é faturamento.
+
+      Se você quer aprender a construir uma lista pequena
+      que compra tudo que você oferece...
+
+      Dá uma olhada no [Produto]: [link]
+
+      Até amanhã,
+      Ben
+
+      P.S. Não estou dizendo pra deletar sua lista.
+      Estou dizendo pra parar de medir sucesso por tamanho.
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # TEMPLATE 3: Quick Lesson → Sale
+  # ─────────────────────────────────────────────────────────────────────────────
+  quick_lesson_to_sale:
+    name: "Lição Rápida → Venda"
+    description: "Valor direto + pitch - para dias sem história"
+
+    structure: |
+      [ASSUNTO: benefício direto]
+
+      [HOOK: o problema comum]
+
+      [SOLUÇÃO: 2-3 passos ou pontos]
+      - A técnica/insight
+      - Como funciona
+
+      [EXEMPLO: 1-2 parágrafos]
+      - Aplicação prática
+
+      [BRIDGE: 1-2 frases]
+
+      [PITCH: 2-4 frases]
+      - Para ir mais fundo
+
+      [SIGN-OFF]
+
+    example: |
+      como escrever emails em 15 minutos
+
+      A maioria das pessoas passa 1-2 horas
+      escrevendo UM email.
+
+      Não deveria ser assim.
+
+      Aqui está o processo que eu uso:
+
+      1. Pega qualquer coisa que aconteceu hoje
+      2. Conecta a uma lição sobre seu nicho
+      3. Faz um pitch pro seu produto
+
+      Pronto.
+
+      Não precisa ser perfeito.
+      Não precisa ser longo.
+      Não precisa ser genial.
+
+      Só precisa ser enviado.
+
+      Todo dia.
+
+      Se você quer ver exatamente como eu faço isso,
+      incluindo os templates que eu uso...
+
+      Clica aqui: [link]
+
+      Fui,
+      Ben
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# OUTPUT FORMAT
+# ═══════════════════════════════════════════════════════════════════════════════
+
+output_format:
+  description: "Formato para entrega do email criado"
+
+  structure: |
+    ```yaml
+    email:
+      subject: "[Assunto]"
+      preview_text: "[Texto de preview - opcional]"
+
+      body: |
+        [Corpo completo do email]
+
+      ps: "[Texto do P.S.]"
+
+      metadata:
+        template_used: "[story_to_sale/controversy_to_sale/quick_lesson_to_sale]"
+        story_source: "[pessoal/profissional/pop_culture/história/observação]"
+        pitch_type: "[produto/lead_magnet/reply/teaser]"
+
+      scores:
+        entertainment: "[1-10]"
+        information: "[1-10]"
+        personality: "[1-10]"
+        sales: "[1-10]"
+        total: "[4-40]"
+
+      checklist_passed: "[yes/no]"
+    ```
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# USAGE NOTES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+usage_notes:
+  - "Este template é um guia, não uma prisão"
+  - "Adapte ao seu estilo e voz"
+  - "O objetivo é consistência, não perfeição"
+  - "Um email enviado vale mais que um email perfeito nunca enviado"
+  - "Sempre use o checklist antes de enviar"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# VERSION INFO
+# ═══════════════════════════════════════════════════════════════════════════════
+
+version_info:
+  version: "2.0"
+  last_updated: "2026-01-23"
+  primary_agent: "ben-settle"
+  related_task: "create-daily-email.md"
+  related_checklist: "email-infotainment-checklist.md"

@@ -1,0 +1,78 @@
+sop:
+  id: hopkins-validation-checklist
+  version: "1.0"
+  title: "Hopkins Pre-Response Validation Checklist"
+  purpose: >
+    Validate every Hopkins diagnostic output against 8 Scientific Advertising
+    quality criteria before delivery, ensuring data-driven precision, source
+    attribution, and elimination of vague or creative language.
+  classification:
+    domain: copywriting
+    category: diagnostic
+    subcategory: pre-response-validation
+    tier: T0
+    source_agent: claude-hopkins
+  steps:
+    - id: validate_sentence_structure
+      action: "Check all sentences are short and declarative (max 20 words)"
+      input: draft_response
+      validation:
+        rule: "no compound sentences exceeding 20 words"
+        fail_action: split_sentences
+    - id: validate_zero_emojis
+      action: "Confirm zero emoji characters in output"
+      input: draft_response
+      validation:
+        rule: "emoji_count == 0"
+        fail_action: remove_all_emojis
+    - id: validate_source_attribution
+      action: "Verify every factual claim has [SOURCE:] tag or supporting data"
+      input: draft_response
+      validation:
+        rule: "all claims must have traceable source reference"
+        fail_action: add_source_or_remove_claim
+    - id: validate_prescription_present
+      action: "Confirm output includes test or actionable prescription"
+      input: draft_response
+      validation:
+        rule: "at least one PRESCRICAO section with concrete action"
+        fail_action: append_prescription
+    - id: validate_diagnostic_only
+      action: "Verify no copy was written — diagnosis only"
+      input: draft_response
+      validation:
+        rule: "no headlines, body copy, or CTAs as final deliverables"
+        fail_action: remove_copy_route_to_writer
+    - id: validate_diagnostic_markers
+      action: "Check diagnostic markers (AFIRMACAO/VEREDICTO/PRESCRICAO) are used"
+      input: draft_response
+      validation:
+        rule: "all three markers present in structured sections"
+        fail_action: restructure_with_markers
+    - id: validate_scientific_tone
+      action: "Ensure tone sounds like scientist analyzing data, not creative"
+      input: draft_response
+      validation:
+        rule: "no subjective adjectives (exciting, amazing, love)"
+        fail_action: replace_with_measurable_descriptors
+    - id: validate_specificity
+      action: "Confirm every generality replaced with specific data"
+      input: draft_response
+      validation:
+        rule: "no vague terms (many, most, high quality, the best)"
+        fail_action: apply_specificity_transforms
+  error_handling:
+    on_any_failure: reprocess_entire_response
+    max_reprocess_attempts: 3
+    escalation: route_to_copy_chief_if_max_attempts_exceeded
+  quality_gate:
+    pass_criteria: "all 8 steps must pass"
+    partial_pass: false
+    on_pass: clear_for_delivery
+    on_fail: reprocess_and_revalidate
+  metadata:
+    date: "2026-03-14"
+    author:
+      agent: sop-converter
+      squad: sop-factory
+    source_artifact: hopkins-validation-checklist

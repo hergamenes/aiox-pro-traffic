@@ -1,0 +1,105 @@
+sop:
+  id: "fk-4-day-cash-machine"
+  version: "1.0.0"
+  title: "4-Day Cash Machine"
+  purpose: "Generate revenue from an existing email list within 4 consecutive days using a goodwill-first sequence of pure value, teaser, offer, and urgency-driven close."
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    risk_level: "medium"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "When quick revenue is needed from an existing email list (5,000+ subscribers ideal), for product launches, relaunches, or interim revenue generation between major campaigns."
+  context:
+    input:
+      - name: "email_list"
+        type: "object"
+        required: true
+        description: "Existing email list with minimum 1,000 subscribers (5,000+ ideal). Must include list size, average open rate, and engagement history."
+      - name: "product_offer"
+        type: "object"
+        required: true
+        description: "Product or offer ready to sell with defined price point, delivery mechanism, and guarantee."
+      - name: "value_content_pieces"
+        type: "list"
+        required: true
+        description: "Two pieces of genuine, high-value content for Days 1 and 2. Must be different from each other and provide actionable quick wins."
+      - name: "deadline"
+        type: "datetime"
+        required: true
+        description: "Real deadline for the offer (price increase, bonus removal, or availability end). Must be honored without exception."
+  steps:
+    - id: "S001"
+      name: "Day 1 Goodwill Email"
+      action: "write_pure_value_email"
+      description: "Write and send an email delivering genuine value with zero commercial language. Content must provide an actionable quick win. End with open loop hinting at something coming."
+      performer: "copywriter"
+      critical: true
+      on_success: "S002"
+      on_failure: "retry"
+    - id: "S002"
+      name: "Day 2 Value Plus Teaser"
+      action: "write_value_teaser_email"
+      description: "Write and send a second value email with different content from Day 1. Deliver a result or case study. Add 1-2 sentence teaser about tomorrow's reveal without revealing the offer."
+      performer: "copywriter"
+      critical: true
+      on_success: "S003"
+      on_failure: "retry"
+    - id: "S003"
+      name: "Day 3 Offer Reveal"
+      action: "write_offer_email"
+      description: "Bridge from Days 1-2 value to the offer. Present full value stack with component-level pricing. Include special price or bonus exclusive to this window. State deadline clearly. Include single CTA with direct link."
+      performer: "copywriter"
+      critical: true
+      on_success: "S004"
+      on_failure: "retry"
+    - id: "S004"
+      name: "Day 4 Urgency Close"
+      action: "write_urgency_close_email"
+      description: "Open with urgency and specific deadline. Recap value proposition and transformation. Address 2-3 common objections directly. Restate guarantee. Final CTA with exact deadline. Optional: schedule reminder email 2-4 hours before deadline."
+      performer: "copywriter"
+      critical: true
+      on_success: "S005"
+      on_failure: "retry"
+    - id: "S005"
+      name: "Verify Checkout System"
+      action: "test_payment_flow"
+      description: "Test the complete purchase flow from email CTA to checkout completion. Verify payment processing, confirmation emails, and product delivery before Day 1 sends."
+      performer: "copywriter"
+      critical: true
+      on_success: "DONE"
+      on_failure: "retry"
+  error_handling:
+    global_timeout: "PT6H"
+    retry_policy: "max 1 retry per step — timing is critical for 4-day sequence"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "day_1_zero_selling"
+        type: "boolean"
+        target: true
+        weight: 1.0
+      - name: "day_2_value_plus_teaser"
+        type: "boolean"
+        target: true
+        weight: 0.8
+      - name: "real_deadline_honored"
+        type: "boolean"
+        target: true
+        weight: 1.0
+      - name: "objections_addressed_day_4"
+        type: "boolean"
+        target: true
+        weight: 0.7
+      - name: "checkout_tested"
+        type: "boolean"
+        target: true
+        weight: 1.0
+    pass_threshold: 0.85
+  outputs:
+    artifacts:
+      - name: "four_day_email_sequence"
+        type: "file"
+        format: "md"
+        description: "4-email sequence (goodwill, teaser, offer, close) with scheduling times and deadline enforcement."

@@ -1,0 +1,77 @@
+sop:
+  id: task-behavioral-segmentation
+  version: "1.0"
+  title: "Behavioral Segmentation Setup"
+  purpose: "Configure 4-layer behavioral segmentation system tracking engagement, interest, intent, and customer status for personalized automation flows"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: andre-chaperon
+    tier: T3
+
+  inputs:
+    - name: email_platform
+      type: string
+      required: true
+      description: "Email platform with behavioral tracking capabilities"
+    - name: product_catalog
+      type: object
+      required: true
+      description: "Product catalog and funnel architecture"
+
+  outputs:
+    - name: segmentation_rules
+      type: document
+      description: "4-layer segmentation rules with trigger definitions"
+    - name: automation_flows
+      type: document
+      description: "Trigger-based automation flow diagrams"
+
+  steps:
+    - id: step_1
+      action: configure_engagement_layer
+      description: "Track opens/clicks/replies, segment into hot/warm/cold tiers with frequency rules"
+      critical: true
+      tiers: ["hot", "warm", "cold"]
+
+    - id: step_2
+      action: configure_interest_layer
+      description: "Track specific link clicks, tag topics, redirect to relevant SOS on confirmed interest"
+
+    - id: step_3
+      action: configure_intent_layer
+      description: "Track pricing page visits, checkout starts, cart abandonment — trigger decision sequences"
+      critical: true
+
+    - id: step_4
+      action: configure_customer_layer
+      description: "Segment by purchase history: non-buyer, single, multi-buyer, lapsed"
+      segments: ["non_buyer", "single_buyer", "multi_buyer", "lapsed_buyer"]
+
+    - id: step_5
+      action: configure_automation_ratio
+      description: "Wire all layers to behavior-triggered sequences targeting 95% autoresponder / 5% broadcast"
+      target_ratio:
+        autoresponder: 0.95
+        broadcast: 0.05
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "Engagement layer has hot/warm/cold tiers"
+      - "Interest layer triggers relevant SOS"
+      - "Intent layer captures checkout and abandonment"
+      - "Customer layer segments by purchase frequency"
+      - "95/5 automation ratio planned"
+      - "Each segment has defined next-action sequence"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies: []
+
+  related_sops:
+    - task-email-engine-setup
+    - task-soap-opera-sequence
+    - task-dead-list-revival

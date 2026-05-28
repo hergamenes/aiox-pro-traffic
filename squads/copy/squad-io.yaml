@@ -1,0 +1,557 @@
+# ============================================================
+# squad-io.yaml — copy-squad (Elite Copywriting Squad)
+# Version: 2.0.0
+# Generated: 2026-03-09
+# Author: CSO (Chief Sinkra Officer)
+# Previous: v1 (19 lines, 5 required_inputs only)
+# ============================================================
+#
+# Contract I/O formal do copy-squad.
+# Maior squad do sistema: 25 agents, 76 tasks, 90+ checklists,
+# 58 templates, 14 workflows, 16 data files.
+#
+# Similar ao hormozi — é um squad de EXECUÇÃO que consome docs
+# do workspace como contexto mas não escreve de volta ao
+# document-registry. Outputs são copy assets (sales pages,
+# emails, ads, VSLs, headlines, etc.)
+#
+# Arquitetura: 4-tier system (Diagnosis → Masters → Systematizers → Specialists)
+# com mandatory Tier 0 gate antes de qualquer produção de copy.
+# ============================================================
+
+squad: copy
+version: "2.0.0"
+schema: squad-io-v2
+entry_agent: copy-chief
+pack_version: "4.0.0"
+
+# ============================================================
+# INPUTS — Workspace docs consumed as context
+# ============================================================
+
+inputs:
+
+  workspace:
+    - path: workspace/{spoke}/L0-identity/company-dna.yaml
+      doc_id: L0-001
+      min_state: POPULATED
+      usage: reference
+      consumed_by_agents: [copy-chief, stefan-georgi]
+      rationale: "DNA do negócio para contexto de copy e messaging"
+
+    - path: workspace/{spoke}/L0-identity/founder-dna.yaml
+      doc_id: L0-002
+      min_state: DRAFT
+      usage: reference
+      consumed_by_agents: [copy-chief, gary-bencivenga]
+      rationale: "Credenciais do fundador para proof stacks e authority"
+
+    - path: workspace/{spoke}/L1-strategy/offerbook.yaml
+      doc_id: L1-001
+      min_state: POPULATED
+      usage: reference
+      consumed_by_agents: [copy-chief, eugene-schwartz, todd-brown, stefan-georgi, jeff-walker]
+      rationale: "Ofertas existentes — base para sales pages e funnels"
+
+    - path: workspace/{spoke}/L1-strategy/icp.yaml
+      doc_id: L1-002
+      min_state: POPULATED
+      usage: reference
+      consumed_by_agents: [copy-chief, eugene-schwartz, dan-kennedy, gary-halbert, robert-collier]
+      rationale: "ICP é a base de toda copy — avatar, dores, desejos"
+
+    - path: workspace/{spoke}/L1-strategy/pricing-strategy.yaml
+      doc_id: L1-005
+      min_state: DRAFT
+      usage: reference
+      consumed_by_agents: [copy-chief, stefan-georgi]
+      rationale: "Pricing para calibrar value stacks e anchoring"
+
+    - path: workspace/{spoke}/L2-tactical/brand/brand-platform.yaml
+      doc_id: L2-001
+      min_state: DRAFT
+      usage: reference
+      consumed_by_agents: [copy-chief, david-ogilvy, frank-kern]
+      rationale: "Brand guidelines para tom de voz consistente"
+
+    - path: workspace/{spoke}/L2-tactical/brand/positioning.yaml
+      doc_id: L2-002
+      min_state: DRAFT
+      usage: reference
+      consumed_by_agents: [copy-chief, todd-brown, eugene-schwartz]
+      rationale: "Posicionamento para diferenciação e unique mechanism"
+
+  squad_data:
+    shared:
+      - path: squads/copy/data/copywriting-kb.md
+        usage: database
+        consumed_by_agents: ALL
+        description: "Knowledge base central de copywriting"
+
+      - path: squads/copy/data/expert-clone-mapping.yaml
+        usage: database
+        consumed_by_agents: [copy-chief]
+        description: "Mapeamento de experts → agents para routing"
+
+      - path: squads/copy/data/boron-letters-collier-dna.yaml
+        usage: database
+        consumed_by_agents: [gary-halbert, robert-collier]
+        description: "Boron Letters + Collier DNA"
+
+    authority:
+      - path: squads/copy/authority/bencivenga.yaml
+        agent: gary-bencivenga
+      - path: squads/copy/authority/halbert.yaml
+        agent: gary-halbert
+      - path: squads/copy/authority/kennedy.yaml
+        agent: dan-kennedy
+      - path: squads/copy/authority/makepeace.yaml
+        agent: clayton-makepeace
+      - path: squads/copy/authority/schwartz.yaml
+        agent: eugene-schwartz
+      - path: squads/copy/authority/sugarman.yaml
+        agent: joe-sugarman
+
+    plf_data:
+      - path: squads/copy/data/jeff-walker-plf-extraction.md
+        agent: jeff-walker
+      - path: squads/copy/data/plf/avatar-framework-kb.yaml
+        agent: jeff-walker
+      - path: squads/copy/data/plf/content-formats-kb.yaml
+        agent: jeff-walker
+      - path: squads/copy/data/plf/contingency-framework-kb.yaml
+        agent: jeff-walker
+      - path: squads/copy/data/plf/copy-scripts-extracted.yaml
+        agent: jeff-walker
+      - path: squads/copy/data/plf/copy-swipes-kb.yaml
+        agent: jeff-walker
+      - path: squads/copy/data/plf/email-benchmarks-kb.yaml
+        agent: jeff-walker
+      - path: squads/copy/data/plf/launch-budget-kb.yaml
+        agent: jeff-walker
+      - path: squads/copy/data/plf/mental-triggers-kb.yaml
+        agent: jeff-walker
+      - path: squads/copy/data/plf/objection-database.yaml
+        agent: jeff-walker
+      - path: squads/copy/data/plf/platform-comparison-kb.yaml
+        agent: jeff-walker
+      - path: squads/copy/data/plf/plc-criteria-extracted.yaml
+        agent: jeff-walker
+      - path: squads/copy/data/plf/timeline-reference-kb.yaml
+        agent: jeff-walker
+
+# ============================================================
+# OUTPUTS — Copy assets (NÃO registry-tracked)
+# ============================================================
+
+outputs:
+
+  workspace: []
+
+  artifacts:
+    # Tier 0 - Diagnosis
+    - id: awareness-diagnosis
+      description: "Diagnóstico de awareness (Schwartz 5 levels)"
+      produced_by: [eugene-schwartz]
+      tasks: [diagnose-awareness-level]
+
+    - id: sophistication-diagnosis
+      description: "Diagnóstico de sofisticação de mercado (5 stages)"
+      produced_by: [eugene-schwartz]
+      tasks: [diagnose-market-sophistication]
+
+    - id: mental-conversation-analysis
+      description: "Conversa mental do prospect (Collier)"
+      produced_by: [robert-collier]
+      tasks: [analyze-mental-conversation]
+
+    - id: copy-audit-report
+      description: "Auditoria Hopkins (7 fases, 280 pontos)"
+      produced_by: [claude-hopkins]
+      tasks: [audit-copy-hopkins]
+
+    # Tier 2 - Strategy
+    - id: avatar-profile
+      description: "Perfil de avatar (Kennedy 10 fases)"
+      produced_by: [dan-kennedy]
+      tasks: [avatar-research]
+
+    - id: unique-mechanism
+      description: "Mecanismo único (Todd Brown E5)"
+      produced_by: [todd-brown]
+      tasks: [create-unique-mechanism]
+
+    - id: big-idea
+      description: "Big Marketing Idea (1 frase)"
+      produced_by: [todd-brown]
+      tasks: [create-big-idea]
+
+    - id: rmbc-brief
+      description: "RMBC production brief (Georgi)"
+      produced_by: [stefan-georgi]
+      tasks: [rmbc-method]
+
+    - id: communication-dna
+      description: "DNA de comunicação (voice, tone, vocabulary)"
+      produced_by: [copy-chief]
+      tasks: [extract-communication-dna]
+      format: yaml
+
+    # Tier 1 - Master copy
+    - id: sales-page-copy
+      description: "Sales page (3000-5000 words)"
+      produced_by: [gary-halbert, claude-hopkins]
+      tasks: [create-sales-page]
+
+    - id: vsl-script
+      description: "VSL script (Benson 5-step)"
+      produced_by: [jon-benson]
+      tasks: [vsl-script]
+
+    - id: landing-page-copy
+      description: "Landing page (5 tipos)"
+      produced_by: [gary-halbert, david-ogilvy]
+      tasks: [create-landing-page]
+
+    - id: headline-pack
+      description: "30-50 headlines + top 5"
+      produced_by: [gary-halbert, john-carlton, david-ogilvy]
+      tasks: [create-headlines]
+      volume: "30-50"
+
+    - id: bullet-pack
+      description: "50-100 bullets/fascinations"
+      produced_by: [gary-bencivenga, parris-lampropoulos]
+      tasks: [create-bullets, write-lampropoulos-bullets]
+      volume: "50-100"
+
+    - id: visceral-copy
+      description: "Copy amplificada emocionalmente"
+      produced_by: [clayton-makepeace]
+      tasks: [write-visceral-copy]
+
+    # Tier 3 - Specialist
+    - id: email-sequences
+      description: "Sequências de email (5-15 per)"
+      produced_by: [andre-chaperon, ben-settle, ry-schwartz]
+      tasks: [create-email-sequence, create-soap-opera-sequence, create-daily-email, create-launch-emails]
+
+    - id: ad-copy-pack
+      description: "Ad copy (20+ por plataforma)"
+      produced_by: [dan-kennedy, david-ogilvy]
+      tasks: [create-ad-copy, create-ad-script, create-youtube-ads, create-native-ads]
+      volume: "20+"
+
+    - id: lead-magnet-structure
+      description: "Lead magnet (10 formatos)"
+      produced_by: [dan-kennedy]
+      tasks: [create-lead-magnet]
+
+    - id: webinar-scripts
+      description: "Scripts webinar (cold/warm)"
+      produced_by: [jeff-walker, dan-kennedy]
+      tasks: [create-webinar-script, create-cold-webinar-script, create-warm-webinar-script]
+
+    - id: call-scripts
+      description: "Scripts call e close"
+      produced_by: [dan-kennedy]
+      tasks: [create-call-script, create-close-script]
+
+    - id: offer-architecture
+      description: "Arquitetura de oferta"
+      produced_by: [copy-chief]
+      tasks: [create-offer, evaluate-offer]
+
+    - id: funnel-pages
+      description: "Páginas funil (upsell, downsell, bump, thank-you)"
+      produced_by: [russell-brunson]
+      tasks: [create-upsell-page, create-downsell-page, create-order-bump, create-thank-you-page]
+
+    - id: plf-launch-stack
+      description: "Launch stack PLF completo"
+      produced_by: [jeff-walker]
+      tasks: ["plf/create-launch-stack", "plf/create-plc-sequence", "plf/create-preprelaunch", "plf/create-open-cart-sequence"]
+
+    - id: sugarman-audit
+      description: "30 triggers psicológicos auditados"
+      produced_by: [joe-sugarman]
+      tasks: [apply-sugarman-triggers]
+
+# ============================================================
+# AGENTS — 25 agents, 4 tiers + orchestrator + tool
+# ============================================================
+
+agents:
+  - id: copy-chief
+    role: "Orquestrador — tier workflow, diagnóstico e delegação"
+    is_lead: true
+    tier: orchestrator
+    tasks: [load-workspace-context, blend, copy-debate, create-copywriter-agent, extract-communication-dna, create-offer, evaluate-offer]
+    databases: [data/copywriting-kb.md, data/expert-clone-mapping.yaml]
+
+  # Tier 0 — Foundation & Diagnosis
+  - id: claude-hopkins
+    role: "Scientific Advertising — auditoria & testes"
+    tier: 0
+    tasks: [audit-copy-hopkins, setup-split-test, audit-landing-page]
+  - id: eugene-schwartz
+    role: "5 Levels of Awareness & Market Sophistication"
+    tier: 0
+    tasks: [diagnose-awareness-level, diagnose-market-sophistication]
+    databases: [authority/schwartz.yaml]
+  - id: robert-collier
+    role: "Mental Conversation Analysis"
+    tier: 0
+    tasks: [analyze-mental-conversation]
+    databases: [data/boron-letters-collier-dna.yaml]
+
+  # Tier 1 — Documented Masters ($500M+)
+  - id: gary-halbert
+    tier: 1
+    tasks: [create-sales-page, create-headlines, create-landing-page]
+    databases: [authority/halbert.yaml, data/boron-letters-collier-dna.yaml]
+  - id: gary-bencivenga
+    tier: 1
+    tasks: [create-bullets, create-proof-stack]
+    databases: [authority/bencivenga.yaml]
+  - id: david-ogilvy
+    tier: 1
+    tasks: [create-headlines, create-ad-copy, create-landing-page]
+  - id: clayton-makepeace
+    tier: 1
+    tasks: [write-visceral-copy]
+    databases: [authority/makepeace.yaml]
+  - id: parris-lampropoulos
+    tier: 1
+    tasks: [write-lampropoulos-bullets, create-bullets]
+  - id: john-carlton
+    tier: 1
+    tasks: [create-headlines, simple-writing-audit]
+  - id: jim-rutz
+    tier: 1
+    tasks: [create-magalog]
+  - id: david-deutsch
+    tier: 1
+    tasks: [create-sales-page]
+
+  # Tier 2 — Modern Systematizers
+  - id: dan-kennedy
+    tier: 2
+    tasks: [avatar-research, create-call-script, create-close-script, create-ad-copy, create-lead-magnet, map-6-primary-motives]
+    databases: [authority/kennedy.yaml]
+  - id: todd-brown
+    tier: 2
+    tasks: [create-unique-mechanism, create-big-idea]
+  - id: stefan-georgi
+    tier: 2
+    tasks: [rmbc-method]
+  - id: jeff-walker
+    tier: 2
+    tasks: ["plf/evaluate-cpl", "plf/create-plc-sequence", "plf/create-preprelaunch", "plf/create-launch-emails", "plf/create-launch-stack", "plf/create-open-cart-sequence", "plf/create-seed-launch", "plf/create-live-launch", "plf/create-evergreen-launch", "plf/create-jv-launch", "plf/create-sales-page-plf", "plf/create-case-study", "plf/diagnose-failed-launch", "plf/map-mental-triggers", "plf/plan-paid-traffic"]
+    databases: [data/jeff-walker-plf-extraction.md, data/plf/]
+  - id: russell-brunson
+    tier: 2
+    tasks: ["brunson/create-book-funnel", create-upsell-page, create-downsell-page, create-order-bump, create-thank-you-page]
+  - id: frank-kern
+    tier: 2
+    tasks: [create-ad-copy]
+
+  # Tier 3 — Specialists
+  - id: jon-benson
+    tier: 3
+    tasks: [vsl-script, create-video-hook]
+  - id: andre-chaperon
+    tier: 3
+    tasks: [create-email-sequence, create-soap-opera-sequence, create-launch-emails]
+  - id: ben-settle
+    tier: 3
+    tasks: [create-daily-email, create-newsletter]
+  - id: ry-schwartz
+    tier: 3
+    tasks: [create-email-sequence, create-pre-call-hammer-sequence, create-ghosted-lead-recovery]
+  - id: dan-koe
+    tier: 3
+    tasks: [create-newsletter]
+
+  # Tool
+  - id: joe-sugarman
+    tier: tool
+    tasks: [apply-sugarman-triggers]
+    databases: [authority/sugarman.yaml]
+    note: "POST-copy checklist — 30 triggers (NOT 31)"
+
+# ============================================================
+# WORKFLOWS — 14 workflows
+# ============================================================
+
+workflows:
+  - id: wf-1-full-launch
+    name: "Full Launch (5-7 days)"
+    phases: 5
+    flow: |
+      Phase 1: Foundation → diagnose-awareness-level → analyze-mental-conversation
+      Phase 2: Strategy → avatar-research → create-unique-mechanism → rmbc-method
+      Phase 3: Execution → create-headlines → create-sales-page/vsl-script → create-bullets → write-visceral-copy
+      Phase 4: Sequences → create-soap-opera-sequence → create-abandoned-cart
+      Phase 5: Optimization → audit-copy-hopkins → apply-sugarman-triggers → audit-landing-page
+
+  - id: wf-2-paid-traffic
+    name: "Paid Traffic Campaign"
+  - id: wf-3-high-ticket
+    name: "High Ticket Funnel"
+  - id: wf-4-organic-content
+    name: "Organic Content Pipeline"
+  - id: wf-5-email-marketing
+    name: "Email Marketing System"
+  - id: wf-6-funnel-optimization
+    name: "Funnel Optimization"
+  - id: wf-7-direct-mail
+    name: "Direct Mail Campaign"
+  - id: wf-9-call-funnel-complete
+    name: "Call Funnel Complete"
+  - id: wf-10-webinar-cold-weekly
+    name: "Cold Webinar Weekly"
+  - id: wf-11-ghosted-recovery
+    name: "Ghosted Lead Recovery"
+  - id: wf-book-launch
+    name: "Book Launch (Brunson)"
+  - id: wf-evaluate-cpl
+    name: "Evaluate CPL (PLF)"
+  - id: wf-evaluate-cpls-batch
+    name: "Batch CPL Evaluation"
+  - id: wf-voice-clone-copy
+    name: "Voice Clone Copy (MMOS)"
+
+# ============================================================
+# CROSS-DOMAIN
+# ============================================================
+
+cross_domain:
+  cross_squad:
+    - squad: hormozi
+      relationship: bidirectional
+      copy_consumes: [grand-slam-offer, value-equation-diagnostic, pricing-recommendation]
+      copy_provides: [sales-page-copy, vsl-script, email-sequences, ad-copy-pack]
+
+    - squad: brand
+      relationship: consumer
+      copy_consumes: [brand-platform, positioning, narrative-messaging]
+
+    - squad: design-squad
+      relationship: bidirectional
+      copy_provides: [sales-page-copy, landing-page-copy]
+
+    - squad: media-buy-squad
+      relationship: provider
+      copy_provides: [ad-copy-pack, headline-pack, landing-page-copy]
+
+    - squad: traffic-masters
+      relationship: provider
+      copy_provides: [ad-copy-pack, headline-pack]
+
+    - squad: storytelling-squad
+      relationship: bidirectional
+      copy_consumes: [story-frameworks, narrative-arcs]
+      copy_provides: [brand-story-copy]
+
+    - squad: live-content-squad
+      relationship: bidirectional
+      copy_provides: [webinar-scripts, vsl-script]
+
+  apps: []
+  infrastructure: []
+  packages: []
+
+# ============================================================
+# ENFORCEMENT
+# ============================================================
+
+enforcement:
+  required_inputs:
+    - doc_id: L0-001
+      min_state: POPULATED
+    - doc_id: L1-001
+      min_state: POPULATED
+    - doc_id: L1-002
+      min_state: POPULATED
+    - doc_id: L2-001
+      min_state: DRAFT
+    - doc_id: L2-002
+      min_state: DRAFT
+
+  enforcement_model: tier_gates
+
+  tier_gates:
+    - gate: tier_0_completion
+      mandatory: true
+      blocking: true
+      required_outputs: [awareness-diagnosis, sophistication-diagnosis]
+
+    - gate: strategy_completion
+      mandatory: true
+      blocking: true
+      depends_on: [tier_0_completion]
+      required_outputs: [avatar-profile, unique-mechanism]
+
+    - gate: quality_gate
+      mandatory: true
+      blocking: false
+      threshold: "audit_score >= 80%"
+
+  output_standards:
+    headlines: "min 30"
+    bullets: "min 50"
+    email_sequences: "min 5 per sequence"
+    ad_variations: "min 20 per platform"
+    sales_page: "min 3000 words"
+
+# ============================================================
+# AUDIT NOTES
+# ============================================================
+
+audit_notes:
+  audited_by: CSO
+  audited_at: "2026-03-09"
+  squad_io_version: "2.0.0"
+  previous_version: "1.0.0 (19 lines, 5 required_inputs)"
+
+  findings:
+    - id: CP-001
+      severity: INFO
+      finding: "Maior squad: 425 arquivos, 76 tasks, 25 agents"
+      recommendation: "Considerar sub-squads (PLF como independente)"
+
+    - id: CP-002
+      severity: MEDIUM
+      finding: "Agent alex-hormozi overlap com hormozi-squad"
+      recommendation: "Fronteira: hormozi = offer engineering, copy = sales copy"
+
+    - id: CP-003
+      severity: MEDIUM
+      finding: "14 workflows sem enforcement formal de phase gates"
+      recommendation: "Implementar blocking gates como hormozi veto_conditions"
+
+    - id: CP-004
+      severity: LOW
+      finding: "58 templates podem estar desatualizados (v3→v4)"
+      recommendation: "Audit de templates"
+
+    - id: CP-005
+      severity: LOW
+      finding: "MMOS integration disabled mas mind_mapping existe"
+      recommendation: "Decidir ativação ou manter authority/ files"
+
+    - id: CP-006
+      severity: INFO
+      finding: "PLF sub-module = squad dentro do squad (15 tasks, 20+ checklists)"
+      recommendation: "Considerar extrair como sub-squad"
+
+    - id: CP-007
+      severity: INFO
+      finding: "8 cross-squad bridges (mais conectado do ecossistema)"
+      recommendation: "Formalizar quando squads receberem squad-io v2"
+
+    - id: CP-008
+      severity: LOW
+      finding: "V1 tinha required_inputs com L2-003 (narrative-messaging) POPULATED"
+      recommendation: "V2 relaxou para L2-001/L2-002 DRAFT — validar se suficiente"

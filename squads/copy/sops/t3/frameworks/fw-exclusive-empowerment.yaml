@@ -1,0 +1,76 @@
+sop:
+  id: fw-exclusive-empowerment
+  version: "1.0"
+  title: "Exclusive Empowerment Positioning"
+  purpose: "Position premium offers through prospect's sense of DESERVING — beyond scarcity to merecimento"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: ry-schwartz
+    tier: t3
+  steps:
+    - id: apply_identify_pride
+      name: "Identify Points of Pride"
+      description: "Map prospect's prior accomplishments that form the empowerment foundation"
+      inputs:
+        - prospect_achievements
+        - experience_markers
+        - identity_signals
+      outputs:
+        - points_of_pride_map
+      validation:
+        - specific_accomplishments: true
+        - not_demographics: true
+    - id: apply_position_as_deserved
+      name: "Position Product as Deserved"
+      description: "Frame product as what they've earned through prior effort"
+      inputs:
+        - points_of_pride_map
+        - product_positioning
+      outputs:
+        - empowerment_copy
+      validation:
+        - uses_earned_language: true
+        - validates_prior_effort: true
+        - not_need_based: true
+    - id: apply_beyond_scarcity
+      name: "Move Beyond Scarcity"
+      description: "Replace artificial supply limits with natural fit-based exclusivity"
+      inputs:
+        - empowerment_copy
+        - product_requirements
+      outputs:
+        - merecimento_positioning
+      validation:
+        - no_artificial_scarcity: true
+        - exclusivity_from_fit: true
+    - id: apply_self_selection
+      name: "Nobody Wants What Everyone Can Have"
+      description: "Ensure achievers self-select and beginners self-deselect"
+      inputs:
+        - merecimento_positioning
+        - qualifier_criteria
+      outputs:
+        - exclusive_positioning_copy
+      validation:
+        - achievers_self_select: true
+        - beginners_self_deselect: true
+        - exclusivity_is_genuine: true
+  error_handling:
+    - error: empowerment_on_beginner_product
+      condition: "Applied to product that doesn't require prior experience"
+      action: "Reserve for genuinely premium/advanced offers only"
+    - error: mixed_scarcity_empowerment
+      condition: "Both scarcity and empowerment used simultaneously"
+      action: "Choose empowerment as primary; remove artificial scarcity"
+    - error: generic_deserve_language
+      condition: "'You deserve this' without specific accomplishment reference"
+      action: "Name specific achievements that qualify the prospect"
+  quality_gate:
+    min_sections: 4
+    required_elements:
+      - specific_pride_points
+      - earned_not_needed_framing
+      - fit_based_exclusivity
+      - self_selection_mechanism
+    pass_threshold: "achievers feel recognized; beginners feel respectfully excluded"

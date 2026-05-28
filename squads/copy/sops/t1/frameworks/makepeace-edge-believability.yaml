@@ -1,0 +1,59 @@
+sop:
+  id: makepeace-edge-believability
+  version: "1.0"
+  title: "Edge of Believability"
+  purpose: >
+    Calibrate every promise to the optimal zone: 'just barely possible.'
+    PROMISE IMPACT = f(Desire x Believability). Rejected zone = too good to
+    be true. Ignored zone = too boring. Edge = leaps off the page.
+  classification:
+    domain: copywriting
+    category: master
+    source_agent: clayton-makepeace
+    tier: t1
+
+  steps:
+    - id: apply_impact_formula
+      action: "Evaluate promise on both Desire and Believability axes; both must be high"
+      input: "promise_statement"
+      output: "impact_assessment"
+
+    - id: apply_rejected_zone_check
+      action: "Test if promise exceeds credibility threshold ('yeah right' response)"
+      condition: "promise <= credibility_threshold"
+      output: "rejected_zone_clear"
+
+    - id: apply_ignored_zone_check
+      action: "Test if promise falls below interest threshold ('so what?' response)"
+      condition: "promise >= interest_threshold"
+      output: "ignored_zone_clear"
+
+    - id: apply_optimal_calibration
+      action: "Adjust promise to 'just barely possible' zone using specificity and realistic timeframes"
+      input: "promise_statement, proof_available"
+      output: "calibrated_promise"
+
+    - id: apply_specificity
+      action: "Add exact numbers and realistic timeframes to increase believability while maintaining desire"
+      output: "specific_promise"
+
+  error_handling:
+    - error: "rejected_zone"
+      severity: high
+      action: "Reduce promise magnitude or add overwhelming proof"
+    - error: "ignored_zone"
+      severity: high
+      action: "Increase promise to edge of interest; add desire-building elements"
+    - error: "vague_promise"
+      severity: medium
+      action: "Add specific numbers, timeframes, and conditions"
+    - error: "promise_exceeds_proof"
+      severity: high
+      action: "Only promise what available proof can support"
+
+  quality_gate:
+    not_in_rejected_zone: true
+    not_in_ignored_zone: true
+    specific_numbers_present: true
+    proof_matches_promise: true
+    edge_calibrated: true

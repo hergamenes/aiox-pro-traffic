@@ -1,0 +1,98 @@
+sop:
+  id: fw-big-idea-system
+  version: "1.0"
+  title: "Big Idea System"
+  purpose: "Develop the core Big Idea that powers conversion copy — name the transformation, map the path, validate blue ocean"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: ry-schwartz
+    tier: t3
+  steps:
+    - id: apply_big_idea
+      name: "Big Idea — Name the Transformation"
+      description: "Discover and name the final transformation from customer language, not invention"
+      inputs:
+        - customer_testimonials
+        - success_stories
+        - customer_interviews
+      outputs:
+        - big_idea_name
+        - source_evidence
+      validation:
+        - discovered_not_invented: true
+        - uses_customer_language: true
+    - id: apply_unpack
+      name: "Unpack — Dimensionalize"
+      description: "Expand Big Idea across meaning, feeling, gains, and losses avoided"
+      inputs:
+        - big_idea_name
+        - prospect_current_state
+      outputs:
+        - multi_dimensional_unpacking
+      validation:
+        - covers_meaning: true
+        - covers_feeling: true
+        - covers_gains: true
+        - covers_losses_avoided: true
+    - id: apply_path_key_shifts
+      name: "Path — 3-5 Key Shifts"
+      description: "Map Key Shifts with Reframe, Action, MHT, and MHP for each"
+      inputs:
+        - prospect_journey
+        - product_features
+        - proof_elements
+      outputs:
+        - key_shifts
+      validation:
+        - shift_count: "3-5"
+        - each_has_reframe: true
+        - each_has_action: true
+        - each_has_mht: true
+        - each_has_mhp: true
+    - id: apply_blue_ocean_bridge
+      name: "Blue Ocean Bridge"
+      description: "Verify no single competitor satisfies all Key Shifts"
+      inputs:
+        - key_shifts
+        - competitor_analysis
+      outputs:
+        - blue_ocean_validation
+      validation:
+        - no_competitor_covers_all: true
+        - combination_is_unique: true
+    - id: apply_first_move
+      name: "First Move — Honor Aspirational Self"
+      description: "Position prospect as aspirational version who has already begun the journey"
+      inputs:
+        - prospect_effort_so_far
+        - aspirational_identity
+      outputs:
+        - first_move_copy
+        - complete_big_idea_document
+      validation:
+        - honors_prospect: true
+        - purchase_as_continuation: true
+        - not_transactional: true
+  error_handling:
+    - error: invented_big_idea
+      condition: "Big Idea is marketing jargon, not customer language"
+      action: "Mine testimonials and interviews for actual phrases customers use"
+    - error: shallow_unpacking
+      condition: "Unpacking is a benefit list without sensory or emotional depth"
+      action: "Add feeling, meaning, and relational dimensions"
+    - error: missing_proof
+      condition: "Key Shifts lack MHP (Most Helpful Proof)"
+      action: "Add specific evidence for each Shift"
+    - error: no_blue_ocean
+      condition: "Competitor can deliver all Key Shifts"
+      action: "Redefine Shifts until the combination is uniquely yours"
+  quality_gate:
+    min_sections: 5
+    required_elements:
+      - big_idea_from_customer_language
+      - multi_dimensional_unpacking
+      - key_shifts_with_four_elements
+      - blue_ocean_validated
+      - first_move_honors_prospect
+    pass_threshold: "all 5 steps complete with validation"

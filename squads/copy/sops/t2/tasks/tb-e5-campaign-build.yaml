@@ -1,0 +1,104 @@
+sop:
+  id: "tb-e5-campaign-build"
+  version: "1.0.0"
+  title: "E5 Campaign Method Build"
+  purpose: "Construct a complete 5-phase marketing campaign where 75% is education/desire-building and 25% is selling, using Todd Brown's E5 framework"
+  classification:
+    domain: "copywriting"
+    category: "systematizer"
+    sub_category: "campaign-architecture"
+    risk_level: "medium"
+  status: "ACTIVE"
+  trigger:
+    type: "manual"
+    description: "When building a new campaign for a product launch, or when traditional pitch-first campaigns are generating resistance"
+  context:
+    input:
+      - name: "product_service"
+        type: "object"
+        required: true
+        description: "Complete product/service details including transformation promise"
+      - name: "unique_mechanism"
+        type: "object"
+        required: true
+        description: "Discovered Unique Mechanism with Problem Mechanism and Solution Mechanism (from tb-unique-mechanism-discovery)"
+      - name: "big_marketing_idea"
+        type: "string"
+        required: true
+        description: "Central idea that reframes the prospect's understanding of their problem"
+  steps:
+    - id: "S001"
+      name: "E1 — Educate"
+      action: "define_big_idea_and_educate"
+      description: "Define the Big Marketing Idea that reframes the problem. Create education content that changes perspective WITHOUT selling. Zero product mentions. Prospect should think 'my current approach cannot work.'"
+      performer: "copywriter"
+      critical: true
+      on_success: "S002"
+      on_failure: "retry"
+    - id: "S002"
+      name: "E2 — Excite"
+      action: "present_solution_mechanism"
+      description: "Present the Unique Mechanism as the category of solution. Generate desire for this TYPE of approach using proof, case studies, and demonstrations. Do not mention the specific product yet."
+      performer: "copywriter"
+      critical: true
+      on_success: "S003"
+      on_failure: "retry"
+    - id: "S003"
+      name: "E3 — Engage"
+      action: "connect_mechanism_to_product"
+      description: "Bridge from mechanism to product: 'Based on [mechanism], I created [product].' Show how the product embodies the mechanism the prospect already believes in."
+      performer: "copywriter"
+      critical: true
+      on_success: "S004"
+      on_failure: "retry"
+    - id: "S004"
+      name: "E4 — Evaluate"
+      action: "provide_logical_justification"
+      description: "Provide ROI calculation, comparison with alternatives, and risk reversal guarantee. Address top 3-5 objections with evidence."
+      performer: "copywriter"
+      critical: false
+      on_success: "S005"
+      on_failure: "retry"
+    - id: "S005"
+      name: "E5 — Execute"
+      action: "deliver_cta_with_urgency"
+      description: "Clear CTA commanding specific action + genuine urgency + remove ALL friction from response process + design immediate onboarding."
+      performer: "copywriter"
+      critical: true
+      on_success: "END"
+      on_failure: "retry"
+  error_handling:
+    global_timeout: "PT6H"
+    retry_policy:
+      max_retries: 2
+      backoff: "linear"
+  quality_gate:
+    enabled: true
+    criteria:
+      - name: "big_idea_reframes_problem"
+        type: "boolean"
+        target: true
+        weight: 0.25
+      - name: "e1_no_product_mention"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "mechanism_differentiated"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "campaign_ratio_75_25"
+        type: "boolean"
+        target: true
+        weight: 0.2
+      - name: "cta_friction_free"
+        type: "boolean"
+        target: true
+        weight: 0.15
+    pass_threshold: 0.85
+  outputs:
+    artifacts:
+      - name: "e5_campaign"
+        type: "system"
+        format: "multi-component"
+        description: "Complete 5-phase campaign: education content, mechanism presentation, product bridge, logical justification, and friction-free CTA"

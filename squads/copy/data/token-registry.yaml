@@ -1,0 +1,343 @@
+# Token Registry — Copy Squad
+# Materializa a camada de tokens do contrato operacional do squad
+# Gerado na remediação P1 do audit SINKRA
+
+meta:
+  contract_source: "direct-squad-audit-p1-remediation"
+  version: "1.0.0"
+  total_tokens: 18
+  token_types: [Taxonomy, Threshold, Time, Behavior, Accountability]  # remapped: Data → Taxonomy [HUB-003]
+  handoff_persistence: "projects/{project}/token-state.json"
+  default_human_accountable: "launch-owner"
+  default_worker_handoff: "copy-ops-worker"
+
+constants:
+  time:
+    TK-TIME-001: { name: human_review_sla_hours, value: 24, unit: hours }
+    TK-TIME-002: { name: package_handoff_sla_hours, value: 8, unit: hours }
+    TK-TIME-003: { name: experiment_validation_window_days, value: 7, unit: days }
+
+  threshold:
+    TK-THR-001: { name: briefing_completeness_pct_min, value: 0.90, unit: ratio }
+    TK-THR-002: { name: awareness_alignment_score_min, value: 0.80, unit: ratio }
+    TK-THR-003: { name: mechanism_clarity_score_min, value: 0.75, unit: ratio }
+    TK-THR-004: { name: proof_points_min, value: 3, unit: count }
+    TK-THR-005: { name: deliverable_completeness_pct_min, value: 0.95, unit: ratio }
+    TK-THR-006: { name: evaluation_evidence_refs_min, value: 5, unit: count }
+    TK-THR-007: { name: voice_match_score_min, value: 0.85, unit: ratio }
+    TK-THR-008: { name: testable_hypotheses_min, value: 1, unit: count }
+
+  behavior:
+    TK-BEH-001: { name: human_review_required_on_blocking_checkpoint, value: true }
+    TK-BEH-002: { name: worker_package_required_before_handoff, value: true }
+    TK-BEH-003: { name: unsupported_claims_trigger_veto, value: true }
+
+  taxonomy:
+    TK-TAX-001: { name: domain_strategy, value: Strategic }
+    TK-TAX-002: { name: domain_execution, value: Tactical }
+    TK-TAX-003: { name: domain_handoff, value: Operational }
+
+tokens:
+  - token_id: "TKC-001"
+    token_type: Data
+    family: Taxonomy  # remapped: Data → Taxonomy [HUB-003]
+    token_name: launch_foundation_token
+    token_value: foundation_ready
+    domain: Strategic
+    produced_by: "wf-1-full-launch.foundation"
+    consumed_by: ["wf-1-full-launch.strategy"]
+    handoff_key: "launch_foundation"
+    persistence: runtime
+    constraint: "TK-THR-001"
+    description: "Confirma que o contexto base do launch foi mapeado antes de definir mecanismo e big idea."
+
+  - token_id: "TKC-002"
+    token_type: Data
+    family: Taxonomy  # remapped: Data → Taxonomy [HUB-003]
+    token_name: launch_strategy_token
+    token_value: strategy_ready
+    domain: Strategic
+    produced_by: "wf-1-full-launch.strategy"
+    consumed_by: ["wf-1-full-launch.execution-assets", "wf-1-full-launch.email-system"]
+    handoff_key: "launch_strategy"
+    persistence: runtime
+    constraint: "TK-THR-002"
+    description: "Transporta awareness, mecanismo e posicionamento aprovados para produção dos ativos centrais."
+
+  - token_id: "TKC-003"
+    token_type: Data
+    family: Taxonomy  # remapped: Data → Taxonomy [HUB-003]
+    token_name: launch_package_token
+    token_value: package_ready_for_review
+    domain: Tactical
+    produced_by: "wf-1-full-launch.final-review"
+    consumed_by: ["launch-owner", "copy-ops-worker"]
+    handoff_key: "full_launch_package"
+    persistence: artifact
+    constraint: "TK-THR-005"
+    description: "Pacote consolidado do launch, já revisado pelo copy-chief e pronto para checkpoint humano e packaging."
+
+  - token_id: "TKC-004"
+    token_type: Data
+    family: Taxonomy  # remapped: Data → Taxonomy [HUB-003]
+    token_name: traffic_diagnosis_token
+    token_value: traffic_diagnosis_ready
+    domain: Strategic
+    produced_by: "wf-2-paid-traffic.diagnosis"
+    consumed_by: ["wf-2-paid-traffic.ad-copy", "wf-2-paid-traffic.landing-assets"]
+    handoff_key: "traffic_diagnosis"
+    persistence: runtime
+    constraint: "TK-THR-002"
+    description: "Congela awareness e sofisticação do tráfego pago antes da criação de anúncios e landing assets."
+
+  - token_id: "TKC-005"
+    token_type: Data
+    family: Taxonomy  # remapped: Data → Taxonomy [HUB-003]
+    token_name: paid_traffic_package_token
+    token_value: paid_assets_ready
+    domain: Tactical
+    produced_by: "wf-2-paid-traffic.landing-assets"
+    consumed_by: ["launch-owner", "copy-ops-worker"]
+    handoff_key: "paid_traffic_package"
+    persistence: artifact
+    constraint: "TK-THR-005"
+    description: "Agrupa anúncio, landing e ativos de conversão antes do checkpoint comercial e do handoff operacional."
+
+  - token_id: "TKC-006"
+    token_type: Data
+    family: Taxonomy  # remapped: Data → Taxonomy [HUB-003]
+    token_name: premium_foundation_token
+    token_value: premium_foundation_ready
+    domain: Strategic
+    produced_by: "wf-3-high-ticket.premium-foundation"
+    consumed_by: ["wf-3-high-ticket.mechanism", "wf-3-high-ticket.offer-architecture"]
+    handoff_key: "premium_foundation"
+    persistence: runtime
+    constraint: "TK-THR-001"
+    description: "Carrega contexto premium, avatar e baseline de confiança para as fases de mecanismo e oferta."
+
+  - token_id: "TKC-007"
+    token_type: Data
+    family: Taxonomy  # remapped: Data → Taxonomy [HUB-003]
+    token_name: high_ticket_system_token
+    token_value: sales_system_ready
+    domain: Tactical
+    produced_by: "wf-3-high-ticket.final-system"
+    consumed_by: ["launch-owner", "copy-ops-worker"]
+    handoff_key: "high_ticket_system"
+    persistence: artifact
+    constraint: "TK-THR-005"
+    description: "Sistema completo de venda high-ticket, incluindo assets de conversão e lógica de follow-up."
+
+  - token_id: "TKC-008"
+    token_type: Taxonomy
+    family: Taxonomy
+    token_name: email_style_decision_token
+    token_value: style_locked
+    domain: Strategic
+    produced_by: "wf-5-email-marketing.strategy"
+    consumed_by: ["wf-5-email-marketing.broadcast-system", "wf-5-email-marketing.automation-system"]
+    handoff_key: "email_style_decision"
+    persistence: runtime
+    description: "Formaliza a decisão Settle vs Chaperon vs Hybrid antes de produzir as sequências."
+
+  - token_id: "TKC-009"
+    token_type: Data
+    family: Taxonomy  # remapped: Data → Taxonomy [HUB-003]
+    token_name: email_system_package_token
+    token_value: email_system_ready
+    domain: Tactical
+    produced_by: "wf-5-email-marketing.final-review"
+    consumed_by: ["launch-owner", "copy-ops-worker"]
+    handoff_key: "email_system_package"
+    persistence: artifact
+    constraint: "TK-THR-005"
+    description: "Pacote consolidado de broadcasts, automações e biblioteca de sequência pronto para entrega."
+
+  - token_id: "TKC-010"
+    token_type: Data
+    family: Taxonomy  # remapped: Data → Taxonomy [HUB-003]
+    token_name: cro_audit_token
+    token_value: cro_audit_ready
+    domain: Operational
+    produced_by: "wf-6-funnel-optimization.audit"
+    consumed_by: ["wf-6-funnel-optimization.diagnosis", "wf-6-funnel-optimization.enhancements"]
+    handoff_key: "cro_audit"
+    persistence: runtime
+    description: "Baseline de métricas e achados do funnel antes de qualquer intervenção de copy."
+
+  - token_id: "TKC-011"
+    token_type: Data
+    family: Taxonomy  # remapped: Data → Taxonomy [HUB-003]
+    token_name: cro_test_plan_token
+    token_value: experiment_plan_ready
+    domain: Operational
+    produced_by: "wf-6-funnel-optimization.test-plan"
+    consumed_by: ["launch-owner", "copy-ops-worker"]
+    handoff_key: "cro_test_plan"
+    persistence: artifact
+    constraint: "TK-THR-008"
+    description: "Plano de teste com baseline, hipótese e critério de sucesso explícitos."
+
+  - token_id: "TKC-012"
+    token_type: Data
+    family: Taxonomy  # remapped: Data → Taxonomy [HUB-003]
+    token_name: book_funnel_assets_token
+    token_value: funnel_assets_ready
+    domain: Tactical
+    produced_by: "wf-book-launch.funnel"
+    consumed_by: ["wf-book-launch.prelaunch", "wf-book-launch.cart"]
+    handoff_key: "book_funnel_assets"
+    persistence: runtime
+    constraint: "TK-THR-004"
+    description: "Ativos do book funnel aprovados para alimentar pré-lançamento e cart."
+
+  - token_id: "TKC-013"
+    token_type: Data
+    family: Taxonomy  # remapped: Data → Taxonomy [HUB-003]
+    token_name: cpl_context_token
+    token_value: evaluation_context_ready
+    domain: Operational
+    produced_by: "wf-evaluate-cpl.context"
+    consumed_by: ["wf-evaluate-cpl.beat-analysis", "wf-evaluate-cpl.rubric"]
+    handoff_key: "cpl_evaluation_context"
+    persistence: runtime
+    constraint: "TK-THR-001"
+    description: "Contexto mínimo de avaliação de CPL carregado antes de scoring e findings."
+
+  - token_id: "TKC-014"
+    token_type: Data
+    family: Taxonomy  # remapped: Data → Taxonomy [HUB-003]
+    token_name: cpl_report_token
+    token_value: cpl_report_ready
+    domain: Operational
+    produced_by: "wf-evaluate-cpl.report"
+    consumed_by: ["launch-owner", "copy-ops-worker"]
+    handoff_key: "cpl_evaluation_report"
+    persistence: artifact
+    constraint: "TK-THR-006"
+    description: "Relatório final do CPL com trilha de evidência e recomendações acionáveis."
+
+  - token_id: "TKC-015"
+    token_type: Data
+    family: Taxonomy  # remapped: Data → Taxonomy [HUB-003]
+    token_name: voice_dna_token
+    token_value: voice_dna_ready
+    domain: Tactical
+    produced_by: "wf-voice-clone-copy.voice-dna"
+    consumed_by: ["wf-voice-clone-copy.rewrite", "wf-voice-clone-copy.validation"]
+    handoff_key: "voice_dna"
+    persistence: runtime
+    constraint: "TK-THR-007"
+    description: "DNA de voz sintetizado para reescrita e validação de fidelidade."
+
+  - token_id: "TKC-016"
+    token_type: Data
+    family: Taxonomy  # remapped: Data → Taxonomy [HUB-003]
+    token_name: voice_clone_package_token
+    token_value: cloned_copy_ready
+    domain: Tactical
+    produced_by: "wf-voice-clone-copy.validation"
+    consumed_by: ["launch-owner", "copy-ops-worker"]
+    handoff_key: "voice_clone_package"
+    persistence: artifact
+    constraint: "TK-THR-007"
+    description: "Copy clonada validada pelo copy-chief antes da aprovação humana e do packaging."
+
+  - token_id: "TKC-017"
+    token_type: Accountability
+    family: Accountability
+    token_name: checkpoint_decision_token
+    token_value: human_checkpoint_recorded
+    domain: Operational
+    produced_by: "launch-owner"
+    consumed_by: ["copy-ops-worker"]
+    handoff_key: "checkpoint_decision"
+    persistence: artifact
+    constraint: "TK-BEH-001"
+    description: "Decisão formal de checkpoint humano, com PASS/REVIEW/VETO e condições para seguir."
+
+  - token_id: "TKC-018"
+    token_type: Data
+    family: Taxonomy  # remapped: Data → Taxonomy [HUB-003]
+    token_name: delivery_manifest_token
+    token_value: handoff_ready
+    domain: Operational
+    produced_by: "copy-ops-worker"
+    consumed_by: ["workspace-handoff", "external-recipient"]
+    handoff_key: "delivery_manifest"
+    persistence: artifact
+    constraint: "TK-BEH-002"
+    description: "Manifesto final de entrega, com artefatos, lacunas e próximo passo explícito."
+
+  - token_id: "TKC-019"
+    token_type: Time
+    family: Time
+    token_name: copy_revision_sla_token
+    token_value: "PT24H"
+    domain: Tactical
+    produced_by: "copy-chief"
+    consumed_by: ["launch-owner", "copy-ops-worker"]
+    handoff_key: "revision_sla"
+    persistence: runtime
+    description: "Tempo máximo para revisão humana de copy crítica."
+
+  - token_id: "TKC-020"
+    token_type: Threshold
+    family: Threshold
+    token_name: conversion_readiness_threshold
+    token_value: 0.8
+    domain: Tactical
+    produced_by: "copy-chief"
+    consumed_by: ["launch-owner"]
+    handoff_key: "conversion_readiness"
+    persistence: runtime
+    description: "Threshold mínimo para liberar uma peça para checkpoint comercial."
+
+  - token_id: "TKC-021"
+    token_type: Behavior
+    family: Behavior
+    token_name: fallback_revision_policy
+    token_value: "review_then_rewrite"
+    domain: Operational
+    produced_by: "copy-chief"
+    consumed_by: ["copy-ops-worker", "launch-owner"]
+    handoff_key: "fallback_revision"
+    persistence: runtime
+    description: "Comportamento padrão quando um gate de copy falha."
+
+  - token_id: "TKC-022"
+    token_type: Capacity
+    family: Capacity
+    token_name: max_parallel_copy_assets
+    token_value: 3
+    domain: Operational
+    produced_by: "copy-ops-worker"
+    consumed_by: ["copy-chief"]
+    handoff_key: "parallel_capacity"
+    persistence: runtime
+    description: "Capacidade máxima de ativos em produção paralela sem perda de qualidade."
+
+  - token_id: "TKC-023"
+    token_type: Permission
+    family: Permission
+    token_name: commercial_approval_required
+    token_value: true
+    domain: Strategic
+    produced_by: "launch-owner"
+    consumed_by: ["copy-chief", "copy-ops-worker"]
+    handoff_key: "commercial_approval"
+    persistence: artifact
+    description: "Permissão obrigatória para liberar copy em handoff externo."
+
+  - token_id: "TKC-024"
+    token_type: Priority
+    family: Priority
+    token_name: launch_asset_priority
+    token_value: P1
+    domain: Tactical
+    produced_by: "copy-chief"
+    consumed_by: ["copy-ops-worker"]
+    handoff_key: "asset_priority"
+    persistence: runtime
+    description: "Prioridade padrão de execução para ativos de campanha ativa."

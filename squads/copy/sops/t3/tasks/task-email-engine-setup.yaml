@@ -1,0 +1,91 @@
+sop:
+  id: task-email-engine-setup
+  version: "1.0"
+  title: "Email Engine Architecture Setup"
+  purpose: "Build complete automated email system with 95% behavior-triggered autoresponders and 5% broadcasts, ensuring sequential narrative experience for every subscriber"
+  classification:
+    domain: copywriting
+    category: specialist
+    source_agent: andre-chaperon
+    tier: T3
+
+  inputs:
+    - name: brand_story
+      type: document
+      required: true
+      description: "Brand story and narrative arc"
+    - name: audience_segments
+      type: list
+      required: true
+      description: "Identified audience segments"
+    - name: email_platform
+      type: string
+      required: true
+      description: "Email platform with autoresponder and tagging capabilities"
+
+  outputs:
+    - name: email_engine
+      type: object
+      description: "Complete Email Engine (Welcome + Pause + Evergreen)"
+    - name: segmentation_rules
+      type: object
+      description: "Behavioral segmentation rules with triggers"
+
+  steps:
+    - id: step_1
+      action: create_welcome_series
+      description: "Write 7-email welcome series with complete SOS narrative arc"
+      critical: true
+      email_count: 7
+
+    - id: step_2
+      action: insert_pause
+      description: "Configure 10-day pause after Welcome Series before next sequence"
+      pause_days: 10
+
+    - id: step_3
+      action: create_evergreen_newsletter
+      description: "Build 26+ sequential episodes — every subscriber starts at episode 1 regardless of join date"
+      critical: true
+      min_episodes: 26
+      error_handling:
+        condition: "Newsletter configured as date-based"
+        action: "Reconfigure as autoresponder so new subscribers start at episode 1"
+
+    - id: step_4
+      action: define_behavioral_segmentation
+      description: "Set up 4 layers: engagement, interest, intent, customer"
+      layers:
+        - engagement
+        - interest
+        - intent
+        - customer
+
+    - id: step_5
+      action: configure_automation_ratio
+      description: "Target 95% autoresponder / 5% broadcast with entry/exit conditions"
+      target_ratio:
+        autoresponder: 0.95
+        broadcast: 0.05
+
+  quality_gate:
+    min_score: 7
+    max_score: 10
+    checks:
+      - "Welcome Series has 7 emails with narrative arc"
+      - "10-day pause configured between series"
+      - "Evergreen has 26+ sequential episodes"
+      - "Every subscriber starts at episode 1"
+      - "4 behavioral segmentation layers active"
+      - "Automation ratio approximately 95/5"
+    verdict:
+      pass: "score >= 7"
+      fail: "score < 7"
+
+  dependencies:
+    - task-soap-opera-sequence
+    - task-frank-matt-archetype
+
+  related_sops:
+    - task-behavioral-segmentation
+    - task-open-loop-architecture
