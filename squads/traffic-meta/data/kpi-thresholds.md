@@ -36,6 +36,36 @@ Estes são valores padrão de referência. Cada cliente/campanha pode ter metas 
 | **CPM** | < R$ 15 | R$ 15 - 30 | R$ 30 - 50 | > R$ 50 |
 | **Frequência** | < 2.0 | 2.0 - 3.0 | 3.0 - 4.0 | > 4.0 |
 
+### Reconhecimento (Awareness puro)
+
+| KPI | Bom | Aceitável | Ruim | Crítico |
+|-----|-----|-----------|------|---------|
+| **CPM** | < R$ 12 | R$ 12 - 25 | R$ 25 - 40 | > R$ 40 |
+| **Alcance** | crescente | estável | em queda | estagnado |
+| **Frequência** | < 2.0 | 2.0 - 3.0 | 3.0 - 4.0 | > 4.0 |
+
+### WhatsApp (Click-to-WhatsApp / Conversas)
+
+> Objetivo `whatsapp`. A "conversão" aqui é a **conversa iniciada** no WhatsApp — a CLI reporta 0 compras/leads por design (o evento é a conversa). O KPI principal é **custo por conversa iniciada**.
+
+| KPI | Bom | Aceitável | Ruim | Crítico |
+|-----|-----|-----------|------|---------|
+| **Custo por conversa iniciada** | < R$ meta | R$ meta - 1.5x | 1.5x - 2x meta | > 2x meta |
+| **Custo por lead qualificado** | < R$ meta | R$ meta - 1.5x | 1.5x - 2x meta | > 2x meta |
+| **CTR (link/CTWA)** | > 1.5% | 0.8% - 1.5% | 0.5% - 0.8% | < 0.5% |
+| **Taxa Clique→Conversa** | > 60% | 40% - 60% | 20% - 40% | < 20% |
+| **Frequência** | < 2.5 | 2.5 - 3.5 | 3.5 - 4.5 | > 4.5 |
+
+> Nota: "lead qualificado" e taxa de qualificação dependem do atendimento humano no WhatsApp — informe a meta do cliente. A CLI lê eventos de mensageria no relatório (`meta-ads report`).
+
+### Engajamento
+
+| KPI | Bom | Aceitável | Ruim | Crítico |
+|-----|-----|-----------|------|---------|
+| **Custo por engajamento** | < R$ 0.20 | R$ 0.20 - 0.50 | R$ 0.50 - 1.00 | > R$ 1.00 |
+| **Taxa de engajamento** | > 5% | 2% - 5% | 1% - 2% | < 1% |
+| **Frequência** | < 2.5 | 2.5 - 3.5 | 3.5 - 4.5 | > 4.5 |
+
 ---
 
 ## Regras de Decisão

@@ -9,7 +9,7 @@
 
 ## Responsabilidades
 
-1. **Receber dados de performance** — Aceitar CSV, screenshots de dashboards, ou métricas digitadas
+1. **Puxar dados de performance** — Ler métricas em tempo real via CLI `meta-ads report` (não precisa colar CSV/screenshot; aceita também dados digitados como fallback)
 2. **Aplicar frameworks de otimização** — Regras pré-definidas para decisão (escalar, pausar, ajustar)
 3. **Análise de CPA/ROAS** — Calcular e comparar custo por aquisição e retorno sobre investimento
 4. **Redistribuição de budget** — Sugerir realocação de verba entre conjuntos/campanhas
@@ -29,10 +29,10 @@
 
 ## Inputs Esperados
 
-- Dados de performance (CSV, texto, screenshots)
+- Dados de performance (via `meta-ads report` em tempo real; CSV/texto como fallback)
 - Período de análise (últimos 3 dias, 7 dias, 14 dias, 30 dias)
-- Objetivo da campanha (vendas, leads, tráfego)
-- KPIs alvo (CPA máximo, ROAS mínimo)
+- Objetivo da campanha (qualquer um dos 8: sales, leads, awareness, traffic, engagement, whatsapp, leadform, app)
+- KPIs alvo (CPA máximo, ROAS mínimo, ou **custo por conversa** para whatsapp)
 
 ## Outputs
 
@@ -118,3 +118,19 @@ Capacidades exclusivas do MCP (não existem na CLI):
 - **SEMPRE** registrar decisão no log de otimização com justificativa
 - **SEMPRE** comparar contra thresholds definidos em `kpi-thresholds.md`
 - Dados insuficientes → BLOQUEAR decisão e solicitar mais dados
+
+## Anti-Patterns (NUNCA fazer)
+
+- ❌ Decidir escalar/pausar com menos de 3 dias de dados (ou abaixo do mínimo estatístico de `kpi-thresholds.md`).
+- ❌ Avaliar campanha `whatsapp` por CPA/ROAS → ela não tem venda/lead no pixel; o KPI é **custo por conversa iniciada**.
+- ❌ Pausar por queda sem antes checar `anomaly_signal` → a "queda" pode ser anomalia/ruído, não tendência.
+- ❌ Escalar mexendo em >20% do budget de uma vez → reseta o aprendizado do conjunto.
+- ❌ Recomendar ação sem registrar no log de otimização com justificativa e dados.
+
+## Heurísticas (QUANDO aplicar)
+
+- **QUANDO** o objetivo é `whatsapp` → meça custo por conversa e taxa Clique→Conversa; ignore ROAS.
+- **QUANDO** `anomaly_signal` dispara → INVESTIGUE antes de qualquer decisão estrutural.
+- **QUANDO** Frequência > 4.0 → é fadiga de criativo; troque o criativo antes de pausar a campanha.
+- **QUANDO** o leilão piora (`auction_ranking_benchmarks`) mas o criativo está ok → é competição, não criativo; ajuste lance/público, não troque a peça.
+- **QUANDO** escalar → incremente 20-30% do budget e reavalie em 3 dias (respeitando a fase de aprendizado).

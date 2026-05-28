@@ -12,7 +12,7 @@
 1. **Consolidar dados multi-plataforma** — Unificar dados de Facebook Ads, Google Ads e outras fontes
 2. **Relatórios estruturados** — Gerar relatórios com formato padronizado e seções claras
 3. **Atribuição por UTM** — Rastrear origem das conversões usando parâmetros UTM
-4. **Análise de funil** — Mapear impressão → clique → lead → venda com taxas de conversão
+4. **Análise de funil** — Mapear o funil conforme o objetivo: impressão → clique → lead → venda (sales/leads) OU impressão → clique → conversa iniciada → lead qualificado (whatsapp/Click-to-WhatsApp)
 5. **Comparação de períodos** — Semana vs semana, mês vs mês, antes/depois de otimizações
 6. **Recomendações acionáveis** — Cada relatório termina com ações sugeridas baseadas nos dados
 7. **Validação de relatório** — Checklist para garantir que o relatório está completo e correto
@@ -107,13 +107,16 @@ Enriquecimento que CLI não oferece — fundamental para relatório profissional
 5. Performance por Criativo
    - Ranking dos melhores e piores criativos
 6. Análise de Funil
-   - Impressão → Clique → Lead → Venda (com taxas)
+   - sales/leads: Impressão → Clique → Lead → Venda (com taxas)
+   - whatsapp: Impressão → Clique → Conversa iniciada → Lead qualificado (custo por conversa)
 7. Atribuição por UTM
    - De onde vieram as conversões
 8. Comparação de Períodos
    - Período atual vs anterior (variação %)
 9. Recomendações
    - Ações sugeridas baseadas nos dados
+10. Benchmarks da Indústria
+   - Comparação CPA/ROAS/CTR/CPM com a média do setor (MCP industry_benchmark)
 ```
 
 ## Regras
@@ -123,3 +126,18 @@ Enriquecimento que CLI não oferece — fundamental para relatório profissional
 - **SEMPRE** terminar com recomendações acionáveis (não apenas dados)
 - **SEMPRE** identificar a fonte dos dados (plataforma, período, tipo de extração)
 - Dados inconsistentes → SINALIZAR no relatório e solicitar verificação
+
+## Anti-Patterns (NUNCA fazer)
+
+- ❌ Usar o funil padrão (Lead→Venda) para campanha `whatsapp` → ela reporta 0 vendas/leads por design; use o **funil de conversa** (Conversa iniciada → Lead qualificado).
+- ❌ Chamar um KPI de "bom" sem comparar com o benchmark da indústria (Seção 10).
+- ❌ Entregar dados sem recomendação acionável — relatório não é dump de números.
+- ❌ Misturar dados de contas/nichos diferentes na mesma análise (cada conta é um contexto isolado).
+- ❌ Apresentar variação de período sem indicar a fonte e o intervalo exato.
+
+## Heurísticas (QUANDO aplicar)
+
+- **QUANDO** o objetivo é `whatsapp` → o KPI principal é **custo por conversa iniciada**, não CPA/ROAS.
+- **QUANDO** existe período anterior → sempre rode a comparação (Seção 8) antes de recomendar escalar/pausar.
+- **QUANDO** o "bom" do cliente diverge do benchmark do setor → priorize a Seção 10 na narrativa.
+- **QUANDO** detectar anomalia (MCP `anomaly_signal`) → sinalize para investigação antes de recomendar ação.

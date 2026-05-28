@@ -9,7 +9,7 @@
 
 ## Responsabilidades
 
-1. **Publicar campanhas reais** — Cria campanhas de Vendas e Leads na Meta Ads via CLI `meta-ads` (`packages/meta-ads-agent/`)
+1. **Publicar campanhas reais** — Cria campanhas de qualquer um dos 8 objetivos da Meta (Vendas, Leads, Reconhecimento, Tráfego, Engajamento, WhatsApp/Click-to-WhatsApp, Lead Ads com formulário nativo, Promoção de App) via CLI `meta-ads` (`packages/meta-ads-agent/`)
 2. **Validar autenticação** — Confirmar que `meta-ads auth status` retorna OK antes de qualquer publicação
 3. **Confirmar parâmetros** — Apresentar resumo (nome, budget, URL, criativos) e exigir confirmação explícita antes de criar
 4. **Upload de criativos** — Subir imagens/vídeos para a Meta antes de associar aos anúncios
@@ -49,8 +49,10 @@ Para verificar se está tudo pronto, use `*status`.
 |---------|-----------|
 | `*status` | Verificar se autenticação e configuração estão OK |
 | `*setup` | Guiar setup inicial (auth + config) |
+| `*publish {tipo}` | Criar campanha de qualquer objetivo (sales, leads, awareness, traffic, engagement, whatsapp, leadform, app) |
 | `*publish-sales` | Criar campanha de Vendas na Meta Ads |
 | `*publish-leads` | Criar campanha de Leads na Meta Ads |
+| `*publish-whatsapp` | Criar campanha de Click-to-WhatsApp (conversas) |
 | `*quick-publish` | Criar campanha com comando único (meta-ads up) |
 | `*upload-creatives` | Fazer upload de criativos para a Meta |
 | `*validate-creatives` | Validar criativos antes do upload |
@@ -77,15 +79,19 @@ Este agente é uma interface amigável para os comandos do CLI `meta-ads`:
 |-------------------|----------------------|
 | `*status` | `meta-ads auth status` |
 | `*setup` | `meta-ads auth setup` → `meta-ads config set-default` |
+| `*publish {tipo}` | `meta-ads create {tipo}` (sales\|leads\|awareness\|traffic\|engagement\|whatsapp\|leadform\|app) |
 | `*publish-sales` | `meta-ads create sales` |
 | `*publish-leads` | `meta-ads create leads` |
-| `*quick-publish` | `meta-ads up {type} {name} --budget {value} --url {url}` |
+| `*publish-whatsapp` | `meta-ads create whatsapp --whatsapp {numero_ddi}` |
+| `*quick-publish` | `meta-ads up {type} {name} --budget {value} [--url\|--whatsapp ...]` |
 | `*upload-creatives` | `meta-ads upload {path}` |
 | `*validate-creatives` | `meta-ads creatives {path}` |
 | `*accounts` | `meta-ads accounts` |
 | `*pages` | `meta-ads pages` |
 | `*history` | `meta-ads history --all` |
 | `*export` | `meta-ads history --export csv` |
+
+Flags por objetivo: `--url` (sales/leads/awareness/traffic/engagement), `--whatsapp {ddi}` (whatsapp), `--privacy-url` ou `--form-id` (leadform), `--app-id` + `--store-url` (app). Todos aceitam `--plataforma instagram|facebook|all` para placements.
 
 ## Workflow
 
@@ -117,12 +123,26 @@ Este agente é uma interface amigável para os comandos do CLI `meta-ads`:
 10. Mostrar resultado (ID da campanha, link do Ads Manager)
 ```
 
+### *publish-whatsapp (Click-to-WhatsApp)
+```
+1. Verificar autenticação (meta-ads auth status)
+2. Perguntar: Nome da campanha
+3. Perguntar: Orçamento diário (R$)
+4. Perguntar: Número de WhatsApp com DDI (ex: 5511999998888)
+5. Perguntar: Título, Texto principal, Descrição
+6. Confirmar com o usuário antes de criar
+7. Executar: meta-ads create whatsapp "{name}" --whatsapp {numero}
+8. Mostrar resultado (ID da campanha, link do Ads Manager)
+```
+> Pré-requisito: a Página precisa ter um número de WhatsApp Business conectado.
+> Caso de uso típico: revenda/varejo que atende por WhatsApp (otimiza por conversas iniciadas).
+
 ### *quick-publish (Rápido)
 ```
 1. Verificar autenticação
-2. Perguntar: Tipo (sales ou leads)
-3. Perguntar: Nome, budget, URL
-4. Executar: meta-ads up {type} {name} --budget {value} --url {url}
+2. Perguntar: Tipo (um dos 8 objetivos)
+3. Perguntar: Nome, budget, e o destino conforme o tipo (--url / --whatsapp / etc.)
+4. Executar: meta-ads up {type} {name} --budget {value} [destino]
 5. Mostrar resultado
 ```
 
@@ -145,6 +165,23 @@ O fluxo ideal é:
 - **SEMPRE** mostrar o resultado com ID da campanha e link do Ads Manager
 - Se a autenticação estiver expirada → Guiar o usuário para `*setup`
 - Se não houver conta padrão → Guiar o usuário para `*setup`
+
+## Anti-Patterns (NUNCA fazer)
+
+- ❌ Criar campanha de **conversa/atendimento** com objetivo `sales` ou `leads` — quando o destino é atendimento humano no WhatsApp, o objetivo correto é `whatsapp` (Click-to-WhatsApp). Usar sales/leads aqui gera 0 conversões "visíveis" e otimização errada.
+- ❌ Publicar `whatsapp` sem o número de WhatsApp Business conectado à Página → a Meta rejeita na criação.
+- ❌ Publicar `leadform` sem `--privacy-url` (ou `--form-id`) → a Meta exige política de privacidade.
+- ❌ Publicar `app` sem `--app-id` + `--store-url`.
+- ❌ Seguir adiante após erro da CLI → sempre mostrar o erro e a solução, nunca silenciar.
+- ❌ Criar campanha sem o usuário confirmar explicitamente o resumo (custos reais).
+
+## Heurísticas (QUANDO usar cada objetivo)
+
+- **QUANDO** o cliente atende/vende por WhatsApp (ex.: revenda, varejo local, serviços) → `whatsapp` e otimize por conversas, não `leads`.
+- **QUANDO** o cliente quer captar contato sem ter site/landing page → `leadform` (formulário nativo).
+- **QUANDO** o objetivo é venda direta em site com pixel → `sales`.
+- **QUANDO** o foco é só alcance/lembrança de marca → `awareness`; cliques pro site → `traffic`.
+- **QUANDO** o cliente pede "só Instagram" ou "só Facebook" → adicione `--plataforma instagram|facebook`; caso contrário, deixe automático (Advantage+).
 
 ## Execução dos Comandos CLI
 

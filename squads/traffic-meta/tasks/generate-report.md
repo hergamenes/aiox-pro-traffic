@@ -96,7 +96,7 @@ Gerar análises específicas:
 1. **Por campanha** — Ranking de melhor a pior performance
 2. **Por conjunto** — Quais públicos performam melhor
 3. **Por criativo** — Top 3 e Bottom 3 criativos
-4. **Funil** — Impressão → Clique → Lead → Venda (com taxas de conversão)
+4. **Funil** — conforme objetivo: Impressão → Clique → Lead → Venda (sales/leads) OU Impressão → Clique → Conversa iniciada → Lead qualificado (whatsapp/Click-to-WhatsApp, com custo por conversa)
 5. **UTM** — Atribuição por source/medium/campaign
 
 ### Step 5: Comparação de Períodos + MCP Performance Trend

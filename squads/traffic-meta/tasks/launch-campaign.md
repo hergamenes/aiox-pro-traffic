@@ -18,7 +18,7 @@ Guiar o usuário através do processo completo de estruturação e validação d
 
 ## Veto Conditions
 NÃO executar (ou bloquear avanço) se:
-- ❌ Briefing sem objetivo claro (Vendas/Leads/Tráfego/Reconhecimento)
+- ❌ Briefing sem objetivo claro (um dos 8: Vendas, Leads, Reconhecimento, Tráfego, Engajamento, WhatsApp/Click-to-WhatsApp, Lead Ads, Promoção de App)
 - ❌ Orçamento ausente ou impreciso
 - ❌ Criativos não disponíveis no formato exigido pela plataforma
 - ❌ Links sem definição de UTM e o cliente exige rastreio
@@ -43,12 +43,12 @@ node packages/meta-ads-agent/dist/bin/meta-ads.js pages
 ### Step 1: Briefing
 Coletar informações essenciais da campanha:
 
-1. **Objetivo:** Qual o objetivo? (Vendas, Leads, Tráfego, Reconhecimento)
-2. **Plataforma:** Onde será veiculada? (Meta Ads, Google Ads, ambos)
+1. **Objetivo:** Qual dos 8? (sales, leads, awareness, traffic, engagement, whatsapp, leadform, app)
+2. **Plataforma/placement:** Onde veicular? Meta Ads/Google. Em Meta, placement: automático (padrão), só Instagram ou só Facebook (`--plataforma`)
 3. **Público-alvo:** Quem é o público? (idade, gênero, interesses, localização)
 4. **Orçamento:** Quanto será investido? (diário ou total, período)
 5. **Criativos:** Quais peças serão usadas? (imagens, vídeos, copies)
-6. **Links:** Para onde o tráfego será direcionado? (landing page, WhatsApp, site)
+6. **Destino (depende do objetivo):** site/LP (sales/leads/awareness/traffic/engagement), número de WhatsApp (whatsapp), política de privacidade (leadform), app-id+loja (app)
 7. **Prazo:** Quando começa e quando termina?
 
 ### Step 2: Estruturação
@@ -97,5 +97,5 @@ Gerar documento `campaign-plan.md` usando template `templates/campaign-brief.md`
 - [ ] UTMs verificados (source/medium/campaign/content) em todos os links
 
 ## Handoff
-- **Próximo agente:** Campaign Publisher (`*publish-sales` ou `*publish-leads`)
-- **Artefato passado:** `campaign-plan.md` aprovado pelo Launcher
+- **Próximo agente:** Campaign Publisher (`*publish {tipo}` — ex.: `*publish-sales`, `*publish-leads`, `*publish-whatsapp`, ou `*publish {awareness|traffic|engagement|leadform|app}`)
+- **Artefato passado:** `campaign-plan.md` aprovado pelo Launcher (incluindo objetivo, placement e destino específico)

@@ -11,11 +11,26 @@ Guiar o usuário para criar e publicar uma campanha na Meta Ads usando o CLI `me
 
 ## Inputs
 - **Plano de campanha aprovado** pelo Campaign Launcher (`campaign-plan.md`)
-- **Tipo de campanha** (sales ou leads)
-- **Nome, orçamento diário, URL, título, texto, descrição**
+- **Tipo de campanha** (um dos 8 objetivos suportados — ver tabela abaixo)
+- **Nome, orçamento diário, título, texto, descrição** + campos específicos do objetivo
 - **Autenticação Meta Ads** ativa (`meta-ads auth status` = OK)
 - **Conta de anúncios padrão** configurada
 - **Confirmação explícita do usuário** (custos reais envolvidos)
+
+## Objetivos Suportados (CLI meta-ads — 8 tipos)
+
+| Tipo | Objetivo Meta | Campo de destino exigido |
+|------|---------------|--------------------------|
+| `sales` | Vendas | `--url` (site) |
+| `leads` | Leads (landing page) | `--url` (landing page) |
+| `awareness` | Reconhecimento | `--url` |
+| `traffic` | Tráfego | `--url` |
+| `engagement` | Engajamento | `--url` |
+| `whatsapp` | Click-to-WhatsApp | `--whatsapp {número com DDI}` |
+| `leadform` | Lead Ads (formulário nativo) | `--privacy-url` (ou `--form-id`) |
+| `app` | Promoção de App | `--app-id` + `--store-url` |
+
+Todos aceitam `--plataforma instagram\|facebook\|all` para controlar placements.
 
 ## Veto Conditions
 NÃO publicar se:
@@ -23,8 +38,9 @@ NÃO publicar se:
 - ❌ Conta de anúncios padrão não estiver definida
 - ❌ Usuário não confirmar explicitamente o resumo (Step 3)
 - ❌ Plano de campanha não tiver passado pelo Campaign Launcher
-- ❌ Orçamento, URL ou texto principal estiverem vazios
-- ❌ Tipo de campanha for diferente de "sales" ou "leads"
+- ❌ Orçamento ou texto principal estiverem vazios
+- ❌ Tipo de campanha não for um dos 8 objetivos suportados (sales, leads, awareness, traffic, engagement, whatsapp, leadform, app)
+- ❌ Campo de destino específico do objetivo estiver ausente (ex.: `whatsapp` sem número, `app` sem app-id/store-url, `leadform` sem privacy-url/form-id)
 
 ## Fluxo
 
@@ -44,13 +60,19 @@ cd packages/meta-ads-agent && node dist/bin/meta-ads.js auth status
 ### Step 2: Coletar Informações
 Perguntar ao usuário:
 
-1. **Tipo de campanha:** Vendas (sales) ou Leads (leads)?
+1. **Tipo de campanha:** um dos 8 — sales, leads, awareness, traffic, engagement, whatsapp, leadform, app
 2. **Nome da campanha:** Como quer chamar? (ex: "Lançamento Curso Python")
 3. **Orçamento diário:** Quanto por dia em R$? (ex: 50)
-4. **URL:** Link do site (sales) ou landing page (leads)
+4. **Destino (depende do tipo):**
+   - sales/awareness/traffic/engagement → URL do site
+   - leads → URL da landing page
+   - **whatsapp → número de WhatsApp com DDI** (ex: 5511999998888)
+   - leadform → URL da política de privacidade (ou ID de formulário existente)
+   - app → ID do aplicativo + URL da loja (App Store/Google Play)
 5. **Título do anúncio:** Texto curto que aparece no topo
 6. **Texto principal:** Texto do corpo do anúncio
 7. **Descrição:** Texto complementar (aparece abaixo do link)
+8. **Placement (opcional):** automático (padrão), só Instagram ou só Facebook (`--plataforma`)
 
 ### Step 3: Resumo e Confirmação
 Mostrar resumo completo antes de criar:
@@ -76,22 +98,31 @@ Confirma? (sim/não)
 - Se **não** → Voltar para Step 2 para ajustar
 
 ### Step 4: Criar Campanha
-Executar o comando CLI:
+Executar o comando CLI conforme o tipo. Adicionar `--plataforma {instagram|facebook|all}` quando o usuário escolher um placement específico.
 
-**Para Sales:**
+**Objetivos com URL (sales, leads, awareness, traffic, engagement):**
 ```bash
-cd packages/meta-ads-agent && node dist/bin/meta-ads.js create sales "{name}" --quiet
-```
-(E fornecer os prompts interativos: budget, url, título, texto, descrição)
-
-**Para Leads:**
-```bash
-cd packages/meta-ads-agent && node dist/bin/meta-ads.js create leads "{name}" --quiet
+cd packages/meta-ads-agent && node dist/bin/meta-ads.js create {type} "{name}" --budget {budget} --url "{url}" --headline "{title}" --text "{text}" --description "{desc}" --quiet
 ```
 
-**Ou via comando único (se todos os dados disponíveis):**
+**Click-to-WhatsApp (whatsapp):**
 ```bash
-cd packages/meta-ads-agent && node dist/bin/meta-ads.js up {type} "{name}" --budget {budget} --url "{url}" --quiet
+cd packages/meta-ads-agent && node dist/bin/meta-ads.js create whatsapp "{name}" --budget {budget} --whatsapp {numero_ddi} --headline "{title}" --text "{text}" --description "{desc}" --quiet
+```
+
+**Lead Ads / formulário nativo (leadform):**
+```bash
+cd packages/meta-ads-agent && node dist/bin/meta-ads.js create leadform "{name}" --budget {budget} --privacy-url "{privacy_url}" --headline "{title}" --text "{text}" --description "{desc}" --quiet
+```
+
+**Promoção de App (app):**
+```bash
+cd packages/meta-ads-agent && node dist/bin/meta-ads.js create app "{name}" --budget {budget} --app-id {app_id} --store-url "{store_url}" --headline "{title}" --text "{text}" --description "{desc}" --quiet
+```
+
+**Ou via comando único (qualquer tipo):**
+```bash
+cd packages/meta-ads-agent && node dist/bin/meta-ads.js up {type} "{name}" --budget {budget} [--url|--whatsapp|...] --quiet
 ```
 
 ### Step 5: Resultado

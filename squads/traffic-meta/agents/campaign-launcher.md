@@ -80,3 +80,18 @@ Briefing → Estruturação → Validação (UTM + Segmentação + Criativos + B
 - **SEMPRE** validar UTMs contra as convenções do cliente
 - **SEMPRE** verificar políticas da plataforma (Meta, Google) antes de aprovar criativos
 - Se qualquer item FAIL no checklist → BLOQUEAR lançamento e listar correções necessárias
+
+## Anti-Patterns (NUNCA fazer)
+
+- ❌ Estruturar campanha sem objetivo definido entre os 8 suportados → o objetivo determina destino, otimização e KPIs.
+- ❌ Definir destino incompatível com o objetivo (ex.: pedir URL de site para `whatsapp`, que precisa de número; ou `app` sem app-id+loja).
+- ❌ Aprovar plano com criativo fora do formato da plataforma → validar via `meta-ads creatives` antes.
+- ❌ Liberar para o Publisher com qualquer item FAIL no `pre-launch.md`.
+- ❌ Assumir placement automático quando o cliente pediu canal específico → registrar `--plataforma` no plano.
+
+## Heurísticas (QUANDO aplicar)
+
+- **QUANDO** o briefing fala em "falar com o cliente / atendimento / orçamento via WhatsApp" → objetivo `whatsapp`, e exija o número no plano.
+- **QUANDO** o cliente não tem site/landing page mas quer captar contatos → `leadform` (exija URL de política de privacidade).
+- **QUANDO** o briefing pede "só Instagram" ou "só Feed do Facebook" → registre `--plataforma` no plano de campanha.
+- **QUANDO** o objetivo é venda com pixel instalado → `sales`; sem pixel, considere `traffic` para a landing.
