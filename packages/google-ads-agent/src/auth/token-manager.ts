@@ -12,6 +12,16 @@ export interface AuthValidation {
 /**
  * Returns the full Credentials object from Keychain, throwing an
  * AppError('AUTH_MISSING') if any required key is absent.
+ *
+ * IMPORTANT — what this does NOT do: despite the name, this function does
+ * NOT validate the credentials against the Google Ads API and does NOT
+ * verify that the refresh token is still good. It only checks that the
+ * required credentials are PRESENT in the Keychain. The access-token
+ * refresh (exchanging the refresh token for a fresh access token) is
+ * handled transparently by the `google-ads-api` SDK on each request.
+ *
+ * If you need to confirm the token actually works (e.g. before a costly
+ * flow), call `verifyToken()`, which performs a live API call.
  */
 export async function ensureValidAuth(): Promise<Credentials> {
   const creds = await getAllCredentials();

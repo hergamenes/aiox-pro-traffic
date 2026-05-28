@@ -2031,48 +2031,68 @@ export async function readCampaignRemovalSnapshot(
   }
 
   // Ad group + ad counts (cascade-aware) — use ad_group + ad_group_ad queries
+  const cidStripped = customerId.replace(/-/g, '');
   const adGroupRows = (await customer.query(`
     SELECT ad_group.id
     FROM ad_group
-    WHERE ad_group.campaign = 'customers/${customerId.replace(/-/g, '')}/campaigns/${campaignId}'
+    WHERE ad_group.campaign = 'customers/${cidStripped}/campaigns/${campaignId}'
       AND ad_group.status != 'REMOVED'
   `)) as unknown as Array<{ ad_group?: { id?: string | number } }>;
   const adGroupCount = Array.isArray(adGroupRows) ? adGroupRows.length : 0;
 
-  const adRows = (await customer.query(`
-    SELECT ad_group_ad.ad.id
-    FROM ad_group_ad
-    WHERE ad_group_ad.ad_group IN (
-      SELECT ad_group.resource_name FROM ad_group
-      WHERE ad_group.campaign = 'customers/${customerId.replace(/-/g, '')}/campaigns/${campaignId}'
-    )
-      AND ad_group_ad.status != 'REMOVED'
-  `).catch(() => [])) as unknown as Array<unknown>;
-  const adCount = Array.isArray(adRows) ? adRows.length : 0;
+  // Ad count: GAQL does NOT support subqueries, so we count ads filtering
+  // by the campaign's ad_group resource_names with a literal IN list.
+  const adGroupResourceNames = (Array.isArray(adGroupRows) ? adGroupRows : [])
+    .map((r) => r.ad_group?.id)
+    .filter((id): id is string | number => id != null)
+    .map((id) => `'customers/${cidStripped}/adGroups/${id}'`);
 
-  // Spend windows — 3 GAQL queries for 90d, 7d, 24h
-  const spend = async (days: number): Promise<number> => {
+  let adCount = 0;
+  if (adGroupResourceNames.length > 0) {
+    const adRows = (await customer
+      .query(`
+        SELECT ad_group_ad.ad.id
+        FROM ad_group_ad
+        WHERE ad_group_ad.ad_group IN (${adGroupResourceNames.join(', ')})
+          AND ad_group_ad.status != 'REMOVED'
+      `)
+      .catch(() => [])) as unknown as Array<unknown>;
+    adCount = Array.isArray(adRows) ? adRows.length : 0;
+  }
+
+  // Spend windows — GAQL has a FIXED set of date constants. LAST_24_HOURS
+  // and LAST_90_DAYS do NOT exist, so we compute explicit date ranges and
+  // use `segments.date BETWEEN '...' AND '...'` (supported by GAQL).
+  const today = new Date();
+  const isoDate = (d: Date): string => d.toISOString().slice(0, 10);
+  const daysAgo = (n: number): Date => {
+    const d = new Date(today);
+    d.setDate(d.getDate() - n);
+    return d;
+  };
+
+  const spendBetween = async (from: string, to: string): Promise<number> => {
     try {
       const rows = (await customer.query(`
         SELECT metrics.cost_micros
         FROM campaign
         WHERE campaign.id = ${campaignId}
-          AND segments.date DURING LAST_${days === 1 ? '24_HOURS' : `${days}_DAYS`}
+          AND segments.date BETWEEN '${from}' AND '${to}'
       `)) as unknown as Array<{ metrics?: { cost_micros?: string | number } }>;
-      const total = (rows ?? []).reduce(
+      return (rows ?? []).reduce(
         (acc, r) => acc + Number(r.metrics?.cost_micros ?? 0),
         0,
       );
-      return total;
     } catch {
       return 0;
     }
   };
 
+  const todayIso = isoDate(today);
   const [spend90d, spend7d, spend24h] = await Promise.all([
-    spend(90),
-    spend(7),
-    spend(1), // mapped to LAST_24_HOURS
+    spendBetween(isoDate(daysAgo(89)), todayIso), // last 90 days inclusive
+    spendBetween(isoDate(daysAgo(6)), todayIso), // last 7 days inclusive
+    spendBetween(isoDate(daysAgo(1)), todayIso), // yesterday → today (~24h)
   ]);
 
   return {
@@ -2177,6 +2197,40 @@ export async function removeCampaign(
   const cidStripped = customerId.replace(/-/g, '');
   const resourceName = `customers/${cidStripped}/campaigns/${campaignId}`;
 
+  // Read the real cascade counts BEFORE removal so the return value reflects
+  // what was actually cascaded (was previously hardcoded to {0,0}).
+  // GAQL has no subqueries → 2-step: fetch ad_groups, then count ads via IN list.
+  let adGroupCount = 0;
+  let adCount = 0;
+  try {
+    const adGroupRows = (await customer.query(`
+      SELECT ad_group.id
+      FROM ad_group
+      WHERE ad_group.campaign = 'customers/${cidStripped}/campaigns/${campaignId}'
+        AND ad_group.status != 'REMOVED'
+    `)) as unknown as Array<{ ad_group?: { id?: string | number } }>;
+    adGroupCount = Array.isArray(adGroupRows) ? adGroupRows.length : 0;
+
+    const adGroupResourceNames = (Array.isArray(adGroupRows) ? adGroupRows : [])
+      .map((r) => r.ad_group?.id)
+      .filter((id): id is string | number => id != null)
+      .map((id) => `'customers/${cidStripped}/adGroups/${id}'`);
+
+    if (adGroupResourceNames.length > 0) {
+      const adRows = (await customer.query(`
+        SELECT ad_group_ad.ad.id
+        FROM ad_group_ad
+        WHERE ad_group_ad.ad_group IN (${adGroupResourceNames.join(', ')})
+          AND ad_group_ad.status != 'REMOVED'
+      `)) as unknown as Array<unknown>;
+      adCount = Array.isArray(adRows) ? adRows.length : 0;
+    }
+  } catch {
+    // Non-fatal: if counts can't be read, fall back to 0 (removal still proceeds).
+    adGroupCount = 0;
+    adCount = 0;
+  }
+
   const operations: MutateOperation<resources.ICampaign>[] = [
     {
       entity: 'campaign',
@@ -2188,14 +2242,13 @@ export async function removeCampaign(
   await customer.mutateResources(operations, { validate_only: Boolean(dryRun) });
 
   logger.debug(
-    { customerId, campaignId, dryRun },
+    { customerId, campaignId, dryRun, adGroupCount, adCount },
     'removeCampaign completed (campaign + cascade REMOVED)',
   );
 
-  // Cascade counts come from the snapshot (read separately by caller)
   return {
     resourceName,
-    cascade: { adGroupCount: 0, adCount: 0 },
+    cascade: { adGroupCount, adCount },
     dryRun: Boolean(dryRun),
   };
 }

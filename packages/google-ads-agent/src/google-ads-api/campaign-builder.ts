@@ -287,7 +287,12 @@ export function buildDisplayBiddingFields(
     case 'maximize_conversion_value':
       return { maximize_conversion_value: {} };
     case 'maximize_clicks':
-      // maximize_clicks is the legacy name for target_spend in SDK
+      // Maximize Clicks maps to the `target_spend` field at the campaign level.
+      // NOTE: `target_spend` is deprecated for PORTFOLIO bidding strategies, but
+      // remains the field the google-ads-api SDK (v23) accepts for standard
+      // campaign-level Maximize Clicks. Sending `{}` lets Google self-manage the
+      // CPC ceiling. If a future SDK version renames this, update here.
+      // (Verified against google-ads-api 23.0.0 — campaign.target_spend present.)
       return { target_spend: {} };
     default: {
       const exhaustive: never = strategy;

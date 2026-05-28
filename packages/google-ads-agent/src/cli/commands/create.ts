@@ -315,7 +315,7 @@ createCommand
           console.log(`  Campaign ID: ${result.campaignId}`);
           console.log(`  Budget ID:   ${result.budgetId}`);
           console.log(
-            `  Ads Manager: https://ads.google.com/aw/campaigns?ocid=&__c=${customerId.replace(/-/g, '')}`,
+            `  Ads Manager: https://ads.google.com/aw/campaigns?__c=${customerId.replace(/-/g, '')}`,
           );
         }
         console.log('');
@@ -580,7 +580,7 @@ createCommand
           console.log(`  Campaign ID: ${result.campaignId}`);
           console.log(`  Budget ID:   ${result.budgetId}`);
           console.log(
-            `  Ads Manager: https://ads.google.com/aw/campaigns?ocid=&__c=${customerId.replace(/-/g, '')}`,
+            `  Ads Manager: https://ads.google.com/aw/campaigns?__c=${customerId.replace(/-/g, '')}`,
           );
         }
         console.log('');
@@ -869,7 +869,7 @@ createCommand
           console.log(`  Campaign:    ${result.campaignResourceName}`);
           console.log(`  Budget:      ${result.budgetResourceName}`);
           console.log(`  Asset Group: ${result.assetGroupResourceName}`);
-          console.log(`  Ads Manager: https://ads.google.com/aw/campaigns?ocid=&__c=${customerId.replace(/-/g, '')}`);
+          console.log(`  Ads Manager: https://ads.google.com/aw/campaigns?__c=${customerId.replace(/-/g, '')}`);
         }
         console.log('');
         console.log(`${COLORS.dim}PRÓXIMOS PASSOS:${COLORS.reset}`);
