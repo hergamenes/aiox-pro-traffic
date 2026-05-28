@@ -28,6 +28,12 @@ function makeMetrics(overrides: Partial<ParsedMetrics> = {}): ParsedMetrics {
     costPerLead: 5.02,
     purchaseRateByClicks: 0.05,
     purchaseRateByLandingPageViews: 0.0667,
+    messagingConversationsStarted: 0,
+    costPerMessagingConversation: 0,
+    messagingFirstReplies: 0,
+    totalMessagingConnections: 0,
+    results: 10,
+    costPerResult: 15.05,
     ...overrides,
   };
 }
@@ -88,6 +94,16 @@ describe('formatTable', () => {
     const result = formatTable(metrics, 'campaign');
     expect(result).toContain('Campaign A');
     expect(result).toContain('Campaign B');
+  });
+
+  it('shows messaging and result rows', () => {
+    const result = formatTable(
+      [makeMetrics({ messagingConversationsStarted: 38, costPerMessagingConversation: 10.7 })],
+      'campaign',
+    );
+    expect(result).toContain('Conversas WhatsApp');
+    expect(result).toContain('Custo por Conversa');
+    expect(result).toContain('Resultado');
   });
 });
 

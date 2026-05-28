@@ -112,6 +112,16 @@ export interface ParsedMetrics {
   // 21-22: Calculated rates
   purchaseRateByClicks: number;
   purchaseRateByLandingPageViews: number;
+
+  // 23-26: Messaging (Click-to-WhatsApp / messages)
+  messagingConversationsStarted: number;
+  costPerMessagingConversation: number;
+  messagingFirstReplies: number;
+  totalMessagingConnections: number;
+
+  // 27-28: Result (campaign objective — resolved via fallback hierarchy)
+  results: number;
+  costPerResult: number;
 }
 
 // Budget info (from adsets endpoint)
@@ -131,6 +141,11 @@ export const ACTION_TYPES = {
   INITIATE_CHECKOUT: 'offsite_conversion.fb_pixel_initiate_checkout',
   PURCHASE: 'offsite_conversion.fb_pixel_purchase',
   LEAD: 'offsite_conversion.fb_pixel_lead',
+  // Prefix (no attribution-window suffix): matched via startsWith so it works
+  // regardless of the account's window (_7d, _1d, or none). See insights-parser.
+  MESSAGING_CONVERSATION_STARTED: 'onsite_conversion.messaging_conversation_started',
+  MESSAGING_FIRST_REPLY: 'onsite_conversion.messaging_first_reply',
+  TOTAL_MESSAGING_CONNECTION: 'onsite_conversion.total_messaging_connection',
 } as const;
 
 export const ACTION_TYPE_LABELS: Record<string, string> = {
@@ -139,6 +154,9 @@ export const ACTION_TYPE_LABELS: Record<string, string> = {
   [ACTION_TYPES.INITIATE_CHECKOUT]: 'Finalizações de Compra',
   [ACTION_TYPES.PURCHASE]: 'Compras',
   [ACTION_TYPES.LEAD]: 'Leads',
+  [ACTION_TYPES.MESSAGING_CONVERSATION_STARTED]: 'Conversas Iniciadas (WhatsApp)',
+  [ACTION_TYPES.MESSAGING_FIRST_REPLY]: 'Primeiras Respostas',
+  [ACTION_TYPES.TOTAL_MESSAGING_CONNECTION]: 'Conexões de Mensagem',
 };
 
 // Zod schemas

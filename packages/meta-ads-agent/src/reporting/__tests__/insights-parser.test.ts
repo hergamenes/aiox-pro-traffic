@@ -89,6 +89,11 @@ describe('parseInsightRow', () => {
     expect(parsed.costPerInitiateCheckout).toBe(6.02);
     expect(parsed.campaignName).toBe('PPT_VENDAS_COMPRA_09-03-26_Test');
     expect(parsed.campaignId).toBe('123456');
+    // Result resolves to purchases (highest priority) when present
+    expect(parsed.results).toBe(10);
+    expect(parsed.costPerResult).toBe(15.05);
+    // No messaging events in a pixel campaign
+    expect(parsed.messagingConversationsStarted).toBe(0);
   });
 
   it('calculates landingPageViewRate correctly', () => {
@@ -160,5 +165,159 @@ describe('parseInsightRow', () => {
   it('sets budget to null (populated separately)', () => {
     const parsed = parseInsightRow(makeRow());
     expect(parsed.budget).toBeNull();
+  });
+});
+
+describe('messaging (Click-to-WhatsApp)', () => {
+  function makeMessagingRow(overrides: Partial<RawInsightRow> = {}): RawInsightRow {
+    return {
+      spend: '406.58',
+      impressions: '28154',
+      cpm: '14.44',
+      frequency: '2.08',
+      campaign_name: 'SOL_VENDAS_F_CBO_VW_UP',
+      campaign_id: '999',
+      actions: [
+        { action_type: 'link_click', value: '190' },
+        { action_type: 'onsite_conversion.messaging_conversation_started_7d', value: '38' },
+        { action_type: 'onsite_conversion.messaging_first_reply', value: '32' },
+        { action_type: 'onsite_conversion.total_messaging_connection', value: '41' },
+      ],
+      cost_per_action_type: [
+        { action_type: 'link_click', value: '2.14' },
+        { action_type: 'onsite_conversion.messaging_conversation_started_7d', value: '10.70' },
+      ],
+      ...overrides,
+    };
+  }
+
+  it('extracts messaging conversations, replies and connections', () => {
+    const parsed = parseInsightRow(makeMessagingRow());
+    expect(parsed.messagingConversationsStarted).toBe(38);
+    expect(parsed.messagingFirstReplies).toBe(32);
+    expect(parsed.totalMessagingConnections).toBe(41);
+    expect(parsed.costPerMessagingConversation).toBe(10.70);
+  });
+
+  it('does not affect pixel conversion fields', () => {
+    const parsed = parseInsightRow(makeMessagingRow());
+    // Messaging is onsite_conversion.*, not offsite — so pixel totals stay 0
+    expect(parsed.conversions).toBe(0);
+    expect(parsed.purchases).toBe(0);
+    expect(parsed.leads).toBe(0);
+  });
+
+  it('matches conversations regardless of attribution window (_1d)', () => {
+    const parsed = parseInsightRow(
+      makeMessagingRow({
+        actions: [
+          { action_type: 'onsite_conversion.messaging_conversation_started_1d', value: '12' },
+        ],
+        cost_per_action_type: [
+          { action_type: 'onsite_conversion.messaging_conversation_started_1d', value: '9.50' },
+        ],
+      }),
+    );
+    expect(parsed.messagingConversationsStarted).toBe(12);
+    expect(parsed.costPerMessagingConversation).toBe(9.5);
+  });
+
+  it('matches conversations with no window suffix', () => {
+    const parsed = parseInsightRow(
+      makeMessagingRow({
+        actions: [
+          { action_type: 'onsite_conversion.messaging_conversation_started', value: '7' },
+        ],
+        cost_per_action_type: [],
+      }),
+    );
+    expect(parsed.messagingConversationsStarted).toBe(7);
+  });
+});
+
+describe('resolveResult hierarchy', () => {
+  function row(actions: RawAction[], spend = '100', costs: RawAction[] = []): RawInsightRow {
+    return {
+      spend,
+      impressions: '1000',
+      cpm: '10',
+      frequency: '1.5',
+      actions,
+      cost_per_action_type: costs,
+    };
+  }
+
+  it('uses messaging conversations when no purchase/lead', () => {
+    const parsed = parseInsightRow(
+      row(
+        [
+          { action_type: 'link_click', value: '190' },
+          { action_type: 'onsite_conversion.messaging_conversation_started_7d', value: '38' },
+        ],
+        '406.58',
+        [{ action_type: 'onsite_conversion.messaging_conversation_started_7d', value: '10.70' }],
+      ),
+    );
+    expect(parsed.results).toBe(38);
+    expect(parsed.costPerResult).toBe(10.70);
+  });
+
+  it('falls back to link clicks when only clicks exist', () => {
+    const parsed = parseInsightRow(
+      row([{ action_type: 'link_click', value: '50' }], '100', [
+        { action_type: 'link_click', value: '2.00' },
+      ]),
+    );
+    expect(parsed.results).toBe(50);
+    expect(parsed.costPerResult).toBe(2.0);
+  });
+
+  it('prioritizes leads over messaging and clicks', () => {
+    const parsed = parseInsightRow(
+      row(
+        [
+          { action_type: 'link_click', value: '190' },
+          { action_type: 'offsite_conversion.fb_pixel_lead', value: '5' },
+          { action_type: 'onsite_conversion.messaging_conversation_started_7d', value: '38' },
+        ],
+        '100',
+        [{ action_type: 'offsite_conversion.fb_pixel_lead', value: '20' }],
+      ),
+    );
+    expect(parsed.results).toBe(5);
+    expect(parsed.costPerResult).toBe(20);
+  });
+
+  it('prioritizes purchases over messaging (mixed account, account level)', () => {
+    const parsed = parseInsightRow(
+      row(
+        [
+          { action_type: 'offsite_conversion.fb_pixel_purchase', value: '4' },
+          { action_type: 'onsite_conversion.messaging_conversation_started_7d', value: '38' },
+        ],
+        '200',
+        [{ action_type: 'offsite_conversion.fb_pixel_purchase', value: '50' }],
+      ),
+    );
+    // Documented behavior: highest-priority outcome wins; messaging is hidden in
+    // the aggregate. Messaging is still exposed via messagingConversationsStarted.
+    expect(parsed.results).toBe(4);
+    expect(parsed.costPerResult).toBe(50);
+    expect(parsed.messagingConversationsStarted).toBe(38);
+  });
+
+  it('derives cost per result from spend when direct cost missing', () => {
+    const parsed = parseInsightRow(
+      row([{ action_type: 'onsite_conversion.messaging_conversation_started_7d', value: '10' }], '100'),
+    );
+    expect(parsed.results).toBe(10);
+    // 100 / 10 = 10
+    expect(parsed.costPerResult).toBe(10);
+  });
+
+  it('returns zero result when no actions', () => {
+    const parsed = parseInsightRow(row([], '100'));
+    expect(parsed.results).toBe(0);
+    expect(parsed.costPerResult).toBe(0);
   });
 });
