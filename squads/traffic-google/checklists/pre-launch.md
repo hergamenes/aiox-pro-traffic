@@ -9,20 +9,20 @@ Se qualquer item for FAIL → BLOQUEAR lançamento e listar correções.
 ## 1. Estrutura da Campanha
 - [ ] Nome da campanha segue naming convention
 - [ ] Objetivo da campanha correto (vendas, leads, tráfego)
-- [ ] Tipo de compra adequado (leilão vs alcance e frequência)
+- [ ] Tipo de campanha adequado ao objetivo (Search / Display / Performance Max / Video)
 
 ## 2. Segmentação
 - [ ] Público-alvo definido (idade, gênero, localização)
-- [ ] Interesses ou lookalikes configurados
+- [ ] Públicos configurados (in-market, afinidade, semelhantes) ou palavras-chave definidas
 - [ ] Exclusões aplicadas (clientes existentes, públicos saturados)
 - [ ] Tamanho do público adequado (não muito restrito, não muito amplo)
 
-## 3. Criativos
-- [ ] Imagens nos formatos corretos (1:1, 4:5, 9:16 conforme posicionamento)
-- [ ] Vídeos com duração adequada (15s-60s recomendado)
-- [ ] Menos de 20% de texto nas imagens (regra Meta)
+## 3. Criativos / Assets
+- [ ] Imagens nos formatos exigidos pelo Google (1.91:1 paisagem, 1:1 quadrada; logo 1:1 e 4:1)
+- [ ] Vídeos hospedados no YouTube (se Video/Demand Gen) com duração adequada
+- [ ] Headlines e descriptions dentro dos limites de caracteres (RSA: 30/90 — ver `platform-rules.md`)
 - [ ] Copies revisadas (sem erros, CTA claro)
-- [ ] Variações de criativo (mínimo 2-3 por conjunto)
+- [ ] Variações de asset suficientes (RSA: 3+ headlines; mínimo 2-3 ads por grupo)
 
 ## 4. Links e UTMs
 - [ ] Link de destino funcional (testado e carregando)
@@ -36,10 +36,10 @@ Se qualquer item for FAIL → BLOQUEAR lançamento e listar correções.
 - [ ] Orçamento diário ou total configurado
 - [ ] Estratégia de lance definida (menor custo, custo alvo, ROAS alvo)
 - [ ] Limite de gasto da conta verificado
-- [ ] Distribuição entre conjuntos faz sentido
+- [ ] Distribuição entre grupos de anúncios faz sentido
 
 ## 6. Políticas da Plataforma
-- [ ] Criativos respeitam políticas de conteúdo (Meta/Google)
+- [ ] Criativos respeitam as políticas de conteúdo do Google Ads
 - [ ] Landing page em conformidade (sem redirecionamentos suspeitos)
 - [ ] Categoria especial declarada se aplicável (crédito, emprego, moradia, política)
 - [ ] Disclaimers necessários incluídos

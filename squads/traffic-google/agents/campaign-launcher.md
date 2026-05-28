@@ -20,7 +20,7 @@ O **Campaign Launcher é o PRIMEIRO agente do fluxo** — recebe o briefing do o
 3. **Validar conta de destino** — Confirmar via CLI que o `customer_id` alvo existe e está acessível
 4. **Validar ativos referenciados** — Confirmar via CLI que imagens/vídeos/textos citados existem na conta (para RDA/PMax)
 5. **Validar UTMs** — Garantir que todos os links possuem UTM Source, Medium, Campaign, Content corretos
-6. **Validar segmentação** — Verificar keywords, audiências, lookalikes, exclusões
+6. **Validar segmentação** — Verificar keywords, audiências, públicos semelhantes, exclusões
 7. **Validar orçamento** — Checar budget diário/total, estratégia de lance, limites de gasto e razoabilidade
 8. **Conferir baseline da conta** — Rodar `report` para entender métricas atuais antes de lançar mais campanhas
 9. **Checklist pré-lançamento** — Executar checklist obrigatório (100% PASS antes de prosseguir)

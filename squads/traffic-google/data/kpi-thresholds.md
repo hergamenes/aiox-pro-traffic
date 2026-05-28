@@ -13,19 +13,19 @@ Estes são valores padrão de referência. Cada cliente/campanha pode ter metas 
 |-----|-----|-----------|------|---------|
 | **ROAS** | > 3.0 | 2.0 - 3.0 | 1.0 - 2.0 | < 1.0 |
 | **CPA** | < R$ meta | R$ meta - 1.5x | 1.5x - 2x meta | > 2x meta |
-| **CTR (link)** | > 2.0% | 1.0% - 2.0% | 0.5% - 1.0% | < 0.5% |
+| **CTR** | > 2.0% | 1.0% - 2.0% | 0.5% - 1.0% | < 0.5% |
 | **CPC** | < R$ 1.50 | R$ 1.50 - 3.00 | R$ 3.00 - 5.00 | > R$ 5.00 |
-| **Frequência** | < 2.0 | 2.0 - 3.0 | 3.0 - 4.0 | > 4.0 |
+| **Impression Share (Search)** | > 80% | 60% - 80% | 40% - 60% | < 40% |
 
 ### Geração de Leads
 
 | KPI | Bom | Aceitável | Ruim | Crítico |
 |-----|-----|-----------|------|---------|
 | **CPL** | < R$ meta | R$ meta - 1.5x | 1.5x - 2x meta | > 2x meta |
-| **CTR (link)** | > 1.5% | 0.8% - 1.5% | 0.5% - 0.8% | < 0.5% |
+| **CTR** | > 1.5% | 0.8% - 1.5% | 0.5% - 0.8% | < 0.5% |
 | **Taxa LP→Lead** | > 20% | 10% - 20% | 5% - 10% | < 5% |
 | **CPC** | < R$ 2.00 | R$ 2.00 - 4.00 | R$ 4.00 - 7.00 | > R$ 7.00 |
-| **Frequência** | < 2.5 | 2.5 - 3.5 | 3.5 - 4.5 | > 4.5 |
+| **Impression Share (Search)** | > 80% | 60% - 80% | 40% - 60% | < 40% |
 
 ### Tráfego (Awareness)
 
@@ -34,7 +34,7 @@ Estes são valores padrão de referência. Cada cliente/campanha pode ter metas 
 | **CPC** | < R$ 0.50 | R$ 0.50 - 1.00 | R$ 1.00 - 2.00 | > R$ 2.00 |
 | **CTR** | > 3.0% | 1.5% - 3.0% | 0.8% - 1.5% | < 0.8% |
 | **CPM** | < R$ 15 | R$ 15 - 30 | R$ 30 - 50 | > R$ 50 |
-| **Frequência** | < 2.0 | 2.0 - 3.0 | 3.0 - 4.0 | > 4.0 |
+| **Frequência (Display/YouTube)** | < 2.0 | 2.0 - 3.0 | 3.0 - 4.0 | > 4.0 |
 
 ---
 
@@ -43,12 +43,12 @@ Estes são valores padrão de referência. Cada cliente/campanha pode ter metas 
 ### Quando Escalar
 - KPI principal na zona "Bom" por **3+ dias consecutivos**
 - Volume de conversões **estável ou crescente**
-- Frequência na zona "Bom" ou "Aceitável"
+- Impression Share (Search) com espaço para crescer, OU Frequência saudável (Display/YouTube)
 - Incremento recomendado: **20-30% do budget**
 
 ### Quando Pausar
 - KPI principal na zona "Crítico" por **3+ dias**
-- OU Frequência na zona "Crítico"
+- OU Frequência na zona "Crítico" (Display/YouTube)
 - OU CTR na zona "Crítico" por **5+ dias**
 
 ### Quando Ajustar

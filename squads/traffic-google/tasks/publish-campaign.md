@@ -175,6 +175,24 @@ Sugerir próximos passos:
 - Snapshot JSON da campanha (Step 10)
 - Audit log entries persistidos (Step 12)
 
+## Output Example
+
+```text
+✅ Publicação concluída — Grupo Prestarh (9631900143) [não-MCC OK]
+
+Tipo:        Search
+Campaign ID: 23998877665  · "SOL_LEADS_GRUPOPRESTARH_SERVIÇOS" · R$ 30/dia
+Ad Group ID: 191900112233 · "Consultoria de RH" · CPC default R$ 2,00
+Keywords:    2 adicionadas
+  - "consultoria de rh para empresas" (PHRASE) crit-id 101 · bid R$ 2,50
+  - "consultoria em gestão de pessoas"  (PHRASE) crit-id 102 · bid R$ 2,00
+Ads:         1 RSA criado (ad-id 78112233) · 5 headlines / 4 descriptions
+Status:      PAUSED → ENABLED (operador confirmou "s" no Step 11) · ativado 16:42
+
+Audit log:   4 mutações gravadas em ~/.aiox/google-ads-mutations.log
+Próximo:     aguardar 72h → *optimize → *report
+```
+
 ## Acceptance Criteria
 - [ ] Autenticação verificada com sucesso (Step 1)
 - [ ] Conta padrão NÃO é MCC e árvore exibida (Step 2)

@@ -9,7 +9,7 @@
 
 ## Responsabilidades
 
-1. **Consolidar dados multi-plataforma** — Unificar dados de Google Ads, Google Ads e outras fontes
+1. **Consolidar dados Google Ads** — Unificar dados dos 5 níveis (account, campaign, ad_group, ad, keyword) numa visão única
 2. **Relatórios estruturados** — Gerar relatórios com formato padronizado e seções claras
 3. **Atribuição por UTM** — Rastrear origem das conversões usando parâmetros UTM
 4. **Análise de funil** — Mapear impressão → clique → lead → venda com taxas de conversão
@@ -29,10 +29,10 @@
 
 ## Inputs Esperados
 
-- Dados de campanhas (CSV, texto, screenshots de dashboards)
-- Período do relatório (datas de início e fim)
-- Plataformas incluídas (Google, Google, ambas)
-- Dados de vendas/leads (se disponível, para atribuição)
+- Conta de anúncios Google Ads (customer-id) — uma conta por relatório
+- Período do relatório (datas de início e fim, ou `--period 7d|14d|30d`)
+- Nível(is) de detalhe desejado(s) (account, campaign, ad_group, ad, keyword)
+- Dados de vendas/leads (se disponível, para atribuição via UTM)
 
 ## Outputs
 

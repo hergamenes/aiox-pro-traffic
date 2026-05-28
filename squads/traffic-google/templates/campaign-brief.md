@@ -20,14 +20,14 @@
 | **Gênero** | {{gender}} |
 | **Localização** | {{location}} |
 | **Interesses** | {{interests}} |
-| **Lookalike** | {{lookalike}} |
+| **Públicos semelhantes** | {{similar_audiences}} |
 | **Exclusões** | {{exclusions}} |
 
 ## Estrutura da Campanha
 
-### Conjuntos de Anúncios
+### Grupos de Anúncios
 
-| Conjunto | Público | Orçamento | Posicionamento |
+| Grupo de Anúncios | Público | Orçamento | Posicionamento |
 |----------|---------|-----------|---------------|
 | {{ad_group_1_name}} | {{ad_group_1_audience}} | R$ {{ad_group_1_budget}} | {{ad_group_1_placement}} |
 | {{ad_group_2_name}} | {{ad_group_2_audience}} | R$ {{ad_group_2_budget}} | {{ad_group_2_placement}} |

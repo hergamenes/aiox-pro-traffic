@@ -13,7 +13,7 @@ Este squad automatiza as 3 operações principais de um gestor de tráfego:
 ### 🚀 Campaign Launcher — "Vou subir uma campanha"
 Use ANTES de publicar qualquer campanha. Ele vai:
 - Pedir as informações do briefing
-- Montar a estrutura (campanha → conjuntos → anúncios)
+- Montar a estrutura (campanha → grupos de anúncios → anúncios)
 - Validar UTMs, segmentação, criativos e budget
 - Executar checklist obrigatório
 - Gerar o plano final
@@ -34,7 +34,7 @@ Você só precisa informar: `campaign-id` ou `account-id` + período (7d/14d/30d
 
 ### 📊 Performance Analyst — "Preciso de um relatório"
 Use para consolidar dados e gerar relatórios. Ele vai:
-- **Puxar dados em tempo real** da Google Ads via CLI nos 4 níveis (account/campaign/ad_group/ad)
+- **Puxar dados em tempo real** da Google Ads via CLI nos 5 níveis (account/campaign/ad_group/ad/keyword)
 - Calcular todas as métricas
 - Analisar funil de conversão
 - Comparar com período anterior
@@ -44,30 +44,18 @@ Use para consolidar dados e gerar relatórios. Ele vai:
 
 Você só precisa informar: período (`--from`/`--to`) + `account-id` (opcional, usa default).
 
-## ⚡ Real-Time via CLI google-ads + MCP claude_ai_Google
+## ⚡ Real-Time via CLI google-ads
 
-Todos os 4 agentes usam duas fontes:
-
-**CLI `google-ads`** (em `packages/google-ads-agent/`) — operações e leituras básicas:
+Todos os 4 agentes usam a **CLI `google-ads`** (em `packages/google-ads-agent/`) como **única fonte** de dados — leituras e operações em tempo real:
 
 | Agente | Comandos CLI principais |
 |--------|--------------------------|
-| 🚀 Launcher | `auth status`, `accounts`, `pages`, `creatives` |
-| 🎯 Publisher | `create sales/leads`, `up`, `upload`, `history` |
-| ⚡ Optimizer | `report --campaign-id --period --level ad_group --format json` |
-| 📊 Analyst | `report --from --to --level {account/campaign/ad_group/ad} --format json` |
+| 🚀 Launcher | `auth status`, `config get-default`, `accounts --tree`, `list-assets`, `report` |
+| 🎯 Publisher | `create campaign-search/display/pmax`, `create ad-group`, `keyword add`, `create ad`, `upload`, `enable`, `pause` |
+| ⚡ Optimizer | `report --level ad_group --format json`, `update budget`, `update bidding`, `pause`, `keyword update-bid/remove` |
+| 📊 Analyst | `report --from --to --level {account/campaign/ad_group/ad/keyword} --format json`, `list-assets` |
 
-**MCP `claude_ai_Google`** — insights avançados (não existem na CLI):
-
-| Agente | MCP Tools |
-|--------|-----------|
-| ⚡ Optimizer | `ads_insights_anomaly_signal`, `ads_insights_performance_trend`, `ads_insights_auction_ranking_benchmarks`, `ads_get_opportunity_score` |
-| 📊 Analyst | `ads_insights_advertiser_context`, `ads_insights_industry_benchmark`, `ads_insights_performance_trend`, `ads_insights_anomaly_signal`, `ads_get_opportunity_score` |
-
-**Quando MCP entra em cena:**
-- Antes de pausar/escalar: optimizer consulta `anomaly_signal` para evitar agir em ruído
-- Antes de classificar: optimizer cruza com `auction_ranking_benchmarks` para entender se é problema de criativo ou de leilão
-- No relatório: analyst adiciona Seção 10 com `industry_benchmark` (comparação com a média do setor)
+> ❌ **MCP de Google Ads NÃO disponível neste projeto.** Diferente do `traffic-meta` (que usa o MCP `claude_ai_Facebook` para anomaly signal, industry benchmark, opportunity score), o traffic-google opera **somente com a CLI** + thresholds de `kpi-thresholds.md` + análise manual. Comparações de período e tendências são calculadas manualmente. Se um MCP de Google Ads for adicionado no futuro, esta seção deve ser atualizada.
 
 **Antes de usar qualquer agente, certifique-se que a CLI está autenticada:**
 
@@ -82,7 +70,7 @@ Se expirou → rodar `google-ads auth setup`.
 ```
 1. Receber briefing do cliente
 2. 🚀 *launch → Estruturar e validar campanha (CLI valida accounts/pages/creatives)
-3. 🎯 *publish-sales/leads → Publicar na Google Ads (CLI executa create)
+3. 🎯 *publish → Publicar na Google Ads (CLI cria hierarquia PAUSED) → *enable após GO
 4. Esperar 72h+ de dados
 5. ⚡ *optimize → CLI puxa report em tempo real, otimizar
 6. Repetir otimização semanalmente
@@ -93,6 +81,6 @@ Se expirou → rodar `google-ads auth setup`.
 
 - **Sempre valide antes de subir** — O checklist pré-lançamento evita erros caros
 - **Mínimo 3 dias de dados** — Decisões com menos dados são arriscadas
-- **Renove auth a cada 60 dias** — Token expira; agents vão BLOQUEAR se expirado
+- **Refresh token Google não expira por padrão** — mas pode ser revogado manualmente; `auth status` confirma a validade e os agents BLOQUEIAM se inválido
 - **Documente tudo** — O log de otimização guarda o JSON cru do CLI como anexo
 - **Ajuste os thresholds** — Os valores padrão em `kpi-thresholds.md` servem como base

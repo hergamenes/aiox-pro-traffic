@@ -78,14 +78,14 @@ Capturar output JSON para parsing no Step 2.
 ### Step 2: Processamento
 Parsear JSON do CLI e organizar em tabela padronizada:
 
-| Campanha/Conjunto | Gasto | Impressões | Cliques | CTR | CPC | Conversões | CPA | ROAS | Frequência |
-|-------------------|-------|-----------|---------|-----|-----|-----------|-----|------|-----------|
+| Campanha/Grupo de Anúncios | Gasto | Impressões | Cliques | CTR | CPC | Conversões | CPA | ROAS |
+|-------------------|-------|-----------|---------|-----|-----|-----------|-----|------|
 
 ### Step 2.5: Análise Manual de Tendência (sem MCP)
 
 > ⚠️ Diferente do `traffic-meta` que usa `claude_ai_Facebook` MCP para anomaly detection / opportunity score / auction benchmarks, **NÃO há MCP de Google Ads ativo neste projeto**. Esta análise é feita manualmente a partir dos dados do CLI.
 
-**Para cada conjunto candidato a pausar/escalar:**
+**Para cada campanha/grupo de anúncios candidato a pausar/escalar:**
 
 1. **Verificação de tendência:** Puxar histórico de 14 dias e plotar curva mental — se houver pico/queda abrupto recente, marcar como suspeita de anomalia (investigar antes de agir)
 2. **Análise por palavra-chave (Google-only):** Para campanhas Search, rodar `report --level keyword` e identificar quais keywords carregam o gasto/conversão. Decisões granulares por keyword.
@@ -190,10 +190,30 @@ Este log é a fonte de verdade para auditoria pós-execução e rollback manual.
 - **Audit trail obrigatório:** todas as mutações vão para `~/.aiox/google-ads-mutations.log`
 
 ## Output
-- Diagnóstico por campanha/conjunto
+- Diagnóstico por campanha/grupo de anúncios
 - Lista de ações recomendadas
 - Log de otimização preenchido
 - **Modo `--apply`:** plano de execução + resultados das mutações + linhas adicionadas ao audit log
+
+## Output Example
+
+```markdown
+# Optimize Cycle — Grupo Prestarh (9631900143) · 7d · modo --analyze
+Meta: CPA ≤ R$ 12 · Objetivo: Leads
+
+| Campanha | Gasto | CPC | Conv. | CPA | Classificação |
+|----------|-------|-----|-------|-----|---------------|
+| INSTITUCIONAL | R$ 58,12 | R$ 2,08 | 8 | R$ 7,27 | 🟢 Escalar |
+| SERVIÇOS | R$ 75,09 | R$ 5,01 | 6 | R$ 12,52 | 🟡 Ajustar |
+
+## Recomendações
+- 🟢 INSTITUCIONAL: ROAS/CPA dentro da meta 3+ dias → subir budget +25%
+  (R$ 30 → R$ 37,50). Comando (--apply): `google-ads update budget {id} --daily 37.50`
+- 🟡 SERVIÇOS: keyword "consultoria de rh para empresas" tem CPC R$ 5,07 e puxa
+  o CPA. Ação: adicionar negativas + revisar lance. NÃO pausar (dentro de 2x meta).
+
+Modo: --analyze (nada foi alterado). Para executar: reenviar com --apply.
+```
 
 ## Acceptance Criteria
 - [ ] `google-ads auth status` verificado e OK (Step 0)
@@ -202,7 +222,7 @@ Este log é a fonte de verdade para auditoria pós-execução e rollback manual.
 - [ ] Análise manual de tendência (14 dias) executada (Step 2.5)
 - [ ] Para campanhas Search: análise por keyword executada (Step 2.5)
 - [ ] Cross-check com Google Ads UI documentado (Step 2.5)
-- [ ] Cada campanha/conjunto recebeu classificação (🟢/🔴/🟡/⚪) (Step 3)
+- [ ] Cada campanha/grupo de anúncios recebeu classificação (🟢/🔴/🟡/⚪) (Step 3)
 - [ ] Recomendações detalham AÇÃO + JUSTIFICATIVA + EVIDÊNCIA (dados CLI + análise manual) (Step 4)
 - [ ] Log preenchido em `templates/optimization-log.md` (Step 5)
 - [ ] Thresholds de `kpi-thresholds.md` foram referenciados explicitamente
