@@ -15,12 +15,18 @@ import {
   promptBudget,
   promptWebsiteUrl,
   promptLandingPageUrl,
+  promptWhatsappNumber,
+  promptPrivacyUrl,
+  promptAppId,
+  promptStoreUrl,
   promptAdTexts,
 } from '../prompts.js';
 import { ValidationError } from '../../errors/types.js';
 import { handleError } from '../../errors/error-handler.js';
 import * as configRepo from '../../config/config-repository.js';
 import type { CampaignConfig, CampaignType } from '../../types/campaign.js';
+import { OBJECTIVE_SPECS, SUPPORTED_TYPES } from '../../campaign/objectives.js';
+import { VALID_PLATFORMS, parsePlatform } from '../../campaign/placements.js';
 
 function resolvePath(inputPath: string): string {
   if (inputPath.startsWith('~')) {
@@ -29,17 +35,22 @@ function resolvePath(inputPath: string): string {
   return resolve(inputPath);
 }
 
-const VALID_TYPES: CampaignType[] = ['sales', 'leads'];
+const VALID_TYPES: CampaignType[] = SUPPORTED_TYPES;
 
 export const upCommand = new Command('up')
   .description('Criar campanha com comando único')
-  .argument('[type]', 'Tipo de campanha (sales ou leads)')
+  .argument('[type]', `Tipo de campanha (${VALID_TYPES.join(', ')})`)
   .argument('[name]', 'Nome do anúncio')
   .option('--budget <value>', 'Orçamento diário em R$')
   .option('--page <pageId>', 'ID da página do Facebook')
-  .option('--url <url>', 'URL do site (sales) ou landing page (leads)')
+  .option('--url <url>', 'URL de destino (site ou landing page conforme o objetivo)')
+  .option('--plataforma <platform>', `Placements: ${VALID_PLATFORMS.join(', ')} (padrão: automático)`)
+  .option('--whatsapp <number>', 'Número de WhatsApp com DDI (campanhas whatsapp)')
+  .option('--privacy-url <url>', 'URL da política de privacidade (campanhas leadform)')
+  .option('--app-id <id>', 'ID do aplicativo (campanhas app)')
+  .option('--store-url <url>', 'URL da loja (campanhas app)')
   .option('--quiet', 'Exibir apenas resultado final')
-  .action(async (typeArg: string | undefined, nameArg: string | undefined, options: { budget?: string; page?: string; url?: string; quiet?: boolean }) => {
+  .action(async (typeArg: string | undefined, nameArg: string | undefined, options: { budget?: string; page?: string; url?: string; plataforma?: string; whatsapp?: string; privacyUrl?: string; appId?: string; storeUrl?: string; quiet?: boolean }) => {
     try {
       const startTime = Date.now();
       const config = await configRepo.load();
@@ -54,7 +65,7 @@ export const upCommand = new Command('up')
       let type: CampaignType;
       if (typeArg) {
         if (!VALID_TYPES.includes(typeArg as CampaignType)) {
-          throw new ValidationError(`Tipo inválido: "${typeArg}". Use "sales" ou "leads".`);
+          throw new ValidationError(`Tipo inválido: "${typeArg}". Use: ${VALID_TYPES.join(', ')}.`);
         }
         type = typeArg as CampaignType;
       } else {
@@ -75,18 +86,39 @@ export const upCommand = new Command('up')
         dailyBudget = await promptBudget();
       }
 
-      // Resolve URL
+      // Resolve URL conforme o campo exigido pelo objetivo
+      const spec = OBJECTIVE_SPECS[type];
       let websiteUrl: string | null = null;
       let landingPageUrl: string | null = null;
-      if (type === 'sales') {
+      if (spec.urlField === 'websiteUrl') {
         websiteUrl = options.url ?? await promptWebsiteUrl();
-      } else {
+      } else if (spec.urlField === 'landingPageUrl') {
         landingPageUrl = options.url ?? await promptLandingPageUrl();
       }
 
+      // Resolve número de WhatsApp (Click-to-WhatsApp)
+      let whatsappNumber: string | null = null;
+      if (type === 'whatsapp') {
+        whatsappNumber = (options.whatsapp?.replace(/\D/g, '')) ?? await promptWhatsappNumber();
+      }
+
+      // Resolve campos de Lead Ads e Promoção de App
+      let leadFormPrivacyUrl: string | null = null;
+      let applicationId: string | null = null;
+      let objectStoreUrl: string | null = null;
+      if (type === 'leadform') {
+        leadFormPrivacyUrl = options.privacyUrl ?? await promptPrivacyUrl();
+      } else if (type === 'app') {
+        applicationId = options.appId ?? await promptAppId();
+        objectStoreUrl = options.storeUrl ?? await promptStoreUrl();
+      }
+
+      // Resolve placements
+      const platform = parsePlatform(options.plataforma);
+
       // Resolve ad texts
       const adTexts = await promptAdTexts();
-      const callToAction = type === 'sales' ? 'SHOP_NOW' : 'LEARN_MORE';
+      const callToAction = spec.ctaDefault;
 
       // Resolve page
       const resolved = await resolvePageId({ pageFlag: options.page, config });
@@ -113,6 +145,11 @@ export const upCommand = new Command('up')
         websiteUrl,
         landingPageUrl,
         pixelId: null,
+        platform,
+        whatsappNumber,
+        leadFormPrivacyUrl,
+        applicationId,
+        objectStoreUrl,
       };
 
       const callbacks = options.quiet ? undefined : {

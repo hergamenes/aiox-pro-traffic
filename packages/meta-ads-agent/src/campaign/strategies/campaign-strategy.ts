@@ -16,6 +16,12 @@ export interface AdSetOptions {
   cboEnabled?: boolean;
   ageMin?: number;
   startTime?: number;
+  /** ID da página — necessário para promoted_object (ex.: Click-to-WhatsApp, Lead Ads). */
+  pageId?: string;
+  /** ID do aplicativo — promoted_object de Promoção de App. */
+  applicationId?: string | null;
+  /** URL da loja — promoted_object de Promoção de App. */
+  objectStoreUrl?: string | null;
 }
 
 export interface AdOptions {
@@ -33,4 +39,10 @@ export interface AdOptions {
   websiteUrl: string;
   name: string;
   urlTags?: string;
+  /** Número de WhatsApp (dígitos com DDI) para criativos Click-to-WhatsApp. */
+  whatsappNumber?: string | null;
+  /** ID do formulário de Lead Ads associado ao criativo. */
+  leadFormId?: string | null;
+  /** URL da loja do app — usada como link do criativo de Promoção de App. */
+  objectStoreUrl?: string | null;
 }

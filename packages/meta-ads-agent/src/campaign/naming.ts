@@ -3,11 +3,23 @@ import type { CampaignType } from '../types/campaign.js';
 const TYPE_MAP: Record<CampaignType, string> = {
   sales: 'VENDAS',
   leads: 'LEADS',
+  awareness: 'RECONHECIMENTO',
+  traffic: 'TRAFEGO',
+  engagement: 'ENGAJAMENTO',
+  whatsapp: 'WHATSAPP',
+  leadform: 'LEADFORM',
+  app: 'APP',
 };
 
 const EVENT_MAP: Record<CampaignType, string> = {
   sales: 'COMPRA',
   leads: 'LP',
+  awareness: 'ALCANCE',
+  traffic: 'LP',
+  engagement: 'ENGAJAMENTO',
+  whatsapp: 'CONVERSA',
+  leadform: 'FORMULARIO',
+  app: 'INSTALL',
 };
 
 function stripAccents(str: string): string {

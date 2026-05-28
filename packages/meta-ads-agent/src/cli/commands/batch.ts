@@ -12,8 +12,10 @@ import { resolvePageId } from '../page-resolver.js';
 import { COLORS, formatDuration } from '../progress.js';
 import { handleError } from '../../errors/error-handler.js';
 import * as configRepo from '../../config/config-repository.js';
-import type { CampaignConfig, CampaignType } from '../../types/campaign.js';
+import type { CampaignConfig, CampaignType, Platform } from '../../types/campaign.js';
 import type { CreativeBundle } from '../../types/creative.js';
+import { OBJECTIVE_SPECS, SUPPORTED_TYPES } from '../../campaign/objectives.js';
+import { parsePlatform } from '../../campaign/placements.js';
 
 interface BatchRow {
   name: string;
@@ -36,6 +38,12 @@ interface BatchRow {
   urlTags: string | null;
   adSetName: string | null;
   adName: string | null;
+  platform: Platform | undefined;
+  whatsappNumber: string | null;
+  leadFormId: string | null;
+  leadFormPrivacyUrl: string | null;
+  applicationId: string | null;
+  objectStoreUrl: string | null;
 }
 
 interface BatchResult {
@@ -48,11 +56,6 @@ interface BatchResult {
   error?: string;
   duration: number;
 }
-
-const CTA_DEFAULTS: Record<CampaignType, string> = {
-  sales: 'SHOP_NOW',
-  leads: 'LEARN_MORE',
-};
 
 function resolvePath(inputPath: string, basePath?: string): string {
   if (inputPath.startsWith('~')) {
@@ -117,8 +120,8 @@ function parseCsv(content: string, csvDir: string): BatchRow[] {
     };
 
     const type = (getValue('type') || 'sales') as CampaignType;
-    if (type !== 'sales' && type !== 'leads') {
-      throw new Error(`Linha ${i + 1}: tipo "${type}" inválido. Use "sales" ou "leads".`);
+    if (!SUPPORTED_TYPES.includes(type)) {
+      throw new Error(`Linha ${i + 1}: tipo "${type}" inválido. Use: ${SUPPORTED_TYPES.join(', ')}.`);
     }
 
     const budget = parseFloat(getValue('budget'));
@@ -139,6 +142,21 @@ function parseCsv(content: string, csvDir: string): BatchRow[] {
     const urlTags = getValue('url_tags') || null;
     const adSetName = getValue('adset_name') || null;
     const adName = getValue('ad_name') || null;
+    const platform = parsePlatform(getValue('platform') || undefined);
+    const whatsappNumber = getValue('whatsapp_number') ? getValue('whatsapp_number').replace(/\D/g, '') : null;
+    if (type === 'whatsapp' && !whatsappNumber) {
+      throw new Error(`Linha ${i + 1}: campanha whatsapp exige a coluna "whatsapp_number".`);
+    }
+    const leadFormId = getValue('form_id') || null;
+    const leadFormPrivacyUrl = getValue('privacy_url') || null;
+    if (type === 'leadform' && !leadFormId && !leadFormPrivacyUrl) {
+      throw new Error(`Linha ${i + 1}: campanha leadform exige "form_id" ou "privacy_url".`);
+    }
+    const applicationId = getValue('app_id') || null;
+    const objectStoreUrl = getValue('store_url') || null;
+    if (type === 'app' && (!applicationId || !objectStoreUrl)) {
+      throw new Error(`Linha ${i + 1}: campanha app exige "app_id" e "store_url".`);
+    }
 
     rows.push({
       name: getValue('name'),
@@ -151,7 +169,7 @@ function parseCsv(content: string, csvDir: string): BatchRow[] {
       creativePath: creativePath ? resolvePath(creativePath, csvDir) : null,
       imageHash,
       videoId,
-      callToAction: getValue('cta') || CTA_DEFAULTS[type],
+      callToAction: getValue('cta') || OBJECTIVE_SPECS[type].ctaDefault,
       storiesImageHash,
       pixelId,
       cboEnabled,
@@ -160,6 +178,12 @@ function parseCsv(content: string, csvDir: string): BatchRow[] {
       urlTags,
       adSetName,
       adName,
+      platform,
+      whatsappNumber,
+      leadFormId,
+      leadFormPrivacyUrl,
+      applicationId,
+      objectStoreUrl,
     });
   }
 
@@ -300,8 +324,8 @@ export const batchCommand = new Command('batch')
             pageId: resolved.pageId,
             instagramAccountId: resolved.instagramAccountId,
             adAccountId,
-            websiteUrl: row.type === 'sales' ? row.url : null,
-            landingPageUrl: row.type === 'leads' ? row.url : null,
+            websiteUrl: OBJECTIVE_SPECS[row.type].urlField === 'websiteUrl' ? row.url : null,
+            landingPageUrl: OBJECTIVE_SPECS[row.type].urlField === 'landingPageUrl' ? row.url : null,
             pixelId: row.pixelId,
             imageHash: row.imageHash,
             videoId: row.videoId,
@@ -312,6 +336,12 @@ export const batchCommand = new Command('batch')
             urlTags: row.urlTags ?? undefined,
             adSetName: row.adSetName ?? undefined,
             adName: row.adName ?? undefined,
+            platform: row.platform,
+            whatsappNumber: row.whatsappNumber,
+            leadFormId: row.leadFormId,
+            leadFormPrivacyUrl: row.leadFormPrivacyUrl,
+            applicationId: row.applicationId,
+            objectStoreUrl: row.objectStoreUrl,
           };
 
           let result;

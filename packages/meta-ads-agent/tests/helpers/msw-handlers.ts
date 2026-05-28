@@ -77,6 +77,22 @@ export const deleteResourceHandler = http.delete(
   },
 );
 
+// Lead Ads handlers (formulário nativo)
+
+export const pageAccessTokenHandler = http.get(
+  `${BASE_URL}/:pageId`,
+  ({ params }) => {
+    return HttpResponse.json({ id: params.pageId, access_token: 'mock-page-token' });
+  },
+);
+
+export const leadFormCreateSuccessHandler = http.post(
+  `${BASE_URL}/:pageId/leadgen_forms`,
+  () => {
+    return HttpResponse.json({ id: `form_${Date.now()}` });
+  },
+);
+
 export const campaignApiErrorHandler = (endpoint: string, code: number, message: string) =>
   http.post(`${BASE_URL}/act_:adAccountId/${endpoint}`, () => {
     return HttpResponse.json({
@@ -97,4 +113,12 @@ export const campaignHandlers = [
   adCreateSuccessHandler,
   campaignStatusUpdateHandler,
   deleteResourceHandler,
+];
+
+// Handlers para fluxos que envolvem formulário de Lead Ads (inclui troca de
+// token de página e criação do formulário).
+export const leadFormHandlers = [
+  ...campaignHandlers,
+  leadFormCreateSuccessHandler,
+  pageAccessTokenHandler,
 ];

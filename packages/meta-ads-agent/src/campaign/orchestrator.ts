@@ -1,12 +1,17 @@
 import { logger } from '../cli/logger.js';
 import { campaignConfigSchema } from '../types/campaign.js';
-import type { CampaignConfig, CampaignResult } from '../types/campaign.js';
+import type { CampaignConfig, CampaignResult, CampaignType } from '../types/campaign.js';
 import type { CreativeBundle } from '../types/creative.js';
 import { uploadBundle } from '../meta-api/uploader.js';
 import * as adapter from '../meta-api/adapter.js';
 import { SalesCampaignStrategy } from './strategies/sales.strategy.js';
 import { LeadsCampaignStrategy } from './strategies/leads.strategy.js';
+import { GenericCampaignStrategy } from './strategies/generic.strategy.js';
+import { WhatsappCampaignStrategy } from './strategies/whatsapp.strategy.js';
+import { LeadFormCampaignStrategy } from './strategies/leadform.strategy.js';
+import { AppCampaignStrategy } from './strategies/app.strategy.js';
 import type { CampaignStrategy } from './strategies/campaign-strategy.js';
+import { applyPlacements } from './placements.js';
 import { ValidationError } from '../errors/types.js';
 import { logCampaign } from '../log/log-repository.js';
 
@@ -16,6 +21,16 @@ function getStrategy(type: string): CampaignStrategy {
       return new SalesCampaignStrategy();
     case 'leads':
       return new LeadsCampaignStrategy();
+    case 'awareness':
+    case 'traffic':
+    case 'engagement':
+      return new GenericCampaignStrategy(type as CampaignType);
+    case 'whatsapp':
+      return new WhatsappCampaignStrategy();
+    case 'leadform':
+      return new LeadFormCampaignStrategy();
+    case 'app':
+      return new AppCampaignStrategy();
     default:
       throw new ValidationError(`Tipo de campanha não suportado: ${type}`);
   }
@@ -110,6 +125,9 @@ async function executeCampaignCreation(
   let campaignId: string | null = null;
   let adSetId: string | null = null;
   let adId: string | null = null;
+  // Formulário de Lead Ads criado por nós (para rollback). Não inclui um
+  // leadFormId pré-existente passado via config — esse não deve ser deletado.
+  let createdLeadFormId: string | null = null;
 
   try {
     // Phase 3: Create campaign
@@ -127,7 +145,7 @@ async function executeCampaignCreation(
     // Phase 4: Create ad set + ad
     callbacks?.onProgress?.('adset', 0);
     const adSetName = config.adSetName ?? `${campaignName}_ADSET`;
-    const adSetParams = {
+    const adSetParams: Record<string, unknown> = {
       ...strategy.getAdSetParams({
         campaignId,
         dailyBudget: config.dailyBudget,
@@ -135,12 +153,43 @@ async function executeCampaignCreation(
         cboEnabled: config.cboEnabled,
         ageMin: config.ageMin,
         startTime: config.startTime,
+        pageId: config.pageId,
+        applicationId: config.applicationId,
+        objectStoreUrl: config.objectStoreUrl,
       }),
       name: adSetName,
     };
+
+    // Aplica restrição de placements (Instagram/Facebook) quando solicitado.
+    const targeting = adSetParams['targeting'] as Record<string, unknown> | undefined;
+    if (targeting) {
+      applyPlacements(targeting, config.platform);
+    }
+
     adSetId = await adapter.createAdSet(config.adAccountId, adSetParams);
 
     const adNameFinal = config.adName ?? `${campaignName}_AD`;
+
+    // Lead Ads: cria o formulário nativo (se ainda não houver um) antes do ad.
+    let leadFormId: string | null = config.leadFormId ?? null;
+    if (config.type === 'leadform' && !leadFormId) {
+      // A Graph API exige `questions` e `privacy_policy` como strings
+      // JSON-encoded (mesmo em body JSON), não como objetos aninhados.
+      leadFormId = await adapter.createLeadForm(config.pageId, {
+        name: `${campaignName}_FORM`,
+        locale: 'PT_BR',
+        questions: JSON.stringify([
+          { type: 'FULL_NAME' },
+          { type: 'EMAIL' },
+          { type: 'PHONE' },
+        ]),
+        privacy_policy: JSON.stringify({
+          url: config.leadFormPrivacyUrl,
+          link_text: 'Política de Privacidade',
+        }),
+      });
+      createdLeadFormId = leadFormId;
+    }
 
     // Fetch video thumbnail if needed
     let videoThumbnailUrl: string | null = null;
@@ -163,6 +212,9 @@ async function executeCampaignCreation(
       websiteUrl: config.type === 'leads' ? (config.landingPageUrl ?? '') : (config.websiteUrl ?? ''),
       name: adNameFinal,
       urlTags: config.urlTags,
+      whatsappNumber: config.whatsappNumber,
+      leadFormId,
+      objectStoreUrl: config.objectStoreUrl,
     });
     adId = await adapter.createAd(config.adAccountId, adParams);
     callbacks?.onProgress?.('adset', 100);
@@ -207,6 +259,9 @@ async function executeCampaignCreation(
     }
     if (campaignId) {
       await adapter.deleteCampaign(campaignId);
+    }
+    if (createdLeadFormId) {
+      await adapter.deleteLeadForm(createdLeadFormId, config.pageId);
     }
 
     throw error;

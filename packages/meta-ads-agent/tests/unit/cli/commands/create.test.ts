@@ -64,11 +64,17 @@ describe('create CLI command', () => {
     expect(leadsCmd?.description()).toContain('Leads');
   });
 
-  it('should have both sales and leads subcommands registered', () => {
+  it('should register all supported objective subcommands', () => {
     const commandNames = createCommand.commands.map((c) => c.name());
     expect(commandNames).toContain('sales');
     expect(commandNames).toContain('leads');
-    expect(commandNames).toHaveLength(2);
+    expect(commandNames).toContain('awareness');
+    expect(commandNames).toContain('traffic');
+    expect(commandNames).toContain('engagement');
+    expect(commandNames).toContain('whatsapp');
+    expect(commandNames).toContain('leadform');
+    expect(commandNames).toContain('app');
+    expect(commandNames).toHaveLength(8);
   });
 
   it('should have --page option on sales subcommand', () => {

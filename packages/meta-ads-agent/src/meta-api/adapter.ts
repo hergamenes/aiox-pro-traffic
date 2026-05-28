@@ -159,6 +159,97 @@ export async function getInstagramAccount(
   }
 }
 
+/**
+ * Obtém o page access token de uma página.
+ *
+ * Criar formulários de Lead Ads (leadgen_forms) exige um token da PÁGINA,
+ * não o token do usuário. Trocamos o user token pelo page token via
+ * GET /{page_id}?fields=access_token.
+ */
+export async function getPageAccessToken(pageId: string): Promise<string> {
+  const token = await getAccessToken();
+  logger.debug({ pageId }, 'Fetching page access token');
+
+  try {
+    const url = `${BASE_URL}/${pageId}?fields=access_token&access_token=${token}`;
+    const response = await fetch(url);
+    const json = (await response.json()) as Record<string, unknown>;
+
+    if (json['error']) {
+      handleMetaError({ body: json });
+    }
+
+    const pageToken = json['access_token'] as string | undefined;
+    if (!pageToken) {
+      throw new MetaApiError(
+        'Não foi possível obter o token da página.',
+        0,
+        'Verifique se você administra esta página e tem as permissões leads_retrieval/pages_manage_ads.',
+      );
+    }
+    return pageToken;
+  } catch (error) {
+    if (error instanceof MetaApiError || error instanceof NetworkError) {
+      throw error;
+    }
+    handleMetaError(error);
+  }
+}
+
+/**
+ * Cria um formulário de Lead Ads (instant form) na página e retorna seu ID.
+ * Usa o page access token (obtido via getPageAccessToken).
+ */
+export async function createLeadForm(
+  pageId: string,
+  params: Record<string, unknown>,
+): Promise<string> {
+  const pageToken = await getPageAccessToken(pageId);
+  logger.debug({ pageId }, 'Creating lead form');
+
+  return withRetry(async () => {
+    const url = `${BASE_URL}/${pageId}/leadgen_forms`;
+    const body = { ...params, access_token: pageToken };
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    const json = (await response.json()) as Record<string, unknown>;
+
+    if (json['error']) {
+      handleMetaError({ body: json });
+    }
+
+    const id = json['id'] as string;
+    logger.info({ leadFormId: id }, 'Lead form created');
+    return id;
+  });
+}
+
+/**
+ * Remove um formulário de Lead Ads (best-effort, usado no rollback).
+ * Erros são logados mas não propagados, igual aos demais deletes de rollback.
+ */
+export async function deleteLeadForm(leadFormId: string, pageId: string): Promise<void> {
+  logger.debug({ leadFormId }, 'Deleting lead form (rollback)');
+
+  try {
+    const pageToken = await getPageAccessToken(pageId);
+    const url = `${BASE_URL}/${leadFormId}?access_token=${pageToken}`;
+    const response = await fetch(url, { method: 'DELETE' });
+    const json = (await response.json()) as Record<string, unknown>;
+
+    if (json['error']) {
+      logger.warn({ leadFormId }, 'Failed to delete lead form during rollback');
+    } else {
+      logger.info({ leadFormId }, 'Lead form deleted (rollback)');
+    }
+  } catch {
+    logger.warn({ leadFormId }, 'Failed to delete lead form during rollback');
+  }
+}
+
 export async function createCampaign(
   adAccountId: string,
   params: Record<string, unknown>,

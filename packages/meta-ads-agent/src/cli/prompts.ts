@@ -1,13 +1,14 @@
 import { input, select, number } from '@inquirer/prompts';
 import type { CampaignType } from '../types/campaign.js';
+import { OBJECTIVE_SPECS, SUPPORTED_TYPES } from '../campaign/objectives.js';
 
 export async function promptCampaignType(): Promise<CampaignType> {
   return select({
     message: 'Tipo de campanha:',
-    choices: [
-      { name: 'Vendas (Purchase/Compra)', value: 'sales' as CampaignType },
-      { name: 'Leads (Landing Page)', value: 'leads' as CampaignType },
-    ],
+    choices: SUPPORTED_TYPES.map((type) => ({
+      name: OBJECTIVE_SPECS[type].label,
+      value: type,
+    })),
   });
 }
 
@@ -41,6 +42,39 @@ export async function promptLandingPageUrl(): Promise<string> {
   return input({
     message: 'URL da landing page:',
     validate: (v) => (v.trim().length > 0 ? true : 'URL é obrigatória'),
+  });
+}
+
+/** Coleta o número de WhatsApp (somente dígitos com DDI, ex.: 5511999998888). */
+export async function promptWhatsappNumber(): Promise<string> {
+  const raw = await input({
+    message: 'Número de WhatsApp (com DDI, ex.: 5511999998888):',
+    validate: (v) => (/^\d{10,15}$/.test(v.replace(/\D/g, '')) ? true : 'Informe só dígitos com DDI (10 a 15 números)'),
+  });
+  return raw.replace(/\D/g, '');
+}
+
+/** Coleta a URL da política de privacidade (Lead Ads). */
+export async function promptPrivacyUrl(): Promise<string> {
+  return input({
+    message: 'URL da política de privacidade:',
+    validate: (v) => (v.trim().length > 0 ? true : 'URL é obrigatória'),
+  });
+}
+
+/** Coleta o ID do aplicativo (Promoção de App). */
+export async function promptAppId(): Promise<string> {
+  return input({
+    message: 'ID do aplicativo:',
+    validate: (v) => (v.trim().length > 0 ? true : 'ID do aplicativo é obrigatório'),
+  });
+}
+
+/** Coleta a URL da loja do app (App Store/Google Play). */
+export async function promptStoreUrl(): Promise<string> {
+  return input({
+    message: 'URL da loja (App Store/Google Play):',
+    validate: (v) => (v.trim().length > 0 ? true : 'URL da loja é obrigatória'),
   });
 }
 
