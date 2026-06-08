@@ -33,3 +33,10 @@ coverage/
 *.bak
 reports/
 .aiox/project-status.yaml
+
+# Agent runtime memory (não versionar)
+**/.claude/agent-memory/
+
+# Perfis de clientes específicos (dados de cliente) — manter só o _TEMPLATE
+squads/*/data/client-profiles/*.md
+!squads/*/data/client-profiles/_TEMPLATE.md

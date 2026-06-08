@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<!--
+============================================================================
+  TEMPLATE — APRESENTAÇÃO DE RELATÓRIO PARA CLIENTE (identidade SOLARO)
+============================================================================
+
+  (1) O QUE É ISTO
+      Este arquivo é um TEMPLATE reutilizável, NÃO um relatório pronto.
+      Para gerar um relatório real: copie este arquivo para a pasta do
+      cliente e substitua TODOS os placeholders {{...}} pelos valores reais.
+
+  (2) PLACEHOLDERS DISPONÍVEIS
+      Cabeçalho / período:
+        {{CLIENTE}}              - nome do cliente (ex: Verbo Feminino)
+        {{PLATAFORMA_LINHA}}     - linha de contexto (ex: Meta Ads · Click-to-WhatsApp · Conta 884611416502961)
+        {{PERIODO}}              - período analisado (ex: 22–28/05/2026)
+        {{PERIODO_ANTERIOR}}     - período de comparação (ex: 15–21/05/2026)
+
+      Seção 1 — Visão Geral (cards de destaque):
+        {{INVESTIMENTO}}              - valor investido (ex: R$ 226,52)
+        {{INVESTIMENTO_DELTA}}        - variação (ex: ▲ +56,4%)
+        {{INVESTIMENTO_ANTERIOR}}     - valor anterior (ex: R$ 144,80)
+        {{CONVERSOES}}                - nº de conversões/conversas (ex: 40)
+        {{CONVERSOES_DELTA}}          - variação (ex: ▲ +344% 🟢)
+        {{CONVERSOES_ANTERIOR}}       - valor anterior (ex: 9)
+        {{CUSTO_POR_CONVERSAO}}       - custo por conversão (ex: R$ 5,66)
+        {{CUSTO_POR_CONVERSAO_DELTA}} - variação (ex: ▼ −65% 🟢)
+        {{CUSTO_POR_CONVERSAO_ANTERIOR}} - valor anterior (ex: R$ 16,09)
+        {{LEITURA_VISAO_GERAL}}       - parágrafo de leitura/interpretação
+        {{GRAFICO_TITULO}}            - título do gráfico diário
+        {{GRAFICO_SVG}}               - bloco onde o SVG do gráfico diário é injetado
+                                        (ver item 3 — SEMPRE SVG inline)
+
+      Seção 2 — Visão do Tráfego:
+        {{KPI_GRID}}                  - cards de KPI do funil de métricas (HTML dos <div class="kpi">)
+        {{FUNIL_ETAPAS}}              - etapas do funil de conversão (HTML dos <div class="f-step">)
+        {{LEITURA_FUNIL}}             - leitura do funil
+        {{LINHAS_RANK_CAMPANHAS}}     - <tr> do rank de campanhas
+        {{LINHAS_RANK_CONJUNTOS}}     - <tr> do rank de conjuntos
+        {{LEITURA_CONJUNTOS}}         - leitura dos conjuntos
+        {{LINHAS_RANK_ANUNCIOS}}      - <tr> do rank de anúncios (com coluna Mídia/Link)
+        {{NOTA_ANUNCIOS}}             - rodapé/nota da tabela de anúncios
+
+      Seção 3 — Parecer:
+        {{PARECER_BOM}}               - <li> do que está BOM
+        {{PARECER_RUIM}}              - <li> do que está RUIM
+        {{PARECER_MELHORAR}}          - <li> do que precisa MELHORAR
+
+      Seção 4 — Insights das Otimizações Realizadas:
+        {{TABELA_OTIMIZACOES_REALIZADAS}} - <tr> das ações já executadas + efeito
+        {{NOTA_OTIMIZACOES}}          - nota sobre origem (optimization-log)
+
+      Seção 5 — Novas Otimizações:
+        {{ACOES_PRIORIZADAS}}         - blocos de ação P1..Pn (HTML dos <div class="action">)
+
+      Rodapé:
+        {{RODAPE_LINHA}}              - linha de identificação do relatório
+
+  (3) GRÁFICO — SEMPRE SVG INLINE
+      O gráfico diário (barras de conversas + linha de custo) DEVE ser SVG
+      inline injetado em {{GRAFICO_SVG}}. NÃO use Chart.js nem qualquer lib
+      JS de gráfico: o Chrome em modo headless print-to-pdf NÃO renderiza
+      JavaScript no momento da impressão, então o gráfico sairia em branco.
+      Use o <svg> de referência (barras com <rect>, linha com <polyline>,
+      eixos com <line>/<text>) como modelo.
+
+  (4) COMANDO PARA GERAR O PDF
+      "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --disable-gpu --print-to-pdf=saida.pdf --no-pdf-header-footer entrada.html
+
+  (5) LOGO SOLARO
+      Antes de gerar o PDF, COPIE a logo "solaro-logo-colorida.png" para a
+      MESMA pasta do arquivo HTML do relatório. O Chrome só embute a imagem
+      no PDF se o caminho relativo "solaro-logo-colorida.png" existir ao lado
+      do HTML. Sem isso o cabeçalho sai sem logo.
+============================================================================
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório de Performance — {{CLIENTE}}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --vermelho:#E8453C;
+    --laranja:#FF6F43;
+    --ambar:#FFB300;
+    --escuro:#1a1a1a;
+    --cinza:#6b7280;
+    --cinza-claro:#f3f4f6;
+    --verde:#15a34a;
+    --linha:#e8e8ea;
+    --sombra:0 4px 18px rgba(26,26,26,.08);
+    --sombra-forte:0 8px 28px rgba(232,69,60,.22);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Montserrat',sans-serif;
+    color:var(--escuro);
+    background:#fafafa;
+    line-height:1.5;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+  .page{
+    max-width:920px;
+    margin:0 auto;
+    padding:28px 34px 40px;
+    background:#fff;
+  }
+  h1,h2,h3,.kpi-num,.big-num{font-family:'Poppins',sans-serif}
+
+  /* ---------- HEADER ---------- */
+  .header{
+    display:flex;align-items:center;justify-content:space-between;
+    gap:20px;border-bottom:4px solid var(--vermelho);
+    padding-bottom:18px;margin-bottom:24px;
+  }
+  .header img{height:54px;width:auto}
+  .header .title-block{text-align:right}
+  .header h1{font-size:22px;font-weight:700;color:var(--escuro);letter-spacing:-.3px}
+  .header h1 span{color:var(--vermelho)}
+  .header .sub{font-size:12.5px;color:var(--cinza);margin-top:3px}
+  .header .sub b{color:var(--escuro)}
+
+  /* ---------- SEÇÕES NUMERADAS ---------- */
+  .section{margin-bottom:30px}
+  .section-head{
+    display:flex;align-items:center;gap:14px;margin-bottom:16px;
+    background:linear-gradient(135deg,var(--vermelho),var(--laranja));
+    border-radius:14px;padding:13px 18px;color:#fff;
+    box-shadow:var(--sombra-forte);
+  }
+  .section-head .s-num{
+    font-family:'Poppins';font-weight:800;font-size:24px;
+    background:rgba(255,255,255,.22);width:42px;height:42px;border-radius:11px;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .section-head .s-title{font-family:'Poppins';font-weight:700;font-size:18px;line-height:1.2}
+  .section-head .s-desc{font-size:12px;opacity:.92;font-weight:500;margin-top:2px}
+  .subsec{
+    font-family:'Poppins';font-size:13.5px;font-weight:700;color:var(--vermelho);
+    margin:18px 0 10px;display:flex;align-items:center;gap:7px;
+  }
+  .subsec::before{content:"";width:5px;height:16px;border-radius:3px;background:linear-gradient(var(--vermelho),var(--laranja))}
+  .read-line{
+    background:var(--cinza-claro);border-left:4px solid var(--ambar);
+    border-radius:0 10px 10px 0;padding:11px 16px;font-size:12.5px;margin-top:14px;
+  }
+  .read-line b{color:var(--vermelho)}
+
+  /* ---------- DESTAQUE ---------- */
+  .highlight-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:6px;
+  }
+  .hl-card{
+    border-radius:18px;padding:20px 22px;color:#fff;
+    box-shadow:var(--sombra-forte);position:relative;overflow:hidden;
+  }
+  .hl-card.a{background:linear-gradient(135deg,var(--vermelho),var(--laranja))}
+  .hl-card.b{background:linear-gradient(135deg,var(--laranja),var(--ambar))}
+  .hl-card.c{background:linear-gradient(135deg,#c5372f,var(--vermelho))}
+  .hl-card .label{font-size:12px;font-weight:600;opacity:.95;text-transform:uppercase;letter-spacing:.5px}
+  .hl-card .big-num{font-size:38px;font-weight:800;line-height:1;margin:9px 0 6px}
+  .hl-card .ctx{font-size:12px;opacity:.95}
+  .hl-card .arrow{font-weight:700}
+
+  /* ---------- KPI / FUNIL TABELA ---------- */
+  .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+  .kpi{
+    background:#fff;border:1px solid var(--linha);border-radius:14px;
+    padding:14px 15px;box-shadow:var(--sombra);
+  }
+  .kpi .k-label{font-size:11px;color:var(--cinza);font-weight:600;text-transform:uppercase;letter-spacing:.3px}
+  .kpi .kpi-num{font-size:22px;font-weight:700;margin:5px 0 3px}
+  .kpi .k-prev{font-size:11px;color:var(--cinza)}
+  .delta{font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:3px}
+  .delta.up{color:var(--verde)}
+  .delta.down-good{color:var(--verde)}
+  .delta.up-warn{color:var(--laranja)}
+  .delta.flat{color:var(--cinza)}
+
+  /* ---------- FUNIL ETAPAS ---------- */
+  .funnel{display:flex;flex-direction:column;gap:9px}
+  .f-step{
+    display:flex;align-items:center;gap:14px;
+    background:#fff;border:1px solid var(--linha);border-radius:12px;
+    padding:11px 16px;box-shadow:var(--sombra);
+  }
+  .f-step .f-icon{
+    width:34px;height:34px;border-radius:9px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;
+    background:linear-gradient(135deg,var(--vermelho),var(--laranja));
+  }
+  .f-step .f-name{font-weight:600;font-size:13px;flex:1}
+  .f-step .f-rate{font-family:'Poppins';font-weight:700;font-size:17px;min-width:78px;text-align:right}
+  .f-step .f-prev{font-size:11px;color:var(--cinza);min-width:150px;text-align:right}
+  .f-step.good .f-rate{color:var(--verde)}
+
+  /* ---------- TABELAS ---------- */
+  table.tbl{width:100%;border-collapse:separate;border-spacing:0;font-size:12.5px;
+    box-shadow:var(--sombra);border-radius:12px;overflow:hidden;background:#fff;border:1px solid var(--linha)}
+  table.tbl thead th{
+    background:linear-gradient(135deg,var(--vermelho),var(--laranja));color:#fff;
+    font-family:'Poppins';font-weight:600;font-size:11.5px;text-align:left;
+    padding:10px 12px;letter-spacing:.2px;
+  }
+  table.tbl tbody td{padding:9px 12px;border-bottom:1px solid var(--linha)}
+  table.tbl tbody tr:last-child td{border-bottom:none}
+  table.tbl tbody tr:nth-child(even){background:#fcfcfd}
+  table.tbl .rank{font-family:'Poppins';font-weight:700;text-align:center;width:34px}
+  table.tbl b{font-family:'Poppins';font-weight:600}
+  .row-win{background:#f1fbf4 !important}
+  .row-bad{background:#fef2f1 !important}
+  .pill{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap}
+  .pill.green{background:#dcfce7;color:var(--verde)}
+  .pill.red{background:#fee2e2;color:var(--vermelho)}
+  .media-cell{color:var(--cinza);font-style:italic;font-size:11.5px}
+
+  /* ---------- PARECER (3 BLOCOS) ---------- */
+  .verdict-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+  .verdict{
+    border-radius:14px;padding:16px 18px;box-shadow:var(--sombra);border:1px solid var(--linha);
+  }
+  .verdict.good{border-top:5px solid var(--verde);background:linear-gradient(180deg,#f1fbf4,#fff)}
+  .verdict.bad{border-top:5px solid var(--vermelho);background:linear-gradient(180deg,#fef2f1,#fff)}
+  .verdict.warn{border-top:5px solid var(--ambar);background:linear-gradient(180deg,#fff8ec,#fff)}
+  .verdict h4{font-family:'Poppins';font-size:14px;font-weight:700;margin-bottom:10px}
+  .verdict.good h4{color:var(--verde)}
+  .verdict.bad h4{color:var(--vermelho)}
+  .verdict.warn h4{color:#b8830a}
+  .verdict ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+  .verdict li{font-size:12px;line-height:1.45;padding-left:16px;position:relative}
+  .verdict li::before{content:"";position:absolute;left:0;top:6px;width:7px;height:7px;border-radius:50%}
+  .verdict.good li::before{background:var(--verde)}
+  .verdict.bad li::before{background:var(--vermelho)}
+  .verdict.warn li::before{background:var(--ambar)}
+  .verdict li b{font-family:'Poppins';font-weight:600}
+
+  /* ---------- HIPÓTESE BADGE ---------- */
+  .badge-hyp{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;
+    background:#fff7e6;color:#b8830a;border:1px solid var(--ambar);white-space:nowrap}
+  .note-log{
+    margin-top:14px;background:var(--cinza-claro);border-radius:10px;padding:11px 16px;
+    font-size:12px;color:var(--cinza);border-left:4px solid var(--laranja);
+  }
+  .note-log b{color:var(--escuro)}
+
+  /* ---------- AÇÕES ---------- */
+  .actions{display:flex;flex-direction:column;gap:12px}
+  .action{
+    display:flex;gap:14px;align-items:flex-start;
+    background:#fff;border:1px solid var(--linha);border-left:5px solid var(--vermelho);
+    border-radius:12px;padding:14px 18px;box-shadow:var(--sombra);
+  }
+  .action.p-green{border-left-color:var(--verde)}
+  .action.p-amber{border-left-color:var(--ambar)}
+  .action.p-grey{border-left-color:var(--cinza)}
+  .action .a-num{
+    font-family:'Poppins';font-weight:800;font-size:15px;color:#fff;
+    background:linear-gradient(135deg,var(--vermelho),var(--laranja));
+    padding:0 12px;height:36px;border-radius:18px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .action.p-green .a-num{background:linear-gradient(135deg,var(--verde),#3fbf6a)}
+  .action.p-amber .a-num{background:linear-gradient(135deg,#e0930a,var(--ambar))}
+  .action.p-grey .a-num{background:linear-gradient(135deg,#8a8f99,var(--cinza))}
+  .action .a-body{flex:1}
+  .action .a-title{font-family:'Poppins';font-weight:600;font-size:13.5px;margin-bottom:3px}
+  .action .a-impact{font-size:12px;font-weight:600;color:var(--cinza)}
+  .action .a-impact b{color:var(--verde)}
+  .action .a-effort{font-size:11px;color:var(--cinza);margin-left:8px}
+
+  /* ---------- RODAPÉ ---------- */
+  .footer{
+    margin-top:30px;border-top:2px solid var(--linha);padding-top:16px;
+    display:flex;justify-content:space-between;align-items:center;font-size:11.5px;color:var(--cinza);
+  }
+  .footer .brand{font-family:'Poppins';font-weight:700;color:var(--vermelho);font-size:14px}
+  .footer .brand span{color:var(--ambar)}
+
+  /* ---------- PRINT ---------- */
+  @page{size:A4;margin:10mm}
+  @media print{
+    body{background:#fff}
+    .page{box-shadow:none;max-width:100%;padding:0}
+    .hl-card,.action,.kpi,.f-step,.verdict,table.tbl,.section-head{box-shadow:none}
+    .section,.highlight-grid,.verdict-grid{break-inside:avoid}
+    .action,.f-step,.verdict,table.tbl tr{break-inside:avoid}
+    .section-head{break-after:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <img src="solaro-logo-colorida.png" alt="Solaro">
+    <div class="title-block">
+      <h1>Relatório de Performance — <span>{{CLIENTE}}</span></h1>
+      <div class="sub">
+        {{PLATAFORMA_LINHA}}<br>
+        Período: <b>{{PERIODO}}</b> &nbsp;vs&nbsp; {{PERIODO_ANTERIOR}}
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SEÇÃO 1 — VISÃO GERAL ============ -->
+  <div class="section">
+    <div class="section-head">
+      <div class="s-num">1</div>
+      <div>
+        <div class="s-title">Visão Geral</div>
+        <div class="s-desc">Resultados do período comparados ao período anterior</div>
+      </div>
+    </div>
+
+    <div class="highlight-grid">
+      <div class="hl-card a">
+        <div class="label">💰 Investimento</div>
+        <div class="big-num">{{INVESTIMENTO}}</div>
+        <div class="ctx"><span class="arrow">{{INVESTIMENTO_DELTA}}</span> · ant. {{INVESTIMENTO_ANTERIOR}}</div>
+      </div>
+      <div class="hl-card b">
+        <div class="label">💬 Conversões</div>
+        <div class="big-num">{{CONVERSOES}}</div>
+        <div class="ctx"><span class="arrow">{{CONVERSOES_DELTA}}</span> · ant. {{CONVERSOES_ANTERIOR}}</div>
+      </div>
+      <div class="hl-card c">
+        <div class="label">🎯 Custo por conversão</div>
+        <div class="big-num">{{CUSTO_POR_CONVERSAO}}</div>
+        <div class="ctx"><span class="arrow">{{CUSTO_POR_CONVERSAO_DELTA}}</span> · ant. {{CUSTO_POR_CONVERSAO_ANTERIOR}}</div>
+      </div>
+    </div>
+
+    <div class="read-line">
+      <b>Leitura:</b> {{LEITURA_VISAO_GERAL}}
+    </div>
+
+    <div class="subsec" style="margin-top:14px">{{GRAFICO_TITULO}}</div>
+    <div style="display:flex;align-items:center;gap:22px;margin:4px 0 6px;font-family:'Poppins';font-size:11px;font-weight:600;color:#444">
+      <span style="display:inline-flex;align-items:center;gap:6px"><span style="width:14px;height:11px;background:#FF6F43;border-radius:2px;display:inline-block"></span>Conversas (qtd)</span>
+      <span style="display:inline-flex;align-items:center;gap:6px"><span style="width:18px;height:0;border-top:3px solid #E8453C;display:inline-block"></span>Custo por conversa (R$)</span>
+    </div>
+    <!--
+      {{GRAFICO_SVG}} — INJETAR AQUI o <svg> inline do gráfico diário.
+      NÃO usar Chart.js (não renderiza no Chrome headless print-to-pdf).
+      Use barras com <rect> (conversas), linha com <polyline> (custo),
+      eixos com <line>/<text>. Veja o piloto como modelo de coordenadas.
+    -->
+    {{GRAFICO_SVG}}
+  </div>
+
+  <!-- ============ SEÇÃO 2 — VISÃO DO TRÁFEGO ============ -->
+  <div class="section">
+    <div class="section-head">
+      <div class="s-num">2</div>
+      <div>
+        <div class="s-title">Visão do Tráfego</div>
+        <div class="s-desc">Funil de métricas, etapas de conversão e ranking de campanhas, conjuntos e anúncios</div>
+      </div>
+    </div>
+
+    <div class="subsec">Funil de métricas — Meta (conta)</div>
+    <div class="kpi-grid">
+      <!--
+        {{KPI_GRID}} — injetar os cards de KPI. Cada card no formato:
+        <div class="kpi"><div class="k-label">Impressões</div><div class="kpi-num">15.307</div><div class="k-prev">ant. 11.777 · <span class="delta up">▲ 30%</span></div></div>
+      -->
+      {{KPI_GRID}}
+    </div>
+
+    <div class="subsec">Funil de conversão — etapas</div>
+    <div class="funnel">
+      <!--
+        {{FUNIL_ETAPAS}} — injetar as etapas do funil. Cada etapa no formato:
+        <div class="f-step good"><div class="f-icon">👆</div><div class="f-name">Clique → Conversa</div><div class="f-rate">60,6%</div><div class="f-prev">ant. 17,6% · +43 pp 🟢</div></div>
+      -->
+      {{FUNIL_ETAPAS}}
+    </div>
+    <div class="read-line">{{LEITURA_FUNIL}}</div>
+
+    <div class="subsec">🏆 Rank — Melhores Campanhas</div>
+    <table class="tbl">
+      <thead><tr><th class="rank">#</th><th>Campanha</th><th>Gasto</th><th>Resultado</th><th>Custo</th><th>CTR</th><th>Status</th></tr></thead>
+      <tbody>
+        <!-- {{LINHAS_RANK_CAMPANHAS}} — <tr> de cada campanha (use row-win / row-bad e pill green/red) -->
+        {{LINHAS_RANK_CAMPANHAS}}
+      </tbody>
+    </table>
+
+    <div class="subsec">Rank — Melhores Conjuntos</div>
+    <table class="tbl">
+      <thead><tr><th class="rank">#</th><th>Conjunto</th><th>Campanha</th><th>Gasto</th><th>Conversas</th><th>Custo/Conversa</th></tr></thead>
+      <tbody>
+        <!-- {{LINHAS_RANK_CONJUNTOS}} — <tr> de cada conjunto -->
+        {{LINHAS_RANK_CONJUNTOS}}
+      </tbody>
+    </table>
+    <div class="read-line">{{LEITURA_CONJUNTOS}}</div>
+
+    <div class="subsec">🎬 Rank — Melhores Anúncios</div>
+    <table class="tbl">
+      <thead><tr><th class="rank">#</th><th>Anúncio</th><th>Campanha</th><th>Gasto</th><th>Conv.</th><th>Custo/Conv.</th><th>Mídia / Link</th></tr></thead>
+      <tbody>
+        <!--
+          {{LINHAS_RANK_ANUNCIOS}} — <tr> de cada anúncio.
+          A última coluna é Mídia/Link: <td class="media-cell"><a href="..." target="_blank" style="color:#E8453C">🎬 ver anúncio</a></td>
+        -->
+        {{LINHAS_RANK_ANUNCIOS}}
+      </tbody>
+    </table>
+    <div class="note-log">{{NOTA_ANUNCIOS}}</div>
+  </div>
+
+  <!-- ============ SEÇÃO 3 — PARECER ============ -->
+  <div class="section">
+    <div class="section-head">
+      <div class="s-num">3</div>
+      <div>
+        <div class="s-title">Parecer de Performance Geral</div>
+        <div class="s-desc">Diagnóstico do que vai bem, do que vai mal e do que precisa melhorar</div>
+      </div>
+    </div>
+
+    <div class="verdict-grid">
+      <div class="verdict good">
+        <h4>🟢 O que está BOM</h4>
+        <ul>
+          <!-- {{PARECER_BOM}} — <li><b>...</b> ...</li> -->
+          {{PARECER_BOM}}
+        </ul>
+      </div>
+      <div class="verdict bad">
+        <h4>🔴 O que está RUIM</h4>
+        <ul>
+          <!-- {{PARECER_RUIM}} — <li><b>...</b> ...</li> -->
+          {{PARECER_RUIM}}
+        </ul>
+      </div>
+      <div class="verdict warn">
+        <h4>🟡 O que precisa MELHORAR</h4>
+        <ul>
+          <!-- {{PARECER_MELHORAR}} — <li><b>...</b> ...</li> -->
+          {{PARECER_MELHORAR}}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SEÇÃO 4 — INSIGHTS DAS OTIMIZAÇÕES ============ -->
+  <div class="section">
+    <div class="section-head">
+      <div class="s-num">4</div>
+      <div>
+        <div class="s-title">Insights das Otimizações Realizadas</div>
+        <div class="s-desc">Ações executadas e o efeito observado nos números</div>
+      </div>
+    </div>
+
+    <table class="tbl">
+      <thead><tr><th>Ação realizada</th><th>Quando</th><th>Efeito</th><th>Evidência nos números</th><th>Confiança</th></tr></thead>
+      <tbody>
+        <!--
+          {{TABELA_OTIMIZACOES_REALIZADAS}} — <tr> de cada ação.
+          Use <span class="badge-hyp">hipótese — confirmar</span> e
+          <span class="pill green">✅ Ajudou</span> / <span class="pill red">❌ Piorou</span>.
+        -->
+        {{TABELA_OTIMIZACOES_REALIZADAS}}
+      </tbody>
+    </table>
+
+    <div class="note-log">{{NOTA_OTIMIZACOES}}</div>
+  </div>
+
+  <!-- ============ SEÇÃO 5 — NOVAS OTIMIZAÇÕES ============ -->
+  <div class="section">
+    <div class="section-head">
+      <div class="s-num">5</div>
+      <div>
+        <div class="s-title">Novas Otimizações (Próximas Ações)</div>
+        <div class="s-desc">Prioridades ordenadas por impacto financeiro × esforço</div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <!--
+        {{ACOES_PRIORIZADAS}} — blocos de ação. Cada bloco no formato:
+        <div class="action p-green"><div class="a-num">P2</div><div class="a-body"><div class="a-title">🟢 ...</div><div class="a-impact">Impacto: <b>...</b> <span class="a-effort">· Esforço: baixo</span></div></div></div>
+        Classes de prioridade: (vermelho=padrão) / p-green / p-amber / p-grey
+      -->
+      {{ACOES_PRIORIZADAS}}
+    </div>
+  </div>
+
+  <!-- RODAPÉ -->
+  <div class="footer">
+    <div class="brand">SOL<span>A</span>RO</div>
+    <div>{{RODAPE_LINHA}}</div>
+  </div>
+
+</div>
+</body>
+</html>

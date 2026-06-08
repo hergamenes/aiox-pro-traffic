@@ -3,52 +3,67 @@
 ## Instruções
 Verificar antes de entregar qualquer relatório de performance.
 Todos os itens devem ser PASS para considerar o relatório válido.
+Formato alvo: relatório de **5 seções, multi-objetivo** (ver `templates/performance-report.md` e `data/objective-metric-map.md`).
 
 ---
 
-## 1. Dados
-- [ ] Fonte dos dados identificada (plataforma, export type)
-- [ ] Período claramente definido (data início e fim)
-- [ ] Dados conferem com a plataforma original (spot check de 3+ métricas)
+## 1. Estrutura das 5 seções
+- [ ] Seção 1 — Visão Geral presente (investimento, resultados por tipo, custo por resultado, comparativo período anterior)
+- [ ] Seção 2 — Visão do Tráfego presente (funil universal + funil por objetivo + 3 ranks)
+- [ ] Seção 3 — Parecer de Performance Geral presente (🟢 bom / 🔴 ruim / 🟡 melhorar)
+- [ ] Seção 4 — Insights das Otimizações Realizadas presente
+- [ ] Seção 5 — Novas Otimizações (próximas ações) presente
+- [ ] Cabeçalho com metadados (cliente, conta, período, comparação, versão) e rodapé de fontes
+
+## 2. Cobertura multi-objetivo
+- [ ] TODAS as campanhas da conta incluídas (tráfego, vendas, engajamento, leads/form nativo, conversões, reconhecimento, app)
+- [ ] Cada campanha agrupada/avaliada pelo objetivo correto (detectado por `objective` → métrica não-zero → nome)
+- [ ] Métrica-chave correta por objetivo conforme `objective-metric-map.md`
+- [ ] NÃO exibe métrica inaplicável (sem ROAS/CPA em WhatsApp; sem CPA/ROAS/conversões em Reconhecimento; etc.)
+- [ ] Objetivos mistos: resultados consolidados POR TIPO (não somados num único número)
+
+## 3. Dados
+- [ ] Fonte dos dados identificada (CLI meta-ads, níveis account/campaign/adset/ad)
+- [ ] Período e período de comparação claramente definidos (datas início e fim)
+- [ ] Dados conferem com a plataforma (spot check de 3+ métricas)
 - [ ] Dados faltantes sinalizados explicitamente
-
-## 2. Métricas
-- [ ] Métricas gerais calculadas (impressões, cliques, CTR, CPC, conversões, CPA, ROAS)
-- [ ] Valores fazem sentido (ex: CTR entre 0.1% e 10%, CPC > R$0)
 - [ ] Somas batem (gasto por campanha = gasto total)
-- [ ] Médias calculadas corretamente (CPA = gasto/conversões, não média das médias)
+- [ ] Médias calculadas corretamente (custo/resultado = gasto/resultados, não média das médias)
 
-## 3. Detalhamentos
-- [ ] Performance por campanha incluída
-- [ ] Performance por conjunto incluída (se dados disponíveis)
-- [ ] Performance por criativo incluída (se dados disponíveis)
-- [ ] Rankings de melhor a pior presentes
+## 4. Seção 1 — Visão Geral
+- [ ] Investimento total presente com variação vs período anterior
+- [ ] Resultados por tipo de objetivo (quadro por tipo quando misto)
+- [ ] Custo por resultado por tipo presente
+- [ ] **Subseção 1.1 — gráfico/tabela de evolução diária presente** (dia × resultado × custo por resultado)
+- [ ] Objetivo dominante do gráfico diário identificado no título
 
-## 4. Funil
-- [ ] Análise de funil incluída (impressão → clique → lead → venda)
+## 5. Seção 2 — Visão do Tráfego
+- [ ] Funil de métricas universais presente (impressões, CPM, freq, cliques, CTR, CPC)
+- [ ] Funil de conversão exibido conforme o objetivo (etapas corretas por tipo)
 - [ ] Taxas de conversão entre etapas calculadas
-- [ ] Gargalos identificados
+- [ ] Rank de melhores campanhas presente (com objetivo de cada campanha)
+- [ ] Rank de melhores conjuntos presente
+- [ ] Rank de melhores anúncios presente
+- [ ] **Coluna "Mídia/Link" preenchida no rank de anúncios** (permalink público do criativo)
 
-## 5. Comparação
-- [ ] Comparação com período anterior incluída (se dados disponíveis)
-- [ ] Variações percentuais calculadas
-- [ ] Tendências identificadas
+## 6. Seção 3 — Parecer
+- [ ] Parecer classifica em 🟢 bom / 🔴 ruim / 🟡 precisa melhorar
+- [ ] Avaliação usa a régua do objetivo de cada campanha (`client-profile.md` + mapa)
+- [ ] "Funil cego" sinalizado quando tráfego sem evento de destino medido
 
-## 6. Atribuição
-- [ ] Atribuição por UTM incluída (se dados disponíveis)
-- [ ] Sources e mediums identificados corretamente
+## 7. Seção 4 — Otimizações Realizadas
+- [ ] Tabela Ação / Quando / Efeito / Evidência / Confiança presente
+- [ ] Alimentada pelo `optimization-log` (hipóteses marcadas como 🟡 a confirmar)
 
-## 7. Recomendações
-- [ ] Seção de recomendações presente
-- [ ] Recomendações baseadas em dados (não opiniões)
-- [ ] Ações são específicas e acionáveis
-- [ ] Próximos passos definidos
+## 8. Seção 5 — Novas Otimizações
+- [ ] Ações priorizadas (P1–P5) por R$ desperdiçado × esforço
+- [ ] Impacto estimado (R$ recuperado/ganho) e esforço por ação
+- [ ] Ações específicas e acionáveis (não opiniões genéricas)
 
-## 8. Formatação
-- [ ] Resumo executivo no topo (máximo 5 linhas)
+## 9. Formatação
 - [ ] Tabelas formatadas corretamente
 - [ ] Sem erros de digitação visíveis
-- [ ] Data de geração do relatório presente
+- [ ] Data de geração e versão do relatório presentes
 
 ---
 
@@ -56,6 +71,6 @@ Todos os itens devem ser PASS para considerar o relatório válido.
 
 | Total Items | PASS | FAIL | Taxa |
 |-------------|------|------|------|
-| 24 | __ | __ | __% |
+| 38 | __ | __ | __% |
 
 **Decisão:** [ ] APROVADO para entrega / [ ] CORREÇÃO necessária

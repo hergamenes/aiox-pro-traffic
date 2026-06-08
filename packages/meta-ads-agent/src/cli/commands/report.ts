@@ -78,14 +78,14 @@ export const reportCommand = new Command('report')
       };
 
       // Fetch insights
-      console.log(`${COLORS.DIM}Consultando dados de performance...${COLORS.RESET}`);
+      console.error(`${COLORS.DIM}Consultando dados de performance...${COLORS.RESET}`);
       let rows = await getInsights(params);
 
       // Apply tag filter (client-side)
       if (opts.tag) {
         rows = filterByTag(rows, opts.tag);
         if (rows.length === 0) {
-          console.log(
+          console.error(
             `\n${COLORS.DIM}Nenhuma campanha encontrada com a tag '${opts.tag}'.${COLORS.RESET}`,
           );
           return;
@@ -93,7 +93,7 @@ export const reportCommand = new Command('report')
       }
 
       if (rows.length === 0) {
-        console.log(`\n${COLORS.DIM}Nenhum dado encontrado para o período selecionado.${COLORS.RESET}`);
+        console.error(`\n${COLORS.DIM}Nenhum dado encontrado para o período selecionado.${COLORS.RESET}`);
         return;
       }
 
@@ -123,7 +123,7 @@ export const reportCommand = new Command('report')
       }
 
       // Footer with delay notice
-      console.log(
+      console.error(
         `\n${COLORS.DIM}Nota: dados podem ter delay de até 30 minutos.${COLORS.RESET}`,
       );
     } catch (error) {

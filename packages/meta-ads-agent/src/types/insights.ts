@@ -140,7 +140,14 @@ export const ACTION_TYPES = {
   LANDING_PAGE_VIEW: 'landing_page_view',
   INITIATE_CHECKOUT: 'offsite_conversion.fb_pixel_initiate_checkout',
   PURCHASE: 'offsite_conversion.fb_pixel_purchase',
-  LEAD: 'offsite_conversion.fb_pixel_lead',
+  // Leads: Meta reports the same lead under several action types depending on the
+  // source. LEAD is the aggregate Meta exposes ('lead'); the specific sources
+  // (native instant form, website pixel) are below. The parser resolves leads by
+  // preference WITHOUT summing (the aggregate already includes the specifics) —
+  // see extractLeads in insights-parser.
+  LEAD: 'lead',
+  LEAD_FORM_GROUPED: 'onsite_conversion.lead_grouped',
+  LEAD_PIXEL: 'offsite_conversion.fb_pixel_lead',
   // Prefix (no attribution-window suffix): matched via startsWith so it works
   // regardless of the account's window (_7d, _1d, or none). See insights-parser.
   MESSAGING_CONVERSATION_STARTED: 'onsite_conversion.messaging_conversation_started',

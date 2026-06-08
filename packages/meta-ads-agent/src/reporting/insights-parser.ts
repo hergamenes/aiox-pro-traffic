@@ -60,6 +60,37 @@ function safeDivide(numerator: number, denominator: number): number {
   return numerator / denominator;
 }
 
+// Leads arrive under different action types depending on the source:
+//   - 'lead'                            → Meta aggregate (includes the specifics below)
+//   - 'onsite_conversion.lead_grouped' → native instant form
+//   - 'offsite_conversion.fb_pixel_lead' → website pixel lead
+// We resolve by PREFERENCE, never summing: the aggregate already rolls up the
+// specifics, so summing would double-count. First non-zero match wins.
+export function extractLeads(actions: RawAction[] | undefined): number {
+  const aggregate = extractAction(actions, ACTION_TYPES.LEAD);
+  if (aggregate > 0) return aggregate;
+  const formGrouped = extractAction(actions, ACTION_TYPES.LEAD_FORM_GROUPED);
+  if (formGrouped > 0) return formGrouped;
+  return extractAction(actions, ACTION_TYPES.LEAD_PIXEL);
+}
+
+// Cost per lead follows the SAME preference order as extractLeads, reading from
+// cost_per_action_type. If the API exposes no per-action cost for any lead type,
+// fall back to spend / leads.
+export function extractLeadCost(
+  costPerActions: RawCostPerAction[] | undefined,
+  leads: number,
+  spend: number,
+): number {
+  const aggregate = extractCostPerAction(costPerActions, ACTION_TYPES.LEAD);
+  if (aggregate > 0) return aggregate;
+  const formGrouped = extractCostPerAction(costPerActions, ACTION_TYPES.LEAD_FORM_GROUPED);
+  if (formGrouped > 0) return formGrouped;
+  const pixel = extractCostPerAction(costPerActions, ACTION_TYPES.LEAD_PIXEL);
+  if (pixel > 0) return pixel;
+  return safeDivide(spend, leads);
+}
+
 function sumConversions(actions: RawAction[] | undefined): number {
   if (!actions) return 0;
   return actions
@@ -122,11 +153,11 @@ export function parseInsightRow(raw: RawInsightRow): ParsedMetrics {
   const linkClicks = extractAction(raw.actions, ACTION_TYPES.LINK_CLICK);
   const landingPageViews = extractAction(raw.actions, ACTION_TYPES.LANDING_PAGE_VIEW);
   const purchases = extractAction(raw.actions, ACTION_TYPES.PURCHASE);
-  const leads = extractAction(raw.actions, ACTION_TYPES.LEAD);
+  const leads = extractLeads(raw.actions);
 
   const cpcLink = extractCostPerAction(raw.cost_per_action_type, ACTION_TYPES.LINK_CLICK);
   const costPerPurchase = extractCostPerAction(raw.cost_per_action_type, ACTION_TYPES.PURCHASE);
-  const costPerLead = extractCostPerAction(raw.cost_per_action_type, ACTION_TYPES.LEAD);
+  const costPerLead = extractLeadCost(raw.cost_per_action_type, leads, spend);
 
   // Messaging (Click-to-WhatsApp / messages objective).
   // Conversations carry an attribution-window suffix (_7d/_1d) → match by prefix.

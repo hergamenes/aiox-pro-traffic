@@ -7,7 +7,7 @@ Estes são valores padrão de referência. Cada cliente/campanha pode ter metas 
 
 ## Thresholds por Objetivo
 
-### Vendas (E-commerce)
+### Vendas (E-commerce / Shopping / PMax)
 
 | KPI | Bom | Aceitável | Ruim | Crítico |
 |-----|-----|-----------|------|---------|
@@ -27,7 +27,7 @@ Estes são valores padrão de referência. Cada cliente/campanha pode ter metas 
 | **CPC** | < R$ 2.00 | R$ 2.00 - 4.00 | R$ 4.00 - 7.00 | > R$ 7.00 |
 | **Impression Share (Search)** | > 80% | 60% - 80% | 40% - 60% | < 40% |
 
-### Tráfego (Awareness)
+### Tráfego
 
 | KPI | Bom | Aceitável | Ruim | Crítico |
 |-----|-----|-----------|------|---------|
@@ -35,6 +35,17 @@ Estes são valores padrão de referência. Cada cliente/campanha pode ter metas 
 | **CTR** | > 3.0% | 1.5% - 3.0% | 0.8% - 1.5% | < 0.8% |
 | **CPM** | < R$ 15 | R$ 15 - 30 | R$ 30 - 50 | > R$ 50 |
 | **Frequência (Display/YouTube)** | < 2.0 | 2.0 - 3.0 | 3.0 - 4.0 | > 4.0 |
+
+### Reconhecimento (Display / YouTube / Awareness puro)
+
+| KPI | Bom | Aceitável | Ruim | Crítico |
+|-----|-----|-----------|------|---------|
+| **CPM** | < R$ 12 | R$ 12 - 25 | R$ 25 - 40 | > R$ 40 |
+| **CPV (vídeo)** | < R$ 0.05 | R$ 0.05 - 0.10 | R$ 0.10 - 0.20 | > R$ 0.20 |
+| **CTR (Display)** | > 0.8% | 0.4% - 0.8% | 0.2% - 0.4% | < 0.2% |
+| **Frequência (Display/YouTube)** | < 2.0 | 2.0 - 3.0 | 3.0 - 4.0 | > 4.0 |
+
+> **Impression Share (exclusivo Search):** complementa qualquer objetivo de Search. Bom > 80% · Aceitável 60–80% · Ruim 40–60% · Crítico < 40%. Investigar a causa do IS perdido: *lost IS (budget)* → aumentar orçamento; *lost IS (rank)* → melhorar lance/Quality Score. Faixas por nicho em `industry-benchmarks.md`.
 
 ---
 

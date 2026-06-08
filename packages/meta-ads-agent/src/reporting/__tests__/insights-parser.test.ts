@@ -235,6 +235,64 @@ describe('messaging (Click-to-WhatsApp)', () => {
   });
 });
 
+describe('leads (multi-source resolution)', () => {
+  function leadRow(actions: RawAction[], spend = '100', costs: RawAction[] = []): RawInsightRow {
+    return {
+      spend,
+      impressions: '1000',
+      cpm: '10',
+      frequency: '1.5',
+      actions,
+      cost_per_action_type: costs,
+    };
+  }
+
+  it('reads native instant-form leads (onsite_conversion.lead_grouped)', () => {
+    const parsed = parseInsightRow(
+      leadRow([{ action_type: 'onsite_conversion.lead_grouped', value: '3' }]),
+    );
+    expect(parsed.leads).toBe(3);
+  });
+
+  it('reads website pixel leads via fallback (offsite_conversion.fb_pixel_lead)', () => {
+    const parsed = parseInsightRow(
+      leadRow([{ action_type: 'offsite_conversion.fb_pixel_lead', value: '7' }]),
+    );
+    expect(parsed.leads).toBe(7);
+  });
+
+  it('does not double-count when aggregate and lead_grouped coexist', () => {
+    const parsed = parseInsightRow(
+      leadRow([
+        { action_type: 'lead', value: '4' },
+        { action_type: 'onsite_conversion.lead_grouped', value: '4' },
+      ]),
+    );
+    // Aggregate wins; specifics are already rolled into it → 4, not 8.
+    expect(parsed.leads).toBe(4);
+  });
+
+  it('derives cost per lead from spend when no per-action cost present', () => {
+    const parsed = parseInsightRow(
+      leadRow([{ action_type: 'onsite_conversion.lead_grouped', value: '4' }], '80'),
+    );
+    expect(parsed.leads).toBe(4);
+    // 80 / 4 = 20
+    expect(parsed.costPerLead).toBe(20);
+  });
+
+  it('uses lead_grouped per-action cost when present', () => {
+    const parsed = parseInsightRow(
+      leadRow(
+        [{ action_type: 'onsite_conversion.lead_grouped', value: '4' }],
+        '80',
+        [{ action_type: 'onsite_conversion.lead_grouped', value: '12.50' }],
+      ),
+    );
+    expect(parsed.costPerLead).toBe(12.5);
+  });
+});
+
 describe('resolveResult hierarchy', () => {
   function row(actions: RawAction[], spend = '100', costs: RawAction[] = []): RawInsightRow {
     return {
