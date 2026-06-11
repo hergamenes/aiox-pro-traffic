@@ -11,6 +11,7 @@ import { keywordCommand, registerAdGroupSubcommand } from './commands/keyword.js
 import { registerAdSubcommands } from './commands/ad.js';
 import { uploadCommand, listAssetsCommand } from './commands/upload.js';
 import { removeCommand } from './commands/remove.js';
+import { keywordResearchCommand } from './commands/keyword-research.js';
 
 registerAdGroupSubcommand(createCommand);
 registerAdSubcommands(createCommand);
@@ -29,6 +30,7 @@ program.addCommand(authCommand);
 program.addCommand(accountsCommand);
 program.addCommand(configCommand);
 program.addCommand(reportCommand);
+program.addCommand(keywordResearchCommand);
 program.addCommand(updateCommand);
 program.addCommand(pauseCommand);
 program.addCommand(enableCommand);
