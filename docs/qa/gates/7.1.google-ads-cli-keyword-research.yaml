@@ -1,0 +1,232 @@
+storyId: "7.1"
+storyTitle: "Google Ads CLI — Keyword Research (GenerateKeywordIdeas / volume de busca)"
+storyPath: docs/stories/epics/epic-7-google-ads-keyword-research/7.1.google-ads-cli-keyword-research.story.md
+verdict: CONCERNS
+verdictRationale: |
+  Implementação limpa e idiomática. Toda a LÓGICA DE NEGÓCIO (parser,
+  resolvers geo/idioma, validação de seeds, formatação, detecção de erro
+  de permissão) está coberta com 100% nos validators/formatter e 85% de
+  branch no parser. 367/367 testes passam, lint + typecheck limpos
+  (re-verificados independentemente pela QA), build OK. Boundary rule
+  respeitada (SDK só em keyword-ideas.ts, dentro de src/google-ads-api/).
+  R1 (método do SDK) resolvido com evidência de arquivo. O caminho de ERRO
+  de permissão foi validado contra a API REAL (mais forte que mock).
+
+  CONCERNS (não-bloqueantes, mas materiais) que impedem PASS limpo:
+
+  1) RISCO RESIDUAL — o parser NUNCA foi validado contra uma resposta de
+     SUCESSO real, porque o developer token está em explorer access e o
+     Google bloqueia GenerateKeywordIdeas (R2 materializado). O shape real
+     de keyword_idea_metrics (especialmente campos int64) não foi observado.
+     toNumber() (keyword-ideas.ts:44-46) trata string e number, mas NÃO
+     trata um objeto Long de protobuf — se a lib entregar Long, o volume
+     viraria 0 silenciosamente. Na prática a google-ads-api costuma
+     serializar longs como string/number, mas isso é suposição até o
+     primeiro sucesso real.
+
+  2) COBERTURA (AC#11 parcial) — a função I/O generateKeywordIdeas
+     (linhas 154-217) e o action handler do comando não têm unit test;
+     foram validados por outros meios (chamada real p/ erro + CLI buildada
+     p/ validações client-side), mas ficam abaixo do alvo de 80% statements.
+
+  Como toda a lógica pura está coberta, o caminho de erro foi validado in
+  vivo, e os gaps são de código de fiação/I/O parcialmente validado por
+  outros meios — o veredito é CONCERNS, não FAIL. A story pode prosseguir
+  com as observações registradas e a ação obrigatória pós-Basic-access.
+
+gateDate: "2026-06-11"
+gateAgent: "@qa"
+
+checks:
+  - id: 1
+    name: "Code review"
+    status: CONCERNS
+    findings: |
+      POSITIVO:
+      - Separação limpa entre parser PURO (parseKeywordIdeasResponse) e I/O
+        (generateKeywordIdeas) — ótima testabilidade da lógica.
+      - REUSE correto: ensureValidAuth + getDefaults + client.ts (espelha
+        adapter.ts); formatTable de display.ts; JSON espelha report-formatter.
+      - Parser defensivo: normaliza enum de competição string|número, int64
+        string|number, micros→R$, inclui ideias relacionadas, ordena desc.
+      - Detecção de erro robusta: extractErrorText lê errors[].message E
+        error_code aninhados — capturou o caso real DEVELOPER_TOKEN_NOT_APPROVED.
+      - JSDoc + comentários PT-BR explicando diferença vs keyword_view e micros.
+      - Boundary rule respeitada (grep: SDK só em keyword-ideas.ts entre os novos).
+
+      RISCOS:
+      - toNumber não cobre Long/object (keyword-ideas.ts:45) — ver issue #1.
+      - isPermissionError inclui 'not allowed for use' (genérico) — risco baixo
+        de falso-positivo, aceitável pois o comando só chama 1 endpoint.
+      - --customer-id é flag, enquanto report.ts usa argumento posicional —
+        inconsistência de UX no CLI (conforme spec, mas diverge do padrão).
+
+  - id: 2
+    name: "Unit tests"
+    status: CONCERNS
+    metrics:
+      total_new: 41
+      total_at_story_close: 367
+      passing: "367/367"
+      runtime_ms: 1090
+      coverage_new_files:
+        - "keyword-research-validator.ts: 100% (puro, 14 testes)"
+        - "keyword-research-formatter.ts: 100% (5 testes)"
+        - "keyword-ideas.ts: 60.15% stmts / 85.36% branch — parser + detecção de erro cobertos; generateKeywordIdeas (I/O) NÃO coberto (linhas 154-217)"
+        - "keyword-research.ts (command): action handler não coberto por unit — validado via CLI buildada"
+    note: |
+      AC#11 pede ≥80% nos arquivos novos. Atingido em validator e formatter
+      (100%). keyword-ideas em 60% stmts pelo gap de I/O; command sem unit do
+      handler. Recomendação não-bloqueante: integration test com mock de
+      customer.keywordPlanIdeas (ver issue #3).
+
+  - id: 3
+    name: "Acceptance criteria"
+    status: CONCERNS
+    ac_status:
+      AC1_command_registered:
+        status: PASS
+        evidence: "google-ads keyword-research --help lista todas as flags; comando registrado em index.ts"
+      AC2_flags:
+        status: PASS
+        evidence: "--seeds, --seeds-file, --geo, --lang, --customer-id, --login-customer-id, --network, --format, --limit presentes com defaults BR/pt/SEARCH/table"
+      AC3_api_request_shape:
+        status: PASS
+        evidence: "request usa customer_id, language, geo_target_constants[], keyword_plan_network, keyword_seed.keywords — confirmado no código; método existe no SDK v23 (serviceFactory.d.ts:1594)"
+      AC4_result_fields:
+        status: CONCERNS
+        evidence: "parser mapeia todos os campos exigidos com conversão de micros; PORÉM nunca validado contra resposta de sucesso real (token bloqueado)"
+      AC5_sort_desc:
+        status: PASS
+        evidence: "parseKeywordIdeasResponse ordena por avgMonthlySearches desc — coberto por teste"
+      AC6_formats:
+        status: PASS
+        evidence: "table (PT-BR, R$) e json testados; labels Baixa/Média/Alta; '—' para ausentes"
+      AC7_client_validation:
+        status: PASS_VALIDATED_INDEPENDENTLY
+        evidence: "QA confirmou via CLI buildada: seeds vazias→exit 1, geo XX→exit 1, network FOO→exit 1, limit abc→exit 1; testes unit cobrem limites 0/21 e dedupe"
+      AC8_permission_error:
+        status: PASS_VALIDATED
+        evidence: "Chamada REAL retornou DEVELOPER_TOKEN_NOT_APPROVED; comando exibiu mensagem PT-BR acionável (solicitar Basic access) em vez de stack trace"
+      AC9_boundary_rule:
+        status: PASS
+        evidence: "grep: entre os arquivos novos, só keyword-ideas.ts importa 'google-ads-api'"
+      AC10_related_ideas:
+        status: PASS
+        evidence: "parser não filtra pelas seeds — inclui todos os results com text; coberto por teste de ordenação com ideias relacionadas"
+      AC11_unit_coverage:
+        status: CONCERNS
+        evidence: "validator + formatter 100%; keyword-ideas 60% stmts; command handler sem unit — ver check #2"
+      AC12_smoke:
+        status: PARTIAL
+        evidence: |
+          Passos 3-4 (validações client-side) executados e PASS.
+          Passos 1, 2, 5 (chamada de sucesso real) NÃO executados — blocker
+          externo: developer token sem Basic access. O caminho de erro foi
+          validado in vivo contra a API real.
+
+  - id: 4
+    name: "No regressions"
+    status: PASS
+    checks:
+      - "367/367 testes passam (incluindo os 326 anteriores)"
+      - "Comando novo é aditivo — só adiciona import + addCommand em index.ts"
+      - "report --level keyword (keyword_view) intocado — propósito distinto preservado"
+      - "meta-ads-agent não tocado"
+
+  - id: 5
+    name: "Performance"
+    status: PASS
+    metrics:
+      bundle_size_kb: 238.52
+      build_time_ms: 19
+      tests_runtime_ms: 1090
+      api_calls_per_run: 1
+    note: "1 chamada de API por execução; sem loops; ordenação O(n log n) trivial."
+
+  - id: 6
+    name: "Security (OWASP basics)"
+    status: PASS
+    checks:
+      hardcoded_secrets: NONE
+      input_validation: "seeds (≥1, ≤20, trim, dedupe), geo/lang (mapa + numérico), network (enum), limit (inteiro positivo), format (enum)"
+      injection: "sem SQL/GAQL construído com input do usuário neste comando; seeds vão como array no request body do SDK"
+      file_read: "readFileSync de --seeds-file usa caminho fornecido pelo usuário — CLI local do próprio operador, sem vetor de path traversal relevante"
+      error_leak: "erro de API resumido via extractErrorText; logger.debug não vaza credenciais (padrão do projeto)"
+      boundary_rule_enforced: true
+
+  - id: 7
+    name: "Documentation"
+    status: PASS
+    artifacts:
+      - "Story 7.1 com File List completo (8 criados + 1 modificado)"
+      - "Dev Agent Record com R1 resolvido, R2 materializado e pendências do usuário"
+      - "SPEC-keyword-research.md (origem, pelo Performance Analyst)"
+      - "JSDoc nas funções públicas; comentários PT-BR sobre micros e diferença vs keyword_view"
+      - "Memória do projeto atualizada com o blocker do developer token"
+
+issues:
+  - severity: medium
+    category: tests
+    description: "Parser nunca validado contra resposta de SUCESSO real (token em explorer access). toNumber (keyword-ideas.ts:44-46) não trata objeto Long de protobuf — volume viraria 0 silenciosamente se a lib entregar Long."
+    recommendation: "AÇÃO OBRIGATÓRIA pós-Basic-access: rodar smoke de sucesso, inspecionar o shape real de keyword_idea_metrics e, se necessário, endurecer toNumber para cobrir typeof 'object' (Long → Number(long.toString()))."
+    blocking: false
+
+  - severity: medium
+    category: tests
+    description: "AC#11 (≥80% cobertura) parcial: keyword-ideas.ts em 60% stmts (I/O não testada) e action handler do comando sem unit test."
+    recommendation: "Adicionar integration test com mock de customer.keywordPlanIdeas.generateKeywordIdeas para cobrir generateKeywordIdeas() e o fluxo do comando (success + erro de permissão). Não bloqueante: lógica pura 100% coberta, erro validado in vivo."
+    blocking: false
+
+  - severity: low
+    category: code
+    description: "isPermissionError inclui 'not allowed for use' (genérico) — risco baixo de classificar erro não relacionado como falha de Keyword Planner."
+    recommendation: "Aceito no contexto (comando chama 1 só endpoint). Se o comando crescer, restringir a matching por error_code authorization."
+    blocking: false
+
+  - severity: low
+    category: ux
+    description: "--customer-id é flag, enquanto report.ts usa argumento posicional [customer-id] — inconsistência de UX no CLI."
+    recommendation: "Conforme a spec da story. Considerar alinhar numa iteração futura (aceitar também posicional) para consistência do CLI."
+    blocking: false
+
+  - severity: info
+    category: feature
+    description: "Smoke AC#12 passos 1, 2, 5 (chamada de sucesso) não executados por blocker externo do developer token."
+    recommendation: "Não-código. Solicitar Basic access em Google Ads → Ferramentas → Central de API; depois rodar as 16 seeds reais da Bento Ghostwriting."
+    blocking: false
+
+nfr_validation:
+  security: { status: PASS, notes: "Sem secrets, input validado, sem injection relevante" }
+  performance: { status: PASS, notes: "1 chamada API, sem loops, ordenação trivial" }
+  reliability: { status: CONCERNS, notes: "Degradação graciosa OK; risco residual no parser não-validado (issue #1)" }
+  maintainability: { status: PASS, notes: "Funções puras isoladas, boundary rule, JSDoc PT-BR" }
+
+smoke_test_execution_record:
+  date: "2026-06-11 (@dev impl + verificação QA independente)"
+  validations_client_side_PASS:
+    - "--seeds '' → exit 1 (semente obrigatória)"
+    - "--geo XX → exit 1 (geo inválido)"
+    - "--network FOO → exit 1"
+    - "--limit abc → exit 1"
+  api_call_real:
+    target: "customer 5562216599 sob MCC 1528041123"
+    result: "DEVELOPER_TOKEN_NOT_APPROVED — 'not allowed for use with explorer access'"
+    handled: "Mensagem PT-BR acionável exibida (caminho de erro validado in vivo)"
+  not_executed:
+    - "Resposta de SUCESSO com volume real (bloqueada pelo nível do token)"
+
+next_actions:
+  obligatory_after_basic_access:
+    - "Rodar smoke de sucesso e CONFIRMAR shape real de keyword_idea_metrics"
+    - "Se a lib entregar Long, endurecer toNumber (issue #1)"
+    - "Rodar AC#12 passo 5: 16 seeds reais da Bento Ghostwriting (4507487307)"
+  recommended_non_blocking:
+    - "Integration test com mock do SDK para cobrir I/O + command handler (issue #2)"
+  for_user:
+    - "Solicitar Basic access do developer token (Google Ads → Ferramentas → Central de API)"
+    - "Confirmar se Bento Ghostwriting exige --login-customer-id (qual MCC)"
+  for_devops:
+    - "Push pode prosseguir (CONCERNS não bloqueia) — CLI + tests + story + gate file"
+
+closing_signature: "Quinn — 7.1 CONCERNS: código sólido, lógica 100% coberta, mas valide o parser contra a primeira resposta real 🛡️"
