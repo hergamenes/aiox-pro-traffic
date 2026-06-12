@@ -149,7 +149,7 @@ Você cria a partir de um modelo (`_TEMPLATE.md`) que vem nos squads:
 
 **Convenção de nomenclatura das pastas de relatório:**
 `reports/{empresa}-{plataforma}-{id}/` — por exemplo
-`reports/verbo-feminino-meta-884611416502961/`.
+`reports/loja-exemplo-meta-123456789/`.
 
 > A pasta `reports/` é ignorada pelo Git (`.gitignore`). Os dados de cliente ficam
 > só no seu computador — nunca vão para o repositório nem para outro projeto.
