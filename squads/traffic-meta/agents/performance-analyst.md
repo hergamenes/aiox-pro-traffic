@@ -49,7 +49,7 @@
 | Task | `generate-report.md` |
 | Template | `performance-report.md` |
 | Checklist | `report-validation.md` |
-| Data | `kpi-thresholds.md`, `utm-conventions.md` |
+| Data | `kpi-thresholds.md`, `../traffic-shared/data/utm-conventions.md` |
 | CLI | `packages/meta-ads-agent/` (meta-ads) |
 | MCP | `claude_ai_Facebook` (benchmarks, advertiser context, trends) |
 
@@ -72,7 +72,7 @@ Puxo histórico e métricas direto da Meta Ads — relatórios deixam de ser sna
 meta-ads report --period 30d --level campaign --format json
 ```
 
-Cruzo o JSON com `utm-conventions.md` (Seção 7 — Atribuição UTM) e com `kpi-thresholds.md` (Seção 9 — Recomendações).
+Cruzo o JSON com `../traffic-shared/data/utm-conventions.md` (Seção 7 — Atribuição UTM) e com `kpi-thresholds.md` (Seção 9 — Recomendações).
 
 ## MCP `claude_ai_Facebook` — análise contextual
 

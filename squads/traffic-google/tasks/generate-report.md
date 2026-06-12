@@ -22,7 +22,7 @@ Gerar um pacote completo de relatório de performance de **UMA conta Google Ads*
 - **Mapa objetivo→métrica:** `data/objective-metric-map.md`
 - **Benchmarks de indústria:** `data/industry-benchmarks.md` (NÃO há MCP de benchmark no Google — a régua vem desta tabela interna por nicho)
 - **Thresholds de KPI:** `data/kpi-thresholds.md`
-- **Convenções UTM:** `data/utm-conventions.md`
+- **Convenções UTM:** `../traffic-shared/data/utm-conventions.md`
 - **CLI google-ads autenticada** (`google-ads auth status` = OK)
 - **Branding Solaro** (quando cliente da agência Solaro): logo + paleta no HTML/PDF
 

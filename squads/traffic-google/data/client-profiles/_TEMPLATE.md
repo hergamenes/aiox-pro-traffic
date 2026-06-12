@@ -47,7 +47,7 @@
 | Frequência (Display/YT) | ≤ {{freq_bom}} | {{freq_acc}} | > {{freq_ruim}} | Padrão (fadiga) |
 
 ## Referência interna (campanha-modelo)
-- **{{CAMPANHA_PADRAO_OURO}}** é o padrão-ouro da conta: {{KPI_MESTRE}} **R$ {{VALOR_PADRAO}}**. Toda otimização busca replicar este padrão. (É a base do cálculo de desperdício em `action-prioritization.md`.)
+- **{{CAMPANHA_PADRAO_OURO}}** é o padrão-ouro da conta: {{KPI_MESTRE}} **R$ {{VALOR_PADRAO}}**. Toda otimização busca replicar este padrão. (É a base do cálculo de desperdício em `../../../traffic-shared/data/action-prioritization.md`.)
 
 ## Observações de contexto (ISOLAMENTO — não cruzar com outras contas)
 - Esta régua vale **somente** para a conta `{{ID_CONTA}}`. Nunca usar o custo/régua de outro cliente ou nicho como referência aqui.

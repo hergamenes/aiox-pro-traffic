@@ -116,8 +116,10 @@ squads/traffic-meta/
 │   └── report-validation.md
 ├── data/
 │   ├── platform-rules.md
-│   ├── kpi-thresholds.md
-│   └── utm-conventions.md
+│   └── kpi-thresholds.md
 ├── README.md
 └── user-guide.md
 ```
+
+> **Conteúdo compartilhado:** `utm-conventions.md` e `action-prioritization.md` moram em
+> `../traffic-shared/data/` (fonte única para os dois squads de tráfego). Ver Story 8.2.

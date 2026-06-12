@@ -157,7 +157,7 @@ phases:
       - account_id ou campaign_id
       - optimization-log.md (output da phase-4)
       - dados_vendas_leads (opcional)
-      - utm-conventions.md
+      - ../traffic-shared/data/utm-conventions.md
       - meta-ads CLI autenticada
     realtime_commands:
       - "meta-ads report --from {start} --to {end} --level account --format json"

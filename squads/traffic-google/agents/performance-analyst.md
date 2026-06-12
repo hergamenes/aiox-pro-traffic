@@ -49,7 +49,7 @@
 | Task | `generate-report.md` |
 | Template | `performance-report.md` |
 | Checklist | `report-validation.md` |
-| Data | `kpi-thresholds.md`, `utm-conventions.md` |
+| Data | `kpi-thresholds.md`, `../traffic-shared/data/utm-conventions.md` |
 | CLI | `packages/google-ads-agent/` (google-ads) |
 
 ## CLI google-ads — comandos utilizados (TEMPO REAL)
@@ -73,13 +73,13 @@ Puxo histórico e métricas direto da Google Ads — relatórios deixam de ser s
 google-ads report --period 30d --level campaign --format json
 ```
 
-Cruzo o JSON com `utm-conventions.md` (Seção 7 — Atribuição UTM) e com `kpi-thresholds.md` (Seção 9 — Recomendações).
+Cruzo o JSON com `../traffic-shared/data/utm-conventions.md` (Seção 7 — Atribuição UTM) e com `kpi-thresholds.md` (Seção 9 — Recomendações).
 
 ## MCP (não disponível para Google Ads no momento)
 
 > ⚠️ Diferente do `traffic-meta` que tem `claude_ai_Facebook` MCP para advertiser_context, industry_benchmark, performance_trend e opportunity_score, **NÃO há MCP de Google Ads ativo neste projeto**.
 >
-> O relatório atual deste analyst é construído **somente com dados da CLI** + thresholds em `kpi-thresholds.md` + convenções UTM em `utm-conventions.md`. Comparação de períodos é calculada manualmente a partir dos JSONs dos dois períodos.
+> O relatório atual deste analyst é construído **somente com dados da CLI** + thresholds em `kpi-thresholds.md` + convenções UTM em `../traffic-shared/data/utm-conventions.md`. Comparação de períodos é calculada manualmente a partir dos JSONs dos dois períodos.
 >
 > Se MCP Google Ads ficar disponível no futuro, atualizar este agente para enriquecer com industry_benchmark + advertiser_context + trends.
 
@@ -89,7 +89,7 @@ Cruzo o JSON com `utm-conventions.md` (Seção 7 — Atribuição UTM) e com `kp
 3. `google-ads list-assets` para popular Seção 5b — Asset Library (RDA/PMax — Story 6.6)
 4. Cálculo manual de variação % vs período anterior (Seção 8)
 5. Cruzar com `kpi-thresholds.md` (Seção 9 — Recomendações)
-6. Cruzar com `utm-conventions.md` (Seção 7 — Atribuição UTM)
+6. Cruzar com `../traffic-shared/data/utm-conventions.md` (Seção 7 — Atribuição UTM)
 
 ## Estrutura do Relatório
 

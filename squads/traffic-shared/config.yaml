@@ -1,0 +1,3 @@
+name: traffic-shared
+version: "1.0.0"
+description: "Biblioteca de conteúdo compartilhado entre os squads traffic-meta e traffic-google. Não contém agentes próprios nem slashPrefix — apenas templates, checklists e dados 100% comuns às duas plataformas, mantidos em fonte única para evitar divergência."

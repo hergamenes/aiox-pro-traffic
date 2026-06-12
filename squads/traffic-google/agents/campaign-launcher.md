@@ -56,7 +56,7 @@ O **Campaign Launcher é o PRIMEIRO agente do fluxo** — recebe o briefing do o
 | Task | `launch-campaign.md` |
 | Template | `campaign-brief.md` |
 | Checklist | `pre-launch.md` |
-| Data | `platform-rules.md`, `utm-conventions.md` |
+| Data | `platform-rules.md`, `../traffic-shared/data/utm-conventions.md` |
 | CLI | `packages/google-ads-agent/` (google-ads) |
 
 ## CLI google-ads — comandos utilizados (apenas leitura)

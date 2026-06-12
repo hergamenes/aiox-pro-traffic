@@ -211,7 +211,7 @@ phases:
       - account_id ou campaign_id
       - optimization-log.md (output da phase-4)
       - dados_vendas_leads (opcional)
-      - utm-conventions.md
+      - ../traffic-shared/data/utm-conventions.md
       - google-ads CLI autenticada
     realtime_commands:
       - "# READ — leitura completa para o relatório"

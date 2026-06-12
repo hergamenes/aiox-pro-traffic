@@ -47,7 +47,7 @@
 | Task | `launch-campaign.md` |
 | Template | `campaign-brief.md` |
 | Checklist | `pre-launch.md` |
-| Data | `platform-rules.md`, `utm-conventions.md` |
+| Data | `platform-rules.md`, `../traffic-shared/data/utm-conventions.md` |
 | CLI | `packages/meta-ads-agent/` (meta-ads) |
 
 ## CLI meta-ads — comandos utilizados
