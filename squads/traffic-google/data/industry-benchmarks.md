@@ -42,7 +42,7 @@
 ### Saúde / Equipamentos médicos / B2B técnico
 | KPI | Faixa de referência | Observação |
 |-----|---------------------|------------|
-| CPC | R$ 6 – 20 | **CPC alto é normal** no nicho (ver conta Medical Spin) |
+| CPC | R$ 6 – 20 | **CPC alto é normal** no nicho de equipamentos médicos B2B |
 | CTR (Search) | 2% – 5% | |
 | CPL | R$ 80 – 300 | ciclo de venda longo, lead vale muito |
 | Taxa de conversão | 2% – 6% | |

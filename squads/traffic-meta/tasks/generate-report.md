@@ -13,7 +13,7 @@ Gerar o **pacote de relatório no novo formato de 5 seções**, cobrindo **TODAS
 - **`account-id` da Meta Ads** (acessa via **ID posicional** no CLI — a conta pode não aparecer em `accounts`)
 - **Período do relatório** (`--from YYYY-MM-DD --to YYYY-MM-DD`)
 - **Período anterior** para comparação (opcional, recomendado)
-- **`client-profile`** do cliente (`squads/traffic-meta/data/client-profiles/{cliente}.md`)
+- **`client-profile`** do cliente — vive **no projeto do cliente**, em `reports/{cliente-plataforma-id}/client-profile.md` (ex.: `reports/{cliente}-meta-{accountId}/client-profile.md`). Se não existir, criar a partir de `squads/traffic-meta/data/client-profiles/_TEMPLATE.md`. **Perfis de cliente real NUNCA vivem dentro de `squads/`** (isolamento por construção — Story 8.3).
 - **Mapa objetivo→métrica** (`squads/traffic-meta/data/objective-metric-map.md`)
 - **Template alvo** (`squads/traffic-meta/templates/performance-report.md` — estrutura de 5 seções)
 - **Optimization log** do cliente, se existir (alimenta a Seção 4)
@@ -36,7 +36,7 @@ NÃO gerar relatório se:
 - **Account ID é posicional:** `meta-ads report <accountId> --from ... --to ...` (não usar flag `--account`).
 - **Escopo do CLI `report`:** serve para **métricas universais** (impressões, CPM, frequência, cliques, CTR, CPC, spend) — válidas para qualquer objetivo. **NÃO** serve para contagem de leads/resultados de formulário nem para detectar `objective`: os campos `leads`/`costPerLead` vêm 0 e `results`/`costPerResult` não captura formulário nativo. Contagem de resultados e `objective` vêm da **Graph API** (Steps 3 e 3.5).
 - **stdout é "sujo":** o CLI mistura linhas tipo `Consultando...` com o JSON. **Sempre extrair o JSON com regex** `/\[\s*\{[\s\S]*\}\s*\]/` antes de parsear.
-- **Saída em:** `reports/{cliente-plataforma-id}/` (ex.: `reports/verbo-feminino-meta-884611416502961/`).
+- **Saída em:** `reports/{cliente-plataforma-id}/` (ex.: `reports/{cliente}-meta-{accountId}/`).
 
 ---
 
@@ -47,7 +47,7 @@ NÃO gerar relatório se:
 meta-ads auth status
 ```
 - Se expirado/não-configurado → **BLOQUEAR** e guiar para `meta-ads auth setup`.
-- **Carregar o `client-profile` do cliente** (`squads/traffic-meta/data/client-profiles/{cliente}.md`). Sem régua → BLOQUEAR. Esta régua define os cortes 🟢/🟡/🔴 usados em todas as seções.
+- **Carregar o `client-profile` do cliente** de `reports/{cliente-plataforma-id}/client-profile.md` (o `{cliente-plataforma-id}` vem do contexto de ativação — qual cliente/conta). Se o perfil não existir, criar a partir de `squads/traffic-meta/data/client-profiles/_TEMPLATE.md` e preencher com o cliente antes de seguir. Sem régua → BLOQUEAR. Esta régua define os cortes 🟢/🟡/🔴 usados em todas as seções.
 
 **Pós-condição:** auth OK + régua de KPI carregada.
 
@@ -158,7 +158,7 @@ Para os anúncios que entrarão no rank (Seção 2.5), obter o link real da míd
   - `opportunity_score` → confirma o que escalar (Seção 5).
 
 ### Step 7: Montar as 5 seções (template `performance-report.md`)
-Preencher conforme o template e o piloto (`reports/verbo-feminino-meta-884611416502961/_piloto-novo-formato/`):
+Preencher conforme o template e o piloto (`reports/{cliente-plataforma-id}/_piloto-novo-formato/`):
 
 - **Seção 1 — Visão Geral:** tabela de indicadores (Atual × Anterior × Variação, com 🟢/🟡/🔴 da régua) + **quadro de resultados POR TIPO** quando a conta tem objetivos/destinos mistos (ex.: "X compras (R$ Y CPA) · Z leads de formulário (R$ W CPL) · K conversas WhatsApp (R$ V custo/conversa)") — contagens vindas do Step 3.5 (Graph API `actions`), **nunca somando tipos diferentes** + **1.1 Evolução diária** (tabela + leitura do gráfico).
 - **Seção 2 — Visão do Tráfego:** 2.1 funil de métricas Meta · 2.2 funil de conversão por etapas (conforme objetivo) · 2.3 Rank Melhores Campanhas · 2.4 Rank Melhores Conjuntos · 2.5 **Rank Melhores Anúncios com mídia** (link real do Step 5).
@@ -178,7 +178,7 @@ Gerar e salvar em `reports/{cliente-plataforma-id}/`:
 4. **`apresentacao-cliente.html`** — versão visual com **branding Solaro** (paleta `#E8453C`/`#FF6F43`/`#FFB300`, fontes Poppins/Montserrat, logo) e o **gráfico diário em SVG inline** (barras = resultado/dia + linha = custo por resultado, eixo duplo). **NÃO usar Chart.js** — SVG inline puro.
 5. **`apresentacao-cliente.pdf`** — gerado do HTML via **Chrome headless** (ver MEMORY: design system Solaro).
 
-> Referência de gráfico SVG e branding: `reports/verbo-feminino-meta-884611416502961/_piloto-novo-formato/apresentacao-cliente.html`.
+> Referência de gráfico SVG e branding: `reports/{cliente-plataforma-id}/_piloto-novo-formato/apresentacao-cliente.html`.
 
 **PDF via Chrome headless (exemplo):**
 ```bash

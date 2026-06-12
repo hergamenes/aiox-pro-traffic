@@ -198,7 +198,7 @@ Este log é a fonte de verdade para auditoria pós-execução e rollback manual.
 ## Output Example
 
 ```markdown
-# Optimize Cycle — Grupo Prestarh (9631900143) · 7d · modo --analyze
+# Optimize Cycle — {CLIENTE} ({ACCOUNT_ID}) · 7d · modo --analyze
 Meta: CPA ≤ R$ 12 · Objetivo: Leads
 
 | Campanha | Gasto | CPC | Conv. | CPA | Classificação |

@@ -1,6 +1,8 @@
 # Perfil do Cliente — {{NOME_CLIENTE}}
 
-> **O que é este arquivo:** a "régua" do cliente. Define nicho, objetivo e metas de KPI. O relatório usa isto para classificar cada métrica como 🟢 boa / 🟡 aceitável / 🔴 ruim — em vez de thresholds genéricos. Copie este template para `squads/traffic-meta/data/client-profiles/{{slug-do-cliente}}.md` e preencha os `{{placeholders}}`.
+> **O que é este arquivo:** a "régua" do cliente. Define nicho, objetivo e metas de KPI. O relatório usa isto para classificar cada métrica como 🟢 boa / 🟡 aceitável / 🔴 ruim — em vez de thresholds genéricos.
+>
+> **Onde criar o perfil (convenção por projeto — Story 8.3):** copie este template para **`reports/{cliente-plataforma-id}/client-profile.md`** no projeto do cliente (ex.: `reports/{cliente}-meta-{accountId}/client-profile.md`) e preencha os `{{placeholders}}`. **NUNCA** salve perfis de cliente real dentro de `squads/` — squads são copiados entre projetos e dados de cliente não podem vazar (isolamento por construção).
 
 ## Identificação
 | Campo | Valor |

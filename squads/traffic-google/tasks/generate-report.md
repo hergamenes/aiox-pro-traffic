@@ -10,7 +10,7 @@
 ## Objetivo
 Gerar um pacote completo de relatório de performance de **UMA conta Google Ads** (ou árvore MCC), cobrindo **TODAS as campanhas** quaisquer que sejam os tipos/objetivos (Search vendas, Search leads/formulário nativo, PMax, Display, Video, Shopping, Demand Gen, App), no novo formato de 5 seções, com gráfico de evolução diária e links de mídia dos anúncios do rank.
 
-> **Modelo de saída (estrutura idêntica):** `reports/verbo-feminino-meta-884611416502961/_piloto-novo-formato/` (é da Meta, mas a ESTRUTURA das 5 seções é a mesma).
+> **Modelo de saída (estrutura idêntica):** `reports/{cliente-plataforma-id}/_piloto-novo-formato/` (mesma estrutura das 5 seções, independente da plataforma).
 
 ## Inputs
 - **Cliente** (qual empresa/conta — isolamento obrigatório, NUNCA cruzar dados entre clientes)
@@ -51,7 +51,7 @@ NÃO gerar relatório se:
    google-ads auth status
    ```
    - Se expirado → BLOQUEAR e guiar para `google-ads auth setup`.
-2. Carregar `client-profile.md` do cliente (réguas de CPA/CPL/ROAS, nicho, moeda). Se não existir, criar mínimo com o usuário antes de seguir (sem régua não há 🟢/🟡/🔴).
+2. Carregar `client-profile.md` do cliente de `reports/{cliente-plataforma-id}/client-profile.md` (réguas de CPA/CPL/ROAS, nicho, moeda; o `{cliente-plataforma-id}` vem do contexto de ativação). Se não existir, criar a partir de `squads/traffic-google/data/client-profiles/_TEMPLATE.md` e preencher com o usuário antes de seguir (sem régua não há 🟢/🟡/🔴). **Perfis de cliente real NUNCA vivem dentro de `squads/`** (isolamento por construção — Story 8.3).
 3. **Detecção de escopo MCC:** verificar se o `customer-id` é um manager:
    ```bash
    google-ads accounts --tree
@@ -210,7 +210,7 @@ Montar a lista priorizada por **impacto financeiro × esforço**:
 - `action-list-priorizada.md` — lista priorizada (Step 8).
 - **Anexos de auditoria:** os JSONs do CLI (5 níveis atuais + 2 anteriores + assets quando aplicável).
 
-> **Convenção de pasta:** todo relatório vai para `reports/{cliente-plataforma-id}/` na raiz do projeto (ex.: `reports/grupo-prestarh-google-9631900143/`).
+> **Convenção de pasta:** todo relatório vai para `reports/{cliente-plataforma-id}/` na raiz do projeto (ex.: `reports/{cliente}-google-{accountId}/`).
 
 **Pós-condição:** pacote completo gravado na pasta do cliente.
 

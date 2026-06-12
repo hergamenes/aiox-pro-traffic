@@ -55,10 +55,10 @@ Empate de R$: o de **menor esforço** sobe. Esforço alto só vira P1 se o R$/m�
 
 ---
 
-## Exemplo numérico (caso do piloto — Verbo Feminino)
+## Exemplo numérico (caso ilustrativo)
 
-Padrão-ouro da conta: campanha **SOL_PLUS** a **R$ 2,69/conversa**.
-Campanha problemática: **SOL_SLIM** (criativo AD0032) a **R$ 11,31/conversa**, entregando ~8 conversas/semana com aquele criativo.
+Padrão-ouro da conta: campanha **CAMPANHA_A** a **R$ 2,69/conversa**.
+Campanha problemática: **CAMPANHA_B** (criativo AD0032) a **R$ 11,31/conversa**, entregando ~8 conversas/semana com aquele criativo.
 
 ```
 desperdício_mensal = (11,31 − 2,69) × 8 × 4,33

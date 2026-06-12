@@ -115,12 +115,12 @@ Gerar `campaign-plan.md` usando template `templates/campaign-brief.md` com toda 
 
 ```markdown
 # Campaign Plan — STATUS: VALIDATED ✅
-**Conta:** Grupo Prestarh (9631900143) · **Objetivo:** Leads · **Tipo:** Search
+**Conta:** {CLIENTE} ({ACCOUNT_ID}) · **Objetivo:** Leads · **Tipo:** Search
 
 ## Estrutura
-- Campanha: SOL_LEADS_GRUPOPRESTARH_SERVIÇOS · budget R$ 30/dia · tCPA R$ 12
-- Ad Group "Consultoria de RH": keywords [consultoria de rh para empresas (PHRASE),
-  consultoria em gestão de pessoas (PHRASE)]
+- Campanha: {CAMPANHA} · budget R$ 30/dia · tCPA R$ 12
+- Ad Group "{AD_GROUP}": keywords [{keyword 1} (PHRASE),
+  {keyword 2} (PHRASE)]
 - RSA: 5 headlines / 4 descriptions · URL final com utm_source=google&utm_medium=cpc
 
 ## Validação

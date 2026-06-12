@@ -37,6 +37,7 @@ reports/
 # Agent runtime memory (não versionar)
 **/.claude/agent-memory/
 
-# Perfis de clientes específicos (dados de cliente) — manter só o _TEMPLATE
+# Perfis de clientes específicos (dados de cliente) — manter só o _TEMPLATE e o README
 squads/*/data/client-profiles/*.md
 !squads/*/data/client-profiles/_TEMPLATE.md
+!squads/*/data/client-profiles/README.md

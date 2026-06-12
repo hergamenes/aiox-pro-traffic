@@ -178,14 +178,14 @@ Sugerir próximos passos:
 ## Output Example
 
 ```text
-✅ Publicação concluída — Grupo Prestarh (9631900143) [não-MCC OK]
+✅ Publicação concluída — {CLIENTE} ({ACCOUNT_ID}) [não-MCC OK]
 
 Tipo:        Search
-Campaign ID: 23998877665  · "SOL_LEADS_GRUPOPRESTARH_SERVIÇOS" · R$ 30/dia
-Ad Group ID: 191900112233 · "Consultoria de RH" · CPC default R$ 2,00
+Campaign ID: 23998877665  · "{CAMPANHA}" · R$ 30/dia
+Ad Group ID: 191900112233 · "{AD_GROUP}" · CPC default R$ 2,00
 Keywords:    2 adicionadas
-  - "consultoria de rh para empresas" (PHRASE) crit-id 101 · bid R$ 2,50
-  - "consultoria em gestão de pessoas"  (PHRASE) crit-id 102 · bid R$ 2,00
+  - "{keyword 1}" (PHRASE) crit-id 101 · bid R$ 2,50
+  - "{keyword 2}" (PHRASE) crit-id 102 · bid R$ 2,00
 Ads:         1 RSA criado (ad-id 78112233) · 5 headlines / 4 descriptions
 Status:      PAUSED → ENABLED (operador confirmou "s" no Step 11) · ativado 16:42
 
