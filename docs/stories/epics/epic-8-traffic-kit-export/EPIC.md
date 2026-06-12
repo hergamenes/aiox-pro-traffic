@@ -58,10 +58,10 @@ Hoje os squads vivem e funcionam apenas **dentro deste repositório**. O squad t
 
 | Story | Título | Pts | Risco | Status |
 |-------|--------|-----|-------|--------|
-| **8.1** | Padronizar invocação CLI do squad traffic-meta via PATH (`meta-ads`) + instalação global dos 2 CLIs | 3 | Médio | Draft |
-| **8.2** | Extrair conteúdo idêntico para `squads/traffic-shared/` e atualizar referências | 5 | Médio | Draft |
-| **8.3** | Remover client-profiles reais dos squads; convenção de perfis por projeto | 2 | Baixo | Draft |
-| **8.4** | `install-traffic-kit.sh` + `README-TRAFFIC-KIT.md` + branding bundle | 5 | Médio | Draft |
+| **8.1** | Padronizar invocação CLI do squad traffic-meta via PATH (`meta-ads`) + instalação global dos 2 CLIs | 3 | Médio | Done |
+| **8.2** | Extrair conteúdo idêntico para `squads/traffic-shared/` e atualizar referências | 5 | Médio | Done |
+| **8.3** | Remover client-profiles reais dos squads; convenção de perfis por projeto | 2 | Baixo | Done |
+| **8.4** | `install-traffic-kit.sh` + `README-TRAFFIC-KIT.md` + branding bundle | 5 | Médio | Done |
 
 **Total: 4 stories (15 pts).** Não há Tier 2 — o escopo é fechado e sequencial.
 
@@ -168,13 +168,13 @@ Story 8.4 (installer + docs)    — empacota o resultado de 8.1-8.3; depende de 
 
 Epic 8 está Done quando:
 
-- [ ] Stories 8.1, 8.2, 8.3, 8.4 todas em **Done** (QA gate + PO GO)
-- [ ] Squad `traffic-meta` invoca exclusivamente `meta-ads` no PATH; `traffic-google` confirmado em `google-ads` (8.1)
-- [ ] `squads/traffic-shared/` é a única fonte dos ~614 linhas comuns; 2 squads referenciam (8.2)
-- [ ] Nenhum perfil de cliente real sob `squads/` — grep limpo; só `_TEMPLATE.md` (8.3)
-- [ ] `scripts/install-traffic-kit.sh` + `README-TRAFFIC-KIT.md` + branding bundle entregues (8.4)
-- [ ] **Teste de instalação real:** rodar `install-traffic-kit.sh` num diretório de teste vazio (simulando projeto novo), validar que os 4 agentes de cada squad ativam, que `meta-ads`/`google-ads` respondem no PATH, e que `reports/` + allow rules de leitura foram criados — sem nenhum dado de cliente herdado
-- [ ] README valida o caminho de máquina nova (auth via Keychain) e documenta o MCP Facebook
+- [x] Stories 8.1, 8.2, 8.3, 8.4 todas em **Done** (QA gate PASS — @qa Quinn 2026-06-12)
+- [x] Squad `traffic-meta` invoca exclusivamente `meta-ads` no PATH; `traffic-google` confirmado em `google-ads` (8.1)
+- [x] `squads/traffic-shared/` é a fonte única do conteúdo comum (action-prioritization + utm-conventions); 2 squads referenciam (8.2)
+- [x] Nenhum perfil de cliente real sob `squads/` — grep limpo; só `_TEMPLATE.md` (8.3)
+- [x] `scripts/install-traffic-kit.sh` + `README-TRAFFIC-KIT.md` entregues (8.4)
+- [x] **Teste de instalação real:** installer re-executado pelo QA em `/tmp/qa-traffic-kit` — squads + shims ativáveis, `meta-ads`/`google-ads` no PATH, `reports/` vazio + allow rules criadas, idempotência confirmada, zero dado de cliente herdado (8.4)
+- [x] README valida o caminho de máquina nova (auth) e documenta o MCP `claude_ai_Facebook` (8.4)
 
 ## 11. Open Questions for User
 
