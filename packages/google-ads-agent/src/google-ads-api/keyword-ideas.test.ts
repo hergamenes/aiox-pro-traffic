@@ -1,10 +1,29 @@
 import { describe, it, expect } from 'vitest';
 import {
+  extractKeywordIdeaResults,
   parseKeywordIdeasResponse,
   isPermissionError,
   extractErrorText,
   type RawKeywordIdeaResult,
 } from './keyword-ideas.js';
+
+describe('extractKeywordIdeaResults', () => {
+  it('handles the gax auto-paginated shape (array direto) — regressão do bug "sempre vazio"', () => {
+    const response = [{ text: 'escrever livro com ia' }, { text: 'criar livro com ia' }];
+    expect(extractKeywordIdeaResults(response)).toHaveLength(2);
+  });
+
+  it('handles the wrapped GenerateKeywordIdeasResponse shape', () => {
+    const response = { results: [{ text: 'ia para escrever livro' }] };
+    expect(extractKeywordIdeaResults(response)).toHaveLength(1);
+  });
+
+  it('returns empty array for null/undefined/malformed responses', () => {
+    expect(extractKeywordIdeaResults(null)).toEqual([]);
+    expect(extractKeywordIdeaResults(undefined)).toEqual([]);
+    expect(extractKeywordIdeaResults({})).toEqual([]);
+  });
+});
 
 describe('parseKeywordIdeasResponse', () => {
   it('maps a full result and converts micros to currency unit', () => {

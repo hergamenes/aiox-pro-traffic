@@ -72,6 +72,20 @@ function normalizeCompetition(value: number | string | null | undefined): Compet
 }
 
 /**
+ * Extrai o array de resultados da resposta do SDK.
+ * Função PURA — sem I/O.
+ *
+ * A lib google-ads-api usa a paginação automática do gax e retorna o array
+ * de KeywordIdeaResult DIRETO — não um GenerateKeywordIdeasResponse com
+ * campo .results. Aceita os dois formatos por segurança.
+ */
+export function extractKeywordIdeaResults(response: unknown): RawKeywordIdeaResult[] {
+  if (Array.isArray(response)) return response as RawKeywordIdeaResult[];
+  const wrapped = (response as { results?: RawKeywordIdeaResult[] } | null | undefined)?.results;
+  return wrapped ?? [];
+}
+
+/**
  * Mapeia a resposta crua da API para o nosso modelo KeywordIdea[].
  * Função PURA — sem I/O. Ordena por volume decrescente.
  */
@@ -199,8 +213,7 @@ export async function generateKeywordIdeas(
     const response = await customer.keywordPlanIdeas.generateKeywordIdeas(
       request as Parameters<typeof customer.keywordPlanIdeas.generateKeywordIdeas>[0],
     );
-    const results = (response?.results ?? []) as RawKeywordIdeaResult[];
-    return parseKeywordIdeasResponse(results);
+    return parseKeywordIdeasResponse(extractKeywordIdeaResults(response));
   } catch (err) {
     if (isPermissionError(err)) {
       throw new AppError(
