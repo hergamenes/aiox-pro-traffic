@@ -74,7 +74,7 @@
 
 **Execução padrão:**
 ```bash
-node packages/google-ads-agent/dist/bin/google-ads.js report --period 7d --level campaign --format json
+google-ads report --period 7d --level campaign --format json
 ```
 
 ### CLI google-ads — mutações (Epic 6+)

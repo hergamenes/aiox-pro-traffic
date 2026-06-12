@@ -72,7 +72,7 @@ Todos os 4 agentes usam duas fontes:
 **Antes de usar qualquer agente, certifique-se que a CLI está autenticada:**
 
 ```bash
-node packages/meta-ads-agent/dist/bin/meta-ads.js auth status
+meta-ads auth status
 ```
 
 Se expirou → rodar `meta-ads auth setup`.

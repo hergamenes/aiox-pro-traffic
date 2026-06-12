@@ -47,14 +47,14 @@ NÃO publicar se:
 ### Step 1: Verificar Autenticação
 Executar no terminal:
 ```bash
-cd packages/meta-ads-agent && node dist/bin/meta-ads.js auth status
+meta-ads auth status
 ```
 
 - Se **autenticado** → Continuar
 - Se **expirado** ou **não configurado** → Guiar para setup:
   ```bash
-  cd packages/meta-ads-agent && node dist/bin/meta-ads.js auth setup
-  cd packages/meta-ads-agent && node dist/bin/meta-ads.js config set-default
+  meta-ads auth setup
+  meta-ads config set-default
   ```
 
 ### Step 2: Coletar Informações
@@ -102,27 +102,27 @@ Executar o comando CLI conforme o tipo. Adicionar `--plataforma {instagram|faceb
 
 **Objetivos com URL (sales, leads, awareness, traffic, engagement):**
 ```bash
-cd packages/meta-ads-agent && node dist/bin/meta-ads.js create {type} "{name}" --budget {budget} --url "{url}" --headline "{title}" --text "{text}" --description "{desc}" --quiet
+meta-ads create {type} "{name}" --budget {budget} --url "{url}" --headline "{title}" --text "{text}" --description "{desc}" --quiet
 ```
 
 **Click-to-WhatsApp (whatsapp):**
 ```bash
-cd packages/meta-ads-agent && node dist/bin/meta-ads.js create whatsapp "{name}" --budget {budget} --whatsapp {numero_ddi} --headline "{title}" --text "{text}" --description "{desc}" --quiet
+meta-ads create whatsapp "{name}" --budget {budget} --whatsapp {numero_ddi} --headline "{title}" --text "{text}" --description "{desc}" --quiet
 ```
 
 **Lead Ads / formulário nativo (leadform):**
 ```bash
-cd packages/meta-ads-agent && node dist/bin/meta-ads.js create leadform "{name}" --budget {budget} --privacy-url "{privacy_url}" --headline "{title}" --text "{text}" --description "{desc}" --quiet
+meta-ads create leadform "{name}" --budget {budget} --privacy-url "{privacy_url}" --headline "{title}" --text "{text}" --description "{desc}" --quiet
 ```
 
 **Promoção de App (app):**
 ```bash
-cd packages/meta-ads-agent && node dist/bin/meta-ads.js create app "{name}" --budget {budget} --app-id {app_id} --store-url "{store_url}" --headline "{title}" --text "{text}" --description "{desc}" --quiet
+meta-ads create app "{name}" --budget {budget} --app-id {app_id} --store-url "{store_url}" --headline "{title}" --text "{text}" --description "{desc}" --quiet
 ```
 
 **Ou via comando único (qualquer tipo):**
 ```bash
-cd packages/meta-ads-agent && node dist/bin/meta-ads.js up {type} "{name}" --budget {budget} [--url|--whatsapp|...] --quiet
+meta-ads up {type} "{name}" --budget {budget} [--url|--whatsapp|...] --quiet
 ```
 
 ### Step 5: Resultado

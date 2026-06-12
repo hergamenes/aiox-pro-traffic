@@ -33,7 +33,7 @@ NÃO executar se:
 Verificar infraestrutura antes de qualquer leitura:
 
 ```bash
-node packages/meta-ads-agent/dist/bin/meta-ads.js auth status
+meta-ads auth status
 ```
 
 - Se expirado → BLOQUEAR e guiar para `meta-ads auth setup`
@@ -51,11 +51,11 @@ Coletar parâmetros do usuário:
 
 ```bash
 # Por campanha específica
-node packages/meta-ads-agent/dist/bin/meta-ads.js report \
+meta-ads report \
   --campaign-id {id} --period 7d --level adset --format json
 
 # Por conta inteira (todas as campanhas)
-node packages/meta-ads-agent/dist/bin/meta-ads.js report \
+meta-ads report \
   --period 14d --level campaign --format json
 ```
 

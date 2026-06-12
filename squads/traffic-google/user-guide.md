@@ -60,7 +60,7 @@ Todos os 4 agentes usam a **CLI `google-ads`** (em `packages/google-ads-agent/`)
 **Antes de usar qualquer agente, certifique-se que a CLI está autenticada:**
 
 ```bash
-node packages/google-ads-agent/dist/bin/google-ads.js auth status
+google-ads auth status
 ```
 
 Se expirou → rodar `google-ads auth setup`.

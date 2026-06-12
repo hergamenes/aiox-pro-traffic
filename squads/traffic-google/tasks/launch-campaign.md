@@ -34,16 +34,16 @@ Antes do briefing, confirmar infraestrutura via CLI (somente leitura):
 
 ```bash
 # Autenticação
-node packages/google-ads-agent/dist/bin/google-ads.js auth status
+google-ads auth status
 
 # Conta padrão configurada
-node packages/google-ads-agent/dist/bin/google-ads.js config get-default
+google-ads config get-default
 
 # Árvore de contas MCC (Story 5.4)
-node packages/google-ads-agent/dist/bin/google-ads.js accounts --tree
+google-ads accounts --tree
 
 # Baseline de performance dos últimos 7 dias
-node packages/google-ads-agent/dist/bin/google-ads.js report --period 7d --level campaign --format json
+google-ads report --period 7d --level campaign --format json
 ```
 
 - Se `auth status` expirado → BLOQUEAR e guiar para `google-ads auth setup`
@@ -74,12 +74,12 @@ Verificar se todos os assets referenciados no briefing existem na conta:
 
 ```bash
 # Listar todos os assets disponíveis
-node packages/google-ads-agent/dist/bin/google-ads.js list-assets --type ALL
+google-ads list-assets --type ALL
 
 # Ou filtrar por tipo específico
-node packages/google-ads-agent/dist/bin/google-ads.js list-assets --type IMAGE
-node packages/google-ads-agent/dist/bin/google-ads.js list-assets --type VIDEO
-node packages/google-ads-agent/dist/bin/google-ads.js list-assets --type TEXT
+google-ads list-assets --type IMAGE
+google-ads list-assets --type VIDEO
+google-ads list-assets --type TEXT
 ```
 
 Para cada asset referenciado no plano:

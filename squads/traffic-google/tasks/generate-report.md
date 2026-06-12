@@ -48,13 +48,13 @@ NÃO gerar relatório se:
 
 1. Autenticação:
    ```bash
-   node packages/google-ads-agent/dist/bin/google-ads.js auth status
+   google-ads auth status
    ```
    - Se expirado → BLOQUEAR e guiar para `google-ads auth setup`.
 2. Carregar `client-profile.md` do cliente (réguas de CPA/CPL/ROAS, nicho, moeda). Se não existir, criar mínimo com o usuário antes de seguir (sem régua não há 🟢/🟡/🔴).
 3. **Detecção de escopo MCC:** verificar se o `customer-id` é um manager:
    ```bash
-   node packages/google-ads-agent/dist/bin/google-ads.js accounts --tree
+   google-ads accounts --tree
    ```
    - Se for MCC → coletar child accounts (read-only) e iterar a coleta por conta, usando `--login-customer-id <mcc>`.
    - Se for single account → fluxo padrão.
@@ -69,7 +69,7 @@ NÃO gerar relatório se:
 Puxar JSON em todos os níveis, período atual e anterior. Em MCC, repetir por child account com `--login-customer-id`.
 
 ```bash
-GA="node packages/google-ads-agent/dist/bin/google-ads.js"
+GA="google-ads"
 CID=<customer-id>            # posicional; em MCC adicionar: --login-customer-id <mcc>
 FROM=<de>; TO=<ate>
 PFROM=<de-anterior>; PTO=<ate-anterior>

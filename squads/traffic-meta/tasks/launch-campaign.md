@@ -31,9 +31,9 @@ NÃO executar (ou bloquear avanço) se:
 Antes do briefing, confirmar infraestrutura via CLI:
 
 ```bash
-node packages/meta-ads-agent/dist/bin/meta-ads.js auth status
-node packages/meta-ads-agent/dist/bin/meta-ads.js accounts
-node packages/meta-ads-agent/dist/bin/meta-ads.js pages
+meta-ads auth status
+meta-ads accounts
+meta-ads pages
 ```
 
 - Se auth expirado → BLOQUEAR e guiar usuário para `meta-ads auth setup`
@@ -70,7 +70,7 @@ Executar validações obrigatórias:
 
 **Validação de criativos via CLI** (quando criativos disponíveis):
 ```bash
-node packages/meta-ads-agent/dist/bin/meta-ads.js creatives {path-dos-criativos}
+meta-ads creatives {path-dos-criativos}
 ```
 Se retornar erros → corrigir antes de prosseguir.
 

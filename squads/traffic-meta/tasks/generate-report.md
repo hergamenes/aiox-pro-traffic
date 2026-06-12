@@ -32,7 +32,7 @@ NÃO gerar relatório se:
 ---
 
 ## Convenções de execução
-- **Binário CLI:** `node packages/meta-ads-agent/dist/bin/meta-ads.js`
+- **Binário CLI:** `meta-ads`
 - **Account ID é posicional:** `meta-ads report <accountId> --from ... --to ...` (não usar flag `--account`).
 - **Escopo do CLI `report`:** serve para **métricas universais** (impressões, CPM, frequência, cliques, CTR, CPC, spend) — válidas para qualquer objetivo. **NÃO** serve para contagem de leads/resultados de formulário nem para detectar `objective`: os campos `leads`/`costPerLead` vêm 0 e `results`/`costPerResult` não captura formulário nativo. Contagem de resultados e `objective` vêm da **Graph API** (Steps 3 e 3.5).
 - **stdout é "sujo":** o CLI mistura linhas tipo `Consultando...` com o JSON. **Sempre extrair o JSON com regex** `/\[\s*\{[\s\S]*\}\s*\]/` antes de parsear.
@@ -44,7 +44,7 @@ NÃO gerar relatório se:
 
 ### Step 0: Pré-validação
 ```bash
-node packages/meta-ads-agent/dist/bin/meta-ads.js auth status
+meta-ads auth status
 ```
 - Se expirado/não-configurado → **BLOQUEAR** e guiar para `meta-ads auth setup`.
 - **Carregar o `client-profile` do cliente** (`squads/traffic-meta/data/client-profiles/{cliente}.md`). Sem régua → BLOQUEAR. Esta régua define os cortes 🟢/🟡/🔴 usados em todas as seções.
@@ -60,18 +60,18 @@ node packages/meta-ads-agent/dist/bin/meta-ads.js auth status
 Puxar os 4 níveis do período. **Incluir todas as campanhas, de TODOS os objetivos** — não filtrar só WhatsApp.
 
 ```bash
-node packages/meta-ads-agent/dist/bin/meta-ads.js report {accountId} \
+meta-ads report {accountId} \
   --from {de} --to {ate} --level account  --format json > /tmp/account.json
-node packages/meta-ads-agent/dist/bin/meta-ads.js report {accountId} \
+meta-ads report {accountId} \
   --from {de} --to {ate} --level campaign --format json > /tmp/campaigns.json
-node packages/meta-ads-agent/dist/bin/meta-ads.js report {accountId} \
+meta-ads report {accountId} \
   --from {de} --to {ate} --level adset    --format json > /tmp/adsets.json
-node packages/meta-ads-agent/dist/bin/meta-ads.js report {accountId} \
+meta-ads report {accountId} \
   --from {de} --to {ate} --level ad       --format json > /tmp/ads.json
 # Período anterior (comparação) — pelo menos nível account + campaign
-node packages/meta-ads-agent/dist/bin/meta-ads.js report {accountId} \
+meta-ads report {accountId} \
   --from {prev-de} --to {prev-ate} --level account  --format json > /tmp/account-prev.json
-node packages/meta-ads-agent/dist/bin/meta-ads.js report {accountId} \
+meta-ads report {accountId} \
   --from {prev-de} --to {prev-ate} --level campaign --format json > /tmp/campaigns-prev.json
 ```
 Parsear cada arquivo extraindo o JSON com a regex `/\[\s*\{[\s\S]*\}\s*\]/`.
@@ -124,7 +124,7 @@ Para cada campanha, definir:
 O CLI **não tem breakdown por dia** → rodar **1 chamada por dia** no período, nível account:
 ```bash
 # para cada dia D em [de..ate]:
-node packages/meta-ads-agent/dist/bin/meta-ads.js report {accountId} \
+meta-ads report {accountId} \
   --from {D} --to {D} --level account --format json   # extrair JSON com a regex
 ```
 Para cada dia extrair: **resultado primário do objetivo dominante** (ex.: `messagingConversationsStarted` / `purchases` / `leads`) e o **custo por resultado** do dia (spend ÷ resultado).

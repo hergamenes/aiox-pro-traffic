@@ -182,7 +182,7 @@ O fluxo ideal é:
 Para executar os comandos do google-ads, usar:
 
 ```bash
-node packages/google-ads-agent/dist/bin/google-ads.js {comando}
+google-ads {comando}
 ```
 
 ## Notas Importantes

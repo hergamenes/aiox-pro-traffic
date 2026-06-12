@@ -8,17 +8,41 @@ Squad especializado em operações de tráfego pago focado em Google Ads (Search
 
 ## Pré-requisitos
 
+### Instalação global do CLI (obrigatória)
+
+Este squad invoca o CLI como `google-ads ...` via **PATH global**. Por isso o binário precisa estar instalado globalmente — sem isso, os agentes, tasks e workflows não funcionam (nem dentro nem fora deste repositório).
+
+A partir da raiz do repositório, instale o CLI globalmente:
+
+```bash
+# 1. Build do pacote
+cd packages/google-ads-agent
+npm install
+npm run build
+
+# 2. Instalar o binário globalmente (registra `google-ads` no PATH)
+npm install -g .
+# Alternativa em ambiente de desenvolvimento: `npm link`
+
+# 3. Verificar a instalação (de qualquer diretório)
+google-ads --version
+```
+
+> ⚠️ **Permissões (`npm install -g`):** em algumas máquinas (nvm, instalação de Node via sudo) o install global pode falhar por permissão. Nesses casos use `npm link`, configure um prefixo de npm gravável, ou consulte o `README-TRAFFIC-KIT.md` (criado na Story 8.4) para troubleshooting completo.
+
+### Configuração da CLI
+
 Antes de usar o squad, a CLI precisa estar configurada:
 
 ```bash
 # 1. Autenticar via OAuth (uma vez)
-node packages/google-ads-agent/dist/bin/google-ads.js auth setup
+google-ads auth setup
 
 # 2. Definir conta de anúncios padrão (uma vez)
-node packages/google-ads-agent/dist/bin/google-ads.js config set-default
+google-ads config set-default
 
 # 3. Verificar status (sempre que abrir uma sessão)
-node packages/google-ads-agent/dist/bin/google-ads.js auth status
+google-ads auth status
 ```
 
 > ⚠️ **Conta padrão NÃO pode ser MCC** (Manager Account). Google rejeita métricas em MCC. Use uma conta cliente.

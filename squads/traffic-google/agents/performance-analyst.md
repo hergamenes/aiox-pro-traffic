@@ -70,7 +70,7 @@ Puxo histórico e métricas direto da Google Ads — relatórios deixam de ser s
 
 **Execução padrão:**
 ```bash
-node packages/google-ads-agent/dist/bin/google-ads.js report --period 30d --level campaign --format json
+google-ads report --period 30d --level campaign --format json
 ```
 
 Cruzo o JSON com `utm-conventions.md` (Seção 7 — Atribuição UTM) e com `kpi-thresholds.md` (Seção 9 — Recomendações).

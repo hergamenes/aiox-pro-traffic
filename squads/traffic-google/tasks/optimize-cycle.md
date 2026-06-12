@@ -47,7 +47,7 @@ NÃO executar mutação se:
 Verificar infraestrutura antes de qualquer leitura:
 
 ```bash
-node packages/google-ads-agent/dist/bin/google-ads.js auth status
+google-ads auth status
 ```
 
 - Se expirado → BLOQUEAR e guiar para `google-ads auth setup`
@@ -65,11 +65,11 @@ Coletar parâmetros do usuário:
 
 ```bash
 # Por campanha específica
-node packages/google-ads-agent/dist/bin/google-ads.js report \
+google-ads report \
   --campaign-id {id} --period 7d --level ad_group --format json
 
 # Por conta inteira (todas as campanhas)
-node packages/google-ads-agent/dist/bin/google-ads.js report \
+google-ads report \
   --period 14d --level campaign --format json
 ```
 

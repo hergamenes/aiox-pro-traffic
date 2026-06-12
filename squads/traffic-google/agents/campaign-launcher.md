@@ -79,7 +79,7 @@ O Launcher usa **somente comandos read-only** para validar pré-condições. Nen
 
 **Execução padrão (macOS/Linux):**
 ```bash
-node packages/google-ads-agent/dist/bin/google-ads.js {comando}
+google-ads {comando}
 ```
 
 > Se qualquer um desses comandos retornar erro, asset inexistente, conta errada ou conflito de baseline → **BLOQUEIO o handoff** ao Campaign Publisher e devolvo o plano com pendências.

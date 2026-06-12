@@ -69,7 +69,7 @@ Puxo histórico e métricas direto da Meta Ads — relatórios deixam de ser sna
 
 **Execução padrão:**
 ```bash
-node packages/meta-ads-agent/dist/bin/meta-ads.js report --period 30d --level campaign --format json
+meta-ads report --period 30d --level campaign --format json
 ```
 
 Cruzo o JSON com `utm-conventions.md` (Seção 7 — Atribuição UTM) e com `kpi-thresholds.md` (Seção 9 — Recomendações).

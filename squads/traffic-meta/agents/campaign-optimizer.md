@@ -66,7 +66,7 @@
 
 **Execução padrão:**
 ```bash
-node packages/meta-ads-agent/dist/bin/meta-ads.js report --period 7d --level campaign --format json
+meta-ads report --period 7d --level campaign --format json
 ```
 
 ### MCP `claude_ai_Facebook` — análise avançada

@@ -63,7 +63,7 @@ Antes de aprovar o plano final, valido pré-condições em tempo real via CLI:
 
 **Execução padrão (macOS/Linux):**
 ```bash
-node packages/meta-ads-agent/dist/bin/meta-ads.js {comando}
+meta-ads {comando}
 ```
 
 Se algum comando retornar erro → BLOQUEIO o avanço para Campaign Publisher.

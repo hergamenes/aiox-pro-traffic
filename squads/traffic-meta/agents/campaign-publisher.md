@@ -185,16 +185,14 @@ O fluxo ideal é:
 
 ## Execução dos Comandos CLI
 
-Para executar os comandos do meta-ads, usar:
+Para executar os comandos do meta-ads, usar o binário global (instalado via PATH):
 
 ```bash
-# O CLI está em packages/meta-ads-agent
-# Executar via npx ou diretamente
-cd packages/meta-ads-agent && npx tsx src/cli/index.ts {comando}
-
-# Ou se já estiver buildado:
-node packages/meta-ads-agent/dist/bin/meta-ads.js {comando}
+# O CLI `meta-ads` é invocado direto via PATH global
+meta-ads {comando}
 ```
+
+> O código-fonte do CLI vive em `packages/meta-ads-agent/` (apenas referência documental). A invocação é sempre `meta-ads ...` via PATH — veja o README do squad para o procedimento de instalação global.
 
 ## Notas Importantes
 
