@@ -170,8 +170,11 @@ describe('removeCampaign — real cascade counts', () => {
 // an object ({ resource_name }) serialized to "[object Object]" and the API
 // rejected it. These tests assert the operation carries a bare string.
 describe('remove operations — resource must be a bare resource_name string', () => {
-  function firstOpResource() {
-    const ops = fakeCustomer.mutateResources.mock.calls[0]?.[0] as Array<{
+  // Read the MOST RECENT mutateResources call so each test validates its own
+  // function regardless of mock-reset behavior (robust even without beforeEach).
+  function lastRemoveOpResource() {
+    const calls = fakeCustomer.mutateResources.mock.calls;
+    const ops = calls.at(-1)?.[0] as Array<{
       operation: string;
       resource: unknown;
     }>;
@@ -182,21 +185,21 @@ describe('remove operations — resource must be a bare resource_name string', (
 
   it('removeKeyword passes the criterion resource_name as a string (not an object)', async () => {
     await removeKeyword(fakeClient, '111-222-3333', '456', '789', 'rt');
-    const resource = firstOpResource();
+    const resource = lastRemoveOpResource();
     expect(typeof resource).toBe('string');
     expect(resource).toBe('customers/1112223333/adGroupCriteria/456~789');
   });
 
   it('removeCampaign passes the campaign resource_name as a string (not an object)', async () => {
     await removeCampaign(fakeClient, '111-222-3333', '123', 'rt');
-    const resource = firstOpResource();
+    const resource = lastRemoveOpResource();
     expect(typeof resource).toBe('string');
     expect(resource).toMatch(/^customers\/1112223333\/campaigns\/123$/);
   });
 
   it('removeAdGroup passes the ad_group resource_name as a string (not an object)', async () => {
     await removeAdGroup(fakeClient, '111-222-3333', '10', 'rt');
-    const resource = firstOpResource();
+    const resource = lastRemoveOpResource();
     expect(typeof resource).toBe('string');
     expect(resource).toBe('customers/1112223333/adGroups/10');
   });
