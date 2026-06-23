@@ -13,7 +13,7 @@ const fakeCustomer = {
     queries.push(q);
     return responder(q);
   }),
-  mutateResources: vi.fn(async () => ({})),
+  mutateResources: vi.fn(async (_operations?: unknown) => ({})),
 };
 
 vi.mock('./client.js', () => ({
@@ -23,6 +23,8 @@ vi.mock('./client.js', () => ({
 import {
   readCampaignRemovalSnapshot,
   removeCampaign,
+  removeKeyword,
+  removeAdGroup,
 } from './mutations.js';
 
 const fakeClient = {} as unknown as Parameters<typeof readCampaignRemovalSnapshot>[0];
@@ -159,5 +161,43 @@ describe('removeCampaign — real cascade counts', () => {
     const result = await removeCampaign(fakeClient, '111-222-3333', '123', 'rt');
     expect(result.cascade).toEqual({ adGroupCount: 0, adCount: 0 });
     expect(fakeCustomer.mutateResources).toHaveBeenCalledTimes(1);
+  });
+});
+
+// Regression guard for RESOURCE_NAME_MALFORMED ('[object Object]').
+// The google-ads-api lib maps a `remove` operation's `resource` straight into
+// the protobuf `remove` field, which MUST be the resource_name string. Passing
+// an object ({ resource_name }) serialized to "[object Object]" and the API
+// rejected it. These tests assert the operation carries a bare string.
+describe('remove operations — resource must be a bare resource_name string', () => {
+  function firstOpResource() {
+    const ops = fakeCustomer.mutateResources.mock.calls[0]?.[0] as Array<{
+      operation: string;
+      resource: unknown;
+    }>;
+    expect(Array.isArray(ops)).toBe(true);
+    expect(ops[0].operation).toBe('remove');
+    return ops[0].resource;
+  }
+
+  it('removeKeyword passes the criterion resource_name as a string (not an object)', async () => {
+    await removeKeyword(fakeClient, '111-222-3333', '456', '789', 'rt');
+    const resource = firstOpResource();
+    expect(typeof resource).toBe('string');
+    expect(resource).toBe('customers/1112223333/adGroupCriteria/456~789');
+  });
+
+  it('removeCampaign passes the campaign resource_name as a string (not an object)', async () => {
+    await removeCampaign(fakeClient, '111-222-3333', '123', 'rt');
+    const resource = firstOpResource();
+    expect(typeof resource).toBe('string');
+    expect(resource).toMatch(/^customers\/1112223333\/campaigns\/123$/);
+  });
+
+  it('removeAdGroup passes the ad_group resource_name as a string (not an object)', async () => {
+    await removeAdGroup(fakeClient, '111-222-3333', '10', 'rt');
+    const resource = firstOpResource();
+    expect(typeof resource).toBe('string');
+    expect(resource).toBe('customers/1112223333/adGroups/10');
   });
 });
