@@ -88,6 +88,19 @@ describe('uploadImage', () => {
       'Falha no upload da imagem',
     );
   });
+
+  it('should throw UploadError when Meta returns an empty images object', async () => {
+    // images: {} faria Object.keys(images)[0] virar undefined e quebrar com um
+    // TypeError genérico — esperamos um UploadError claro em pt-BR.
+    mockFetch.mockResolvedValue({
+      json: () => Promise.resolve({ images: {} }),
+    });
+
+    await expect(uploadImage('12345', '/mock/photo.jpg')).rejects.toThrow(UploadError);
+    await expect(uploadImage('12345', '/mock/photo.jpg')).rejects.toThrow(
+      'A API Meta não retornou o hash da imagem enviada.',
+    );
+  });
 });
 
 describe('uploadVideo', () => {
@@ -148,6 +161,24 @@ describe('waitForVideoReady', () => {
 
     await expect(waitForVideoReady('vid_1', 'tok')).resolves.toBeUndefined();
     expect(mockFetch).toHaveBeenCalledTimes(1);
+  });
+
+  it('should send the token in the Authorization header, not in the URL', async () => {
+    mockFetch.mockResolvedValue({
+      json: () => Promise.resolve({ status: { video_status: 'ready' } }),
+    });
+
+    await waitForVideoReady('vid_1', 'tok');
+
+    const [url, init] = mockFetch.mock.calls[0] as [string, RequestInit];
+    // O token NÃO deve vazar na query string.
+    expect(url).not.toContain('access_token');
+    expect(url).not.toContain('tok');
+    // fields=status permanece na URL.
+    expect(url).toBe('https://graph.facebook.com/v21.0/vid_1?fields=status');
+    // O token deve ir no header Authorization: Bearer.
+    const headers = init.headers as Record<string, string>;
+    expect(headers['Authorization']).toBe('Bearer tok');
   });
 
   it('should resolve when processing_phase status is complete', async () => {

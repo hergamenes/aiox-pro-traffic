@@ -30,6 +30,10 @@ async function exchangeCodeForToken(
   appSecret: string,
   redirectUri: string,
 ): Promise<{ accessToken: string; expiresIn: number }> {
+  // O endpoint oauth/access_token EXIGE client_secret e code na query string —
+  // este é o protocolo OAuth da Meta para troca de código por token. Aqui `code`
+  // é um authorization code de uso único (não um access_token autenticando uma
+  // requisição de dados), então não se aplica a mudança para header Authorization.
   const params = new URLSearchParams({
     client_id: appId,
     redirect_uri: redirectUri,
@@ -60,6 +64,11 @@ async function exchangeForLongLivedToken(
   appId: string,
   appSecret: string,
 ): Promise<{ accessToken: string; expiresIn: number }> {
+  // Mesmo caso do exchangeCodeForToken: o endpoint oauth/access_token exige
+  // grant_type, client_secret e fb_exchange_token na query string. O
+  // fb_exchange_token é o token de curta duração SENDO trocado (insumo do
+  // endpoint de troca), não um token autenticando uma requisição de dados —
+  // por isso permanece na query, conforme o protocolo da Meta.
   const params = new URLSearchParams({
     grant_type: 'fb_exchange_token',
     client_id: appId,

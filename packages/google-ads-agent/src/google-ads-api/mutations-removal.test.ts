@@ -153,14 +153,96 @@ describe('removeCampaign — real cascade counts', () => {
     expect(all).not.toMatch(/IN\s*\(\s*SELECT/i);
   });
 
-  it('falls back to 0 counts if count queries fail (removal still proceeds)', async () => {
+  it('flags cascade as uncertain (not a confirmed 0) when count queries fail', async () => {
     responder = () => {
       throw new Error('count failed');
     };
 
     const result = await removeCampaign(fakeClient, '111-222-3333', '123', 'rt');
-    expect(result.cascade).toEqual({ adGroupCount: 0, adCount: 0 });
+    // Removal still proceeds, but the counts must NOT be presented as a hard 0.
+    expect(result.cascade.adGroupCount).toBe(0);
+    expect(result.cascade.adCount).toBe(0);
+    expect(result.cascade.uncertain).toBe(true);
     expect(fakeCustomer.mutateResources).toHaveBeenCalledTimes(1);
+  });
+
+  it('does NOT mark uncertain when counts read successfully', async () => {
+    responder = (q) => {
+      if (q.includes('FROM ad_group') && q.includes('ad_group.id')) {
+        return [{ ad_group: { id: 10 } }];
+      }
+      if (q.includes('FROM ad_group_ad')) {
+        return [{}];
+      }
+      return [];
+    };
+
+    const result = await removeCampaign(fakeClient, '111-222-3333', '123', 'rt');
+    expect(result.cascade.uncertain).toBeUndefined();
+  });
+});
+
+describe('removeAdGroup — real cascade counts', () => {
+  it('reports adGroupCount=1 and the real ad count (not hardcoded 0,0)', async () => {
+    responder = (q) => {
+      if (q.includes('FROM ad_group_ad')) {
+        return [{}, {}, {}]; // 3 ads
+      }
+      return [];
+    };
+
+    const result = await removeAdGroup(fakeClient, '111-222-3333', '10', 'rt');
+    expect(result.cascade.adGroupCount).toBe(1);
+    expect(result.cascade.adCount).toBe(3);
+    expect(result.cascade.uncertain).toBeUndefined();
+  });
+
+  it('flags cascade as uncertain when the ad count query fails', async () => {
+    responder = () => {
+      throw new Error('count failed');
+    };
+
+    const result = await removeAdGroup(fakeClient, '111-222-3333', '10', 'rt');
+    expect(result.cascade.adCount).toBe(0);
+    expect(result.cascade.uncertain).toBe(true);
+    expect(fakeCustomer.mutateResources).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('mutation ID validation — GAQL injection defense', () => {
+  it('removeCampaign rejects a non-numeric campaign ID before any query', async () => {
+    await expect(
+      removeCampaign(fakeClient, '111-222-3333', "1 OR 1=1", 'rt'),
+    ).rejects.toThrow(/Campaign ID inválido/);
+    expect(fakeCustomer.mutateResources).not.toHaveBeenCalled();
+  });
+
+  it('removeCampaign rejects an invalid customer ID', async () => {
+    await expect(removeCampaign(fakeClient, 'abc', '123', 'rt')).rejects.toThrow(
+      /Customer ID inválido/,
+    );
+    expect(fakeCustomer.mutateResources).not.toHaveBeenCalled();
+  });
+
+  it('removeAdGroup rejects a non-numeric ad group ID', async () => {
+    await expect(
+      removeAdGroup(fakeClient, '111-222-3333', "10'; DROP", 'rt'),
+    ).rejects.toThrow(/Ad Group ID inválido/);
+    expect(fakeCustomer.mutateResources).not.toHaveBeenCalled();
+  });
+
+  it('removeKeyword rejects a non-numeric criterion ID', async () => {
+    await expect(
+      removeKeyword(fakeClient, '111-222-3333', '456', "789 OR 1=1", 'rt'),
+    ).rejects.toThrow(/Criterion ID inválido/);
+    expect(fakeCustomer.mutateResources).not.toHaveBeenCalled();
+  });
+
+  it('readCampaignRemovalSnapshot rejects a non-numeric campaign ID before querying', async () => {
+    await expect(
+      readCampaignRemovalSnapshot(fakeClient, 'rt', '111-222-3333', "1=1", undefined),
+    ).rejects.toThrow(/Campaign ID inválido/);
+    expect(fakeCustomer.query).not.toHaveBeenCalled();
   });
 });
 

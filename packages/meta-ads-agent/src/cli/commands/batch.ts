@@ -196,6 +196,28 @@ async function prepareBundle(creativePath: string): Promise<CreativeBundle> {
   return buildBundle(validated);
 }
 
+/** Delay padrão entre campanhas (ms), usado também como fallback de --delay. */
+const DEFAULT_DELAY_MS = 2000;
+
+/**
+ * Converte o valor de --delay em ms. Se o valor for inválido (não-numérico,
+ * ex.: `--delay abc`, virando NaN) ou negativo, faz fallback para o padrão de
+ * 2000ms e avisa — em vez de desligar silenciosamente a pausa anti-rate-limit.
+ */
+export function parseDelay(raw: string | undefined): number {
+  if (raw === undefined) {
+    return DEFAULT_DELAY_MS;
+  }
+  const parsed = parseInt(raw, 10);
+  if (Number.isNaN(parsed) || parsed < 0) {
+    console.warn(
+      `${COLORS.YELLOW}⚠ Valor de --delay inválido ("${raw}"). Usando o padrão de ${DEFAULT_DELAY_MS}ms entre campanhas.${COLORS.RESET}`,
+    );
+    return DEFAULT_DELAY_MS;
+  }
+  return parsed;
+}
+
 export const batchCommand = new Command('batch')
   .description('Criar múltiplas campanhas a partir de um CSV')
   .argument('<csv-file>', 'Caminho do arquivo CSV com as campanhas')
@@ -210,7 +232,7 @@ export const batchCommand = new Command('batch')
     continueOnError?: boolean;
   }) => {
     const startTime = Date.now();
-    const delay = parseInt(options.delay ?? '2000', 10);
+    const delay = parseDelay(options.delay);
 
     try {
       // Load config
