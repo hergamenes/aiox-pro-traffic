@@ -36,8 +36,13 @@ export async function waitForVideoReady(videoId: string, token: string): Promise
   const deadline = Date.now() + VIDEO_PROCESSING_TIMEOUT_MS;
 
   while (Date.now() < deadline) {
-    const url = `${BASE_URL}/${videoId}?fields=status&access_token=${token}`;
-    const response = await fetch(url);
+    // O token vai no header Authorization: Bearer (não na query string), para
+    // evitar vazamento do access_token em logs de URL — mesmo padrão dos GETs
+    // do adapter.ts. `fields=status` permanece na query.
+    const url = `${BASE_URL}/${videoId}?fields=status`;
+    const response = await fetch(url, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     const json = (await response.json()) as Record<string, unknown>;
 
     if (!json['error'] && response.ok !== false) {
@@ -150,6 +155,17 @@ export async function uploadImage(
     const parsed = imageUploadResponseSchema.parse(json);
     const images = parsed.images;
     const firstKey = Object.keys(images)[0];
+    // A Meta normalmente devolve `images: { <fileName>: { hash } }`, mas se vier
+    // um objeto vazio (`images: {}`) o acesso por chave dispararia um TypeError
+    // genérico. Tratamos explicitamente com um UploadError claro em pt-BR.
+    if (firstKey === undefined) {
+      throw new UploadError('A API Meta não retornou o hash da imagem enviada.', {
+        filePath,
+        adAccountId,
+        assetType: 'image',
+        action: 'Tente novamente. Se persistir, verifique o formato da imagem ou o status da API Meta.',
+      });
+    }
     const hash = images[firstKey].hash;
 
     logger.info({ fileName, hash }, 'Image uploaded successfully');

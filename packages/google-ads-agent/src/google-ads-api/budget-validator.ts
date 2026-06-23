@@ -8,6 +8,14 @@
 const MICROS_PER_UNIT = 1_000_000;
 
 /**
+ * Sanity ceiling for a single budget/bid value, in currency units.
+ * A daily budget above 1 million (R$/$/€) per day is almost certainly a typo
+ * (e.g. forgot the decimal, or pasted micros instead of currency units).
+ * This is a guardrail against fat-finger spend, NOT a business rule.
+ */
+export const MAX_BUDGET_VALUE_UNITS = 1_000_000;
+
+/**
  * Parses a user-provided currency string into micros.
  *
  * Accepts inputs like:
@@ -47,8 +55,16 @@ export function parseMicros(input: string): number {
   if (!Number.isFinite(value)) {
     throw new Error(`Could not parse budget value: '${input}'`);
   }
-  if (value < 0) {
-    throw new Error(`Budget cannot be negative: '${input}'`);
+  if (value <= 0) {
+    throw new Error(
+      `Orçamento deve ser maior que zero. Valor recebido: '${input}'. Use um valor positivo (ex: 50, "R$ 50,00").`,
+    );
+  }
+  if (value > MAX_BUDGET_VALUE_UNITS) {
+    throw new Error(
+      `Orçamento '${input}' ultrapassa o teto de sanidade de ${MAX_BUDGET_VALUE_UNITS.toLocaleString('pt-BR')} por dia. ` +
+        'Verifique se não digitou o valor errado (ex: micros no lugar de reais).',
+    );
   }
 
   return Math.round(value * MICROS_PER_UNIT);

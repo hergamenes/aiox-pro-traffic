@@ -4,6 +4,7 @@ import {
   formatMicros,
   calculateBudgetDelta,
   calculatePercentDelta,
+  MAX_BUDGET_VALUE_UNITS,
 } from './budget-validator.js';
 
 describe('parseMicros', () => {
@@ -43,8 +44,30 @@ describe('parseMicros', () => {
     expect(() => parseMicros('-10')).toThrow();
   });
 
+  it('throws on zero value', () => {
+    expect(() => parseMicros('0')).toThrow(/maior que zero/);
+  });
+
+  it('throws on zero with currency formatting', () => {
+    expect(() => parseMicros('R$ 0,00')).toThrow(/maior que zero/);
+  });
+
   it('throws on non-numeric input', () => {
     expect(() => parseMicros('abc')).toThrow();
+  });
+
+  it('accepts a value exactly at the sanity ceiling', () => {
+    expect(parseMicros(String(MAX_BUDGET_VALUE_UNITS))).toBe(
+      MAX_BUDGET_VALUE_UNITS * 1_000_000,
+    );
+  });
+
+  it('throws when value exceeds the sanity ceiling', () => {
+    expect(() => parseMicros(String(MAX_BUDGET_VALUE_UNITS + 1))).toThrow(/teto de sanidade/);
+  });
+
+  it('throws on an absurdly large fat-finger value', () => {
+    expect(() => parseMicros('999999999')).toThrow(/teto de sanidade/);
   });
 });
 

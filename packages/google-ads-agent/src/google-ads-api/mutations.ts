@@ -41,6 +41,7 @@ import {
   type PmaxBiddingStrategy,
 } from './campaign-builder.js';
 import type { KeywordMatchType } from './keyword-validator.js';
+import { assertCustomerId, assertNumericId, escapeGaqlString } from './id-validator.js';
 
 export interface CampaignBudgetSnapshot {
   campaignId: string;
@@ -114,6 +115,8 @@ export async function readCampaignBudgetSnapshot(
   campaignId: string,
   loginCustomerId?: string,
 ): Promise<CampaignBudgetSnapshot> {
+  customerId = assertCustomerId(customerId);
+  campaignId = assertNumericId(campaignId, 'Campaign ID');
   const customer = getCustomer(client, {
     customerId,
     refreshToken,
@@ -241,6 +244,8 @@ export async function readCampaignBiddingSnapshot(
   campaignId: string,
   loginCustomerId?: string,
 ): Promise<CampaignBiddingSnapshot> {
+  customerId = assertCustomerId(customerId);
+  campaignId = assertNumericId(campaignId, 'Campaign ID');
   const customer = getCustomer(client, {
     customerId,
     refreshToken,
@@ -459,6 +464,8 @@ export async function readCampaignStatusSnapshot(
   campaignId: string,
   loginCustomerId?: string,
 ): Promise<CampaignStatusSnapshot> {
+  customerId = assertCustomerId(customerId);
+  campaignId = assertNumericId(campaignId, 'Campaign ID');
   const customer = getCustomer(client, {
     customerId,
     refreshToken,
@@ -509,6 +516,8 @@ export async function readAdGroupStatusSnapshot(
   adGroupId: string,
   loginCustomerId?: string,
 ): Promise<AdGroupStatusSnapshot> {
+  customerId = assertCustomerId(customerId);
+  adGroupId = assertNumericId(adGroupId, 'Ad Group ID');
   const customer = getCustomer(client, {
     customerId,
     refreshToken,
@@ -752,13 +761,15 @@ export async function checkCampaignNameExists(
   name: string,
   loginCustomerId?: string,
 ): Promise<boolean> {
+  customerId = assertCustomerId(customerId);
   const customer = getCustomer(client, {
     customerId,
     refreshToken,
     ...(loginCustomerId ? { loginCustomerId } : {}),
   });
 
-  const escaped = name.replace(/'/g, "\\'");
+  // Escape `\` and `'` to prevent GAQL injection via campaign names.
+  const escaped = escapeGaqlString(name);
   const rows = (await customer.query(`
     SELECT campaign.id
     FROM campaign
@@ -1109,6 +1120,8 @@ export async function readCampaignContext(
   campaignId: string,
   loginCustomerId?: string,
 ): Promise<CampaignContext> {
+  customerId = assertCustomerId(customerId);
+  campaignId = assertNumericId(campaignId, 'Campaign ID');
   const customer = getCustomer(client, {
     customerId,
     refreshToken,
@@ -1161,6 +1174,8 @@ export async function readAdGroupContext(
   adGroupId: string,
   loginCustomerId?: string,
 ): Promise<AdGroupContext> {
+  customerId = assertCustomerId(customerId);
+  adGroupId = assertNumericId(adGroupId, 'Ad Group ID');
   const customer = getCustomer(client, {
     customerId,
     refreshToken,
@@ -1222,6 +1237,8 @@ export async function readKeywordSnapshot(
   criterionId: string,
   loginCustomerId?: string,
 ): Promise<KeywordSnapshot> {
+  customerId = assertCustomerId(customerId);
+  criterionId = assertNumericId(criterionId, 'Criterion ID');
   const customer = getCustomer(client, {
     customerId,
     refreshToken,
@@ -1294,13 +1311,14 @@ export async function createAdGroup(
   client: GoogleAdsApi,
   input: CreateAdGroupInput,
 ): Promise<CreateAdGroupResult> {
+  const cidStripped = assertCustomerId(input.customerId);
+  assertNumericId(input.campaignId, 'Campaign ID');
   const customer = getCustomer(client, {
     customerId: input.customerId,
     refreshToken: input.refreshToken,
     ...(input.loginCustomerId ? { loginCustomerId: input.loginCustomerId } : {}),
   });
 
-  const cidStripped = input.customerId.replace(/-/g, '');
   const campaignResourceName = `customers/${cidStripped}/campaigns/${input.campaignId}`;
 
   const resource: Record<string, unknown> = {
@@ -1345,13 +1363,14 @@ export async function addKeyword(
   client: GoogleAdsApi,
   input: AddKeywordInput,
 ): Promise<KeywordMutateResult> {
+  const cidStripped = assertCustomerId(input.customerId);
+  assertNumericId(input.adGroupId, 'Ad Group ID');
   const customer = getCustomer(client, {
     customerId: input.customerId,
     refreshToken: input.refreshToken,
     ...(input.loginCustomerId ? { loginCustomerId: input.loginCustomerId } : {}),
   });
 
-  const cidStripped = input.customerId.replace(/-/g, '');
   const adGroupResourceName = `customers/${cidStripped}/adGroups/${input.adGroupId}`;
 
   const resource: Record<string, unknown> = {
@@ -1405,13 +1424,15 @@ export async function removeKeyword(
   loginCustomerId?: string,
   dryRun?: boolean,
 ): Promise<KeywordMutateResult> {
+  const cidStripped = assertCustomerId(customerId);
+  assertNumericId(adGroupId, 'Ad Group ID');
+  assertNumericId(criterionId, 'Criterion ID');
   const customer = getCustomer(client, {
     customerId,
     refreshToken,
     ...(loginCustomerId ? { loginCustomerId } : {}),
   });
 
-  const cidStripped = customerId.replace(/-/g, '');
   const criterionResourceName = `customers/${cidStripped}/adGroupCriteria/${adGroupId}~${criterionId}`;
 
   const operations: MutateOperation<resources.IAdGroupCriterion>[] = [
@@ -1448,13 +1469,15 @@ export async function updateKeywordBid(
   loginCustomerId?: string,
   dryRun?: boolean,
 ): Promise<KeywordMutateResult> {
+  const cidStripped = assertCustomerId(customerId);
+  assertNumericId(adGroupId, 'Ad Group ID');
+  assertNumericId(criterionId, 'Criterion ID');
   const customer = getCustomer(client, {
     customerId,
     refreshToken,
     ...(loginCustomerId ? { loginCustomerId } : {}),
   });
 
-  const cidStripped = customerId.replace(/-/g, '');
   const criterionResourceName = `customers/${cidStripped}/adGroupCriteria/${adGroupId}~${criterionId}`;
 
   const operations: MutateOperation<resources.IAdGroupCriterion>[] = [
@@ -1525,13 +1548,14 @@ export async function createRsa(
   client: GoogleAdsApi,
   input: CreateRsaInput,
 ): Promise<CreateAdResult> {
+  const cidStripped = assertCustomerId(input.customerId);
+  assertNumericId(input.adGroupId, 'Ad Group ID');
   const customer = getCustomer(client, {
     customerId: input.customerId,
     refreshToken: input.refreshToken,
     ...(input.loginCustomerId ? { loginCustomerId: input.loginCustomerId } : {}),
   });
 
-  const cidStripped = input.customerId.replace(/-/g, '');
   const adGroupResourceName = `customers/${cidStripped}/adGroups/${input.adGroupId}`;
 
   const headlineAssets = input.headlines.map((text) => {
@@ -1594,13 +1618,14 @@ export async function createRda(
   client: GoogleAdsApi,
   input: CreateRdaInput,
 ): Promise<CreateAdResult> {
+  const cidStripped = assertCustomerId(input.customerId);
+  assertNumericId(input.adGroupId, 'Ad Group ID');
   const customer = getCustomer(client, {
     customerId: input.customerId,
     refreshToken: input.refreshToken,
     ...(input.loginCustomerId ? { loginCustomerId: input.loginCustomerId } : {}),
   });
 
-  const cidStripped = input.customerId.replace(/-/g, '');
   const adGroupResourceName = `customers/${cidStripped}/adGroups/${input.adGroupId}`;
 
   // Asset references in RDA format: { asset: "customers/{cid}/assets/{id}" }
@@ -1669,6 +1694,7 @@ export async function findMissingAssetIds(
   loginCustomerId?: string,
 ): Promise<string[]> {
   if (assetIds.length === 0) return [];
+  customerId = assertCustomerId(customerId);
 
   const customer = getCustomer(client, {
     customerId,
@@ -1983,7 +2009,14 @@ export interface AdGroupRemovalSnapshot {
 
 export interface RemoveResult {
   resourceName: string;
-  cascade: { adGroupCount: number; adCount: number };
+  /**
+   * Counts of cascaded children also marked REMOVED.
+   *
+   * `uncertain: true` means the counts could NOT be read (query failed) and
+   * the reported numbers are NOT reliable — callers MUST surface this to the
+   * operator instead of presenting 0 as a confirmed fact.
+   */
+  cascade: { adGroupCount: number; adCount: number; uncertain?: boolean };
   dryRun: boolean;
 }
 
@@ -2000,6 +2033,8 @@ export async function readCampaignRemovalSnapshot(
   campaignId: string,
   loginCustomerId?: string,
 ): Promise<CampaignRemovalSnapshot> {
+  customerId = assertCustomerId(customerId);
+  campaignId = assertNumericId(campaignId, 'Campaign ID');
   const customer = getCustomer(client, {
     customerId,
     refreshToken,
@@ -2124,6 +2159,8 @@ export async function readAdGroupRemovalSnapshot(
   adGroupId: string,
   loginCustomerId?: string,
 ): Promise<AdGroupRemovalSnapshot> {
+  customerId = assertCustomerId(customerId);
+  adGroupId = assertNumericId(adGroupId, 'Ad Group ID');
   const customer = getCustomer(client, {
     customerId,
     refreshToken,
@@ -2192,13 +2229,14 @@ export async function removeCampaign(
   loginCustomerId?: string,
   dryRun?: boolean,
 ): Promise<RemoveResult> {
+  const cidStripped = assertCustomerId(customerId);
+  assertNumericId(campaignId, 'Campaign ID');
   const customer = getCustomer(client, {
     customerId,
     refreshToken,
     ...(loginCustomerId ? { loginCustomerId } : {}),
   });
 
-  const cidStripped = customerId.replace(/-/g, '');
   const resourceName = `customers/${cidStripped}/campaigns/${campaignId}`;
 
   // Read the real cascade counts BEFORE removal so the return value reflects
@@ -2206,6 +2244,7 @@ export async function removeCampaign(
   // GAQL has no subqueries → 2-step: fetch ad_groups, then count ads via IN list.
   let adGroupCount = 0;
   let adCount = 0;
+  let uncertain = false;
   try {
     const adGroupRows = (await customer.query(`
       SELECT ad_group.id
@@ -2229,10 +2268,16 @@ export async function removeCampaign(
       `)) as unknown as Array<unknown>;
       adCount = Array.isArray(adRows) ? adRows.length : 0;
     }
-  } catch {
-    // Non-fatal: if counts can't be read, fall back to 0 (removal still proceeds).
+  } catch (err) {
+    // Non-fatal: the removal still proceeds, but we must NOT claim 0 children
+    // were cascaded when we simply failed to count them. Flag uncertainty.
+    uncertain = true;
     adGroupCount = 0;
     adCount = 0;
+    logger.warn(
+      { err, customerId, campaignId },
+      'removeCampaign: não foi possível contar o cascade (ad_groups/ads) — contagem reportada é incerta',
+    );
   }
 
   const operations: MutateOperation<resources.ICampaign>[] = [
@@ -2247,13 +2292,13 @@ export async function removeCampaign(
   await customer.mutateResources(operations, { validate_only: Boolean(dryRun) });
 
   logger.debug(
-    { customerId, campaignId, dryRun, adGroupCount, adCount },
+    { customerId, campaignId, dryRun, adGroupCount, adCount, uncertain },
     'removeCampaign completed (campaign + cascade REMOVED)',
   );
 
   return {
     resourceName,
-    cascade: { adGroupCount, adCount },
+    cascade: { adGroupCount, adCount, ...(uncertain ? { uncertain: true } : {}) },
     dryRun: Boolean(dryRun),
   };
 }
@@ -2269,14 +2314,37 @@ export async function removeAdGroup(
   loginCustomerId?: string,
   dryRun?: boolean,
 ): Promise<RemoveResult> {
+  const cidStripped = assertCustomerId(customerId);
+  assertNumericId(adGroupId, 'Ad Group ID');
   const customer = getCustomer(client, {
     customerId,
     refreshToken,
     ...(loginCustomerId ? { loginCustomerId } : {}),
   });
 
-  const cidStripped = customerId.replace(/-/g, '');
   const resourceName = `customers/${cidStripped}/adGroups/${adGroupId}`;
+
+  // Count the real cascade (ads under this ad_group) BEFORE removal instead of
+  // reporting a hardcoded 0 that misleads the operator about what was cascaded.
+  // adGroupCount is 1 (this ad_group itself); adCount is the number of ads.
+  let adCount = 0;
+  let uncertain = false;
+  try {
+    const adRows = (await customer.query(`
+      SELECT ad_group_ad.ad.id
+      FROM ad_group_ad
+      WHERE ad_group_ad.ad_group = 'customers/${cidStripped}/adGroups/${adGroupId}'
+        AND ad_group_ad.status != 'REMOVED'
+    `)) as unknown as Array<unknown>;
+    adCount = Array.isArray(adRows) ? adRows.length : 0;
+  } catch (err) {
+    uncertain = true;
+    adCount = 0;
+    logger.warn(
+      { err, customerId, adGroupId },
+      'removeAdGroup: não foi possível contar o cascade (ads) — contagem reportada é incerta',
+    );
+  }
 
   const operations: MutateOperation<resources.IAdGroup>[] = [
     {
@@ -2291,7 +2359,7 @@ export async function removeAdGroup(
 
   return {
     resourceName,
-    cascade: { adGroupCount: 0, adCount: 0 },
+    cascade: { adGroupCount: 1, adCount, ...(uncertain ? { uncertain: true } : {}) },
     dryRun: Boolean(dryRun),
   };
 }

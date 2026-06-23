@@ -148,48 +148,11 @@ const salesCommand = new Command('sales')
         platform,
       };
 
-      const callbacks = options.quiet ? undefined : {
-        onProgress: (step: string, _pct: number) => {
-          switch (step) {
-            case 'upload':
-              uploadSpinner?.succeed(STEP_SUCCESS.upload);
-              break;
-            case 'campaign':
-              ora(STEP_LABELS.campaign).start().succeed(STEP_SUCCESS.campaign);
-              break;
-            case 'adset':
-              ora(STEP_LABELS.adset).start().succeed(STEP_SUCCESS.adset);
-              break;
-            case 'activate':
-              ora(STEP_LABELS.activate).start().succeed(STEP_SUCCESS.activate);
-              break;
-          }
-        },
-        onUploadProgress: (asset: string, pct: number) => {
-          if (uploadSpinner) {
-            uploadSpinner.text = `${STEP_LABELS.upload} ${asset} ${pct}%`;
-          }
-        },
-      };
+      const callbacks = options.quiet ? undefined : buildProgressCallbacks(uploadSpinner);
 
       const result = await createCampaign(campaignConfig, bundle, callbacks);
 
-      // Show result
-      console.log(`\n${COLORS.GREEN}${COLORS.BOLD}✓ Campanha criada com sucesso!${COLORS.RESET}\n`);
-
-      const rows = [
-        ['Nome', result.campaignName],
-        ['ID Campanha', result.campaignId],
-        ['ID Conjunto', result.adSetId],
-        ['ID Anúncio', result.adId],
-        ['Orçamento', `R$ ${result.dailyBudget.toFixed(2)}/dia`],
-        ['Criativo', result.creativeFormat],
-        ['Status', `${COLORS.GREEN}${result.status}${COLORS.RESET}`],
-        ['Link', result.adsManagerUrl],
-      ];
-
-      console.log(formatTable(['Campo', 'Valor'], rows));
-      console.log(`\nTempo total: ${formatDuration(Date.now() - startTime)}`);
+      printResult(result, startTime);
     } catch (error) {
       rl?.close();
       const result = handleError(error);
@@ -270,48 +233,11 @@ const leadsCommand = new Command('leads')
         platform,
       };
 
-      const callbacks = options.quiet ? undefined : {
-        onProgress: (step: string, _pct: number) => {
-          switch (step) {
-            case 'upload':
-              uploadSpinner?.succeed(STEP_SUCCESS.upload);
-              break;
-            case 'campaign':
-              ora(STEP_LABELS.campaign).start().succeed(STEP_SUCCESS.campaign);
-              break;
-            case 'adset':
-              ora(STEP_LABELS.adset).start().succeed(STEP_SUCCESS.adset);
-              break;
-            case 'activate':
-              ora(STEP_LABELS.activate).start().succeed(STEP_SUCCESS.activate);
-              break;
-          }
-        },
-        onUploadProgress: (asset: string, pct: number) => {
-          if (uploadSpinner) {
-            uploadSpinner.text = `${STEP_LABELS.upload} ${asset} ${pct}%`;
-          }
-        },
-      };
+      const callbacks = options.quiet ? undefined : buildProgressCallbacks(uploadSpinner);
 
       const result = await createCampaign(campaignConfig, bundle, callbacks);
 
-      // Show result
-      console.log(`\n${COLORS.GREEN}${COLORS.BOLD}✓ Campanha criada com sucesso!${COLORS.RESET}\n`);
-
-      const rows = [
-        ['Nome', result.campaignName],
-        ['ID Campanha', result.campaignId],
-        ['ID Conjunto', result.adSetId],
-        ['ID Anúncio', result.adId],
-        ['Orçamento', `R$ ${result.dailyBudget.toFixed(2)}/dia`],
-        ['Criativo', result.creativeFormat],
-        ['Status', `${COLORS.GREEN}${result.status}${COLORS.RESET}`],
-        ['Link', result.adsManagerUrl],
-      ];
-
-      console.log(formatTable(['Campo', 'Valor'], rows));
-      console.log(`\nTempo total: ${formatDuration(Date.now() - startTime)}`);
+      printResult(result, startTime);
     } catch (error) {
       rl.close();
       const result = handleError(error);
@@ -406,21 +332,7 @@ function makeObjectiveCommand(type: Extract<CampaignType, 'awareness' | 'traffic
 
         const result = await createCampaign(campaignConfig, bundle, callbacks);
 
-        console.log(`\n${COLORS.GREEN}${COLORS.BOLD}✓ Campanha criada com sucesso!${COLORS.RESET}\n`);
-
-        const rows = [
-          ['Nome', result.campaignName],
-          ['ID Campanha', result.campaignId],
-          ['ID Conjunto', result.adSetId],
-          ['ID Anúncio', result.adId],
-          ['Orçamento', `R$ ${result.dailyBudget.toFixed(2)}/dia`],
-          ['Criativo', result.creativeFormat],
-          ['Status', `${COLORS.GREEN}${result.status}${COLORS.RESET}`],
-          ['Link', result.adsManagerUrl],
-        ];
-
-        console.log(formatTable(['Campo', 'Valor'], rows));
-        console.log(`\nTempo total: ${formatDuration(Date.now() - startTime)}`);
+        printResult(result, startTime);
       } catch (error) {
         rl?.close();
         const result = handleError(error);
@@ -507,47 +419,11 @@ const whatsappCommand = new Command('whatsapp')
         whatsappNumber,
       };
 
-      const callbacks = options.quiet ? undefined : {
-        onProgress: (step: string, _pct: number) => {
-          switch (step) {
-            case 'upload':
-              uploadSpinner?.succeed(STEP_SUCCESS.upload);
-              break;
-            case 'campaign':
-              ora(STEP_LABELS.campaign).start().succeed(STEP_SUCCESS.campaign);
-              break;
-            case 'adset':
-              ora(STEP_LABELS.adset).start().succeed(STEP_SUCCESS.adset);
-              break;
-            case 'activate':
-              ora(STEP_LABELS.activate).start().succeed(STEP_SUCCESS.activate);
-              break;
-          }
-        },
-        onUploadProgress: (asset: string, pct: number) => {
-          if (uploadSpinner) {
-            uploadSpinner.text = `${STEP_LABELS.upload} ${asset} ${pct}%`;
-          }
-        },
-      };
+      const callbacks = options.quiet ? undefined : buildProgressCallbacks(uploadSpinner);
 
       const result = await createCampaign(campaignConfig, bundle, callbacks);
 
-      console.log(`\n${COLORS.GREEN}${COLORS.BOLD}✓ Campanha criada com sucesso!${COLORS.RESET}\n`);
-
-      const rows = [
-        ['Nome', result.campaignName],
-        ['ID Campanha', result.campaignId],
-        ['ID Conjunto', result.adSetId],
-        ['ID Anúncio', result.adId],
-        ['Orçamento', `R$ ${result.dailyBudget.toFixed(2)}/dia`],
-        ['Criativo', result.creativeFormat],
-        ['Status', `${COLORS.GREEN}${result.status}${COLORS.RESET}`],
-        ['Link', result.adsManagerUrl],
-      ];
-
-      console.log(formatTable(['Campo', 'Valor'], rows));
-      console.log(`\nTempo total: ${formatDuration(Date.now() - startTime)}`);
+      printResult(result, startTime);
     } catch (error) {
       rl?.close();
       const result = handleError(error);

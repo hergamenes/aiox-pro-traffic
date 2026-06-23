@@ -88,6 +88,23 @@ describe('meta-api/adapter', () => {
 
       await expect(listAdAccounts()).rejects.toThrow(MetaApiError);
     });
+
+    it('should send the token in the Authorization header, not in the URL', async () => {
+      const fetchMock = vi.fn().mockResolvedValue({
+        json: () => Promise.resolve({ data: [] }),
+      });
+      vi.stubGlobal('fetch', fetchMock);
+
+      await listAdAccounts();
+
+      const [url, init] = fetchMock.mock.calls[0] as [string, RequestInit];
+      // O token NÃO deve aparecer na query string (evita vazamento em logs de URL).
+      expect(url).not.toContain('access_token');
+      expect(url).not.toContain('test-token');
+      // O token deve ir no header Authorization: Bearer.
+      const headers = init.headers as Record<string, string>;
+      expect(headers['Authorization']).toBe('Bearer test-token');
+    });
   });
 
   describe('listPages', () => {

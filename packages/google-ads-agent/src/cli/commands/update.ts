@@ -22,6 +22,10 @@ import { appendMutationLog } from '../../log/mutation-log.js';
 import { COLORS } from '../display.js';
 import { printError } from '../../errors/error-handler.js';
 import { logger } from '../logger.js';
+import { checkSessionLimit, addToSessionBudget } from '../session-budget-tracker.js';
+
+/** Default anti-runaway ceiling for the cumulative daily-budget exposure added in a session (BRL). */
+const DEFAULT_MAX_SESSION_BUDGET_BRL = 500;
 
 const VALID_STRATEGIES: BiddingStrategyKind[] = [
   'maximize_conversions',
@@ -53,6 +57,12 @@ updateCommand
     'Threshold (%) acima do qual exige double-confirm',
     '50',
   )
+  .option(
+    '--max-session-budget <amount>',
+    `Limite anti-runaway da soma de aumentos de --daily na sessão (default: ${DEFAULT_MAX_SESSION_BUDGET_BRL})`,
+    String(DEFAULT_MAX_SESSION_BUDGET_BRL),
+  )
+  .option('--force-max-session-budget', 'Override explícito do limite de sessão', false)
   .action(
     async (
       campaignId: string,
@@ -62,6 +72,8 @@ updateCommand
         loginCustomerId?: string;
         dryRun?: boolean;
         maxBudgetIncrease?: string;
+        maxSessionBudget?: string;
+        forceMaxSessionBudget?: boolean;
       },
     ) => {
       try {
@@ -108,6 +120,63 @@ updateCommand
 
         const currency = snapshot.currencyCode ?? 'BRL';
         const delta = calculateBudgetDelta(snapshot.budgetAmountMicros, newAmountMicros);
+
+        // ============ No-op veto ============
+        // If the new amount equals the current amount, there is nothing to change.
+        // Skip the API call entirely — sending a no-op mutation just burns quota
+        // and pollutes the audit log with a meaningless entry.
+        if (newAmountMicros === snapshot.budgetAmountMicros) {
+          console.error(
+            `${COLORS.yellow}Nenhuma mudança: o orçamento já é ${formatMicros(snapshot.budgetAmountMicros, currency)}. Mutação não enviada.${COLORS.reset}`,
+          );
+          await appendMutationLog({
+            customerId,
+            campaignId,
+            operation: 'update_budget',
+            before: { amountMicros: snapshot.budgetAmountMicros },
+            after: { amountMicros: newAmountMicros },
+            dryRun,
+            success: false,
+            error: 'No-op: novo valor igual ao valor atual',
+          });
+          process.exitCode = 1;
+          return;
+        }
+
+        // ============ Session budget check (anti-runaway) ============
+        // Track the INCREASE in daily exposure (reductions add nothing to runaway
+        // risk). Consistent with `create`, which adds the full daily to the session.
+        const maxSessionBudgetMicros = parseMicros(
+          options.maxSessionBudget ?? String(DEFAULT_MAX_SESSION_BUDGET_BRL),
+        );
+        const sessionIncreaseMicros = Math.max(
+          0,
+          newAmountMicros - snapshot.budgetAmountMicros,
+        );
+        const sessionCheck = await checkSessionLimit(
+          sessionIncreaseMicros,
+          maxSessionBudgetMicros,
+        );
+        if (sessionCheck.exceedsLimit && !options.forceMaxSessionBudget) {
+          console.error(
+            `${COLORS.red}Soma de aumentos de orçamento nesta sessão (${sessionCheck.proposedTotalMicros / 1_000_000} ${currency}) ultrapassa --max-session-budget (${maxSessionBudgetMicros / 1_000_000} ${currency}).${COLORS.reset}`,
+          );
+          console.error(
+            `${COLORS.dim}Use --force-max-session-budget para override explícito.${COLORS.reset}`,
+          );
+          await appendMutationLog({
+            customerId,
+            campaignId,
+            operation: 'update_budget',
+            before: { amountMicros: snapshot.budgetAmountMicros },
+            after: { amountMicros: newAmountMicros },
+            dryRun,
+            success: false,
+            error: 'Limite de sessão (--max-session-budget) excedido',
+          });
+          process.exitCode = 1;
+          return;
+        }
 
         // Show diff to operator
         console.log('');
@@ -158,6 +227,11 @@ updateCommand
           ...(loginCustomerId ? { loginCustomerId } : {}),
           dryRun,
         });
+
+        // Persist session budget (only if NOT dry-run) — consistent with `create`.
+        if (!dryRun) {
+          await addToSessionBudget(sessionIncreaseMicros);
+        }
 
         // Persist audit log
         await appendMutationLog({

@@ -20,6 +20,28 @@ const bizSdk = require('facebook-nodejs-business-sdk') as typeof import('faceboo
 const API_VERSION = 'v21.0';
 const BASE_URL = `https://graph.facebook.com/${API_VERSION}`;
 
+/**
+ * Faz uma requisição autenticada à Graph API enviando o access_token no header
+ * `Authorization: Bearer`, em vez de embutí-lo na query string da URL.
+ *
+ * Motivo: tokens na URL podem vazar em logs de erro (a redaction do pino cobre
+ * campos do objeto de log, mas não strings de URL). A Graph API aceita o token
+ * tanto na query quanto no header Authorization, então usamos o header.
+ */
+function authFetch(
+  token: string,
+  url: string,
+  init?: RequestInit,
+): Promise<Response> {
+  return fetch(url, {
+    ...init,
+    headers: {
+      ...init?.headers,
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
 async function initApi(): Promise<string> {
   const token = await getAccessToken();
   bizSdk.FacebookAdsApi.init(token);
@@ -112,8 +134,8 @@ export async function listAdAccounts(): Promise<AdAccount[]> {
   logger.debug('Fetching ad accounts');
 
   try {
-    const url = `${BASE_URL}/me/adaccounts?fields=account_id,name,account_status,currency,timezone_name&access_token=${token}`;
-    const response = await fetch(url);
+    const url = `${BASE_URL}/me/adaccounts?fields=account_id,name,account_status,currency,timezone_name`;
+    const response = await authFetch(token, url);
     const json = (await response.json()) as Record<string, unknown>;
 
     assertOk(response, json);
@@ -145,8 +167,8 @@ export async function listPages(): Promise<Page[]> {
   logger.debug('Fetching pages');
 
   try {
-    const url = `${BASE_URL}/me/accounts?fields=id,name,category,instagram_business_account&access_token=${token}`;
-    const response = await fetch(url);
+    const url = `${BASE_URL}/me/accounts?fields=id,name,category,instagram_business_account`;
+    const response = await authFetch(token, url);
     const json = (await response.json()) as Record<string, unknown>;
 
     assertOk(response, json);
@@ -178,8 +200,8 @@ export async function getInstagramAccount(
   logger.debug({ pageId }, 'Fetching Instagram account for page');
 
   try {
-    const url = `${BASE_URL}/${pageId}?fields=instagram_business_account{id,name,username}&access_token=${token}`;
-    const response = await fetch(url);
+    const url = `${BASE_URL}/${pageId}?fields=instagram_business_account{id,name,username}`;
+    const response = await authFetch(token, url);
     const json = (await response.json()) as Record<string, unknown>;
 
     assertOk(response, json);
@@ -213,8 +235,8 @@ export async function getPageAccessToken(pageId: string): Promise<string> {
   logger.debug({ pageId }, 'Fetching page access token');
 
   try {
-    const url = `${BASE_URL}/${pageId}?fields=access_token&access_token=${token}`;
-    const response = await fetch(url);
+    const url = `${BASE_URL}/${pageId}?fields=access_token`;
+    const response = await authFetch(token, url);
     const json = (await response.json()) as Record<string, unknown>;
 
     assertOk(response, json);
@@ -274,8 +296,8 @@ export async function deleteLeadForm(leadFormId: string, pageId: string): Promis
 
   try {
     const pageToken = await getPageAccessToken(pageId);
-    const url = `${BASE_URL}/${leadFormId}?access_token=${pageToken}`;
-    const response = await fetch(url, { method: 'DELETE' });
+    const url = `${BASE_URL}/${leadFormId}`;
+    const response = await authFetch(pageToken, url, { method: 'DELETE' });
     const json = (await response.json()) as Record<string, unknown>;
 
     if (json['error']) {
@@ -391,8 +413,8 @@ export async function deleteCampaign(campaignId: string): Promise<void> {
   logger.debug({ campaignId }, 'Deleting campaign (rollback)');
 
   try {
-    const url = `${BASE_URL}/${campaignId}?access_token=${token}`;
-    const response = await fetch(url, { method: 'DELETE' });
+    const url = `${BASE_URL}/${campaignId}`;
+    const response = await authFetch(token, url, { method: 'DELETE' });
     const json = (await response.json()) as Record<string, unknown>;
 
     if (json['error']) {
@@ -410,8 +432,8 @@ export async function deleteAdSet(adSetId: string): Promise<void> {
   logger.debug({ adSetId }, 'Deleting ad set (rollback)');
 
   try {
-    const url = `${BASE_URL}/${adSetId}?access_token=${token}`;
-    const response = await fetch(url, { method: 'DELETE' });
+    const url = `${BASE_URL}/${adSetId}`;
+    const response = await authFetch(token, url, { method: 'DELETE' });
     const json = (await response.json()) as Record<string, unknown>;
 
     if (json['error']) {
@@ -429,8 +451,8 @@ export async function deleteAd(adId: string): Promise<void> {
   logger.debug({ adId }, 'Deleting ad (rollback)');
 
   try {
-    const url = `${BASE_URL}/${adId}?access_token=${token}`;
-    const response = await fetch(url, { method: 'DELETE' });
+    const url = `${BASE_URL}/${adId}`;
+    const response = await authFetch(token, url, { method: 'DELETE' });
     const json = (await response.json()) as Record<string, unknown>;
 
     if (json['error']) {
@@ -448,8 +470,8 @@ export async function getVideoThumbnailUrl(videoId: string): Promise<string> {
   logger.debug({ videoId }, 'Fetching video thumbnail');
 
   try {
-    const url = `${BASE_URL}/${videoId}?fields=picture&access_token=${token}`;
-    const response = await fetch(url);
+    const url = `${BASE_URL}/${videoId}?fields=picture`;
+    const response = await authFetch(token, url);
     const json = (await response.json()) as Record<string, unknown>;
 
     assertOk(response, json);
@@ -468,10 +490,10 @@ export async function listMediaImages(adAccountId: string): Promise<MediaImage[]
   logger.debug({ adAccountId }, 'Fetching media images');
 
   const images: MediaImage[] = [];
-  let url: string | null = `${BASE_URL}/act_${adAccountId}/adimages?fields=name,hash,url_128,created_time,status&limit=100&access_token=${token}`;
+  let url: string | null = `${BASE_URL}/act_${adAccountId}/adimages?fields=name,hash,url_128,created_time,status&limit=100`;
 
   while (url) {
-    const response = await fetch(url);
+    const response = await authFetch(token, url);
     const json = (await response.json()) as Record<string, unknown>;
 
     assertOk(response, json);
@@ -548,7 +570,6 @@ export async function getInsights(params: InsightsParams): Promise<RawInsightRow
   const queryParams = new URLSearchParams({
     fields,
     time_range: JSON.stringify({ since, until }),
-    access_token: token,
     limit: '500',
   });
 
@@ -571,7 +592,7 @@ export async function getInsights(params: InsightsParams): Promise<RawInsightRow
 
   try {
     while (url) {
-      const response = await fetch(url);
+      const response = await authFetch(token, url);
       const json = (await response.json()) as Record<string, unknown>;
 
       assertOk(response, json);
@@ -602,11 +623,11 @@ export async function getAdSetBudgets(adAccountId: string): Promise<BudgetInfo[]
 
   const budgets: BudgetInfo[] = [];
   let url: string | null =
-    `${BASE_URL}/act_${adAccountId}/adsets?fields=name,daily_budget,lifetime_budget,campaign_id&limit=500&access_token=${token}`;
+    `${BASE_URL}/act_${adAccountId}/adsets?fields=name,daily_budget,lifetime_budget,campaign_id&limit=500`;
 
   try {
     while (url) {
-      const response = await fetch(url);
+      const response = await authFetch(token, url);
       const json = (await response.json()) as Record<string, unknown>;
 
       assertOk(response, json);
@@ -643,10 +664,10 @@ export async function listMediaVideos(adAccountId: string): Promise<MediaVideo[]
   logger.debug({ adAccountId }, 'Fetching media videos');
 
   const videos: MediaVideo[] = [];
-  let url: string | null = `${BASE_URL}/act_${adAccountId}/advideos?fields=title,id,created_time,length,status&limit=100&access_token=${token}`;
+  let url: string | null = `${BASE_URL}/act_${adAccountId}/advideos?fields=title,id,created_time,length,status&limit=100`;
 
   while (url) {
-    const response = await fetch(url);
+    const response = await authFetch(token, url);
     const json = (await response.json()) as Record<string, unknown>;
 
     assertOk(response, json);
