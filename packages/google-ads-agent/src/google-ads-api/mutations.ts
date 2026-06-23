@@ -1418,7 +1418,11 @@ export async function removeKeyword(
     {
       entity: 'ad_group_criterion',
       operation: 'remove',
-      resource: { resource_name: criterionResourceName } as resources.IAdGroupCriterion,
+      // For `remove`, the google-ads-api library maps `resource` straight into the
+      // operation's `remove` field, which the API expects to be the resource_name
+      // STRING — not a message object. Passing an object serializes to
+      // "[object Object]" → RESOURCE_NAME_MALFORMED. (create/update want the object.)
+      resource: criterionResourceName as unknown as resources.IAdGroupCriterion,
     } as MutateOperation<resources.IAdGroupCriterion>,
   ];
 
@@ -2235,7 +2239,8 @@ export async function removeCampaign(
     {
       entity: 'campaign',
       operation: 'remove',
-      resource: { resource_name: resourceName } as resources.ICampaign,
+      // `remove` expects the resource_name STRING (see removeKeyword note).
+      resource: resourceName as unknown as resources.ICampaign,
     } as MutateOperation<resources.ICampaign>,
   ];
 
@@ -2277,7 +2282,8 @@ export async function removeAdGroup(
     {
       entity: 'ad_group',
       operation: 'remove',
-      resource: { resource_name: resourceName } as resources.IAdGroup,
+      // `remove` expects the resource_name STRING (see removeKeyword note).
+      resource: resourceName as unknown as resources.IAdGroup,
     } as MutateOperation<resources.IAdGroup>,
   ];
 
