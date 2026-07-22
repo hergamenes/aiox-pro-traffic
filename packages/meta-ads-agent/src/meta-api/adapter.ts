@@ -559,7 +559,8 @@ export async function getInsights(params: InsightsParams): Promise<RawInsightRow
 
   const { since, until } = periodToDateRange(params.period, params.from, params.to);
 
-  const baseFields = 'spend,impressions,cpm,frequency,actions,cost_per_action_type,website_ctr,purchase_roas';
+  const baseFields =
+    'spend,impressions,cpm,frequency,actions,cost_per_action_type,website_ctr,purchase_roas,action_values';
   const levelFields: Record<string, string> = {
     campaign: ',campaign_name,campaign_id',
     adset: ',campaign_name,campaign_id,adset_name,adset_id',

@@ -24,6 +24,7 @@ function makeMetrics(overrides: Partial<ParsedMetrics> = {}): ParsedMetrics {
     purchases: 10,
     costPerPurchase: 15.05,
     roas: 3.5,
+    revenue: 1505.00,
     leads: 30,
     costPerLead: 5.02,
     purchaseRateByClicks: 0.05,

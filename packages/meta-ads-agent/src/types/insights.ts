@@ -54,6 +54,7 @@ export interface RawInsightRow {
   cost_per_action_type?: RawCostPerAction[];
   website_ctr?: RawWebsiteCtr[];
   purchase_roas?: RawPurchaseRoas[];
+  action_values?: RawAction[];
   campaign_name?: string;
   campaign_id?: string;
   adset_name?: string;
@@ -105,6 +106,9 @@ export interface ParsedMetrics {
   // 18: ROAS
   roas: number;
 
+  // 18b: Revenue (faturamento em R$, from action_values)
+  revenue: number;
+
   // 19-20: Leads
   leads: number;
   costPerLead: number;
@@ -139,6 +143,14 @@ export const ACTION_TYPES = {
   LINK_CLICK: 'link_click',
   LANDING_PAGE_VIEW: 'landing_page_view',
   INITIATE_CHECKOUT: 'offsite_conversion.fb_pixel_initiate_checkout',
+  // Purchases: Meta reports the same purchase under different action types
+  // depending on the account/pixel setup. PURCHASE_OMNI is the aggregate Meta
+  // exposes ('omni_purchase'), PURCHASE_GENERIC is the generic 'purchase', and
+  // PURCHASE is the website-pixel-specific event. The parser resolves purchases
+  // by preference WITHOUT summing (they overlap) — see extractPurchases /
+  // extractRevenue / extractPurchaseRoas in insights-parser.
+  PURCHASE_OMNI: 'omni_purchase',
+  PURCHASE_GENERIC: 'purchase',
   PURCHASE: 'offsite_conversion.fb_pixel_purchase',
   // Leads: Meta reports the same lead under several action types depending on the
   // source. LEAD is the aggregate Meta exposes ('lead'); the specific sources
@@ -159,6 +171,8 @@ export const ACTION_TYPE_LABELS: Record<string, string> = {
   [ACTION_TYPES.LINK_CLICK]: 'Cliques no Link',
   [ACTION_TYPES.LANDING_PAGE_VIEW]: 'Visualizações da Página de Destino',
   [ACTION_TYPES.INITIATE_CHECKOUT]: 'Finalizações de Compra',
+  [ACTION_TYPES.PURCHASE_OMNI]: 'Compras',
+  [ACTION_TYPES.PURCHASE_GENERIC]: 'Compras',
   [ACTION_TYPES.PURCHASE]: 'Compras',
   [ACTION_TYPES.LEAD]: 'Leads',
   [ACTION_TYPES.MESSAGING_CONVERSATION_STARTED]: 'Conversas Iniciadas (WhatsApp)',
@@ -182,6 +196,7 @@ export const rawInsightRowSchema = z.object({
   cost_per_action_type: z.array(rawActionSchema).optional(),
   website_ctr: z.array(rawActionSchema).optional(),
   purchase_roas: z.array(rawActionSchema).optional(),
+  action_values: z.array(rawActionSchema).optional(),
   campaign_name: z.string().optional(),
   campaign_id: z.string().optional(),
   adset_name: z.string().optional(),
