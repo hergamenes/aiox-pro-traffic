@@ -293,6 +293,123 @@ describe('leads (multi-source resolution)', () => {
   });
 });
 
+describe('purchases (multi-source resolution + revenue)', () => {
+  function purchaseRow(overrides: Partial<RawInsightRow> = {}): RawInsightRow {
+    return {
+      spend: '500',
+      impressions: '20000',
+      cpm: '25',
+      frequency: '2.0',
+      campaign_name: 'ECOM_VENDAS_TEST',
+      campaign_id: '777',
+      actions: [{ action_type: 'link_click', value: '300' }],
+      cost_per_action_type: [{ action_type: 'link_click', value: '1.66' }],
+      purchase_roas: [],
+      action_values: [],
+      ...overrides,
+    };
+  }
+
+  it('reads purchases/roas/cost/revenue from an omni_purchase account', () => {
+    const parsed = parseInsightRow(
+      purchaseRow({
+        actions: [
+          { action_type: 'link_click', value: '300' },
+          { action_type: 'omni_purchase', value: '20' },
+        ],
+        cost_per_action_type: [
+          { action_type: 'link_click', value: '1.66' },
+          { action_type: 'omni_purchase', value: '25.00' },
+        ],
+        purchase_roas: [{ action_type: 'omni_purchase', value: '4.2' }],
+        action_values: [{ action_type: 'omni_purchase', value: '2100.00' }],
+      }),
+    );
+    expect(parsed.purchases).toBe(20);
+    expect(parsed.costPerPurchase).toBe(25.0);
+    expect(parsed.roas).toBe(4.2);
+    expect(parsed.revenue).toBe(2100.0);
+    // Result resolves to purchases (highest priority)
+    expect(parsed.results).toBe(20);
+    expect(parsed.costPerResult).toBe(25.0);
+  });
+
+  it('reads purchases/roas/revenue from a generic purchase account', () => {
+    const parsed = parseInsightRow(
+      purchaseRow({
+        actions: [{ action_type: 'purchase', value: '8' }],
+        cost_per_action_type: [{ action_type: 'purchase', value: '62.50' }],
+        purchase_roas: [{ action_type: 'purchase', value: '2.9' }],
+        action_values: [{ action_type: 'purchase', value: '1450.00' }],
+      }),
+    );
+    expect(parsed.purchases).toBe(8);
+    expect(parsed.costPerPurchase).toBe(62.5);
+    expect(parsed.roas).toBe(2.9);
+    expect(parsed.revenue).toBe(1450.0);
+  });
+
+  it('falls back to fb_pixel_purchase when omni/generic absent', () => {
+    const parsed = parseInsightRow(
+      purchaseRow({
+        actions: [{ action_type: 'offsite_conversion.fb_pixel_purchase', value: '10' }],
+        cost_per_action_type: [
+          { action_type: 'offsite_conversion.fb_pixel_purchase', value: '15.05' },
+        ],
+        purchase_roas: [{ action_type: 'offsite_conversion.fb_pixel_purchase', value: '3.5' }],
+        action_values: [{ action_type: 'offsite_conversion.fb_pixel_purchase', value: '900.00' }],
+      }),
+    );
+    expect(parsed.purchases).toBe(10);
+    expect(parsed.costPerPurchase).toBe(15.05);
+    expect(parsed.roas).toBe(3.5);
+    expect(parsed.revenue).toBe(900.0);
+  });
+
+  it('prefers omni over fb_pixel without double-counting when both present', () => {
+    const parsed = parseInsightRow(
+      purchaseRow({
+        actions: [
+          { action_type: 'omni_purchase', value: '12' },
+          { action_type: 'offsite_conversion.fb_pixel_purchase', value: '12' },
+        ],
+        purchase_roas: [
+          { action_type: 'omni_purchase', value: '5.0' },
+          { action_type: 'offsite_conversion.fb_pixel_purchase', value: '5.0' },
+        ],
+        action_values: [
+          { action_type: 'omni_purchase', value: '3000.00' },
+          { action_type: 'offsite_conversion.fb_pixel_purchase', value: '3000.00' },
+        ],
+      }),
+    );
+    // Omni wins; specifics already rolled in → 12, not 24.
+    expect(parsed.purchases).toBe(12);
+    expect(parsed.roas).toBe(5.0);
+    expect(parsed.revenue).toBe(3000.0);
+  });
+
+  it('derives cost per purchase from spend when no per-action cost present', () => {
+    const parsed = parseInsightRow(
+      purchaseRow({
+        spend: '400',
+        actions: [{ action_type: 'omni_purchase', value: '8' }],
+        cost_per_action_type: [],
+      }),
+    );
+    expect(parsed.purchases).toBe(8);
+    // 400 / 8 = 50
+    expect(parsed.costPerPurchase).toBe(50);
+  });
+
+  it('returns zero revenue when action_values absent', () => {
+    const parsed = parseInsightRow(
+      purchaseRow({ actions: [{ action_type: 'omni_purchase', value: '5' }] }),
+    );
+    expect(parsed.revenue).toBe(0);
+  });
+});
+
 describe('resolveResult hierarchy', () => {
   function row(actions: RawAction[], spend = '100', costs: RawAction[] = []): RawInsightRow {
     return {

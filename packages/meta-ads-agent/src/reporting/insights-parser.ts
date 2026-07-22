@@ -49,15 +49,68 @@ function extractWebsiteCtr(websiteCtr: RawWebsiteCtr[] | undefined, actionType: 
   return found ? parseFloat(found.value) || 0 : 0;
 }
 
-function extractPurchaseRoas(purchaseRoas: RawPurchaseRoas[] | undefined, actionType: string): number {
+// Purchases arrive under different action types depending on the account/pixel:
+//   - 'omni_purchase'                          → Meta aggregate (all sources)
+//   - 'purchase'                               → generic purchase
+//   - 'offsite_conversion.fb_pixel_purchase'   → website pixel purchase
+// Resolved by PREFERENCE (omni → generic → pixel), never summing: they overlap,
+// so summing would double-count. First non-zero match wins. This is the SAME
+// preference order used by extractPurchases, extractPurchaseCost, extractRevenue
+// and extractPurchaseRoas so all purchase-derived metrics stay consistent.
+const PURCHASE_PREFERENCE: readonly string[] = [
+  ACTION_TYPES.PURCHASE_OMNI,
+  ACTION_TYPES.PURCHASE_GENERIC,
+  ACTION_TYPES.PURCHASE,
+];
+
+export function extractPurchases(actions: RawAction[] | undefined): number {
+  for (const type of PURCHASE_PREFERENCE) {
+    const value = extractAction(actions, type);
+    if (value > 0) return value;
+  }
+  return 0;
+}
+
+// ROAS: Meta reports purchase_roas keyed by the same purchase action types.
+// Resolve by the SAME preference order (omni → generic → pixel); first > 0 wins.
+function extractPurchaseRoas(purchaseRoas: RawPurchaseRoas[] | undefined): number {
   if (!purchaseRoas) return 0;
-  const found = purchaseRoas.find((a) => a.action_type === actionType);
-  return found ? parseFloat(found.value) || 0 : 0;
+  for (const type of PURCHASE_PREFERENCE) {
+    const found = purchaseRoas.find((a) => a.action_type === type);
+    const value = found ? parseFloat(found.value) || 0 : 0;
+    if (value > 0) return value;
+  }
+  return 0;
+}
+
+// Revenue (faturamento em R$): read from action_values by the same purchase
+// preference order. First > 0 wins; overlapping sources are not summed.
+export function extractRevenue(actionValues: RawAction[] | undefined): number {
+  for (const type of PURCHASE_PREFERENCE) {
+    const value = extractAction(actionValues, type);
+    if (value > 0) return value;
+  }
+  return 0;
 }
 
 function safeDivide(numerator: number, denominator: number): number {
   if (denominator === 0) return 0;
   return numerator / denominator;
+}
+
+// Cost per purchase follows the SAME preference order as extractPurchases,
+// reading from cost_per_action_type. If the API exposes no per-action cost for
+// any purchase type, fall back to spend / purchases (mirrors extractLeadCost).
+export function extractPurchaseCost(
+  costPerActions: RawCostPerAction[] | undefined,
+  purchases: number,
+  spend: number,
+): number {
+  for (const type of PURCHASE_PREFERENCE) {
+    const value = extractCostPerAction(costPerActions, type);
+    if (value > 0) return value;
+  }
+  return safeDivide(spend, purchases);
 }
 
 // Leads arrive under different action types depending on the source:
@@ -152,11 +205,11 @@ export function parseInsightRow(raw: RawInsightRow): ParsedMetrics {
   const spend = parseFloat(raw.spend) || 0;
   const linkClicks = extractAction(raw.actions, ACTION_TYPES.LINK_CLICK);
   const landingPageViews = extractAction(raw.actions, ACTION_TYPES.LANDING_PAGE_VIEW);
-  const purchases = extractAction(raw.actions, ACTION_TYPES.PURCHASE);
+  const purchases = extractPurchases(raw.actions);
   const leads = extractLeads(raw.actions);
 
   const cpcLink = extractCostPerAction(raw.cost_per_action_type, ACTION_TYPES.LINK_CLICK);
-  const costPerPurchase = extractCostPerAction(raw.cost_per_action_type, ACTION_TYPES.PURCHASE);
+  const costPerPurchase = extractPurchaseCost(raw.cost_per_action_type, purchases, spend);
   const costPerLead = extractLeadCost(raw.cost_per_action_type, leads, spend);
 
   // Messaging (Click-to-WhatsApp / messages objective).
@@ -232,7 +285,10 @@ export function parseInsightRow(raw: RawInsightRow): ParsedMetrics {
     costPerPurchase,
 
     // 18: ROAS
-    roas: extractPurchaseRoas(raw.purchase_roas, ACTION_TYPES.PURCHASE),
+    roas: extractPurchaseRoas(raw.purchase_roas),
+
+    // 18b: Revenue (faturamento em R$)
+    revenue: extractRevenue(raw.action_values),
 
     // 19-20: Leads
     leads,

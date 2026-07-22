@@ -87,6 +87,7 @@ export function formatTable(metrics: ParsedMetrics[], level: InsightsLevel): str
       ['Custo por Finaliz.', formatMoney(m.costPerInitiateCheckout)],
       ['Compras', formatNumber(m.purchases)],
       ['Custo por Compra', formatMoney(m.costPerPurchase)],
+      ['Faturamento', m.revenue > 0 ? formatMoney(m.revenue) : '—'],
       ['ROAS', m.roas > 0 ? formatDecimal(m.roas) : '—'],
       ['', ''],
       ['Leads', formatNumber(m.leads)],
