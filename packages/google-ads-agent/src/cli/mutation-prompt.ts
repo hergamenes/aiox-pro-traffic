@@ -261,3 +261,47 @@ export function formatCampaignCreatePreview(p: CampaignCreatePreviewInput): stri
 
   return lines.join('\n');
 }
+
+// ============================================================================
+// Story 9.1 — Audience remarketing create preview
+// ============================================================================
+
+export interface AudienceRemarketingPreviewInput {
+  customerId: string;
+  customerName?: string;
+  name: string;
+  description?: string;
+  /** Texto de --url-contains; undefined = curinga "todos os visitantes". */
+  urlContains?: string;
+  membershipDurationDays: number;
+}
+
+/**
+ * Renderiza o preview de criação de uma lista de remarketing, no mesmo estilo
+ * visual de `formatCampaignCreatePreview`. Mostra a regra em linguagem clara:
+ * "URL contém <valor>" quando --url-contains é informado, ou "todos os
+ * visitantes (URL contém http)" no default curinga.
+ */
+export function formatAudienceRemarketingPreview(p: AudienceRemarketingPreviewInput): string {
+  const lines: string[] = [];
+  const customerLabel = p.customerName ? `${p.customerId} (${p.customerName})` : p.customerId;
+
+  const ruleLabel =
+    p.urlContains !== undefined && p.urlContains.trim() !== ''
+      ? `URL contém "${p.urlContains}"`
+      : 'todos os visitantes (URL contém "http")';
+
+  lines.push(
+    `${COLORS.bold}📋 Nova lista de remarketing — conta ${customerLabel}${COLORS.reset}`,
+  );
+  lines.push('━'.repeat(50));
+  lines.push(`Nome:             ${p.name}`);
+  if (p.description) {
+    lines.push(`Descrição:        ${p.description}`);
+  }
+  lines.push(`Regra:            ${ruleLabel}`);
+  lines.push(`Duração:          ${p.membershipDurationDays} dia(s) na lista`);
+  lines.push(`Conta:            ${customerLabel}`);
+
+  return lines.join('\n');
+}
