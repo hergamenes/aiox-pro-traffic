@@ -131,3 +131,69 @@ export interface CustomSegmentResult {
   /** True quando a chamada foi apenas validação (`validate_only`), sem criação real. */
   dryRun: boolean;
 }
+
+// ============================================================================
+// Story 9.4 — Customer Match (crm_based_user_list + OfflineUserDataJob) — Epic 9
+// ============================================================================
+
+/**
+ * Tipos de chave de upload aceitos por `crm_based_user_list_info.upload_key_type`
+ * (`CustomerMatchUploadKeyTypeEnum`, confirmado no SDK v23). Esta story cobre
+ * APENAS `CONTACT_INFO` (e-mail/telefone). `CRM_ID`/`MOBILE_ADVERTISING_ID`
+ * ficam para evolução futura — expostos aqui só para documentar o domínio.
+ */
+export const CUSTOMER_MATCH_KEY_TYPES = ['contact-info'] as const;
+
+/** Valor aceito de `--key-type` (default e único suportado: `contact-info`). */
+export type CustomerMatchKeyTypeOption = (typeof CUSTOMER_MATCH_KEY_TYPES)[number];
+
+/**
+ * Um contato já HASHEADO, pronto para virar um `UserData`/`UserIdentifier` no
+ * SDK. ⚠️ NUNCA carrega e-mail/telefone em claro — só o SHA-256 hex (R2). Um
+ * contato válido tem pelo menos um dos dois campos preenchidos.
+ */
+export interface HashedIdentifier {
+  /** SHA-256 (hex) do e-mail normalizado (trim + lowercase). */
+  hashedEmail?: string;
+  /** SHA-256 (hex) do telefone normalizado (E.164). */
+  hashedPhoneNumber?: string;
+}
+
+/**
+ * Parâmetros de entrada do comando `create audience-customer-match`. NÃO inclui
+ * os dados de contato — o arquivo é lido/hasheado à parte (R2).
+ */
+export interface CustomerMatchInput {
+  /** Nome da lista (obrigatório, ≤255 chars). */
+  name: string;
+  /** Descrição opcional da lista. */
+  description?: string;
+  /** Caminho do CSV de contatos (`--from-file`). */
+  fromFile: string;
+  /** Tipo de chave de upload (default `contact-info`). */
+  keyType: CustomerMatchKeyTypeOption;
+}
+
+/** Resultado da Fase 1 — criação da `crm_based_user_list`. */
+export interface CrmUserListResult {
+  /**
+   * Resource name da `user_list` criada (`customers/{id}/userLists/{id}`).
+   * Base para o `customer_match_user_list_metadata.user_list` da Fase 2.
+   */
+  resourceName: string;
+}
+
+/** Resultado da Fase 2 — upload dos contatos via OfflineUserDataJob. */
+export interface CustomerMatchUploadResult {
+  /** Resource name do `offline_user_data_job` criado. */
+  jobResourceName: string;
+  /** Quantos contatos (operações `UserData`) foram enviados. */
+  uploadedCount: number;
+  /**
+   * Nome da `longrunning.Operation` retornada por `runOfflineUserDataJob`,
+   * quando disponível. O processamento do lado do Google é ASSÍNCRONO — esta
+   * story dispara o `run` e reporta o job, sem fazer polling até a conclusão
+   * (comportamento documentado em Completion Notes — R3).
+   */
+  operationName?: string;
+}

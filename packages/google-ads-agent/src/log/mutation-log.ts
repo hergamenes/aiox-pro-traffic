@@ -29,7 +29,8 @@ export type MutationOperation =
   | 'remove_ad_group'
   | 'create_audience_remarketing'
   | 'apply_audience_target'
-  | 'create_audience_custom_segment';
+  | 'create_audience_custom_segment'
+  | 'create_audience_customer_match';
 
 export interface MutationLogEntry {
   timestamp: string;

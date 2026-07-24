@@ -7,7 +7,7 @@
  */
 
 import { isNumericId } from './id-validator.js';
-import { CUSTOM_AUDIENCE_TYPES } from '../types/audience.js';
+import { CUSTOM_AUDIENCE_TYPES, CUSTOMER_MATCH_KEY_TYPES } from '../types/audience.js';
 
 /** Limite de caracteres do nome de uma user_list (mesmo limite de campaign.name). */
 export const MAX_AUDIENCE_NAME_LENGTH = 255;
@@ -189,6 +189,26 @@ export function validateCustomAudienceType(type: string): AudienceValidation {
     return {
       valid: false,
       error: `--type inválido: '${type}'. Use um de: ${CUSTOM_AUDIENCE_TYPES.join(', ')}.`,
+    };
+  }
+  return { valid: true };
+}
+
+// ============================================================================
+// Story 9.4 — Validador de `create audience-customer-match`
+// ============================================================================
+
+/**
+ * Valida o `--key-type` do Customer Match. Esta versão suporta APENAS
+ * `contact-info` (e-mail/telefone). Valores diferentes retornam erro PT-BR
+ * "não suportado nesta versão" (AC#2) — a flag existe para permitir evolução
+ * futura (`crm-id`, `mobile-id`) sem breaking change.
+ */
+export function validateCustomerMatchKeyType(keyType: string): AudienceValidation {
+  if (!(CUSTOMER_MATCH_KEY_TYPES as readonly string[]).includes(keyType)) {
+    return {
+      valid: false,
+      error: `--key-type '${keyType}' não é suportado nesta versão. Use '${CUSTOMER_MATCH_KEY_TYPES.join("', '")}'.`,
     };
   }
   return { valid: true };

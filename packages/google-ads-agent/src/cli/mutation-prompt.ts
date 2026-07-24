@@ -418,3 +418,65 @@ export function formatCustomSegmentPreview(p: CustomSegmentPreviewInput): string
 
   return lines.join('\n');
 }
+
+// ============================================================================
+// Story 9.4 — Customer Match preview (SOMENTE contagens — nunca PII)
+// ============================================================================
+
+export interface CustomerMatchPreviewInput {
+  customerId: string;
+  customerName?: string;
+  name: string;
+  description?: string;
+  /** Tipo de chave de upload (ex.: `contact-info`). */
+  keyType: string;
+  /** Total de linhas de dados lidas do arquivo (sem cabeçalho/linhas em branco). */
+  totalRows: number;
+  /** Contatos válidos a subir. */
+  validCount: number;
+  /** Linhas descartadas por não terem identificador válido. */
+  skippedCount: number;
+}
+
+/**
+ * Renderiza o preview de criação de uma lista Customer Match.
+ *
+ * ⚠️ SEGURANÇA/PII (R2, crítico): esta função recebe SOMENTE contagens e nome —
+ * o input NEM SEQUER carrega os identificadores. Nenhum e-mail/telefone (em
+ * claro ou hasheado) aparece na string gerada. Inclui um aviso explícito sobre
+ * elegibilidade de política do Google (R1).
+ */
+export function formatCustomerMatchPreview(p: CustomerMatchPreviewInput): string {
+  const lines: string[] = [];
+  const customerLabel = p.customerName ? `${p.customerId} (${p.customerName})` : p.customerId;
+
+  lines.push(
+    `${COLORS.bold}📋 Nova lista Customer Match (crm_based_user_list) — conta ${customerLabel}${COLORS.reset}`,
+  );
+  lines.push('━'.repeat(50));
+  lines.push(`Nome:             ${p.name}`);
+  if (p.description) {
+    lines.push(`Descrição:        ${p.description}`);
+  }
+  lines.push(`Tipo de chave:    ${p.keyType} (e-mail/telefone)`);
+  lines.push(`Contatos válidos: ${p.validCount} (de ${p.totalRows} linha(s) lida(s))`);
+  lines.push(`Linhas ignoradas: ${p.skippedCount}`);
+  lines.push(`Conta:            ${customerLabel}`);
+  lines.push('');
+  lines.push(
+    `${COLORS.dim}🔒 Privacidade: os contatos são hasheados (SHA-256) ANTES de sair da máquina — nenhum dado em claro é enviado, logado ou exibido.${COLORS.reset}`,
+  );
+  lines.push('');
+  lines.push(`${COLORS.yellow}⚠️  ELEGIBILIDADE DE POLÍTICA (Google):${COLORS.reset}`);
+  lines.push(
+    `${COLORS.yellow}    Customer Match exige que a CONTA esteja aprovada (porte/histórico de conformidade).${COLORS.reset}`,
+  );
+  lines.push(
+    `${COLORS.yellow}    A lista pode ser criada, mas o match/segmentação só funciona se a conta for elegível.${COLORS.reset}`,
+  );
+  lines.push(
+    `${COLORS.yellow}    Isso é responsabilidade da conta, não do CLI — se a API recusar, é política pendente.${COLORS.reset}`,
+  );
+
+  return lines.join('\n');
+}

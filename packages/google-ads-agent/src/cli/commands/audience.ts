@@ -14,6 +14,13 @@ import {
   createCustomSegment,
 } from '../../google-ads-api/custom-segment.js';
 import {
+  buildCrmUserListOperation,
+  createCrmUserList,
+  buildUserDataOperations,
+  runCustomerMatchUpload,
+} from '../../google-ads-api/customer-match.js';
+import { parseCustomerMatchFile } from '../../google-ads-api/customer-match-file.js';
+import {
   validateAudienceName,
   validateMembershipDays,
   validateUserListResourceName,
@@ -22,12 +29,14 @@ import {
   parseCommaSeparatedList,
   validateCustomSegmentMembers,
   validateCustomAudienceType,
+  validateCustomerMatchKeyType,
 } from '../../google-ads-api/audience-validator.js';
 import { getDefaults } from '../../config/config-repository.js';
 import {
   formatAudienceRemarketingPreview,
   formatAudienceTargetPreview,
   formatCustomSegmentPreview,
+  formatCustomerMatchPreview,
   requireSimpleConfirm,
 } from '../mutation-prompt.js';
 import { appendMutationLog } from '../../log/mutation-log.js';
@@ -609,6 +618,239 @@ export function registerAudienceSubcommands(createCmd: Command): void {
               before: {},
               after: { name: options.name },
               dryRun: Boolean(options.dryRun),
+              success: false,
+              error: err instanceof Error ? err.message : String(err),
+            });
+          } catch {
+            // Audit log é fire-and-forget; falha aqui não afeta o erro reportado.
+          }
+          printError(err);
+          process.exitCode = 1;
+        }
+      },
+    );
+
+  // ==========================================================================
+  // Story 9.4 — create audience-customer-match
+  // ==========================================================================
+  createCmd
+    .command('audience-customer-match')
+    .description(
+      'Cria uma lista Customer Match (crm_based_user_list) e sobe contatos de um CSV local — e-mail/telefone HASHEADOS antes de sair da máquina (nunca em claro)',
+    )
+    .requiredOption('--name <text>', 'Nome da lista (max 255 chars)')
+    .option('--description <text>', 'Descrição da lista')
+    .requiredOption(
+      '--from-file <path>',
+      'Caminho de um CSV local com cabeçalho e colunas "email" e/ou "phone" (uma linha por contato)',
+    )
+    .option(
+      '--key-type <contact-info>',
+      'Tipo de chave de upload (default e único suportado nesta versão: contact-info)',
+      'contact-info',
+    )
+    .option('--customer-id <id>', 'Customer ID (default: do config)')
+    .option('--login-customer-id <id>', 'Login Customer ID — MCC parent')
+    .option(
+      '--dry-run',
+      'Apenas parseia/normaliza/hasheia o arquivo e mostra contagens — NÃO cria a lista nem sobe dados',
+      false,
+    )
+    .action(
+      async (options: {
+        name: string;
+        description?: string;
+        fromFile: string;
+        keyType?: string;
+        customerId?: string;
+        loginCustomerId?: string;
+        dryRun?: boolean;
+      }) => {
+        const dryRun = Boolean(options.dryRun);
+        try {
+          // ============ Validate inputs ============
+          const nameValidation = validateAudienceName(options.name);
+          if (!nameValidation.valid) {
+            console.error(`${COLORS.red}Erro: ${nameValidation.error}${COLORS.reset}`);
+            process.exitCode = 1;
+            return;
+          }
+
+          const keyTypeRaw = options.keyType ?? 'contact-info';
+          const keyTypeValidation = validateCustomerMatchKeyType(keyTypeRaw);
+          if (!keyTypeValidation.valid) {
+            console.error(`${COLORS.red}Erro: ${keyTypeValidation.error}${COLORS.reset}`);
+            process.exitCode = 1;
+            return;
+          }
+
+          // ============ Parse + normalize + hash file (pure, no network) ============
+          // A partir daqui só existem HASHES em memória — nenhum dado em claro (R2).
+          const parsed = await parseCustomerMatchFile(options.fromFile);
+
+          if (parsed.validCount === 0) {
+            console.error(
+              `${COLORS.red}Erro: nenhum contato válido no arquivo (${parsed.totalRows} linha(s) lida(s), ${parsed.skippedCount} ignorada(s)).${COLORS.reset}`,
+            );
+            console.error(
+              `${COLORS.dim}→ Confira se as colunas "email"/"phone" têm valores válidos (telefone precisa de código do país, ex: +5511999998888).${COLORS.reset}`,
+            );
+            process.exitCode = 1;
+            return;
+          }
+
+          // ============ Resolve auth + customer ============
+          const creds = await ensureValidAuth();
+          const defaults = await getDefaults();
+          const customerId = options.customerId ?? defaults.customerId;
+          if (!customerId) {
+            console.error(
+              `${COLORS.red}Erro: customer-id não fornecido e não há default.${COLORS.reset}`,
+            );
+            process.exitCode = 1;
+            return;
+          }
+
+          const loginCustomerId =
+            options.loginCustomerId ?? defaults.loginCustomerId ?? creds.loginCustomerId;
+
+          // ============ Display preview (SÓ contagens — nunca PII) ============
+          console.log('');
+          console.log(
+            formatCustomerMatchPreview({
+              customerId,
+              name: options.name,
+              ...(options.description !== undefined ? { description: options.description } : {}),
+              keyType: keyTypeRaw,
+              totalRows: parsed.totalRows,
+              validCount: parsed.validCount,
+              skippedCount: parsed.skippedCount,
+            }),
+          );
+          console.log('');
+
+          // ============ Dry-run: valida parsing/hashing SEM tocar a API ============
+          if (dryRun) {
+            await appendMutationLog({
+              customerId,
+              operation: 'create_audience_customer_match',
+              before: {},
+              after: {
+                name: options.name,
+                keyType: keyTypeRaw,
+                totalRows: parsed.totalRows,
+                validCount: parsed.validCount,
+                skippedCount: parsed.skippedCount,
+              },
+              dryRun: true,
+              success: true,
+            });
+            console.log(
+              `${COLORS.green}✓ Dry-run validado — ${parsed.validCount} contato(s) hasheado(s) em memória. NENHUMA lista foi criada e NENHUM dado foi enviado.${COLORS.reset}`,
+            );
+            return;
+          }
+
+          // ============ Confirmation (cobre as duas fases) ============
+          const confirmed = await requireSimpleConfirm(
+            'Confirmar criação da lista e upload dos contatos',
+          );
+          if (!confirmed) {
+            console.log(`${COLORS.yellow}Operação cancelada pelo operador.${COLORS.reset}`);
+            await appendMutationLog({
+              customerId,
+              operation: 'create_audience_customer_match',
+              before: {},
+              after: {
+                name: options.name,
+                keyType: keyTypeRaw,
+                validCount: parsed.validCount,
+                skippedCount: parsed.skippedCount,
+              },
+              dryRun: false,
+              success: false,
+              error: 'Operador não confirmou criação/upload',
+            });
+            return;
+          }
+
+          const client = createClient({
+            clientId: creds.clientId,
+            clientSecret: creds.clientSecret,
+            developerToken: creds.developerToken,
+          });
+
+          // ============ Fase 1 — cria a crm_based_user_list ============
+          const listOperation = buildCrmUserListOperation({
+            name: options.name,
+            ...(options.description !== undefined ? { description: options.description } : {}),
+            uploadKeyType: 'CONTACT_INFO',
+          });
+          const listResult = await createCrmUserList(client, {
+            customerId,
+            refreshToken: creds.refreshToken,
+            ...(loginCustomerId ? { loginCustomerId } : {}),
+            operation: listOperation,
+          });
+
+          // ============ Fase 2 — sobe os contatos (hasheados) e roda o job ============
+          const userDataOperations = buildUserDataOperations(parsed.identifiers);
+          const uploadResult = await runCustomerMatchUpload(client, {
+            customerId,
+            refreshToken: creds.refreshToken,
+            ...(loginCustomerId ? { loginCustomerId } : {}),
+            userListResourceName: listResult.resourceName,
+            operations: userDataOperations,
+          });
+
+          // ============ Audit log (SÓ contagens + resource_names — nunca PII) ============
+          await appendMutationLog({
+            customerId,
+            operation: 'create_audience_customer_match',
+            before: {},
+            after: {
+              name: options.name,
+              keyType: keyTypeRaw,
+              totalRows: parsed.totalRows,
+              validCount: parsed.validCount,
+              skippedCount: parsed.skippedCount,
+              uploadedCount: uploadResult.uploadedCount,
+              ...(listResult.resourceName ? { resourceName: listResult.resourceName } : {}),
+              ...(uploadResult.jobResourceName
+                ? { jobResourceName: uploadResult.jobResourceName }
+                : {}),
+            },
+            dryRun: false,
+            success: true,
+          });
+
+          // ============ Output + próximos passos ============
+          console.log('');
+          console.log(
+            `${COLORS.green}✓ Lista Customer Match criada: ${listResult.resourceName}${COLORS.reset}`,
+          );
+          console.log(
+            `${COLORS.green}  ${uploadResult.uploadedCount} contato(s) enviado(s) via job ${uploadResult.jobResourceName}.${COLORS.reset}`,
+          );
+          console.log('');
+          console.log(`${COLORS.dim}PRÓXIMOS PASSOS:${COLORS.reset}`);
+          console.log(
+            `${COLORS.dim}  1. O processamento do lado do Google é ASSÍNCRONO e pode levar horas — a lista não fica populada na hora.${COLORS.reset}`,
+          );
+          console.log(
+            `${COLORS.dim}  2. Para gerar alcance, APLIQUE a lista a uma campanha/grupo de anúncios com "create audience-target --user-list ${listResult.resourceName} --campaign-id <id>" (Story 9.2).${COLORS.reset}`,
+          );
+          console.log(
+            `${COLORS.dim}  3. Se a conta NÃO for elegível para Customer Match (política do Google), a lista fica VAZIA até a aprovação — isso é responsabilidade da conta, não do CLI.${COLORS.reset}`,
+          );
+        } catch (err) {
+          try {
+            await appendMutationLog({
+              customerId: options.customerId ?? '?',
+              operation: 'create_audience_customer_match',
+              before: {},
+              after: { name: options.name, keyType: options.keyType ?? 'contact-info' },
+              dryRun,
               success: false,
               error: err instanceof Error ? err.message : String(err),
             });

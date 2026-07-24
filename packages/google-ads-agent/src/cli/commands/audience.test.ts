@@ -15,11 +15,57 @@ const mutateResources = vi.fn(
     ],
   }),
 );
-const fakeCustomer = { mutateResources };
+// Story 9.4 — OfflineUserDataJobService spies (Customer Match Fase 2)
+const createOfflineUserDataJob = vi.fn(async (_req?: unknown) => ({
+  resource_name: 'customers/1112223333/offlineUserDataJobs/555',
+}));
+const addOfflineUserDataJobOperations = vi.fn(async (_req?: unknown) => ({}));
+const runOfflineUserDataJob = vi.fn(async (_req?: unknown) => ({ name: 'operations/abc-123' }));
+const fakeCustomer = {
+  mutateResources,
+  offlineUserDataJobs: {
+    createOfflineUserDataJob,
+    addOfflineUserDataJobOperations,
+    runOfflineUserDataJob,
+  },
+};
 
 vi.mock('../../google-ads-api/client.js', () => ({
   createClient: () => ({}),
   getCustomer: () => fakeCustomer,
+}));
+
+// Story 9.4 — parseCustomerMatchFile mock (evita I/O de arquivo; devolve
+// SÓ hashes fake + contagens — NENHUM PII real entra no teste).
+const cmFile = vi.hoisted(() => {
+  const HASH_EMAIL = 'a'.repeat(64);
+  const HASH_PHONE = 'b'.repeat(64);
+  return {
+    HASH_EMAIL,
+    HASH_PHONE,
+    state: {
+      parsed: {
+        identifiers: [{ hashedEmail: HASH_EMAIL, hashedPhoneNumber: HASH_PHONE }],
+        totalRows: 3,
+        validCount: 1,
+        skippedCount: 2,
+      } as {
+        identifiers: Array<{ hashedEmail?: string; hashedPhoneNumber?: string }>;
+        totalRows: number;
+        validCount: number;
+        skippedCount: number;
+      },
+      error: null as Error | null,
+    },
+  };
+});
+vi.mock('../../google-ads-api/customer-match-file.js', () => ({
+  parseCustomerMatchFile: vi.fn(async () => {
+    if (cmFile.state.error) {
+      throw cmFile.state.error;
+    }
+    return cmFile.state.parsed;
+  }),
 }));
 
 // ---- auth ----
@@ -83,6 +129,16 @@ function runSegmentCli(args: string[]): Promise<Command> {
   ]);
 }
 
+function runCustomerMatchCli(args: string[]): Promise<Command> {
+  return buildProgram().parseAsync([
+    'node',
+    'google-ads',
+    'create',
+    'audience-customer-match',
+    ...args,
+  ]);
+}
+
 beforeEach(() => {
   vi.clearAllMocks();
   mutateResources.mockResolvedValue({
@@ -90,6 +146,19 @@ beforeEach(() => {
       { user_list: { resource_name: 'customers/1112223333/userLists/999' } },
     ],
   });
+  createOfflineUserDataJob.mockResolvedValue({
+    resource_name: 'customers/1112223333/offlineUserDataJobs/555',
+  });
+  addOfflineUserDataJobOperations.mockResolvedValue({});
+  runOfflineUserDataJob.mockResolvedValue({ name: 'operations/abc-123' });
+  // Reset do parsed default do arquivo Customer Match.
+  cmFile.state.error = null;
+  cmFile.state.parsed = {
+    identifiers: [{ hashedEmail: cmFile.HASH_EMAIL, hashedPhoneNumber: cmFile.HASH_PHONE }],
+    totalRows: 3,
+    validCount: 1,
+    skippedCount: 2,
+  };
   confirmAnswer = 's';
   process.exitCode = 0;
   vi.spyOn(console, 'log').mockImplementation(() => {});
@@ -406,5 +475,137 @@ describe('create audience-custom-segment — handler', () => {
     expect(mutateResources).not.toHaveBeenCalled();
     expect(appendMutationLog).not.toHaveBeenCalled();
     expect(process.exitCode).toBe(1);
+  });
+});
+
+describe('create audience-customer-match — handler (Story 9.4)', () => {
+  it('sucesso: cria a lista (Fase 1), sobe contatos (Fase 2) e audita success=true', async () => {
+    await runCustomerMatchCli(['--name', 'Base CRM', '--from-file', '/fake/contatos.csv']);
+
+    // Fase 1: mutateResources cria a user_list
+    expect(mutateResources).toHaveBeenCalledTimes(1);
+    const [ops] = mutateResources.mock.calls[0] as [Array<{ entity: string }>, unknown];
+    expect(ops[0].entity).toBe('user_list');
+
+    // Fase 2: encadeia create → add → run
+    expect(createOfflineUserDataJob).toHaveBeenCalledTimes(1);
+    expect(addOfflineUserDataJobOperations).toHaveBeenCalledTimes(1);
+    expect(runOfflineUserDataJob).toHaveBeenCalledTimes(1);
+
+    expect(appendMutationLog).toHaveBeenCalledTimes(1);
+    const entry = appendMutationLog.mock.calls[0][0] as {
+      operation: string;
+      success: boolean;
+      dryRun: boolean;
+      after: { validCount: number; skippedCount: number; uploadedCount: number };
+    };
+    expect(entry.operation).toBe('create_audience_customer_match');
+    expect(entry.success).toBe(true);
+    expect(entry.dryRun).toBe(false);
+    expect(entry.after.validCount).toBe(1);
+    expect(entry.after.skippedCount).toBe(2);
+    expect(entry.after.uploadedCount).toBe(1);
+    expect(printError).not.toHaveBeenCalled();
+    expect(process.exitCode).toBe(0);
+  });
+
+  it('dry-run: NÃO toca a API (nem lista nem job) e audita dryRun=true', async () => {
+    await runCustomerMatchCli(['--name', 'Base CRM', '--from-file', '/fake/c.csv', '--dry-run']);
+
+    expect(mutateResources).not.toHaveBeenCalled();
+    expect(createOfflineUserDataJob).not.toHaveBeenCalled();
+    expect(addOfflineUserDataJobOperations).not.toHaveBeenCalled();
+    expect(runOfflineUserDataJob).not.toHaveBeenCalled();
+
+    expect(appendMutationLog).toHaveBeenCalledTimes(1);
+    const entry = appendMutationLog.mock.calls[0][0] as { dryRun: boolean; success: boolean };
+    expect(entry.dryRun).toBe(true);
+    expect(entry.success).toBe(true);
+    expect(process.exitCode).toBe(0);
+  });
+
+  it('cancelamento: não muta, audita success=false e sai sem erro (exit 0)', async () => {
+    confirmAnswer = 'n';
+
+    await runCustomerMatchCli(['--name', 'Cancelada', '--from-file', '/fake/c.csv']);
+
+    expect(mutateResources).not.toHaveBeenCalled();
+    expect(createOfflineUserDataJob).not.toHaveBeenCalled();
+    expect(appendMutationLog).toHaveBeenCalledTimes(1);
+    const entry = appendMutationLog.mock.calls[0][0] as { success: boolean; error?: string };
+    expect(entry.success).toBe(false);
+    expect(entry.error).toMatch(/não confirmou/i);
+    expect(printError).not.toHaveBeenCalled();
+    expect(process.exitCode).toBe(0);
+  });
+
+  it('erro de API (elegibilidade): trata via printError e sai com exit 1', async () => {
+    mutateResources.mockRejectedValueOnce(new Error('PERMISSION_DENIED'));
+
+    await runCustomerMatchCli(['--name', 'Sem elegibilidade', '--from-file', '/fake/c.csv']);
+
+    expect(printError).toHaveBeenCalledTimes(1);
+    expect(process.exitCode).toBe(1);
+    // Audita a falha (sem PII).
+    const failEntry = appendMutationLog.mock.calls.at(-1)?.[0] as { success: boolean };
+    expect(failEntry.success).toBe(false);
+  });
+
+  it('arquivo sem contatos válidos: rejeita antes de qualquer chamada de API', async () => {
+    cmFile.state.parsed = { identifiers: [], totalRows: 2, validCount: 0, skippedCount: 2 };
+
+    await runCustomerMatchCli(['--name', 'Vazia', '--from-file', '/fake/vazio.csv']);
+
+    expect(mutateResources).not.toHaveBeenCalled();
+    expect(createOfflineUserDataJob).not.toHaveBeenCalled();
+    expect(process.exitCode).toBe(1);
+  });
+
+  it('arquivo ausente/malformado: propaga AppError via printError e exit 1', async () => {
+    const { AppError } = await import('../../errors/types.js');
+    cmFile.state.error = new AppError('NOT_FOUND', 'Arquivo não encontrado: /x.csv');
+
+    await runCustomerMatchCli(['--name', 'X', '--from-file', '/x.csv']);
+
+    expect(printError).toHaveBeenCalledTimes(1);
+    expect(process.exitCode).toBe(1);
+  });
+
+  it('validação: rejeita --key-type não suportado antes de ler o arquivo', async () => {
+    await runCustomerMatchCli([
+      '--name',
+      'X',
+      '--from-file',
+      '/fake/c.csv',
+      '--key-type',
+      'crm-id',
+    ]);
+
+    expect(mutateResources).not.toHaveBeenCalled();
+    expect(process.exitCode).toBe(1);
+  });
+
+  // -------- Teste de segurança dedicado (AC#14 / R2) --------
+  it('SEGURANÇA: appendMutationLog nunca recebe PII (nem em claro nem hasheado) em nenhum cenário', async () => {
+    // Valores fake que simulam PII "em claro" (nunca são PII real).
+    const FAKE_EMAIL = 'segredo@fake-exemplo.com';
+    const FAKE_PHONE = '+5511900000000';
+
+    // Cenário sucesso
+    await runCustomerMatchCli(['--name', 'Base CRM', '--from-file', '/fake/c.csv']);
+    // Cenário dry-run
+    await runCustomerMatchCli(['--name', 'Base CRM', '--from-file', '/fake/c.csv', '--dry-run']);
+    // Cenário cancelamento
+    confirmAnswer = 'n';
+    await runCustomerMatchCli(['--name', 'Base CRM', '--from-file', '/fake/c.csv']);
+
+    // Nenhuma entrada de log pode conter o e-mail/telefone fake, nem os hashes.
+    for (const call of appendMutationLog.mock.calls) {
+      const serialized = JSON.stringify(call[0]);
+      expect(serialized).not.toContain(FAKE_EMAIL);
+      expect(serialized).not.toContain(FAKE_PHONE);
+      expect(serialized).not.toContain(cmFile.HASH_EMAIL);
+      expect(serialized).not.toContain(cmFile.HASH_PHONE);
+    }
   });
 });
