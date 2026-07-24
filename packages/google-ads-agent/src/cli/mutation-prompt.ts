@@ -1,6 +1,7 @@
 import { input } from '@inquirer/prompts';
 import { formatMicros, type BudgetDelta } from '../google-ads-api/budget-validator.js';
 import { COLORS } from './display.js';
+import type { AudienceTargetMode } from '../types/audience.js';
 
 export interface BudgetMutationPreview {
   campaignId: string;
@@ -258,6 +259,224 @@ export function formatCampaignCreatePreview(p: CampaignCreatePreviewInput): stri
       lines.push(`${COLORS.dim}   ${idx + 1}. ${step}${COLORS.reset}`);
     });
   }
+
+  return lines.join('\n');
+}
+
+// ============================================================================
+// Story 9.1 — Audience remarketing create preview
+// ============================================================================
+
+export interface AudienceRemarketingPreviewInput {
+  customerId: string;
+  customerName?: string;
+  name: string;
+  description?: string;
+  /** Texto de --url-contains; undefined = curinga "todos os visitantes". */
+  urlContains?: string;
+  membershipDurationDays: number;
+}
+
+/**
+ * Renderiza o preview de criação de uma lista de remarketing, no mesmo estilo
+ * visual de `formatCampaignCreatePreview`. Mostra a regra em linguagem clara:
+ * "URL contém <valor>" quando --url-contains é informado, ou "todos os
+ * visitantes (URL contém http)" no default curinga.
+ */
+export function formatAudienceRemarketingPreview(p: AudienceRemarketingPreviewInput): string {
+  const lines: string[] = [];
+  const customerLabel = p.customerName ? `${p.customerId} (${p.customerName})` : p.customerId;
+
+  const ruleLabel =
+    p.urlContains !== undefined && p.urlContains.trim() !== ''
+      ? `URL contém "${p.urlContains}"`
+      : 'todos os visitantes (URL contém "http")';
+
+  lines.push(
+    `${COLORS.bold}📋 Nova lista de remarketing — conta ${customerLabel}${COLORS.reset}`,
+  );
+  lines.push('━'.repeat(50));
+  lines.push(`Nome:             ${p.name}`);
+  if (p.description) {
+    lines.push(`Descrição:        ${p.description}`);
+  }
+  lines.push(`Regra:            ${ruleLabel}`);
+  lines.push(`Duração:          ${p.membershipDurationDays} dia(s) na lista`);
+  lines.push(`Conta:            ${customerLabel}`);
+
+  return lines.join('\n');
+}
+
+// ============================================================================
+// Story 9.2 — Audience target apply preview
+// ============================================================================
+
+export interface AudienceTargetPreviewInput {
+  customerId: string;
+  customerName?: string;
+  /** Resource name da lista sendo aplicada. */
+  userListResourceName: string;
+  /** Nível de aplicação. */
+  level: 'campaign' | 'ad_group';
+  /** ID da campanha ou do ad group (conforme `level`). */
+  entityId: string;
+  /** Modo escolhido (observação x segmentação). */
+  mode: AudienceTargetMode;
+}
+
+/**
+ * Renderiza o preview de aplicação de um público, no mesmo estilo visual de
+ * `formatAudienceRemarketingPreview`. Quando `mode === 'targeting'`, adiciona um
+ * aviso destacado em PT-BR sobre a restrição de alcance (Story 9.2 — R3).
+ */
+export function formatAudienceTargetPreview(p: AudienceTargetPreviewInput): string {
+  const lines: string[] = [];
+  const customerLabel = p.customerName ? `${p.customerId} (${p.customerName})` : p.customerId;
+
+  const levelLabel =
+    p.level === 'campaign'
+      ? `Campanha (ID ${p.entityId})`
+      : `Grupo de anúncios (ID ${p.entityId})`;
+
+  const modeLabel =
+    p.mode === 'observation'
+      ? 'Observação — apenas coleta/observa, NÃO restringe alcance (bid_only)'
+      : 'Segmentação — RESTRINGE o alcance ao público informado';
+
+  lines.push(
+    `${COLORS.bold}📋 Aplicar público — conta ${customerLabel}${COLORS.reset}`,
+  );
+  lines.push('━'.repeat(50));
+  lines.push(`Lista (user_list): ${p.userListResourceName}`);
+  lines.push(`Aplicar em:        ${levelLabel}`);
+  lines.push(`Modo:              ${modeLabel}`);
+  lines.push(`Conta:             ${customerLabel}`);
+
+  if (p.mode === 'targeting') {
+    lines.push('');
+    lines.push(`${COLORS.yellow}⚠️  ATENÇÃO — modo SEGMENTAÇÃO (targeting):${COLORS.reset}`);
+    lines.push(
+      `${COLORS.yellow}    A ${p.level === 'campaign' ? 'campanha' : 'grupo de anúncios'} passará a servir SOMENTE para este público.${COLORS.reset}`,
+    );
+    lines.push(
+      `${COLORS.yellow}    Isso pode REDUZIR DRASTICAMENTE o alcance de uma campanha ativa.${COLORS.reset}`,
+    );
+    lines.push(
+      `${COLORS.yellow}    Use 'observation' se quiser apenas coletar dados sem restringir.${COLORS.reset}`,
+    );
+  }
+
+  return lines.join('\n');
+}
+
+// ============================================================================
+// Story 9.3 — Custom segment create preview
+// ============================================================================
+
+export interface CustomSegmentPreviewInput {
+  customerId: string;
+  customerName?: string;
+  name: string;
+  description?: string;
+  /** Tipo do segmento (AUTO | INTEREST | PURCHASE_INTENT | SEARCH). */
+  type: string;
+  /** Palavras-chave já parseadas que viram members KEYWORD. */
+  keywords: string[];
+  /** URLs já parseadas que viram members URL. */
+  urls: string[];
+}
+
+/**
+ * Renderiza o preview de criação de um custom segment (`custom_audience`), no
+ * mesmo estilo visual de `formatAudienceRemarketingPreview`. Mostra nome,
+ * descrição (se houver), tipo, e as listas de keywords/urls que formarão os
+ * members, com a contagem por tipo e o total.
+ */
+export function formatCustomSegmentPreview(p: CustomSegmentPreviewInput): string {
+  const lines: string[] = [];
+  const customerLabel = p.customerName ? `${p.customerId} (${p.customerName})` : p.customerId;
+
+  const total = p.keywords.length + p.urls.length;
+
+  lines.push(
+    `${COLORS.bold}📋 Novo segmento de interesse (custom_audience) — conta ${customerLabel}${COLORS.reset}`,
+  );
+  lines.push('━'.repeat(50));
+  lines.push(`Nome:             ${p.name}`);
+  if (p.description) {
+    lines.push(`Descrição:        ${p.description}`);
+  }
+  lines.push(`Tipo:             ${p.type}`);
+  if (p.keywords.length > 0) {
+    lines.push(`Palavras-chave:   ${p.keywords.join(', ')} (${p.keywords.length})`);
+  }
+  if (p.urls.length > 0) {
+    lines.push(`URLs:             ${p.urls.join(', ')} (${p.urls.length})`);
+  }
+  lines.push(`Total de members: ${total}`);
+  lines.push(`Conta:            ${customerLabel}`);
+
+  return lines.join('\n');
+}
+
+// ============================================================================
+// Story 9.4 — Customer Match preview (SOMENTE contagens — nunca PII)
+// ============================================================================
+
+export interface CustomerMatchPreviewInput {
+  customerId: string;
+  customerName?: string;
+  name: string;
+  description?: string;
+  /** Tipo de chave de upload (ex.: `contact-info`). */
+  keyType: string;
+  /** Total de linhas de dados lidas do arquivo (sem cabeçalho/linhas em branco). */
+  totalRows: number;
+  /** Contatos válidos a subir. */
+  validCount: number;
+  /** Linhas descartadas por não terem identificador válido. */
+  skippedCount: number;
+}
+
+/**
+ * Renderiza o preview de criação de uma lista Customer Match.
+ *
+ * ⚠️ SEGURANÇA/PII (R2, crítico): esta função recebe SOMENTE contagens e nome —
+ * o input NEM SEQUER carrega os identificadores. Nenhum e-mail/telefone (em
+ * claro ou hasheado) aparece na string gerada. Inclui um aviso explícito sobre
+ * elegibilidade de política do Google (R1).
+ */
+export function formatCustomerMatchPreview(p: CustomerMatchPreviewInput): string {
+  const lines: string[] = [];
+  const customerLabel = p.customerName ? `${p.customerId} (${p.customerName})` : p.customerId;
+
+  lines.push(
+    `${COLORS.bold}📋 Nova lista Customer Match (crm_based_user_list) — conta ${customerLabel}${COLORS.reset}`,
+  );
+  lines.push('━'.repeat(50));
+  lines.push(`Nome:             ${p.name}`);
+  if (p.description) {
+    lines.push(`Descrição:        ${p.description}`);
+  }
+  lines.push(`Tipo de chave:    ${p.keyType} (e-mail/telefone)`);
+  lines.push(`Contatos válidos: ${p.validCount} (de ${p.totalRows} linha(s) lida(s))`);
+  lines.push(`Linhas ignoradas: ${p.skippedCount}`);
+  lines.push(`Conta:            ${customerLabel}`);
+  lines.push('');
+  lines.push(
+    `${COLORS.dim}🔒 Privacidade: os contatos são hasheados (SHA-256) ANTES de sair da máquina — nenhum dado em claro é enviado, logado ou exibido.${COLORS.reset}`,
+  );
+  lines.push('');
+  lines.push(`${COLORS.yellow}⚠️  ELEGIBILIDADE DE POLÍTICA (Google):${COLORS.reset}`);
+  lines.push(
+    `${COLORS.yellow}    Customer Match exige que a CONTA esteja aprovada (porte/histórico de conformidade).${COLORS.reset}`,
+  );
+  lines.push(
+    `${COLORS.yellow}    A lista pode ser criada, mas o match/segmentação só funciona se a conta for elegível.${COLORS.reset}`,
+  );
+  lines.push(
+    `${COLORS.yellow}    Isso é responsabilidade da conta, não do CLI — se a API recusar, é política pendente.${COLORS.reset}`,
+  );
 
   return lines.join('\n');
 }

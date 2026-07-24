@@ -1,0 +1,33 @@
+schema: 1
+story: '9.1'
+gate: CONCERNS
+status_reason: 'Implementação sólida — 11/11 ACs cumpridos, 429 testes verdes, build OK, boundary respeitada; a corretude SEMÂNTICA da regra url__ CONTAINS "http" só pode ser confirmada com --dry-run real contra a API (item de smoke-test pendente, não bloqueante).'
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-07-23T00:00:00Z'
+
+quality_checks:
+  code_review: PASS
+  unit_tests: PASS          # 429 passing (29 files), 24 novos; coverage ≥80% nos arquivos de lógica pura
+  acceptance_criteria: PASS # 11/11 ACs verificados contra o código real
+  no_regressions: PASS      # npm run verify (lint+typecheck+test+build) verde
+  performance: PASS         # mutation isolada, sem loop/chamada redundante
+  security: PASS            # boundary OK, sem segredos, printError sem stack trace, creds via auth
+  documentation: PASS       # Dev Agent Record, File List, Completion Notes (R3), JSDoc PT-BR
+
+coverage:
+  audience_ts: '100% stmts / 81.8% branch / 100% funcs'
+  audience_validator_ts: '100%'
+  types_audience_ts: 'type-only (sem código executável)'
+  threshold_met: true       # todos ≥80% conforme AC#11
+
+top_issues:
+  - id: 'REQ-001'
+    severity: low
+    finding: 'A validação semântica da regra url__ CONTAINS "http" (Google aceita e interpreta como "todos os visitantes"?) não é confirmável por typecheck/unit — apenas por --dry-run real contra a API. Inerente à natureza da feature; documentado em Risks R1 e na seção Testing (smoke-test opcional).'
+    suggested_action: 'Antes de rodar sem --dry-run numa conta de cliente real, executar `google-ads create audience-remarketing --name "Teste" --membership-days 90 --dry-run --customer-id <id>` contra uma conta sandbox conhecida para confirmar que a API aceita o shape do rule_based_user_list.'
+  - id: 'MNT-001'
+    severity: low
+    finding: 'Edge case: passar `--url-contains ""` (string vazia explícita) faz o builder montar `url__ CONTAINS ""` (value = string vazia, pois `?? http` só cobre nullish), enquanto o preview e o audit-log divergem levemente na descrição. Ação improvável do operador.'
+    suggested_action: 'Opcional: normalizar string vazia para o curinga "http" no builder (tratar `urlContains?.trim() || http`) para alinhar builder, preview e audit-log. Não bloqueante.'
+
+waiver: { active: false }

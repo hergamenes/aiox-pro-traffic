@@ -1,0 +1,35 @@
+schema: 1
+story: '9.2'
+gate: CONCERNS
+status_reason: 'Implementação sólida — 12/12 ACs cumpridos, 554 testes verdes, build OK, boundary respeitada; a decisão-chave de segurança (ADD incremental em target_restriction_operations, NÃO sobrescreve target_restrictions) preserva segmentações de outras dimensões do cliente. Único ponto aberto: a aceitação do update_mask "targeting_setting.target_restriction_operations" pela API v23 só é confirmável com --dry-run real (smoke-test pendente, não bloqueante).'
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-07-24T00:00:00Z'
+
+quality_checks:
+  code_review: PASS         # builder puro + executor fino; asMutateEntry; string-literal enums; padrão de 9.1
+  unit_tests: PASS          # audience-target.test.ts 9 testes + validators (43) + handler; coverage ≥80%
+  acceptance_criteria: PASS # 12/12 ACs verificados contra o código real
+  no_regressions: PASS      # npm run verify (lint+typecheck+test+build) verde — 554 testes, 34 arquivos, exit 0
+  performance: PASS         # batch único (2 ops) atômico, sem GAQL read extra, sem loop
+  security: PASS            # ADD incremental preserva restrições existentes; partial_failure:false (atômico); boundary OK; sem segredos
+  documentation: PASS       # Completion Notes com decisão R1/R3 rastreável ao SDK; JSDoc PT-BR extenso
+
+coverage:
+  audience_target_ts: '100% stmts / 84.6% branch'
+  audience_validator_ts: '100% stmts / 94.4% branch'
+  threshold_met: true       # todos ≥80% conforme AC#12
+
+blast_radius:
+  note: 'Aplicação em conta de cliente REAL — modo targeting restringe alcance. Default observation (bid_only:true) mitiga; preview e output avisam explicitamente no modo targeting.'
+
+top_issues:
+  - id: 'REQ-001'
+    severity: medium
+    finding: 'A aceitação pela API v23 do update_mask "targeting_setting.target_restriction_operations" exatamente como montado não é confirmável por typecheck/unit — apenas com --dry-run (validate_only) real contra a conta. Shape 100% rastreável ao SDK (protos.d.ts, ITargetRestrictionOperation confirmado), mas o comportamento da API é um ponto de integração não exercido em ambiente sem credenciais. Inerente, documentado em Risks R1 e Completion Notes.'
+    suggested_action: 'Antes de rodar sem --dry-run numa conta de cliente real, executar `google-ads create audience-target --user-list "customers/.../userLists/..." --campaign-id <id> --mode observation --dry-run --customer-id <id>` contra uma conta sandbox conhecida. Se a API rejeitar o mask, o fallback é sobrescrever target_restrictions com GAQL read prévio (follow-up story).'
+  - id: 'REL-001'
+    severity: low
+    finding: 'Em --mode targeting, a campanha/ad group passa a servir SOMENTE ao público — pode zerar alcance de campanha ativa (R3). Já mitigado por default observation + aviso destacado no preview e reforço no output pós-sucesso; confirmação obrigatória em ambos os modos.'
+    suggested_action: 'Nenhuma ação de código necessária — mitigação já implementada. Manter o aviso PT-BR visível.'
+
+waiver: { active: false }

@@ -1,0 +1,52 @@
+schema: 1
+story: '9.4'
+gate: CONCERNS
+status_reason: 'Implementação madura e segura — 14/14 ACs cumpridos, 554 testes verdes, build OK. AUDITORIA DE PII: APROVADA — nenhum e-mail/telefone/hash/conteúdo de CSV chega a appendMutationLog, preview, logger, console ou error-map; teste de segurança dedicado assere isso em sucesso/dry-run/cancelamento. Concerns inerentes (não bloqueantes): dry-run 100% client-side desvia do texto literal de AC#5/#6 (autorizado e documentado), polling assíncrono fora de escopo (fire-and-report), e elegibilidade de política do Google é dependência externa da conta — smoke-test real obrigatório antes do primeiro uso sem --dry-run.'
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-07-24T00:00:00Z'
+
+quality_checks:
+  code_review: PASS         # hashing/parser puros; adapter isola SDK; duas fases claras; string-literal enums
+  unit_tests: PASS          # hashing(21) + file(12) + adapter(12) + handler + segurança dedicada; coverage ≥80%
+  acceptance_criteria: PASS # 14/14 ACs verificados; AC#5/#6 com desvio autorizado documentado (ver REQ-001)
+  no_regressions: PASS      # npm run verify (lint+typecheck+test+build) verde — 554 testes, 34 arquivos, exit 0
+  performance: PASS         # single-batch addOfflineUserDataJobOperations (limite 100k >> CSV real); sem polling bloqueante
+  security: PASS            # PII AUDIT APROVADA — hashing SHA-256 client-side; cleartext descartado nas funções de hash; nenhum path de vazamento
+  documentation: PASS       # Completion Notes exaustivas (fases, decisões R1/R3/R6, PII); JSDoc PT-BR com fonte da regra de normalização
+
+pii_audit:
+  verdict: PASS
+  cleartext_leak_paths_found: 0
+  evidence:
+    - 'customer-match-hashing.ts: cleartext (email/phone) só existe como variável local; transformado em hash e descartado; funções não logam o input.'
+    - 'customer-match-file.ts: células emailCell/phoneCell são locais, nunca logadas/retornadas; retorno é HashedIdentifier[] (só hashes).'
+    - 'customer-match.ts: logger.debug registra apenas contagens + resource_names; nenhum identificador.'
+    - 'audience.ts handler: preview, appendMutationLog (sucesso/dry-run/cancel/erro) e output recebem só nome/keyType/contagens/resource_names.'
+    - 'error-handler.ts/classifyError: lê apenas err.message/err.code/err.errors[].message — NÃO faz JSON.stringify do request (sem PII).'
+    - 'audience.test.ts: teste dedicado assere que FAKE_EMAIL/FAKE_PHONE/HASH_EMAIL/HASH_PHONE nunca aparecem em nenhuma chamada de appendMutationLog (sucesso/dry-run/cancelamento).'
+
+hashing:
+  email: 'trim + toLowerCase → SHA-256 hex (conforme spec oficial Google; sem dot-stripping de Gmail)'
+  phone: 'E.164 (remove separadores, aceita prefixo 00→+); número SEM código de país é DESCARTADO (contado como inválido)'
+  dry_run: '100% client-side — parse/normaliza/hasheia em memória, ZERO chamada de API (confirmado por teste: mutateResources/createOfflineUserDataJob não chamados)'
+
+coverage:
+  customer_match_ts: '100% stmts / 82.6% branch / 100% funcs'
+  hashing_plus_file_ts: '92.24% stmts / 91% branch / 100% funcs'
+  threshold_met: true       # todos ≥80% conforme AC#14
+
+top_issues:
+  - id: 'REQ-001'
+    severity: low
+    finding: 'Dry-run implementado como 100% client-side (não toca a API), desviando do texto literal de AC#5/#6 (que previa validate_only:true). Desvio explicitamente autorizado pela task e documentado em Completion Notes; é a opção mais segura (valida parsing/hashing sem risco). Testes confirmam ausência de chamadas de API em dry-run.'
+    suggested_action: 'Nenhuma ação — desvio autorizado e mais seguro. Manter a documentação clara no --help e no output do comando.'
+  - id: 'REL-001'
+    severity: medium
+    finding: 'Elegibilidade de política de Customer Match é dependência externa da conta (R1). A lista pode ser criada mas o match só funciona se a conta for aprovada. Erro de elegibilidade cai em PERMISSION_DENIED já mapeado. Smoke-test real com --dry-run + confirmação de elegibilidade é OBRIGATÓRIO antes do primeiro uso sem --dry-run (Open Question #1 do EPIC.md, em aberto).'
+    suggested_action: 'Antes do primeiro upload real: rodar `create audience-customer-match --name "Teste CM" --from-file contatos-teste.csv --dry-run --customer-id <id>` e confirmar com o usuário se a conta de destino tem aprovação de política de Customer Match.'
+  - id: 'ARCH-001'
+    severity: low
+    finding: 'Polling do longrunning.Operation retornado por runOfflineUserDataJob é fire-and-report (sem acompanhamento até conclusão) — decisão de escopo (R3). Status do job consultável depois via GAQL em offline_user_data_job (fora de escopo desta story).'
+    suggested_action: 'Evolução futura: comando de status/polling do offline_user_data_job (nova story).'
+
+waiver: { active: false }

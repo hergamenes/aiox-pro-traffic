@@ -26,12 +26,23 @@ export type MutationOperation =
   | 'upload_asset_video'
   | 'upload_asset_text'
   | 'remove_campaign'
-  | 'remove_ad_group';
+  | 'remove_ad_group'
+  | 'create_audience_remarketing'
+  | 'apply_audience_target'
+  | 'create_audience_custom_segment'
+  | 'create_audience_customer_match';
 
 export interface MutationLogEntry {
   timestamp: string;
   customerId: string;
-  campaignId: string;
+  /**
+   * ID da campanha alvo. Opcional: mutações que não são de campanha
+   * (ex.: `create_audience_remarketing`, que cria uma user_list isolada)
+   * omitem este campo. Story 9.1 (R3): campo tornado opcional em vez de
+   * usar valor sentinela — nenhum consumidor do log lê campaignId como
+   * obrigatório, então a mudança é não-breaking.
+   */
+  campaignId?: string;
   operation: MutationOperation;
   before: Record<string, unknown>;
   after: Record<string, unknown>;
