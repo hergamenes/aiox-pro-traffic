@@ -5,6 +5,9 @@ import {
   validateUserListResourceName,
   validateAudienceTargetLevel,
   validateAudienceTargetMode,
+  parseCommaSeparatedList,
+  validateCustomSegmentMembers,
+  validateCustomAudienceType,
   MAX_AUDIENCE_NAME_LENGTH,
 } from './audience-validator.js';
 
@@ -153,5 +156,84 @@ describe('validateAudienceTargetMode', () => {
     const r = validateAudienceTargetMode('segment');
     expect(r.valid).toBe(false);
     expect(r.error).toMatch(/observation.*targeting/i);
+  });
+});
+
+// ============================================================================
+// Story 9.3 — Custom segment validators
+// ============================================================================
+
+describe('parseCommaSeparatedList', () => {
+  it('devolve [] para undefined', () => {
+    expect(parseCommaSeparatedList(undefined)).toEqual([]);
+  });
+
+  it('devolve [] para string vazia', () => {
+    expect(parseCommaSeparatedList('')).toEqual([]);
+  });
+
+  it('faz split por vírgula e trim de cada item', () => {
+    expect(parseCommaSeparatedList('a, b ,c')).toEqual(['a', 'b', 'c']);
+  });
+
+  it('descarta itens vazios de vírgulas duplicadas', () => {
+    expect(parseCommaSeparatedList('a,,b,')).toEqual(['a', 'b']);
+  });
+
+  it('descarta itens só com espaços', () => {
+    expect(parseCommaSeparatedList('a,   ,b')).toEqual(['a', 'b']);
+  });
+
+  it('devolve [] quando tudo é vazio/espaço', () => {
+    expect(parseCommaSeparatedList('  ,  , ')).toEqual([]);
+  });
+
+  it('preserva espaços internos de um item multi-palavra', () => {
+    expect(parseCommaSeparatedList('ressonância magnética, tomografia')).toEqual([
+      'ressonância magnética',
+      'tomografia',
+    ]);
+  });
+});
+
+describe('validateCustomSegmentMembers', () => {
+  it('rejeita quando não há keywords nem urls', () => {
+    const r = validateCustomSegmentMembers({ keywords: [], urls: [] });
+    expect(r.valid).toBe(false);
+    expect(r.error).toMatch(/palavra-chave|url/i);
+  });
+
+  it('aceita com ao menos uma keyword', () => {
+    expect(validateCustomSegmentMembers({ keywords: ['k'], urls: [] }).valid).toBe(true);
+  });
+
+  it('aceita com ao menos uma url', () => {
+    expect(validateCustomSegmentMembers({ keywords: [], urls: ['u'] }).valid).toBe(true);
+  });
+
+  it('aceita com keywords e urls', () => {
+    expect(validateCustomSegmentMembers({ keywords: ['k'], urls: ['u'] }).valid).toBe(true);
+  });
+});
+
+describe('validateCustomAudienceType', () => {
+  it('aceita INTEREST (default)', () => {
+    expect(validateCustomAudienceType('INTEREST').valid).toBe(true);
+  });
+
+  it('aceita AUTO, PURCHASE_INTENT e SEARCH', () => {
+    expect(validateCustomAudienceType('AUTO').valid).toBe(true);
+    expect(validateCustomAudienceType('PURCHASE_INTENT').valid).toBe(true);
+    expect(validateCustomAudienceType('SEARCH').valid).toBe(true);
+  });
+
+  it('rejeita valor fora da lista fechada', () => {
+    const r = validateCustomAudienceType('AFFINITY');
+    expect(r.valid).toBe(false);
+    expect(r.error).toMatch(/INTEREST/);
+  });
+
+  it('rejeita minúsculas (enum é case-sensitive)', () => {
+    expect(validateCustomAudienceType('interest').valid).toBe(false);
   });
 });

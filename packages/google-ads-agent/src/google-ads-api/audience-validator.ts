@@ -7,6 +7,7 @@
  */
 
 import { isNumericId } from './id-validator.js';
+import { CUSTOM_AUDIENCE_TYPES } from '../types/audience.js';
 
 /** Limite de caracteres do nome de uma user_list (mesmo limite de campaign.name). */
 export const MAX_AUDIENCE_NAME_LENGTH = 255;
@@ -135,6 +136,59 @@ export function validateAudienceTargetMode(mode: string): AudienceValidation {
     return {
       valid: false,
       error: `--mode inválido: '${mode}'. Use 'observation' (default, não restringe) ou 'targeting' (restringe alcance).`,
+    };
+  }
+  return { valid: true };
+}
+
+// ============================================================================
+// Story 9.3 — Validadores de `create audience-custom-segment`
+// ============================================================================
+
+/**
+ * Parseia uma lista separada por vírgula (flags `--keywords`/`--urls`):
+ * split por vírgula, trim de cada item e descarte de vazios. Tolerante a
+ * espaços e vírgulas duplicadas (`"a,,b"`, `" a , b "` → `['a', 'b']`).
+ * Retorna `[]` para `undefined`/vazio (R3).
+ */
+export function parseCommaSeparatedList(value: string | undefined): string[] {
+  if (!value) {
+    return [];
+  }
+  return value
+    .split(',')
+    .map((item) => item.trim())
+    .filter((item) => item !== '');
+}
+
+/**
+ * Valida que o segmento terá pelo menos um member: ao menos uma keyword OU uma
+ * url válida após o parsing (R4). Recebe as listas JÁ parseadas.
+ */
+export function validateCustomSegmentMembers(params: {
+  keywords: string[];
+  urls: string[];
+}): AudienceValidation {
+  if (params.keywords.length === 0 && params.urls.length === 0) {
+    return {
+      valid: false,
+      error:
+        'Informe ao menos uma palavra-chave (--keywords "a,b") ou uma URL (--urls "x,y") para o segmento.',
+    };
+  }
+  return { valid: true };
+}
+
+/**
+ * Valida o tipo do segmento contra a lista fechada confirmada no enum do SDK:
+ * `AUTO | INTEREST | PURCHASE_INTENT | SEARCH` (R5). Case-sensitive (os valores
+ * do enum são maiúsculos).
+ */
+export function validateCustomAudienceType(type: string): AudienceValidation {
+  if (!(CUSTOM_AUDIENCE_TYPES as readonly string[]).includes(type)) {
+    return {
+      valid: false,
+      error: `--type inválido: '${type}'. Use um de: ${CUSTOM_AUDIENCE_TYPES.join(', ')}.`,
     };
   }
   return { valid: true };

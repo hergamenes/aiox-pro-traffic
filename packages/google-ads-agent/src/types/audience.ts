@@ -82,3 +82,52 @@ export interface ApplyAudienceTargetResult {
   /** True quando a chamada foi apenas validação (`validate_only`), sem mutação real. */
   dryRun: boolean;
 }
+
+// ============================================================================
+// Story 9.3 — Custom segment (custom_audience de interesse) — Epic 9
+// ============================================================================
+
+/**
+ * Tipos aceitos de `custom_audience` (`CustomAudienceTypeEnum.CustomAudienceType`,
+ * SDK v23 — confirmado em `node_modules/google-ads-node/build/protos/protos.d.ts`).
+ * Lista fechada exposta ao operador via `--type`. `INTEREST` é o default (mais
+ * genérico, sem pré-requisitos de campos conhecidos — ver Dev Notes/R1).
+ */
+export const CUSTOM_AUDIENCE_TYPES = ['AUTO', 'INTEREST', 'PURCHASE_INTENT', 'SEARCH'] as const;
+
+/** Um dos valores aceitos de `--type` para o custom segment. */
+export type CustomAudienceTypeOption = (typeof CUSTOM_AUDIENCE_TYPES)[number];
+
+/**
+ * Parâmetros de entrada para criar um custom segment (`custom_audience`).
+ *
+ * Diferente de `user_list` (Story 9.1, baseada em visitas ao site), um
+ * `custom_audience` é definido por sinais de interesse/intenção declarados:
+ * palavras-chave que a pessoa pesquisa (`keywords`) e/ou URLs que ela navega
+ * (`urls`). Cada item vira um `ICustomAudienceMember`. Pelo menos um member
+ * (keyword OU url) é obrigatório — garantido pela validação antes do builder.
+ */
+export interface CustomSegmentInput {
+  /** Nome do segmento (obrigatório, ≤255 chars). */
+  name: string;
+  /** Descrição opcional do segmento. */
+  description?: string;
+  /** Palavras-chave já parseadas (trim + sem vazios) — viram members `KEYWORD`. */
+  keywords: string[];
+  /** URLs já parseadas (trim + sem vazios) — viram members `URL`. */
+  urls: string[];
+  /** Tipo do segmento (default `INTEREST`). */
+  type: CustomAudienceTypeOption;
+}
+
+/** Resultado da criação de um custom segment. */
+export interface CustomSegmentResult {
+  /**
+   * Resource name do `custom_audience` criado (ex.: `customers/123/customAudiences/456`).
+   * Em dry-run pode vir vazio — a API não devolve um resource_name real quando
+   * `validate_only: true`.
+   */
+  resourceName: string;
+  /** True quando a chamada foi apenas validação (`validate_only`), sem criação real. */
+  dryRun: boolean;
+}

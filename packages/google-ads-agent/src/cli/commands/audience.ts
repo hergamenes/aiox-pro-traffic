@@ -10,22 +10,30 @@ import {
   applyAudienceTarget,
 } from '../../google-ads-api/audience-target.js';
 import {
+  buildCustomSegmentOperation,
+  createCustomSegment,
+} from '../../google-ads-api/custom-segment.js';
+import {
   validateAudienceName,
   validateMembershipDays,
   validateUserListResourceName,
   validateAudienceTargetLevel,
   validateAudienceTargetMode,
+  parseCommaSeparatedList,
+  validateCustomSegmentMembers,
+  validateCustomAudienceType,
 } from '../../google-ads-api/audience-validator.js';
 import { getDefaults } from '../../config/config-repository.js';
 import {
   formatAudienceRemarketingPreview,
   formatAudienceTargetPreview,
+  formatCustomSegmentPreview,
   requireSimpleConfirm,
 } from '../mutation-prompt.js';
 import { appendMutationLog } from '../../log/mutation-log.js';
 import { COLORS } from '../display.js';
 import { printError } from '../../errors/error-handler.js';
-import type { AudienceTargetMode } from '../../types/audience.js';
+import type { AudienceTargetMode, CustomAudienceTypeOption } from '../../types/audience.js';
 
 /**
  * Registra `create audience-remarketing` como subcomando do `create` existente
@@ -397,6 +405,209 @@ export function registerAudienceSubcommands(createCmd: Command): void {
               operation: 'apply_audience_target',
               before: {},
               after: { userList: options.userList },
+              dryRun: Boolean(options.dryRun),
+              success: false,
+              error: err instanceof Error ? err.message : String(err),
+            });
+          } catch {
+            // Audit log é fire-and-forget; falha aqui não afeta o erro reportado.
+          }
+          printError(err);
+          process.exitCode = 1;
+        }
+      },
+    );
+
+  // ==========================================================================
+  // Story 9.3 — create audience-custom-segment
+  // ==========================================================================
+  createCmd
+    .command('audience-custom-segment')
+    .description(
+      'Cria um segmento de interesse (custom_audience) definido por palavras-chave e/ou URLs — não depende de visitas ao site (diferente do remarketing)',
+    )
+    .requiredOption('--name <text>', 'Nome do segmento (max 255 chars)')
+    .option('--description <text>', 'Descrição do segmento')
+    .option(
+      '--keywords <lista>',
+      'Palavras-chave separadas por vírgula (ex: "ressonância magnética,tomografia")',
+    )
+    .option(
+      '--urls <lista>',
+      'URLs separadas por vírgula (ex: "concorrente.com,portal.com/produto")',
+    )
+    .option(
+      '--type <AUTO|INTEREST|PURCHASE_INTENT|SEARCH>',
+      'Tipo do segmento (default: INTEREST)',
+      'INTEREST',
+    )
+    .option('--customer-id <id>', 'Customer ID (default: do config)')
+    .option('--login-customer-id <id>', 'Login Customer ID — MCC parent')
+    .option('--dry-run', 'Apenas validar; não criar nada real', false)
+    .action(
+      async (options: {
+        name: string;
+        description?: string;
+        keywords?: string;
+        urls?: string;
+        type?: string;
+        customerId?: string;
+        loginCustomerId?: string;
+        dryRun?: boolean;
+      }) => {
+        try {
+          // ============ Validate inputs ============
+          const nameValidation = validateAudienceName(options.name);
+          if (!nameValidation.valid) {
+            console.error(`${COLORS.red}Erro: ${nameValidation.error}${COLORS.reset}`);
+            process.exitCode = 1;
+            return;
+          }
+
+          const keywords = parseCommaSeparatedList(options.keywords);
+          const urls = parseCommaSeparatedList(options.urls);
+
+          const membersValidation = validateCustomSegmentMembers({ keywords, urls });
+          if (!membersValidation.valid) {
+            console.error(`${COLORS.red}Erro: ${membersValidation.error}${COLORS.reset}`);
+            process.exitCode = 1;
+            return;
+          }
+
+          const typeRaw = options.type ?? 'INTEREST';
+          const typeValidation = validateCustomAudienceType(typeRaw);
+          if (!typeValidation.valid) {
+            console.error(`${COLORS.red}Erro: ${typeValidation.error}${COLORS.reset}`);
+            process.exitCode = 1;
+            return;
+          }
+          const type = typeRaw as CustomAudienceTypeOption;
+
+          const dryRun = Boolean(options.dryRun);
+
+          // ============ Resolve auth + customer ============
+          const creds = await ensureValidAuth();
+          const defaults = await getDefaults();
+          const customerId = options.customerId ?? defaults.customerId;
+          if (!customerId) {
+            console.error(
+              `${COLORS.red}Erro: customer-id não fornecido e não há default.${COLORS.reset}`,
+            );
+            process.exitCode = 1;
+            return;
+          }
+
+          const loginCustomerId =
+            options.loginCustomerId ?? defaults.loginCustomerId ?? creds.loginCustomerId;
+
+          const client = createClient({
+            clientId: creds.clientId,
+            clientSecret: creds.clientSecret,
+            developerToken: creds.developerToken,
+          });
+
+          // ============ Build operation (pure) ============
+          const operation = buildCustomSegmentOperation({
+            name: options.name,
+            ...(options.description !== undefined ? { description: options.description } : {}),
+            keywords,
+            urls,
+            type,
+          });
+
+          // ============ Display preview ============
+          console.log('');
+          console.log(
+            formatCustomSegmentPreview({
+              customerId,
+              name: options.name,
+              ...(options.description !== undefined ? { description: options.description } : {}),
+              type,
+              keywords,
+              urls,
+            }),
+          );
+          console.log('');
+
+          // ============ Confirmation ============
+          const confirmed = await requireSimpleConfirm('Confirmar criação');
+          if (!confirmed) {
+            console.log(`${COLORS.yellow}Criação cancelada pelo operador.${COLORS.reset}`);
+            await appendMutationLog({
+              customerId,
+              operation: 'create_audience_custom_segment',
+              before: {},
+              after: {
+                name: options.name,
+                type,
+                keywords: keywords.length,
+                urls: urls.length,
+              },
+              dryRun,
+              success: false,
+              error: 'Operador não confirmou criação',
+            });
+            return;
+          }
+
+          // ============ Apply mutation ============
+          const result = await createCustomSegment(client, {
+            customerId,
+            refreshToken: creds.refreshToken,
+            ...(loginCustomerId ? { loginCustomerId } : {}),
+            operation,
+            dryRun,
+          });
+
+          // ============ Audit log ============
+          await appendMutationLog({
+            customerId,
+            operation: 'create_audience_custom_segment',
+            before: {},
+            after: {
+              name: options.name,
+              ...(options.description !== undefined ? { description: options.description } : {}),
+              type,
+              keywords: keywords.length,
+              urls: urls.length,
+              members: keywords.length + urls.length,
+              ...(result.resourceName ? { resourceName: result.resourceName } : {}),
+            },
+            dryRun,
+            success: true,
+          });
+
+          // ============ Output ============
+          console.log('');
+          if (dryRun) {
+            console.log(
+              `${COLORS.green}✓ Dry-run validado — NENHUM segmento foi criado.${COLORS.reset}`,
+            );
+          } else {
+            console.log(
+              `${COLORS.green}✓ Segmento de interesse criado: ${result.resourceName}${COLORS.reset}`,
+            );
+          }
+          console.log(
+            `${COLORS.dim}  Members: ${keywords.length} palavra(s)-chave + ${urls.length} URL(s) = ${
+              keywords.length + urls.length
+            } total.${COLORS.reset}`,
+          );
+          console.log('');
+          console.log(`${COLORS.dim}PRÓXIMOS PASSOS:${COLORS.reset}`);
+          console.log(
+            `${COLORS.dim}  1. O segmento NÃO gera alcance sozinho — precisa ser APLICADO a uma campanha/grupo de anúncios.${COLORS.reset}`,
+          );
+          console.log(
+            `${COLORS.dim}  2. É o mesmo mecanismo da Story 9.2 (campaign_criterion/ad_group_criterion), agora via custom_audience em vez de user_list — a aplicação de custom_audience não faz parte desta story.${COLORS.reset}`,
+          );
+        } catch (err) {
+          try {
+            await appendMutationLog({
+              customerId: options.customerId ?? '?',
+              operation: 'create_audience_custom_segment',
+              before: {},
+              after: { name: options.name },
               dryRun: Boolean(options.dryRun),
               success: false,
               error: err instanceof Error ? err.message : String(err),

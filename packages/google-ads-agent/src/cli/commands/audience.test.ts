@@ -6,6 +6,7 @@ type MutateEntry = {
   user_list?: { resource_name?: string };
   campaign_criterion?: { resource_name?: string };
   ad_group_criterion?: { resource_name?: string };
+  custom_audience?: { resource_name?: string };
 };
 const mutateResources = vi.fn(
   async (_ops?: unknown, _opts?: unknown): Promise<{ mutate_operation_responses: MutateEntry[] }> => ({
@@ -70,6 +71,16 @@ function runCli(args: string[]): Promise<Command> {
 
 function runTargetCli(args: string[]): Promise<Command> {
   return buildProgram().parseAsync(['node', 'google-ads', 'create', 'audience-target', ...args]);
+}
+
+function runSegmentCli(args: string[]): Promise<Command> {
+  return buildProgram().parseAsync([
+    'node',
+    'google-ads',
+    'create',
+    'audience-custom-segment',
+    ...args,
+  ]);
 }
 
 beforeEach(() => {
@@ -277,6 +288,123 @@ describe('create audience-target — handler', () => {
     await runTargetCli(['--user-list', USER_LIST, '--campaign-id', '555', '--mode', 'segment']);
 
     expect(mutateResources).not.toHaveBeenCalled();
+    expect(process.exitCode).toBe(1);
+  });
+});
+
+describe('create audience-custom-segment — handler', () => {
+  beforeEach(() => {
+    mutateResources.mockResolvedValue({
+      mutate_operation_responses: [
+        { custom_audience: { resource_name: 'customers/1112223333/customAudiences/321' } },
+      ],
+    });
+  });
+
+  it('sucesso (keywords): cria o segmento e audita success=true, sem campaignId', async () => {
+    await runSegmentCli(['--name', 'Interessados em RM', '--keywords', 'ressonância,tomografia']);
+
+    expect(mutateResources).toHaveBeenCalledTimes(1);
+    const [ops, opts] = mutateResources.mock.calls[0] as [
+      Array<{ entity: string; resource: { members: Array<{ member_type: string }> } }>,
+      { validate_only: boolean; partial_failure: boolean },
+    ];
+    expect(ops).toHaveLength(1);
+    expect(ops[0].entity).toBe('custom_audience');
+    expect(ops[0].resource.members).toHaveLength(2);
+    expect(ops[0].resource.members.every((m) => m.member_type === 'KEYWORD')).toBe(true);
+    expect(opts.validate_only).toBe(false);
+    expect(opts.partial_failure).toBe(false);
+
+    expect(appendMutationLog).toHaveBeenCalledTimes(1);
+    const entry = appendMutationLog.mock.calls[0][0] as {
+      operation: string;
+      success: boolean;
+      campaignId?: string;
+      after: { type: string; keywords: number; urls: number };
+    };
+    expect(entry.operation).toBe('create_audience_custom_segment');
+    expect(entry.success).toBe(true);
+    expect(entry.campaignId).toBeUndefined();
+    expect(entry.after.type).toBe('INTEREST');
+    expect(entry.after.keywords).toBe(2);
+    expect(entry.after.urls).toBe(0);
+    expect(printError).not.toHaveBeenCalled();
+    expect(process.exitCode).toBe(0);
+  });
+
+  it('sucesso (urls + type): monta members URL e propaga o type', async () => {
+    await runSegmentCli([
+      '--name',
+      'Navegam concorrente',
+      '--urls',
+      'concorrente.com, portal.com/x',
+      '--type',
+      'PURCHASE_INTENT',
+    ]);
+
+    const [ops] = mutateResources.mock.calls[0] as [
+      Array<{ resource: { type: string; members: Array<{ member_type: string; url?: string }> } }>,
+      unknown,
+    ];
+    expect(ops[0].resource.type).toBe('PURCHASE_INTENT');
+    expect(ops[0].resource.members).toHaveLength(2);
+    expect(ops[0].resource.members.every((m) => m.member_type === 'URL')).toBe(true);
+    expect(process.exitCode).toBe(0);
+  });
+
+  it('cancelamento: não muta, audita success=false e sai sem erro (exit 0)', async () => {
+    confirmAnswer = 'n';
+
+    await runSegmentCli(['--name', 'Cancelado', '--keywords', 'k']);
+
+    expect(mutateResources).not.toHaveBeenCalled();
+    expect(appendMutationLog).toHaveBeenCalledTimes(1);
+    const entry = appendMutationLog.mock.calls[0][0] as { success: boolean; error?: string };
+    expect(entry.success).toBe(false);
+    expect(entry.error).toMatch(/não confirmou/i);
+    expect(printError).not.toHaveBeenCalled();
+    expect(process.exitCode).toBe(0);
+  });
+
+  it('dry-run: envia validate_only=true', async () => {
+    await runSegmentCli(['--name', 'Teste', '--keywords', 'k', '--dry-run']);
+
+    expect(mutateResources).toHaveBeenCalledTimes(1);
+    const [, opts] = mutateResources.mock.calls[0] as [unknown, { validate_only: boolean }];
+    expect(opts.validate_only).toBe(true);
+    expect(process.exitCode).toBe(0);
+  });
+
+  it('erro de API: trata via printError e sai com exit 1', async () => {
+    mutateResources.mockRejectedValueOnce(new Error('PERMISSION_DENIED'));
+
+    await runSegmentCli(['--name', 'Erro', '--keywords', 'k']);
+
+    expect(printError).toHaveBeenCalledTimes(1);
+    expect(process.exitCode).toBe(1);
+  });
+
+  it('validação: rejeita zero members (nem keywords nem urls) antes de qualquer chamada', async () => {
+    await runSegmentCli(['--name', 'Sem members']);
+
+    expect(mutateResources).not.toHaveBeenCalled();
+    expect(appendMutationLog).not.toHaveBeenCalled();
+    expect(process.exitCode).toBe(1);
+  });
+
+  it('validação: keywords só com vírgulas/espaços resulta em zero members e é rejeitado', async () => {
+    await runSegmentCli(['--name', 'Vazio', '--keywords', ' , , ']);
+
+    expect(mutateResources).not.toHaveBeenCalled();
+    expect(process.exitCode).toBe(1);
+  });
+
+  it('validação: rejeita --type fora da lista fechada', async () => {
+    await runSegmentCli(['--name', 'Tipo ruim', '--keywords', 'k', '--type', 'AFFINITY']);
+
+    expect(mutateResources).not.toHaveBeenCalled();
+    expect(appendMutationLog).not.toHaveBeenCalled();
     expect(process.exitCode).toBe(1);
   });
 });

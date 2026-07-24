@@ -368,3 +368,53 @@ export function formatAudienceTargetPreview(p: AudienceTargetPreviewInput): stri
 
   return lines.join('\n');
 }
+
+// ============================================================================
+// Story 9.3 — Custom segment create preview
+// ============================================================================
+
+export interface CustomSegmentPreviewInput {
+  customerId: string;
+  customerName?: string;
+  name: string;
+  description?: string;
+  /** Tipo do segmento (AUTO | INTEREST | PURCHASE_INTENT | SEARCH). */
+  type: string;
+  /** Palavras-chave já parseadas que viram members KEYWORD. */
+  keywords: string[];
+  /** URLs já parseadas que viram members URL. */
+  urls: string[];
+}
+
+/**
+ * Renderiza o preview de criação de um custom segment (`custom_audience`), no
+ * mesmo estilo visual de `formatAudienceRemarketingPreview`. Mostra nome,
+ * descrição (se houver), tipo, e as listas de keywords/urls que formarão os
+ * members, com a contagem por tipo e o total.
+ */
+export function formatCustomSegmentPreview(p: CustomSegmentPreviewInput): string {
+  const lines: string[] = [];
+  const customerLabel = p.customerName ? `${p.customerId} (${p.customerName})` : p.customerId;
+
+  const total = p.keywords.length + p.urls.length;
+
+  lines.push(
+    `${COLORS.bold}📋 Novo segmento de interesse (custom_audience) — conta ${customerLabel}${COLORS.reset}`,
+  );
+  lines.push('━'.repeat(50));
+  lines.push(`Nome:             ${p.name}`);
+  if (p.description) {
+    lines.push(`Descrição:        ${p.description}`);
+  }
+  lines.push(`Tipo:             ${p.type}`);
+  if (p.keywords.length > 0) {
+    lines.push(`Palavras-chave:   ${p.keywords.join(', ')} (${p.keywords.length})`);
+  }
+  if (p.urls.length > 0) {
+    lines.push(`URLs:             ${p.urls.join(', ')} (${p.urls.length})`);
+  }
+  lines.push(`Total de members: ${total}`);
+  lines.push(`Conta:            ${customerLabel}`);
+
+  return lines.join('\n');
+}
