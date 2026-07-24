@@ -27,7 +27,8 @@ export type MutationOperation =
   | 'upload_asset_text'
   | 'remove_campaign'
   | 'remove_ad_group'
-  | 'create_audience_remarketing';
+  | 'create_audience_remarketing'
+  | 'apply_audience_target';
 
 export interface MutationLogEntry {
   timestamp: string;

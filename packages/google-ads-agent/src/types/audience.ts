@@ -37,3 +37,48 @@ export interface RemarketingUserListResult {
   /** True quando a chamada foi apenas validação (`validate_only`), sem criação real. */
   dryRun: boolean;
 }
+
+// ============================================================================
+// Story 9.2 — Aplicar público a campanha/grupo de anúncios (audience-target)
+// ============================================================================
+
+/**
+ * Modo de aplicação de um público a uma campanha/ad group.
+ *
+ * - `observation`: a lista apenas OBSERVA (`bid_only: true`) — coleta dados e
+ *   permite ajustar lances por público, mas NÃO restringe o alcance da campanha.
+ *   É o default (mais seguro).
+ * - `targeting`: a lista SEGMENTA (`bid_only: false`) — a campanha/ad group passa
+ *   a servir SOMENTE para o público informado, RESTRINGINDO o alcance.
+ */
+export type AudienceTargetMode = 'observation' | 'targeting';
+
+/**
+ * Parâmetros para aplicar uma `user_list` existente a uma campanha OU a um
+ * grupo de anúncios. Exatamente um entre `campaignId`/`adGroupId` deve estar
+ * presente (XOR — garantido pela validação antes de chegar ao builder).
+ */
+export interface ApplyAudienceTargetInput {
+  /** Customer ID (10 dígitos) — usado para montar os resource_names. */
+  customerId: string;
+  /** Resource name da lista a aplicar (`customers/{id}/userLists/{id}`). */
+  userListResourceName: string;
+  /** ID numérico da campanha (nível campanha). Mutuamente exclusivo com `adGroupId`. */
+  campaignId?: string;
+  /** ID numérico do grupo de anúncios (nível ad group). Mutuamente exclusivo com `campaignId`. */
+  adGroupId?: string;
+  /** Modo de aplicação (observação x segmentação). */
+  mode: AudienceTargetMode;
+}
+
+/** Resultado da aplicação de um público a uma campanha/ad group. */
+export interface ApplyAudienceTargetResult {
+  /**
+   * Resource name do criterion criado (`campaign_criterion` ou
+   * `ad_group_criterion`). Em dry-run pode vir vazio — a API não devolve um
+   * resource_name real quando `validate_only: true`.
+   */
+  criterionResourceName: string;
+  /** True quando a chamada foi apenas validação (`validate_only`), sem mutação real. */
+  dryRun: boolean;
+}

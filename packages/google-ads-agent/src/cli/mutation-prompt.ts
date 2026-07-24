@@ -1,6 +1,7 @@
 import { input } from '@inquirer/prompts';
 import { formatMicros, type BudgetDelta } from '../google-ads-api/budget-validator.js';
 import { COLORS } from './display.js';
+import type { AudienceTargetMode } from '../types/audience.js';
 
 export interface BudgetMutationPreview {
   campaignId: string;
@@ -302,6 +303,68 @@ export function formatAudienceRemarketingPreview(p: AudienceRemarketingPreviewIn
   lines.push(`Regra:            ${ruleLabel}`);
   lines.push(`Duração:          ${p.membershipDurationDays} dia(s) na lista`);
   lines.push(`Conta:            ${customerLabel}`);
+
+  return lines.join('\n');
+}
+
+// ============================================================================
+// Story 9.2 — Audience target apply preview
+// ============================================================================
+
+export interface AudienceTargetPreviewInput {
+  customerId: string;
+  customerName?: string;
+  /** Resource name da lista sendo aplicada. */
+  userListResourceName: string;
+  /** Nível de aplicação. */
+  level: 'campaign' | 'ad_group';
+  /** ID da campanha ou do ad group (conforme `level`). */
+  entityId: string;
+  /** Modo escolhido (observação x segmentação). */
+  mode: AudienceTargetMode;
+}
+
+/**
+ * Renderiza o preview de aplicação de um público, no mesmo estilo visual de
+ * `formatAudienceRemarketingPreview`. Quando `mode === 'targeting'`, adiciona um
+ * aviso destacado em PT-BR sobre a restrição de alcance (Story 9.2 — R3).
+ */
+export function formatAudienceTargetPreview(p: AudienceTargetPreviewInput): string {
+  const lines: string[] = [];
+  const customerLabel = p.customerName ? `${p.customerId} (${p.customerName})` : p.customerId;
+
+  const levelLabel =
+    p.level === 'campaign'
+      ? `Campanha (ID ${p.entityId})`
+      : `Grupo de anúncios (ID ${p.entityId})`;
+
+  const modeLabel =
+    p.mode === 'observation'
+      ? 'Observação — apenas coleta/observa, NÃO restringe alcance (bid_only)'
+      : 'Segmentação — RESTRINGE o alcance ao público informado';
+
+  lines.push(
+    `${COLORS.bold}📋 Aplicar público — conta ${customerLabel}${COLORS.reset}`,
+  );
+  lines.push('━'.repeat(50));
+  lines.push(`Lista (user_list): ${p.userListResourceName}`);
+  lines.push(`Aplicar em:        ${levelLabel}`);
+  lines.push(`Modo:              ${modeLabel}`);
+  lines.push(`Conta:             ${customerLabel}`);
+
+  if (p.mode === 'targeting') {
+    lines.push('');
+    lines.push(`${COLORS.yellow}⚠️  ATENÇÃO — modo SEGMENTAÇÃO (targeting):${COLORS.reset}`);
+    lines.push(
+      `${COLORS.yellow}    A ${p.level === 'campaign' ? 'campanha' : 'grupo de anúncios'} passará a servir SOMENTE para este público.${COLORS.reset}`,
+    );
+    lines.push(
+      `${COLORS.yellow}    Isso pode REDUZIR DRASTICAMENTE o alcance de uma campanha ativa.${COLORS.reset}`,
+    );
+    lines.push(
+      `${COLORS.yellow}    Use 'observation' se quiser apenas coletar dados sem restringir.${COLORS.reset}`,
+    );
+  }
 
   return lines.join('\n');
 }
