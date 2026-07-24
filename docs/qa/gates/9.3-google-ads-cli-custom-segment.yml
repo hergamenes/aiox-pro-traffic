@@ -1,0 +1,28 @@
+schema: 1
+story: '9.3'
+gate: PASS
+status_reason: 'Implementação limpa — 12/12 ACs cumpridos, 554 testes verdes, build OK, boundary respeitada. A decisão de aceitar os 4 types (AUTO/INTEREST/PURCHASE_INTENT/SEARCH) é rastreável ao SDK (ICustomAudience não tem campos condicionais por type — mesmo shape para os quatro), portanto não é invenção. Members via oneof plano (member_type + valor único). Sem risco médio residual não mitigado.'
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-07-24T00:00:00Z'
+
+quality_checks:
+  code_review: PASS         # buildCustomSegmentMembers/Operation puros; asMutateEntry; status:ENABLED explícito justificado
+  unit_tests: PASS          # custom-segment.test.ts 13 testes + validators + handler; coverage 100%/84.6% branch
+  acceptance_criteria: PASS # 12/12 ACs verificados contra o código real
+  no_regressions: PASS      # npm run verify (lint+typecheck+test+build) verde — 554 testes, 34 arquivos, exit 0
+  performance: PASS         # operação única, parsing client-side tolerante, sem loop redundante
+  security: PASS            # boundary OK (SDK só em custom-segment.ts); sem segredos; printError sem stack trace
+  documentation: PASS       # Completion Notes com AUTO-DECISIONs rastreáveis ao SDK; JSDoc PT-BR (custom_audience vs user_list)
+
+coverage:
+  custom_segment_ts: '100% stmts / 100% lines / 84.6% branch'
+  audience_validator_ts: '100%'
+  threshold_met: true       # todos ≥80% conforme AC#12
+
+top_issues:
+  - id: 'REQ-001'
+    severity: low
+    finding: 'Elegibilidade de conta para type PURCHASE_INTENT/SEARCH não é confirmável sem --dry-run real; qualquer restrição surge como erro de API tratado via error-map.ts (AC#8). Inerente, documentado em Risks R1 e Testing (smoke opcional).'
+    suggested_action: 'Opcional: rodar `create audience-custom-segment --name "Teste" --keywords "a,b" --type INTEREST --dry-run --customer-id <id>` contra conta sandbox antes do primeiro uso real com types menos comuns.'
+
+waiver: { active: false }
